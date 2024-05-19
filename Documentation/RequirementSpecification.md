@@ -9,7 +9,23 @@
 
 ## User Stories
 
+1. As a Logged in user I want to:
+   1. Be able to view my listening habits, which include:
+      1. Favourite genre
+      2. Weekly listening trends, including what genres, archetypes and moods I tend towards throughout the week
+      3. Frequent Lyrical archetypes(The general theme of the lyrics/ the story being conveyed)
+      4. Outliers and new trends in my listening
+   2. See recommended music.
+   3. See other users with similar trends and/or habits.
+
+2. As an Artist, I want to:
+   1. See which moods my music is associated with.
+   2. See recomended listening based on my music.
+   3. See other artists who produce music similar to mine.
+   4. Assign artist-defined tags to my music.
+
 ## Functional Requirements
+
 1. Provided a secure authentication process for user access
    1. Allow users to register on the application securely.
    2. Allow users to log into the application securely using their created credentials.
