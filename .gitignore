@@ -1,0 +1,4 @@
+# Ignore the .idea directory
+.idea/
+# Ignore the .vscode directory
+.vscode/
