@@ -9,20 +9,42 @@
 
 ## User Stories
 
-1. As a Logged in user I want to:
+1. As a User I want to:
+   1. Register securely and create an account.
+   1. Log in securely using my credentials.
+   1. Reset my password if forgotten.
+   1. Link my Spotify account to the application.
+   1. Enjoy a smooth and responsive user experience.
+   1. Access the app offline and view previous recommendations.
+   1. Use the application on various devices and operating systems.
+
+2. Listener
+As a listener, I want to:
+   1. Have all the functionality of a User
+   1. View personalized song recommendations based on the song currently being listened to.
+   1. Set custom recommendation categories.
+   1. Receive recommendations based on an analysis of my selected song rather than general trends.
+   1. View intuitive graphs and charts showing common themes and moods in my listening history.
+   1. Toggle the dynamic UI feature on and off.
    1. Be able to view my listening habits, which include:
       1. Favourite genre
       2. Weekly listening trends, including what genres, archetypes and moods I tend towards throughout the week
       3. Frequent Lyrical archetypes(The general theme of the lyrics/ the story being conveyed)
       4. Outliers and new trends in my listening
-   2. See recommended music.
-   3. See other users with similar trends and/or habits.
+   1. See recommended music.
+   1. See other users with similar trends and/or habits.
+   1. See recommendations based on my listening history.
+   1. Customize my profile with preferred genres and moods.
+   1. Receive notifications for new releases from my favorite artists.
 
-2. As an Artist, I want to:
+3. As an Artist, I want to:
+   1. Have all the functionality of a User
    1. See which moods my music is associated with.
-   2. See recomended listening based on my music.
-   3. See other artists who produce music similar to mine.
-   4. Assign artist-defined tags to my music.
+   1. See recomended listening based on my music.
+   1. See other artists who produce music similar to mine.
+   1. Assign artist-defined tags to my music.
+   1. View detailed analytics about listeners who enjoy my music.
+   1. Get feedback from listeners on my songs.
 
 ## Functional Requirements
 
