@@ -18,8 +18,7 @@
    1. Access the app offline and view previous recommendations.
    1. Use the application on various devices and operating systems.
 
-2. Listener
-As a listener, I want to:
+2. As a Listener, I want to:
    1. Have all the functionality of a User
    1. View personalized song recommendations based on the song currently being listened to.
    1. Set custom recommendation categories.
