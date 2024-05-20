@@ -1,7 +1,7 @@
 # Rueben van der Westhuizen
 `BSc Information & Knowledge Systems`
 ## Role
-`Frontend Enigneer`
+`Frontend Engineer`
 ## About Me
 
 I have a passion for computer science and the art it
