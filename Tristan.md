@@ -1,7 +1,7 @@
 # Tristan Potgieter
 `BSc Computer Science`
 ## Role
-`Integration Enigneer`
+`Integration Engineer`
 ## About Me
 
 I am a proficient problem solver. I enjoy challenging
