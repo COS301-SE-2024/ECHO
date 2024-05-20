@@ -1,7 +1,7 @@
 # Douglas Porter
 `BSc Information & Knowledge Systems`
 ## Role
-`Backend Enigneer`
+`Backend Engineer`
 ## About Me
 
 I am an Information & Knowledge Systems student
