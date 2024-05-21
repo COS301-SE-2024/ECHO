@@ -14,4 +14,4 @@ avid musician, digital artist and reader.
 ## Contact me
 - Email : 
 
-[back](./README.md)
+[back](../README.md)

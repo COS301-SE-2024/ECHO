@@ -16,6 +16,6 @@ ensuring high-quality work at every stage.
 
 
 ## Contact me
-- Email : 
+- Email : u21797545@tuks.co.za
 
-[back](./README.md)
+[back](../README.md)
