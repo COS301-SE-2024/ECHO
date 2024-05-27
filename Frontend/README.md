@@ -14,6 +14,14 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
+## Progressive Web App (PWA)
+
+This project is configured as a Progressive Web App (PWA). PWAs provide a number of advantages, such as the ability to work offline, run background tasks, and be installed on the user's device.
+
+To add PWA capabilities to your Angular project, run `ng add @angular/pwa`. This command will create a `manifest.json` file, add a service worker, and make other necessary configurations.
+
+Remember, service workers and PWAs only work over HTTPS or on `localhost` for development, so you'll need to deploy your app to a server with HTTPS to see the PWA features in a production environment.
+
 ## Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
