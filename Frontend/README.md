@@ -33,3 +33,20 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+
+## Routing in Angular
+In Angular, `routing` is the process of transitioning from one view to another as users perform application tasks. The `<router-outlet></router-outlet>` in `App.-.html` directive is a placeholder that Angular dynamically fills based on the current router state.
+
+Here's how you can set up routing in your Angular application:
+
+Create Components: First, create the components that you want to navigate to. You can create a component using the `ng generate component component-nam`e command.
+
+`Configure Routes`: Next, configure your routes in a Routes object. This object should map paths to your components. For example:
+Import RouterModule: Import the RouterModule in your app.module.ts (or equivalent) and call RouterModule.forRoot(routes) in your imports array.
+Router Outlet: Include a <router-outlet></router-outlet> directive in your app.component.html file. This is where the content of the active route will be displayed.
+
+`Navigation`: Use the `<a routerLink="/path" > `directive to create links that users can click to navigate to different routes,
+for example  `{ path: 'landing', component: LandingPageComponent }`
+
+Remember to replace `LandingPageComponent`, `landing` with your actual component names and paths.

@@ -9,5 +9,5 @@ import  {LandingPageComponent}  from './pages/landing-page/landing-page.componen
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'Frontend';
+  title = 'Echo';
 }
