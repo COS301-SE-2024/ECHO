@@ -26,7 +26,7 @@
               "src/manifest.webmanifest"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles/styles.css"
             ],
             "scripts": [],
             "server": "src/main.server.ts",
@@ -92,6 +92,7 @@
               "src/manifest.webmanifest"
             ],
             "styles": [
+              "src/styles/tailwind.css",
               "src/styles.css"
             ],
             "scripts": []
