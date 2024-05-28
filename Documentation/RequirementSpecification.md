@@ -54,7 +54,20 @@
       - [Responsibilities](#responsibilities-3)
       - [Quality Contributions](#quality-contributions-3)
   - [Constraints](#constraints)
-- [Technology Requirements](#technology-requirements)
+- [Technological Requirements](#technological-requirements)
+  - [Programming Languages](#programming-languages)
+    - [Frontend](#frontend)
+    - [Backend](#backend)
+  - [Frameworks and Libraries](#frameworks-and-libraries)
+    - [Frontend](#frontend-1)
+    - [Backend](#backend-1)
+    - [Package management](#package-management)
+  - [Database Management System](#database-management-system)
+  - [Development Tools](#development-tools)
+    - [IDEs and Editors](#ides-and-editors)
+    - [Version Control](#version-control)
+    - [Other Tools](#other-tools)
+  
 
 <br />
 <br />
@@ -403,7 +416,7 @@ The artist assigns tags to their music through their profile. The system saves t
 This section provides a detailed architecture specification for the ECHO Progressive Web App (PWA). The architecture is designed to ensure scalability, maintainability and high performance while meeting the quality requirements of usability, reliability and security. 
 <br />
 
-## Quality Requirements 
+## Quality Requirements
 
 ### Usability
 1. **Intuitive Interface:** The application should be intuitive and easy to navigate, clear and organised without any unnecessary clutter. Design choices should be consistent throughout the interface, and clear visual cues (such as icons, buttons and labels) should guide users through the interface logically and intuitively.
@@ -502,4 +515,46 @@ A Node.js REST API serves as an intermediary between the front end and the backe
 ## Constraints
 <br />
 
-# Technology Requirements 
+# Technological Requirements
+
+## Programming Languages
+
+### Frontend
+
+### Backend
+- **JavaScript:** Primary language for backend development.
+- **TypeScript:** Superset of JavaScript used for type-checking and improved code quality.
+- **Python:** Used for AI algorithms and music analysis.
+
+## Frameworks and Libraries
+
+### Frontend
+- **Angular:** Frontend framework for building the user interface.
+
+### Backend
+- **Node.js:** JavaScript runtime for building the REST API.
+- **Express.js:** Web application framework for Node.js.
+- **Nest.js:** A progressive Node.js framework for building efficient, reliable and scalable server-side applications.
+- **Mongoose:** ODM library for MongoDB and Node.js.
+
+### Package management
+- **npm:** Package manager for Node.js.
+- **pip:** Package manager for Python.
+
+## Database Management System
+- **MongoDB:** NoSQL database for storing user data, music metadata and application data.
+- **Azure Cosmos DB:** Globally distributed, multimodel database service for building planet-scale apps. We will use the MongoDB API for compatibility.
+
+## Development Tools
+
+### IDEs and Editors
+- **Visual Studio Code:** Text editor for writing and debugging code.
+- **WebStorm:** IDE for Javascript and Typescript development, which also supports Angular and Node.js.
+- **PyCharm:** IDE for Python development, used for AI algorithms and music analysis.
+
+### Version Control
+- **Git:** Version control system for tracking changes in code.
+- **GitHub:** Web-based Git repository hosting service for collaboration and version control.
+
+### Other Tools
+- **Postman:** API development tool for testing and debugging APIs.
