@@ -598,6 +598,8 @@ A Node.js REST API serves as an intermediary between the front end and the backe
 ## Programming Languages
 
 ### Frontend
+- **TypeScript:** A statically typed superset of JavaScript that compiles to plain JavaScript.
+- **HTML (Angular Template Syntax):** Extended version of HTML used in Angular for dynamic rendering and interaction.
 
 ### Backend
 - **JavaScript:** Primary language for backend development.
@@ -607,7 +609,9 @@ A Node.js REST API serves as an intermediary between the front end and the backe
 ## Frameworks and Libraries
 
 ### Frontend
-- **Angular:** Frontend framework for building the user interface.
+- **Angular:** Frontend framework for building the user interface. Uses an HTML-based template language for dynamic rendering and interaction.
+- **Angular PWA:** Progressive Web App support in Angular for creating installable, offline-capable apps.
+- **Tailwind CSS:** A utility-first CSS framework for rapidly building custom user interfaces.
 
 ### Backend
 - **Node.js:** JavaScript runtime for building the REST API.
