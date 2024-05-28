@@ -2,10 +2,12 @@
 > Halfstack: Capstone Project
 
 # Table of contents
-1. [User Stories](#user-stories)
-2. [Functional Requirements](#functional-requirements)
-3. [Service Contracts](#service-contracts)
-4. [UML Class diagram](#uml-class-diagram)
+- [ECHO Requirements Specification](#echo-requirements-specification)
+- [Table of contents](#table-of-contents)
+  - [User Stories](#user-stories)
+  - [Functional Requirements](#functional-requirements)
+  - [Service Contracts](#service-contracts)
+  - [UML Class diagram](#uml-class-diagram)
 
 ## User Stories
 
@@ -85,8 +87,103 @@
    3. Application performance should be optimized to provide a smooth and responsive user experience.
 
 
-
-
 ## Service Contracts
+
+1. **User Registration**
+   - **Request**: When I request to register securely and create an account with the following details `{ username, email, password }`, 
+   - **Response**: I expect a response in the form of `{ userId, username, email, status: 'registered' }`.
+
+2. **User Login**
+   - **Request**: When I request to log in securely using my credentials `{ username, password }`, 
+   - **Response**: I expect a response in the form of `{ userId, username, token, status: 'loggedIn' }`.
+
+3. **Password Reset**
+   - **Request**: When I request to reset my password with the following details `{ email }`, 
+   - **Response**: I expect a response in the form of `{ email, status: 'resetLinkSent' }`.
+
+4. **Link Spotify Account**
+   - **Request**: When I request to link my Spotify account with the application using `{ spotifyToken }`, 
+   - **Response**: I expect a response in the form of `{ userId, spotifyLinked: true }`.
+
+5. **Personalized Song Recommendations**
+   - **Request**: When I request personalized song recommendations based on the song currently being listened to `{ songId }`, 
+   - **Response**: I expect a response in the form of `{ recommendations: [ { songId, title, artist, key, BPM, theme, mood } ] }`.
+
+6. **Custom Recommendation Categories**
+   - **Request**: When I request to set custom recommendation categories `{ userId, categories: [ { category, value } ] }`, 
+   - **Response**: I expect a response in the form of `{ userId, categoriesSet: true }`.
+
+7. **Recommendation Based on Analysis**
+   - **Request**: When I request recommendations based on analysis of my selected song `{ songId }`, 
+   - **Response**: I expect a response in the form of `{ recommendations: [ { songId, title, artist, key, BPM, theme, mood } ] }`.
+
+8. **Sentiment Analysis of Songs**
+   - **Request**: When I request sentiment analysis for a song `{ songId }`, 
+   - **Response**: I expect a response in the form of `{ songId, theme, mood, emotionalContent }`.
+
+9. **User Listening Habits Insights**
+   - **Request**: When I request insights about my listening habits `{ userId }`, 
+   - **Response**: I expect a response in the form of `{ userId, insights: { favouriteGenre, weeklyTrends, lyricalArchetypes, newTrends } }`.
+
+10. **Intuitive Graphs and Charts**
+    - **Request**: When I request to view graphs and charts of my listening history `{ userId }`, 
+    - **Response**: I expect a response in the form of `{ userId, charts: [ { type, data } ] }`.
+
+11. **Dynamic User Interface Toggle**
+    - **Request**: When I request to toggle the dynamic UI feature on or off `{ userId, toggle: true/false }`, 
+    - **Response**: I expect a response in the form of `{ userId, dynamicUIToggled: true/false }`.
+
+12. **Cross-Platform Compatibility**
+    - **Request**: When I request the application on different devices and operating systems, 
+    - **Response**: I expect a response in the form of `{ compatible: true }`.
+
+13. **Offline Functionality**
+    - **Request**: When I request to access the app offline and view previous recommendations `{ userId }`, 
+    - **Response**: I expect a response in the form of `{ userId, offlineAccess: true, recommendations: [ { songId, title, artist, key, BPM, theme, mood } ] }`.
+
+14. **Smooth and Responsive User Experience**
+    - **Request**: When I request to use the application,
+    - **Response**: I expect a response in the form of `{ performance: 'optimized', status: 'smoothExperience' }`.
+
+15. **Listening History Recommendations**
+    - **Request**: When I request recommendations based on my listening history `{ userId }`, 
+    - **Response**: I expect a response in the form of `{ userId, recommendations: [ { songId, title, artist, key, BPM, theme, mood } ] }`.
+
+16. **Other Users with Similar Trends**
+    - **Request**: When I request to see other users with similar trends and habits `{ userId }`, 
+    - **Response**: I expect a response in the form of `{ userId, similarUsers: [ { userId, username, commonTrends } ] }`.
+
+17. **Custom Profile Preferences**
+    - **Request**: When I request to customize my profile with preferred genres and moods `{ userId, preferences: { genres, moods } }`, 
+    - **Response**: I expect a response in the form of `{ userId, preferencesSet: true }`.
+
+18. **Notifications for New Releases**
+    - **Request**: When I request to receive notifications for new releases from my favorite artists `{ userId, favoriteArtists: [ artistId ] }`, 
+    - **Response**: I expect a response in the form of `{ userId, notificationsSet: true }`.
+
+19. **Artist Mood Association**
+    - **Request**: When I request to see which moods my music is associated with `{ artistId }`, 
+    - **Response**: I expect a response in the form of `{ artistId, moodAssociations: [ { songId, mood } ] }`.
+
+20. **Recommended Listening Based on My Music**
+    - **Request**: When I request recommended listening based on my music `{ artistId }`, 
+    - **Response**: I expect a response in the form of `{ artistId, recommendations: [ { songId, title, artist, key, BPM, theme, mood } ] }`.
+
+21. **Similar Artists**
+    - **Request**: When I request to see other artists who produce music similar to mine `{ artistId }`, 
+    - **Response**: I expect a response in the form of `{ artistId, similarArtists: [ { artistId, name, commonGenres } ] }`.
+
+22. **Artist-Defined Tags**
+    - **Request**: When I request to assign tags to my music `{ artistId, tags: [ { songId, tag } ] }`, 
+    - **Response**: I expect a response in the form of `{ artistId, tagsAssigned: true }`.
+
+23. **Listener Analytics**
+    - **Request**: When I request detailed analytics about listeners who enjoy my music `{ artistId }`, 
+    - **Response**: I expect a response in the form of `{ artistId, analytics: { listenerDemographics, listenerPreferences, listeningTrends } }`.
+
+24. **Feedback from Listeners**
+    - **Request**: When I request to get feedback from listeners on my songs `{ artistId }`, 
+    - **Response**: I expect a response in the form of `{ artistId, feedback: [ { songId, userId, comment, rating } ] }`.
+
 
 ## UML Class diagram
