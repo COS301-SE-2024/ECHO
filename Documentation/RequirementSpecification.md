@@ -4,10 +4,26 @@
 # Table of contents
 - [ECHO Requirements Specification](#echo-requirements-specification)
 - [Table of contents](#table-of-contents)
+  - [Introduction](#introduction)
+    - [Vision and Mission](#vision-and-mission)
+    - [Business Needs](#business-needs)
+    - [Project Scope](#project-scope)
   - [User Stories](#user-stories)
   - [Functional Requirements](#functional-requirements)
   - [Service Contracts](#service-contracts)
   - [UML Class diagram](#uml-class-diagram)
+
+## Introduction
+
+### Vision and Mission
+Our vision for the application is the redefinition of music personalisation. What we hope to achieve is an intelligent platform that suggests music based on mood, theme, time signature and BPM but also gives deep insights on listening habits, emotional engagement, and trends. These suggestions will be based on the user's own listening history. We want to give users a seamless, dynamic user experience with respect to their mood and preferences - with a dynamic UI to match!
+
+### Business Needs
+Traditional recommendation systems are simply ineffective, particularly in offering a personalised array of music suggestions. These systems recommend music to users based on other users' listening history/preferences - not their own. Our application fills up this gap by using sentiment analysis to recommend songs by categories (like mood, theme, time signature and BPM) compiled based on the user's own listening history. This raises not only the degree of personalisation available to music streamers but also increases the likelihood of matching artists with those who match their target market. This application is a unique and effective approach in increasing personalisation unavailable by any music streaming services in the market right now.
+
+### Project Scope
+ECHO is a Progressive Web Application that interacts with the Spotify API and takes users' music experience to new heights. The primary use cases include safe user authentication, on-demand playlist, real-time content, and offline access. The user can track in-depth analysis data based on listening patterns through user-friendly and intuitive graphs and charts. Available on all devices, desktop, tablet, and smartphone, with multi-platform assured compatibility for streaming services. And provide exclusive functions for both listeners and artists, such as mood-matched music association, listener analytics, and mechanisms for user feedback. By satisfying these core necessities and functionalities, our application aspires to set a new benchmark in music recommendation and user engagement toward an encompassing solution, both for music lovers and artists.
+
 
 ## User Stories
 
