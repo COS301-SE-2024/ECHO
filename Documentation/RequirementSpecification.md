@@ -1,6 +1,4 @@
 # ECHO Requirements Specification
-> Halfstack: Capstone Project
-
 <br />
 
 # Table of contents
@@ -445,6 +443,9 @@ The artist assigns tags to their music through their profile. The system saves t
 ## Adapter
 - **Components:** Spotify Source Connector
 - Implement an adapter for the Spotify API to make it compatible with our system's interface. This will ensure that the rest of the system interacts with the Spotify API in a consistent manner, no matter what changes are made to the API. 
+
+<br />
+<br />
 
 # Architectural Requirements
 
