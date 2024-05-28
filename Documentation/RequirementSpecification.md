@@ -17,7 +17,7 @@
   - [1.2 Login](#12-login)
   - [1.3 Reset Password](#13-reset-password)
   - [1.4 Link Spotify Account](#14-link-spotify-account)
-  - [1.5 Upload Image](#15-upload-image)
+  - [1.5 Upload Profile Picture](#15-upload-profile-picture)
   - [1.6 View Recommendations](#16-view-recommendations)
   - [1.7 Set Custom Recommendation Categories](#17-set-custom-recommendation-categories)
   - [1.8 View Listening Insights](#18-view-listening-insights)
@@ -115,7 +115,7 @@ ECHO is a Progressive Web Application that interacts with the Spotify API and ta
 
 2. ### As a Listener, I want to:
    1. Have all the functionality of a User
-   1. View personalized song recommendations based on the song currently being listened to.
+   1. View personalised song recommendations based on the song currently being listened to.
    1. Set custom recommendation categories.
    1. Receive recommendations based on an analysis of my selected song rather than general trends.
    1. View intuitive graphs and charts showing common themes and moods in my listening history.
@@ -188,28 +188,30 @@ ECHO is a Progressive Web Application that interacts with the Spotify API and ta
 # Service Contracts
 
 ## 1.1 Register
-**Service Contract Name:** Register
+**Service Contract Name:** New user is registered.
 
 **Pre-conditions:**
 - The user must not be a registered user.
 - User information (name, email, and password) must be provided.
+- The user must have a valid Spotify account.
 
 **Post-conditions:**
-- A verified user is created.
+- A registered user is created.
+- The user's Spotify account is linked to their profile.
 - The user is navigated to the main/landing page.
 
 **Actors:**
 - User
 
 **Scenario:**
-The user accesses the registration page, enters their details, and submits the form. The system verifies the details, creates a new account, and navigates the user to the main/landing page.
+The user accesses the registration page, enters their details, and submits the form. The system prompts the user to link their Spotify account. The user logs into Spotify and grants the necessary permissions. The system verifies the details, creates a new account, links the Spotify account to the user's profile, and navigates the user to the main/landing page.
 
 ## 1.2 Login
-**Service Contract Name:** Login
+**Service Contract Name:** User is logged in.
 
 **Pre-conditions:**
 - The user must be a registered user.
-- A valid email address and password must be provided.
+- A valid registered email address and password must be provided.
 
 **Post-conditions:**
 - The user is signed into the system and navigated to the main/landing page.
@@ -218,10 +220,10 @@ The user accesses the registration page, enters their details, and submits the f
 - User
 
 **Scenario:**
-The user enters their email and password on the login page. The system verifies the credentials and either grants access, navigating the user to the main/landing page, or denies access.
+The user enters their email and password on the login page. The system verifies the credentials and either grants access, navigating the user to the main/landing page, or denies access and prompts them to try again.
 
 ## 1.3 Reset Password
-**Service Contract Name:** ResetPassword
+**Service Contract Name:** User's password is reset.
 
 **Pre-conditions:**
 - The user must be a registered user with a verified email.
@@ -236,24 +238,26 @@ The user enters their email and password on the login page. The system verifies 
 **Scenario:**
 The user clicks "forgot password," enters their verified email, and receives a reset link. They set a new password via the reset link and are then navigated to the login page.
 
+
 ## 1.4 Link Spotify Account
-**Service Contract Name:** LinkSpotify
+**Service Contract Name:** User's account is linked to Spotify.
 
 **Pre-conditions:**
-- The user must be logged into the system.
+- The user must be in the process of registering a new account.
 - The user must have a valid Spotify account.
 
 **Post-conditions:**
 - The user's Spotify account is linked to their profile.
+- The user's registration process is completed.
 
 **Actors:**
 - User
 
 **Scenario:**
-The user selects the option to link their Spotify account, logs into Spotify, and grants the necessary permissions. The system links the Spotify account to the user's profile.
+The user initiates the registration process and is prompted to link their Spotify account. The user logs into Spotify and grants the necessary permissions. The system links the Spotify account to the user's profile, completing the registration process.
 
-## 1.5 Upload Image
-**Service Contract Name:** UploadImage
+## 1.5 Upload Profile Picture
+**Service Contract Name:** User uploads a profile picture.
 
 **Pre-conditions:**
 - The user must provide a valid image file.
@@ -261,45 +265,46 @@ The user selects the option to link their Spotify account, logs into Spotify, an
 **Post-conditions:**
 - The image is uploaded to the storage service.
 - The path to the image is associated with the specific user in the database.
+- The user's profile picture is updated to be the uploaded image. 
 
 **Actors:**
 - User
 
 **Scenario:**
-The user selects an image to upload. The system stores the image and updates the user profile with the image path.
+The user selects an image to upload. The system stores the image and updates the user profile with the image path. The system now displays the uploaded image as the user's profile picture.
 
 ## 1.6 View Recommendations
-**Service Contract Name:** ViewRecommendations
+**Service Contract Name:** User views song recommendations.
 
 **Pre-conditions:**
 - The user must be logged into the system.
 
 **Post-conditions:**
-- Personalized song recommendations are displayed based on the user's listening history and current song.
+- Personalised song recommendations are displayed based on the user's listening history and current song.
 
 **Actors:**
 - Listener
 
 **Scenario:**
-The listener views the recommendations page, where the system fetches and displays personalized song recommendations based on various parameters.
+The listener views the recommendations page, where the system fetches and displays personalised song recommendations based on various parameters.
 
 ## 1.7 Set Custom Recommendation Categories
-**Service Contract Name:** SetRecommendationCategories
+**Service Contract Name:** User sets custom recommendations categories to prioritise on their profile.
 
 **Pre-conditions:**
 - The user must be logged into the system.
 
 **Post-conditions:**
-- The user's custom recommendation categories are saved.
+- The user's custom recommendation categories are saved on their account.
 
 **Actors:**
 - Listener
 
 **Scenario:**
-The listener sets custom categories for song recommendations. The system saves these preferences and uses them for future recommendations.
+The listener sets custom categories for song recommendations. The system saves these preferences and uses them for future song recommendations.
 
 ## 1.8 View Listening Insights
-**Service Contract Name:** ViewListeningInsights
+**Service Contract Name:** User views highlights that display their listening insights.
 
 **Pre-conditions:**
 - The user must be logged into the system.
@@ -314,7 +319,7 @@ The listener sets custom categories for song recommendations. The system saves t
 The listener accesses the insights page. The system fetches and displays various graphs and charts based on the user's listening history.
 
 ## 1.9 Toggle Dynamic UI
-**Service Contract Name:** ToggleDynamicUI
+**Service Contract Name:** User toggles UI according to preference.
 
 **Pre-conditions:**
 - The user must be logged into the system.
@@ -329,13 +334,13 @@ The listener accesses the insights page. The system fetches and displays various
 The listener accesses the settings page and toggles the dynamic UI feature. The system saves this preference and adjusts the UI accordingly.
 
 ## 1.10 Access Offline Mode
-**Service Contract Name:** AccessOfflineMode
+**Service Contract Name:** User accesses the application without the use of internet.
 
 **Pre-conditions:**
 - The user must have accessed the app online previously.
 
 **Post-conditions:**
-- The user can view previous recommendations offline.
+- The user can view previously saved recommendations offline.
 
 **Actors:**
 - User
@@ -344,7 +349,7 @@ The listener accesses the settings page and toggles the dynamic UI feature. The 
 The user opens the app offline. The system retrieves and displays cached data, allowing the user to view previous recommendations.
 
 ## 1.11 View Similar Users
-**Service Contract Name:** ViewSimilarUsers
+**Service Contract Name:** Users view profiles of users with similar music tastes.
 
 **Pre-conditions:**
 - The user must be logged into the system.
@@ -359,7 +364,7 @@ The user opens the app offline. The system retrieves and displays cached data, a
 The listener views a page listing other users with similar music tastes and habits. The system fetches and displays this list.
 
 ## 1.12 Customize Profile
-**Service Contract Name:** CustomizeProfile
+**Service Contract Name:** User customises profile to meet their tastes.
 
 **Pre-conditions:**
 - The user must be logged into the system.
@@ -371,10 +376,10 @@ The listener views a page listing other users with similar music tastes and habi
 - Listener
 
 **Scenario:**
-The listener accesses their profile page and updates their preferences. The system saves these preferences for personalized recommendations.
+The listener accesses their profile page and updates their preferences. The system saves these preferences for personalised recommendations.
 
 ## 1.13 Receive New Release Notifications
-**Service Contract Name:** ReceiveNewReleaseNotifications
+**Service Contract Name:** User receives notifications about new releases they may be interested in.
 
 **Pre-conditions:**
 - The user must be logged into the system.
@@ -386,10 +391,10 @@ The listener accesses their profile page and updates their preferences. The syst
 - Listener
 
 **Scenario:**
-The listener opts in to receive notifications about new releases. The system sends notifications when new music is available from the listener's favorite artists.
+The listener opts in to receive notifications about new releases. The system sends notifications when new music is available from the listener's favorite artists or artists that fit the user's listening profile.
 
 ## 1.14 View Artist Analytics
-**Service Contract Name:** ViewArtistAnalytics
+**Service Contract Name:** Artist views analytics on their music's performance.
 
 **Pre-conditions:**
 - The user must be logged into the system and have an artist profile.
@@ -401,10 +406,10 @@ The listener opts in to receive notifications about new releases. The system sen
 - Artist
 
 **Scenario:**
-The artist accesses the analytics page and views detailed insights about their listeners' preferences and behaviors.
+The artist accesses the analytics page and views detailed insights about their listeners' preferences and behaviours.
 
 ## 1.15 Assign Tags to Music
-**Service Contract Name:** AssignTagsToMusic
+**Service Contract Name:** Artist assigns appropriate tags to their music to make it easier for those in their listener base to find. 
 
 **Pre-conditions:**
 - The user must be logged into the system and have an artist profile.
