@@ -13,6 +13,21 @@
 - [User Stories](#user-stories)
 - [Functional Requirements](#functional-requirements)
 - [Service Contracts](#service-contracts)
+  - [1.1 Register](#11-register)
+  - [1.2 Login](#12-login)
+  - [1.3 Reset Password](#13-reset-password)
+  - [1.4 Link Spotify Account](#14-link-spotify-account)
+  - [1.5 Upload Image](#15-upload-image)
+  - [1.6 View Recommendations](#16-view-recommendations)
+  - [1.7 Set Custom Recommendation Categories](#17-set-custom-recommendation-categories)
+  - [1.8 View Listening Insights](#18-view-listening-insights)
+  - [1.9 Toggle Dynamic UI](#19-toggle-dynamic-ui)
+  - [1.10 Access Offline Mode](#110-access-offline-mode)
+  - [1.11 View Similar Users](#111-view-similar-users)
+  - [1.12 Customize Profile](#112-customize-profile)
+  - [1.13 Receive New Release Notifications](#113-receive-new-release-notifications)
+  - [1.14 View Artist Analytics](#114-view-artist-analytics)
+  - [1.15 Assign Tags to Music](#115-assign-tags-to-music)
 - [UML Class diagram](#uml-class-diagram)
 - [Architectural Requirements](#architectural-requirements)
   - [Introduction](#introduction-1)
@@ -143,101 +158,236 @@ ECHO is a Progressive Web Application that interacts with the Spotify API and ta
 
 # Service Contracts
 
-1. **User Registration**
-   - **Request**: When I request to register securely and create an account with the following details `{ username, email, password }`, 
-   - **Response**: I expect a response in the form of `{ userId, username, email, status: 'registered' }`.
+## 1.1 Register
+**Service Contract Name:** Register
 
-2. **User Login**
-   - **Request**: When I request to log in securely using my credentials `{ username, password }`, 
-   - **Response**: I expect a response in the form of `{ userId, username, token, status: 'loggedIn' }`.
+**Pre-conditions:**
+- The user must not be a registered user.
+- User information (name, email, and password) must be provided.
 
-3. **Password Reset**
-   - **Request**: When I request to reset my password with the following details `{ email }`, 
-   - **Response**: I expect a response in the form of `{ email, status: 'resetLinkSent' }`.
+**Post-conditions:**
+- A verified user is created.
+- The user is navigated to the main/landing page.
 
-4. **Link Spotify Account**
-   - **Request**: When I request to link my Spotify account with the application using `{ spotifyToken }`, 
-   - **Response**: I expect a response in the form of `{ userId, spotifyLinked: true }`.
+**Actors:**
+- User
 
-5. **Personalized Song Recommendations**
-   - **Request**: When I request personalized song recommendations based on the song currently being listened to `{ songId }`, 
-   - **Response**: I expect a response in the form of `{ recommendations: [ { songId, title, artist, key, BPM, theme, mood } ] }`.
+**Scenario:**
+The user accesses the registration page, enters their details, and submits the form. The system verifies the details, creates a new account, and navigates the user to the main/landing page.
 
-6. **Custom Recommendation Categories**
-   - **Request**: When I request to set custom recommendation categories `{ userId, categories: [ { category, value } ] }`, 
-   - **Response**: I expect a response in the form of `{ userId, categoriesSet: true }`.
+## 1.2 Login
+**Service Contract Name:** Login
 
-7. **Recommendation Based on Analysis**
-   - **Request**: When I request recommendations based on analysis of my selected song `{ songId }`, 
-   - **Response**: I expect a response in the form of `{ recommendations: [ { songId, title, artist, key, BPM, theme, mood } ] }`.
+**Pre-conditions:**
+- The user must be a registered user.
+- A valid email address and password must be provided.
 
-8. **Sentiment Analysis of Songs**
-   - **Request**: When I request sentiment analysis for a song `{ songId }`, 
-   - **Response**: I expect a response in the form of `{ songId, theme, mood, emotionalContent }`.
+**Post-conditions:**
+- The user is signed into the system and navigated to the main/landing page.
 
-9. **User Listening Habits Insights**
-   - **Request**: When I request insights about my listening habits `{ userId }`, 
-   - **Response**: I expect a response in the form of `{ userId, insights: { favouriteGenre, weeklyTrends, lyricalArchetypes, newTrends } }`.
+**Actors:**
+- User
 
-10. **Intuitive Graphs and Charts**
-    - **Request**: When I request to view graphs and charts of my listening history `{ userId }`, 
-    - **Response**: I expect a response in the form of `{ userId, charts: [ { type, data } ] }`.
+**Scenario:**
+The user enters their email and password on the login page. The system verifies the credentials and either grants access, navigating the user to the main/landing page, or denies access.
 
-11. **Dynamic User Interface Toggle**
-    - **Request**: When I request to toggle the dynamic UI feature on or off `{ userId, toggle: true/false }`, 
-    - **Response**: I expect a response in the form of `{ userId, dynamicUIToggled: true/false }`.
+## 1.3 Reset Password
+**Service Contract Name:** ResetPassword
 
-12. **Cross-Platform Compatibility**
-    - **Request**: When I request the application on different devices and operating systems, 
-    - **Response**: I expect a response in the form of `{ compatible: true }`.
+**Pre-conditions:**
+- The user must be a registered user with a verified email.
 
-13. **Offline Functionality**
-    - **Request**: When I request to access the app offline and view previous recommendations `{ userId }`, 
-    - **Response**: I expect a response in the form of `{ userId, offlineAccess: true, recommendations: [ { songId, title, artist, key, BPM, theme, mood } ] }`.
+**Post-conditions:**
+- The user's password is reset.
+- The user is navigated to the login page.
 
-14. **Smooth and Responsive User Experience**
-    - **Request**: When I request to use the application,
-    - **Response**: I expect a response in the form of `{ performance: 'optimized', status: 'smoothExperience' }`.
+**Actors:**
+- User
 
-15. **Listening History Recommendations**
-    - **Request**: When I request recommendations based on my listening history `{ userId }`, 
-    - **Response**: I expect a response in the form of `{ userId, recommendations: [ { songId, title, artist, key, BPM, theme, mood } ] }`.
+**Scenario:**
+The user clicks "forgot password," enters their verified email, and receives a reset link. They set a new password via the reset link and are then navigated to the login page.
 
-16. **Other Users with Similar Trends**
-    - **Request**: When I request to see other users with similar trends and habits `{ userId }`, 
-    - **Response**: I expect a response in the form of `{ userId, similarUsers: [ { userId, username, commonTrends } ] }`.
+## 1.4 Link Spotify Account
+**Service Contract Name:** LinkSpotify
 
-17. **Custom Profile Preferences**
-    - **Request**: When I request to customize my profile with preferred genres and moods `{ userId, preferences: { genres, moods } }`, 
-    - **Response**: I expect a response in the form of `{ userId, preferencesSet: true }`.
+**Pre-conditions:**
+- The user must be logged into the system.
+- The user must have a valid Spotify account.
 
-18. **Notifications for New Releases**
-    - **Request**: When I request to receive notifications for new releases from my favorite artists `{ userId, favoriteArtists: [ artistId ] }`, 
-    - **Response**: I expect a response in the form of `{ userId, notificationsSet: true }`.
+**Post-conditions:**
+- The user's Spotify account is linked to their profile.
 
-19. **Artist Mood Association**
-    - **Request**: When I request to see which moods my music is associated with `{ artistId }`, 
-    - **Response**: I expect a response in the form of `{ artistId, moodAssociations: [ { songId, mood } ] }`.
+**Actors:**
+- User
 
-20. **Recommended Listening Based on My Music**
-    - **Request**: When I request recommended listening based on my music `{ artistId }`, 
-    - **Response**: I expect a response in the form of `{ artistId, recommendations: [ { songId, title, artist, key, BPM, theme, mood } ] }`.
+**Scenario:**
+The user selects the option to link their Spotify account, logs into Spotify, and grants the necessary permissions. The system links the Spotify account to the user's profile.
 
-21. **Similar Artists**
-    - **Request**: When I request to see other artists who produce music similar to mine `{ artistId }`, 
-    - **Response**: I expect a response in the form of `{ artistId, similarArtists: [ { artistId, name, commonGenres } ] }`.
+## 1.5 Upload Image
+**Service Contract Name:** UploadImage
 
-22. **Artist-Defined Tags**
-    - **Request**: When I request to assign tags to my music `{ artistId, tags: [ { songId, tag } ] }`, 
-    - **Response**: I expect a response in the form of `{ artistId, tagsAssigned: true }`.
+**Pre-conditions:**
+- The user must provide a valid image file.
 
-23. **Listener Analytics**
-    - **Request**: When I request detailed analytics about listeners who enjoy my music `{ artistId }`, 
-    - **Response**: I expect a response in the form of `{ artistId, analytics: { listenerDemographics, listenerPreferences, listeningTrends } }`.
+**Post-conditions:**
+- The image is uploaded to the storage service.
+- The path to the image is associated with the specific user in the database.
 
-24. **Feedback from Listeners**
-    - **Request**: When I request to get feedback from listeners on my songs `{ artistId }`, 
-    - **Response**: I expect a response in the form of `{ artistId, feedback: [ { songId, userId, comment, rating } ] }`.
+**Actors:**
+- User
+
+**Scenario:**
+The user selects an image to upload. The system stores the image and updates the user profile with the image path.
+
+## 1.6 View Recommendations
+**Service Contract Name:** ViewRecommendations
+
+**Pre-conditions:**
+- The user must be logged into the system.
+
+**Post-conditions:**
+- Personalized song recommendations are displayed based on the user's listening history and current song.
+
+**Actors:**
+- Listener
+
+**Scenario:**
+The listener views the recommendations page, where the system fetches and displays personalized song recommendations based on various parameters.
+
+## 1.7 Set Custom Recommendation Categories
+**Service Contract Name:** SetRecommendationCategories
+
+**Pre-conditions:**
+- The user must be logged into the system.
+
+**Post-conditions:**
+- The user's custom recommendation categories are saved.
+
+**Actors:**
+- Listener
+
+**Scenario:**
+The listener sets custom categories for song recommendations. The system saves these preferences and uses them for future recommendations.
+
+## 1.8 View Listening Insights
+**Service Contract Name:** ViewListeningInsights
+
+**Pre-conditions:**
+- The user must be logged into the system.
+
+**Post-conditions:**
+- Intuitive graphs and charts showing listening habits are displayed.
+
+**Actors:**
+- Listener
+
+**Scenario:**
+The listener accesses the insights page. The system fetches and displays various graphs and charts based on the user's listening history.
+
+## 1.9 Toggle Dynamic UI
+**Service Contract Name:** ToggleDynamicUI
+
+**Pre-conditions:**
+- The user must be logged into the system.
+
+**Post-conditions:**
+- The dynamic UI feature is toggled on or off based on the user's preference.
+
+**Actors:**
+- Listener
+
+**Scenario:**
+The listener accesses the settings page and toggles the dynamic UI feature. The system saves this preference and adjusts the UI accordingly.
+
+## 1.10 Access Offline Mode
+**Service Contract Name:** AccessOfflineMode
+
+**Pre-conditions:**
+- The user must have accessed the app online previously.
+
+**Post-conditions:**
+- The user can view previous recommendations offline.
+
+**Actors:**
+- User
+
+**Scenario:**
+The user opens the app offline. The system retrieves and displays cached data, allowing the user to view previous recommendations.
+
+## 1.11 View Similar Users
+**Service Contract Name:** ViewSimilarUsers
+
+**Pre-conditions:**
+- The user must be logged into the system.
+
+**Post-conditions:**
+- A list of users with similar listening trends/habits is displayed.
+
+**Actors:**
+- Listener
+
+**Scenario:**
+The listener views a page listing other users with similar music tastes and habits. The system fetches and displays this list.
+
+## 1.12 Customize Profile
+**Service Contract Name:** CustomizeProfile
+
+**Pre-conditions:**
+- The user must be logged into the system.
+
+**Post-conditions:**
+- The user's profile is updated with their preferred genres and moods.
+
+**Actors:**
+- Listener
+
+**Scenario:**
+The listener accesses their profile page and updates their preferences. The system saves these preferences for personalized recommendations.
+
+## 1.13 Receive New Release Notifications
+**Service Contract Name:** ReceiveNewReleaseNotifications
+
+**Pre-conditions:**
+- The user must be logged into the system.
+
+**Post-conditions:**
+- The user receives notifications for new releases from their favorite artists.
+
+**Actors:**
+- Listener
+
+**Scenario:**
+The listener opts in to receive notifications about new releases. The system sends notifications when new music is available from the listener's favorite artists.
+
+## 1.14 View Artist Analytics
+**Service Contract Name:** ViewArtistAnalytics
+
+**Pre-conditions:**
+- The user must be logged into the system and have an artist profile.
+
+**Post-conditions:**
+- Detailed analytics about listeners who enjoy the artist's music are displayed.
+
+**Actors:**
+- Artist
+
+**Scenario:**
+The artist accesses the analytics page and views detailed insights about their listeners' preferences and behaviors.
+
+## 1.15 Assign Tags to Music
+**Service Contract Name:** AssignTagsToMusic
+
+**Pre-conditions:**
+- The user must be logged into the system and have an artist profile.
+
+**Post-conditions:**
+- The artist's music is tagged with the specified tags.
+
+**Actors:**
+- Artist
+
+**Scenario:**
+The artist assigns tags to their music through their profile. The system saves these tags and uses them for recommendations and analytics.
 
 <br />
 <br />
