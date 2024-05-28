@@ -421,7 +421,7 @@ This section provides a detailed architecture specification for the ECHO Progres
 
 ### Usability
 1. **Intuitive Interface:** The application should be intuitive and easy to navigate, clear and organised without any unnecessary clutter. Design choices should be consistent throughout the interface, and clear visual cues (such as icons, buttons and labels) should guide users through the interface logically and intuitively.
-2. **User-Friendly:** 
+2. **User-Friendly:** The application should be responsive, personalisable, and easy to learn. Users should be able to customise their interface, and receive clear, real-time feedback (loading indicators, confirmation and error messages) from the system to understand the application's state and any actions they need to take. 
 
 ### Performance
 1. **Load Time and Responsiveness:** The application should load requested pages quickly, and the system should response promptly when the user interacts with anything on a page.
@@ -518,7 +518,50 @@ A Node.js REST API serves as an intermediary between the front end and the backe
 <br />
 
 ## Constraints
-<br />
+
+### Technical Constraints
+
+#### Performance Requirements
+- **Latency:** The system should respond to user requests in a short period of time for a seamless user experience.
+- **Scalability:** The architecture must handle a large number of simultaneous users, scaling efficiently during peak times without significant performance degradation. 
+
+#### Technology Stack
+- **Frontend:** The application must be developed as a Progressive Web App (PWA), that can be used on a mobile device or a desktop. 
+- **Backend:** The system must use non-blocking and event-driven architecture for efficient I/O operations.
+- **Recommendation Engine:** Artificial Intelligence and Machine Learning algorithms must be implemented in Python.
+- **Cloud Services:** The application must be deployed and managed by a dedicated cloud service for data storage and processing. 
+
+#### Storage and Data Handling
+- **Data Privacy:** Ensure compliance with data protection regulation (GDPR, CCPA) by implementing data encryption both at rest in transit. 
+
+#### APIs and Integration
+- **Third-Party APIs:** Integrate with music APIs for accessing music metadata and streaming capabilities. 
+- **Internal APIs:** Develop RESTful APIs for internal communication between the frontend and backend services, ensuring secure and efficient data exchange.
+
+### Operational Constraints
+
+#### Deployment
+- **Continuous Integration/Continuous Deployment (CI/CD):** Implement CI/CD pipelines to automate testing, integration, and deployment processes.
+- **Downtime:** Minimise downtime during deployments and maintenance, aiming for zero-downtime deployments using strategies such as blue-greem deployments or canary releases. 
+
+#### Security
+- **Authentication:** Use OAuth for secure user authentication and authorisation.
+- **Vulnerabilities:** Regularly conduct security audits and penetration tests to identify and mitigate vulnerabilities.
+
+#### Resource Management
+- **Cost Control:** Monitor and manage cloud resource usage to stay within budget. 
+- **Resource Scaling:** Implement auto-scaling policies to dynamically allocate resources based on traffic patterns and user demand.
+
+### User Constraints
+
+#### Device Compatibility
+- **Cross-Platform:** Ensure the application is fully functional on various devices (desktop, tablet, mobile) and operating systems (Windows, macOS, iOS, Android).
+- **Offline Access:** Implement service workers to provide offline capabilities, allowing users to access previously laded content without an internet connection.
+
+#### Content Moderation
+- **User-Generated Content:** Implement mechanisms to moderate user-generated content, ensuring it adheres to community guidelines and legal requirements. 
+
+<br/>
 
 # Technological Requirements
 
