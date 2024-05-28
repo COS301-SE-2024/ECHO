@@ -1,19 +1,50 @@
 # ECHO Requirements Specification
 > Halfstack: Capstone Project
 
+<br />
+
 # Table of contents
 - [ECHO Requirements Specification](#echo-requirements-specification)
 - [Table of contents](#table-of-contents)
-  - [Introduction](#introduction)
+- [Introduction](#introduction)
     - [Vision and Mission](#vision-and-mission)
     - [Business Needs](#business-needs)
     - [Project Scope](#project-scope)
-  - [User Stories](#user-stories)
-  - [Functional Requirements](#functional-requirements)
-  - [Service Contracts](#service-contracts)
-  - [UML Class diagram](#uml-class-diagram)
+- [User Stories](#user-stories)
+- [Functional Requirements](#functional-requirements)
+- [Service Contracts](#service-contracts)
+- [UML Class diagram](#uml-class-diagram)
+- [Architectural Requirements](#architectural-requirements)
+  - [Introduction](#introduction-1)
+  - [Quality Requirements](#quality-requirements)
+    - [Usability](#usability)
+    - [Performance](#performance)
+    - [Reliability](#reliability)
+    - [Security](#security)
+  - [Architectural Overview](#architectural-overview)
+    - [Presentation Layer](#presentation-layer)
+      - [Components](#components)
+      - [Responsibilities](#responsibilities)
+      - [Quality Contributions](#quality-contributions)
+    - [API Layer](#api-layer)
+      - [Components](#components-1)
+      - [Responsibilities](#responsibilities-1)
+      - [Quality Contributions](#quality-contributions-1)
+    - [Business Layer](#business-layer)
+      - [Components](#components-2)
+      - [Responsibilities](#responsibilities-2)
+      - [Quality Contributions](#quality-contributions-2)
+    - [Data Layer](#data-layer)
+      - [Components](#components-3)
+      - [Responsibilities](#responsibilities-3)
+      - [Quality Contributions](#quality-contributions-3)
+  - [Constraints](#constraints)
+- [Technology Requirements](#technology-requirements)
 
-## Introduction
+<br />
+<br />
+
+# Introduction
 
 ### Vision and Mission
 Our vision for the application is the redefinition of music personalisation. What we hope to achieve is an intelligent platform that suggests music based on mood, theme, time signature and BPM but also gives deep insights on listening habits, emotional engagement, and trends. These suggestions will be based on the user's own listening history. We want to give users a seamless, dynamic user experience with respect to their mood and preferences - with a dynamic UI to match!
@@ -24,8 +55,10 @@ Traditional recommendation systems are simply ineffective, particularly in offer
 ### Project Scope
 ECHO is a Progressive Web Application that interacts with the Spotify API and takes users' music experience to new heights. The primary use cases include safe user authentication, on-demand playlist, real-time content, and offline access. The user can track in-depth analysis data based on listening patterns through user-friendly and intuitive graphs and charts. Available on all devices, desktop, tablet, and smartphone, with multi-platform assured compatibility for streaming services. And provide exclusive functions for both listeners and artists, such as mood-matched music association, listener analytics, and mechanisms for user feedback. By satisfying these core necessities and functionalities, our application aspires to set a new benchmark in music recommendation and user engagement toward an encompassing solution, both for music lovers and artists.
 
+<br />
+<br />
 
-## User Stories
+# User Stories
 
 1. As a User I want to:
    1. Register securely and create an account.
@@ -63,7 +96,10 @@ ECHO is a Progressive Web Application that interacts with the Spotify API and ta
    1. View detailed analytics about listeners who enjoy my music.
    1. Get feedback from listeners on my songs.
 
-## Functional Requirements
+<br />
+<br />
+
+# Functional Requirements
 
 1. Provided a secure authentication process for user access
    1. Allow users to register on the application securely.
@@ -102,8 +138,10 @@ ECHO is a Progressive Web Application that interacts with the Spotify API and ta
    2. Offline functionality must be implemented to allow users to access the app without an internet connection, and view their previous recommendations.
    3. Application performance should be optimized to provide a smooth and responsive user experience.
 
+<br />
+<br />
 
-## Service Contracts
+# Service Contracts
 
 1. **User Registration**
    - **Request**: When I request to register securely and create an account with the following details `{ username, email, password }`, 
@@ -201,5 +239,117 @@ ECHO is a Progressive Web Application that interacts with the Spotify API and ta
     - **Request**: When I request to get feedback from listeners on my songs `{ artistId }`, 
     - **Response**: I expect a response in the form of `{ artistId, feedback: [ { songId, userId, comment, rating } ] }`.
 
+<br />
+<br />
 
-## UML Class diagram
+# UML Class diagram
+
+<br />
+<br />
+
+# Architectural Requirements
+
+## Introduction
+This section provides a detailed architecture specification for the ECHO Progressive Web App (PWA). The architecture is designed to ensure scalability, maintainability and high performance while meeting the quality requirements of usability, reliability and security. 
+<br />
+
+## Quality Requirements 
+
+### Usability
+1. **Intuitive Interface:** The application should be intuitive and easy to navigate, clear and organised without any unnecessary clutter. Design choices should be consistent throughout the interface, and clear visual cues (such as icons, buttons and labels) should guide users through the interface logically and intuitively.
+2. **User-Friendly:** 
+
+### Performance
+1. **Load Time and Responsiveness:** The application should load requested pages quickly, and the system should response promptly when the user interacts with anything on a page.
+2. **Scalability:** The system should be able to support large amounts of user traffic without significant latency.
+
+### Reliability
+1. **Error Handling:** The system should be able to identify errors and handle them quickly and gracefully, and provide meaningful feedback to users.
+2. **Data Accuracy:** Data validation rules should be implemented to ensure user input is consistent and error-free, and that incorrect data is not entered into the system. 
+
+### Security
+1. **Data Protection:** All user data should be encrypted both in transit and at rest, ensuring sensitive information is never exposed within the system.
+2. **Authentication:** Secure methods should be used for user authentication, including multi-factor authentication.
+3. **Authorisation:** Ensure role-based access control to protect sensitive app features. 
+   
+<br />
+
+## Architectural Overview
+The system is designed using a combination of Layered Architecture, Model-View-Controller (MVC) and Service-Oriented Architecture (SOA). The architecture is divided into the following layers:
+- Presentation Layer
+- API Layer
+- Business Layer
+- Data Layer
+Each later has specific responsibilities and interacts with other layers through well-defined interfaces.
+
+### Presentation Layer
+
+#### Components
+The front end of the application is developed using Angular. It provides an interactive and user-friendly interface. 
+
+#### Responsibilities
+- Render the user interface and handle user interactions.
+- Communicate with the REST API for data and service requests.
+- Ensures a responsive and accessible UI.
+
+#### Quality Contributions
+- **Usability:** The separation for the presentation layer allows for focused UI development, ensuring a consistent and user-friendly experience.
+- **Security:** Basic security measures like input validation are implemented in this layer. 
+
+### API Layer
+
+#### Components
+A Node.js REST API serves as an intermediary between the front end and the backend business logic. It handles client requests and routes them to the appropriate services.
+
+#### Responsibilities
+- Expose endpoints for the Angular Web App to interact with backend services.
+- Handle HTTP requests and responses.
+
+#### Quality Contributions
+- **Performance:** Efficient handling of client requests ensures quick responses and high performance.
+- **Security:** Implements authentication and authorisation mechanisms to secure API endpoints.
+
+### Business Layer
+
+#### Components
+
+1. Application Logic (Nest.js Component)
+   - **Profile Logic:** Manages user profile data and preferences.
+   - **Event Logic:** Handles events such as user interactions and activities within the app.
+   - **Spotify Source Connector:** Integrates with the Spotify API to fetch music data.
+   - **API:** Interfaces with the Music Analysis Engine.
+
+2. Music Analysis Engine
+   - **Music Analysis Engine API:** Provides music analysis and recommendation services.
+
+#### Responsibilities
+- Implement the core business logic of the application.
+- Integrate with external services like the Spotify API.
+- Provide music analysis and recommendation through AI algorithms
+
+#### Quality Contributions
+- **Reliability:** The modular design allows for independent development and testing of business logic components.
+- **Performance:** Optimised business logic and efficient external API integration ensure high performance.
+- **Security:** Implements business-specific security measures, such as data validation and secure data handling.
+
+### Data Layer
+
+#### Components
+- **Data Access:** Responsible for querying and managing data stored in the database.
+- **Database:** A NoSQL MongoDB database to store user data, music metadata and other application data.
+
+#### Responsibilities
+- Handle all data-related operations.
+- Provide data persistence and retrieval functionalities.
+
+#### Quality Contributions
+- **Performance:** Efficient data access and query mechanisms ensure quick data retrieval. 
+- **Reliability:** Ensures data integrity and availability through robust data management practices.
+- **Security:** Implements data encryption and access control mechanisms to protect stored data.
+
+<br />
+
+## Constraints
+<br />
+
+# Technology Requirements 
