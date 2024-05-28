@@ -88,7 +88,7 @@ ECHO is a Progressive Web Application that interacts with the Spotify API and ta
 
 # User Stories
 
-1. As a User I want to:
+1. ### As a User I want to:
    1. Register securely and create an account.
    1. Log in securely using my credentials.
    1. Reset my password if forgotten.
@@ -97,7 +97,7 @@ ECHO is a Progressive Web Application that interacts with the Spotify API and ta
    1. Access the app offline and view previous recommendations.
    1. Use the application on various devices and operating systems.
 
-2. As a Listener, I want to:
+2. ### As a Listener, I want to:
    1. Have all the functionality of a User
    1. View personalized song recommendations based on the song currently being listened to.
    1. Set custom recommendation categories.
@@ -115,7 +115,7 @@ ECHO is a Progressive Web Application that interacts with the Spotify API and ta
    1. Customize my profile with preferred genres and moods.
    1. Receive notifications for new releases from my favorite artists.
 
-3. As an Artist, I want to:
+3. ### As an Artist, I want to:
    1. Have all the functionality of a User
    1. See which moods my music is associated with.
    1. See recomended listening based on my music.
@@ -406,6 +406,7 @@ The artist assigns tags to their music through their profile. The system saves t
 <br />
 
 # UML Class diagram
+![class diagram](<class diagram.drawio.png>)
 
 <br />
 <br />
@@ -444,6 +445,10 @@ The system is designed using a combination of Layered Architecture, Model-View-C
 - Business Layer
 - Data Layer
 Each later has specific responsibilities and interacts with other layers through well-defined interfaces.
+
+<br/>
+
+![architecture diagram](architecture.png)
 
 ### Presentation Layer
 
