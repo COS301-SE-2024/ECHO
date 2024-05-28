@@ -29,6 +29,10 @@
   - [1.14 View Artist Analytics](#114-view-artist-analytics)
   - [1.15 Assign Tags to Music](#115-assign-tags-to-music)
 - [UML Class diagram](#uml-class-diagram)
+- [Design Patterns](#design-patterns)
+  - [Observer](#observer)
+  - [Singleton](#singleton)
+  - [Adapter](#adapter)
 - [Architectural Requirements](#architectural-requirements)
   - [Introduction](#introduction-1)
   - [Quality Requirements](#quality-requirements)
@@ -54,6 +58,18 @@
       - [Responsibilities](#responsibilities-3)
       - [Quality Contributions](#quality-contributions-3)
   - [Constraints](#constraints)
+    - [Technical Constraints](#technical-constraints)
+      - [Performance Requirements](#performance-requirements)
+      - [Technology Stack](#technology-stack)
+      - [Storage and Data Handling](#storage-and-data-handling)
+      - [APIs and Integration](#apis-and-integration)
+    - [Operational Constraints](#operational-constraints)
+      - [Deployment](#deployment)
+      - [Security](#security-1)
+      - [Resource Management](#resource-management)
+    - [User Constraints](#user-constraints)
+      - [Device Compatibility](#device-compatibility)
+      - [Content Moderation](#content-moderation)
 - [Technological Requirements](#technological-requirements)
   - [Programming Languages](#programming-languages)
     - [Frontend](#frontend)
@@ -410,6 +426,20 @@ The artist assigns tags to their music through their profile. The system saves t
 
 <br />
 <br />
+
+# Design Patterns
+
+## Observer
+- **Components:** NestJS Component (Subject), Profile Logic, Event Logic, Music Analysis Engine (Observers)
+- This pattern is useful for event-driven architecture. When the 'NestJSComponent' handles events (such as user actions, music analysis completion), it can notify various subsystems that may need to update or react to these changes. 
+
+## Singleton
+- **Components:** Spotify Source Connector, Data Access
+- Singleton ensures that a single instance of the Spotify API connector is used throughout the application to manage API rate limits and maintain a consistent state. The 'DataAccess' component should also be a singleton to ensure that database connections are efficiently reused and managed. 
+
+## Adapter
+- **Components:** Spotify Source Connector
+- Implement an adapter for the Spotify API to make it compatible with our system's interface. This will ensure that the rest of the system interacts with the Spotify API in a consistent manner, no matter what changes are made to the API. 
 
 # Architectural Requirements
 
