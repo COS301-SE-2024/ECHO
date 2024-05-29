@@ -1,0 +1,20 @@
+{
+  "name": "echo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "workspaces": [
+    "Frontend",
+    "Backend"
+  ],
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"npm start --prefix Frontend\" \"npm start --prefix Backend\"",
+    "install": "npm install --legacy-peer-deps"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/COS301-SE-2024/ECHO.git"
+  }
+}
