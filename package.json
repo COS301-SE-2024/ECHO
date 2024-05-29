@@ -16,5 +16,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/COS301-SE-2024/ECHO.git"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
   }
 }
