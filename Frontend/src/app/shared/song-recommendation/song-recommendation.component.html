@@ -1,1 +1,17 @@
-<p>song-recommendation works!</p>
+<div class="bg-white dark:bg-zinc-800 shadow-md rounded-lg p-4 mx-auto max-w-md">
+    <h2 class="text-lg font-semibold mb-2">{{ title }}</h2>
+    <div class="flex items-center justify-between mb-4">
+        <img [src]="currentSong.imageUrl" alt="Song" class="rounded-full" />
+        <div class="ml-2">
+            <p class="text-sm text-zinc-600 dark:text-zinc-400">Currently Listening To:</p>
+            <p class="font-semibold">{{ currentSong.title }}</p>
+        </div>
+    </div>
+    <h3 class="text-base font-semibold mb-2">Recommended Songs</h3>
+    <div class="grid grid-cols-1 gap-4">
+        <div class="flex items-center" *ngFor="let song of recommendedSongs">
+            <img [src]="song.imageUrl" alt="Recommended Song" class="rounded-lg" />
+            <p class="ml-2">{{ song.title }}</p>
+        </div>
+    </div>
+</div>
