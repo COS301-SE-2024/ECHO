@@ -1,17 +1,20 @@
-<div class="bg-white dark:bg-zinc-800 shadow-md rounded-lg p-4 mx-auto max-w-md">
+<div class="bg-white dark:bg-zinc-800 shadow-md rounded-lg p-6 mx-auto sm:max-w-xl md:max-w-2xl lg:max-w-3xl xl:max-w-4xl">
     <h2 class="text-lg font-semibold mb-2">{{ title }}</h2>
-    <div class="flex items-center justify-between mb-4">
+    <div class="flex flex-col sm:flex-row items-center justify-between mb-4">
         <img [src]="currentSong.imageUrl" alt="Song" class="rounded-full" />
-        <div class="ml-2">
+        <div class="mt-2 sm:mt-0 sm:ml-2">
             <p class="text-sm text-zinc-600 dark:text-zinc-400">Currently Listening To:</p>
             <p class="font-semibold">{{ currentSong.title }}</p>
         </div>
     </div>
     <h3 class="text-base font-semibold mb-2">Recommended Songs</h3>
     <div class="grid grid-cols-1 gap-4">
-        <div class="flex items-center" *ngFor="let song of recommendedSongs">
+        <div class="flex flex-col sm:flex-row items-center" *ngFor="let song of recommendedSongs">
             <img [src]="song.imageUrl" alt="Recommended Song" class="rounded-lg" />
-            <p class="ml-2">{{ song.title }}</p>
+            <p class="mt-2 sm:mt-0 sm:ml-2">{{ song.title }}</p>
+            <p class="mt-2 sm:mt-0 sm:ml-2">{{ song.bpm }}bpm</p>
+            <p class="mt-2 sm:mt-0 sm:ml-2">Theme:{{ song.theme }}</p>
+            <p class="mt-2 sm:mt-0 sm:ml-2">Mood:{{ song.mood }}</p>
         </div>
     </div>
 </div>
