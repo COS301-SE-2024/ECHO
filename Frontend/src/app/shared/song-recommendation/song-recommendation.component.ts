@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 @Component({
   selector: 'app-song-recommendation',
   standalone: true,
@@ -10,7 +11,9 @@ import { CommonModule } from '@angular/common';
 export class SongRecommendationComponent {
   title = 'Personalized Song Recommendations';
 
- currentSong = {
+  categories = ['Key', 'BPM', 'Theme', 'mood'];
+
+currentSong = {
   title: 'Song Title',
   imageUrl: 'https://placehold.co/50x50',
   bpm: 120,
@@ -20,21 +23,21 @@ export class SongRecommendationComponent {
 
 recommendedSongs = [
   { 
-    title: 'Recommended Song Title 1', 
+    title: ' Title 1', 
     imageUrl: 'https://placehold.co/50x50', 
     bpm: 130, 
     theme: 'Adventure', 
     mood: 'Excited' 
   },
   { 
-    title: 'Recommended Song Title 2', 
+    title: ' Title 2', 
     imageUrl: 'https://placehold.co/50x50', 
     bpm: 110, 
     theme: 'Relaxation', 
     mood: 'Calm' 
   },
   { 
-    title: 'Recommended Song Title 3', 
+    title: ' Title 3', 
     imageUrl: 'https://placehold.co/50x50', 
     bpm: 140, 
     theme: 'Workout', 
