@@ -12,4 +12,13 @@ import { SpotifyLoginComponent} from "../../spotify-login/spotify-login.componen
 })
 export class RegisterComponent {
 
+  spotify() {
+    var email: any;
+    email = document.getElementById('email');
+    var password: any;
+    password = document.getElementById('password');
+
+    email.required = false;
+    password.required = false;
+  }
 }

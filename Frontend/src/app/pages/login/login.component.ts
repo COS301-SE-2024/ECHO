@@ -23,4 +23,8 @@ export class LoginComponent {
     email.required = false;
     password.required = false;
   }
+
+  login() {
+
+  }
 }

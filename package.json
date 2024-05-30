@@ -16,5 +16,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/COS301-SE-2024/ECHO.git"
+  },
+  "dependencies": {
+    "@nestjs/platform-express": "^10.3.8",
+    "dotenv": "^16.4.5"
   }
 }

@@ -14,9 +14,9 @@ export class UserService {
         return this.userModel.findOne({ username }).exec();
     }
 
-    async create(username: string, password: string): Promise<UserDocument> {
+    async create(username: string, email: string, password: string): Promise<UserDocument> {
         const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = new this.userModel({ username, password: hashedPassword });
+        const newUser = new this.userModel({ username, password: hashedPassword, email });
         return newUser.save();
     }
 
