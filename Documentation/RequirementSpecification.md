@@ -19,14 +19,15 @@
   - [1.6 View Recommendations](#16-view-recommendations)
   - [1.7 Set Custom Recommendation Categories](#17-set-custom-recommendation-categories)
   - [1.8 View Listening Insights](#18-view-listening-insights)
-  - [1.9 Toggle Dynamic UI](#19-toggle-dynamic-ui)
-  - [1.10 Access Offline Mode](#110-access-offline-mode)
-  - [1.11 View Similar Users](#111-view-similar-users)
-  - [1.12 Customize Profile](#112-customize-profile)
-  - [1.13 Receive New Release Notifications](#113-receive-new-release-notifications)
-  - [1.14 View Artist Analytics](#114-view-artist-analytics)
-  - [1.15 Assign Tags to Music](#115-assign-tags-to-music)
-- [UML Class diagram](#uml-class-diagram)
+  - [1.9 Customize Profile](#19-customize-profile)
+  - [1.10 View Artist Analytics](#110-view-artist-analytics)
+- [Use Case Diagrams](#use-case-diagrams)
+  - [1. User Management Subsystem](#1-user-management-subsystem)
+  - [2. Profile Management Subsystem](#2-profile-management-subsystem)
+  - [3. Music Recommendation Subsystem](#3-music-recommendation-subsystem)
+  - [4. Analytics Display Subsystem](#4-analytics-display-subsystem)
+  - [5. AI Processing Subsystem](#5-ai-processing-subsystem)
+- [UML Class Diagram](#uml-class-diagram)
 - [Design Patterns](#design-patterns)
   - [Observer](#observer)
   - [Singleton](#singleton)
@@ -316,52 +317,7 @@ The listener sets custom categories for song recommendations. The system saves t
 **Scenario:**
 The listener accesses the insights page. The system fetches and displays various graphs and charts based on the user's listening history.
 
-## 1.9 Toggle Dynamic UI
-**Service Contract Name:** User toggles UI according to preference.
-
-**Pre-conditions:**
-- The user must be logged into the system.
-
-**Post-conditions:**
-- The dynamic UI feature is toggled on or off based on the user's preference.
-
-**Actors:**
-- Listener
-
-**Scenario:**
-The listener accesses the settings page and toggles the dynamic UI feature. The system saves this preference and adjusts the UI accordingly.
-
-## 1.10 Access Offline Mode
-**Service Contract Name:** User accesses the application without the use of internet.
-
-**Pre-conditions:**
-- The user must have accessed the app online previously.
-
-**Post-conditions:**
-- The user can view previously saved recommendations offline.
-
-**Actors:**
-- User
-
-**Scenario:**
-The user opens the app offline. The system retrieves and displays cached data, allowing the user to view previous recommendations.
-
-## 1.11 View Similar Users
-**Service Contract Name:** Users view profiles of users with similar music tastes.
-
-**Pre-conditions:**
-- The user must be logged into the system.
-
-**Post-conditions:**
-- A list of users with similar listening trends/habits is displayed.
-
-**Actors:**
-- Listener
-
-**Scenario:**
-The listener views a page listing other users with similar music tastes and habits. The system fetches and displays this list.
-
-## 1.12 Customize Profile
+## 1.9 Customize Profile
 **Service Contract Name:** User customises profile to meet their tastes.
 
 **Pre-conditions:**
@@ -376,22 +332,7 @@ The listener views a page listing other users with similar music tastes and habi
 **Scenario:**
 The listener accesses their profile page and updates their preferences. The system saves these preferences for personalised recommendations.
 
-## 1.13 Receive New Release Notifications
-**Service Contract Name:** User receives notifications about new releases they may be interested in.
-
-**Pre-conditions:**
-- The user must be logged into the system.
-
-**Post-conditions:**
-- The user receives notifications for new releases from their favorite artists.
-
-**Actors:**
-- Listener
-
-**Scenario:**
-The listener opts in to receive notifications about new releases. The system sends notifications when new music is available from the listener's favorite artists or artists that fit the user's listening profile.
-
-## 1.14 View Artist Analytics
+## 1.10 View Artist Analytics
 **Service Contract Name:** Artist views analytics on their music's performance.
 
 **Pre-conditions:**
@@ -406,25 +347,29 @@ The listener opts in to receive notifications about new releases. The system sen
 **Scenario:**
 The artist accesses the analytics page and views detailed insights about their listeners' preferences and behaviours.
 
-## 1.15 Assign Tags to Music
-**Service Contract Name:** Artist assigns appropriate tags to their music to make it easier for those in their listener base to find. 
+<br />
+<br />
 
-**Pre-conditions:**
-- The user must be logged into the system and have an artist profile.
+# Use Case Diagrams
 
-**Post-conditions:**
-- The artist's music is tagged with the specified tags.
+## 1. User Management Subsystem
+![user management](<Untitled Diagram-User Management.drawio.png>)
 
-**Actors:**
-- Artist
+## 2. Profile Management Subsystem
+![profile management](<Profile Management.png>)
 
-**Scenario:**
-The artist assigns tags to their music through their profile. The system saves these tags and uses them for recommendations and analytics.
+## 3. Music Recommendation Subsystem
+![music recommendation](<Music Recommendation Engine.png>)
+
+## 4. Analytics Display Subsystem
+![analytics display](<Analytics Display.png>)
+
+## 5. AI Processing Subsystem
 
 <br />
 <br />
 
-# UML Class diagram
+# UML Class Diagram
 ![class diagram](<class diagram.drawio.png>)
 
 <br />
