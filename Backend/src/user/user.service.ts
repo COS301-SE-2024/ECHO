@@ -1,22 +1,32 @@
-import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import {Injectable} from '@nestjs/common';
+import {InjectModel} from '@nestjs/mongoose';
+import {Model} from 'mongoose';
 import * as bcrypt from 'bcryptjs';
-import { User, UserDocument } from './user.schema';
+import {User, UserDocument} from './user.schema';
 
 @Injectable()
 export class UserService {
     constructor(
         @InjectModel(User.name) private userModel: Model<UserDocument>,
-    ) {}
-
-    async findOne(username: string): Promise<UserDocument | undefined> {
-        return this.userModel.findOne({ username }).exec();
+    ) {
     }
 
-    async create(username: string, email: string, password: string): Promise<UserDocument> {
+    async findOne(username: string): Promise<any | undefined> {
+        var user =  this.userModel.findOne({username}).exec();
+
+        if (user) {
+            return user;
+        }
+        return {
+            error: 'User not found',
+            message: 'The user with the provided username does not exist'
+        }
+
+    }
+
+    async create(email: string, username: string, password: string): Promise<User> {
         const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = new this.userModel({ username, password: hashedPassword, email });
+        const newUser = new this.userModel({username, password: hashedPassword, email, spotifyConnected: false});
         return newUser.save();
     }
 
@@ -25,8 +35,11 @@ export class UserService {
         if (user && await bcrypt.compare(password, user.password)) {
             const userObject = user.toObject();
             delete userObject.password;
-            return userObject;
+            return {message: 'Login successful', user: userObject};
         }
-        return null;
+        return {
+            error: 'Login failed',
+            message: 'Invalid username or password}'
+        }
     }
 }
