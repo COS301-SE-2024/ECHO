@@ -24,10 +24,12 @@ export class UserService {
 
     }
 
-    async create(email: string, username: string, password: string): Promise<User> {
+    async create(email: string, username: string, password: string): Promise<any> {
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = new this.userModel({username, password: hashedPassword, email, spotifyConnected: false});
-        return newUser.save();
+        await newUser.save();
+        return {message:'Creation successful,', user: newUser};
+
     }
 
     async validateUser(username: string, password: string): Promise<any> {
