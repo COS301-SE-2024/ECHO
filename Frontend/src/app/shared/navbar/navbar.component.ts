@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { ThemeService } from './../../services/theme.service';
 import  {CommonModule} from '@angular/common';
+import {SvgIconComponent} from '../svg-icon/svg-icon.component';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,SvgIconComponent],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
