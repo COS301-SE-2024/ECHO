@@ -12,7 +12,5 @@ export class SpotifyLoginComponent {
 
   loginWithSpotify() {
     console.log('Logging in with Spotify');
-    //Router.navigate(['/spotify-login']);
-
   }
 }

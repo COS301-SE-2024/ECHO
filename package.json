@@ -10,14 +10,15 @@
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently \"npm start --prefix Frontend\" \"npm start --prefix Backend\"",
-    "install": "npm install --legacy-peer-deps"
+    "start": "concurrently \"npm start --prefix Frontend\" \"npm start --prefix Backend\""
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/COS301-SE-2024/ECHO.git"
   },
-  "devDependencies": {
+  "dependencies": {
+    "@nestjs/platform-express": "^10.3.8",
+    "dotenv": "^16.4.5",
     "concurrently": "^8.2.2"
   }
 }
