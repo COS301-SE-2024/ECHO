@@ -1,0 +1,39 @@
+<div class="bg-white-300 p-4 flex justify-between rounded-box">
+        
+        <svg *ngIf="themeService.isDarkModeActive()" (click)="select()" width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg" >
+            <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path [attr.d]="homeSvg" fill="#D9D9D9"/>
+            </svg>
+        </svg>
+        <svg *ngIf="!themeService.isDarkModeActive()" (click)="select()" width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path [attr.d]="homeSvg" fill="#323232"/>
+            </svg>
+        </svg>
+
+        <svg *ngIf="themeService.isDarkModeActive()" (click)="select()" width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg" >
+            <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path [attr.d]="otherSvg1" fill="#D9D9D9"/>
+            </svg>
+        </svg>
+        <svg *ngIf="!themeService.isDarkModeActive()" (click)="select()" width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                
+                <path [attr.d]="otherSvg1" fill="#323232"/>
+            </svg>
+            
+        </svg>
+
+        <svg *ngIf="themeService.isDarkModeActive()" (click)="select()" width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg" >
+            <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path [attr.d]="otherSvg2" fill="#D9D9D9"/>
+            </svg>
+        </svg>
+        <svg *ngIf="!themeService.isDarkModeActive()" (click)="select()" width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path [attr.d]="otherSvg2" fill="#323232"/>
+            </svg>
+            
+        </svg>
+        
+</div>
