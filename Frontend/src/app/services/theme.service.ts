@@ -1,14 +1,23 @@
-import { Injectable } from '@angular/core';
-
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+//Can add other themes here
 @Injectable({
   providedIn: 'root'
 })
 export class ThemeService {
-  private darkModeActive: boolean = false;
+  private darkModeActive: boolean = true;
+
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+    if (isPlatformBrowser(this.platformId)) {
+      document.body.classList.toggle('dark', this.darkModeActive);
+    }
+  }
 
   switchTheme(): void {
     this.darkModeActive = !this.darkModeActive;
-    document.body.classList.toggle('dark', this.darkModeActive);
+    if (isPlatformBrowser(this.platformId)) {
+      document.body.classList.toggle('dark', this.darkModeActive);
+    }
   }
 
   isDarkModeActive(): boolean {
