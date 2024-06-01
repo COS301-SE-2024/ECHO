@@ -51,7 +51,8 @@ export class RegisterComponent {
       response => {
         if (response.user) {
           console.log('Account created successfully!', response);
-          this.router.navigate(['/landing']);
+          alert('Account created successfully!');
+          this.router.navigate(['/home']);
         } else {
           console.error('Account creation unsuccessful.', response);
           alert('Account creation unsuccessful. Please try again.');

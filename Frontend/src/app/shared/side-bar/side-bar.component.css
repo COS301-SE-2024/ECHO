@@ -1,0 +1,32 @@
+.button-container {
+  position: relative;
+}
+
+.button-container::after {
+  content: '';
+  position: absolute;
+  width: calc(100% - 2.5rem);
+  left: 1.25rem;
+  bottom: -2px;
+  height: 2px;
+  background-color: transparent;
+  transition: background-color 0.3s ease;
+}
+
+.underline-blue::after {
+  background-color: theme(colors.rose.600);
+}
+
+.underline-none::after {
+  background-color: transparent;
+}
+
+.button {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+}
