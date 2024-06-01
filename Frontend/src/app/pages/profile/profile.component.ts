@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { SearchBarComponent } from '../../shared/search-bar/search-bar.component';
 
 @Component({
-  selector: 'app-profile',
+  selector: 'profile',
   standalone: true,
-  imports: [],
+  imports: [ SearchBarComponent ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
