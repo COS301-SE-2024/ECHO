@@ -13,8 +13,8 @@
 # Group's Links:
 
 - [Team Demo]()
-- [Functional Requirements (SRS)]()
-- [Jira Project Board](https://halfstackecho.atlassian.net/jira/software/projects/ECHO/boards/2)
+- [Functional Requirements (SRS)](Documentation\RequirementSpecification.md)
+- [Github Project Board](https://github.com/orgs/COS301-SE-2024/projects/67)
 
 # Technology Stack:
 
