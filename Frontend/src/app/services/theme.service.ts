@@ -5,7 +5,7 @@ import { isPlatformBrowser } from '@angular/common';
   providedIn: 'root'
 })
 export class ThemeService {
-  private darkModeActive: boolean = true;
+  private darkModeActive: boolean = false;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     if (isPlatformBrowser(this.platformId)) {

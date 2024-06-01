@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { ThemeService } from './../../services/theme.service';
 import  {CommonModule} from '@angular/common';
 import {SvgIconComponent} from '../svg-icon/svg-icon.component';
@@ -17,13 +17,26 @@ export class NavbarComponent {
   selectedSvg: string = this.homeSvg;
   otherSvg1:string = "M27.2 0H34V51H27.2V0ZM13.6 12.75V51H20.4V12.75H13.6ZM6.8 25.5H0V51H6.8V25.5Z"
   otherSvg2:string = "M8.63935 0H26.3578C27.3436 0 28.1483 1.09766 28.1483 2.43359V4.96094H6.84883V2.43359C6.84883 1.09375 7.65356 0 8.63935 0ZM3.22754 14.9922H31.7725C33.5486 14.9922 35 16.9648 35 19.3789V43.6133C35 46.0273 33.5486 48 31.7725 48H3.22754C1.45139 48 0 46.0273 0 43.6133V19.3789C0 16.9648 1.45139 14.9922 3.22754 14.9922ZM15.5514 22.8047L23.3946 30.2383C23.524 30.3516 23.6418 30.5 23.7338 30.6797C24.1017 31.4023 23.9666 32.3945 23.4349 32.8945L15.6261 40.2344C15.4249 40.4609 15.1663 40.5937 14.8818 40.5937C14.2322 40.5937 13.7063 39.8789 13.7063 38.9961V24.1094H13.712C13.712 23.793 13.781 23.4766 13.9218 23.1992C14.2926 22.4766 15.0226 22.3008 15.5514 22.8047ZM5.2135 7.34766H29.7836C30.7694 7.34766 31.5742 8.44531 31.5742 9.78125V12.4063H3.42298V9.78125C3.42298 8.44141 4.22771 7.34766 5.2135 7.34766Z"
-  
+  @Output() selectedNavChange = new EventEmitter<string>();
   select(svgPath: string): void {
     this.selectedSvg = svgPath;
+    switch(svgPath){
+      case this.homeSvg:
+        this.selectedNavChange.emit('home');
+        break;
+      case this.otherSvg1:
+        this.selectedNavChange.emit('Page 2');
+        break;
+      case this.otherSvg2:
+        this.selectedNavChange.emit('Page 3');
+        break;
+    }
+
   }
 
   switchTheme(): void {
     this.themeService.switchTheme();
+    
   }
 
   isDarkModeActive(): boolean {

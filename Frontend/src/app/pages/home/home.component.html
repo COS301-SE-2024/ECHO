@@ -8,10 +8,10 @@
                     d="M5 13l4 4L19 7"></path>
             </svg>
         </button>
-        
+        <h1 class="text-3xl font-bold text-gray-800 dark:text-gray-200">{{title}}</h1>
 
         <div class="navbar-container ">
-            <app-navbar></app-navbar>
+            <app-navbar (selectedNavChange)="onNavChange($event)"></app-navbar>
         </div>
     </div>
 </div>

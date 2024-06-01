@@ -15,12 +15,16 @@ import { ThemeService } from './../../services/theme.service';
 })
 export class HomeComponent {
   constructor(private themeService: ThemeService) {}
-
+  title :string = 'Home';
   switchTheme(): void {
     this.themeService.switchTheme();
   }
 
   isDarkModeActive(): boolean {
     return this.themeService.isDarkModeActive();
+  }
+
+  onNavChange(newNav: string) {
+    this.title = newNav;
   }
 }
