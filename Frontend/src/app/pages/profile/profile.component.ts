@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SearchBarComponent } from '../../shared/search-bar/search-bar.component';
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
 import { NgForOf, NgIf } from '@angular/common';
 import { SideBarComponent } from '../../shared/side-bar/side-bar.component';
@@ -23,12 +24,12 @@ import {MatIconModule} from '@angular/material/icon';
     MatIconModule,
     NgForOf,
     BottomPlayerComponent,
+    SearchBarComponent
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
 export class ProfileComponent {
-
   recentListeningCardData = [
     {
       imageUrl: '../../../assets/images/red.jpg',

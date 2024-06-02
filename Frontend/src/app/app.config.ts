@@ -6,6 +6,8 @@ import { importProvidersFrom } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideServiceWorker } from '@angular/service-worker';
+
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
@@ -17,6 +19,6 @@ export const appConfig: ApplicationConfig = {
         enabled: !isDevMode(),
         registrationStrategy: 'registerWhenStable:30000'
     }),
-    importProvidersFrom(FormsModule)
+    importProvidersFrom(FormsModule), provideAnimationsAsync('noop')
   ]
 };
