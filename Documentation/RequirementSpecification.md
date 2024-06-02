@@ -24,9 +24,8 @@
 - [Use Case Diagrams](#use-case-diagrams)
   - [1. User Management Subsystem](#1-user-management-subsystem)
   - [2. Profile Management Subsystem](#2-profile-management-subsystem)
-  - [3. Music Recommendation Subsystem](#3-music-recommendation-subsystem)
-  - [4. Analytics Display Subsystem](#4-analytics-display-subsystem)
-  - [5. AI Processing Subsystem](#5-ai-processing-subsystem)
+  - [3. Analytics Display Subsystem](#3-analytics-display-subsystem)
+  - [4. AI Processing Subsystem](#4-ai-processing-subsystem)
 - [UML Class Diagram](#uml-class-diagram)
 - [Design Patterns](#design-patterns)
   - [Observer](#observer)
@@ -351,25 +350,23 @@ The listener accesses their profile page and updates their preferences. The syst
 **Scenario:**
 The artist accesses the analytics page and views detailed insights about their listeners' preferences and behaviours.
 
+
+
 <br />
 <br />
 
 # Use Case Diagrams
 
 ## 1. User Management Subsystem
-![user management](<User Management.png>)
+![user-management](<User Management.png>)
 
 ## 2. Profile Management Subsystem
-![profile management](<Profile Management.png>)
+![profile-management](<Profile Management.png>)
 
-## 3. Music Recommendation Subsystem
-![music recommendation](<Music Recommendation Engine.png>)
+## 3. Analytics Display Subsystem
+![analytics](<Analytics Display.png>)
 
-## 4. Analytics Display Subsystem
-![analytics display](<Analytics Display.png>)
-
-## 5. AI Processing Subsystem
-![AI Processing Subsystem](<AI Subsystem.png>)
+## 4. AI Processing Subsystem
 
 <br />
 <br />
@@ -528,7 +525,7 @@ A Node.js REST API serves as an intermediary between the front end and the backe
 
 #### Deployment
 - **Continuous Integration/Continuous Deployment (CI/CD):** Implement CI/CD pipelines to automate testing, integration, and deployment processes.
-- **Downtime:** Minimise downtime during deployments and maintenance, aiming for zero-downtime deployments using strategies such as blue-greem deployments or canary releases. 
+- **Downtime:** Minimise downtime during deployments and maintenance, aiming for zero-downtime deployments using strategies such as blue-green deployments or canary releases. 
 
 #### Security
 - **Authentication:** Use OAuth for secure user authentication and authorisation.
@@ -568,6 +565,7 @@ A Node.js REST API serves as an intermediary between the front end and the backe
 - **Angular:** Frontend framework for building the user interface. Uses an HTML-based template language for dynamic rendering and interaction.
 - **Angular PWA:** Progressive Web App support in Angular for creating installable, offline-capable apps.
 - **Tailwind CSS:** A utility-first CSS framework for rapidly building custom user interfaces.
+- **Flowbite:** An open-source library of UI components based on the utility-first Tailwind CSS framework.
 
 ### Backend
 - **Node.js:** JavaScript runtime for building the REST API.
