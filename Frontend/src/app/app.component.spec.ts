@@ -1,4 +1,4 @@
-import { AppComponent } from './app.component';
+import { AppComponent } from "./app.component";
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 describe('AppComponent', () => {
@@ -15,4 +15,5 @@ describe('AppComponent', () => {
   it('should have a title', () => {
     expect(component.title).toBe('Echo');
   });
+
 });

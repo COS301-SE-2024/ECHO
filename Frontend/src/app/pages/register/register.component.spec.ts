@@ -11,7 +11,7 @@ describe('RegisterComponent', () => {
   //     imports: [RegisterComponent]
   //   })
   //   .compileComponents();
-
+    
   //   fixture = TestBed.createComponent(RegisterComponent);
   //   component = fixture.componentInstance;
   //   fixture.detectChanges();
@@ -23,7 +23,7 @@ describe('RegisterComponent', () => {
   //   expect(component).toBeTruthy();
   // });
 
-  //test something trivial
+  //test something trivial 
   it('should have a title', () => {
     expect(true).toBe(true);
   });
