@@ -7,8 +7,8 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { MatCard, MatCardContent } from '@angular/material/card';
 import { BottomPlayerComponent } from '../../shared/bottom-player/bottom-player.component';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
 
 @Component({
   selector: 'app-profile',
@@ -25,9 +25,10 @@ import { MatIconModule } from '@angular/material/icon';
     BottomPlayerComponent,
   ],
   templateUrl: './profile.component.html',
-  styleUrl: './profile.component.css',
+  styleUrl: './profile.component.css'
 })
 export class ProfileComponent {
+
   recentListeningCardData = [
     {
       imageUrl: '../../../assets/images/red.jpg',
@@ -51,7 +52,7 @@ export class ProfileComponent {
       imageUrl: '../../../assets/images/glass.jpg',
       text: 'Youth',
       secondaryText: 'Glass Animals',
-      explicit: false,
+      explicit: false
     },
     {
       imageUrl: '../../../assets/images/wheatus.jpg',
@@ -63,7 +64,7 @@ export class ProfileComponent {
       imageUrl: '../../../assets/images/bastille.jpg',
       text: 'Pompeii',
       secondaryText: 'Bastille',
-      explicit: false,
+      explicit: false
     },
     {
       imageUrl: '../../../assets/images/c.png',
@@ -104,15 +105,15 @@ export class ProfileComponent {
     },
   ];
 
-  constructor(
-    protected themeService: ThemeService,
-    private authService: AuthService,
-    private router: Router,
-  ) {}
+
+  constructor(protected themeService: ThemeService, private authService: AuthService, private router: Router) {
+  }
 
   switchTheme() {
     this.themeService.switchTheme();
   }
 
-  onNavChange($event: string) {}
+  onNavChange($event: string) {
+
+  }
 }

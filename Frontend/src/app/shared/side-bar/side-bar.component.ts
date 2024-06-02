@@ -6,23 +6,25 @@ import { ThemeService } from '../../services/theme.service';
 @Component({
   selector: 'app-side-bar',
   standalone: true,
-  imports: [MatCard, MatCardContent, NgForOf, NgIf, NgClass],
+  imports: [
+    MatCard,
+    MatCardContent,
+    NgForOf,
+    NgIf,
+    NgClass,
+  ],
   templateUrl: './side-bar.component.html',
   styleUrl: './side-bar.component.css',
 })
 export class SideBarComponent {
-  constructor(protected themeService: ThemeService) {}
+  constructor(protected themeService: ThemeService) {
+  }
 
   title: string = 'Home';
   selectedOption: string = 'upNext';
 
   upNextCardData = [
-    {
-      imageUrl: '../../../assets/images/album.png',
-      text: 'Nikes',
-      secondaryText: 'Frank Ocean',
-      explicit: true,
-    },
+    { imageUrl: '../../../assets/images/album.png', text: 'Nikes', secondaryText: 'Frank Ocean', explicit: true },
     {
       imageUrl: '../../../assets/images/kendrick.png',
       text: 'Not Like Us',
@@ -41,24 +43,9 @@ export class SideBarComponent {
       secondaryText: 'Two Door Cinema Club',
       explicit: false,
     },
-    {
-      imageUrl: '../../../assets/images/damn.jpg',
-      text: 'PRIDE.',
-      secondaryText: 'Kendrick Lamar',
-      explicit: true,
-    },
-    {
-      imageUrl: '../../../assets/images/tracy.jpg',
-      text: 'Fast Car',
-      secondaryText: 'Tracy Chapman',
-      explicit: false,
-    },
-    {
-      imageUrl: '../../../assets/images/mac.jpg',
-      text: 'Circles',
-      secondaryText: 'Mac Miller',
-      explicit: false,
-    },
+    { imageUrl: '../../../assets/images/damn.jpg', text: 'PRIDE.', secondaryText: 'Kendrick Lamar', explicit: true },
+    { imageUrl: '../../../assets/images/tracy.jpg', text: 'Fast Car', secondaryText: 'Tracy Chapman', explicit: false },
+    { imageUrl: '../../../assets/images/mac.jpg', text: 'Circles', secondaryText: 'Mac Miller', explicit: false },
   ];
 
   recentListeningCardData = [
@@ -80,24 +67,14 @@ export class SideBarComponent {
       secondaryText: 'The Killers',
       explicit: false,
     },
-    {
-      imageUrl: '../../../assets/images/glass.jpg',
-      text: 'Youth',
-      secondaryText: 'Glass Animals',
-      explicit: false,
-    },
+    { imageUrl: '../../../assets/images/glass.jpg', text: 'Youth', secondaryText: 'Glass Animals', explicit: false },
     {
       imageUrl: '../../../assets/images/wheatus.jpg',
       text: 'Teenage Dirtbag',
       secondaryText: 'Wheatus',
       explicit: true,
     },
-    {
-      imageUrl: '../../../assets/images/bastille.jpg',
-      text: 'Pompeii',
-      secondaryText: 'Bastille',
-      explicit: false,
-    },
+    { imageUrl: '../../../assets/images/bastille.jpg', text: 'Pompeii', secondaryText: 'Bastille', explicit: false },
     {
       imageUrl: '../../../assets/images/c.png',
       text: 'Prayer in C',
@@ -107,9 +84,7 @@ export class SideBarComponent {
   ];
 
   getSelectedCardData(): any[] {
-    return this.selectedOption === 'upNext'
-      ? this.upNextCardData
-      : this.recentListeningCardData;
+    return this.selectedOption === 'upNext' ? this.upNextCardData : this.recentListeningCardData;
   }
 
   selectOption(option: string) {
