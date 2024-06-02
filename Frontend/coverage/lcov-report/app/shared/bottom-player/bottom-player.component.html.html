@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for app/shared/side-bar/side-bar.component.html</title>
+    <title>Code coverage report for app/shared/bottom-player/bottom-player.component.html</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,7 +19,7 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">app/shared/side-bar</a> side-bar.component.html</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">app/shared/bottom-player</a> bottom-player.component.html</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
@@ -100,12 +100,7 @@
 <a name='L35'></a><a href='#L35'>35</a>
 <a name='L36'></a><a href='#L36'>36</a>
 <a name='L37'></a><a href='#L37'>37</a>
-<a name='L38'></a><a href='#L38'>38</a>
-<a name='L39'></a><a href='#L39'>39</a>
-<a name='L40'></a><a href='#L40'>40</a>
-<a name='L41'></a><a href='#L41'>41</a>
-<a name='L42'></a><a href='#L42'>42</a>
-<a name='L43'></a><a href='#L43'>43</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L38'></a><a href='#L38'>38</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -142,52 +137,42 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&lt;div class="fixed z-10" style="--tw-w: 17vw; --tw-h: 77vh; left: 3vw; top: 10.2vh;"&gt;
-  &lt;div class="container"&gt;
-    &lt;mat-card class="bg-gray-900 shadow-xl p-4 border border-gray-300 rounded-md h-full"&gt;
-      &lt;mat-card-content class="bg-stone-300 dark:bg-stone-800 rounded-lg overflow-auto h-full flex flex-col justify-between scrollbar-hidden"&gt;
-        &lt;div class="flex flex-col h-full"&gt;
-          &lt;div class="flex justify-between mb-4"&gt;
-            &lt;div class="button-container" [ngClass]="{'underline-blue': selectedOption === 'upNext', 'underline-none': selectedOption !== 'upNext'}"&gt;
-              &lt;button class="pl-5 pr-5 text-md font-semibold text-gray-800 dark:text-white focus:outline-none button"
-                      (click)="selectOption('upNext')"&gt;Up next
-              &lt;/button&gt;
-            &lt;/div&gt;
-            &lt;div class="button-container" [ngClass]="{'underline-blue': selectedOption === 'recentListening', 'underline-none': selectedOption !== 'recentListening'}"&gt;
-              &lt;button class="pl-5 pr-5 text-md font-semibold text-gray-800 dark:text-white focus:outline-none button"
-                      (click)="selectOption('recentListening')"&gt;Recent listening
-              &lt;/button&gt;
-            &lt;/div&gt;
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&lt;div class="fixed right-4 bottom-0 ml-6" style="width: 96vw; height: 13vh"&gt;
+  &lt;mat-card class="bg-gray-900 shadow-xl p-4 border border-gray-300 rounded-md h-full"&gt;
+    &lt;mat-card-content class="bg-stone-400 dark:bg-stone-900 rounded-lg overflow-hidden h-full flex items-center"&gt;
+      &lt;div class="flex items-center h-full w-full justify-between"&gt;
+        &lt;div class="flex items-center space-x-5"&gt;
+          &lt;!-- Image container to ensure it stays on the left but centered vertically --&gt;
+          &lt;div class="flex-shrink-0"&gt;
+            &lt;img src="../../../assets/images/nasty.jpg" alt="Card image" class="w-16 h-auto rounded sm:w-8 md:w-12 lg:w-12 xl:w-12"&gt;
           &lt;/div&gt;
 &nbsp;
-          &lt;div class="mt-7 flex-grow overflow-auto scrollbar-hidden"&gt;
-            &lt;div *ngFor="let card of getSelectedCardData()" class="flex items-center mb-5"&gt;
-              &lt;!-- Image on the left --&gt;
-              &lt;div class="mr-4 flex-shrink-0" style="width: 25%;"&gt;
-                &lt;img [src]="card.imageUrl" alt="Card image" class="w-full h-auto rounded"&gt;
-              &lt;/div&gt;
-              &lt;!-- Text on the right --&gt;
-              &lt;div class="flex-grow"&gt;
-                &lt;!-- First text with icon --&gt;
-                &lt;div class="flex items-center"&gt;
-                  &lt;img *ngIf="card.explicit &amp;&amp; this.themeService.isDarkModeActive()" src="../../../assets/images/explicit-dark.png" alt="Explicit Icon" class="w-6 h-6 mr-2"&gt;
-                  &lt;img *ngIf="card.explicit &amp;&amp; !(this.themeService.isDarkModeActive())" src="../../../assets/images/explicit.png" alt="Explicit Icon" class="w-6 h-6 mr-2"&gt;
-                  &lt;p class="text-gray-900 dark:text-white font-bold"&gt;{{ card.text }}&lt;/p&gt;
-                &lt;/div&gt;
-                &lt;!-- Second text (underneath the first text) --&gt;
-                &lt;p class="text-sm text-gray-500 dark:text-gray-400"&gt;{{ card.secondaryText }}&lt;/p&gt;
-              &lt;/div&gt;
-            &lt;/div&gt;
+          &lt;!-- Text container to place two pieces of text one underneath the other --&gt;
+          &lt;div class="flex flex-col justify-center ml-3"&gt;
+            &lt;p class="text-gray-900 dark:text-white font-bold"&gt;All In&lt;/p&gt;
+            &lt;p class="text-gray-800 dark:text-white"&gt;Nasty C ft. TI&lt;/p&gt;
+          &lt;/div&gt;
+&nbsp;
+&nbsp;
+&nbsp;
+          &lt;div class="flex flex-col justify-center"&gt;
+            &lt;img *ngIf="this.themeService.isDarkModeActive()" src="../../../assets/images/explicit-dark.png" alt="Explicit Icon" class="w-6 h-6"&gt;
+            &lt;img *ngIf="!(this.themeService.isDarkModeActive())" src="../../../assets/images/explicit.png" alt="Explicit Icon" class="w-6 h-6"&gt;
           &lt;/div&gt;
         &lt;/div&gt;
-      &lt;/mat-card-content&gt;
-    &lt;/mat-card&gt;
-  &lt;/div&gt;
+        &lt;div class="flex space-x-3 mr-5"&gt;
+          &lt;div class="flex flex-col justify-center"&gt;
+            &lt;img *ngIf="this.themeService.isDarkModeActive()" src="../../../assets/images/volume (1).png" alt="Volume Icon" class="w-8 h-8"&gt;
+            &lt;img *ngIf="!(this.themeService.isDarkModeActive())" src="../../../assets/images/volume.png" alt="Volume Icon" class="w-8 h-8"&gt;
+          &lt;/div&gt;
+          &lt;div class="flex flex-col justify-center"&gt;
+            &lt;img *ngIf="this.themeService.isDarkModeActive()" src="../../../assets/images/slider (1).png" alt="Slider Icon" class="w-20 h-auto"&gt;
+            &lt;img *ngIf="!(this.themeService.isDarkModeActive())" src="../../../assets/images/slider.png" alt="Slider Icon" class="w-20 h-auto"&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/mat-card-content&gt;
+  &lt;/mat-card&gt;
 &lt;/div&gt;
 &nbsp;</pre></td></tr></table></pre>
 
