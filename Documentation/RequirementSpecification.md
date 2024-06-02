@@ -367,7 +367,7 @@ The artist accesses the analytics page and views detailed insights about their l
 ![analytics](<Analytics Display.png>)
 
 ## 4. AI Processing Subsystem
-![AI-processing](<AI Subsystem.png>)
+![AI-processing](<new AI Subsystem.png>)
 
 <br />
 <br />
