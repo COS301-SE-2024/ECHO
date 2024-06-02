@@ -35,12 +35,9 @@ jobs:
         run: |
           cd Backend
           npm run test:cov 
-          coveralls < coverage/lcov.info
 
       - name: Upload test coverage to Coveralls
-        uses: coverallsapp/github-action@v2
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }} 
+        run: coveralls < Backend/coverage/lcov.info
 
       - name: Upload test results for debugging
         if: failure()
