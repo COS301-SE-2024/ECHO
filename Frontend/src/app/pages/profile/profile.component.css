@@ -15,11 +15,6 @@
   @apply bg-stone-900 text-white border-stone-900;
 }
 
-:root {
-  --card-width: 20vw;
-  --card-height: 30vh;
-}
-
 .scrollable-cards {
   overflow-x: auto;
   scrollbar-width: none; /* For Firefox */
@@ -57,6 +52,7 @@
 
 .profile-container {
   display: flex;
+  height: 80%;
   justify-content: center;
   width: 100%;
 }
@@ -65,42 +61,14 @@
   width: 79%;
   max-width: 79%;
   min-width: 79%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  overflow: hidden;
+  height: 82%;
 }
 
-.profile-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+:root {
+  --card-width: 20vw;
+  --card-height: 30vh;
 }
 
-.cards-section {
-  height: 60%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  overflow-y: auto;
-}
-
-.cards-section::-webkit-scrollbar {
-  display: none;
-}
-
-.cards-section {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-}
-
-.scrollable-cards mat-card {
-  flex-shrink: 0;
-  width: var(--card-width);  /* Variable width */
-  height: var(--card-height);  /* Variable height */
-}
 
 @media (max-width: 600px) {
   :root {
