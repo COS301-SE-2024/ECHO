@@ -25,4 +25,9 @@ export class UserController {
     async getUser(@Param('username') username: string) {
         return this.userService.findOne(username);
     }
+
+    @Get('loggedIn')
+    async loggedIn() {
+        return this.userService.loggedIn();
+    }
 }

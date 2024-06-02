@@ -6,6 +6,9 @@ import { MatSidenav} from '@angular/material/sidenav';
 import { MatCard, MatCardContent } from '@angular/material/card';
 import { NgClass, NgForOf, NgIf } from '@angular/common';
 import { SideBarComponent} from '../../shared/side-bar/side-bar.component';
+import {OnInit} from '@angular/core';
+import {AuthService} from '../../services/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -26,7 +29,7 @@ import { SideBarComponent} from '../../shared/side-bar/side-bar.component';
 })
 export class HomeComponent {
   protected title: string  = 'Home';
-  constructor(protected themeService: ThemeService) {}
+  constructor(protected themeService: ThemeService, private authService: AuthService, private router: Router) {}
 
 
 
@@ -39,4 +42,7 @@ export class HomeComponent {
     this.title = newNav;
   }
 
+  profile() {
+    this.router.navigate(['/profile']);
+  }
 }
