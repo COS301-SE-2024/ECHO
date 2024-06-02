@@ -6,14 +6,15 @@ import { importProvidersFrom } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideServiceWorker } from '@angular/service-worker';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
+
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideClientHydration(),
-    provideHttpClient(),
+    provideHttpClient(withFetch()),
     provideServiceWorker('ngsw-worker.js', {
         enabled: !isDevMode(),
         registrationStrategy: 'registerWhenStable:30000'

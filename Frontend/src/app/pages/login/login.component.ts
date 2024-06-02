@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {NgOptimizedImage} from "@angular/common";
 import { SpotifyLoginComponent} from "../../spotify-login/spotify-login.component";
 import { AuthService } from '../../services/auth.service';
 import {Router} from "@angular/router";
 import {FormsModule} from "@angular/forms";
+import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,17 @@ import {FormsModule} from "@angular/forms";
 export class LoginComponent {
   username: string = '';
   password: string = '';
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private themeService: ThemeService) {}
+
+  ngOnInit() {
+    this.theme();
+  }
+
+  theme() {
+    if (!(this.themeService.isDarkModeActive())) {
+      this.themeService.switchTheme();
+    }
+  }
 
   spotify() {
     var email: any;
@@ -36,7 +47,7 @@ export class LoginComponent {
       response => {
         if (response.user) {
           console.log('User logged in successfully', response);
-          this.router.navigate(['/landing']);
+          this.router.navigate(['/home']);
         } else {
           console.error('Error logging in user', response);
           alert('Invalid username or password');
@@ -44,7 +55,6 @@ export class LoginComponent {
       },
       error => {
         console.error('Error logging in user', error);
-        //this.errorMessage = 'An error occurred while logging in.';
       }
     );
   }

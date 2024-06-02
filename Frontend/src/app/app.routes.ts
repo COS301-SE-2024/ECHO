@@ -5,6 +5,7 @@ import { RegisterComponent } from "./pages/register/register.component";
 import { HomeComponent } from "./pages/home/home.component";
 import { ProfileComponent } from './pages/profile/profile.component';
 
+
 export const routes: Routes = [
   { path: 'landing', component: LandingPageComponent },
   { path: 'login', component: LoginComponent },
