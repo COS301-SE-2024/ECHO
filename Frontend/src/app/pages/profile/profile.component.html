@@ -1,0 +1,118 @@
+<style>
+  .scrollable-cards {
+    overflow-x: auto;
+    scrollbar-width: none; /* For Firefox */
+  }
+
+  .scrollable-cards::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
+  }
+
+  .dark .scrollable-cards {
+    --scrollbar-thumb: white;
+  }
+
+  .light .scrollable-cards {
+    --scrollbar-thumb: black;
+  }
+
+  .card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card-image {
+    width: 10vw;
+    height: 10vw;
+    max-width: 100px;
+    max-height: 100px;
+    min-width: 50px;
+    min-height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 0.5rem;
+  }
+
+  .profile-container {
+    display: flex;
+    height: 80%;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .profile {
+    width: 79%;
+    max-width: 79%;
+    min-width: 79%;
+    height: 82%;
+  }
+</style>
+
+<div class="min-h-screen dark:bg-stone-700 flex flex-col justify-center px-6 py-12 lg:px-8">
+  <div class="flex justify-center items-center">
+    <button class="absolute bottom-6 left-3 p-2 bg-gray-300 dark:bg-gray-700 rounded-full" (click)="switchTheme()">
+      <svg class="w-6 h-6 text-gray-800 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3a7 7 0 0010.79 9.79z" />
+      </svg>
+    </button>
+
+    <app-side-bar></app-side-bar>
+
+    <div class="profile-container">
+      <div id="profile" class="profile fixed right-4 top-4 mt-5 ml-6 h-5/6">
+        <mat-card class="bg-gray-900 shadow-xl p-4 border border-gray-300 rounded-md h-full relative">
+          <mat-card-content class="bg-stone-300 dark:bg-stone-800 rounded-lg overflow-hidden h-full relative">
+            <div class="absolute top-16 left-1/2 transform -translate-x-1/2 text-center">
+              <img src="../../../assets/images/back.jpg" alt="Profile Image" class="w-24 h-24 rounded-full border-2 border-white dark:border-gray-700 mx-auto">
+              <h2 class="mt-2 text-gray-900 dark:text-white font-bold">&#64;downinsmoke</h2>
+              <div class="flex justify-center mt-2 space-x-4">
+                <p class="text-gray-900 dark:text-white">11 Followers</p>
+                <p class="text-gray-900 dark:text-white">3 Following</p>
+              </div>
+            </div>
+            <p class="absolute text-gray-900 top-8 left-20 dark:text-white font-bold">ECHO Rank: #1</p>
+            <button *ngIf="themeService.isDarkModeActive()" class="absolute btn btn-dark top-5 right-10">Edit Profile</button>
+            <button *ngIf="!themeService.isDarkModeActive()" class="absolute btn btn-light top-5 right-10">Edit Profile</button>
+
+            <div class="absolute bottom-2 left-20 w-full pr-10 overflow-hidden">
+              <h2 class="text-gray-900 dark:text-white font-bold mb-2">Top Songs</h2>
+              <div class="flex space-x-4 overflow-x-auto scrollable-cards">
+                <ng-container *ngFor="let item of recentListeningCardData">
+                  <mat-card class="bg-white dark:bg-stone-800 shadow-md p-2 border border-gray-300 rounded-md flex-shrink-0" style="width: 15vw; height: 20vw; max-width: 9rem; max-height: 12rem; min-width: 5rem; min-height: 7.5rem;">
+                    <mat-card-content class="card-content">
+                      <img [src]="item.imageUrl" alt="{{item.text}}" class="rounded">
+                      <div class="text-center">
+                        <p class="text-gray-900 dark:text-white text-sm font-bold">{{item.text}}</p>
+                        <p class="text-gray-500 dark:text-gray-400 text-xs">{{item.secondaryText}}</p>
+                      </div>
+                    </mat-card-content>
+                  </mat-card>
+                </ng-container>
+              </div>
+              <h2 class="text-gray-900 dark:text-white font-bold mb-2 mt-4">Top Artists</h2>
+              <div class="flex space-x-4 overflow-x-auto scrollable-cards">
+                <ng-container *ngFor="let artist of artists">
+                  <mat-card class="bg-white dark:bg-stone-800 shadow-md p-2 border border-gray-300 rounded-md flex-shrink-0" style="width: 15vw; height: 20vw; max-width: 9rem; max-height: 12rem; min-width: 5rem; min-height: 7.5rem;">
+                    <mat-card-content class="card-content">
+                      <img [src]="artist.imageUrl" alt="{{artist.text}}" class="card-image">
+                      <div class="text-center">
+                        <p class="text-gray-900 dark:text-white text-sm font-bold">{{artist.text}}</p>
+                      </div>
+                    </mat-card-content>
+                  </mat-card>
+                </ng-container>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+
+    <app-bottom-player></app-bottom-player>
+
+    <div class="navbar-container">
+      <app-navbar (selectedNavChange)="onNavChange($event)"></app-navbar>
+    </div>
+  </div>
+</div>

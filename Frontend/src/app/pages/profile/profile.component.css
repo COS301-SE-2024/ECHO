@@ -1,0 +1,137 @@
+.navbar-container {
+  position: fixed;
+  top: .1%;
+  left: 4%;
+}
+
+.btn {
+  @apply font-bold py-2 px-4 rounded-3xl border-2;
+}
+.btn-dark {
+  @apply bg-gray-200 text-stone-900 border-stone-900;
+}
+
+.btn-light {
+  @apply bg-stone-900 text-white border-stone-900;
+}
+
+:root {
+  --card-width: 20vw;
+  --card-height: 30vh;
+}
+
+.scrollable-cards {
+  overflow-x: auto;
+  scrollbar-width: none; /* For Firefox */
+}
+
+.scrollable-cards::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Opera */
+}
+
+.dark .scrollable-cards {
+  --scrollbar-thumb: white;
+}
+
+.light .scrollable-cards {
+  --scrollbar-thumb: black;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card-image {
+  width: 10vw;
+  height: 10vw;
+  max-width: 100px;
+  max-height: 100px;
+  min-width: 50px;
+  min-height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 0.5rem;
+}
+
+.profile-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.profile {
+  width: 79%;
+  max-width: 79%;
+  min-width: 79%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.profile-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.cards-section {
+  height: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow-y: auto;
+}
+
+.cards-section::-webkit-scrollbar {
+  display: none;
+}
+
+.cards-section {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollable-cards mat-card {
+  flex-shrink: 0;
+  width: var(--card-width);  /* Variable width */
+  height: var(--card-height);  /* Variable height */
+}
+
+@media (max-width: 600px) {
+  :root {
+    --card-width: 80vw;  /* Adjusted for small screens */
+    --card-height: 40vh;  /* Adjusted for small screens */
+  }
+
+  .profile-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profile {
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+  }
+
+  .profile img {
+    width: 50%;
+    height: auto;
+    margin: 0 auto;
+  }
+
+  .profile .card-content {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .scrollable-cards {
+    flex-direction: column;
+  }
+}
+
