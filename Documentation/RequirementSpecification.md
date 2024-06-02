@@ -353,7 +353,7 @@ The artist accesses the analytics page and views detailed insights about their l
 # Use Case Diagrams
 
 ## 1. User Management Subsystem
-![user management](<Untitled Diagram-User Management.drawio.png>)
+![user management](<User Management.png>)
 
 ## 2. Profile Management Subsystem
 ![profile management](<Profile Management.png>)
@@ -365,6 +365,7 @@ The artist accesses the analytics page and views detailed insights about their l
 ![analytics display](<Analytics Display.png>)
 
 ## 5. AI Processing Subsystem
+![AI Processing Subsystem](<AI Subsystem.png>)
 
 <br />
 <br />
