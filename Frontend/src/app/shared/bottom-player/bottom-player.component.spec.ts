@@ -8,10 +8,9 @@ describe('BottomPlayerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BottomPlayerComponent]
-    })
-    .compileComponents();
-    
+      imports: [BottomPlayerComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(BottomPlayerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
