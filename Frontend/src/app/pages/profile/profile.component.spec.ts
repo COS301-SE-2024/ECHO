@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { HttpClientModule } from '@angular/common/http';
 import { ProfileComponent } from './profile.component';
 
 describe('ProfileComponent', () => {
@@ -8,9 +8,10 @@ describe('ProfileComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ProfileComponent],
-    }).compileComponents();
-
+      imports: [ProfileComponent, HttpClientModule]
+    })
+    .compileComponents();
+    
     fixture = TestBed.createComponent(ProfileComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
