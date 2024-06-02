@@ -60,10 +60,17 @@ describe('UserService', () => {
 
   describe('validateUser', () => {
     it('should return a user if validation is successful', async () => {
-      const user = { 
-        username: 'testUser', 
-        password: 'hashedPassword' 
-      } as UserDocument;
+      const user = {
+        username: 'testUser',
+        password: await bcrypt.hash('plainPassword', 10),
+        email: 'mock@email.com',
+        spotifyConnected: true,
+        toObject: jest.fn().mockReturnValue({
+          username: 'testUser',
+          // Add other fields as necessary
+        }),
+      } as Partial<UserDocument> as UserDocument;
+
       jest.spyOn(service, 'findOne').mockResolvedValue(user);
 
       const compareSpy = jest.spyOn(bcrypt, 'compare') as unknown as jest.MockInstance<
@@ -77,7 +84,10 @@ describe('UserService', () => {
     });
 
     it('should return an error if validation fails', async () => {
-      const user = { username: 'testUser', password: 'hashedPassword' } as UserDocument;
+      const user = {
+        username: 'testUser',
+        password: 'hashedPassword',
+      } as Partial<UserDocument> as UserDocument;
       jest.spyOn(service, 'findOne').mockResolvedValue(null);
 
       const compareSpy = jest.spyOn(bcrypt, 'compare') as unknown as jest.MockInstance<

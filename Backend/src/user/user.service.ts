@@ -46,7 +46,7 @@ export class UserService {
         }
         return {
             error: 'Login failed',
-            message: 'Invalid username or password}'
+            message: 'Invalid username or password'
         }
     }
 }
