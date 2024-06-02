@@ -4,12 +4,12 @@ import { NgIf } from '@angular/common';
 import { ThemeService } from '../../services/theme.service';
 
 @Component({
-  selector: 'app-bottom-player',
-  standalone: true,
-  imports: [MatCard, MatCardContent, NgIf],
-  templateUrl: './bottom-player.component.html',
-  styleUrl: './bottom-player.component.css',
+    selector: 'app-bottom-player',
+    standalone: true,
+    imports: [MatCard, MatCardContent, NgIf],
+    templateUrl: './bottom-player.component.html',
+    styleUrl: './bottom-player.component.css',
 })
 export class BottomPlayerComponent {
-  constructor(protected themeService: ThemeService) {}
+    constructor(protected themeService: ThemeService) {}
 }

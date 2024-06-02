@@ -3,29 +3,33 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root',
+    providedIn: 'root',
 })
 export class AuthService {
-  private baseUrl = 'http://localhost:3000';
+    private baseUrl = 'http://localhost:3000';
 
-  constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) {}
 
-  register(username: string, email: string, password: string): Observable<any> {
-    return this.http.post(`${this.baseUrl}/users/register`, {
-      username,
-      email,
-      password,
-    });
-  }
+    register(
+        username: string,
+        email: string,
+        password: string,
+    ): Observable<any> {
+        return this.http.post(`${this.baseUrl}/users/register`, {
+            username,
+            email,
+            password,
+        });
+    }
 
-  login(username: string, password: string): Observable<any> {
-    return this.http.post(`${this.baseUrl}/users/login`, {
-      username,
-      password,
-    });
-  }
+    login(username: string, password: string): Observable<any> {
+        return this.http.post(`${this.baseUrl}/users/login`, {
+            username,
+            password,
+        });
+    }
 
-  loggedIn(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/users/loggedIn`);
-  }
+    loggedIn(): Observable<any> {
+        return this.http.get(`${this.baseUrl}/users/loggedIn`);
+    }
 }

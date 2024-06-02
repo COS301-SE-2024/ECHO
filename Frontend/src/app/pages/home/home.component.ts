@@ -12,41 +12,41 @@ import { Router } from '@angular/router';
 import { BottomPlayerComponent } from '../../shared/bottom-player/bottom-player.component';
 import { MoodsComponent } from '../../shared/moods/moods.component';
 @Component({
-  selector: 'app-home',
-  standalone: true,
-  imports: [
-    SongRecommendationComponent,
-    NavbarComponent,
-    MatSidenav,
-    MatCard,
-    MatCardContent,
-    NgClass,
-    NgForOf,
-    NgIf,
-    SideBarComponent,
-    BottomPlayerComponent,
-    MoodsComponent,
-  ],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.css',
+    selector: 'app-home',
+    standalone: true,
+    imports: [
+        SongRecommendationComponent,
+        NavbarComponent,
+        MatSidenav,
+        MatCard,
+        MatCardContent,
+        NgClass,
+        NgForOf,
+        NgIf,
+        SideBarComponent,
+        BottomPlayerComponent,
+        MoodsComponent,
+    ],
+    templateUrl: './home.component.html',
+    styleUrl: './home.component.css',
 })
 export class HomeComponent {
-  protected title: string = 'Home';
-  constructor(
-    protected themeService: ThemeService,
-    private authService: AuthService,
-    private router: Router,
-  ) {}
+    protected title: string = 'Home';
+    constructor(
+        protected themeService: ThemeService,
+        private authService: AuthService,
+        private router: Router,
+    ) {}
 
-  switchTheme(): void {
-    this.themeService.switchTheme();
-  }
+    switchTheme(): void {
+        this.themeService.switchTheme();
+    }
 
-  onNavChange(newNav: string) {
-    this.title = newNav;
-  }
+    onNavChange(newNav: string) {
+        this.title = newNav;
+    }
 
-  profile() {
-    this.router.navigate(['/profile']);
-  }
+    profile() {
+        this.router.navigate(['/profile']);
+    }
 }
