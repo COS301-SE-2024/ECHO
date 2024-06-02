@@ -4,6 +4,7 @@ import { UserService } from './user.service';
 import { User, UserDocument } from './user.schema';
 import * as bcrypt from 'bcryptjs';
 import { Model } from 'mongoose';
+import { ConfigService } from '@nestjs/config';
 
 describe('UserService', () => {
   let service: UserService;
@@ -25,6 +26,13 @@ describe('UserService', () => {
           provide: getModelToken(User.name),
           useValue: mockUserModel,
         },
+        {
+          provide: ConfigService,
+          useValue: {
+            get: jest.fn().mockReturnValue('default_value'),
+            set: jest.fn().mockReturnValue('default_value'),
+          },
+        }
       ],
     }).compile();
 
