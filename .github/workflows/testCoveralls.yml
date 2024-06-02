@@ -1,6 +1,8 @@
-on: ["push", "pull_request"]
-
 name: Test Coveralls
+
+on:
+  - push
+  - pull_request
 
 jobs:
 
@@ -8,19 +10,18 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v1
 
-    - uses: actions/checkout@v1
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
 
-    - name: Use Node.js 16.x
-      uses: actions/setup-node@v3
-      with:
-        node-version: 16.x
+      - name: Install dependencies and run tests
+        run: |
+          npm install
+          cd Backend
+          npm run test:cov
 
-    - name: run tests
-      run: |
-        npm install
-        cd Backend
-        npm run test:cov
-
-    - name: Coveralls
-      uses: coverallsapp/github-action@v2
+      - name: Coveralls
+        uses: coverallsapp/github-action@v2
