@@ -26,7 +26,6 @@
               "src/manifest.webmanifest"
             ],
             "styles": [
-              "@angular/material/prebuilt-themes/pink-bluegrey.css",
               "src/styles/styles.css"
             ],
             "scripts": [],
@@ -96,7 +95,6 @@
               "src/manifest.webmanifest"
             ],
             "styles": [
-              "@angular/material/prebuilt-themes/pink-bluegrey.css",
               "src/styles/tailwind.css",
               "src/styles.css"
             ],
