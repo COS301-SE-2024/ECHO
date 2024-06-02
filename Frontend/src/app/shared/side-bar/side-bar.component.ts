@@ -57,7 +57,7 @@ export class SideBarComponent {
     },
     {
       imageUrl: '../../../assets/images/post.jpg',
-      text: 'Too cool to die',
+      text: 'Too Cool To Die',
       secondaryText: 'Post Malone',
       explicit: true,
     },
