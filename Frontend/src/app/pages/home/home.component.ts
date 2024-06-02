@@ -9,6 +9,7 @@ import { SideBarComponent} from '../../shared/side-bar/side-bar.component';
 import {OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
+import { BottomPlayerComponent } from '../../shared/bottom-player/bottom-player.component';
 
 @Component({
   selector: 'app-home',
@@ -22,7 +23,8 @@ import {Router} from '@angular/router';
     NgClass,
     NgForOf,
     NgIf,
-    SideBarComponent
+    SideBarComponent,
+    BottomPlayerComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'

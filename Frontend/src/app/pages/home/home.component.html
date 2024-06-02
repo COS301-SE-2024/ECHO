@@ -16,5 +16,6 @@
     </div>
     <img (click)="profile()" *ngIf="!themeService.isDarkModeActive()" src="../../../../assets/images/profile.png" alt="profile" class="w-8 h-8 shadow-lg dark:shadow-none absolute top-5 right-8 hover:cursor-pointer">
     <img (click)="profile()" *ngIf="themeService.isDarkModeActive()" src="../../../../assets/images/profile (1).png" alt="profile" class="w-8 h-8 shadow-lg dark:shadow-none absolute top-5 right-8 hover:cursor-pointer">
+    <app-bottom-player></app-bottom-player>
   </div>
 </div>
