@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import  {LandingPageComponent}  from './pages/landing-page/landing-page.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -9,6 +9,6 @@ import { MatSidenavModule } from '@angular/material/sidenav';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent{
   title = 'Echo';
 }

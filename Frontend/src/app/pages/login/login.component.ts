@@ -46,6 +46,7 @@ export class LoginComponent {
     this.authService.login(this.username, this.password).subscribe(
       response => {
         if (response.user) {
+          localStorage.setItem("username", this.username);
           console.log('User logged in successfully', response);
           this.router.navigate(['/home']);
         } else {

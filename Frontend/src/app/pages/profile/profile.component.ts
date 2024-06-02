@@ -9,6 +9,8 @@ import { MatCard, MatCardContent } from '@angular/material/card';
 import { BottomPlayerComponent } from '../../shared/bottom-player/bottom-player.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
+import { EditProfileModalComponent } from '../../shared/edit-profile-modal/edit-profile-modal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-profile',
@@ -23,11 +25,14 @@ import {MatIconModule} from '@angular/material/icon';
     MatIconModule,
     NgForOf,
     BottomPlayerComponent,
+    EditProfileModalComponent,
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
-export class ProfileComponent {
+export class ProfileComponent{
+
+  imgpath: string = 'back.jpg';
 
   recentListeningCardData = [
     {
@@ -106,7 +111,7 @@ export class ProfileComponent {
   ];
 
 
-  constructor(protected themeService: ThemeService, private authService: AuthService, private router: Router) {
+  constructor(protected themeService: ThemeService, private authService: AuthService, private router: Router, protected dialog: MatDialog) {
   }
 
   switchTheme() {
@@ -115,5 +120,22 @@ export class ProfileComponent {
 
   onNavChange($event: string) {
 
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(EditProfileModalComponent, {
+      width: '250px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  save() {
+    if (localStorage.getItem('path') !== null) {
+      // @ts-ignore
+      this.imgpath = localStorage.getItem('path');
+    }
   }
 }
