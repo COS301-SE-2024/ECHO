@@ -21,4 +21,10 @@ export class AuthService {
   loggedIn(): Observable<any> {
     return this.http.get(`${this.baseUrl}/users/loggedIn`);
   }
+
+  currentUsername(): Observable<any> {
+    let ret = this.http.get(`${this.baseUrl}/users/currentUsername`);
+    console.log(ret);
+    return ret;
+  }
 }
