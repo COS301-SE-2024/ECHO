@@ -157,26 +157,30 @@ ECHO is a Progressive Web Application that interacts with the Spotify API and ta
    3. Provide recommendations based on analysis (described in i.) of the user's selected song rather than general trends.
 
 
-3. Sentiment Analysis system to analyze songs (based on key, BPM, genre) and categorize them based on abstract characteristics such as theme and mood.
-   1. System must process the song’s lyrics and musical elements.
+3. Sentiment Analysis system to analyze songs' lyrics and categorize them based on abstract characteristics such as theme and mood.
+   1. System must process the song’s lyrics.
    2. Sentiment analysis must interpret the song’s emotional content.
    3. Sentiment analysis must categorise the song by theme and mood.
-   4. Sentiment analysis must interpret lyrical content and musical elements to
-      accurately gauge emotional resonance.
+   4. Sentiment analysis must interpret lyrical content to accurately gauge emotional resonance.
+
+4. K-Means Clustering system to group songs based on musical features and sentiment scores. 
+   1. System must receive the musical features for each song, which includes a sentiment score. 
+   2. Clustering must group similar songs using K-Means clustering.
+   3. Clustering must handle updates to clusters when new songs are added to the dataset. 
 
 
-4. Generate and display insights about users' listening habits
+5. Generate and display insights about users' listening habits
    1. Users must be able to view intuitive graphs and charts showing common themes and moods in their listening history.
    2. Insights must provide meaningful knowledge about their musical interests.
    
 
-5. Provide users with a dynamic User Interface
+6. Provide users with a dynamic User Interface
    1. The UI must dynamically adjust to reflect the user's mood based on the current song.
    2. Users must have the ability to toggle the dynamic UI feature on and off.
    3. The design should create an emotionally engaging user experience.
 
 
-6. Ensure the application functions as a Progressive Web Application
+7. Ensure the application functions as a Progressive Web Application
    1. The application must be compatible with various devices and operating systems, including desktops, tablets, and smartphones.
    2. Offline functionality must be implemented to allow users to access the app without an internet connection, and view their previous recommendations.
    3. Application performance should be optimized to provide a smooth and responsive user experience.
