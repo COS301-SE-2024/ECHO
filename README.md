@@ -128,7 +128,9 @@
     </tr>
   </tbody>
 </table>
+
 # Badges
+
 [![Coverage Status](https://coveralls.io/repos/github/COS301-SE-2024/ECHO/badge.svg?branch=)](https://coveralls.io/github/COS301-SE-2024/ECHO?branch=)
 
 
