@@ -36,7 +36,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: test-results
-          path: Backend/test-results
+          path: Backend/coverage
 
       - name: Coveralls
         uses: coverallsapp/github-action@v2
