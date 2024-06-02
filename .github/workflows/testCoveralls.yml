@@ -21,6 +21,7 @@ jobs:
         run: |
           npm install
           npm install --save-dev babel-plugin-istanbul
+          npm install -g coveralls
 
 
       - name: Debug Workspace
@@ -34,6 +35,7 @@ jobs:
         run: |
           cd Backend
           npm run test:cov 
+          coveralls < coverage/lcov.info
 
       - name: Upload test coverage to Coveralls
         uses: coverallsapp/github-action@v2
