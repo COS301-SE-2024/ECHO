@@ -2,7 +2,13 @@ name: linter
 
 on:
   pull_request:
-    branches: [main, develop]
+    branches: 
+      - main
+      - develop
+  push:
+    branches:
+      - main
+      - develop
 
 jobs:
   prettier:
