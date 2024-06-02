@@ -3,8 +3,7 @@ name: Test Coveralls
 on:
   - push
   - pull_request
-env:
-  COVERALLS_REPO_TOKEN : pH8fLaXlSfmuVW1bStsls0fmJ4kCQ7mm6
+  
 jobs:
   build:
     name: Build
