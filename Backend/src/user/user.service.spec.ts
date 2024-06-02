@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getModelToken } from '@nestjs/mongoose';
 import { UserService } from './user.service';
 import { User, UserDocument } from './user.schema';
+import * as bcrypt from 'bcryptjs';
 import { Model } from 'mongoose';
 
 describe('UserService', () => {
@@ -33,6 +34,64 @@ describe('UserService', () => {
 
   it('should be defined', () => {
     expect(service).toBeDefined();
+  });
+
+  describe('findOne', () => {
+    it('should return a user if found', async () => {
+      const user = { username: 'testUser', password: 'hashedPassword' } as UserDocument;
+      mockUserModel.findOne.mockReturnValue({
+        exec: jest.fn().mockResolvedValue(user),
+      });
+
+      expect(await service.findOne('testUser')).toEqual(user);
+    });
+
+    it('should return an error if user not found', async () => {
+      mockUserModel.findOne.mockReturnValue({
+        exec: jest.fn().mockResolvedValue(null),
+      });
+
+      expect(await service.findOne('nonexistentUser')).toEqual({
+        error: 'User not found',
+        message: 'The user with the provided username does not exist',
+      });
+    });
+  });
+
+  describe('validateUser', () => {
+    it('should return a user if validation is successful', async () => {
+      const user = { 
+        username: 'testUser', 
+        password: 'hashedPassword' 
+      } as UserDocument;
+      jest.spyOn(service, 'findOne').mockResolvedValue(user);
+
+      const compareSpy = jest.spyOn(bcrypt, 'compare') as unknown as jest.MockInstance<
+        Promise<boolean>,
+        [string, string]
+      >;
+
+      compareSpy.mockResolvedValue(true);
+
+      expect(await service.validateUser('testUser', 'plainPassword')).toEqual({ message: 'Login successful', user: { username: 'testUser' } });
+    });
+
+    it('should return an error if validation fails', async () => {
+      const user = { username: 'testUser', password: 'hashedPassword' } as UserDocument;
+      jest.spyOn(service, 'findOne').mockResolvedValue(null);
+
+      const compareSpy = jest.spyOn(bcrypt, 'compare') as unknown as jest.MockInstance<
+        Promise<boolean>,
+        [string, string]
+      >;
+
+      compareSpy.mockResolvedValue(false);
+
+      expect(await service.validateUser('testUser', 'wrongPassword')).toEqual({
+        error: 'Login failed',
+        message: 'Invalid username or password',
+      });
+    });
   });
 
 });

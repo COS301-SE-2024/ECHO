@@ -12,7 +12,7 @@ export class UserService {
     }
 
     async findOne(username: string): Promise<any | undefined> {
-        var user =  this.userModel.findOne({username}).exec();
+        var user =  await this.userModel.findOne({ username }).exec();
 
         if (user) {
             return user;
@@ -26,7 +26,12 @@ export class UserService {
 
     async create(email: string, username: string, password: string): Promise<any> {
         const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = new this.userModel({username, password: hashedPassword, email, spotifyConnected: false});
+        const newUser = new this.userModel({
+            username, 
+            password: hashedPassword, 
+            email, 
+            spotifyConnected: false
+        });
         await newUser.save();
         return {message:'Creation successful,', user: newUser};
 

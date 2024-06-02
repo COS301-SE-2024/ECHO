@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {SongRecommendationComponent} from "../../shared/song-recommendation/song-recommendation.component";
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
 import { ThemeService } from './../../services/theme.service';
-import { MatSidenav} from '@angular/material/sidenav';
+import { MatSidenav } from '@angular/material/sidenav';
 import { MatCard, MatCardContent } from '@angular/material/card';
 import { NgClass, NgForOf, NgIf } from '@angular/common';
 import { SideBarComponent} from '../../shared/side-bar/side-bar.component';
