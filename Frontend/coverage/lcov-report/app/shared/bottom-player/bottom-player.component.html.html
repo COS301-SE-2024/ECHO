@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for app/pages/home/home.component.html</title>
+    <title>Code coverage report for app/shared/bottom-player/bottom-player.component.html</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,7 +19,7 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">app/pages/home</a> home.component.html</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">app/shared/bottom-player</a> bottom-player.component.html</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
@@ -84,7 +84,23 @@
 <a name='L19'></a><a href='#L19'>19</a>
 <a name='L20'></a><a href='#L20'>20</a>
 <a name='L21'></a><a href='#L21'>21</a>
-<a name='L22'></a><a href='#L22'>22</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -105,26 +121,58 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&lt;div class="min-h-screen dark:bg-stone-600 flex flex-col justify-center px-6 py-12 lg:px-8"&gt;
-  &lt;div style="display: flex; justify-content: center; align-items: center;"&gt;
-    &lt;button class="absolute bottom-4 left-4 p-2 bg-gray-300 dark:bg-gray-700 rounded-full" (click)="switchTheme()"&gt;
-      &lt;svg class="w-6 h-6 text-gray-800 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-           xmlns="http://www.w3.org/2000/svg"&gt;
-        &lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M21 12.79A9 9 0 1111.21 3a7 7 0 0010.79 9.79z" /&gt;
-      &lt;/svg&gt;
-    &lt;/button&gt;
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&lt;div class="fixed right-4 bottom-0 ml-6" style="width: 96vw; height: 13vh"&gt;
+  &lt;mat-card class="bg-gray-900 shadow-xl p-4 border border-gray-300 rounded-md h-full"&gt;
+    &lt;mat-card-content class="bg-stone-400 dark:bg-stone-900 rounded-lg overflow-hidden h-full flex items-center"&gt;
+      &lt;div class="flex items-center h-full w-full justify-between"&gt;
+        &lt;div class="flex items-center space-x-5"&gt;
+          &lt;!-- Image container to ensure it stays on the left but centered vertically --&gt;
+          &lt;div class="flex-shrink-0"&gt;
+            &lt;img src="../../../assets/images/nasty.jpg" alt="Card image" class="w-16 h-auto rounded sm:w-8 md:w-12 lg:w-12 xl:w-12"&gt;
+          &lt;/div&gt;
 &nbsp;
-    &lt;app-side-bar&gt;&lt;/app-side-bar&gt;
-    &lt;h1 class="text-3xl font-bold text-gray-800 dark:text-gray-200"&gt;{{ title }}&lt;/h1&gt;
+          &lt;!-- Text container to place two pieces of text one underneath the other --&gt;
+          &lt;div class="flex flex-col justify-center ml-3"&gt;
+            &lt;p class="text-gray-900 dark:text-white font-bold"&gt;All In&lt;/p&gt;
+            &lt;p class="text-gray-800 dark:text-white"&gt;Nasty C ft. TI&lt;/p&gt;
+          &lt;/div&gt;
 &nbsp;
-    &lt;div class="navbar-container "&gt;
-      &lt;app-navbar (selectedNavChange)="onNavChange($event)"&gt;&lt;/app-navbar&gt;
-    &lt;/div&gt;
-    &lt;img (click)="profile()" *ngIf="!themeService.isDarkModeActive()" src="../../../../assets/images/profile.png" alt="profile" class="w-8 h-8 shadow-lg dark:shadow-none absolute top-5 right-8 hover:cursor-pointer"&gt;
-    &lt;img (click)="profile()" *ngIf="themeService.isDarkModeActive()" src="../../../../assets/images/profile (1).png" alt="profile" class="w-8 h-8 shadow-lg dark:shadow-none absolute top-5 right-8 hover:cursor-pointer"&gt;
-    &lt;app-bottom-player&gt;&lt;/app-bottom-player&gt;
-  &lt;/div&gt;
+&nbsp;
+&nbsp;
+          &lt;div class="flex flex-col justify-center"&gt;
+            &lt;img *ngIf="this.themeService.isDarkModeActive()" src="../../../assets/images/explicit-dark.png" alt="Explicit Icon" class="w-6 h-6"&gt;
+            &lt;img *ngIf="!(this.themeService.isDarkModeActive())" src="../../../assets/images/explicit.png" alt="Explicit Icon" class="w-6 h-6"&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="flex space-x-3 mr-5"&gt;
+          &lt;div class="flex flex-col justify-center"&gt;
+            &lt;img *ngIf="this.themeService.isDarkModeActive()" src="../../../assets/images/volume (1).png" alt="Volume Icon" class="w-8 h-8"&gt;
+            &lt;img *ngIf="!(this.themeService.isDarkModeActive())" src="../../../assets/images/volume.png" alt="Volume Icon" class="w-8 h-8"&gt;
+          &lt;/div&gt;
+          &lt;div class="flex flex-col justify-center"&gt;
+            &lt;img *ngIf="this.themeService.isDarkModeActive()" src="../../../assets/images/slider (1).png" alt="Slider Icon" class="w-20 h-auto"&gt;
+            &lt;img *ngIf="!(this.themeService.isDarkModeActive())" src="../../../assets/images/slider.png" alt="Slider Icon" class="w-20 h-auto"&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/mat-card-content&gt;
+  &lt;/mat-card&gt;
 &lt;/div&gt;
 &nbsp;</pre></td></tr></table></pre>
 
