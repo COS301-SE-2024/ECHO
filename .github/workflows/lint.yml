@@ -2,7 +2,9 @@ name: linter
 
 on:
   pull_request:
-    branches: [main, develop]
+    branches:
+      - main
+      - develop
 
 jobs:
   lint:
@@ -20,7 +22,7 @@ jobs:
         if: matrix.language == 'node'
         uses: actions/setup-node@v3
         with: 
-          node-version: '16'
+          node-version: 14
 
       - name: Install Node.js dependencies
         if: matrix.language == 'node'
@@ -34,14 +36,11 @@ jobs:
         if: matrix.language == 'python'
         uses: actions/setup-python@v4
         with:
-          python-version: '3.9'
+          python-version: 3.12
 
-      - name: Install Python dependencies
+      - name: Install Dependencies and Run Linter
         if: matrix.language == 'python'
         run: |
           python -m pip install --upgrade pip
           pip install flake8
-
-      - name: Run flake8 for Python
-        if: matrix.language == 'python'
-        run: flake8 .
+          flake8 .
