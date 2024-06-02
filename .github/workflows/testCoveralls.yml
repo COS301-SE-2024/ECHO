@@ -31,7 +31,7 @@ jobs:
           echo "Displaying package.json in Backend directory:"
           cat Backend/package.json
 
-      - name: Run tests with coverage
+      - name: Run backend tests with coverage
         run: |
           cd Backend
           npm run test:cov 
@@ -41,6 +41,17 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path-to-lcov: Backend/coverage/lcov.info
+
+      - name: Run frontend tests with coverage
+        run: |
+          cd Frontend
+          npm run test:coverage 
+  
+      - name: Upload coverage to Coveralls
+        uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: Frontend/coverage/lcov.info
 
       - name: Upload test results for debugging
         if: failure()
