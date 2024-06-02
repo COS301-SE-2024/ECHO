@@ -16,4 +16,4 @@ jobs:
         run: npm install
 
       - name: Check formatting
-        run: npx prettier --check **/*.jsx
+        run: npx prettier --check **/*.{js,ts}
