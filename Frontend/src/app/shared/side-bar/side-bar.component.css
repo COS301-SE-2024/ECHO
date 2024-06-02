@@ -30,3 +30,18 @@
   position: relative;
   z-index: 1;
 }
+
+.example::-webkit-scrollbar {
+  display: none !important;
+}
+.scrollbar-hidden {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+.container {
+  width: var(--tw-w);
+  height: var(--tw-h);
+}
