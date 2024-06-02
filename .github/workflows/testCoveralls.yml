@@ -5,23 +5,38 @@ on:
   - pull_request
 
 jobs:
-
   build:
     name: Build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
 
-      - name: Use Node.js 16.x
+      - name: Use Node.js 20.x
         uses: actions/setup-node@v3
         with:
-          node-version: 16.x
+          node-version: 20.x
 
-      - name: Install dependencies and run tests
+      - name: Install dependencies
+        run: npm install
+
+      - name: Debug Workspace
         run: |
-          npm install
+          echo "Listing files in Backend directory:"
+          ls -la Backend
+          echo "Displaying package.json in Backend directory:"
+          cat Backend/package.json
+
+      - name: Run tests with coverage
+        run: |
           cd Backend
           npm run test:cov
+
+      - name: Upload test results for debugging
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: Backend/test-results
 
       - name: Coveralls
         uses: coverallsapp/github-action@v2
