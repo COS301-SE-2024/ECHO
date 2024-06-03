@@ -1,8 +1,14 @@
 name: Test Coveralls
 
 on:
-  - push
-  - pull_request
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
 
 jobs:
   build_backend:
