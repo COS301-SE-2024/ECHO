@@ -1,0 +1,35 @@
+name: builder
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set Up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.9.0
+
+      - name: Install Dependencies
+        run: npm install
+        working-directory: ./
+
+      - name: Build Angular App
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
+        run: ng build --prod
+        working-directory: ./
+
+      - name: Build NestJS App
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
+        run: nest build
+        working-directory: ./

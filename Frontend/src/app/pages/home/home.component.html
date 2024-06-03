@@ -1,0 +1,19 @@
+<div class="min-h-screen dark:bg-stone-600 grid grid-cols-5 grid-rows-6 gap-4 px-6 py-12 lg:px-8" style="overflow: auto;">
+  <div class="col-start-1 col-span-5 row-start-1">
+    <div class="navbar-container">
+      <app-navbar (selectedNavChange)="onNavChange($event)"></app-navbar>
+    </div>
+    <img (click)="profile()" *ngIf="!themeService.isDarkModeActive()" src="../../../../assets/images/profile.png" alt="profile" class="w-8 h-8 shadow-lg dark:shadow-none fixed top-5 right-8 hover:cursor-pointer">
+    <img (click)="profile()" *ngIf="themeService.isDarkModeActive()" src="../../../../assets/images/profile (1).png" alt="profile" class="w-8 h-8 shadow-lg dark:shadow-none fixed top-5 right-8 hover:cursor-pointer">
+  </div>
+  <app-side-bar class="col-start-1 col-span-1 row-start-1 row-span-6"></app-side-bar>
+  <app-moods class="col-start-2 col-span-4 row-start-2 row-span-5"></app-moods>
+  <button class="fixed bottom-4 left-4 p-2 bg-gray-300 dark:bg-gray-700 rounded-full" (click)="switchTheme()">
+    <svg class="w-6 h-6 text-gray-800 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M21 12.79A9 9 0 1111.21 3a7 7 0 0010.79 9.79z" />
+    </svg>
+  </button>
+  <app-bottom-player class="col-start-1 col-span-5 row-start-6"></app-bottom-player>
+</div>
