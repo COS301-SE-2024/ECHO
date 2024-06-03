@@ -11,6 +11,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import { EditProfileModalComponent } from '../../shared/edit-profile-modal/edit-profile-modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import {AfterViewInit} from '@angular/core';
 
 @Component({
   selector: 'app-profile',
@@ -30,7 +31,7 @@ import { MatDialog } from '@angular/material/dialog';
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
-export class ProfileComponent{
+export class ProfileComponent implements AfterViewInit {
 
   imgpath: string = 'back.jpg';
 
@@ -110,9 +111,17 @@ export class ProfileComponent{
     },
   ];
 
+  username:  string = '';
+
 
   constructor(protected themeService: ThemeService, private authService: AuthService, private router: Router, protected dialog: MatDialog) {
   }
+
+  ngAfterViewInit(): void {
+    this.authService.currentUsername().subscribe((res) => {
+      this.username = res.name;
+    });
+    }
 
   switchTheme() {
     this.themeService.switchTheme();
@@ -137,5 +146,8 @@ export class ProfileComponent{
       // @ts-ignore
       this.imgpath = localStorage.getItem('path');
     }
+    this.authService.currentUsername().subscribe((res) => {
+      this.username = res.name;
+    });
   }
 }

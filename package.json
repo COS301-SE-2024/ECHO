@@ -18,7 +18,8 @@
   },
   "dependencies": {
     "@nestjs/platform-express": "^10.3.8",
+    "concurrently": "^8.2.2",
     "dotenv": "^16.4.5",
-    "concurrently": "^8.2.2"
+    "prettier": "^3.3.0"
   }
 }

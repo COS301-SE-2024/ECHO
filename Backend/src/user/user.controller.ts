@@ -36,7 +36,7 @@ export class UserController {
   }
 
 
-  @Get(':username')
+  @Get('find/:username')
   async getUser(@Param('username') username: string) {
     return this.userService.findOne(username);
   }
@@ -47,8 +47,7 @@ export class UserController {
   }
 
   @Get('currentUsername')
-  async getCurrentUsername() {
-    console.log('Getting current user');
+  async getCurrentUsername() {console.log('Getting current user');
     const filePath = path.join(__dirname, '../../src/user/currentUser/currentUser.json');
     console.log('File path:', filePath);
 
@@ -66,7 +65,34 @@ export class UserController {
     }
   }
 
-  saveCurrentUserToFile(user: { name: string }) {
+  @Get('set/:username')
+  async setCurrentUsername(@Param('username') username: string) {
+    const filePath = path.join(__dirname, '../../src/user/currentUser/currentUser.json');
+    fs.writeFile(filePath, JSON.stringify({name: username}, null, 2), (err) => {
+      if (err) {
+        console.error('Error writing file:', err);
+      } else {
+        console.log('Current user saved to file successfully');
+      }
+    });
+
+    return { name: username };
+  }
+
+  @Post('updateUsername')
+  async updateUsername(@Body('username') username: string) {
+    console.log('Updating username to:', username);
+    const currentUser = await this.getCurrentUsername();
+    const updatedUser = await this.userService.updateUsername(currentUser.name, username);
+
+    if (updatedUser) {
+      this.saveCurrentUserToFile({ name: username });
+    }
+
+    return updatedUser;
+  }
+
+    saveCurrentUserToFile(user: { name: string }) {
     const filePath = path.join(__dirname, '../../src/user/currentUser/currentUser.json');
 
     // Log the user data to be saved
