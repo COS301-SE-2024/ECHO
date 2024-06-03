@@ -20,5 +20,8 @@
     "@nestjs/platform-express": "^10.3.8",
     "dotenv": "^16.4.5",
     "concurrently": "^8.2.2"
+  },
+  "devDependencies": {
+    "prettier": "3.3.0"
   }
 }
