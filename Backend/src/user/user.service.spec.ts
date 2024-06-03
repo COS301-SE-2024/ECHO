@@ -32,7 +32,7 @@ describe('UserService', () => {
             get: jest.fn().mockReturnValue('default_value'),
             set: jest.fn().mockReturnValue('default_value'),
           },
-        }
+        },
       ],
     }).compile();
 
@@ -46,7 +46,10 @@ describe('UserService', () => {
 
   describe('findOne', () => {
     it('should return a user if found', async () => {
-      const user = { username: 'testUser', password: 'hashedPassword' } as UserDocument;
+      const user = {
+        username: 'testUser',
+        password: 'hashedPassword',
+      } as UserDocument;
       mockUserModel.findOne.mockReturnValue({
         exec: jest.fn().mockResolvedValue(user),
       });
@@ -81,14 +84,17 @@ describe('UserService', () => {
 
       jest.spyOn(service, 'findOne').mockResolvedValue(user);
 
-      const compareSpy = jest.spyOn(bcrypt, 'compare') as unknown as jest.MockInstance<
-        Promise<boolean>,
-        [string, string]
-      >;
+      const compareSpy = jest.spyOn(
+        bcrypt,
+        'compare',
+      ) as unknown as jest.MockInstance<Promise<boolean>, [string, string]>;
 
       compareSpy.mockResolvedValue(true);
 
-      expect(await service.validateUser('testUser', 'plainPassword')).toEqual({ message: 'Login successful', user: { username: 'testUser' } });
+      expect(await service.validateUser('testUser', 'plainPassword')).toEqual({
+        message: 'Login successful',
+        user: { username: 'testUser' },
+      });
     });
 
     it('should return an error if validation fails', async () => {
@@ -98,10 +104,10 @@ describe('UserService', () => {
       } as Partial<UserDocument> as UserDocument;
       jest.spyOn(service, 'findOne').mockResolvedValue(null);
 
-      const compareSpy = jest.spyOn(bcrypt, 'compare') as unknown as jest.MockInstance<
-        Promise<boolean>,
-        [string, string]
-      >;
+      const compareSpy = jest.spyOn(
+        bcrypt,
+        'compare',
+      ) as unknown as jest.MockInstance<Promise<boolean>, [string, string]>;
 
       compareSpy.mockResolvedValue(false);
 
@@ -111,5 +117,4 @@ describe('UserService', () => {
       });
     });
   });
-
 });

@@ -46,9 +46,9 @@ describe('AppModule', () => {
         UserModule,
       ],
     })
-    .overrideProvider(ConfigService)
-    .useValue(mockConfigService)
-    .compile();
+      .overrideProvider(ConfigService)
+      .useValue(mockConfigService)
+      .compile();
   });
 
   it('should compile the module', () => {

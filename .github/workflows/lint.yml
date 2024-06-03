@@ -1,25 +1,25 @@
 name: linter
 
 on:
-  pull_request:
-    branches: 
-      - main
-      - develop
-  push:
-    branches:
-      - main
-      - develop
+    pull_request:
+        branches:
+            - main
+            - develop
+    push:
+        branches:
+            - main
+            - develop
 
 jobs:
-  prettier:
-    runs-on: ubuntu-latest
+    prettier:
+        runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
 
-      - name: Install Dependencies
-        run: npm install
+            - name: Install Dependencies
+              run: npm install
 
-      - name: Check formatting
-        run: npx prettier --check **/*.{js,ts}
+            - name: Check formatting
+              run: npx prettier --check **/*.{js,ts}

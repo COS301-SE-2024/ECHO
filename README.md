@@ -8,29 +8,34 @@
 
 # Project Description:
 
-### HalfStack - *ECHO* - A Progressive Web App `(PWA)`  that recommends `songs` and shows visualise `statistics` based on analysis of songs you already `like` on `Spotify`. Using a `sentiment analysis AI` to generate data on abstract song characteristics, like `theme`,`mood`,`bpm`,`key` and `time signature`.
+### HalfStack - _ECHO_ - A Progressive Web App `(PWA)` that recommends `songs` and shows visualise `statistics` based on analysis of songs you already `like` on `Spotify`. Using a `sentiment analysis AI` to generate data on abstract song characteristics, like `theme`,`mood`,`bpm`,`key` and `time signature`.
 
 # Group's Links:
 
-- [Team Demo]()
-- [Functional Requirements (SRS)](Documentation\RequirementSpecification.md)
-- [Github Project Board](https://github.com/orgs/COS301-SE-2024/projects/67)
+-   [Team Demo]()
+-   [Functional Requirements (SRS)](Documentation\RequirementSpecification.md)
+-   [Github Project Board](https://github.com/orgs/COS301-SE-2024/projects/67)
 
 # Technology Stack:
 
 ## Frontend:
+
 ![Angular](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white)
 ![Tailwind](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
 ## Backend:
+
 ![Python](https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue)
 ![Nodejs](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
 ![ExpressJs](https://img.shields.io/badge/Express%20js-000000?style=for-the-badge&logo=express&logoColor=white)
 ![NestJs](https://img.shields.io/badge/nestjs-E0234E?style=for-the-badge&logo=nestjs&logoColor=white)
 
 ## DataBase:
+
 ![Mongo DB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
+
 ## Hosting
+
 ![Azure](https://img.shields.io/badge/microsoft%20azure-0089D6?style=for-the-badge&logo=microsoft-azure&logoColor=white)
 
 ## Branching strategy `GitFlow`
@@ -132,5 +137,3 @@
 # Badges
 
 [![Coverage Status](https://coveralls.io/repos/github/COS301-SE-2024/ECHO/badge.svg?branch=)](https://coveralls.io/github/COS301-SE-2024/ECHO?branch=)
-
-

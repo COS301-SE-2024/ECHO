@@ -1,47 +1,47 @@
 .button-container {
-  position: relative;
+    position: relative;
 }
 
 .button-container::after {
-  content: '';
-  position: absolute;
-  width: calc(100% - 2.5rem);
-  left: 1.25rem;
-  bottom: -2px;
-  height: 2px;
-  background-color: transparent;
-  transition: background-color 0.3s ease;
+    content: "";
+    position: absolute;
+    width: calc(100% - 2.5rem);
+    left: 1.25rem;
+    bottom: -2px;
+    height: 2px;
+    background-color: transparent;
+    transition: background-color 0.3s ease;
 }
 
 .underline-blue::after {
-  background-color: theme(colors.rose.600);
+    background-color: theme(colors.rose.600);
 }
 
 .underline-none::after {
-  background-color: transparent;
+    background-color: transparent;
 }
 
 .button {
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  position: relative;
-  z-index: 1;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
 }
 
 .example::-webkit-scrollbar {
-  display: none !important;
+    display: none !important;
 }
 .scrollbar-hidden {
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
-  scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    scrollbar-width: none; /* Firefox */
 }
 .scrollbar-hidden::-webkit-scrollbar {
-  display: none; /* Safari and Chrome */
+    display: none; /* Safari and Chrome */
 }
 .container {
-  width: var(--tw-w);
-  height: var(--tw-h);
+    width: var(--tw-w);
+    height: var(--tw-h);
 }

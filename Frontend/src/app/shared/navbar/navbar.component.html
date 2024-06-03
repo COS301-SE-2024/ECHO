@@ -1,8 +1,50 @@
 <div class="bg-white-300 p-3 flex justify-between rounded-box">
-    <app-svg-icon class="icon" [selected]="selectedSvg === homeSvg" *ngIf="themeService.isDarkModeActive()" (svgClick)="select(homeSvg)" [svgPath]="homeSvg" [fillColor]="'#D9D9D9'"></app-svg-icon>
-    <app-svg-icon class="icon" [selected]="selectedSvg === homeSvg" *ngIf="!themeService.isDarkModeActive()" (svgClick)="select(homeSvg)" [svgPath]="homeSvg" [fillColor]="'#323232'"></app-svg-icon>
-    <app-svg-icon class="icon" [selected]="selectedSvg === otherSvg1" *ngIf="themeService.isDarkModeActive()" (svgClick)="select(otherSvg1)" [svgPath]="otherSvg1" [fillColor]="'#D9D9D9'"></app-svg-icon>
-    <app-svg-icon class="icon" [selected]="selectedSvg === otherSvg1" *ngIf="!themeService.isDarkModeActive()" (svgClick)="select(otherSvg1)" [svgPath]="otherSvg1" [fillColor]="'#323232'"></app-svg-icon>
-    <app-svg-icon class="icon" [selected]="selectedSvg === otherSvg2" *ngIf="themeService.isDarkModeActive()" (svgClick)="select(otherSvg2)" [svgPath]="otherSvg2" [fillColor]="'#D9D9D9'"></app-svg-icon>
-    <app-svg-icon class="icon" [selected]="selectedSvg === otherSvg2" *ngIf="!themeService.isDarkModeActive()" (svgClick)="select(otherSvg2)" [svgPath]="otherSvg2" [fillColor]="'#323232'"></app-svg-icon>
+    <app-svg-icon
+        class="icon"
+        [selected]="selectedSvg === homeSvg"
+        *ngIf="themeService.isDarkModeActive()"
+        (svgClick)="select(homeSvg)"
+        [svgPath]="homeSvg"
+        [fillColor]="'#D9D9D9'"
+    ></app-svg-icon>
+    <app-svg-icon
+        class="icon"
+        [selected]="selectedSvg === homeSvg"
+        *ngIf="!themeService.isDarkModeActive()"
+        (svgClick)="select(homeSvg)"
+        [svgPath]="homeSvg"
+        [fillColor]="'#323232'"
+    ></app-svg-icon>
+    <app-svg-icon
+        class="icon"
+        [selected]="selectedSvg === otherSvg1"
+        *ngIf="themeService.isDarkModeActive()"
+        (svgClick)="select(otherSvg1)"
+        [svgPath]="otherSvg1"
+        [fillColor]="'#D9D9D9'"
+    ></app-svg-icon>
+    <app-svg-icon
+        class="icon"
+        [selected]="selectedSvg === otherSvg1"
+        *ngIf="!themeService.isDarkModeActive()"
+        (svgClick)="select(otherSvg1)"
+        [svgPath]="otherSvg1"
+        [fillColor]="'#323232'"
+    ></app-svg-icon>
+    <app-svg-icon
+        class="icon"
+        [selected]="selectedSvg === otherSvg2"
+        *ngIf="themeService.isDarkModeActive()"
+        (svgClick)="select(otherSvg2)"
+        [svgPath]="otherSvg2"
+        [fillColor]="'#D9D9D9'"
+    ></app-svg-icon>
+    <app-svg-icon
+        class="icon"
+        [selected]="selectedSvg === otherSvg2"
+        *ngIf="!themeService.isDarkModeActive()"
+        (svgClick)="select(otherSvg2)"
+        [svgPath]="otherSvg2"
+        [fillColor]="'#323232'"
+    ></app-svg-icon>
 </div>

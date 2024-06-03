@@ -1,7 +1,11 @@
 # Rueben van der Westhuizen
+
 `BSc Information & Knowledge Systems`
+
 ## Role
+
 `Frontend Engineer`
+
 ## About Me
 
 I have a passion for computer science and the art it
@@ -17,8 +21,8 @@ have a positive impact on people's lives, aiming to
 solve real-world problems through innovative
 solutions
 
-
 ## Contact me
-- Email : 
+
+-   Email :
 
 [back](../README.md)

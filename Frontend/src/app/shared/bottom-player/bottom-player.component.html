@@ -1,37 +1,77 @@
 <div class="fixed right-4 bottom-0 ml-6" style="width: 96vw; height: 13vh">
-  <mat-card class="bg-gray-900 shadow-xl p-4 border border-gray-300 rounded-md h-full">
-    <mat-card-content class="bg-stone-400 dark:bg-stone-900 rounded-lg overflow-hidden h-full flex items-center">
-      <div class="flex items-center h-full w-full justify-between">
-        <div class="flex items-center space-x-5">
-          <!-- Image container to ensure it stays on the left but centered vertically -->
-          <div class="flex-shrink-0">
-            <img src="../../../assets/images/nasty.jpg" alt="Card image" class="w-16 h-auto rounded sm:w-8 md:w-12 lg:w-12 xl:w-12">
-          </div>
+    <mat-card
+        class="bg-gray-900 shadow-xl p-4 border border-gray-300 rounded-md h-full"
+    >
+        <mat-card-content
+            class="bg-stone-400 dark:bg-stone-900 rounded-lg overflow-hidden h-full flex items-center"
+        >
+            <div class="flex items-center h-full w-full justify-between">
+                <div class="flex items-center space-x-5">
+                    <!-- Image container to ensure it stays on the left but centered vertically -->
+                    <div class="flex-shrink-0">
+                        <img
+                            src="../../../assets/images/nasty.jpg"
+                            alt="Card image"
+                            class="w-16 h-auto rounded sm:w-8 md:w-12 lg:w-12 xl:w-12"
+                        />
+                    </div>
 
-          <!-- Text container to place two pieces of text one underneath the other -->
-          <div class="flex flex-col justify-center ml-3">
-            <p class="text-gray-900 dark:text-white font-bold">All In</p>
-            <p class="text-gray-800 dark:text-white">Nasty C ft. TI</p>
-          </div>
+                    <!-- Text container to place two pieces of text one underneath the other -->
+                    <div class="flex flex-col justify-center ml-3">
+                        <p class="text-gray-900 dark:text-white font-bold">
+                            All In
+                        </p>
+                        <p class="text-gray-800 dark:text-white">
+                            Nasty C ft. TI
+                        </p>
+                    </div>
 
-
-
-          <div class="flex flex-col justify-center">
-            <img *ngIf="this.themeService.isDarkModeActive()" src="../../../assets/images/explicit-dark.png" alt="Explicit Icon" class="w-6 h-6">
-            <img *ngIf="!(this.themeService.isDarkModeActive())" src="../../../assets/images/explicit.png" alt="Explicit Icon" class="w-6 h-6">
-          </div>
-        </div>
-        <div class="flex space-x-3 mr-5">
-          <div class="flex flex-col justify-center">
-            <img *ngIf="this.themeService.isDarkModeActive()" src="../../../assets/images/volume (1).png" alt="Volume Icon" class="w-8 h-8">
-            <img *ngIf="!(this.themeService.isDarkModeActive())" src="../../../assets/images/volume.png" alt="Volume Icon" class="w-8 h-8">
-          </div>
-          <div class="flex flex-col justify-center">
-            <img *ngIf="this.themeService.isDarkModeActive()" src="../../../assets/images/slider (1).png" alt="Slider Icon" class="w-20 h-auto">
-            <img *ngIf="!(this.themeService.isDarkModeActive())" src="../../../assets/images/slider.png" alt="Slider Icon" class="w-20 h-auto">
-          </div>
-        </div>
-      </div>
-    </mat-card-content>
-  </mat-card>
+                    <div class="flex flex-col justify-center">
+                        <img
+                            *ngIf="this.themeService.isDarkModeActive()"
+                            src="../../../assets/images/explicit-dark.png"
+                            alt="Explicit Icon"
+                            class="w-6 h-6"
+                        />
+                        <img
+                            *ngIf="!this.themeService.isDarkModeActive()"
+                            src="../../../assets/images/explicit.png"
+                            alt="Explicit Icon"
+                            class="w-6 h-6"
+                        />
+                    </div>
+                </div>
+                <div class="flex space-x-3 mr-5">
+                    <div class="flex flex-col justify-center">
+                        <img
+                            *ngIf="this.themeService.isDarkModeActive()"
+                            src="../../../assets/images/volume (1).png"
+                            alt="Volume Icon"
+                            class="w-8 h-8"
+                        />
+                        <img
+                            *ngIf="!this.themeService.isDarkModeActive()"
+                            src="../../../assets/images/volume.png"
+                            alt="Volume Icon"
+                            class="w-8 h-8"
+                        />
+                    </div>
+                    <div class="flex flex-col justify-center">
+                        <img
+                            *ngIf="this.themeService.isDarkModeActive()"
+                            src="../../../assets/images/slider (1).png"
+                            alt="Slider Icon"
+                            class="w-20 h-auto"
+                        />
+                        <img
+                            *ngIf="!this.themeService.isDarkModeActive()"
+                            src="../../../assets/images/slider.png"
+                            alt="Slider Icon"
+                            class="w-20 h-auto"
+                        />
+                    </div>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
 </div>

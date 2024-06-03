@@ -14,8 +14,7 @@ import { UserModule } from './user/user.module';
         Logger.log('Factory function called', 'Database');
         const uri = configService.get<string>('MONGODB_URI');
         Logger.log(`MongoDB URI: ${uri}`, 'Database');
-        return { uri,
-        };
+        return { uri };
       },
       inject: [ConfigService],
     }),

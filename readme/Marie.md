@@ -1,7 +1,11 @@
 # Marie Pretorius
+
 `BSc Computer Science`
+
 ## Role
+
 `Technical Lead`
+
 ## About Me
 
 I am a back-end developer and cyber security
@@ -12,6 +16,7 @@ solving complex problems. In my free time, I am an
 avid musician, digital artist and reader.
 
 ## Contact me
-- Email : 
+
+-   Email :
 
 [back](../README.md)

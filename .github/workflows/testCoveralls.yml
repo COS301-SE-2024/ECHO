@@ -1,60 +1,59 @@
 name: Test Coveralls
 
 on:
-  - push
-  - pull_request
-  
+    - push
+    - pull_request
+
 jobs:
-  build:
-    name: Build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
+    build:
+        name: Build
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v1
 
-      - name: Use Node.js 20.x
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20.x
+            - name: Use Node.js 20.x
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 20.x
 
-      - name: Install dependencies
-        run: |
-          npm install
-          npm install --save-dev babel-plugin-istanbul
-          npm install -g coveralls
+            - name: Install dependencies
+              run: |
+                  npm install
+                  npm install --save-dev babel-plugin-istanbul
+                  npm install -g coveralls
 
+            - name: Debug Workspace
+              run: |
+                  echo "Listing files in Backend directory:"
+                  ls -la Backend
+                  echo "Displaying package.json in Backend directory:"
+                  cat Backend/package.json
 
-      - name: Debug Workspace
-        run: |
-          echo "Listing files in Backend directory:"
-          ls -la Backend
-          echo "Displaying package.json in Backend directory:"
-          cat Backend/package.json
+            - name: Run backend tests with coverage
+              run: |
+                  cd Backend
+                  npm run test:cov
 
-      - name: Run backend tests with coverage
-        run: |
-          cd Backend
-          npm run test:cov 
+            - name: Upload coverage to Coveralls
+              uses: coverallsapp/github-action@v2
+              with:
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  path-to-lcov: Backend/coverage/lcov.info
 
-      - name: Upload coverage to Coveralls
-        uses: coverallsapp/github-action@v2
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: Backend/coverage/lcov.info
+            - name: Run frontend tests with coverage
+              run: |
+                  cd Frontend
+                  npm run test:coverage
 
-      - name: Run frontend tests with coverage
-        run: |
-          cd Frontend
-          npm run test:coverage 
-  
-      - name: Upload coverage to Coveralls
-        uses: coverallsapp/github-action@v2
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: Frontend/coverage/lcov.info
+            - name: Upload coverage to Coveralls
+              uses: coverallsapp/github-action@v2
+              with:
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  path-to-lcov: Frontend/coverage/lcov.info
 
-      - name: Upload test results for debugging
-        if: failure()
-        uses: actions/upload-artifact@v3
-        with:
-          name: test-results
-          path: Backend/coverage
+            - name: Upload test results for debugging
+              if: failure()
+              uses: actions/upload-artifact@v3
+              with:
+                  name: test-results
+                  path: Backend/coverage

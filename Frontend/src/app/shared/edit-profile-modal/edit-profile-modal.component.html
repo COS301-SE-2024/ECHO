@@ -1,18 +1,50 @@
-<div class="fixed inset-0 flex items-center justify-center" (loadeddata)="user()">
-  <div class="bg-stone-800 text-white p-8 rounded-lg shadow-lg w-1/3 h-1/2">
-    <h2 mat-dialog-title class="text-center text-white" style="color: white; font-weight: bold">Edit Profile</h2>
-    <mat-dialog-content>
-      <div class="flex flex-col space-y-2">
-        <label for="username" class="text-white">Username</label>
-        <input id="username" [(ngModel)]="username" matInput type="text" placeholder="{{username}}" class="rounded">
-        <label for="path" class="text-white">Profile Picture Path</label>
-        <input id="path" [(ngModel)]="imgpath" matInput type="text" placeholder="{{imgpath}}" class="rounded">
-      </div>
-    </mat-dialog-content>
-    <mat-dialog-actions>
-      <button mat-button class="text-white" (click)="onNoClick()">Cancel</button>
-      <button mat-button class="text-white left-30" (click)="saveChanges()">Save</button>
-    </mat-dialog-actions>
-  </div>
+<div
+    class="fixed inset-0 flex items-center justify-center"
+    (loadeddata)="user()"
+>
+    <div class="bg-stone-800 text-white p-8 rounded-lg shadow-lg w-1/3 h-1/2">
+        <h2
+            mat-dialog-title
+            class="text-center text-white"
+            style="color: white; font-weight: bold"
+        >
+            Edit Profile
+        </h2>
+        <mat-dialog-content>
+            <div class="flex flex-col space-y-2">
+                <label for="username" class="text-white">Username</label>
+                <input
+                    id="username"
+                    [(ngModel)]="username"
+                    matInput
+                    type="text"
+                    placeholder="{{ username }}"
+                    class="rounded"
+                />
+                <label for="path" class="text-white"
+                    >Profile Picture Path</label
+                >
+                <input
+                    id="path"
+                    [(ngModel)]="imgpath"
+                    matInput
+                    type="text"
+                    placeholder="{{ imgpath }}"
+                    class="rounded"
+                />
+            </div>
+        </mat-dialog-content>
+        <mat-dialog-actions>
+            <button mat-button class="text-white" (click)="onNoClick()">
+                Cancel
+            </button>
+            <button
+                mat-button
+                class="text-white left-30"
+                (click)="saveChanges()"
+            >
+                Save
+            </button>
+        </mat-dialog-actions>
+    </div>
 </div>
-
