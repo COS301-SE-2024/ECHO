@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialogRef } from '@angular/material/dialog';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { EditProfileModalComponent } from './edit-profile-modal.component';
 
@@ -8,7 +10,10 @@ describe('EditProfileModalComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [EditProfileModalComponent],
+            imports: [EditProfileModalComponent, HttpClientTestingModule], // add HttpClientTestingModule here
+            providers: [
+                { provide: MatDialogRef, useValue: {} }
+            ]
         }).compileComponents();
 
         fixture = TestBed.createComponent(EditProfileModalComponent);

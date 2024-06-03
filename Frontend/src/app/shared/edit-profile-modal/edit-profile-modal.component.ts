@@ -27,6 +27,7 @@ import { OnInit, AfterViewInit } from '@angular/core';
         MatDialogTitle,
         MatInput,
         FormsModule,
+        MatDialogModule
     ],
     templateUrl: './edit-profile-modal.component.html',
     styleUrl: './edit-profile-modal.component.css',
