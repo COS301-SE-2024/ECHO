@@ -42,21 +42,21 @@ export class LoginComponent {
         password.required = false;
     }
 
-  login() {
-    this.authService.login(this.username, this.password).subscribe(
-      response => {
-        if (response.user) {
-          localStorage.setItem("username", this.username);
-          console.log('User logged in successfully', response);
-          this.router.navigate(['/home']);
-        } else {
-          console.error('Error logging in user', response);
-          alert('Invalid username or password');
-        }
-      },
-      error => {
-        console.error('Error logging in user', error);
-      }
-    );
-  }
+    login() {
+        this.authService.login(this.username, this.password).subscribe(
+            (response) => {
+                if (response.user) {
+                    localStorage.setItem('username', this.username);
+                    console.log('User logged in successfully', response);
+                    this.router.navigate(['/home']);
+                } else {
+                    console.error('Error logging in user', response);
+                    alert('Invalid username or password');
+                }
+            },
+            (error) => {
+                console.error('Error logging in user', error);
+            },
+        );
+    }
 }
