@@ -57,4 +57,10 @@ export class UserService {
     async loggedIn(): Promise<boolean> {
         return this.configService.get<boolean>("userLoggedIn");
     }
+
+    async updateUsername(currentUsername: string, newUsername: string): Promise<User | null> {
+        console.log("Old: " + currentUsername);
+        console.log("New: " + newUsername);
+        return await this.userModel.findOneAndUpdate({ username: currentUsername }, { username: newUsername }, { new: true }).exec();
+    }
 }
