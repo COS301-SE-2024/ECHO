@@ -63,28 +63,33 @@ def recommend_songs(music_features, n_recommendations=5):
         clustered_data, centroids = load_cluster_data()
 
     if music_features:
-        with open('cluster_centroids.json', 'r') as f:
-            centroids = np.array(json.load(f))
 
-        song_features = music_features
-        new_song = pd.DataFrame([song_features])
+        music_features = {key: music_features[key] for key in features if key in music_features}
+        new_song = pd.DataFrame([music_features])
 
-        new_song_features = new_song[features]
-        new_song_scaled = scalar.transform(new_song_features)
+        is_existing_song = (
+            (clustered_data[features] == new_song[features].iloc[0]).all(axis=1)
+        ).any()
 
+        new_song_scaled = scalar.transform(new_song[features])
         distances_to_centroids = np.linalg.norm(centroids - new_song_scaled, axis=1)
         closest_centroid_index = np.argmin(distances_to_centroids)
 
         cluster_data = clustered_data[clustered_data['Cluster'] == closest_centroid_index]
+
+        if is_existing_song:
+            existing_song_index = (
+                (clustered_data[features] == new_song[features].iloc[0]).all(axis=1)
+            ).idxmax()
+            cluster_data = cluster_data.drop(index=existing_song_index)
 
         cluster_indices = cluster_data.index
         cluster_features = X_scaled[cluster_indices]
         distances = np.linalg.norm(cluster_features - new_song_scaled, axis=1)
 
         closest_indices = np.argsort(distances)[:n_recommendations]
-        closest_songs = data.iloc[cluster_indices[closest_indices]]
+        closest_songs = clustered_data.iloc[cluster_indices[closest_indices]]
 
         return closest_songs['uri']
-
     else:
         return None
