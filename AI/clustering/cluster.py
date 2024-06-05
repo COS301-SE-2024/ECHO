@@ -1,14 +1,17 @@
+import csv
 import json
 import os
 
 import numpy as np
 import pandas as pd
+from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
+import matplotlib.pyplot as plt
 
 
 file_path = 'music_data.csv'
-data = pd.read_csv(file_path, delimiter=';')
+data = pd.read_csv(file_path, delimiter=',')
 
 features = ['duration_ms', 'danceability', 'energy', 'loudness', 'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo']
 
@@ -17,6 +20,25 @@ X = X.dropna()
 scalar = StandardScaler()
 X_scaled = scalar.fit_transform(X)
 sse = []
+
+
+def visualise_clusters(clustered_data, centroids, X_scaled):
+    pca = PCA(n_components=2)
+    X_pca = pca.fit_transform(X_scaled)
+
+    plt.figure(figsize=(10, 6))
+    plt.scatter(X_pca[:, 0], X_pca[:, 1], c=clustered_data['Cluster'], cmap='viridis', alpha=0.5, label='Data Points')
+
+    centroids_pca = pca.transform(centroids)
+    plt.scatter(centroids_pca[:, 0], centroids_pca[:, 1], c='red', marker='X', s=100, label='Cluster Centroids')
+
+    plt.title('Cluster Visualisation (PCA)')
+    plt.xlabel('Principal Component 1')
+    plt.ylabel('Principal Component 2')
+    plt.legend()
+    plt.colorbar()
+    plt.grid(True)
+    plt.show()
 
 
 def determine_clusters():
@@ -54,6 +76,12 @@ def load_cluster_data():
         return None, None
 
 
+def append_uri(uri):
+    with open(file_path, 'a', newline='') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow([uri])
+
+
 def recommend_songs(music_features, n_recommendations=5):
     clustered_data, centroids = load_cluster_data()
 
@@ -64,12 +92,19 @@ def recommend_songs(music_features, n_recommendations=5):
 
     if music_features:
 
+        uri = music_features['uri']
         music_features = {key: music_features[key] for key in features if key in music_features}
         new_song = pd.DataFrame([music_features])
 
         is_existing_song = (
             (clustered_data[features] == new_song[features].iloc[0]).all(axis=1)
         ).any()
+
+        if not is_existing_song:
+            new_row = [music_features[key] for key in features]
+            new_row.append(uri)
+            data.loc[len(data)] = new_row
+            data.to_csv(file_path, index=False)
 
         new_song_scaled = scalar.transform(new_song[features])
         distances_to_centroids = np.linalg.norm(centroids - new_song_scaled, axis=1)
@@ -93,3 +128,9 @@ def recommend_songs(music_features, n_recommendations=5):
         return closest_songs['uri']
     else:
         return None
+
+
+# clustered_data, centroids = load_cluster_data()
+#
+# if clustered_data is not None and centroids is not None:
+#     visualise_clusters(clustered_data, centroids, X_scaled)

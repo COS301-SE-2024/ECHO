@@ -42,11 +42,9 @@ def get_similar_songs(song_name, artist):
     artist_name = artist
 
     track_id = get_track_id(track_name, artist_name)
-
     song_features = get_song_features(track_id)
 
     recommended_songs = cluster.recommend_songs(song_features)
-
     recommended_tracks = []
 
     for uri in recommended_songs:
