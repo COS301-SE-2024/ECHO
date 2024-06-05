@@ -1,65 +1,81 @@
+import json
+import os
+
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
-import matplotlib.pyplot as plt
-import seaborn as sns
+
 
 file_path = 'music_data.csv'
 data = pd.read_csv(file_path, delimiter=';')
 
 features = ['duration_ms', 'danceability', 'energy', 'loudness', 'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo']
+
 X = data[features]
-
 X = X.dropna()
-
 scalar = StandardScaler()
 X_scaled = scalar.fit_transform(X)
-
 sse = []
-# for k in range(1, 11):
-#     kmeans = KMeans(n_clusters=k, random_state=42)
-#     kmeans.fit(X_scaled)
-#     sse.append(kmeans.inertia_)
-#
-# plt.figure(figsize=(10, 6))
-# plt.plot(range(1, 11), sse, marker='o')
-# plt.title('Elbow Method')
-# plt.xlabel('Number of clusters')
-# plt.ylabel('SSE')
-# plt.show()
 
-optimal_clusters = 10
-kmeans = KMeans(n_clusters=optimal_clusters, random_state=42)
-kmeans.fit(X_scaled)
 
-data['Cluster'] = kmeans.labels_
-#
-# plt.figure(figsize=(12, 8))
-# sns.scatterplot(data=data, x='tempo', y='acousticness', hue='Cluster', palette='viridis')
-# plt.title('Clusters based on Tempo and Acousticness')
-# plt.show()
-#
-# plt.figure(figsize=(12, 8))
-# sns.scatterplot(data=data, x='loudness', y='valence', hue='Cluster', palette='viridis')
-# plt.title('Clusters based on Loudness and Valence')
-# plt.show()
-#
-# data.to_csv('clustered_music_data.csv', index=False)
+def determine_clusters():
+    for k in range(1, 21):
+        kmeans = KMeans(n_clusters=k, random_state=42)
+        kmeans.fit(X_scaled)
+        sse.append(kmeans.inertia_)
+
+    optimal_clusters = 15
+    return optimal_clusters
+
+
+def cluster(optimal_clusters):
+    kmeans = KMeans(n_clusters=optimal_clusters, random_state=42)
+    kmeans.fit(X_scaled)
+
+    data['Cluster'] = kmeans.labels_
+
+    data.to_csv('clustered_music_data.csv', index=False)
+
+    centroids = kmeans.cluster_centers_
+    with open('cluster_centroids.json', 'w') as f:
+        json.dump(centroids.tolist(), f)
+
+    return kmeans
+
+
+def load_cluster_data():
+    if os.path.exists('clustered_music_data.csv') and os.path.exists('cluster_centroids.json'):
+        clustered_data = pd.read_csv('clustered_music_data.csv')
+        with open('cluster_centroids.json', 'r') as f:
+            centroids = np.array(json.load(f))
+        return clustered_data, centroids
+    else:
+        return None, None
 
 
 def recommend_songs(music_features, n_recommendations=5):
-    song_features = music_features
-    if song_features:
+    clustered_data, centroids = load_cluster_data()
+
+    if clustered_data is None or centroids is None:
+        optimal_clusters = determine_clusters()
+        cluster(optimal_clusters)
+        clustered_data, centroids = load_cluster_data()
+
+    if music_features:
+        with open('cluster_centroids.json', 'r') as f:
+            centroids = np.array(json.load(f))
+
+        song_features = music_features
         new_song = pd.DataFrame([song_features])
 
         new_song_features = new_song[features]
-
         new_song_scaled = scalar.transform(new_song_features)
 
-        new_song_cluster = kmeans.predict(new_song_scaled)[0]
+        distances_to_centroids = np.linalg.norm(centroids - new_song_scaled, axis=1)
+        closest_centroid_index = np.argmin(distances_to_centroids)
 
-        cluster_data = data[data['Cluster'] == new_song_cluster]
+        cluster_data = clustered_data[clustered_data['Cluster'] == closest_centroid_index]
 
         cluster_indices = cluster_data.index
         cluster_features = X_scaled[cluster_indices]
@@ -69,5 +85,6 @@ def recommend_songs(music_features, n_recommendations=5):
         closest_songs = data.iloc[cluster_indices[closest_indices]]
 
         return closest_songs['uri']
+
     else:
         return None
