@@ -2,11 +2,13 @@ import { Module, Logger } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { UserModule } from "./user/user.module";
+import { AuthController } from "./controllers/auth.controller";
+import { AuthService } from "./services/auth.service";
 
 @Module({
     imports: [
         ConfigModule.forRoot({
-            isGlobal: true,
+            isGlobal: true
         }),
         MongooseModule.forRootAsync({
             imports: [ConfigModule],
@@ -16,11 +18,12 @@ import { UserModule } from "./user/user.module";
                 Logger.log(`MongoDB URI: ${uri}`, "Database");
                 return { uri };
             },
-            inject: [ConfigService],
+            inject: [ConfigService]
         }),
-        UserModule,
+        UserModule
     ],
+    controllers: [AuthController],
+    providers: [AuthService]
 })
 export class AppModule {
-    public userLoggedIn: boolean = false;
 }
