@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - develop
   pull_request:
 
 jobs:
@@ -21,15 +20,20 @@ jobs:
           node-version: 20.9.0
 
       - name: Install Dependencies
-        run: npm install
+        run: |
+          npm install
+          npm link @angular/cli
+          npm install @angular/service-worker
+          npm install -g @nestjs/cli
+
         working-directory: ./
 
       - name: Build Angular App
         if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
-        run: ng build --prod
-        working-directory: ./
+        run: ng build Frontend --configuration production
+        working-directory: ./Frontend
 
       - name: Build NestJS App
         if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
         run: nest build
-        working-directory: ./
+        working-directory: ./Backend
