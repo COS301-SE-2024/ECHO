@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
@@ -19,7 +19,7 @@ jobs:
       - name: Set Up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 22.2.0
+          node-version: 20.9.0
 
       - name: Install Dependencies
         run: |
@@ -33,7 +33,7 @@ jobs:
 
       - name: Build Angular App
         if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/feature/build-fix')
-        run: npm run build
+        run: npm run watch
         working-directory: ./Frontend
 
       - name: Build NestJS App
