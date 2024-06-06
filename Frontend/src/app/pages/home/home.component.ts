@@ -11,6 +11,7 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { BottomPlayerComponent } from '../../shared/bottom-player/bottom-player.component';
 import { MoodsComponent } from '../../shared/moods/moods.component';
+
 @Component({
     selector: 'app-home',
     standalone: true,
