@@ -22,16 +22,21 @@ jobs:
           node-version: 22.2.0
 
       - name: Install Dependencies
-        run: npm install
+        run: |
+          npm install
+          cd Frontend
+          npm install
+          cd ../Backend
+          npm install
 
         working-directory: ./
 
       - name: Build Angular App
         if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/feature/build-fix')
         run: npm run build
-        working-directory: ./
+        working-directory: ./Frontend
 
       - name: Build NestJS App
         if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/feature/build-fix')
         run: nest build
-        working-directory: ./
+        working-directory: ./Backend
