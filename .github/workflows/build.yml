@@ -21,6 +21,10 @@ jobs:
         with:
           node-version: 22.2.0
 
+      - name: Check Angular Core Dependency Tree
+        run: npm ls @angular/core
+        continue-on-error: true
+
       - name: Install Dependencies
         run: |
           npm install
