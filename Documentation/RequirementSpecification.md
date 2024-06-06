@@ -11,44 +11,16 @@
 - [User Stories](#user-stories)
 - [Functional Requirements](#functional-requirements)
   - [1. Secure Authentication Process](#1-secure-authentication-process)
-    - [1.1 User Registration](#11-user-registration)
-    - [1.2 User Login](#12-user-login)
-    - [1.3 Password Reset](#13-password-reset)
-    - [1.4 Spotify Integration](#14-spotify-integration)
   - [2. Personalized Song Recommendations](#2-personalized-song-recommendations)
-    - [2.1 Categorized Recommendations](#21-categorized-recommendations)
-    - [2.2 Custom Recommendation Categories](#22-custom-recommendation-categories)
-    - [2.3 Song-Specific Recommendations](#23-song-specific-recommendations)
   - [3. Sentiment Analysis System](#3-sentiment-analysis-system)
-    - [3.1 Lyrics Processing](#31-lyrics-processing)
-    - [3.2 Emotional Content Interpretation](#32-emotional-content-interpretation)
-    - [3.3 Theme and Mood Categorization](#33-theme-and-mood-categorization)
-    - [3.4 Lyrical Content Interpretation](#34-lyrical-content-interpretation)
   - [4. K-Means Clustering System](#4-k-means-clustering-system)
-    - [4.1 Receive Musical Features](#41-receive-musical-features)
-    - [4.2 Song Grouping](#42-song-grouping)
-    - [4.3 Cluster Updates](#43-cluster-updates)
   - [5. User Insights Generation](#5-user-insights-generation)
-    - [5.1 Visual Insights](#51-visual-insights)
-    - [5.2 Meaningful Insights](#52-meaningful-insights)
   - [6. Dynamic User Interface](#6-dynamic-user-interface)
-    - [6.1 Mood-Reflective UI](#61-mood-reflective-ui)
-    - [6.2 UI Toggle](#62-ui-toggle)
-    - [6.3 Emotional Engagement](#63-emotional-engagement)
   - [7. Progressive Web Application Functionality](#7-progressive-web-application-functionality)
-    - [7.1 Cross-Platform Compatibility](#71-cross-platform-compatibility)
-    - [7.2 Offline Functionality](#72-offline-functionality)
-    - [7.3 Performance Optimization](#73-performance-optimization)
   - [8. User Music Library](#8-user-music-library)
-    - [8.1 View Music Library](#81-view-music-library)
   - [9. Follow Functionality](#9-follow-functionality)
-    - [9.1 Follow Users](#91-follow-users)
-    - [9.2 Follow Artists](#92-follow-artists)
   - [10. Search and Discovery](#10-search-and-discovery)
-    - [10.1 Search Music](#101-search-music)
-    - [10.2 Music Discovery](#102-music-discovery)
   - [11. Music Playback](#11-music-playback)
-    - [11.1 Play Music](#111-play-music)
 - [Service Contracts](#service-contracts)
   - [1.1 Register](#11-register)
   - [1.2 Login](#12-login)
@@ -133,81 +105,81 @@ ECHO is a Progressive Web Application that interacts with the Spotify API and ta
 # Functional Requirements
 
 ## 1. Secure Authentication Process
-### 1.1 User Registration
+1.1 User Registration
 - Allow users to register on the application securely.
-### 1.2 User Login
+1.2 User Login
 - Allow users to log into the application securely using their created credentials.
-### 1.3 Password Reset
+1.3 Password Reset
 - Allow users to reset their passwords if forgotten.
-### 1.4 Spotify Integration
+1.4 Spotify Integration
 - Allow users to log into their Spotify account to link it to the application.
 
 ## 2. Personalized Song Recommendations
-### 2.1 Categorized Recommendations
+2.1 Categorized Recommendations
 - Provide users with song recommendations categorized by key, BPM, theme, and mood.
-### 2.2 Custom Recommendation Categories
+2.2 Custom Recommendation Categories
 - Provide users with the option to set custom recommendation categories.
-### 2.3 Song-Specific Recommendations
+2.3 Song-Specific Recommendations
 - Provide recommendations based on analysis of the user's selected song rather than general trends.
 
 ## 3. Sentiment Analysis System
-### 3.1 Lyrics Processing
+3.1 Lyrics Processing
 - System must process the song’s lyrics.
-### 3.2 Emotional Content Interpretation
+3.2 Emotional Content Interpretation
 - Sentiment analysis must interpret the song’s emotional content.
-### 3.3 Theme and Mood Categorization
+3.3 Theme and Mood Categorization
 - Sentiment analysis must categorize the song by theme and mood.
-### 3.4 Lyrical Content Interpretation
+3.4 Lyrical Content Interpretation
 - Sentiment analysis must interpret lyrical content to accurately gauge emotional resonance.
 
 ## 4. K-Means Clustering System
-### 4.1 Receive Musical Features
+4.1 Receive Musical Features
 - System must receive the musical features for each song, which includes a sentiment score.
-### 4.2 Song Grouping
+4.2 Song Grouping
 - Clustering must group similar songs using K-Means clustering.
-### 4.3 Cluster Updates
+4.3 Cluster Updates
 - Clustering must handle updates to clusters when new songs are added to the dataset.
 
 ## 5. User Insights Generation
-### 5.1 Visual Insights
+5.1 Visual Insights
 - Users must be able to view intuitive graphs and charts showing common themes and moods in their listening history.
-### 5.2 Meaningful Insights
+5.2 Meaningful Insights
 - Insights must provide meaningful knowledge about their musical interests.
 
 ## 6. Dynamic User Interface
-### 6.1 Mood-Reflective UI
+6.1 Mood-Reflective UI
 - The UI must dynamically adjust to reflect the user's mood based on the current song.
-### 6.2 UI Toggle
+6.2 UI Toggle
 - Users must have the ability to toggle the dynamic UI feature on and off.
-### 6.3 Emotional Engagement
+6.3 Emotional Engagement
 - The design should create an emotionally engaging user experience.
 
 ## 7. Progressive Web Application Functionality
-### 7.1 Cross-Platform Compatibility
+7.1 Cross-Platform Compatibility
 - The application must be compatible with various devices and operating systems, including desktops, tablets, and smartphones.
-### 7.2 Offline Functionality
+7.2 Offline Functionality
 - Offline functionality must be implemented to allow users to access the app without an internet connection and view their previous recommendations.
-### 7.3 Performance Optimization
+7.3 Performance Optimization
 - Application performance should be optimized to provide a smooth and responsive user experience.
 
 ## 8. User Music Library
-### 8.1 View Music Library
+8.1 View Music Library
 - Users can view their own music library from Spotify.
 
 ## 9. Follow Functionality
-### 9.1 Follow Users
+9.1 Follow Users
 - Listeners can follow each other.
-### 9.2 Follow Artists
+9.2 Follow Artists
 - Listeners can follow artists they like.
 
 ## 10. Search and Discovery
-### 10.1 Search Music
+10.1 Search Music
 - Allow users to search for new music.
-### 10.2 Music Discovery
+10.2 Music Discovery
 - Provide features for discovering new music.
 
 ## 11. Music Playback
-### 11.1 Play Music
+11.1 Play Music
 - Enable users to play music directly from the application.
 
 <br />
