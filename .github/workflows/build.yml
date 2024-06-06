@@ -21,16 +21,14 @@ jobs:
         with:
           node-version: 22.2.0
 
-      - name: Check Angular Core Dependency Tree
-        run: npm ls @angular/core
-        continue-on-error: true
-
       - name: Install Dependencies
         run: |
           npm install
+          npm ls @angular/core
           npm link @angular/cli
           npm install @angular/service-worker
           npm install -g @nestjs/cli
+        continue-on-error: true
 
         working-directory: ./
 
