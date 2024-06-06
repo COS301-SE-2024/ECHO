@@ -38,5 +38,5 @@ jobs:
 
       - name: Build NestJS App
         if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/feature/build-fix')
-        run: nest build
+        run: npm run build
         working-directory: ./Backend
