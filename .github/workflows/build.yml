@@ -26,7 +26,7 @@ jobs:
           npm install
           npm ls @angular/core
           npm link @angular/cli
-          npm install @angular/service-worker
+          npm install @angular/service-worker@18.0.1
           npm install -g @nestjs/cli
         continue-on-error: true
 
