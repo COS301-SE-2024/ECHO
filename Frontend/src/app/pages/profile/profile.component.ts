@@ -120,9 +120,6 @@ export class ProfileComponent implements AfterViewInit {
     ) {}
 
     ngAfterViewInit(): void {
-        this.authService.currentUsername().subscribe((res) => {
-            this.username = res.name;
-        });
     }
 
     switchTheme() {
@@ -146,8 +143,5 @@ export class ProfileComponent implements AfterViewInit {
             // @ts-ignore
             this.imgpath = localStorage.getItem('path');
         }
-        this.authService.currentUsername().subscribe((res) => {
-            this.username = res.name;
-        });
     }
 }

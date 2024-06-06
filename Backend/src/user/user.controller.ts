@@ -8,6 +8,7 @@ import * as path from "path";
 export class UserController {
     constructor(private readonly userService: UserService) {}
 
+    //localhost:3000/users/register
     @Post("register")
     async register(
         @Body()
