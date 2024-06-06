@@ -23,7 +23,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          npm install
+          nvm install 22.2.0
           npm link @angular/cli
           npm install @angular/service-worker
           npm install -g @nestjs/cli
