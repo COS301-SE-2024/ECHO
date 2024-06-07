@@ -34,7 +34,7 @@ import { ScreenSizeService } from '../../services/screen-size-service.service';
 export class HomeComponent implements OnInit {
     title: string = 'Home';
     screenSize?: string;
-
+    currentSelection: string = 'All';
     constructor(
         protected themeService: ThemeService,
         private authService: AuthService,
