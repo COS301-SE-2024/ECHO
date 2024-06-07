@@ -1,6 +1,10 @@
 .navbar-container {
     position: fixed;
-    top: .1%;
+    top: 1vh;
     left: 4%;
 }
 
+.custom-scrollable {
+    max-width: 100vw; /* Adjust as needed */
+    overflow-x: auto;
+}

@@ -3,9 +3,9 @@ import { isPlatformBrowser } from '@angular/common';
 //Can add other themes here
 @Injectable({
     providedIn: 'root',
-})
+})  
 export class ThemeService {
-    private darkModeActive: boolean = false;
+    private darkModeActive: boolean = true;
 
     constructor(@Inject(PLATFORM_ID) private platformId: Object) {
         if (isPlatformBrowser(this.platformId)) {
