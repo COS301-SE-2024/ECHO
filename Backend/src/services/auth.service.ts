@@ -38,4 +38,14 @@ export class AuthService {
 
         return { message: 'Signed out successfully' };
     }
+
+    async getCurrentUser() {
+        const { data: { user } } = await supabase.auth.getUser();
+
+        if (!user) {
+            throw new Error('No user is signed in');
+        }
+
+        return { user };
+    }
 }

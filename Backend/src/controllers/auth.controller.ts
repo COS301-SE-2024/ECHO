@@ -1,4 +1,4 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, Get } from "@nestjs/common";
 import { AuthService } from '../services/auth.service';
 import { AuthDto } from '../dto/auth.dto';
 
@@ -20,5 +20,10 @@ export class AuthController {
     @Post('signout')
     async signOut() {
         return this.authService.signOut();
+    }
+
+    @Get('current')
+    async getCurrentUser() {
+        return this.authService.getCurrentUser();
     }
 }
