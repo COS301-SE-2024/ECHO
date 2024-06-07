@@ -4,18 +4,18 @@
     <div class="flex justify-between items-center col-span-5">
         <div class="flex space-x-1 mx-auto">
           <button [ngClass]="themeService.isDarkModeActive() ? 
-                              {'bg-pink-500': currentSelection === 'All', 'bg-gray-700': currentSelection !== 'All'} : 
-                              {'bg-pink-500': currentSelection === 'All', 'bg-zinc-700': currentSelection !== 'All'}" 
+                              {'bg-pink-dark': currentSelection === 'All', 'bg-gray-component': currentSelection !== 'All'} : 
+                              {'bg-pink-light': currentSelection === 'All', 'bg-gray-light': currentSelection !== 'All'}" 
                   class="text-white w-1/3 h-9 rounded-full px-6 py-1" 
                   (click)="currentSelection = 'All'">All</button>
           <button [ngClass]="themeService.isDarkModeActive() ? 
-                              {'bg-pink-500': currentSelection === 'Moods', 'bg-gray-700': currentSelection !== 'Moods'} : 
-                              {'bg-pink-500': currentSelection === 'Moods', 'bg-zinc-700': currentSelection !== 'Moods'}" 
+                              {'bg-pink-dark': currentSelection === 'Moods', 'bg-gray-component': currentSelection !== 'Moods'} : 
+                              {'bg-pink-light': currentSelection === 'Moods', 'bg-zinc-700': currentSelection !== 'Moods'}" 
                   class="text-white w-1/3 h-9 rounded-full px-6 py-1" 
                   (click)="currentSelection = 'Moods'">Moods</button>
           <button [ngClass]="themeService.isDarkModeActive() ? 
-                              {'bg-pink-500': currentSelection === 'More', 'bg-gray-700': currentSelection !== 'More'} : 
-                              {'bg-pink-500': currentSelection === 'More', 'bg-zinc-700': currentSelection !== 'More'}" 
+                              {'bg-pink-dark': currentSelection === 'More', 'bg-gray-component': currentSelection !== 'More'} : 
+                              {'bg-pink-light': currentSelection === 'More', 'bg-zinc-700': currentSelection !== 'More'}" 
                   class="text-white w-1/3 h-9 rounded-full px-6 py-1" 
                   (click)="currentSelection = 'More'">More</button>
         </div>
