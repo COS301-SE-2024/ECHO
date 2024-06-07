@@ -6,7 +6,10 @@
     </div>
     <img (click)="profile()" [src]="themeService.isDarkModeActive() ? '../../../../assets/images/profile (1).png' : '../../../../assets/images/profile.png'" alt="profile" class="w-8 h-8 shadow-lg dark:shadow-none fixed top-5 right-8 hover:cursor-pointer">
   </div>
-  <app-side-bar class="col-start-1 col-span-1 row-start-1 row-span-6"></app-side-bar>
+  
+  <app-side-bar *ngIf="screenSize === 'desktop'" class="col-start-1 col-span-1 row-start-1 row-span-6"></app-side-bar>
+  <app-bottom-nav *ngIf="screenSize === 'mobile'"></app-bottom-nav>
+    
   <app-moods class="col-start-2 col-span-4 row-start-2 row-span-5"></app-moods>
   <button class="fixed bottom-4 left-4 p-2 bg-gray-300 dark:bg-gray-700 rounded-full" (click)="switchTheme()">
     <svg class="w-6 h-6 text-gray-800 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"

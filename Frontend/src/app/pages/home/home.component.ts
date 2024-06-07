@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 import { BottomPlayerComponent } from '../../shared/bottom-player/bottom-player.component';
 import { MoodsComponent } from '../../shared/moods/moods.component';
 import { ScreenSizeService } from '../../services/screen-size-service.service';
-
+import { BottomNavComponent } from '../../shared/bottom-nav/bottom-nav.component';
 @Component({
     selector: 'app-home',
     standalone: true,
@@ -27,6 +27,7 @@ import { ScreenSizeService } from '../../services/screen-size-service.service';
         SideBarComponent,
         BottomPlayerComponent,
         MoodsComponent,
+        BottomNavComponent
     ],
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',
