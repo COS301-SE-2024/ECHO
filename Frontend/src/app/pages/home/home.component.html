@@ -16,7 +16,7 @@
   <app-side-bar *ngIf="screenSize === 'desktop'" class="col-start-1 col-span-1 row-start-1 row-span-6"></app-side-bar>
   <app-bottom-nav *ngIf="screenSize === 'mobile'"></app-bottom-nav>
 
-  <app-moods class="col-start-2 col-span-4 row-start-2 row-span-5"></app-moods>
+  <app-moods *ngIf="screenSize === 'desktop'" class="col-start-2 col-span-4 row-start-2 row-span-5"></app-moods>
 
   <button *ngIf="screenSize === 'desktop'" class="fixed bottom-4 left-4 p-2 bg-gray-300 dark:bg-gray-700 rounded-full" (click)="switchTheme()">
     <svg class="w-6 h-6 text-gray-800 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -26,6 +26,6 @@
     </svg>
   </button> 
 
-  <app-bottom-player class="col-start-1 col-span-5 row-start-6"></app-bottom-player>
+  <app-bottom-player *ngIf="screenSize === 'desktop'" class="col-start-1 col-span-5 row-start-6"></app-bottom-player>
 
 </div>
