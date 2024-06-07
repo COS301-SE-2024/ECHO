@@ -1,11 +1,12 @@
 import { Module, Logger, MiddlewareConsumer, RequestMethod } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
 import { ConfigModule, ConfigService } from "@nestjs/config";
-import { UserModule } from "./user/user.module";
 import { AuthController } from "./controllers/auth.controller";
 import { AuthService } from "./services/auth.service";
 import { SupabaseService } from "./supabase/supabase.service";
 import { TokenMiddleware } from './middleware/token.middleware';
+import { MusicController } from "./controllers/music.controller";
+import { MusicService } from "./services/music.service";
 
 @Module({
     imports: [
@@ -21,11 +22,10 @@ import { TokenMiddleware } from './middleware/token.middleware';
                 return { uri };
             },
             inject: [ConfigService]
-        }),
-        UserModule
+        })
     ],
-    controllers: [AuthController],
-    providers: [AuthService, SupabaseService]
+    controllers: [AuthController, MusicController],
+    providers: [AuthService, SupabaseService, MusicService]
 })
 export class AppModule {
     configure(consumer: MiddlewareConsumer) {
