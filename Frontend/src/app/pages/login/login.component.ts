@@ -10,7 +10,7 @@ import { HttpClient } from "@angular/common/http";
 @Component({
   selector: "app-login",
   standalone: true,
-  imports: [NgOptimizedImage, SpotifyLoginComponent, FormsModule],
+  imports: [ SpotifyLoginComponent, FormsModule],
   templateUrl: "./login.component.html",
   styleUrl: "./login.component.css"
 })
@@ -38,14 +38,9 @@ export class LoginComponent {
   }
 
   spotify() {
-    window.location.href = 'http://localhost:3000/api/auth/oauth-signin';
-    var email: any;
-    email = document.getElementById("email");
-    var password: any;
-    password = document.getElementById("password");
-
-    email.required = false;
-    password.required = false;
+    if (typeof window !== 'undefined') {
+      window.location.href = 'http://localhost:3000/api/auth/oauth-signin';
+    }
 
   }
 

@@ -8,7 +8,7 @@ export class SupabaseService {
         const { data, error } = await supabase.auth.signInWithOAuth({
             provider: 'spotify',
             options: {
-                redirectTo: 'http://localhost:3000/api/auth/callback',
+                redirectTo: 'http://localhost:4200/auth/callback',
             },
         });
         if (error) {
@@ -21,5 +21,9 @@ export class SupabaseService {
         if (error) {
             throw new Error(error.message);
         }
+    }
+
+    async handleSpotifyTokens(accessToken: string, refreshToken: string) {
+        const { error } = await supabase.auth.setSession({access_token: accessToken, refresh_token: refreshToken});
     }
 }

@@ -8,6 +8,12 @@ import { Response } from "express";
 export class AuthController {
     constructor(private readonly authService: AuthService, private readonly supabaseService: SupabaseService) {}
 
+    @Post('token')
+    async receiveTokens(@Body() body: { accessToken: string, refreshToken: string }) {
+        await this.supabaseService.handleSpotifyTokens(body.accessToken, body.refreshToken);
+        return { message: 'Tokens received and processed' };
+    }
+
     @Get('callback')
     async authCallback(
         @Query('access_token') accessToken: string,

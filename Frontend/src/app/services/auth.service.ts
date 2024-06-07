@@ -29,4 +29,8 @@ export class AuthService {
   currentUser(): Observable<any> {
     return this.http.get(`${this.apiUrl}/current`);
   }
+
+  sendTokensToServer(tokens: { accessToken: string | null; refreshToken: string | null }): Observable<any> {
+    return this.http.post(`${this.apiUrl}/token`, tokens);
+  }
 }
