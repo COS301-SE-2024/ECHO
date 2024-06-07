@@ -48,4 +48,13 @@ export class AuthService {
 
         return { user };
     }
+
+    getSpotifyUser(token: string) {
+        return Promise.resolve(undefined);
+    }
+
+    setSession(token: string, refresh_token: string) {
+        return supabase.auth.setSession({access_token: token,refresh_token: refresh_token});
+
+    }
 }

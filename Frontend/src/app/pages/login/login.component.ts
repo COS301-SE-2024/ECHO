@@ -5,6 +5,7 @@ import { AuthService } from "../../services/auth.service";
 import { Router } from "@angular/router";
 import { FormsModule } from "@angular/forms";
 import { ThemeService } from "../../services/theme.service";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
   selector: "app-login",
@@ -21,7 +22,8 @@ export class LoginComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private themeService: ThemeService
+    private themeService: ThemeService,
+    private http: HttpClient
   ) {
   }
 
@@ -36,6 +38,7 @@ export class LoginComponent {
   }
 
   spotify() {
+    window.location.href = 'http://localhost:3000/api/auth/oauth-signin';
     var email: any;
     email = document.getElementById("email");
     var password: any;
@@ -43,6 +46,7 @@ export class LoginComponent {
 
     email.required = false;
     password.required = false;
+
   }
 
   login() {

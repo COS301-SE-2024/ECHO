@@ -14,6 +14,10 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/signin`, { email, password });
   }
 
+  signInWithSpotifyOAuth(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/oauth-signin`);
+  }
+
   signUp(email: string, password: string, metadata: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/signup`, { email, password, metadata });
   }

@@ -1,9 +1,11 @@
-import { Module, Logger } from "@nestjs/common";
+import { Module, Logger, MiddlewareConsumer, RequestMethod } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { UserModule } from "./user/user.module";
 import { AuthController } from "./controllers/auth.controller";
 import { AuthService } from "./services/auth.service";
+import { SupabaseService } from "./supabase/supabase.service";
+import { TokenMiddleware } from './middleware/token.middleware';
 
 @Module({
     imports: [
@@ -23,7 +25,14 @@ import { AuthService } from "./services/auth.service";
         UserModule
     ],
     controllers: [AuthController],
-    providers: [AuthService]
+    providers: [AuthService, SupabaseService]
 })
 export class AppModule {
+    configure(consumer: MiddlewareConsumer) {
+        consumer
+            .apply(TokenMiddleware)
+            .forRoutes({ path: 'auth/callback', method: RequestMethod.GET });
+    }
 }
+
+
