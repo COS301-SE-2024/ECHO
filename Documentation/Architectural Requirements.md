@@ -49,6 +49,10 @@ Each layer has specific responsibilities and interacts with other layers through
 2. **Authentication:** Secure methods should be used for user authentication, including multi-factor authentication.
 3. **Authorization:** Ensure role-based access control to protect sensitive app features.
 
+### Accessibility
+1. **Inclusive Design:** The application should be designed to be accessible to users with disabilities, adhering to WCAG (Web Content Accessibility Guidelines).
+2. **Assistive Technologies:** Support for screen readers, keyboard navigation, and other assistive technologies should be implemented to ensure all users can effectively use the application.
+
 ## Architectural Overview
 
 ### Presentation Layer
@@ -147,27 +151,6 @@ Each layer has specific responsibilities and interacts with other layers through
 
 ### Technology Evaluation
 For each component of our system, we considered multiple technologies and selected the most suitable ones based on their compatibility with our architectural strategies, performance, scalability, and ease of integration.
-
-### Example Evaluation: Backend Framework
-#### Technologies Considered
-1. **Express.js**
-   - Overview: Minimalist web framework for Node.js.
-   - Pros: Lightweight, flexible, large community support.
-   - Cons: Requires additional libraries for complete functionality.
-   - Fit: Good fit for lightweight and flexible API services.
-2. **Nest.js**
-   - Overview: Progressive Node.js framework for building efficient and scalable server-side applications.
-   - Pros: Modular architecture, built-in support for TypeScript, comprehensive documentation.
-   - Cons: Steeper learning curve for beginners.
-   - Fit: Excellent fit for modular, maintainable, and scalable backend services.
-3. **Koa.js**
-   - Overview: Lightweight and expressive middleware framework for Node.js.
-   - Pros: Minimalist, modular, good performance.
-   - Cons: Smaller community compared to Express.js.
-   - Fit: Suitable for building lightweight API services but lacks the comprehensive ecosystem of Nest.js.
-
-### Final Choice
-- **Nest.js** was chosen for its modular architecture, TypeScript support, and scalability, which align well with our architectural design strategy and quality requirements.
 
 ## Conclusion
 By adhering to these architectural requirements and strategies, we aim to create a robust, scalable, and maintainable Progressive Web Application that meets our quality requirements and provides a seamless user experience. Regular reviews and updates to this document will ensure that our architecture remains aligned with evolving project needs and technological advancements.
