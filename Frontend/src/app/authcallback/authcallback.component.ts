@@ -35,10 +35,7 @@ export class AuthCallbackComponent implements OnInit {
   }
 
   parseHashParams(hash: string) {
-    alert('Parsing hash params...');
-    const params = new URLSearchParams(hash.substring(1)); // remove the '#'
-    alert("Access Token: " + params.get('access_token'));
-    alert("Refresh Token: " + params.get('refresh_token'));
+    const params = new URLSearchParams(hash.substring(1));
     return {
       accessToken: params.get('access_token'),
       refreshToken: params.get('refresh_token')
