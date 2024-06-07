@@ -10,11 +10,20 @@
 
 ### HalfStack - *ECHO* - A Progressive Web App `(PWA)`  that recommends `songs` and shows visualise `statistics` based on analysis of songs you already `like` on `Spotify`. Using a `sentiment analysis AI` to generate data on abstract song characteristics, like `theme`,`mood`,`bpm`,`key` and `time signature`.
 
+# Badges
+
+[![Coverage Status](https://coveralls.io/repos/github/COS301-SE-2024/ECHO/badge.svg?branch=)](https://coveralls.io/github/COS301-SE-2024/ECHO?branch=)
+![Libraries.io dependency status for GitHub repo](https://img.shields.io/librariesio/github/COS301-SE-2024/ECHO)
+![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/COS301-SE-2024/ECHO)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/COS301-SE-2024%2FECHO/ECHO/build.yml)
+![Security Headers](https://img.shields.io/security-headers?url=https%3A%2F%2Fhalfstack-echo.com)
+![Website](https://img.shields.io/website?url=https%3A%2F%2Fhalfstack-echo.com)
+
 # Group's Links:
 
 - [Team Demo]()
-- [Functional Requirements (SRS)]()
-- [Jira Project Board](https://halfstackecho.atlassian.net/jira/software/projects/ECHO/boards/2)
+- [Functional Requirements (SRS)](Documentation\RequirementSpecification.md)
+- [Github Project Board](https://github.com/orgs/COS301-SE-2024/projects/67)
 
 # Technology Stack:
 
@@ -128,6 +137,3 @@
     </tr>
   </tbody>
 </table>
-
-
-
