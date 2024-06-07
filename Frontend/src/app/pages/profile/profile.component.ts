@@ -121,7 +121,7 @@ export class ProfileComponent implements AfterViewInit {
 
     ngAfterViewInit(): void {
       let currUser = this.authService.currentUser().subscribe((res) => {
-        this.username = res.user.user_metadata.username;
+        this.username = res.user.user_metadata.name;
       });
     }
 
