@@ -21,4 +21,8 @@ export class AuthService {
   signOut(): Observable<any> {
     return this.http.post(`${this.apiUrl}/signout`, {});
   }
+
+  currentUser(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/current`);
+  }
 }

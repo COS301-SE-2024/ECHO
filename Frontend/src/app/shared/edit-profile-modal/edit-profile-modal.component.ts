@@ -48,7 +48,9 @@ export class EditProfileModalComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-
+    let user = this.authService.currentUser().subscribe((data: any) => {
+      this.username = data.user.user_metadata.username;
+    });
   }
 
   onNoClick(): void {
