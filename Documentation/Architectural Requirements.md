@@ -34,7 +34,7 @@ Each layer has specific responsibilities and interacts with other layers through
 
 ### Usability
 1. **Intuitive Interface:** The application should be intuitive and easy to navigate, clear and organized without any unnecessary clutter. Design choices should be consistent throughout the interface, and clear visual cues (such as icons, buttons, and labels) should guide users through the interface logically and intuitively.
-2. **User-Friendly:** The application should be responsive, personalizable, and easy to learn. Users should be able to customize their interface and receive clear, real-time feedback (loading indicators, confirmation, and error messages) from the system to understand the application's state and any actions they need to take.
+2. **User-Friendly:** The application should be responsive, personalisable, and easy to learn. Users should be able to customize their interface and receive clear, real-time feedback (loading indicators, confirmation, and error messages) from the system to understand the application's state and any actions they need to take.
 
 ### Performance
 1. **Load Time and Responsiveness:** The application should load requested pages quickly, and the system should respond promptly when the user interacts with anything on a page.
