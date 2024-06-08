@@ -7,8 +7,8 @@ import { firstValueFrom } from 'rxjs';
   providedIn: 'root',
 })
 export class SpotifyService {
-  private player: any; // Ideally, use Spotify.Player type if available from types or define your own.
-  private deviceId: string | null = null; // Store the device ID when available
+  private player: any;
+  private deviceId: string | null = null;
 
   constructor(
     private authService: AuthService,
@@ -47,7 +47,7 @@ export class SpotifyService {
     this.player = new Spotify.Player({
       name: 'ECHO',
       getOAuthToken: cb => { cb(providerToken); },
-      volume: 1
+      volume: 0.5
     });
 
     this.player.addListener('ready', ({ device_id }: { device_id: string }) => {
@@ -64,7 +64,7 @@ export class SpotifyService {
       return;
     }
 
-    const spotifyUri = 'spotify:track:5mVfq3wn79JVdHQ7ZuLSCB'; // URI for "Shape of You" by Ed Sheeran
+    const spotifyUri = 'spotify:track:5mVfq3wn79JVdHQ7ZuLSCB';
     const tokenRetrieval = (token: string) => {
       fetch(`https://api.spotify.com/v1/me/player/play?device_id=${this.deviceId}`, {
         method: 'PUT',
@@ -76,11 +76,9 @@ export class SpotifyService {
       })
         .then(response => {
           if (!response.ok) {
-            // Handle non-2xx HTTP responses
             throw new Error(`HTTP error! status: ${response.status}`);
           }
-          // Only parse the response if it's expected to have a JSON body
-          return response.json().catch(() => ({})); // Handle empty response gracefully
+          return response.json().catch(() => ({}));
         })
         .then(data => console.log('Play response:', data))
         .catch(error => console.error('Error playing track:', error));
@@ -104,14 +102,12 @@ export class SpotifyService {
       return;
     }
 
-    // Check the current state of the player
     this.player.getCurrentState().then((state: any) => {
       if (!state) {
         console.error('User is not playing music through the Web Playback SDK');
         return;
       }
 
-      // If the player is paused, resume playing
       if (state.paused) {
         this.player.resume().then(() => {
           console.log('Playback resumed');
@@ -129,6 +125,97 @@ export class SpotifyService {
   public setVolume(volume: number): void {
     if (this.player) {
       this.player.setVolume(volume).then(() => console.log(`Volume set to ${volume * 100}%`));
+    }
+  }
+
+  public async getRecentlyPlayedTracks(): Promise<any> {
+    try {
+      const tokens = await firstValueFrom(this.authService.getTokens());
+      const response = await fetch('https://api.spotify.com/v1/me/player/recently-played?limit=20', {
+        headers: {
+          'Authorization': `Bearer ${tokens.providerToken}`
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error fetching recently played tracks:', error);
+      throw error;
+    }
+  }
+
+  public async getFeaturedPlaylistTracks(): Promise<any> {
+    try {
+      const tokens = await firstValueFrom(this.authService.getTokens());
+      const response = await fetch('https://api.spotify.com/v1/browse/featured-playlists', {
+        headers: {
+          'Authorization': `Bearer ${tokens.providerToken}`
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      const playlistId = data.playlists.items[0].id;
+
+      const playlistResponse = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks?limit=10`, {
+        headers: {
+          'Authorization': `Bearer ${tokens.providerToken}`
+        }
+      });
+
+      if (!playlistResponse.ok) {
+        throw new Error(`HTTP error! status: ${playlistResponse.status}`);
+      }
+
+      const playlistData = await playlistResponse.json();
+      return playlistData.items.map((item: any) => ({
+        text: item.track.name,
+        secondaryText: item.track.artists.map((artist: any) => artist.name).join(', '),
+        imageUrl: item.track.album.images[0].url,
+        explicit: item.track.explicit
+      }));
+    } catch (error) {
+      console.error('Error fetching featured playlist tracks:', error);
+      throw error;
+    }
+  }
+
+  public async getQueue(): Promise<any> {
+    try {
+      const tokens = await firstValueFrom(this.authService.getTokens());
+      const response = await fetch('https://api.spotify.com/v1/me/player/queue', {
+        headers: {
+          'Authorization': `Bearer ${tokens.providerToken}`
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error fetching queue:', error);
+      throw error;
+    }
+  }
+
+  disconnectPlayer() {
+    if (this.player) {
+      this.player.disconnect().then(() => {
+        console.log('Player disconnected');
+      }).catch((error: any) => {
+        console.error('Failed to disconnect player', error);
+      });
     }
   }
 }

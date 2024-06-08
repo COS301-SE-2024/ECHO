@@ -17,6 +17,10 @@ export class BottomPlayerComponent {
   started: boolean = false;
     constructor(protected themeService: ThemeService, private spotifyService: SpotifyService) {}
 
+  ngOnDestroy(): void {
+    this.spotifyService.disconnectPlayer();
+  }
+
   playMusic(): void {
     this.spotifyService.play();
   }
@@ -47,7 +51,7 @@ export class BottomPlayerComponent {
   }
 
   onVolumeChange(event: any): void {
-    const volume = event.target.value / 100; // Convert from 0-100 range to 0-1
+    const volume = event.target.value / 100;
     this.spotifyService.setVolume(volume);
   }
 }
