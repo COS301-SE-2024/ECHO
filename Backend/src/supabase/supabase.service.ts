@@ -17,7 +17,7 @@ export class SupabaseService {
             provider: "spotify",
             options: {
                 redirectTo: "http://localhost:4200/auth/callback",
-                scopes: "streaming user-read-email user-read-private"
+                scopes: "streaming user-read-email user-read-private user-read-recently-played user-read-playback-state user-modify-playback-state"
             }
         });
         if (error) {
