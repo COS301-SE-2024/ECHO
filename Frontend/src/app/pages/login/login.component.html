@@ -1,12 +1,12 @@
 <div class="h-screen dark:bg-dark-bg flex flex-col">
   <div class="flex flex-grow min-h-full justify-center px-6 py-12 lg:px-8">
-    <div class=" flex justify-between">
+    <div class="flex flex-col items-center justify-center ml-52 h-screen">
       <div class="text-gray-verylight font-semibold text-3xl text-center">
         Welcome to
       </div>
       <img src="./assets/images/logo-dark-bg.png" class="h-72 w-303">
     </div>
-    <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm lg:w-auto lg:flex-none lg:max-w-md">
+    <div class="mt-10 ml-6 sm:mx-auto sm:w-full sm:max-w-sm lg:w-auto lg:flex-none lg:max-w-md">
       <form class="space-y-6" action="#" method="POST">
         <div>
           <label for="username" class="dark:text-white block text-sm font-medium leading-6"></label>
@@ -30,7 +30,7 @@
         <div class="mt-5 flex justify-center">
           <button type="submit" (click)="login()" class="w-30 rounded-full bg-pink px-10 py-2.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-pink-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-dark">Sign in</button>
         </div>
-        
+
         <div class="relative flex py-3 items-center">
           <div class="flex-grow border-t border-gray-light"></div>
           <span class="flex-shrink mx-4 text-xs text-gray-verylight">Or sign in with</span>
