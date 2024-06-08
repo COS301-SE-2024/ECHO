@@ -26,8 +26,8 @@
               <div class="flex-grow">
                 <!-- First text with icon -->
                 <div class="flex items-center">
-                  <img *ngIf="card.explicit && this.themeService.isDarkModeActive()" src="../../../assets/images/explicit-dark.png" alt="Explicit Icon" class="w-6 h-6 mr-2">
-                  <img *ngIf="card.explicit && !(this.themeService.isDarkModeActive())" src="../../../assets/images/explicit.png" alt="Explicit Icon" class="w-6 h-6 mr-2">
+                  <img *ngIf="card.explicit && themeService.isDarkModeActive()" src="../../../assets/images/explicit-dark.png" alt="Explicit Icon" class="w-6 h-6 mr-2">
+                  <img *ngIf="card.explicit && !themeService.isDarkModeActive()" src="../../../assets/images/explicit.png" alt="Explicit Icon" class="w-6 h-6 mr-2">
                   <p class="text-gray-900 dark:text-white font-bold">{{ card.text }}</p>
                 </div>
                 <!-- Second text (underneath the first text) -->
