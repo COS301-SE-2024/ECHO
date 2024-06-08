@@ -97,4 +97,38 @@ export class SpotifyService {
 
     this.player.pause().then(() => console.log('Playback paused'));
   }
+
+  public play(): void {
+    if (!this.deviceId) {
+      console.error('Device ID is undefined. Ensure the player is ready before continuing.');
+      return;
+    }
+
+    // Check the current state of the player
+    this.player.getCurrentState().then((state: any) => {
+      if (!state) {
+        console.error('User is not playing music through the Web Playback SDK');
+        return;
+      }
+
+      // If the player is paused, resume playing
+      if (state.paused) {
+        this.player.resume().then(() => {
+          console.log('Playback resumed');
+        }).catch((error: any) => {
+          console.error('Failed to resume playback', error);
+        });
+      } else {
+        console.log('Playback is already ongoing');
+      }
+    }).catch((error: any) => {
+      console.error('Failed to get player state', error);
+    });
+  }
+
+  public setVolume(volume: number): void {
+    if (this.player) {
+      this.player.setVolume(volume).then(() => console.log(`Volume set to ${volume * 100}%`));
+    }
+  }
 }

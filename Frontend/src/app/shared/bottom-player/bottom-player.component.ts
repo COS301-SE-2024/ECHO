@@ -12,13 +12,44 @@ import { SpotifyService } from "../../services/spotify.service";
     styleUrl: './bottom-player.component.css',
 })
 export class BottomPlayerComponent {
+  protected imgsrc: string = '../../../assets/images/play.png';
+  playing: boolean = false;
+  started: boolean = false;
     constructor(protected themeService: ThemeService, private spotifyService: SpotifyService) {}
 
   playMusic(): void {
-    this.spotifyService.playTrack();  // This will play "Shape of You"
+    this.spotifyService.play();
   }
 
   pauseMusic(): void {
     this.spotifyService.pause();
   }
+
+  play() {
+      if (!this.started) {
+      this.spotifyService.playTrack();
+      this.started = true;
+      this.playing = true;
+      this.imgsrc = '../../../assets/images/pause.png';
+    }
+    else {
+        if (this.playing) {
+          this.pauseMusic();
+          this.playing = false;
+          this.imgsrc = '../../../assets/images/play.png';
+        } else {
+          this.playMusic();
+          this.playing = true;
+          this.imgsrc = '../../../assets/images/pause.png';
+        }
+      }
+
+  }
+
+  onVolumeChange(event: any): void {
+    const volume = event.target.value / 100; // Convert from 0-100 range to 0-1
+    this.spotifyService.setVolume(volume);
+  }
 }
+
+
