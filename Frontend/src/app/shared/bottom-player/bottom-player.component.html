@@ -30,6 +30,12 @@
             <img *ngIf="this.themeService.isDarkModeActive()" src="../../../assets/images/slider (1).png" alt="Slider Icon" class="w-20 h-auto">
             <img *ngIf="!(this.themeService.isDarkModeActive())" src="../../../assets/images/slider.png" alt="Slider Icon" class="w-20 h-auto">
           </div>
+          <div class="flex flex-col justify-center">
+            <img src="../../../assets/images/play.png" (click)="playMusic()" alt="Slider Icon" class="w-10 h-10">
+          </div>
+          <div class="flex flex-col justify-center">
+            <img src="../../../assets/images/pause.png" (click)="pauseMusic()" alt="Slider Icon" class="w-10 h-10">
+          </div>
         </div>
       </div>
     </mat-card-content>

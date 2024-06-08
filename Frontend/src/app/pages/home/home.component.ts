@@ -11,6 +11,7 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { BottomPlayerComponent } from '../../shared/bottom-player/bottom-player.component';
 import { MoodsComponent } from '../../shared/moods/moods.component';
+import { SpotifyService } from "../../services/spotify.service";
 @Component({
     selector: 'app-home',
     standalone: true,
@@ -25,18 +26,22 @@ import { MoodsComponent } from '../../shared/moods/moods.component';
         NgIf,
         SideBarComponent,
         BottomPlayerComponent,
-        MoodsComponent,
+        MoodsComponent
     ],
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit{
     protected title: string = 'Home';
     constructor(
         protected themeService: ThemeService,
         private authService: AuthService,
         private router: Router,
+        private spotifyService: SpotifyService
     ) {}
+
+  ngOnInit(): void {
+    }
 
     switchTheme(): void {
         this.themeService.switchTheme();
