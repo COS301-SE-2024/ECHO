@@ -23,7 +23,8 @@ import { SearchBarComponent } from '../../shared/search-bar/search-bar.component
         SideBarComponent,
         BottomPlayerComponent,
         MoodsComponent,
-        BottomNavComponent
+        BottomNavComponent,
+        SearchBarComponent
     ],
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',
