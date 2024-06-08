@@ -1,5 +1,4 @@
 import { Module, Logger, MiddlewareConsumer, RequestMethod } from "@nestjs/common";
-import { MongooseModule } from "@nestjs/mongoose";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { AuthController } from "./controllers/auth.controller";
 import { AuthService } from "./services/auth.service";
@@ -13,19 +12,9 @@ import { MusicService } from "./services/music.service";
         ConfigModule.forRoot({
             isGlobal: true
         }),
-        MongooseModule.forRootAsync({
-            imports: [ConfigModule],
-            useFactory: async (configService: ConfigService) => {
-                Logger.log("Factory function called", "Database");
-                const uri = configService.get<string>("MONGODB_URI");
-                Logger.log(`MongoDB URI: ${uri}`, "Database");
-                return { uri };
-            },
-            inject: [ConfigService]
-        })
     ],
     controllers: [AuthController, MusicController],
-    providers: [AuthService, SupabaseService, MusicService]
+    providers: [AuthService, SupabaseService, MusicService, ConfigService]
 })
 export class AppModule {
     configure(consumer: MiddlewareConsumer) {

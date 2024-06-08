@@ -15,7 +15,6 @@ export class AuthCallbackComponent implements OnInit {
     if (typeof window !== 'undefined') {
       const hash = window.location.hash;
       const tokens = this.parseHashParams(hash);
-      alert('Processing login...');
       if (tokens.accessToken && tokens.refreshToken) {
         this.authService.sendTokensToServer(tokens).subscribe({
           next: (res: any) => {
@@ -38,7 +37,8 @@ export class AuthCallbackComponent implements OnInit {
     const params = new URLSearchParams(hash.substring(1));
     return {
       accessToken: params.get('access_token'),
-      refreshToken: params.get('refresh_token')
+      refreshToken: params.get('refresh_token'),
+      providerToken: params.get('provider_token')
     };
   }
 }
