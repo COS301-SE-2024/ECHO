@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../services/auth.service'; // Assuming you have an AuthService for handling API calls
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: "app-auth-callback",
-  template: "<p>Processing login...</p>",
+  template: "<div class='bg-stone-900 w-screen h-screen'><p class='text-gray-300 top-1/2 left-1/2'>Processing login...</p></div>",
   standalone: true
 })
 export class AuthCallbackComponent implements OnInit {
@@ -19,16 +19,16 @@ export class AuthCallbackComponent implements OnInit {
         this.authService.sendTokensToServer(tokens).subscribe({
           next: (res: any) => {
             console.log('Login successful:', res);
-            this.router.navigate(['/home']); // or any other route
+            this.router.navigate(['/home']);
           },
           error: (err: any) => {
-            console.log('Error processing login:', err);
-            this.router.navigate(['/profile']); // fallback route
+            alert('Error processing login:' + err);
+            this.router.navigate(['/login']);
           }
         });
       } else {
-        console.log('Tokens not found in URL');
-        this.router.navigate(['/profile']);
+        alert("Oops! Something went wrong. Please try again.");
+        this.router.navigate(['/login']);
       }
     }
   }
@@ -38,7 +38,8 @@ export class AuthCallbackComponent implements OnInit {
     return {
       accessToken: params.get('access_token'),
       refreshToken: params.get('refresh_token'),
-      providerToken: params.get('provider_token')
+      providerToken: params.get('provider_token'),
+      providerRefreshToken: params.get('provider_refresh_token')
     };
   }
 }
