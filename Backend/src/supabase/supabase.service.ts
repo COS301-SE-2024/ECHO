@@ -16,7 +16,8 @@ export class SupabaseService {
         const { data, error } = await supabase.auth.signInWithOAuth({
             provider: "spotify",
             options: {
-                redirectTo: "http://localhost:4200/auth/callback"
+                redirectTo: "http://localhost:4200/auth/callback",
+                scopes: "streaming user-read-email user-read-private"
             }
         });
         if (error) {
