@@ -1,51 +1,67 @@
 import { Component, OnInit } from '@angular/core';
-import { SpotifyService } from "../../services/spotify.service";
+import { MatCard, MatCardContent } from '@angular/material/card';
+import { NgClass, NgForOf, NgIf } from '@angular/common';
+import { ThemeService } from '../../services/theme.service';
+import { SpotifyService } from '../../services/spotify.service'; // Ensure the path is correct
 
 @Component({
-  selector: "app-side-bar",
-  templateUrl: "./side-bar.component.html",
+  selector: 'app-side-bar',
   standalone: true,
-  styleUrls: ["./side-bar.component.css"]
+  imports: [MatCard, MatCardContent, NgForOf, NgIf, NgClass],
+  templateUrl: './side-bar.component.html',
+  styleUrls: ['./side-bar.component.css'],
 })
 export class SideBarComponent implements OnInit {
-  upNextData: any[] = [];
-  recentListeningData: any[] = [];
+  constructor(
+    protected themeService: ThemeService,
+    private spotifyService: SpotifyService
+  ) {}
+
+  title: string = 'Home';
   selectedOption: string = 'upNext';
 
-  constructor(private spotifyService: SpotifyService) {}
+  upNextCardData: any[] = [];
+  recentListeningCardData: any[] = [];
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.loadUpNextData();
-    this.loadRecentListeningData();
+    this.fetchRecentlyPlayedTracks();
   }
 
-  async loadUpNextData(): Promise<void> {
+  async loadUpNextData() {
     try {
-      this.upNextData = await this.spotifyService.getFeaturedPlaylistTracks();
+      this.upNextCardData = await this.spotifyService.getQueue();
     } catch (error) {
       console.error('Error loading up next data:', error);
     }
   }
 
-  async loadRecentListeningData(): Promise<void> {
-    try {
-      const data = await this.spotifyService.getRecentlyPlayedTracks();
-      this.recentListeningData = data.items.map((item: any) => ({
-        text: item.track.name,
-        secondaryText: item.track.artists.map((artist: any) => artist.name).join(', '),
-        imageUrl: item.track.album.images[0].url,
-        explicit: item.track.explicit
-      }));
-    } catch (error) {
-      console.error('Error loading recent listening data:', error);
-    }
+  private fetchRecentlyPlayedTracks(): void {
+    this.spotifyService.getRecentlyPlayedTracks().then(data => {
+      data.items.forEach((item: any) => {
+        const trackId = item.track.id;
+        if (!this.recentListeningCardData.find(track => track.id === trackId)) {
+          this.recentListeningCardData.push({
+            id: trackId,
+            imageUrl: item.track.album.images[0].url,
+            text: item.track.name,
+            secondaryText: item.track.artists.map((artist: any) => artist.name).join(', '),
+            explicit: item.track.explicit
+          });
+        }
+      });
+    }).catch(error => {
+      console.error('Error fetching recently played tracks:', error);
+    });
   }
 
   getSelectedCardData(): any[] {
-    return this.selectedOption === 'upNext' ? this.upNextData : this.recentListeningData;
+    return this.selectedOption === 'upNext'
+      ? this.upNextCardData
+      : this.recentListeningCardData;
   }
 
-  selectOption(option: string): void {
+  selectOption(option: string) {
     this.selectedOption = option;
   }
 }
