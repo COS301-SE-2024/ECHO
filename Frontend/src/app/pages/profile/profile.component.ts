@@ -12,6 +12,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { EditProfileModalComponent } from '../../shared/edit-profile-modal/edit-profile-modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { AfterViewInit } from '@angular/core';
+import { ScreenSizeService } from '../../services/screen-size-service.service';
+import { CommonModule } from '@angular/common';
+import { BottomNavComponent } from '../../shared/bottom-nav/bottom-nav.component';
 
 @Component({
     selector: 'app-profile',
@@ -27,12 +30,15 @@ import { AfterViewInit } from '@angular/core';
         NgForOf,
         BottomPlayerComponent,
         EditProfileModalComponent,
+        CommonModule,
+        BottomNavComponent
     ],
     templateUrl: './profile.component.html',
     styleUrl: './profile.component.css',
 })
 export class ProfileComponent implements AfterViewInit {
     imgpath: string = 'back.jpg';
+    screenSize?: string;
 
     recentListeningCardData = [
         {
@@ -117,6 +123,7 @@ export class ProfileComponent implements AfterViewInit {
         private authService: AuthService,
         private router: Router,
         protected dialog: MatDialog,
+        private screenSizeService: ScreenSizeService
     ) {}
 
     ngAfterViewInit(): void {
@@ -124,7 +131,11 @@ export class ProfileComponent implements AfterViewInit {
             this.username = res.name;
         });
     }
-
+    ngOnInit() {
+        this.screenSizeService.screenSize$.subscribe(screenSize => {
+            this.screenSize = screenSize;
+        });
+    }
     switchTheme() {
         this.themeService.switchTheme();
     }
