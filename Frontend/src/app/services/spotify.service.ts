@@ -1,6 +1,6 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { AuthService } from './auth.service'; // Make sure the path is correct
+import { AuthService } from './auth.service';
 import { firstValueFrom, BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -16,7 +16,7 @@ export class SpotifyService {
   private queueCache: { [key: string]: any } = {};
   private cacheTTL = 3600000;
   private recentlyPlayedCache: { data: any, timestamp: number } | null = null;
-  private rcacheTTL = 600000; // 600000 milliseconds equals 10 minutes
+  private rcacheTTL = 600000;
 
 
   constructor(private authService: AuthService, @Inject(PLATFORM_ID) private platformId: Object) {}
@@ -60,7 +60,7 @@ export class SpotifyService {
 
     this.player.addListener('ready', ({ device_id }: { device_id: string }) => {
       console.log('Ready with Device ID', device_id);
-      this.deviceId = device_id; // Store device ID
+      this.deviceId = device_id;
     });
 
     this.player.addListener('player_state_changed', (state: any) => {
@@ -156,9 +156,8 @@ export class SpotifyService {
     const cacheKey = 'recentlyPlayed';
     const currentTime = new Date().getTime();
 
-    // Check if the cache exists and is still valid
     if (this.recentlyPlayedCache && (currentTime - this.recentlyPlayedCache.timestamp) < this.rcacheTTL) {
-      return this.recentlyPlayedCache.data; // Return cached data if valid
+      return this.recentlyPlayedCache.data;
     }
 
     try {
@@ -175,7 +174,6 @@ export class SpotifyService {
 
       const data = await response.json();
 
-      // Cache the new data with a timestamp
       this.recentlyPlayedCache = {
         timestamp: currentTime,
         data: data
@@ -203,7 +201,7 @@ export class SpotifyService {
         seedTrack = data.items[0].track.id;
       });
       const market = 'ES';
-      const limit = 14;
+      const limit = 20;
 
       const response = await fetch(`https://api.spotify.com/v1/recommendations?seed_tracks=${seedTrack}&market=${market}&limit=${limit}`, {
         headers: {

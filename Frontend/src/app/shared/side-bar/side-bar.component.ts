@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatCard, MatCardContent } from '@angular/material/card';
 import { NgClass, NgForOf, NgIf } from '@angular/common';
 import { ThemeService } from '../../services/theme.service';
-import { SpotifyService } from '../../services/spotify.service'; // Ensure the path is correct
+import { SpotifyService } from '../../services/spotify.service';
 
 @Component({
   selector: 'app-side-bar',

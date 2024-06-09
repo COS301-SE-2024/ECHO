@@ -20,8 +20,7 @@ export class AppComponent {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: RouterEvent) => {
-      if (event instanceof NavigationEnd) { // Additional check for strong typing
-        // Now `event` is strongly typed as `NavigationEnd`
+      if (event instanceof NavigationEnd) {
         this.showPlayer = ['/home', '/profile'].includes(event.urlAfterRedirects);
       }
     });
