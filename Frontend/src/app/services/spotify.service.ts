@@ -171,11 +171,14 @@ export class SpotifyService {
   public async getQueue(): Promise<any> {
     try {
       const tokens = await firstValueFrom(this.authService.getTokens());
-      const seedArtist = '246dkjvS1zLTtiykXe5h60';
+      let seedTrack = '';
+      await this.getRecentlyPlayedTracks().then(data => {
+        seedTrack = data.items[0].track.id;
+      });
       const market = 'ES';
       const limit = 14;
 
-      const response = await fetch(`https://api.spotify.com/v1/recommendations?seed_artists=${seedArtist}&market=${market}&limit=${limit}`, {
+      const response = await fetch(`https://api.spotify.com/v1/recommendations?seed_tracks=${seedTrack}&market=${market}&limit=${limit}`, {
         headers: {
           'Authorization': `Bearer ${tokens.providerToken}`
         }
