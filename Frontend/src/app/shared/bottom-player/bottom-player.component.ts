@@ -103,4 +103,20 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
         : "../../../assets/images/play.png";
     }
   }
+
+  playingNowDark(): boolean {
+    return (this.playing && this.themeService.isDarkModeActive());
+  }
+
+  playingNow(): boolean {
+    return (this.playing && (!this.themeService.isDarkModeActive()));
+  }
+
+  pausedNow(): boolean {
+    return ((!this.playing) && (!this.themeService.isDarkModeActive()));
+  }
+
+  pausedNowDark(): boolean {
+    return ((!this.playing) && (this.themeService.isDarkModeActive()));
+  }
 }

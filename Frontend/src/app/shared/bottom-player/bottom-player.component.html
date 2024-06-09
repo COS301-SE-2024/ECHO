@@ -24,7 +24,10 @@
             <input type="range" min="0" max="100" step="1" value="50" (input)="onVolumeChange($event)" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
           </div>
           <div class="flex flex-col justify-center">
-            <img [src]="imgsrc" id="play" (click)="play()" alt="Slider Icon" class="w-10 h-10 hover:cursor-pointer">
+            <img *ngIf="playingNow()" src="../../../assets/images/pause.png" id="play" (click)="play()" alt="Slider Icon" class="w-10 h-10 hover:cursor-pointer">
+            <img *ngIf="playingNowDark()" src="../../../assets/images/pause-dark.png" id="play-dark" (click)="play()" alt="Slider Icon" class="w-10 h-10 hover:cursor-pointer">
+            <img *ngIf="pausedNow()" src="../../../assets/images/play.png" id="pause" (click)="play()" alt="Slider Icon" class="w-10 h-10 hover:cursor-pointer">
+            <img *ngIf="pausedNowDark()" src="../../../assets/images/play-dark.png" id="pause-dark" (click)="play()" alt="Slider Icon" class="w-10 h-10 hover:cursor-pointer">
           </div>
         </div>
       </div>
