@@ -10,7 +10,8 @@ module.exports = {
                 'light-text': '#EE0258',
                 pink: {
                     "light": '#F6668F',
-                    "dark": '#EE0258'
+                    DEFAULT: '#EE0258',
+                    "dark": '#C40047'
                 },
                 gray: {
                     "background": '#191716',
