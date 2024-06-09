@@ -1,7 +1,7 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { AuthService } from './auth.service'; // Make sure the path is correct
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -9,6 +9,10 @@ import { firstValueFrom } from 'rxjs';
 export class SpotifyService {
   private player: any;
   private deviceId: string | null = null;
+  private currentlyPlayingTrackSubject = new BehaviorSubject<any>(null);
+  private playingStateSubject = new BehaviorSubject<boolean>(false);
+  currentlyPlayingTrack$ = this.currentlyPlayingTrackSubject.asObservable();
+  playingState$ = this.playingStateSubject.asObservable();
 
   constructor(
     private authService: AuthService,
@@ -55,6 +59,14 @@ export class SpotifyService {
       this.deviceId = device_id; // Store device ID
     });
 
+    this.player.addListener('player_state_changed', (state: any) => {
+      if (state) {
+        const track = state.track_window.current_track;
+        this.currentlyPlayingTrackSubject.next(track);
+        this.playingStateSubject.next(!state.paused);
+      }
+    });
+
     this.player.connect();
   }
 
@@ -80,7 +92,11 @@ export class SpotifyService {
           }
           return response.json().catch(() => ({}));
         })
-        .then(data => console.log('Play response:', data))
+        .then(data => {
+          console.log('Play response:', data);
+          this.setCurrentlyPlayingTrack(trackId); // Update currently playing track
+          this.playingStateSubject.next(true); // Notify that a track is playing
+        })
         .catch(error => console.error('Error playing track:', error));
     };
 
@@ -93,7 +109,10 @@ export class SpotifyService {
       return;
     }
 
-    this.player.pause().then(() => console.log('Playback paused'));
+    this.player.pause().then(() => {
+      console.log('Playback paused');
+      this.playingStateSubject.next(false); // Notify that playback is paused
+    });
   }
 
   public play(): void {
@@ -111,6 +130,7 @@ export class SpotifyService {
       if (state.paused) {
         this.player.resume().then(() => {
           console.log('Playback resumed');
+          this.playingStateSubject.next(true); // Notify that playback is resumed
         }).catch((error: any) => {
           console.error('Failed to resume playback', error);
         });
@@ -128,31 +148,10 @@ export class SpotifyService {
     }
   }
 
-  public async getCurrentlyPlayingTrack(): Promise<any> {
-    try {
-      const tokens = await firstValueFrom(this.authService.getTokens());
-      const response = await fetch('https://api.spotify.com/v1/me/player/currently-playing', {
-        headers: {
-          'Authorization': `Bearer ${tokens.providerToken}`
-        }
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error('Error fetching currently playing track:', error);
-      throw error;
-    }
-  }
-
   public async getRecentlyPlayedTracks(): Promise<any> {
     try {
       const tokens = await firstValueFrom(this.authService.getTokens());
-      const response = await fetch('https://api.spotify.com/v1/me/player/recently-played?limit=20', {
+      const response = await fetch('https://api.spotify.com/v1/me/player/recently-played?limit=30', {
         headers: {
           'Authorization': `Bearer ${tokens.providerToken}`
         }
@@ -175,7 +174,7 @@ export class SpotifyService {
       const tokens = await firstValueFrom(this.authService.getTokens());
       const seedArtist = '246dkjvS1zLTtiykXe5h60';
       const market = 'ES';
-      const limit = 10;
+      const limit = 14;
 
       const response = await fetch(`https://api.spotify.com/v1/recommendations?seed_artists=${seedArtist}&market=${market}&limit=${limit}`, {
         headers: {
@@ -190,11 +189,11 @@ export class SpotifyService {
       const data = await response.json();
 
       const upNextData = data.tracks.map((track: any) => ({
-        id: track.id, // Add track ID
         text: this.truncateText(track.name, 30), // Use the truncateText method
         secondaryText: track.artists.map((artist: any) => artist.name).join(', '),
         imageUrl: track.album.images[0]?.url || '',
-        explicit: track.explicit
+        explicit: track.explicit,
+        id: track.id // Add track ID for playing
       }));
 
       return upNextData;
@@ -204,12 +203,55 @@ export class SpotifyService {
     }
   }
 
-  // Helper method to truncate text
-  private truncateText(text: string, maxLength: number): string {
-    if (text.length > maxLength) {
-      return text.substring(0, maxLength) + '...';
+  // New method to get the currently playing track
+  public async getCurrentlyPlayingTrack(): Promise<any> {
+    try {
+      const tokens = await firstValueFrom(this.authService.getTokens());
+      const response = await fetch('https://api.spotify.com/v1/me/player/currently-playing', {
+        headers: {
+          'Authorization': `Bearer ${tokens.providerToken}`
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error fetching currently playing track:', error);
+      throw error;
     }
-    return text;
+  }
+
+  // New method to set the currently playing track
+  private setCurrentlyPlayingTrack(trackId: string): void {
+    this.getTrackDetails(trackId).then(track => {
+      this.currentlyPlayingTrackSubject.next(track);
+    });
+  }
+
+  // Helper method to get track details by ID
+  private async getTrackDetails(trackId: string): Promise<any> {
+    try {
+      const tokens = await firstValueFrom(this.authService.getTokens());
+      const response = await fetch(`https://api.spotify.com/v1/tracks/${trackId}`, {
+        headers: {
+          'Authorization': `Bearer ${tokens.providerToken}`
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error fetching track details:', error);
+      throw error;
+    }
   }
 
   disconnectPlayer() {
@@ -220,5 +262,13 @@ export class SpotifyService {
         console.error('Failed to disconnect player', error);
       });
     }
+  }
+
+  // Helper method to truncate text
+  private truncateText(text: string, maxLength: number): string {
+    if (text.length > maxLength) {
+      return text.substring(0, maxLength) + '...';
+    }
+    return text;
   }
 }
