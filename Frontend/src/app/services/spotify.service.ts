@@ -13,6 +13,11 @@ export class SpotifyService {
   private playingStateSubject = new BehaviorSubject<boolean>(false);
   currentlyPlayingTrack$ = this.currentlyPlayingTrackSubject.asObservable();
   playingState$ = this.playingStateSubject.asObservable();
+  private queueCache: { [key: string]: any } = {};
+  private cacheTTL = 3600000;
+  private recentlyPlayedCache: { data: any, timestamp: number } | null = null;
+  private rcacheTTL = 600000; // 600000 milliseconds equals 10 minutes
+
 
   constructor(private authService: AuthService, @Inject(PLATFORM_ID) private platformId: Object) {}
 
@@ -148,6 +153,14 @@ export class SpotifyService {
   }
 
   public async getRecentlyPlayedTracks(): Promise<any> {
+    const cacheKey = 'recentlyPlayed';
+    const currentTime = new Date().getTime();
+
+    // Check if the cache exists and is still valid
+    if (this.recentlyPlayedCache && (currentTime - this.recentlyPlayedCache.timestamp) < this.rcacheTTL) {
+      return this.recentlyPlayedCache.data; // Return cached data if valid
+    }
+
     try {
       const tokens = await firstValueFrom(this.authService.getTokens());
       const response = await fetch('https://api.spotify.com/v1/me/player/recently-played?limit=30', {
@@ -161,6 +174,13 @@ export class SpotifyService {
       }
 
       const data = await response.json();
+
+      // Cache the new data with a timestamp
+      this.recentlyPlayedCache = {
+        timestamp: currentTime,
+        data: data
+      };
+
       return data;
     } catch (error) {
       console.error('Error fetching recently played tracks:', error);
@@ -169,6 +189,13 @@ export class SpotifyService {
   }
 
   public async getQueue(): Promise<any> {
+    const cacheKey = 'queueData';
+    const currentTime = new Date().getTime();
+
+    if (this.queueCache[cacheKey] && (currentTime - this.queueCache[cacheKey].timestamp) < this.cacheTTL) {
+      return this.queueCache[cacheKey].data;
+    }
+
     try {
       const tokens = await firstValueFrom(this.authService.getTokens());
       let seedTrack = '';
@@ -191,12 +218,17 @@ export class SpotifyService {
       const data = await response.json();
 
       const upNextData = data.tracks.map((track: any) => ({
-        text: this.truncateText(track.name, 30), // Use the truncateText method
+        text: this.truncateText(track.name, 30),
         secondaryText: track.artists.map((artist: any) => artist.name).join(', '),
         imageUrl: track.album.images[0]?.url || '',
         explicit: track.explicit,
-        id: track.id // Add track ID for playing
+        id: track.id
       }));
+
+      this.queueCache[cacheKey] = {
+        timestamp: currentTime,
+        data: upNextData
+      };
 
       return upNextData;
     } catch (error) {
@@ -204,6 +236,7 @@ export class SpotifyService {
       throw error;
     }
   }
+
 
   public async getCurrentlyPlayingTrack(): Promise<any> {
     try {
