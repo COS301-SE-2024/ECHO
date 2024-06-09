@@ -149,49 +149,14 @@ export class SpotifyService {
     }
   }
 
-  public async getFeaturedPlaylistTracks(): Promise<any> {
-    try {
-      const tokens = await firstValueFrom(this.authService.getTokens());
-      const response = await fetch('https://api.spotify.com/v1/browse/featured-playlists', {
-        headers: {
-          'Authorization': `Bearer ${tokens.providerToken}`
-        }
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      const playlistId = data.playlists.items[0].id;
-
-      const playlistResponse = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks?limit=10`, {
-        headers: {
-          'Authorization': `Bearer ${tokens.providerToken}`
-        }
-      });
-
-      if (!playlistResponse.ok) {
-        throw new Error(`HTTP error! status: ${playlistResponse.status}`);
-      }
-
-      const playlistData = await playlistResponse.json();
-      return playlistData.items.map((item: any) => ({
-        text: item.track.name,
-        secondaryText: item.track.artists.map((artist: any) => artist.name).join(', '),
-        imageUrl: item.track.album.images[0].url,
-        explicit: item.track.explicit
-      }));
-    } catch (error) {
-      console.error('Error fetching featured playlist tracks:', error);
-      throw error;
-    }
-  }
-
   public async getQueue(): Promise<any> {
     try {
       const tokens = await firstValueFrom(this.authService.getTokens());
-      const response = await fetch('https://api.spotify.com/v1/me/player/queue', {
+      const seedArtist = '246dkjvS1zLTtiykXe5h60';
+      const market = 'ES';
+      const limit = 14;
+
+      const response = await fetch(`https://api.spotify.com/v1/recommendations?seed_artists=${seedArtist}&market=${market}&limit=${limit}`, {
         headers: {
           'Authorization': `Bearer ${tokens.providerToken}`
         }
@@ -202,12 +167,31 @@ export class SpotifyService {
       }
 
       const data = await response.json();
-      return data;
+
+      const upNextData = data.tracks.map((track: any) => ({
+        text: this.truncateText(track.name, 30), // Use the truncateText method
+        secondaryText: track.artists.map((artist: any) => artist.name).join(', '),
+        imageUrl: track.album.images[0]?.url || '',
+        explicit: track.explicit
+      }));
+
+      return upNextData;
     } catch (error) {
-      console.error('Error fetching queue:', error);
+      console.error('Error fetching recommendations:', error);
       throw error;
     }
   }
+
+// Helper method to truncate text
+  private truncateText(text: string, maxLength: number): string {
+    if (text.length > maxLength) {
+      return text.substring(0, maxLength) + '...';
+    }
+    return text;
+  }
+
+
+
 
   disconnectPlayer() {
     if (this.player) {
