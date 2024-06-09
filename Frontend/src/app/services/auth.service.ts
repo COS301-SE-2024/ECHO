@@ -37,4 +37,8 @@ export class AuthService {
   sendTokensToServer(tokens: { accessToken: string | null; refreshToken: string | null; providerToken: string | null; providerRefreshToken: string | null }): Observable<any> {
     return this.http.post(`${this.apiUrl}/token`, tokens);
   }
+
+  sendCodeToServer(code: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/code`, { code });
+  }
 }

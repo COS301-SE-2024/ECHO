@@ -23,7 +23,6 @@ export class SupabaseService {
         if (error) {
             throw new Error(error.message);
         }
-        console.log(this.encryptionKey.length);
         return data.url;
     }
 

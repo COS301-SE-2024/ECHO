@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { SpotifyService } from "../services/spotify.service";
 
 @Component({
   selector: "app-auth-callback",
@@ -9,7 +10,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class AuthCallbackComponent implements OnInit {
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private spotifyService: SpotifyService,) {}
 
   ngOnInit() {
     if (typeof window !== 'undefined') {
@@ -17,8 +18,9 @@ export class AuthCallbackComponent implements OnInit {
       const tokens = this.parseHashParams(hash);
       if (tokens.accessToken && tokens.refreshToken) {
         this.authService.sendTokensToServer(tokens).subscribe({
-          next: (res: any) => {
+          next: async (res: any) => {
             console.log('Login successful:', res);
+            await this.spotifyService.init();
             this.router.navigate(['/home']);
           },
           error: (err: any) => {
@@ -26,7 +28,8 @@ export class AuthCallbackComponent implements OnInit {
             this.router.navigate(['/login']);
           }
         });
-      } else {
+      }
+      else {
         alert("Oops! Something went wrong. Please try again.");
         this.router.navigate(['/login']);
       }
@@ -39,7 +42,8 @@ export class AuthCallbackComponent implements OnInit {
       accessToken: params.get('access_token'),
       refreshToken: params.get('refresh_token'),
       providerToken: params.get('provider_token'),
-      providerRefreshToken: params.get('provider_refresh_token')
+      providerRefreshToken: params.get('provider_refresh_token'),
+      code: params.get('code')
     };
   }
 }

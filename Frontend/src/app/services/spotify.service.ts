@@ -14,13 +14,12 @@ export class SpotifyService {
   currentlyPlayingTrack$ = this.currentlyPlayingTrackSubject.asObservable();
   playingState$ = this.playingStateSubject.asObservable();
 
-  constructor(
-    private authService: AuthService,
-    @Inject(PLATFORM_ID) private platformId: Object
-  ) {
+  constructor(private authService: AuthService, @Inject(PLATFORM_ID) private platformId: Object) {}
+
+  public async init(): Promise<void> {
     if (isPlatformBrowser(this.platformId)) {
       console.log('Initializing Spotify SDK in the browser...');
-      this.initializeSpotify();
+      await this.initializeSpotify();
     } else {
       console.log('Spotify SDK initialization skipped on the server.');
     }
@@ -94,8 +93,8 @@ export class SpotifyService {
         })
         .then(data => {
           console.log('Play response:', data);
-          this.setCurrentlyPlayingTrack(trackId); // Update currently playing track
-          this.playingStateSubject.next(true); // Notify that a track is playing
+          this.setCurrentlyPlayingTrack(trackId);
+          this.playingStateSubject.next(true);
         })
         .catch(error => console.error('Error playing track:', error));
     };
@@ -111,7 +110,7 @@ export class SpotifyService {
 
     this.player.pause().then(() => {
       console.log('Playback paused');
-      this.playingStateSubject.next(false); // Notify that playback is paused
+      this.playingStateSubject.next(false);
     });
   }
 
@@ -130,7 +129,7 @@ export class SpotifyService {
       if (state.paused) {
         this.player.resume().then(() => {
           console.log('Playback resumed');
-          this.playingStateSubject.next(true); // Notify that playback is resumed
+          this.playingStateSubject.next(true);
         }).catch((error: any) => {
           console.error('Failed to resume playback', error);
         });
@@ -203,7 +202,6 @@ export class SpotifyService {
     }
   }
 
-  // New method to get the currently playing track
   public async getCurrentlyPlayingTrack(): Promise<any> {
     try {
       const tokens = await firstValueFrom(this.authService.getTokens());
@@ -225,14 +223,12 @@ export class SpotifyService {
     }
   }
 
-  // New method to set the currently playing track
   private setCurrentlyPlayingTrack(trackId: string): void {
     this.getTrackDetails(trackId).then(track => {
       this.currentlyPlayingTrackSubject.next(track);
     });
   }
 
-  // Helper method to get track details by ID
   private async getTrackDetails(trackId: string): Promise<any> {
     try {
       const tokens = await firstValueFrom(this.authService.getTokens());
@@ -264,7 +260,6 @@ export class SpotifyService {
     }
   }
 
-  // Helper method to truncate text
   private truncateText(text: string, maxLength: number): string {
     if (text.length > maxLength) {
       return text.substring(0, maxLength) + '...';

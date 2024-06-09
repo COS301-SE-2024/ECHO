@@ -21,13 +21,33 @@ export class AuthController {
         return { message: "Tokens received and processed" };
     }
 
-    @Get("providertokens")
-    async getProviderTokens(@Req() req) {
-        const { data, error: userError } = await supabase.auth.getUser();
-        const userId = data.user.id;
-        const { providerToken, providerRefreshToken } = await this.supabaseService.retrieveTokens(userId);
-        return { providerToken, providerRefreshToken };
+    @Post("code")
+    async receiveCode(@Body() body: { code: string }) {
+        const { code } = body;
+        console.log("Received code: ", code);
+        await this.supabaseService.exchangeCodeForSession(code);
+        return { message: "Code received and processed" };
     }
+
+    @Get("providertokens")
+    async getProviderTokens(@Req() req): Promise<any> {
+        try {
+            const { data, error: userError } = await supabase.auth.getUser();
+
+            if (!data || !data.user) {
+                console.error('User data is null:', { data, userError });
+                return { status: 'error', message: 'No user data available' };
+            }
+
+            const userId = data.user.id;
+            const { providerToken, providerRefreshToken } = await this.supabaseService.retrieveTokens(userId);
+            return { providerToken, providerRefreshToken };
+        } catch (error) {
+            console.error('Error retrieving provider tokens:', error);
+            return { status: 'error', message: 'Failed to retrieve provider tokens' };
+        }
+    }
+
 
     @Get("callback")
     async authCallback(
