@@ -44,7 +44,7 @@ export class SideBarComponent implements OnInit {
           this.recentListeningCardData.push({
             id: trackId,
             imageUrl: item.track.album.images[0].url,
-            text: item.track.name,
+            text: this.truncateText(item.track.name, 30),
             secondaryText: item.track.artists.map((artist: any) => artist.name).join(', '),
             explicit: item.track.explicit
           });
@@ -63,5 +63,17 @@ export class SideBarComponent implements OnInit {
 
   selectOption(option: string) {
     this.selectedOption = option;
+  }
+
+  playTrack(trackId: string): void {
+    this.spotifyService.playTrackById(trackId);
+  }
+
+  // Helper method to truncate text
+  private truncateText(text: string, maxLength: number): string {
+    if (text.length > maxLength) {
+      return text.substring(0, maxLength) + '...';
+    }
+    return text;
   }
 }

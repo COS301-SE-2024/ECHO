@@ -58,13 +58,13 @@ export class SpotifyService {
     this.player.connect();
   }
 
-  public playTrack(): void {
+  public playTrackById(trackId: string): void {
     if (!this.deviceId) {
       console.error('Device ID is undefined. Ensure the player is ready before playing.');
       return;
     }
 
-    const spotifyUri = 'spotify:track:5mVfq3wn79JVdHQ7ZuLSCB';
+    const spotifyUri = `spotify:track:${trackId}`;
     const tokenRetrieval = (token: string) => {
       fetch(`https://api.spotify.com/v1/me/player/play?device_id=${this.deviceId}`, {
         method: 'PUT',
@@ -128,6 +128,27 @@ export class SpotifyService {
     }
   }
 
+  public async getCurrentlyPlayingTrack(): Promise<any> {
+    try {
+      const tokens = await firstValueFrom(this.authService.getTokens());
+      const response = await fetch('https://api.spotify.com/v1/me/player/currently-playing', {
+        headers: {
+          'Authorization': `Bearer ${tokens.providerToken}`
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error fetching currently playing track:', error);
+      throw error;
+    }
+  }
+
   public async getRecentlyPlayedTracks(): Promise<any> {
     try {
       const tokens = await firstValueFrom(this.authService.getTokens());
@@ -154,7 +175,7 @@ export class SpotifyService {
       const tokens = await firstValueFrom(this.authService.getTokens());
       const seedArtist = '246dkjvS1zLTtiykXe5h60';
       const market = 'ES';
-      const limit = 14;
+      const limit = 10;
 
       const response = await fetch(`https://api.spotify.com/v1/recommendations?seed_artists=${seedArtist}&market=${market}&limit=${limit}`, {
         headers: {
@@ -169,6 +190,7 @@ export class SpotifyService {
       const data = await response.json();
 
       const upNextData = data.tracks.map((track: any) => ({
+        id: track.id, // Add track ID
         text: this.truncateText(track.name, 30), // Use the truncateText method
         secondaryText: track.artists.map((artist: any) => artist.name).join(', '),
         imageUrl: track.album.images[0]?.url || '',
@@ -182,16 +204,13 @@ export class SpotifyService {
     }
   }
 
-// Helper method to truncate text
+  // Helper method to truncate text
   private truncateText(text: string, maxLength: number): string {
     if (text.length > maxLength) {
       return text.substring(0, maxLength) + '...';
     }
     return text;
   }
-
-
-
 
   disconnectPlayer() {
     if (this.player) {

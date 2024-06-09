@@ -17,7 +17,7 @@
           </div>
 
           <div class="mt-7 flex-grow overflow-auto scrollbar-hidden">
-            <div *ngFor="let card of getSelectedCardData()" class="flex items-center mb-5">
+            <div *ngFor="let card of getSelectedCardData()" class="flex items-center mb-5 hover:cursor-pointer" (click)="playTrack(card.id)">
               <!-- Image on the left -->
               <div class="mr-4 flex-shrink-0" style="width: 25%;">
                 <img [src]="card.imageUrl" alt="Card image" class="w-full h-auto rounded">

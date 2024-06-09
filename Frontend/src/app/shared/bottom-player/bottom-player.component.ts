@@ -17,6 +17,15 @@ export class BottomPlayerComponent {
   started: boolean = false;
     constructor(protected themeService: ThemeService, private spotifyService: SpotifyService) {}
 
+  ngAfterViewInit(): void {
+
+      if (!this.themeService.isDarkModeActive())
+      {
+        this.themeService.switchTheme();
+      }
+    this.imgsrc = '../../../assets/images/play-dark.png';
+  }
+
   ngOnDestroy(): void {
     this.spotifyService.disconnectPlayer();
   }
@@ -31,20 +40,41 @@ export class BottomPlayerComponent {
 
   play() {
       if (!this.started) {
-      this.spotifyService.playTrack();
+      this.spotifyService.playTrackById("5mVfq3wn79JVdHQ7ZuLSCB");
       this.started = true;
       this.playing = true;
-      this.imgsrc = '../../../assets/images/pause.png';
+        if (this.themeService.isDarkModeActive())
+        {
+          this.imgsrc = '../../../assets/images/pause-dark.png';
+        }
+        else
+        {
+          this.imgsrc = '../../../assets/images/pause.png';
+        }
     }
     else {
         if (this.playing) {
           this.pauseMusic();
           this.playing = false;
-          this.imgsrc = '../../../assets/images/play.png';
+          if (this.themeService.isDarkModeActive())
+          {
+            this.imgsrc = '../../../assets/images/play-dark.png';
+          }
+          else
+          {
+            this.imgsrc = '../../../assets/images/play.png';
+          }
         } else {
           this.playMusic();
           this.playing = true;
-          this.imgsrc = '../../../assets/images/pause.png';
+          if (this.themeService.isDarkModeActive())
+          {
+            this.imgsrc = '../../../assets/images/pause-dark.png';
+          }
+          else
+          {
+            this.imgsrc = '../../../assets/images/pause.png';
+          }
         }
       }
 
