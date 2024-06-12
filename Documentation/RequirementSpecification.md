@@ -17,10 +17,13 @@
   - [5. User Insights Generation](#5-user-insights-generation)
   - [6. Dynamic User Interface](#6-dynamic-user-interface)
   - [7. Progressive Web Application Functionality](#7-progressive-web-application-functionality)
-  - [8. User Music Library](#8-user-music-library)
-  - [9. Follow Functionality](#9-follow-functionality)
-  - [10. Search and Discovery](#10-search-and-discovery)
-  - [11. Music Playback](#11-music-playback)
+  - [8. Spotify Integration](#8-spotify-integration)
+  - [9. User Music Library](#9-user-music-library)
+  - [10. Follow Functionality](#10-follow-functionality)
+  - [11. Search and Discovery](#11-search-and-discovery)
+  - [12. Music Playback](#12-music-playback)
+  - [13. Queue Management](#13-queue-management)
+  - [14. View Listening History](#14-view-listening-history)
 - [Service Contracts](#service-contracts)
   - [1.1 Register](#11-register)
   - [1.2 Login](#12-login)
@@ -113,7 +116,7 @@ ECHO is a Progressive Web Application that interacts with the Spotify API and ta
 - Allow users to log into the application securely using their created credentials.
 1.3 Password Reset
 - Allow users to reset their passwords if forgotten.
-1.4 Spotify Integration
+1.4 Link Spotify account
 - Allow users to log into their Spotify account to link it to the application.
 
 ## 2. Personalized Song Recommendations
@@ -164,25 +167,49 @@ ECHO is a Progressive Web Application that interacts with the Spotify API and ta
 7.3 Performance Optimization
 - Application performance should be optimized to provide a smooth and responsive user experience.
 
-## 8. User Music Library
-8.1 View Music Library
-- Users can view their own music library from Spotify.
+## 8. Spotify Integration
+8.1 Sync Spotify account
+- All users' Spotify account information and data will be synced to ECHO.
 
-## 9. Follow Functionality
-9.1 Follow Users
+## 9. User Music Library
+9.1 View Music Library
+- Users can view their own music library from Spotify.
+9.2 Sync Playlists
+- Allow users to sync public and private Spotify playlists connected to their account.
+
+## 10. Follow Functionality
+10.1 Follow Users
 - Listeners can follow each other.
-9.2 Follow Artists
+10.2 Follow Artists
 - Listeners can follow artists they like.
 
-## 10. Search and Discovery
-10.1 Search Music
+## 11. Search and Discovery
+11.1 Search Music
 - Allow users to search for new music.
-10.2 Music Discovery
+11.2 Music Discovery
 - Provide features for discovering new music.
 
-## 11. Music Playback
-11.1 Play Music
+## 12. Music Playback
+12.1 Play Music
 - Enable users to play music directly from the application.
+12.2 Adjust volume 
+- Enable users to increase and decrease the volume of the song they are listening to.
+12.3 Skip song
+- Allow users to skip the current song and play the next.
+12.4 Rewind song
+- Allow users to rewind the current song to any point in the song they wish.
+12.5 Replay song
+- Allow users to replay songs in a continuous loop.
+
+## 13. Queue Management
+13.1 View "Up next" in queue
+- Allow users to view which songs will play next.
+13.2 Edit queue
+- Allow users to rearrange the order in which songs will play.
+
+## 14. View Listening History 
+14.1 View recently listened
+- Allow users to view a list of songs in order of most recently listened.
 
 <br />
 <br />
