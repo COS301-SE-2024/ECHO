@@ -1,9 +1,9 @@
-<div class="card w-full bg-white text-black dark:bg-gray-800 dark:text-white overflow-hidden shadow rounded-lg">
+<div class="card w-full bg-stone text-black dark:bg-gray-800 dark:text-white overflow-hidden shadow rounded-lg">
     <div class="card-body">
         <h5 class="card-title text-xl font-bold mb-4">Favourite Moods</h5>
         <div class="flex overflow-x-auto">
             <div *ngFor="let mood of favouriteMoods" class="rounded-lg overflow-hidden" style="flex: 0 0 auto; width: 40vh; margin-right: 16px;">
-                <div class="card w-full h-full">
+                <div class="card w-full h-full relative overflow-hidden aspect-w-16 aspect-h-9">
                     <img src="{{ mood.image }}" alt="{{ mood.name }}" class="w-full h-full object-cover">
                     <div class="card-body absolute bottom-2 left-2 text-white text-lg font-bold">
                         {{ mood.name }}
@@ -11,11 +11,11 @@
                 </div>
             </div>
         </div>
-
+        <br/>
         <h5 class="card-title text-xl font-bold mb-4">Recommended Moods</h5>
         <div class="flex overflow-x-auto">
             <div *ngFor="let mood of RecommendedMoods" class="rounded-lg overflow-hidden" style="flex: 0 0 auto; width: 40vh; margin-right: 16px;">
-                <div class="card w-full h-full">
+                <div class="card w-full h-full relative overflow-hidden aspect-w-16 aspect-h-9">
                     <img src="{{ mood.image }}" alt="{{ mood.name }}" class="w-full h-full object-cover">
                     <div class="card-body absolute bottom-2 left-2 text-white text-lg font-bold">
                         {{ mood.name }}

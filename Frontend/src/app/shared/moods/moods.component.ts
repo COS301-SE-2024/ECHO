@@ -12,51 +12,51 @@ import { MatGridListModule } from '@angular/material/grid-list';
 export class MoodsComponent {
     favouriteMoods = [
         {
-            name: 'Confident',
-            image: '/assets/moods/Confident.jpg',
+            name: 'Anxious',
+            image: '/assets/moods/arctic.jpeg',
         },
         {
             name: 'Chill',
-            image: '/assets/moods/chill.jpg',
+            image: '/assets/moods/kendrick.jpeg',
         },
         {
             name: 'Happy',
-            image: '/assets/moods/happy.jpg',
+            image: '/assets/moods/gambino.jpeg',
         },
         {
             name: 'Melancholy',
-            image: '/assets/moods/Melancholy.png',
+            image: '/assets/moods/radiohead.jpeg',
         },
         {
             name: 'Nostalgic',
-            image: '/assets/moods/Nostalgic.jpg',
+            image: '/assets/moods/sza.jpeg',
         },
         {
-            name: 'Unknows',
+            name: 'Unknown',
             image: '/assets/moods/img6.jpg',
         },
     ];
 
     RecommendedMoods = [
         {
-            name: 'Melancholy',
-            image: '/assets/moods/Melancholy.png',
+            name: 'Mad',
+            image: '/assets/moods/yonce.jpeg',
         },
         {
             name: 'Nostalgic',
-            image: '/assets/moods/Nostalgic.jpg',
+            image: '/assets/moods/taylor.jpeg',
         },
         {
-            name: 'Unknows',
-            image: '/assets/moods/img6.jpg',
+            name: 'Ethereal',
+            image: '/assets/moods/impala.jpeg',
         },
         {
             name: 'Confident',
-            image: '/assets/moods/Confident.jpg',
+            image: '/assets/moods/tyler.jpeg',
         },
         {
-            name: 'Chill',
-            image: '/assets/moods/chill.jpg',
+            name: 'Happy',
+            image: '/assets/moods/beatles.jpg',
         },
         {
             name: 'Happy',
