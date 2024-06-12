@@ -5,7 +5,7 @@ import { SpotifyService } from "../services/spotify.service";
 
 @Component({
   selector: "app-auth-callback",
-  template: "<div class='bg-stone-900 w-screen h-screen'><p class='text-gray-300 top-1/2 left-1/2'>Processing login...</p></div>",
+  template: "<div class='bg-stone-900 w-screen h-screen'><div class='left-1/2 top-1/2'><p class='text-gray-300'>Processing login...</p></div></div>",
   standalone: true
 })
 export class AuthCallbackComponent implements OnInit {
