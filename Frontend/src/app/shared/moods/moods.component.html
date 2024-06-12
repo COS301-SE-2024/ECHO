@@ -1,23 +1,30 @@
-<mat-card class="p-2 text-black dark:text-white" style="width: 100%; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none;">
-    <mat-card-header class="text-xl font-bold mb-4">Favourite moods</mat-card-header>
-    <div style="display: flex; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none;">
-        <div *ngFor="let mood of favouriteMoods" class="rounded-lg overflow-hidden" style="flex: 0 0 auto; width: 40vh; margin-right: 16px;">
-            <mat-card class="w-full h-full">
-                <img mat-card-image [src]="mood.image" [alt]="mood.name" class="w-full h-full object-cover" />
-                <mat-card-footer class="absolute bottom-2 left-2 text-white text-lg font-bold">{{mood.name}}</mat-card-footer>
-            </mat-card>
+<div class="card w-full bg-white text-black dark:bg-gray-800 dark:text-white overflow-hidden shadow rounded-lg">
+    <div class="card-body">
+        <h5 class="card-title text-xl font-bold mb-4">Favourite Moods</h5>
+        <div class="flex overflow-x-auto">
+            <div *ngFor="let mood of favouriteMoods" class="rounded-lg overflow-hidden" style="flex: 0 0 auto; width: 40vh; margin-right: 16px;">
+                <div class="card w-full h-full">
+                    <img src="{{ mood.image }}" alt="{{ mood.name }}" class="w-full h-full object-cover">
+                    <div class="card-body absolute bottom-2 left-2 text-white text-lg font-bold">
+                        {{ mood.name }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h5 class="card-title text-xl font-bold mb-4">Recommended Moods</h5>
+        <div class="flex overflow-x-auto">
+            <div *ngFor="let mood of RecommendedMoods" class="rounded-lg overflow-hidden" style="flex: 0 0 auto; width: 40vh; margin-right: 16px;">
+                <div class="card w-full h-full">
+                    <img src="{{ mood.image }}" alt="{{ mood.name }}" class="w-full h-full object-cover">
+                    <div class="card-body absolute bottom-2 left-2 text-white text-lg font-bold">
+                        {{ mood.name }}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <mat-card-header class="text-xl font-bold mb-4">Recommended moods</mat-card-header>
-    <div style="display: flex; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none;">
-        <div *ngFor="let mood of RecommendedMoods" class="rounded-lg overflow-hidden" style="flex: 0 0 auto; width: 40vh; margin-right: 16px;">
-            <mat-card class="w-full h-full">
-                <img mat-card-image [src]="mood.image" [alt]="mood.name" class="w-full h-full object-cover" />
-                <mat-card-footer class="absolute bottom-2 left-2 text-white text-lg font-bold">{{mood.name}}</mat-card-footer>
-            </mat-card>
-        </div>
-    </div>
-</mat-card>
+</div>
 
 <style>
     ::-webkit-scrollbar {
