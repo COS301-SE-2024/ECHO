@@ -37,6 +37,8 @@
   - [2. Profile Management Subsystem](#2-profile-management-subsystem)
   - [3. Analytics Display Subsystem](#3-analytics-display-subsystem)
   - [4. AI Processing Subsystem](#4-ai-processing-subsystem)
+  - [5. Spotify Integration Subsystem](#5-spotify-integration-subsystem)
+  - [6. Music Player Subsystem](#6-music-player-subsystem)
 - [UML Class Diagram](#uml-class-diagram)
 - [Design Patterns](#design-patterns)
   - [Observer](#observer)
@@ -366,6 +368,12 @@ The artist accesses the analytics page and views detailed insights about their l
 
 ## 4. AI Processing Subsystem
 ![AI-processing](<new AI Subsystem.png>)
+
+## 5. Spotify Integration Subsystem
+![spotify-integration](<Spotify Integration Subsystem.png>)
+
+## 6. Music Player Subsystem
+![music-player](<Music Player Subsystem.png>)
 
 <br />
 <br />
