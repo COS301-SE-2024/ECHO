@@ -56,10 +56,10 @@ export class MoodsComponent {
         },
         {
             name: 'Happy',
-            image: '/assets/moods/beatles.jpg',
+            image: '/assets/moods/beatles.jpeg',
         },
         {
-            name: 'Happy',
+            name: 'Introspective',
             image: '/assets/moods/happy.jpg',
         },
     ];
