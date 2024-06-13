@@ -8,7 +8,7 @@
 
 # Project Description:
 
-### HalfStack - *ECHO* - A Progressive Web App `(PWA)`  that recommends `songs` and shows visualise `statistics` based on analysis of songs you already `like` on `Spotify`. Using a `sentiment analysis AI` to generate data on abstract song characteristics, like `theme`,`mood`,`bpm`,`key` and `time signature`.
+### *ECHO* - A Progressive Web App `(PWA)`  that recommends `songs` and shows visualise `statistics` based on analysis of songs you already `like` on `Spotify`. Using a `sentiment analysis AI` to generate data on abstract song characteristics, like `theme`,`mood`,`bpm`,`key` and `time signature`.
 
 # Badges
 
@@ -30,6 +30,7 @@
 ## Frontend:
 ![Angular](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white)
 ![Tailwind](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Ionic](https://img.shields.io/badge/Ionic-3880FF?style=for-the-badge&logo=ionic&logoColor=white)
 
 ## Backend:
 ![Python](https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue)
@@ -39,8 +40,12 @@
 
 ## DataBase:
 ![Mongo DB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
+![Supabase](https://img.shields.io/badge/Supabase-003B57?style=for-the-badge&logo=supabase)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
 ## Hosting
 ![Azure](https://img.shields.io/badge/microsoft%20azure-0089D6?style=for-the-badge&logo=microsoft-azure&logoColor=white)
+
+## 
 
 ## Branching strategy `GitFlow`
 
@@ -137,8 +142,3 @@
     </tr>
   </tbody>
 </table>
-
-
-
-
-

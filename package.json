@@ -11,6 +11,8 @@
     "concurrently": "^8.2.2"
   },
   "devDependencies": {
-    "prettier": "^3.3.2"
+    "prettier": "^3.3.2",
+    "concurrently": "^8.2.2",
+    "dotenv": "^16.4.5"
   }
 }

@@ -88,18 +88,3 @@ jobs:
           ls -la Frontend
           echo "Displaying package.json in Frontend directory:"
           cat Frontend/package.json
-
-  upload_results:
-    name: Upload Test Results
-    if: failure()
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/upload-artifact@v2
-        with:
-          name: backend-test-results
-          path: Backend/coverage
-
-      - uses: actions/upload-artifact@v2
-        with:
-          name: frontend-test-results
-          path: Frontend/coverage

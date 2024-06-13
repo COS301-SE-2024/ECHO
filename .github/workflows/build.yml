@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - develop
+      - feature/build-fix
   pull_request:
 
 jobs:
@@ -18,23 +19,24 @@ jobs:
       - name: Set Up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 20.9.0
+          node-version: 20.11.1
 
       - name: Install Dependencies
         run: |
           npm install
-          npm link @angular/cli
-          npm install @angular/service-worker
-          npm install -g @nestjs/cli
+          cd Frontend
+          npm install
+          cd ../Backend
+          npm install
 
         working-directory: ./
 
       - name: Build Angular App
-        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
-        run: ng build Frontend --configuration production
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/feature/build-fix')
+        run: npm run build
         working-directory: ./Frontend
 
       - name: Build NestJS App
-        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
-        run: nest build
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/feature/build-fix')
+        run: npm run build
         working-directory: ./Backend
