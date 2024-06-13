@@ -20,28 +20,31 @@ export class RegisterComponent {
     password: string = '';
     @ViewChild(ToastComponent) toastComponent!: ToastComponent;
 
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-    private themeService: ThemeService
-  ) {
-  }
+    constructor(
+        private authService: AuthService,
+        private router: Router,
+        private themeService: ThemeService,
+    ) {}
 
-  ngOnInit() {
-    this.theme();
-  }
-
-  theme() {
-    if (!this.themeService.isDarkModeActive()) {
-      this.themeService.switchTheme();
+    ngOnInit() {
+        this.theme();
     }
-  }
 
-  spotify() {
-    if (typeof window !== 'undefined') {
-      window.location.href = 'http://localhost:3000/api/auth/oauth-signin';
+    theme() {
+        if (!this.themeService.isDarkModeActive()) {
+            this.themeService.switchTheme();
+        }
     }
-  }
+
+    spotify() {
+        var email: any;
+        email = document.getElementById('email');
+        var password: any;
+        password = document.getElementById('password');
+
+        email.required = false;
+        password.required = false;
+    }
 
     register() {
         if (this.username === '' || this.email === '' || this.password === '') {
@@ -72,15 +75,4 @@ export class RegisterComponent {
                 },
             );
     }
-
-    const metadata = {
-      username: this.username,
-      name: this.username,
-    };
-
-    this.authService.signUp(this.email, this.password, metadata).subscribe(
-      () => this.router.navigate(["/home"]),
-      (error) => console.error("Error signing up:", error)
-    );
-  }
 }

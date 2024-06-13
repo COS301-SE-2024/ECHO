@@ -10,17 +10,6 @@
     - [Project Scope](#project-scope)
 - [User Stories](#user-stories)
 - [Functional Requirements](#functional-requirements)
-  - [1. Secure Authentication Process](#1-secure-authentication-process)
-  - [2. Personalized Song Recommendations](#2-personalized-song-recommendations)
-  - [3. Sentiment Analysis System](#3-sentiment-analysis-system)
-  - [4. K-Means Clustering System](#4-k-means-clustering-system)
-  - [5. User Insights Generation](#5-user-insights-generation)
-  - [6. Dynamic User Interface](#6-dynamic-user-interface)
-  - [7. Progressive Web Application Functionality](#7-progressive-web-application-functionality)
-  - [8. User Music Library](#8-user-music-library)
-  - [9. Follow Functionality](#9-follow-functionality)
-  - [10. Search and Discovery](#10-search-and-discovery)
-  - [11. Music Playback](#11-music-playback)
 - [Service Contracts](#service-contracts)
   - [1.1 Register](#11-register)
   - [1.2 Login](#12-login)
@@ -35,13 +24,64 @@
 - [Use Case Diagrams](#use-case-diagrams)
   - [1. User Management Subsystem](#1-user-management-subsystem)
   - [2. Profile Management Subsystem](#2-profile-management-subsystem)
-  - [3. Analytics Display Subsystem](#3-analytics-display-subsystem)
-  - [4. AI Processing Subsystem](#4-ai-processing-subsystem)
+  - [3. Music Recommendation Subsystem](#3-music-recommendation-subsystem)
+  - [4. Analytics Display Subsystem](#4-analytics-display-subsystem)
+  - [5. AI Processing Subsystem](#5-ai-processing-subsystem)
 - [UML Class Diagram](#uml-class-diagram)
 - [Design Patterns](#design-patterns)
   - [Observer](#observer)
   - [Singleton](#singleton)
   - [Adapter](#adapter)
+- [Architectural Requirements](#architectural-requirements)
+  - [Introduction](#introduction-1)
+  - [Quality Requirements](#quality-requirements)
+    - [Usability](#usability)
+    - [Performance](#performance)
+    - [Reliability](#reliability)
+    - [Security](#security)
+  - [Architectural Overview](#architectural-overview)
+    - [Presentation Layer](#presentation-layer)
+      - [Components](#components)
+      - [Responsibilities](#responsibilities)
+      - [Quality Contributions](#quality-contributions)
+    - [API Layer](#api-layer)
+      - [Components](#components-1)
+      - [Responsibilities](#responsibilities-1)
+      - [Quality Contributions](#quality-contributions-1)
+    - [Business Layer](#business-layer)
+      - [Components](#components-2)
+      - [Responsibilities](#responsibilities-2)
+      - [Quality Contributions](#quality-contributions-2)
+    - [Data Layer](#data-layer)
+      - [Components](#components-3)
+      - [Responsibilities](#responsibilities-3)
+      - [Quality Contributions](#quality-contributions-3)
+  - [Constraints](#constraints)
+    - [Technical Constraints](#technical-constraints)
+      - [Performance Requirements](#performance-requirements)
+      - [Technology Stack](#technology-stack)
+      - [Storage and Data Handling](#storage-and-data-handling)
+      - [APIs and Integration](#apis-and-integration)
+    - [Operational Constraints](#operational-constraints)
+      - [Deployment](#deployment)
+      - [Security](#security-1)
+      - [Resource Management](#resource-management)
+    - [User Constraints](#user-constraints)
+      - [Device Compatibility](#device-compatibility)
+      - [Content Moderation](#content-moderation)
+- [Technological Requirements](#technological-requirements)
+  - [Programming Languages](#programming-languages)
+    - [Frontend](#frontend)
+    - [Backend](#backend)
+  - [Frameworks and Libraries](#frameworks-and-libraries)
+    - [Frontend](#frontend-1)
+    - [Backend](#backend-1)
+    - [Package management](#package-management)
+  - [Database Management System](#database-management-system)
+  - [Development Tools](#development-tools)
+    - [IDEs and Editors](#ides-and-editors)
+    - [Version Control](#version-control)
+    - [Other Tools](#other-tools)
   
 
 <br />
@@ -93,7 +133,7 @@ ECHO is a Progressive Web Application that interacts with the Spotify API and ta
 3. ### As an Artist, I want to:
    1. Have all the functionality of a User
    1. See which moods my music is associated with.
-   1. See recommended listening based on my music.
+   1. See recomended listening based on my music.
    1. See other artists who produce music similar to mine.
    1. Assign artist-defined tags to my music.
    1. View detailed analytics about listeners who enjoy my music.
@@ -104,83 +144,42 @@ ECHO is a Progressive Web Application that interacts with the Spotify API and ta
 
 # Functional Requirements
 
-## 1. Secure Authentication Process
-1.1 User Registration
-- Allow users to register on the application securely.
-1.2 User Login
-- Allow users to log into the application securely using their created credentials.
-1.3 Password Reset
-- Allow users to reset their passwords if forgotten.
-1.4 Spotify Integration
-- Allow users to log into their Spotify account to link it to the application.
+1. Provided a secure authentication process for user access
+   1. Allow users to register on the application securely.
+   2. Allow users to log into the application securely using their created credentials.
+   3. Allow users to reset their passwords if forgotten.
+   4. Allow users to log into their Spotify account to link it to the application.
 
-## 2. Personalized Song Recommendations
-2.1 Categorized Recommendations
-- Provide users with song recommendations categorized by key, BPM, theme, and mood.
-2.2 Custom Recommendation Categories
-- Provide users with the option to set custom recommendation categories.
-2.3 Song-Specific Recommendations
-- Provide recommendations based on analysis of the user's selected song rather than general trends.
 
-## 3. Sentiment Analysis System
-3.1 Lyrics Processing
-- System must process the song’s lyrics.
-3.2 Emotional Content Interpretation
-- Sentiment analysis must interpret the song’s emotional content.
-3.3 Theme and Mood Categorization
-- Sentiment analysis must categorize the song by theme and mood.
-3.4 Lyrical Content Interpretation
-- Sentiment analysis must interpret lyrical content to accurately gauge emotional resonance.
+2. Provide personalised song recommendations based on the song currently being listened to
+   1. Provide users with song recommendations categorized by key, BPM, theme, and mood.
+   2. Provide users with the option to set custom recommendation categories.
+   3. Provide recommendations based on analysis (described in i.) of the user's selected song rather than general trends.
 
-## 4. K-Means Clustering System
-4.1 Receive Musical Features
-- System must receive the musical features for each song, which includes a sentiment score.
-4.2 Song Grouping
-- Clustering must group similar songs using K-Means clustering.
-4.3 Cluster Updates
-- Clustering must handle updates to clusters when new songs are added to the dataset.
 
-## 5. User Insights Generation
-5.1 Visual Insights
-- Users must be able to view intuitive graphs and charts showing common themes and moods in their listening history.
-5.2 Meaningful Insights
-- Insights must provide meaningful knowledge about their musical interests.
+3. Sentiment Analysis system to analyze songs (based on key, BPM, genre) and categorize them based on abstract characteristics such as theme and mood.
+   1. System must process the song’s lyrics and musical elements.
+   2. Sentiment analysis must interpret the song’s emotional content.
+   3. Sentiment analysis must categorise the song by theme and mood.
+   4. Sentiment analysis must interpret lyrical content and musical elements to
+      accurately gauge emotional resonance.
 
-## 6. Dynamic User Interface
-6.1 Mood-Reflective UI
-- The UI must dynamically adjust to reflect the user's mood based on the current song.
-6.2 UI Toggle
-- Users must have the ability to toggle the dynamic UI feature on and off.
-6.3 Emotional Engagement
-- The design should create an emotionally engaging user experience.
 
-## 7. Progressive Web Application Functionality
-7.1 Cross-Platform Compatibility
-- The application must be compatible with various devices and operating systems, including desktops, tablets, and smartphones.
-7.2 Offline Functionality
-- Offline functionality must be implemented to allow users to access the app without an internet connection and view their previous recommendations.
-7.3 Performance Optimization
-- Application performance should be optimized to provide a smooth and responsive user experience.
+4. Generate and display insights about users' listening habits
+   1. Users must be able to view intuitive graphs and charts showing common themes and moods in their listening history.
+   2. Insights must provide meaningful knowledge about their musical interests.
+   
 
-## 8. User Music Library
-8.1 View Music Library
-- Users can view their own music library from Spotify.
+5. Provide users with a dynamic User Interface
+   1. The UI must dynamically adjust to reflect the user's mood based on the current song.
+   2. Users must have the ability to toggle the dynamic UI feature on and off.
+   3. The design should create an emotionally engaging user experience.
 
-## 9. Follow Functionality
-9.1 Follow Users
-- Listeners can follow each other.
-9.2 Follow Artists
-- Listeners can follow artists they like.
 
-## 10. Search and Discovery
-10.1 Search Music
-- Allow users to search for new music.
-10.2 Music Discovery
-- Provide features for discovering new music.
-
-## 11. Music Playback
-11.1 Play Music
-- Enable users to play music directly from the application.
+6. Ensure the application functions as a Progressive Web Application
+   1. The application must be compatible with various devices and operating systems, including desktops, tablets, and smartphones.
+   2. Offline functionality must be implemented to allow users to access the app without an internet connection, and view their previous recommendations.
+   3. Application performance should be optimized to provide a smooth and responsive user experience.
 
 <br />
 <br />
@@ -348,24 +347,24 @@ The listener accesses their profile page and updates their preferences. The syst
 **Scenario:**
 The artist accesses the analytics page and views detailed insights about their listeners' preferences and behaviours.
 
-
-
 <br />
 <br />
 
 # Use Case Diagrams
 
 ## 1. User Management Subsystem
-![user-management](<User Management.png>)
+![user management](<User Management.png>)
 
 ## 2. Profile Management Subsystem
-![profile-management](<Profile Management.png>)
+![profile management](<Profile Management.png>)
 
-## 3. Analytics Display Subsystem
-![analytics](<Analytics Display.png>)
+## 3. Music Recommendation Subsystem
+![music recommendation](<Music Recommendation Engine.png>)
 
-## 4. AI Processing Subsystem
-![AI-processing](<new AI Subsystem.png>)
+## 4. Analytics Display Subsystem
+![analytics display](<Analytics Display.png>)
+
+## 5. AI Processing Subsystem
 
 <br />
 <br />
@@ -392,3 +391,203 @@ The artist accesses the analytics page and views detailed insights about their l
 
 <br />
 <br />
+
+# Architectural Requirements
+
+## Introduction
+This section provides a detailed architecture specification for the ECHO Progressive Web App (PWA). The architecture is designed to ensure scalability, maintainability and high performance while meeting the quality requirements of usability, reliability and security. 
+<br />
+
+## Quality Requirements
+
+### Usability
+1. **Intuitive Interface:** The application should be intuitive and easy to navigate, clear and organised without any unnecessary clutter. Design choices should be consistent throughout the interface, and clear visual cues (such as icons, buttons and labels) should guide users through the interface logically and intuitively.
+2. **User-Friendly:** The application should be responsive, personalisable, and easy to learn. Users should be able to customise their interface, and receive clear, real-time feedback (loading indicators, confirmation and error messages) from the system to understand the application's state and any actions they need to take. 
+
+### Performance
+1. **Load Time and Responsiveness:** The application should load requested pages quickly, and the system should response promptly when the user interacts with anything on a page.
+2. **Scalability:** The system should be able to support large amounts of user traffic without significant latency.
+
+### Reliability
+1. **Error Handling:** The system should be able to identify errors and handle them quickly and gracefully, and provide meaningful feedback to users.
+2. **Data Accuracy:** Data validation rules should be implemented to ensure user input is consistent and error-free, and that incorrect data is not entered into the system. 
+
+### Security
+1. **Data Protection:** All user data should be encrypted both in transit and at rest, ensuring sensitive information is never exposed within the system.
+2. **Authentication:** Secure methods should be used for user authentication, including multi-factor authentication.
+3. **Authorisation:** Ensure role-based access control to protect sensitive app features. 
+   
+<br />
+
+## Architectural Overview
+The system is designed using a combination of Layered Architecture, Model-View-Controller (MVC) and Service-Oriented Architecture (SOA). The architecture is divided into the following layers:
+- Presentation Layer
+- API Layer
+- Business Layer
+- Data Layer
+Each later has specific responsibilities and interacts with other layers through well-defined interfaces.
+
+<br/>
+
+![architecture diagram](architecture.png)
+
+### Presentation Layer
+
+#### Components
+The front end of the application is developed using Angular. It provides an interactive and user-friendly interface. 
+
+#### Responsibilities
+- Render the user interface and handle user interactions.
+- Communicate with the REST API for data and service requests.
+- Ensures a responsive and accessible UI.
+
+#### Quality Contributions
+- **Usability:** The separation for the presentation layer allows for focused UI development, ensuring a consistent and user-friendly experience.
+- **Security:** Basic security measures like input validation are implemented in this layer. 
+
+### API Layer
+
+#### Components
+A Node.js REST API serves as an intermediary between the front end and the backend business logic. It handles client requests and routes them to the appropriate services.
+
+#### Responsibilities
+- Expose endpoints for the Angular Web App to interact with backend services.
+- Handle HTTP requests and responses.
+
+#### Quality Contributions
+- **Performance:** Efficient handling of client requests ensures quick responses and high performance.
+- **Security:** Implements authentication and authorisation mechanisms to secure API endpoints.
+
+### Business Layer
+
+#### Components
+
+1. Application Logic (Nest.js Component)
+   - **Profile Logic:** Manages user profile data and preferences.
+   - **Event Logic:** Handles events such as user interactions and activities within the app.
+   - **Spotify Source Connector:** Integrates with the Spotify API to fetch music data.
+   - **API:** Interfaces with the Music Analysis Engine.
+
+2. Music Analysis Engine
+   - **Music Analysis Engine API:** Provides music analysis and recommendation services.
+
+#### Responsibilities
+- Implement the core business logic of the application.
+- Integrate with external services like the Spotify API.
+- Provide music analysis and recommendation through AI algorithms
+
+#### Quality Contributions
+- **Reliability:** The modular design allows for independent development and testing of business logic components.
+- **Performance:** Optimised business logic and efficient external API integration ensure high performance.
+- **Security:** Implements business-specific security measures, such as data validation and secure data handling.
+
+### Data Layer
+
+#### Components
+- **Data Access:** Responsible for querying and managing data stored in the database.
+- **Database:** A NoSQL MongoDB database to store user data, music metadata and other application data.
+
+#### Responsibilities
+- Handle all data-related operations.
+- Provide data persistence and retrieval functionalities.
+
+#### Quality Contributions
+- **Performance:** Efficient data access and query mechanisms ensure quick data retrieval. 
+- **Reliability:** Ensures data integrity and availability through robust data management practices.
+- **Security:** Implements data encryption and access control mechanisms to protect stored data.
+
+<br />
+
+## Constraints
+
+### Technical Constraints
+
+#### Performance Requirements
+- **Latency:** The system should respond to user requests in a short period of time for a seamless user experience.
+- **Scalability:** The architecture must handle a large number of simultaneous users, scaling efficiently during peak times without significant performance degradation. 
+
+#### Technology Stack
+- **Frontend:** The application must be developed as a Progressive Web App (PWA), that can be used on a mobile device or a desktop. 
+- **Backend:** The system must use non-blocking and event-driven architecture for efficient I/O operations.
+- **Recommendation Engine:** Artificial Intelligence and Machine Learning algorithms must be implemented in Python.
+- **Cloud Services:** The application must be deployed and managed by a dedicated cloud service for data storage and processing. 
+
+#### Storage and Data Handling
+- **Data Privacy:** Ensure compliance with data protection regulation (GDPR, CCPA) by implementing data encryption both at rest in transit. 
+
+#### APIs and Integration
+- **Third-Party APIs:** Integrate with music APIs for accessing music metadata and streaming capabilities. 
+- **Internal APIs:** Develop RESTful APIs for internal communication between the frontend and backend services, ensuring secure and efficient data exchange.
+
+### Operational Constraints
+
+#### Deployment
+- **Continuous Integration/Continuous Deployment (CI/CD):** Implement CI/CD pipelines to automate testing, integration, and deployment processes.
+- **Downtime:** Minimise downtime during deployments and maintenance, aiming for zero-downtime deployments using strategies such as blue-greem deployments or canary releases. 
+
+#### Security
+- **Authentication:** Use OAuth for secure user authentication and authorisation.
+- **Vulnerabilities:** Regularly conduct security audits and penetration tests to identify and mitigate vulnerabilities.
+
+#### Resource Management
+- **Cost Control:** Monitor and manage cloud resource usage to stay within budget. 
+- **Resource Scaling:** Implement auto-scaling policies to dynamically allocate resources based on traffic patterns and user demand.
+
+### User Constraints
+
+#### Device Compatibility
+- **Cross-Platform:** Ensure the application is fully functional on various devices (desktop, tablet, mobile) and operating systems (Windows, macOS, iOS, Android).
+- **Offline Access:** Implement service workers to provide offline capabilities, allowing users to access previously laded content without an internet connection.
+
+#### Content Moderation
+- **User-Generated Content:** Implement mechanisms to moderate user-generated content, ensuring it adheres to community guidelines and legal requirements. 
+
+<br/>
+
+# Technological Requirements
+
+## Programming Languages
+
+### Frontend
+- **TypeScript:** A statically typed superset of JavaScript that compiles to plain JavaScript.
+- **HTML (Angular Template Syntax):** Extended version of HTML used in Angular for dynamic rendering and interaction.
+
+### Backend
+- **JavaScript:** Primary language for backend development.
+- **TypeScript:** Superset of JavaScript used for type-checking and improved code quality.
+- **Python:** Used for AI algorithms and music analysis.
+
+## Frameworks and Libraries
+
+### Frontend
+- **Angular:** Frontend framework for building the user interface. Uses an HTML-based template language for dynamic rendering and interaction.
+- **Angular PWA:** Progressive Web App support in Angular for creating installable, offline-capable apps.
+- **Tailwind CSS:** A utility-first CSS framework for rapidly building custom user interfaces.
+
+### Backend
+- **Node.js:** JavaScript runtime for building the REST API.
+- **Express.js:** Web application framework for Node.js.
+- **Nest.js:** A progressive Node.js framework for building efficient, reliable and scalable server-side applications.
+- **Mongoose:** ODM library for MongoDB and Node.js.
+
+### Package management
+- **npm:** Package manager for Node.js.
+- **pip:** Package manager for Python.
+
+## Database Management System
+- **MongoDB:** NoSQL database for storing user data, music metadata and application data.
+- **Azure Cosmos DB:** Globally distributed, multimodel database service for building planet-scale apps. We will use the MongoDB API for compatibility.
+
+## Development Tools
+
+### IDEs and Editors
+- **Visual Studio Code:** Text editor for writing and debugging code.
+- **WebStorm:** IDE for Javascript and Typescript development, which also supports Angular and Node.js.
+- **PyCharm:** IDE for Python development, used for AI algorithms and music analysis.
+
+### Version Control
+- **Git:** Version control system for tracking changes in code.
+- **GitHub:** Web-based Git repository hosting service for collaboration and version control.
+
+### Other Tools
+- **Postman:** API development tool for testing and debugging APIs.

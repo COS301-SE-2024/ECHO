@@ -38,7 +38,10 @@ export class LoginComponent {
         email = document.getElementById('email');
         var password: any;
         password = document.getElementById('password');
-  }
+
+        email.required = false;
+        password.required = false;
+    }
 
     login() {
         this.authService.login(this.username, this.password).subscribe(
@@ -61,13 +64,4 @@ export class LoginComponent {
             },
         );
     }
-
-  }
-
-  login() {
-    this.authService.signIn(this.email, this.password).subscribe(
-      () => this.router.navigate(["/home"]),
-      (error) => console.error("Error signing in:", error)
-    );
-  }
 }

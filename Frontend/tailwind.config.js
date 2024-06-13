@@ -3,9 +3,6 @@ module.exports = {
     darkMode: "class", // or 'media'
     theme: {
         extend: {
-            fontFamily: {
-                'sans': ['Noto Sans', 'sans-serif'] 
-             },
             colors: {
                 'dark-bg': '#191716',
                 'light-bg': '#ffffff',

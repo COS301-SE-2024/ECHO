@@ -12,54 +12,54 @@ import { MatGridListModule } from '@angular/material/grid-list';
 export class MoodsComponent {
     favouriteMoods = [
         {
-            name: 'Anxious',
-            image: '/assets/moods/arctic.jpeg',
+            name: 'Confident',
+            image: '/assets/moods/Confident.jpg',
         },
         {
             name: 'Chill',
-            image: '/assets/moods/kendrick.jpeg',
+            image: '/assets/moods/chill.jpg',
         },
         {
             name: 'Happy',
-            image: '/assets/moods/gambino.jpeg',
+            image: '/assets/moods/happy.jpg',
         },
         {
             name: 'Melancholy',
-            image: '/assets/moods/radiohead.jpeg',
+            image: '/assets/moods/Melancholy.png',
         },
         {
             name: 'Nostalgic',
-            image: '/assets/moods/sza.jpeg',
+            image: '/assets/moods/Nostalgic.jpg',
         },
         {
-            name: 'Unknown',
+            name: 'Unknows',
             image: '/assets/moods/img6.jpg',
         },
     ];
 
     RecommendedMoods = [
         {
-            name: 'Mad',
-            image: '/assets/moods/yonce.jpeg',
+            name: 'Melancholy',
+            image: '/assets/moods/Melancholy.png',
         },
         {
             name: 'Nostalgic',
-            image: '/assets/moods/taylor.jpeg',
+            image: '/assets/moods/Nostalgic.jpg',
         },
         {
-            name: 'Ethereal',
-            image: '/assets/moods/impala.jpeg',
+            name: 'Unknows',
+            image: '/assets/moods/img6.jpg',
         },
         {
             name: 'Confident',
-            image: '/assets/moods/tyler.jpeg',
+            image: '/assets/moods/Confident.jpg',
+        },
+        {
+            name: 'Chill',
+            image: '/assets/moods/chill.jpg',
         },
         {
             name: 'Happy',
-            image: '/assets/moods/beatles.jpeg',
-        },
-        {
-            name: 'Introspective',
             image: '/assets/moods/happy.jpg',
         },
     ];

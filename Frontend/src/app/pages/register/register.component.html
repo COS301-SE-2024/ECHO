@@ -1,15 +1,12 @@
-<div class="h-screen dark:bg-dark-bg flex flex-row">
-  <div class="flex flex-1 items-center justify-center">
-    <div class="text-center">
-      <div class="text-gray-verylight font-semibold text-3xl">
+<div class="h-screen dark:bg-dark-bg flex flex-col">
+  <div class="flex flex-grow min-h-full justify-center px-6 py-12 lg:px-8">
+    <div class="flex flex-col items-center justify-center ml-52 h-screen">
+      <div class="text-gray-verylight font-semibold text-3xl text-center">
         Welcome to
       </div>
-      <img src="./assets/images/logo-dark-bg.png" alt="logo" class="h-72">
+      <img src="./assets/images/logo-dark-bg.png" alt="logo" class="h-72 w-303">
     </div>
-  </div>
-  
-  <div class="flex flex-1 items-center justify-center">
-    <div class="w-full max-w-md px-6 py-12"> 
+    <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm lg:w-auto lg:flex-none lg:max-w-md">
       <form class="space-y-6" action="#" method="POST">
         <div>
           <input id="username" [(ngModel)]="username" name="username" autocomplete="username" placeholder="  Username" required class="block w-full rounded-full border-0 py-2 bg-gray-verylight text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-light focus:ring-2 focus:ring-inset focus:ring-pink-dark sm:text-sm sm:leading-6">
@@ -23,8 +20,8 @@
           <input id="password" [(ngModel)]="password" name="password" type="password" autocomplete="current-password" placeholder="  Password" required class="block w-full rounded-full border-0 py-2 bg-gray-verylight text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-light focus:ring-2 focus:ring-inset focus:ring-pink-dark sm:text-sm sm:leading-6">
         </div>
 
-        <div class="flex justify-center">
-          <button type="submit" (click)="register()" class="rounded-full bg-pink px-10 py-2.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-pink-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-dark">Create account</button>
+        <div>
+          <button type="submit" (click)="register()" class="flex w-30 justify-center text-center rounded-full bg-pink ml-7 px-10 py-2.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-pink-dark focus-visible:outline">Create account</button>
         </div>
 
         <div class="relative flex py-3 items-center">
@@ -33,6 +30,7 @@
           <div class="flex-grow border-t border-gray-light"></div>
         </div>
 
+        <br />
         <app-spotify-login (click)="spotify()"></app-spotify-login>
       </form>
 
@@ -44,8 +42,6 @@
       <app-toast></app-toast>
     </div>
   </div>
-</div>
-
   <footer class="bg-gray-light dark:bg-dark-bg py-1">
     <div class="container mx-auto px-6 lg:px-8">
       <div class="flex flex-wrap justify-between items-center">
@@ -63,3 +59,4 @@
       </div>
     </div>
   </footer>
+</div>

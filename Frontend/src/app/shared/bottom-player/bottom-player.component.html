@@ -1,33 +1,33 @@
-<div class="fixed bottom-0 mb-5" style="width: 96vw; height: 9vh; left:2vw ">
-  <div class="shadow-xl rounded-md h-full">
-    <div class="bg-stone-400 dark:bg-stone-900 rounded-lg overflow-hidden h-full flex items-center p-4">
+<div class="fixed right-4 bottom-0 ml-6" style="width: 96vw; height: 13vh">
+  <div class="bg-gray-900  rounded-md h-full">
+    <div class="bg-stone-400 dark:bg-stone-900 rounded-lg overflow-hidden h-full flex items-center">
       <div class="flex items-center h-full w-full justify-between">
         <div class="flex items-center space-x-5">
-          <div class="flex-shrink-0">
-            <img [src]="currentTrack.imageUrl" alt="Card image" class="w-16 h-auto rounded sm:w-8 md:w-12 lg:w-12 xl:w-12">
+          <!-- Image container to ensure it stays on the left but centered vertically -->
+          <div class="flex-shrink">
+            <img src="../../../assets/images/nasty.jpg" alt="Card image" class="w-16 h-auto rounded sm:w-8 md:w-12 lg:w-12 xl:w-24">
           </div>
+
+          <!-- Text container to place two pieces of text one underneath the other -->
           <div class="flex flex-col justify-center ml-3">
-            <p class="text-gray-900 text-sm dark:text-white font-bold">{{ currentTrack.name }}</p>
-            <p class="text-gray-800 text-xs dark:text-white">{{ currentTrack.artist }}</p>
+            <p class="text-gray-900 dark:text-white font-bold">All In</p>
+            <p class="text-gray-800 dark:text-white">Nasty C ft. TI</p>
           </div>
-          <div class="flex flex-col justify-center" *ngIf="currentTrack.explicit">
-            <img *ngIf="themeService.isDarkModeActive()" src="../../../assets/images/explicit-dark.png" alt="Explicit Icon" class="w-6 h-6">
-            <img *ngIf="!themeService.isDarkModeActive()" src="../../../assets/images/explicit.png" alt="Explicit Icon" class="w-6 h-6">
+
+
+          <div class="flex flex-col justify-center">
+            <img *ngIf="this.themeService.isDarkModeActive()" src="../../../assets/images/explicit-dark.png" alt="Explicit Icon" class="w-6 h-6">
+            <img *ngIf="!(this.themeService.isDarkModeActive())" src="../../../assets/images/explicit.png" alt="Explicit Icon" class="w-6 h-6">
           </div>
         </div>
-        <div class="flex space-x-3 mr-5 items-center">
+        <div class="flex space-x-3 mr-5">
           <div class="flex flex-col justify-center">
-            <img *ngIf="themeService.isDarkModeActive()" src="../../../assets/images/volume (1).png" alt="Volume Icon" class="w-8 h-8">
-            <img *ngIf="!themeService.isDarkModeActive()" src="../../../assets/images/volume.png" alt="Volume Icon" class="w-8 h-8">
-          </div>
-          <div class="flex flex-col justify-center w-32">
-            <input type="range" min="0" max="100" step="1" value="50" (input)="onVolumeChange($event)" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
+            <img *ngIf="this.themeService.isDarkModeActive()" src="../../../assets/images/volume (1).png" alt="Volume Icon" class="w-8 h-8">
+            <img *ngIf="!(this.themeService.isDarkModeActive())" src="../../../assets/images/volume.png" alt="Volume Icon" class="w-8 h-8">
           </div>
           <div class="flex flex-col justify-center">
-            <img *ngIf="playingNow()" src="../../../assets/images/pause.png" id="play" (click)="play()" alt="Slider Icon" class="w-10 h-10 hover:cursor-pointer">
-            <img *ngIf="playingNowDark()" src="../../../assets/images/pause-dark.png" id="play-dark" (click)="play()" alt="Slider Icon" class="w-10 h-10 hover:cursor-pointer">
-            <img *ngIf="pausedNow()" src="../../../assets/images/play.png" id="pause" (click)="play()" alt="Slider Icon" class="w-10 h-10 hover:cursor-pointer">
-            <img *ngIf="pausedNowDark()" src="../../../assets/images/play-dark.png" id="pause-dark" (click)="play()" alt="Slider Icon" class="w-10 h-10 hover:cursor-pointer">
+            <img *ngIf="this.themeService.isDarkModeActive()" src="../../../assets/images/slider (1).png" alt="Slider Icon" class="w-20 h-auto">
+            <img *ngIf="!(this.themeService.isDarkModeActive())" src="../../../assets/images/slider.png" alt="Slider Icon" class="w-20 h-auto">
           </div>
         </div>
       </div>

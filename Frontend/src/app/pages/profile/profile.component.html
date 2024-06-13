@@ -29,26 +29,6 @@
 </div>
 
 
-    <div class="profile-container">
-      <div id="profile" class="profile fixed right-4 top-4 mt-5 ml-6 h-5/6">
-        <mat-card class="bg-gray-900 shadow-xl p-4 border border-gray-300 rounded-md h-full relative">
-          <mat-card-content class="bg-stone-300 dark:bg-stone-800 rounded-lg overflow-hidden h-full relative">
-            <div class="absolute top-16 left-1/2 transform -translate-x-1/2 text-center">
-              <img src="{{imgpath}}" alt="Profile Image"
-                   class="w-24 h-24 rounded-full border-2 border-white dark:border-gray-700 mx-auto">
-              <h2 class="mt-2 text-gray-900 dark:text-white font-bold">&#64;{{ username }}</h2>
-              <div class="flex justify-center mt-2 space-x-4">
-                <p class="text-gray-900 dark:text-white">11 Followers</p>
-                <p class="text-gray-900 dark:text-white">3 Following</p>
-              </div>
-            </div>
-            <p class="absolute text-gray-900 top-8 left-20 dark:text-white font-bold">ECHO Rank: #1</p>
-            <button *ngIf="themeService.isDarkModeActive()" class="absolute btn btn-dark top-5 right-10"
-                    (click)="openDialog()">Edit Profile
-            </button>
-            <button *ngIf="!themeService.isDarkModeActive()" class="absolute btn btn-light top-5 right-10"
-                    (click)="openDialog()">Edit Profile
-            </button>
 
 <div *ngIf="screenSize === 'desktop'" class="desktop-layout">
   <div class="min-h-screen dark:bg-stone-700 flex flex-col justify-center px-6 py-12 lg:px-8" (click)="save()" i>
