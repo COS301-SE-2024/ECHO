@@ -16,8 +16,9 @@ import { CommonModule } from '@angular/common';
     styleUrl: './login.component.css',
 })
 export class LoginComponent {
-    username: string = '';
+    email: string = '';
     password: string = '';
+    username: string = '';
     @ViewChild(ToastComponent) toastComponent!: ToastComponent;
 
     constructor(
@@ -34,17 +35,16 @@ export class LoginComponent {
         this.theme();
     } 
     spotify() {
-        var email: any;
-        email = document.getElementById('email');
-        var password: any;
-        password = document.getElementById('password');
-  }
+        if (typeof window !== 'undefined') {
+            window.location.href = 'http://localhost:3000/api/auth/oauth-signin';
+        }
+    }
 
     login() {
-        this.authService.login(this.username, this.password).subscribe(
+        this.authService.signIn(this.email, this.password).subscribe(
             (response) => {
                 if (response.user) {
-                    localStorage.setItem('username', this.username);
+                    localStorage.setItem('username', this.email);
                     console.log('User logged in successfully', response);
                     this.toastComponent.showToast('User logged in successfully', 'success');
                     setTimeout(() => {
@@ -61,13 +61,4 @@ export class LoginComponent {
             },
         );
     }
-
-  }
-
-  login() {
-    this.authService.signIn(this.email, this.password).subscribe(
-      () => this.router.navigate(["/home"]),
-      (error) => console.error("Error signing in:", error)
-    );
-  }
 }

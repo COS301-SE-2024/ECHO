@@ -6,7 +6,6 @@ import { FormsModule } from '@angular/forms';
 import { ThemeService } from '../../services/theme.service';
 import { ToastComponent } from '../../shared/toast/toast.component';
 import { CommonModule } from '@angular/common';
-
 @Component({
     selector: 'app-register',
     standalone: true,
@@ -19,68 +18,45 @@ export class RegisterComponent {
     email: string = '';
     password: string = '';
     @ViewChild(ToastComponent) toastComponent!: ToastComponent;
-
   constructor(
     private authService: AuthService,
     private router: Router,
     private themeService: ThemeService
   ) {
   }
-
   ngOnInit() {
     this.theme();
   }
-
   theme() {
     if (!this.themeService.isDarkModeActive()) {
       this.themeService.switchTheme();
     }
   }
 
-  spotify() {
-    if (typeof window !== 'undefined') {
-      window.location.href = 'http://localhost:3000/api/auth/oauth-signin';
-    }
-  }
+    spotify() {
+        var email: any;
+        email = document.getElementById('email');
+        var password: any;
+        password = document.getElementById('password');
 
-    register() {
-        if (this.username === '' || this.email === '' || this.password === '') {
-            alert('Please fill in all fields');
-            return;
-        }
-        this.authService
-            .register(this.username, this.email, this.password)
-            .subscribe(
-                (response) => {
-                    if (response.user) {
-                        console.log('Account created successfully!', response);
-                        this.toastComponent.showToast('Account created successfully!', 'success');
-                        setTimeout(() => {
-                            this.router.navigate(['/home']);
-                        }, 1000);
-                    } else {
-                        console.error(
-                            'Account creation unsuccessful.',
-                            response,
-                        );
-                        this.toastComponent.showToast('Account creation unsuccessful. Please try again.', 'info');
-                    }
-                },
-                (error) => {
-                    console.error('Error logging in user', error);
-                    this.toastComponent.showToast('Error logging in user', 'error');
-                },
-            );
+        email.required = false;
+        password.required = false;
     }
 
-    const metadata = {
-      username: this.username,
-      name: this.username,
-    };
-
-    this.authService.signUp(this.email, this.password, metadata).subscribe(
-      () => this.router.navigate(["/home"]),
-      (error) => console.error("Error signing up:", error)
-    );
-  }
+    async register() {
+      if (this.username === '' || this.email === '' || this.password === '') {
+        alert('Please fill in all fields');
+        return;
+      }
+  
+      const metadata = {
+        username: this.username,
+        name: this.username,
+      };
+  
+      this.authService.signUp(this.email, this.password, metadata).subscribe(
+        () => this.router.navigate(["/home"]),
+        (error) => console.error("Error signing up:", error)
+      );
+    }
 }
