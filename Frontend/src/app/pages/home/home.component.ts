@@ -12,6 +12,7 @@ import { MoodsComponent } from '../../shared/moods/moods.component';
 import { SpotifyService } from "../../services/spotify.service";
 import { ScreenSizeService } from '../../services/screen-size-service.service';
 import { BottomNavComponent } from '../../shared/bottom-nav/bottom-nav.component';
+import { BottomPlayerComponent } from "../../shared/bottom-player/bottom-player.component";
 @Component({
     selector: 'app-home',
     standalone: true,
@@ -25,7 +26,7 @@ import { BottomNavComponent } from '../../shared/bottom-nav/bottom-nav.component
         NgForOf,
         NgIf,
         SideBarComponent,
-        MoodsComponent
+        MoodsComponent,
         BottomPlayerComponent,
         MoodsComponent,
         BottomNavComponent
@@ -46,8 +47,6 @@ export class HomeComponent implements OnInit {
         private screenSizeService: ScreenSizeService
     ) {}
 
-  ngOnInit(): void {
-    }
 
     switchTheme(): void {
         this.themeService.switchTheme();
