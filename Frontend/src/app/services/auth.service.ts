@@ -3,48 +3,42 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-    providedIn: 'root',
+  providedIn: 'root',
 })
 export class AuthService {
-    private baseUrl = 'http://localhost:3000';
+  private apiUrl = 'http://localhost:3000/api/auth';
 
-    constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
-    register(
-        username: string,
-        email: string,
-        password: string,
-    ): Observable<any> {
-        return this.http.post(`${this.baseUrl}/users/register`, {
-            username,
-            email,
-            password,
-        });
-    }
+  signIn(email: string, password: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/signin`, { email, password });
+  }
 
-    login(username: string, password: string): Observable<any> {
-        return this.http.post(`${this.baseUrl}/users/login`, {
-            username,
-            password,
-        });
-    }
+  getTokens(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/providertokens`);
+  }
 
-    loggedIn(): Observable<any> {
-        return this.http.get(`${this.baseUrl}/users/loggedIn`);
-    }
+  signInWithSpotifyOAuth(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/oauth-signin`);
+  }
 
-    currentUsername(): Observable<any> {
-        let ret = this.http.get(`${this.baseUrl}/users/currentUsername`);
-        return ret;
-    }
+  signUp(email: string, password: string, metadata: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/signup`, { email, password, metadata });
+  }
 
-    saveUsername(username: string): Observable<any> {
-        return this.http.get(`${this.baseUrl}/users/set/${username}`);
-    }
+  signOut(): Observable<any> {
+    return this.http.post(`${this.apiUrl}/signout`, {});
+  }
 
-    updateUsername(username: string): Observable<any> {
-        return this.http.post(`${this.baseUrl}/users/updateUsername`, {
-            username,
-        });
-    }
+  currentUser(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/current`);
+  }
+
+  sendTokensToServer(tokens: { accessToken: string | null; refreshToken: string | null; providerToken: string | null; providerRefreshToken: string | null }): Observable<any> {
+    return this.http.post(`${this.apiUrl}/token`, tokens);
+  }
+
+  sendCodeToServer(code: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/code`, { code });
+  }
 }
