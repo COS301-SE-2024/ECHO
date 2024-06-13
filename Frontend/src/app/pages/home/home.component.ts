@@ -8,8 +8,8 @@ import { NgClass, NgForOf, NgIf } from '@angular/common';
 import { SideBarComponent } from '../../shared/side-bar/side-bar.component';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-import { BottomPlayerComponent } from '../../shared/bottom-player/bottom-player.component';
 import { MoodsComponent } from '../../shared/moods/moods.component';
+import { SpotifyService } from "../../services/spotify.service";
 import { ScreenSizeService } from '../../services/screen-size-service.service';
 import { BottomNavComponent } from '../../shared/bottom-nav/bottom-nav.component';
 @Component({
@@ -25,6 +25,7 @@ import { BottomNavComponent } from '../../shared/bottom-nav/bottom-nav.component
         NgForOf,
         NgIf,
         SideBarComponent,
+        MoodsComponent
         BottomPlayerComponent,
         MoodsComponent,
         BottomNavComponent
@@ -32,6 +33,7 @@ import { BottomNavComponent } from '../../shared/bottom-nav/bottom-nav.component
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',
 })
+
 export class HomeComponent implements OnInit {
     title: string = 'Home';
     screenSize?: string;
@@ -40,8 +42,12 @@ export class HomeComponent implements OnInit {
         protected themeService: ThemeService,
         private authService: AuthService,
         private router: Router,
+        private spotifyService: SpotifyService,
         private screenSizeService: ScreenSizeService
     ) {}
+
+  ngOnInit(): void {
+    }
 
     switchTheme(): void {
         this.themeService.switchTheme();

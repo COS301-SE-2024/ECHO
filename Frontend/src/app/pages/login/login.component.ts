@@ -1,62 +1,53 @@
-import { Component, OnInit } from '@angular/core';
-import { NgOptimizedImage } from '@angular/common';
-import { SpotifyLoginComponent } from '../../spotify-login/spotify-login.component';
-import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { ThemeService } from '../../services/theme.service';
+import { Component, OnInit } from "@angular/core";
+import { NgOptimizedImage } from "@angular/common";
+import { SpotifyLoginComponent } from "../../spotify-login/spotify-login.component";
+import { AuthService } from "../../services/auth.service";
+import { Router } from "@angular/router";
+import { FormsModule } from "@angular/forms";
+import { ThemeService } from "../../services/theme.service";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
-    selector: 'app-login',
-    standalone: true,
-    imports: [NgOptimizedImage, SpotifyLoginComponent, FormsModule],
-    templateUrl: './login.component.html',
-    styleUrl: './login.component.css',
+  selector: "app-login",
+  standalone: true,
+  imports: [ SpotifyLoginComponent, FormsModule],
+  templateUrl: "./login.component.html",
+  styleUrl: "./login.component.css"
 })
 export class LoginComponent {
-    username: string = '';
-    password: string = '';
-    constructor(
-        private authService: AuthService,
-        private router: Router,
-        private themeService: ThemeService,
-    ) {}
+  username: string = "";
+  email: string = "";
+  password: string = "";
 
-    ngOnInit() {
-        this.theme();
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private themeService: ThemeService,
+    private http: HttpClient
+  ) {
+  }
+
+  ngOnInit() {
+    this.theme();
+  }
+
+  theme() {
+    if (!this.themeService.isDarkModeActive()) {
+      this.themeService.switchTheme();
+    }
+  }
+
+  spotify() {
+    if (typeof window !== 'undefined') {
+      window.location.href = 'http://localhost:3000/api/auth/oauth-signin';
     }
 
-    theme() {
-        if (!this.themeService.isDarkModeActive()) {
-            this.themeService.switchTheme();
-        }
-    }
+  }
 
-    spotify() {
-        var email: any;
-        email = document.getElementById('email');
-        var password: any;
-        password = document.getElementById('password');
-
-        email.required = false;
-        password.required = false;
-    }
-
-    login() {
-        this.authService.login(this.username, this.password).subscribe(
-            (response) => {
-                if (response.user) {
-                    localStorage.setItem('username', this.username);
-                    console.log('User logged in successfully', response);
-                    this.router.navigate(['/home']);
-                } else {
-                    console.error('Error logging in user', response);
-                    alert('Invalid username or password');
-                }
-            },
-            (error) => {
-                console.error('Error logging in user', error);
-            },
-        );
-    }
+  login() {
+    this.authService.signIn(this.email, this.password).subscribe(
+      () => this.router.navigate(["/home"]),
+      (error) => console.error("Error signing in:", error)
+    );
+  }
 }

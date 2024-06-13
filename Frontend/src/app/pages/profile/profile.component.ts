@@ -120,9 +120,10 @@ export class ProfileComponent implements AfterViewInit {
     ) {}
 
     ngAfterViewInit(): void {
-        this.authService.currentUsername().subscribe((res) => {
-            this.username = res.name;
-        });
+      let currUser = this.authService.currentUser().subscribe((res) => {
+        this.username = res.user.user_metadata.name;
+        this.imgpath = res.user.user_metadata.picture;
+      });
     }
 
     switchTheme() {
@@ -139,6 +140,8 @@ export class ProfileComponent implements AfterViewInit {
         dialogRef.afterClosed().subscribe((result) => {
             console.log('The dialog was closed');
         });
+
+
     }
 
     save() {
@@ -146,8 +149,11 @@ export class ProfileComponent implements AfterViewInit {
             // @ts-ignore
             this.imgpath = localStorage.getItem('path');
         }
-        this.authService.currentUsername().subscribe((res) => {
-            this.username = res.name;
-        });
+    }
+
+    refresh() {
+      this.authService.currentUser().subscribe((res) => {
+        this.username = res.user.user_metadata.username;
+      });
     }
 }
