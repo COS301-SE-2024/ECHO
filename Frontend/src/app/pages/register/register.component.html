@@ -36,10 +36,12 @@
         <app-spotify-login (click)="spotify()"></app-spotify-login>
       </form>
 
-      <p class="mt-10 text-center text-sm text-gray-light">
-        Already have an ECHO account?
-        <a href="/login" class="font-semibold leading-6 text-pink hover:text-pink-dark">Login</a>
-      </p>
+    <p class="mt-10 text-center text-sm text-gray-500">
+      Already have an ECHO account?
+      <a href="/login" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Login</a>
+    </p>
+    <div class="toast-container">
+      <app-toast></app-toast>
     </div>
   </div>
 </div>

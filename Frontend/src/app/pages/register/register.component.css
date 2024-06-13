@@ -1,0 +1,5 @@
+/* Add this to your login.component.css or global styles.css */
+.toast-container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+}

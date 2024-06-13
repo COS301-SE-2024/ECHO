@@ -3,7 +3,8 @@
     <div class="navbar-container">
       <app-navbar (selectedNavChange)="onNavChange($event)"></app-navbar>
     </div>
-    <button class="fixed top-5 right-20 p-2 bg-gray-300 dark:bg-gray-700 rounded-full" (click)="switchTheme()">
+    <app-search-bar></app-search-bar>
+    <button *ngIf="screenSize === 'desktop'" class="fixed top-5 right-20 p-2 bg-gray-300 dark:bg-gray-700 rounded-full" (click)="switchTheme()">
       <svg class="w-6 h-6 text-gray-800 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"
            xmlns="http://www.w3.org/2000/svg">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -21,8 +22,6 @@
     <img (click)="profile()" *ngIf="!themeService.isDarkModeActive()" src="../../../../assets/images/profile.png" alt="profile" class="w-8 h-8 shadow-lg dark:shadow-none fixed top-5 right-8 hover:cursor-pointer">
     <img (click)="profile()" *ngIf="themeService.isDarkModeActive()" src="../../../../assets/images/profile (1).png" alt="profile" class="w-8 h-8 shadow-lg dark:shadow-none fixed top-5 right-8 hover:cursor-pointer">
   </div>
-  <app-side-bar class="col-start-1 col-span-1 row-start-1 row-span-6"></app-side-bar>
-
   <app-side-bar *ngIf="screenSize === 'desktop'" class="col-start-1 col-span-1 row-start-1 row-span-6"></app-side-bar>
   <app-bottom-nav *ngIf="screenSize === 'mobile'"></app-bottom-nav>
 

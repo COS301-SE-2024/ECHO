@@ -2,8 +2,6 @@ import { Component,OnInit } from '@angular/core';
 import { SongRecommendationComponent } from '../../shared/song-recommendation/song-recommendation.component';
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
 import { ThemeService } from './../../services/theme.service';
-import { MatSidenav } from '@angular/material/sidenav';
-import { MatCard, MatCardContent } from '@angular/material/card';
 import { NgClass, NgForOf, NgIf } from '@angular/common';
 import { SideBarComponent } from '../../shared/side-bar/side-bar.component';
 import { AuthService } from '../../services/auth.service';
@@ -12,6 +10,7 @@ import { MoodsComponent } from '../../shared/moods/moods.component';
 import { SpotifyService } from "../../services/spotify.service";
 import { ScreenSizeService } from '../../services/screen-size-service.service';
 import { BottomNavComponent } from '../../shared/bottom-nav/bottom-nav.component';
+import { SearchBarComponent } from '../../shared/search-bar/search-bar.component';
 import { BottomPlayerComponent } from "../../shared/bottom-player/bottom-player.component";
 @Component({
     selector: 'app-home',
@@ -19,9 +18,6 @@ import { BottomPlayerComponent } from "../../shared/bottom-player/bottom-player.
     imports: [
         SongRecommendationComponent,
         NavbarComponent,
-        MatSidenav,
-        MatCard,
-        MatCardContent,
         NgClass,
         NgForOf,
         NgIf,
@@ -29,7 +25,8 @@ import { BottomPlayerComponent } from "../../shared/bottom-player/bottom-player.
         MoodsComponent,
         BottomPlayerComponent,
         MoodsComponent,
-        BottomNavComponent
+        BottomNavComponent,
+        SearchBarComponent
     ],
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',

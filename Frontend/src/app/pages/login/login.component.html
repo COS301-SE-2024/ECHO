@@ -44,11 +44,13 @@
           <app-spotify-login (click)="spotify()"></app-spotify-login>
         </div>
       </form>
-
       <p class="mt-10 text-center text-sm text-gray-500">
         Don't have an ECHO account?
         <a href="/register" class="font-semibold leading-6 text-pink hover:text-pink-dark">Sign up now</a>
       </p>
+     <div class="toast-container">
+        <app-toast></app-toast>
+      </div>
     </div>
   </div>
 </div>
