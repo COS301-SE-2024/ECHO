@@ -48,7 +48,8 @@ export class NavbarComponent {
                 this.selectedNavChange.emit('Page 2');
                 break;
             case this.otherSvg2:
-                this.selectedNavChange.emit('Page 3');
+                this.selectedNavChange.emit('Library');
+                this.router.navigate(['/library']);
                 break;
         }
     }
