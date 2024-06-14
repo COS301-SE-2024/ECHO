@@ -1,45 +1,39 @@
 <div class="fixed bottom-0 mb-3" style="width: 97vw; height: 12vh; left:1vw ">
-  <div class="shadow-xl rounded-md h-full">
+  <div class="rounded-md h-full">
     <div class="absolute top-0 w-full z-20">
-      <div class="w-full bg-gray-component rounded-t-full h-0 dark:bg-gray-component">
+      <div class="w-full bg-gray-verylight rounded-t-full h-0">
         <div class="bg-pink h-1 rounded-full" style="width: 45%"></div>
       </div>
     </div>
-    <div class="bg-gray-component dark:bg-gray-background opacity-80 rounded-lg overflow-hidden h-full flex items-center p-4">
+    <div class="bg-gray-background opacity-80 rounded-lg overflow-hidden h-full flex items-center p-4">
       <div class="flex items-center h-full w-full justify-between">
         <div class="flex items-center space-x-5">
           <div class="flex-shrink-0">
             <img [src]="currentTrack.imageUrl" alt="Card image" class="w-16 h-auto rounded sm:w-8 md:w-12 lg:w-12 xl:w-12">
           </div>
           <div class="flex flex-col justify-center ml-3">
-            <p class="text-gray-900 text-sm dark:text-white font-bold">{{ currentTrack.name }}</p>
-            <p class="text-gray-800 text-xs dark:text-white">{{ currentTrack.artist }}</p>
+            <p class="text-sm text-gray-verylight font-bold">{{ currentTrack.name }}</p>
+            <p class="text-xs text-gray-verylight">{{ currentTrack.artist }}</p>
           </div>
           <div class="flex flex-col justify-center" *ngIf="currentTrack.explicit">
-            <img *ngIf="themeService.isDarkModeActive()" src="../assets/images/explicit-dark.png" alt="Explicit Icon" class="w-6 h-6">
-            <img *ngIf="!themeService.isDarkModeActive()" src="../assets/images/explicit.png" alt="Explicit Icon" class="w-6 h-6">
+            <img src="../assets/images/explicit.png" alt="Explicit Icon" class="w-6 h-6">
           </div>
         </div>
         <div class="flex justify-center items-center">
-          <img *ngIf="!themeService.isDarkModeActive()" src="../assets/icons/skipback-dark.png" alt="Skip Backward" class="w-6 h-6 hover:cursor-pointer">
-          <img *ngIf="themeService.isDarkModeActive()" src="../assets/icons/skipback-light.png" alt="Skip Backward" class="w-6 h-6 hover:cursor-pointer">
+          <img src="../assets/icons/skipback-light.png" alt="Skip Backward" class="w-6 h-6 hover:cursor-pointer">
       
           <div class="mx-4"> 
-              <img *ngIf="playingNow()" src="../assets/icons/circled-pause-dark.png" id="play" (click)="play()" alt="Pause Icon" class="w-10 h-10 hover:cursor-pointer">
               <img *ngIf="playingNowDark()" src="../assets/icons/circled-pause-light.png" id="play-dark" (click)="play()" alt="Pause Icon" class="w-10 h-10 hover:cursor-pointer">
-              <img *ngIf="pausedNow()" src="../assets/icons/circled-play-dark.png" id="pause" (click)="play()" alt="Play Icon" class="w-10 h-10 hover:cursor-pointer">
               <img *ngIf="pausedNowDark()" src="../assets/icons/circled-play-light.png" id="pause-dark" (click)="play()" alt="Play Icon" class="w-10 h-10 hover:cursor-pointer">
           </div>
       
-          <img *ngIf="!themeService.isDarkModeActive()" src="../assets/icons/skip-dark.png" alt="Skip Forward" class="w-6 h-6 hover:cursor-pointer">
-          <img *ngIf="themeService.isDarkModeActive()" src="../assets/icons/skip-light.png" alt="Skip Forward" class="w-6 h-6 hover:cursor-pointer">
+          <img src="../assets/icons/skip-light.png" alt="Skip Forward" class="w-6 h-6 hover:cursor-pointer">
       </div>
       
       
         <div class="flex space-x-3 mr-5 items-center">
           <div class="flex flex-col justify-center">
-            <img *ngIf="themeService.isDarkModeActive()" src="../assets/icons/audio-light.png" alt="Volume Icon" class="w-6 h-6">
-            <img *ngIf="!themeService.isDarkModeActive()" src="../assets/icons/audio-dark.png" alt="Volume Icon" class="w-6 h-6">
+            <img src="../assets/icons/audio-light.png" alt="Volume Icon" class="w-6 h-6">
           </div>
           <div class="flex flex-col justify-center w-32">
             <input type="range" min="0" max="100" step="1" value="50" (input)="onVolumeChange($event)" class="w-full h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
