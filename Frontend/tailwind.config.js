@@ -11,6 +11,7 @@ module.exports = {
                 'light-bg': '#ffffff',
                 'dark-text': '#EE0258',
                 'light-text': '#EE0258',
+                'desktop-bg': '#323232',
                 pink: {
                     "light": '#F6668F',
                     DEFAULT: '#EE0258',
