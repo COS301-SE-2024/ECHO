@@ -16,15 +16,17 @@
             <p class="text-xs text-gray-verylight">{{ currentTrack.artist }}</p>
           </div>
           <div class="flex flex-col justify-center" *ngIf="currentTrack.explicit">
-            <img src="../assets/images/explicit.png" alt="Explicit Icon" class="w-6 h-6">
+            <img src="../assets/images/explicit-dark.png" alt="Explicit Icon" class="w-6 h-6">
           </div>
         </div>
         <div class="flex justify-center items-center">
           <img src="../assets/icons/skipback-light.png" alt="Skip Backward" class="w-6 h-6 hover:cursor-pointer">
-      
+      <!-- Need to make all one function -->
           <div class="mx-4"> 
               <img *ngIf="playingNowDark()" src="../assets/icons/circled-pause-light.png" id="play-dark" (click)="play()" alt="Pause Icon" class="w-10 h-10 hover:cursor-pointer">
               <img *ngIf="pausedNowDark()" src="../assets/icons/circled-play-light.png" id="pause-dark" (click)="play()" alt="Play Icon" class="w-10 h-10 hover:cursor-pointer">
+              <img *ngIf="playingNow()" src="../assets/icons/circled-pause-light.png" id="play-dark" (click)="play()" alt="Pause Icon" class="w-10 h-10 hover:cursor-pointer">
+              <img *ngIf="pausedNow()" src="../assets/icons/circled-play-light.png" id="pause-dark" (click)="play()" alt="Play Icon" class="w-10 h-10 hover:cursor-pointer">
           </div>
       
           <img src="../assets/icons/skip-light.png" alt="Skip Forward" class="w-6 h-6 hover:cursor-pointer">
