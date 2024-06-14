@@ -1,22 +1,22 @@
-<div class="fixed z-10" style="--tw-w: 19vw; --tw-h: 77vh; left: 1vw; top: 10.2vh;">
+<div class="fixed z-10" style="--tw-w: 21vw; --tw-h: 75vh; left: 1vw; top: 10.2vh;">
   <div class="container">
-    <mat-card class="bg-gray-900 shadow-xl p-4 border border-gray-300 rounded-md h-full">
-      <mat-card-content class="bg-stone-300 dark:bg-stone-800 rounded-lg overflow-auto h-full flex flex-col justify-between scrollbar-hidden">
+    <mat-card class="pl-5 py-4 shadow-xl border rounded-md h-full">
+      <mat-card-content class="bg-gray-lightcomponent dark:bg-gray-component rounded-lg overflow-auto h-full flex flex-col justify-between scrollbar-hidden">
         <div class="flex flex-col h-full">
           <div class="flex justify-between mb-4">
             <div class="button-container" [ngClass]="{'underline-blue': selectedOption === 'upNext', 'underline-none': selectedOption !== 'upNext'}">
-              <button class="pl-5 pr-5 text-sm font-semibold text-gray-800 dark:text-white focus:outline-none button"
+              <button class="pl-5 pr-5 text-sm text-gray-800 dark:text-white focus:outline-none button"
                       (click)="selectOption('upNext')">Up next
               </button>
             </div>
             <div class="button-container" [ngClass]="{'underline-blue': selectedOption === 'recentListening', 'underline-none': selectedOption !== 'recentListening'}">
-              <button class="pl-5 pr-5 text-sm font-semibold text-gray-800 dark:text-white focus:outline-none button"
+              <button class="pl-5 pr-5 text-sm text-gray-800 dark:text-white focus:outline-none button"
                       (click)="selectOption('recentListening')">Recent listening
               </button>
             </div>
           </div>
 
-          <div class="mt-7 flex-grow overflow-auto scrollbar-hidden">
+          <div class="mt-7 mx-3 flex-grow overflow-auto scrollbar-hidden">
             <div *ngFor="let card of getSelectedCardData()" class="flex items-center mb-5 hover:cursor-pointer" (click)="playTrack(card.id)">
               <!-- Image on the left -->
               <div class="mr-4 flex-shrink-0" style="width: 25%;">
@@ -31,7 +31,7 @@
                   <p class="text-gray-900 text-sm dark:text-white font-bold">{{ card.text }}</p>
                 </div>
                 <!-- Second text (underneath the first text) -->
-                <p class="text-xs text-gray-500 dark:text-gray-400">{{ card.secondaryText }}</p>
+                <p class="text-xs text-gray-light dark:text-gray-400">{{ card.secondaryText }}</p>
               </div>
             </div>
           </div>
