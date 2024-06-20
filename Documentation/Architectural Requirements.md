@@ -29,6 +29,7 @@ Each layer has specific responsibilities and interacts with other layers through
 - **Separation of Concerns:** Each layer has a specific responsibility, making the system easier to understand and manage.
 - **Reusability:** Components within a layer can be reused across different parts of the application.
 - **Maintainability:** Changes in one layer do not affect other layers, reducing the risk of introducing bugs.
+- **Layered Security and Access Control:** Security measures can be implemented at multiple layers, and different layers can enforce access controls, ensuring that only authorised users can access certain parts of the application. 
 
 ### Model-View-Controller (MVC)
 The MVC pattern divides the application into three main components:
@@ -40,6 +41,7 @@ The MVC pattern divides the application into three main components:
 - **Separation of Concerns:** MVC separates the application into distinct components, making it easier to develop, test and maintain.
 - **Reusability:** Views and Models can be reused across different parts of the application.
 - **Ease of Testing:** Individual components can be tested independently, improving voerall testability.
+- **Encapsulation:** Sensitive business logic is encapsulated within the Mode, protecting it from direct user interaction. 
 
 ### Service-Oriented Architecture (SOA)
 SOA structures the application as a collection of services that communicate over a network. Each service performs a specific business function and can be reused across different applications. 
@@ -48,6 +50,8 @@ SOA structures the application as a collection of services that communicate over
 - **Reusability:** Services can be reused in multiple applications, reducing duplication and effort.
 - **Scalability:** Services can be scaled independently to handle varying loads.
 - **Interoperability:** Standardised communication protocols allow services to interact across different platforms and technologies. 
+- **Service Contracts:** Security can be managed at the service level, enabling centralised control over authentication, authorisation and encryption.
+- **Fault Isolation:** Failures in one service do not necessarily impact other services, enhancing overall reliability of the system.
 
 
 ## Quality Requirements
