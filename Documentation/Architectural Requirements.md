@@ -25,10 +25,30 @@ The system is designed using a combination of Layered Architecture, Model-View-C
 
 Each layer has specific responsibilities and interacts with other layers through well-defined interfaces.
 
-### Justification for Layered Architecture
+#### Justification for Layered Architecture
 - **Separation of Concerns:** Each layer has a specific responsibility, making the system easier to understand and manage.
 - **Reusability:** Components within a layer can be reused across different parts of the application.
 - **Maintainability:** Changes in one layer do not affect other layers, reducing the risk of introducing bugs.
+
+### Model-View-Controller (MVC)
+The MVC pattern divides the application into three main components:
+- **Model:** Manages the data and business logic.
+- **View:** Handles the display and user interface.
+- **Controller:** Processes the user input and itneracts with the Model and View
+
+#### Justification for MVC
+- **Separation of Concerns:** MVC separates the application into distinct components, making it easier to develop, test and maintain.
+- **Reusability:** Views and Models can be reused across different parts of the application.
+- **Ease of Testing:** Individual components can be tested independently, improving voerall testability.
+
+### Service-Oriented Architecture (SOA)
+SOA structures the application as a collection of services that communicate over a network. Each service performs a specific business function and can be reused across different applications. 
+
+#### Justification for SOA
+- **Reusability:** Services can be reused in multiple applications, reducing duplication and effort.
+- **Scalability:** Services can be scaled independently to handle varying loads.
+- **Interoperability:** Standardised communication protocols allow services to interact across different platforms and technologies. 
+
 
 ## Quality Requirements
 
