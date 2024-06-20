@@ -15,6 +15,7 @@ import { AfterViewInit } from '@angular/core';
 import { ScreenSizeService } from '../../services/screen-size-service.service';
 import { CommonModule } from '@angular/common';
 import { BottomNavComponent } from '../../shared/bottom-nav/bottom-nav.component';
+import { SpotifyService } from "../../services/spotify.service";
 
 @Component({
     selector: 'app-profile',
@@ -123,7 +124,8 @@ export class ProfileComponent implements AfterViewInit {
         private authService: AuthService,
         private router: Router,
         protected dialog: MatDialog,
-        private screenSizeService: ScreenSizeService
+        private screenSizeService: ScreenSizeService,
+        private spotifyService: SpotifyService
     ) {}
 
     ngAfterViewInit(): void {
@@ -132,10 +134,13 @@ export class ProfileComponent implements AfterViewInit {
         this.imgpath = res.user.user_metadata.picture;
       });
     }
-    ngOnInit() {
-        this.screenSizeService.screenSize$.subscribe(screenSize => {
-            this.screenSize = screenSize;
-        });
+    async ngOnInit() {
+      this.screenSizeService.screenSize$.subscribe(screenSize => {
+        this.screenSize = screenSize;
+      });
+      if (typeof window !== 'undefined') {
+        await this.spotifyService.init();
+      }
     }
     switchTheme() {
         this.themeService.switchTheme();
