@@ -53,10 +53,13 @@ export class HomeComponent implements OnInit {
         this.title = newNav;
     }
 
-    ngOnInit() {
-        this.screenSizeService.screenSize$.subscribe(screenSize => {
-          this.screenSize = screenSize;
-        });
+    async ngOnInit() {
+      this.screenSizeService.screenSize$.subscribe(screenSize => {
+        this.screenSize = screenSize;
+      });
+      if (typeof window !== 'undefined') {
+        await this.spotifyService.init();
+      }
     }
 
     profile() {
