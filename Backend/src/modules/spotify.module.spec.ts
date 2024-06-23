@@ -2,27 +2,49 @@ import { Test, TestingModule } from "@nestjs/testing";
 import { SpotifyModule } from "./spotify.module";
 import { SpotifyService } from "../services/spotify.service";
 import { SpotifyController } from "../controllers/spotify.controller";
+import { SupabaseService } from "../supabase/supabase.service";
+import { HttpModule, HttpService } from "@nestjs/axios";
 
-describe("AuthModule", () => {
-    let module: TestingModule;
+describe("SpotifyModule", () => {
+    let spotifyService: SpotifyService;
+    let supabaseService: SupabaseService;
 
     beforeEach(async () => {
-        module = await Test.createTestingModule({
+        const module = await Test.createTestingModule({
             imports: [SpotifyModule],
+            providers: [SpotifyService,
+                {
+                    provide: HttpService,
+                    useValue: {
+                        get: jest.fn(() => {
+                            return "Hello";
+                        }),
+                    }
+                },
+                {
+                    provide: SupabaseService,
+                    useValue: {
+                        get: jest.fn(() => {
+                            return "Hello";
+                        }),
+                    }
+                }
+            ],
         }).compile();
+
+        spotifyService = module.get<SpotifyService>(SpotifyService);
+        supabaseService = module.get<SupabaseService>(SupabaseService);
     });
 
     it("should compile the module", () => {
         expect(module).toBeDefined();
     });
 
-    it("should provide AuthService", () => {
-        const authService = module.get<SpotifyService>(SpotifyService);
-        expect(authService).toBeDefined();
+    it("should provide SpotifyService", () => {
+        expect(spotifyService).toBeDefined();
     });
 
-    it("should provide AuthController", () => {
-        const authController = module.get<SpotifyController>(SpotifyController);
-        expect(authController).toBeDefined();
+    it("should provide SupabaseService", () => {
+        expect(supabaseService).toBeDefined();
     });
 });
