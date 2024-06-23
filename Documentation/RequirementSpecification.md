@@ -8,6 +8,10 @@
     - [Vision and Mission](#vision-and-mission)
     - [Business Needs](#business-needs)
     - [Project Scope](#project-scope)
+    - [General User Characteristics](#general-user-characteristics)
+    - [Specific User Characteristics](#specific-user-characteristics)
+      - [1. Listener](#1-listener)
+      - [2. Artist](#2-artist)
 - [User Stories](#user-stories)
 - [Functional Requirements](#functional-requirements)
   - [1. Secure Authentication Process](#1-secure-authentication-process)
@@ -17,26 +21,31 @@
   - [5. User Insights Generation](#5-user-insights-generation)
   - [6. Dynamic User Interface](#6-dynamic-user-interface)
   - [7. Progressive Web Application Functionality](#7-progressive-web-application-functionality)
-  - [8. User Music Library](#8-user-music-library)
-  - [9. Follow Functionality](#9-follow-functionality)
-  - [10. Search and Discovery](#10-search-and-discovery)
-  - [11. Music Playback](#11-music-playback)
+  - [8. Spotify Integration](#8-spotify-integration)
+  - [9. User Music Library](#9-user-music-library)
+  - [10. Follow Functionality](#10-follow-functionality)
+  - [11. Search and Discovery](#11-search-and-discovery)
+  - [12. Music Playback](#12-music-playback)
+  - [13. Queue Management](#13-queue-management)
+  - [14. View Listening History](#14-view-listening-history)
 - [Service Contracts](#service-contracts)
   - [1.1 Register](#11-register)
   - [1.2 Login](#12-login)
   - [1.3 Reset Password](#13-reset-password)
   - [1.4 Link Spotify Account](#14-link-spotify-account)
-  - [1.5 Upload Profile Picture](#15-upload-profile-picture)
-  - [1.6 View Recommendations](#16-view-recommendations)
-  - [1.7 Set Custom Recommendation Categories](#17-set-custom-recommendation-categories)
-  - [1.8 View Listening Insights](#18-view-listening-insights)
-  - [1.9 Customize Profile](#19-customize-profile)
-  - [1.10 View Artist Analytics](#110-view-artist-analytics)
+  - [1.5 View Recommendations](#15-view-recommendations)
+  - [1.6 View Recent Listening](#16-view-recent-listening)
+  - [1.7 Play Music](#17-play-music)
+  - [1.8 Resume Playback](#18-resume-playback)
+  - [1.9 Pause Playback](#19-pause-playback)
+  - [1.10 Set Music Player Volume](#110-set-music-player-volume)
 - [Use Case Diagrams](#use-case-diagrams)
   - [1. User Management Subsystem](#1-user-management-subsystem)
   - [2. Profile Management Subsystem](#2-profile-management-subsystem)
   - [3. Analytics Display Subsystem](#3-analytics-display-subsystem)
   - [4. AI Processing Subsystem](#4-ai-processing-subsystem)
+  - [5. Spotify Integration Subsystem](#5-spotify-integration-subsystem)
+  - [6. Music Player Subsystem](#6-music-player-subsystem)
 - [UML Class Diagram](#uml-class-diagram)
 - [Design Patterns](#design-patterns)
   - [Observer](#observer)
@@ -46,6 +55,9 @@
 
 <br />
 <br />
+
+# Link to previous documentation versions:
+[Demo 1 Documentation](https://github.com/COS301-SE-2024/ECHO/tree/f1d228d0e3943bb140eee9ad7920d6527c395d91/Documentation)
 
 # Introduction
 
@@ -60,6 +72,33 @@ ECHO is a Progressive Web Application that interacts with the Spotify API and ta
 
 <br />
 <br />
+
+### General User Characteristics 
+1. **Security-conscious**: Interested in secure registration and login processes.
+2. **Tech-savvy**: Comfortable with linking external accounts like Spotify.
+3. **Multi-device usage**: Expects to use the application across different devices and operating systems.
+4. **Offline Accessibility**: Values the ability to access the application and its features even when offline.
+5. **Basic functionality needs**: Desires a smooth, responsive user experience.
+6. **Multi-platform compatibility**: Expects the application to perform well on various devices and operating systems.
+7. **Account management**: Needs robust features for account creation, login, and password management.
+
+### Specific User Characteristics
+
+#### 1. Listener
+- **Music enthusiast**: Interested in personalized music recommendations.
+- **Analytical**: Values insights into their listening habits through intuitive graphs and charts.
+- **Customizable experience**: Desires the ability to set custom recommendation categories and toggle UI features.
+- **Social connectivity**: Interested in connecting with other users with similar music tastes.
+- **Dynamic content interaction**: Wants recommendations based on personal listening history rather than general trends.
+
+#### 2. Artist
+- **Professional tools seeker**: Looks for detailed analytics about their music’s audience.
+- **Community-oriented**: Interested in discovering other artists with similar music styles.
+- **Feedback-focused**: Desires to receive listener feedback on their songs.
+- **Brand-conscious**: Wants to influence how their music is tagged and perceived in terms of moods and themes.
+
+<br/>
+<br/>
 
 # User Stories
 
@@ -111,7 +150,7 @@ ECHO is a Progressive Web Application that interacts with the Spotify API and ta
 - Allow users to log into the application securely using their created credentials.
 1.3 Password Reset
 - Allow users to reset their passwords if forgotten.
-1.4 Spotify Integration
+1.4 Link Spotify account
 - Allow users to log into their Spotify account to link it to the application.
 
 ## 2. Personalized Song Recommendations
@@ -162,25 +201,49 @@ ECHO is a Progressive Web Application that interacts with the Spotify API and ta
 7.3 Performance Optimization
 - Application performance should be optimized to provide a smooth and responsive user experience.
 
-## 8. User Music Library
-8.1 View Music Library
-- Users can view their own music library from Spotify.
+## 8. Spotify Integration
+8.1 Sync Spotify account
+- All users' Spotify account information and data will be synced to ECHO.
 
-## 9. Follow Functionality
-9.1 Follow Users
+## 9. User Music Library
+9.1 View Music Library
+- Users can view their own music library from Spotify.
+9.2 Sync Playlists
+- Allow users to sync public and private Spotify playlists connected to their account.
+
+## 10. Follow Functionality
+10.1 Follow Users
 - Listeners can follow each other.
-9.2 Follow Artists
+10.2 Follow Artists
 - Listeners can follow artists they like.
 
-## 10. Search and Discovery
-10.1 Search Music
+## 11. Search and Discovery
+11.1 Search Music
 - Allow users to search for new music.
-10.2 Music Discovery
+11.2 Music Discovery
 - Provide features for discovering new music.
 
-## 11. Music Playback
-11.1 Play Music
+## 12. Music Playback
+12.1 Play Music
 - Enable users to play music directly from the application.
+12.2 Adjust volume 
+- Enable users to increase and decrease the volume of the song they are listening to.
+12.3 Skip song
+- Allow users to skip the current song and play the next.
+12.4 Rewind song
+- Allow users to rewind the current song to any point in the song they wish.
+12.5 Replay song
+- Allow users to replay songs in a continuous loop.
+
+## 13. Queue Management
+13.1 View "Up next" in queue
+- Allow users to view which songs will play next.
+13.2 Edit queue
+- Allow users to rearrange the order in which songs will play.
+
+## 14. View Listening History 
+14.1 View recently listened
+- Allow users to view a list of songs in order of most recently listened.
 
 <br />
 <br />
@@ -188,7 +251,8 @@ ECHO is a Progressive Web Application that interacts with the Spotify API and ta
 # Service Contracts
 
 ## 1.1 Register
-**Service Contract Name:** New user is registered.
+**Service Contract Name:** signup
+**Parameters:** { email: string, password: string, metadata: any }
 
 **Pre-conditions:**
 - The user must not be a registered user.
@@ -207,7 +271,8 @@ ECHO is a Progressive Web Application that interacts with the Spotify API and ta
 The user accesses the registration page, enters their details, and submits the form. The system prompts the user to link their Spotify account. The user logs into Spotify and grants the necessary permissions. The system verifies the details, creates a new account, links the Spotify account to the user's profile, and navigates the user to the main/landing page.
 
 ## 1.2 Login
-**Service Contract Name:** User is logged in.
+**Service Contract Name:** signin
+**Parameters:** { email: string, password: string }
 
 **Pre-conditions:**
 - The user must be a registered user.
@@ -223,7 +288,8 @@ The user accesses the registration page, enters their details, and submits the f
 The user enters their email and password on the login page. The system verifies the credentials and either grants access, navigating the user to the main/landing page, or denies access and prompts them to try again.
 
 ## 1.3 Reset Password
-**Service Contract Name:** User's password is reset.
+**Service Contract Name:** resetPassword
+**Parameters:** { email: string, newPassword: string }
 
 **Pre-conditions:**
 - The user must be a registered user with a verified email.
@@ -238,9 +304,9 @@ The user enters their email and password on the login page. The system verifies 
 **Scenario:**
 The user clicks "forgot password," enters their verified email, and receives a reset link. They set a new password via the reset link and are then navigated to the login page.
 
-
 ## 1.4 Link Spotify Account
-**Service Contract Name:** User's account is linked to Spotify.
+**Service Contract Name:** getSpotifyUser
+**Parameters:** { accessToken: string }
 
 **Pre-conditions:**
 - The user must be in the process of registering a new account.
@@ -256,25 +322,9 @@ The user clicks "forgot password," enters their verified email, and receives a r
 **Scenario:**
 The user initiates the registration process and is prompted to link their Spotify account. The user logs into Spotify and grants the necessary permissions. The system links the Spotify account to the user's profile, completing the registration process.
 
-## 1.5 Upload Profile Picture
-**Service Contract Name:** User uploads a profile picture.
-
-**Pre-conditions:**
-- The user must provide a valid image file.
-
-**Post-conditions:**
-- The image is uploaded to the storage service.
-- The path to the image is associated with the specific user in the database.
-- The user's profile picture is updated to be the uploaded image. 
-
-**Actors:**
-- User
-
-**Scenario:**
-The user selects an image to upload. The system stores the image and updates the user profile with the image path. The system now displays the uploaded image as the user's profile picture.
-
-## 1.6 View Recommendations
-**Service Contract Name:** User views song recommendations.
+## 1.5 View Recommendations
+**Service Contract Name:** getQueue
+**Parameters:** { artist: string, song_name: string }
 
 **Pre-conditions:**
 - The user must be logged into the system.
@@ -288,67 +338,90 @@ The user selects an image to upload. The system stores the image and updates the
 **Scenario:**
 The listener views the recommendations page, where the system fetches and displays personalised song recommendations based on various parameters.
 
-## 1.7 Set Custom Recommendation Categories
-**Service Contract Name:** User sets custom recommendations categories to prioritise on their profile.
+## 1.6 View Recent Listening
+**Service Contract Name:** getRecentlyPlayedTracks
+**Parameters:** { }
 
 **Pre-conditions:**
 - The user must be logged into the system.
+- The user must have songs that they have recently played on Spotify.
 
 **Post-conditions:**
-- The user's custom recommendation categories are saved on their account.
+- The user's recent listening is displayed.
 
 **Actors:**
 - Listener
 
 **Scenario:**
-The listener sets custom categories for song recommendations. The system saves these preferences and uses them for future song recommendations.
+The listener views the Recent Listening tab where the system fetches and displays past listening history. 
 
-## 1.8 View Listening Insights
-**Service Contract Name:** User views highlights that display their listening insights.
+## 1.7 Play Music
+**Service Contract Name:** playTrackById
+**Parameters:** { trackId: string, deviceId: string }
 
 **Pre-conditions:**
 - The user must be logged into the system.
+- The music player must be active.
 
 **Post-conditions:**
-- Intuitive graphs and charts showing listening habits are displayed.
+- The requested song is played on the device.
 
 **Actors:**
 - Listener
 
 **Scenario:**
-The listener accesses the insights page. The system fetches and displays various graphs and charts based on the user's listening history.
+The listener clicks on a displayed song. The system fetches the song and plays it on the device.
 
-## 1.9 Customize Profile
-**Service Contract Name:** User customises profile to meet their tastes.
+## 1.8 Resume Playback
+**Service Contract Name:** play
+**Parameters:** { }
 
 **Pre-conditions:**
 - The user must be logged into the system.
+- A song is paused on the music player.
 
 **Post-conditions:**
-- The user's profile is updated with their preferred genres and moods.
+- The requested song is played on the device.
 
 **Actors:**
 - Listener
 
 **Scenario:**
-The listener accesses their profile page and updates their preferences. The system saves these preferences for personalised recommendations.
+The listener clicks on the play button and playback for that song is resumed.
 
-## 1.10 View Artist Analytics
-**Service Contract Name:** Artist views analytics on their music's performance.
+## 1.9 Pause Playback
+**Service Contract Name:** pause
+**Parameters:** { }
 
 **Pre-conditions:**
-- The user must be logged into the system and have an artist profile.
+- The user must be logged into the system.
+- A song is playing on the music player.
 
 **Post-conditions:**
-- Detailed analytics about listeners who enjoy the artist's music are displayed.
+- The requested song is paused on the device.
 
 **Actors:**
-- Artist
+- Listener
 
 **Scenario:**
-The artist accesses the analytics page and views detailed insights about their listeners' preferences and behaviours.
+The listener clicks on the pause button and playback for that song is paused.
 
+## 1.10 Set Music Player Volume
+**Service Contract Name:** setVolume
+**Parameters:** { volume: int }
 
+**Pre-conditions:**
+- The user must be logged into the system.
+- A song is playing on the music player.
+
+**Post-conditions:**
+- The requested song's volume is adjusted.
+
+**Actors:**
+- Listener
+
+**Scenario:**
+The listener drags the volume slider on the music player. The system adjusts the volume of the currently playing song on the device. 
 
 <br />
 <br />
@@ -366,6 +439,15 @@ The artist accesses the analytics page and views detailed insights about their l
 
 ## 4. AI Processing Subsystem
 ![AI-processing](<new AI Subsystem.png>)
+
+## 5. Spotify Integration Subsystem
+![spotify-integration](<Spotify Integration Subsystem.png>)
+
+## 6. Music Player Subsystem
+![music-player](<Music Player Subsystem.png>)
+
+## 7. AI Clustering Subsystem
+![AI-clustering](<clustering use case.png>)
 
 <br />
 <br />

@@ -25,10 +25,36 @@ The system is designed using a combination of Layered Architecture, Model-View-C
 
 Each layer has specific responsibilities and interacts with other layers through well-defined interfaces.
 
-### Justification for Layered Architecture
+#### Justification for Layered Architecture
 - **Separation of Concerns:** Each layer has a specific responsibility, making the system easier to understand and manage.
 - **Reusability:** Components within a layer can be reused across different parts of the application.
 - **Maintainability:** Changes in one layer do not affect other layers, reducing the risk of introducing bugs.
+- **Layered Security and Access Control:** Security measures can be implemented at multiple layers, and different layers can enforce access controls, ensuring that only authorised users can access certain parts of the application. 
+- **interoperability:** Each layer can be designed to interact with external systems and services, facilitating seamless integration and data exchange. 
+
+### Model-View-Controller (MVC)
+The MVC pattern divides the application into three main components:
+- **Model:** Manages the data and business logic.
+- **View:** Handles the display and user interface.
+- **Controller:** Processes the user input and itneracts with the Model and View
+
+#### Justification for MVC
+- **Separation of Concerns:** MVC separates the application into distinct components, making it easier to develop, test and maintain.
+- **Reusability:** Views and Models can be reused across different parts of the application.
+- **Ease of Testing:** Individual components can be tested independently, improving voerall testability.
+- **Encapsulation:** Sensitive business logic is encapsulated within the Mode, protecting it from direct user interaction. 
+
+### Service-Oriented Architecture (SOA)
+SOA structures the application as a collection of services that communicate over a network. Each service performs a specific business function and can be reused across different applications. 
+
+#### Justification for SOA
+- **Reusability:** Services can be reused in multiple applications, reducing duplication and effort.
+- **Scalability:** Services can be scaled independently to handle varying loads.
+- **Interoperability:** Standardised communication protocols allow services to interact across different platforms and technologies. 
+- **Service Contracts:** Security can be managed at the service level, enabling centralised control over authentication, authorisation and encryption.
+- **Fault Isolation:** Failures in one service do not necessarily impact other services, enhancing overall reliability of the system.
+- **Interoperability:** Standardised communication protocols allow services to interact across different platforms and technologies. 
+
 
 ## Quality Requirements
 
@@ -49,11 +75,13 @@ Each layer has specific responsibilities and interacts with other layers through
 2. **Authentication:** Secure methods should be used for user authentication, including multi-factor authentication.
 3. **Authorization:** Ensure role-based access control to protect sensitive app features.
 
-### Accessibility
-1. **Inclusive Design:** The application should be designed to be accessible to users with disabilities, adhering to WCAG (Web Content Accessibility Guidelines).
-2. **Assistive Technologies:** Support for screen readers, keyboard navigation, and other assistive technologies should be implemented to ensure all users can effectively use the application.
+### Interoperability
+1. **Integration:** The system should be capable of integrating seamlessly with other systems and applications, allowing data exchange and interactions without compatibility issues. 
+2. **Data Exchange:** The system should support common data formats to enable smooth data exchange between different systems and services. 
 
 ## Architectural Overview
+
+![architecture diagram](<architecture.png>)
 
 ### Presentation Layer
 #### Components
