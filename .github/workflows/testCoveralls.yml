@@ -19,7 +19,9 @@ jobs:
     env:
       SUPABASE_URL: https://mocked-supabase-url.supabase.co
       SUPABASE_ANON_KEY: mockedKey
-      
+      SECRET_ENCRYPTION_KEY: mockedEncryptionKey=
+      ACCESS_KEY: MockedAccessKey
+
     steps:
       - uses: actions/checkout@v2
 
