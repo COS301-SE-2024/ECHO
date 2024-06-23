@@ -8,6 +8,10 @@
     - [Vision and Mission](#vision-and-mission)
     - [Business Needs](#business-needs)
     - [Project Scope](#project-scope)
+    - [General User Characteristics](#general-user-characteristics)
+    - [Specific User Characteristics](#specific-user-characteristics)
+      - [1. Listener](#1-listener)
+      - [2. Artist](#2-artist)
 - [User Stories](#user-stories)
 - [Functional Requirements](#functional-requirements)
   - [1. Secure Authentication Process](#1-secure-authentication-process)
@@ -65,6 +69,33 @@ ECHO is a Progressive Web Application that interacts with the Spotify API and ta
 
 <br />
 <br />
+
+### General User Characteristics 
+1. **Security-conscious**: Interested in secure registration and login processes.
+2. **Tech-savvy**: Comfortable with linking external accounts like Spotify.
+3. **Multi-device usage**: Expects to use the application across different devices and operating systems.
+4. **Offline Accessibility**: Values the ability to access the application and its features even when offline.
+5. **Basic functionality needs**: Desires a smooth, responsive user experience.
+6. **Multi-platform compatibility**: Expects the application to perform well on various devices and operating systems.
+7. **Account management**: Needs robust features for account creation, login, and password management.
+
+### Specific User Characteristics
+
+#### 1. Listener
+- **Music enthusiast**: Interested in personalized music recommendations.
+- **Analytical**: Values insights into their listening habits through intuitive graphs and charts.
+- **Customizable experience**: Desires the ability to set custom recommendation categories and toggle UI features.
+- **Social connectivity**: Interested in connecting with other users with similar music tastes.
+- **Dynamic content interaction**: Wants recommendations based on personal listening history rather than general trends.
+
+#### 2. Artist
+- **Professional tools seeker**: Looks for detailed analytics about their music’s audience.
+- **Community-oriented**: Interested in discovering other artists with similar music styles.
+- **Feedback-focused**: Desires to receive listener feedback on their songs.
+- **Brand-conscious**: Wants to influence how their music is tagged and perceived in terms of moods and themes.
+
+<br/>
+<br/>
 
 # User Stories
 
