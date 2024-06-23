@@ -1,78 +1,50 @@
-import { Controller, Get, Put, Param, Query, Res, HttpStatus } from '@nestjs/common';
-import { SpotifyService } from '../services/spotify.service';
-import { Response } from 'express';
+import { Body, Controller, Get, Post, Put } from "@nestjs/common";
+import { SpotifyService } from "../services/spotify.service";
 
 @Controller('spotify')
 export class SpotifyController {
     constructor(private readonly spotifyService: SpotifyService) {}
 
-    @Get('current-track')
-    async getCurrentTrack(@Res() res: Response) {
-        try {
-            const data = await this.spotifyService.getCurrentlyPlayingTrack();
-            res.json(data);
-        } catch (error) {
-            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: error.message });
-        }
+    @Get('currently-playing')
+    async getCurrentlyPlayingTrack(): Promise<any> {
+        return await this.spotifyService.getCurrentlyPlayingTrack();
     }
 
     @Get('recently-played')
-    async getRecentlyPlayed(@Res() res: Response) {
-        try {
-            const data = await this.spotifyService.getRecentlyPlayedTracks();
-            res.json(data);
-        } catch (error) {
-            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: error.message });
-        }
+    async getRecentlyPlayedTracks(): Promise<any> {
+        return await this.spotifyService.getRecentlyPlayedTracks();
     }
 
-    @Get('recommendations')
-    async getRecommendations(@Query('seedTracks') seedTracks: string, @Query('market') market: string, @Query('limit') limit: number, @Res() res: Response) {
-        try {
-            const data = await this.spotifyService.getRecommendations(seedTracks, market, limit);
-            res.json(data);
-        } catch (error) {
-            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: error.message });
-        }
-    }
-
-    @Put('play/:trackId')
-    async playTrackById(@Param('trackId') trackId: string, @Res() res: Response) {
-        try {
-            const data = await this.spotifyService.playTrackById(trackId);
-            res.json(data);
-        } catch (error) {
-            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: error.message });
-        }
-    }
-
-    @Put('pause')
-    async pause(@Res() res: Response) {
-        try {
-            const data = await this.spotifyService.pause();
-            res.json({ message: 'Playback paused' });
-        } catch (error) {
-            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: error.message });
-        }
+    @Post('queue')
+    async getQueue(@Body() body: { artist: string; song_name: string }): Promise<any> {
+        const { artist, song_name } = body;
+        return await this.spotifyService.getQueue(artist, song_name);
     }
 
     @Put('play')
-    async play(@Res() res: Response) {
-        try {
-            const data = await this.spotifyService.play();
-            res.json({ message: 'Playback resumed' });
-        } catch (error) {
-            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: error.message });
-        }
+    async playTrackById(@Body() body: { trackId: string, deviceId: string }): Promise<any> {
+        const { trackId, deviceId } = body;
+        return await this.spotifyService.playTrackById(trackId, deviceId);
+    }
+
+    @Put('pause')
+    async pause(): Promise<any> {
+        return await this.spotifyService.pause();
+    }
+
+    @Put('resume')
+    async play(): Promise<any> {
+        return await this.spotifyService.play();
     }
 
     @Put('volume')
-    async setVolume(@Query('volume') volume: number, @Res() res: Response) {
-        try {
-            const data = await this.spotifyService.setVolume(volume);
-            res.json({ message: `Volume set to ${volume}%` });
-        } catch (error) {
-            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: error.message });
-        }
+    async setVolume(@Body() body: { volume: number }): Promise<any> {
+        const { volume } = body;
+        return await this.spotifyService.setVolume(volume);
+    }
+
+    @Post('track-details')
+    async getTrackDetails(@Body() body: { trackID: string }): Promise<any> {
+        return await this.spotifyService.getTrackDetails(body.trackID);
     }
 }

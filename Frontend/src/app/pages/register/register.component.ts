@@ -39,13 +39,9 @@ export class RegisterComponent {
   }
 
     spotify() {
-        var email: any;
-        email = document.getElementById('email');
-        var password: any;
-        password = document.getElementById('password');
-
-        email.required = false;
-        password.required = false;
+      if (typeof window !== 'undefined') {
+        window.location.href = 'http://localhost:3000/api/auth/oauth-signin';
+      }
     }
 
     async register() {
@@ -53,12 +49,12 @@ export class RegisterComponent {
         alert('Please fill in all fields');
         return;
       }
-  
+
       const metadata = {
         username: this.username,
         name: this.username,
       };
-  
+
       this.authService.signUp(this.email, this.password, metadata).subscribe(
         () => this.router.navigate(["/home"]),
         (error) => console.error("Error signing up:", error)
