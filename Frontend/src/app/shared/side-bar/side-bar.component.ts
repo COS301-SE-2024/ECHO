@@ -65,8 +65,8 @@ export class SideBarComponent implements OnInit {
     this.selectedOption = option;
   }
 
-  playTrack(trackId: string): void {
-    this.spotifyService.playTrackById(trackId);
+  async playTrack(trackId: string): Promise<void> {
+    await this.spotifyService.playTrackById(trackId);
   }
 
   private truncateText(text: string, maxLength: number): string {
