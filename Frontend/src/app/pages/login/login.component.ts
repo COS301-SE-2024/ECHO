@@ -1,39 +1,43 @@
-import { Component, OnInit,ViewChild, } from '@angular/core';
-import { NgOptimizedImage } from '@angular/common';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { SpotifyLoginComponent } from '../../spotify-login/spotify-login.component';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ThemeService } from '../../services/theme.service';
-import {ToastComponent} from '../../shared/toast/toast.component';
+import { ToastComponent } from '../../shared/toast/toast.component';
 import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-login',
     standalone: true,
-    imports: [NgOptimizedImage, SpotifyLoginComponent, FormsModule,ToastComponent,CommonModule],
+    imports: [CommonModule, FormsModule, SpotifyLoginComponent, ToastComponent],
     templateUrl: './login.component.html',
-    styleUrl: './login.component.css',
+    styleUrls: ['./login.component.css'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
     email: string = '';
     password: string = '';
     username: string = '';
+    showModal: boolean = false; 
+
     @ViewChild(ToastComponent) toastComponent!: ToastComponent;
 
     constructor(
         private authService: AuthService,
         private router: Router,
-        private themeService: ThemeService,
+        private themeService: ThemeService
     ) {}
+
+    ngOnInit() {
+        this.theme();
+    }
+
     theme() {
         if (!this.themeService.isDarkModeActive()) {
             this.themeService.switchTheme();
         }
     }
-    ngOnInit() {
-        this.theme();
-    } 
+
     spotify() {
         if (typeof window !== 'undefined') {
             window.location.href = 'http://localhost:3000/api/auth/oauth-signin';
@@ -42,7 +46,7 @@ export class LoginComponent {
 
     login() {
         this.authService.signIn(this.email, this.password).subscribe(
-            (response) => {
+            response => {
                 if (response.user) {
                     localStorage.setItem('username', this.email);
                     console.log('User logged in successfully', response);
@@ -53,12 +57,20 @@ export class LoginComponent {
                 } else {
                     console.error('Error logging in user', response);
                     this.toastComponent.showToast('Invalid username or password', 'info');
-                }   
+                }
             },
-            (error) => {
+            error => {
                 console.error('Error logging in user', error);
-                this.toastComponent.showToast('There was an Issue Logging In', 'error');
-            },
+                this.toastComponent.showToast('There was an issue logging in', 'error');
+            }
         );
+    }
+
+    toggleModal(): void {
+        this.showModal = !this.showModal;
+    }
+
+    closeModal(): void {
+        this.showModal = false;
     }
 }
