@@ -18,7 +18,10 @@ export class LoginComponent implements OnInit {
     email: string = '';
     password: string = '';
     username: string = '';
-    showModal: boolean = false; 
+    showModal: boolean = false;
+    showAboutModal: boolean = false;
+    showContactModal: boolean = false;
+    showPrivacyModal: boolean = false; 
 
     @ViewChild(ToastComponent) toastComponent!: ToastComponent;
 
@@ -68,9 +71,24 @@ export class LoginComponent implements OnInit {
 
     toggleModal(): void {
         this.showModal = !this.showModal;
-    }
-
-    closeModal(): void {
+      }
+    
+      toggleAboutModal(): void {
+        this.showAboutModal = !this.showAboutModal;
+      }
+    
+      toggleContactModal(): void {
+        this.showContactModal = !this.showContactModal;
+      }
+    
+      togglePrivacyModal(): void {
+        this.showPrivacyModal = !this.showPrivacyModal;
+      }
+    
+      closeModal(): void {
         this.showModal = false;
-    }
+        this.showAboutModal = false;
+        this.showContactModal = false;
+        this.showPrivacyModal = false;
+      }
 }
