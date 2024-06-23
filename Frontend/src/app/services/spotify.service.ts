@@ -2,6 +2,7 @@ import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { AuthService } from './auth.service';
 import { firstValueFrom, BehaviorSubject } from 'rxjs';
+import { HttpClient } from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +20,7 @@ export class SpotifyService {
   private rcacheTTL = 600000;
 
 
-  constructor(private authService: AuthService, @Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(private authService: AuthService, @Inject(PLATFORM_ID) private platformId: Object, private http: HttpClient) {}
 
   public async init(): Promise<void> {
     if (isPlatformBrowser(this.platformId)) {
@@ -74,36 +75,21 @@ export class SpotifyService {
     this.player.connect();
   }
 
-  public playTrackById(trackId: string): void {
+  public async playTrackById(trackId: string): Promise<void> {
     if (!this.deviceId) {
       console.error('Device ID is undefined. Ensure the player is ready before playing.');
       return;
     }
 
     const spotifyUri = `spotify:track:${trackId}`;
-    const tokenRetrieval = (token: string) => {
-      fetch(`https://api.spotify.com/v1/me/player/play?device_id=${this.deviceId}`, {
-        method: 'PUT',
-        body: JSON.stringify({ uris: [spotifyUri] }),
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-      })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-          return response.json().catch(() => ({}));
-        })
-        .then(data => {
-          console.log('Play response:', data);
-          this.setCurrentlyPlayingTrack(trackId);
-          this.playingStateSubject.next(true);
-        })
-        .catch(error => console.error('Error playing track:', error));
+    const tokenRetrieval = (cb: any) => {
+      this.authService.getTokens().subscribe(tokens => {
+        cb(tokens.providerToken);
+      });
     };
 
+    const response = await this.http.put(`http://localhost:3000/api/spotify/play`, { trackId:trackId, deviceId: this.deviceId }).toPromise();
+    await this.setCurrentlyPlayingTrack(trackId);
     this.player._options.getOAuthToken(tokenRetrieval);
   }
 
@@ -156,30 +142,24 @@ export class SpotifyService {
     const cacheKey = 'recentlyPlayed';
     const currentTime = new Date().getTime();
 
+    // Check if data is cached and within TTL
     if (this.recentlyPlayedCache && (currentTime - this.recentlyPlayedCache.timestamp) < this.rcacheTTL) {
       return this.recentlyPlayedCache.data;
     }
 
     try {
-      const tokens = await firstValueFrom(this.authService.getTokens());
-      const response = await fetch('https://api.spotify.com/v1/me/player/recently-played?limit=30', {
-        headers: {
-          'Authorization': `Bearer ${tokens.providerToken}`
-        }
-      });
+      const response = await this.http.get<any>('http://localhost:3000/api/spotify/recently-played').toPromise();
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+      if (!response) {
+        throw new Error(`HTTP error! Status: ${response}`);
       }
-
-      const data = await response.json();
 
       this.recentlyPlayedCache = {
         timestamp: currentTime,
-        data: data
+        data: response
       };
 
-      return data;
+      return response;
     } catch (error) {
       console.error('Error fetching recently played tracks:', error);
       throw error;
@@ -238,19 +218,13 @@ export class SpotifyService {
 
   public async getCurrentlyPlayingTrack(): Promise<any> {
     try {
-      const tokens = await firstValueFrom(this.authService.getTokens());
-      const response = await fetch('https://api.spotify.com/v1/me/player/currently-playing', {
-        headers: {
-          'Authorization': `Bearer ${tokens.providerToken}`
-        }
-      });
+      const response = await this.http.get<any>('http://localhost:3000/api/spotify/currently-playing').toPromise();
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const data = await response.json();
-      return data;
+      return response;
     } catch (error) {
       console.error('Error fetching currently playing track:', error);
       throw error;
@@ -265,21 +239,15 @@ export class SpotifyService {
 
   private async getTrackDetails(trackId: string): Promise<any> {
     try {
-      const tokens = await firstValueFrom(this.authService.getTokens());
-      const response = await fetch(`https://api.spotify.com/v1/tracks/${trackId}`, {
-        headers: {
-          'Authorization': `Bearer ${tokens.providerToken}`
-        }
-      });
+      const response = await this.http.post<any>('http://localhost:3000/api/spotify/track-details', {trackID: trackId}).toPromise();
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+      if (!response) {
+        throw new Error(`HTTP error! Status: ${response}`);
       }
 
-      const data = await response.json();
-      return data;
+      return response;
     } catch (error) {
-      console.error('Error fetching track details:', error);
+      console.error('Error fetching recently played tracks:', error);
       throw error;
     }
   }
