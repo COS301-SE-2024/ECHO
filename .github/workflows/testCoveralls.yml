@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - develop
+      - stablization
   pull_request:
     branches:
       - main

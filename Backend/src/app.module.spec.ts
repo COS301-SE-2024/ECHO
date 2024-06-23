@@ -2,7 +2,7 @@ import { Test, TestingModule } from "@nestjs/testing";
 import { MongooseModule } from "@nestjs/mongoose";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { Logger } from "@nestjs/common";
-import { UserModule } from "./user/user.module";
+//import { UserModule } from "./user/user.module";
 import { MongoMemoryServer } from "mongodb-memory-server";
 
 describe("AppModule", () => {
@@ -34,16 +34,6 @@ describe("AppModule", () => {
                 ConfigModule.forRoot({
                     isGlobal: true,
                 }),
-                MongooseModule.forRootAsync({
-                    imports: [ConfigModule],
-                    useFactory: async (configService: ConfigService) => {
-                        const uri = configService.get<string>("MONGODB_URI");
-                        Logger.log(`MongoDB URI: ${uri}`, "Database");
-                        return { uri };
-                    },
-                    inject: [ConfigService],
-                }),
-                UserModule,
             ],
         })
             .overrideProvider(ConfigService)
