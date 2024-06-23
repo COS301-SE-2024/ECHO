@@ -1,3 +1,6 @@
+process.env.SUPABASE_URL = 'MockURL';
+process.env.SUPABASE_ANON_KEY = 'MockKey';
+
 import { Test, TestingModule } from "@nestjs/testing";
 import { AuthModule } from "./auth.module";
 import { AuthService } from "../services/auth.service";
