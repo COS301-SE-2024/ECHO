@@ -1,11 +1,9 @@
-process.env.SUPABASE_URL = 'MockURL';
-process.env.SUPABASE_ANON_KEY = 'MockKey';
-
 import { Test, TestingModule } from "@nestjs/testing";
 import { AuthModule } from "./auth.module";
 import { AuthService } from "../services/auth.service";
 import { AuthController } from "../controllers/auth.controller";
 import { SupabaseService } from "../supabase/supabase.service";
+import { supabaseAnonKey, supabaseServiceMock, supabaseUrl } from "../supabaseMock/supabase.service";
 
 describe("AuthModule", () => {
     let authController: AuthController;
@@ -15,6 +13,12 @@ describe("AuthModule", () => {
     beforeEach(async () => {
         const module = await Test.createTestingModule({
             imports: [AuthModule],
+            providers: [
+                AuthService, 
+                    { provide: SupabaseService, useValue: supabaseServiceMock },
+                    { provide: 'supabaseUrl', useValue: supabaseUrl },
+                    { provide: 'supabaseAnonKey', useValue: supabaseAnonKey },
+            ],
         }).compile();
 
         authController = module.get<AuthController>(AuthController);
