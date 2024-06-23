@@ -17,6 +17,11 @@ export class RegisterComponent {
     username: string = '';
     email: string = '';
     password: string = '';
+    showModal: boolean = false;
+    showAboutModal: boolean = false;
+    showContactModal: boolean = false;
+    showPrivacyModal: boolean = false; 
+
     @ViewChild(ToastComponent) toastComponent!: ToastComponent;
   constructor(
     private authService: AuthService,
@@ -58,5 +63,28 @@ export class RegisterComponent {
         () => this.router.navigate(["/home"]),
         (error) => console.error("Error signing up:", error)
       );
+    }
+
+    toggleModal(): void {
+      this.showModal = !this.showModal;
+    }
+  
+    toggleAboutModal(): void {
+      this.showAboutModal = !this.showAboutModal;
+    }
+  
+    toggleContactModal(): void {
+      this.showContactModal = !this.showContactModal;
+    }
+  
+    togglePrivacyModal(): void {
+      this.showPrivacyModal = !this.showPrivacyModal;
+    }
+  
+    closeModal(): void {
+      this.showModal = false;
+      this.showAboutModal = false;
+      this.showContactModal = false;
+      this.showPrivacyModal = false;
     }
 }

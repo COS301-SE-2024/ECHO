@@ -3,3 +3,46 @@
     display: flex;
     justify-content: center; /* Center horizontally */
 }
+
+.question {
+    font-size: medium;
+    font-weight: bold;
+}
+
+.text {
+    font-size:small;
+}
+
+.modal-overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 50;
+    background-color: rgba(0,0,0,0.5); /* Optional: for darkening the background */
+  }
+  
+  .modal-content {
+    position: relative;
+    max-width: 500px; /* Adjust based on your preference */
+    max-height: 80vh; /* 80% of the viewport height */
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    overflow-y: auto; /* Enables scrollbar when content overflows */
+  }
+  
+  .close-button {
+    position: absolute;
+    top: 10px; /* Adjust for proper positioning */
+    right: 10px; /* Adjust for proper positioning */
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+  }
