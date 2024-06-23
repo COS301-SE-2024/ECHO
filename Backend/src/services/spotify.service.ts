@@ -55,15 +55,18 @@ export class SpotifyService {
 
     async getQueue(artist: string, song_name: string): Promise<any> {
         const accessKey = await this.getAccessKey();
-        console.log("Access key: ", accessKey, artist, song_name)
         const response = await lastValueFrom(
-            this.httpService.post("https://echo-capstone-func-app.azurewebsites.net/api/get_songs", {
-                params: {
+            this.httpService.post(
+                "https://echo-capstone-func-app.azurewebsites.net/api/get_songs",
+                {
                     access_key: accessKey,
                     artist: artist,
                     song_name: song_name
+                },
+                {
+                    headers: { "Content-Type": "application/json" }
                 }
-            })
+            )
         );
 
         const tracks = response.data.recommended_tracks;
@@ -72,7 +75,25 @@ export class SpotifyService {
             .map(track => track.track_uri.split(":").pop())
             .join(",");
 
-        return trackIds;
+        return this.fetchSpotifyTracks(trackIds);
+
+    }
+
+    private async fetchSpotifyTracks(trackIds: string): Promise<any> {
+        const spotifyAccessToken = await this.getAccessToken();
+        const response = await lastValueFrom(
+            this.httpService.get(
+                `https://api.spotify.com/v1/tracks?ids=${trackIds}`,
+                {
+                    headers: {
+                        "Authorization": `Bearer ${spotifyAccessToken}`,
+                        "Content-Type": "application/json"
+                    }
+                }
+            )
+        );
+
+        return response.data;
     }
 
     async playTrackById(trackId: string, deviceId: string): Promise<any> {
@@ -129,4 +150,27 @@ export class SpotifyService {
             throw error;
         }
     }
+
+    private extractSongs(data: any): TrackInfo[] {
+        return data.tracks.map(track => ({
+            id: track.id,
+            name: track.name,
+            albumName: track.album.name,
+            albumImageUrl: track.album.images[0]?.url,
+            artistName: track.artists[0]?.name,
+            previewUrl: track.preview_url,
+            spotifyUrl: track.external_urls.spotify
+        }));
+    }
+
+}
+
+interface TrackInfo {
+    id: string;
+    name: string;
+    albumName: string;
+    albumImageUrl: string;
+    artistName: string;
+    previewUrl: string;
+    spotifyUrl: string;
 }

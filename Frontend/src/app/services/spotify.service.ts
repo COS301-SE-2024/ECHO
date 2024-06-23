@@ -3,7 +3,19 @@ import { isPlatformBrowser } from '@angular/common';
 import { AuthService } from './auth.service';
 import { firstValueFrom, BehaviorSubject } from 'rxjs';
 import { HttpClient } from "@angular/common/http";
+import { map } from "rxjs/operators";
 
+
+export interface TrackInfo {
+  id: string;
+  text: string;
+  albumName: string;
+  imageUrl: string;
+  secondaryText: string;
+  previewUrl: string;
+  spotifyUrl: string;
+  explicit: boolean;
+}
 @Injectable({
   providedIn: 'root',
 })
@@ -166,52 +178,38 @@ export class SpotifyService {
     }
   }
 
-  public async getQueue(): Promise<any> {
-    const cacheKey = 'queueData';
-    const currentTime = new Date().getTime();
-
-    if (this.queueCache[cacheKey] && (currentTime - this.queueCache[cacheKey].timestamp) < this.cacheTTL) {
-      return this.queueCache[cacheKey].data;
+  public async getQueue(): Promise<TrackInfo[]> {
+    const recentlyPlayed = await this.getRecentlyPlayedTracks();
+    if (!recentlyPlayed || recentlyPlayed.items.length === 0) {
+      throw new Error('No recently played tracks found');
     }
 
-    try {
-      const tokens = await firstValueFrom(this.authService.getTokens());
-      let seedTrack = '';
-      await this.getRecentlyPlayedTracks().then(data => {
-        seedTrack = data.items[0].track.id;
-      });
-      const market = 'ES';
-      const limit = 20;
+    const mostRecentTrack = recentlyPlayed.items[0].track;
+    const artist = mostRecentTrack.artists[0].name;
+    const songName = mostRecentTrack.name;
 
-      const response = await fetch(`https://api.spotify.com/v1/recommendations?seed_tracks=${seedTrack}&market=${market}&limit=${limit}`, {
-        headers: {
-          'Authorization': `Bearer ${tokens.providerToken}`
-        }
-      });
+    const response = await this.http.post<any>(`http://localhost:3000/api/spotify/queue`, {
+      artist,
+      song_name: songName
+    }).toPromise();
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
 
-      const data = await response.json();
-
-      const upNextData = data.tracks.map((track: any) => ({
-        text: this.truncateText(track.name, 30),
-        secondaryText: track.artists.map((artist: any) => artist.name).join(', '),
-        imageUrl: track.album.images[0]?.url || '',
-        explicit: track.explicit,
-        id: track.id
-      }));
-
-      this.queueCache[cacheKey] = {
-        timestamp: currentTime,
-        data: upNextData
-      };
-
-      return upNextData;
-    } catch (error) {
-      console.error('Error fetching recommendations:', error);
-      throw error;
+    // Map the tracks array in the response
+    if (response && Array.isArray(response.tracks)) {
+      const tracks = response.tracks.map((track: any) => ({
+        id: track.id,
+        text: track.name,
+        albumName: track.album.name,
+        imageUrl: track.album.images[0]?.url,
+        secondaryText: track.artists[0]?.name,
+        previewUrl: track.preview_url,
+        spotifyUrl: track.external_urls.spotify,
+        explicit: track.explicit
+      } as TrackInfo));
+      console.log('Queue tracks:', tracks);
+      return tracks;
+    } else {
+      throw new Error('Invalid response structure');
     }
   }
 
