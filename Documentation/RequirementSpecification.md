@@ -56,6 +56,9 @@
 <br />
 <br />
 
+# Link to previous documentation versions:
+[Demo 1 Documentation](https://github.com/COS301-SE-2024/ECHO/tree/f1d228d0e3943bb140eee9ad7920d6527c395d91/Documentation)
+
 # Introduction
 
 ### Vision and Mission
