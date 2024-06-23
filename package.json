@@ -1,29 +1,18 @@
 {
   "name": "echo",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "workspaces": [
-    "Frontend",
-    "Backend"
-  ],
-  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently \"npm start --prefix Frontend\" \"npm start --prefix Backend\""
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/COS301-SE-2024/ECHO.git"
+    "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
+    "start:backend": "cd Backend && npm start",
+    "start:frontend": "cd Frontend && npm start",
+    "install": "cd Backend && npm install && cd ../Frontend && npm install"
   },
   "dependencies": {
-    "@angular/animations": "^18.0.1",
-    "@nestjs/platform-express": "^10.3.8",
-    "concurrently": "^8.2.2",
-    "dotenv": "^16.4.5"
+    "concurrently": "^8.2.2"
   },
   "devDependencies": {
-    "@angular/cli": "^18.0.2",
-    "prettier": "3.3.0"
+    "prettier": "^3.3.2",
+    "concurrently": "^8.2.2",
+    "dotenv": "^16.4.5"
   }
 }

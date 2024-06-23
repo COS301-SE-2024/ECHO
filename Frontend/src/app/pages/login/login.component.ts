@@ -1,25 +1,34 @@
-import { Component, OnInit } from '@angular/core';
-import { NgOptimizedImage } from '@angular/common';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { SpotifyLoginComponent } from '../../spotify-login/spotify-login.component';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ThemeService } from '../../services/theme.service';
+import { ToastComponent } from '../../shared/toast/toast.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-login',
     standalone: true,
-    imports: [NgOptimizedImage, SpotifyLoginComponent, FormsModule],
+    imports: [CommonModule, FormsModule, SpotifyLoginComponent, ToastComponent],
     templateUrl: './login.component.html',
-    styleUrl: './login.component.css',
+    styleUrls: ['./login.component.css'],
 })
-export class LoginComponent {
-    username: string = '';
+export class LoginComponent implements OnInit {
+    email: string = '';
     password: string = '';
+    username: string = '';
+    showModal: boolean = false;
+    showAboutModal: boolean = false;
+    showContactModal: boolean = false;
+    showPrivacyModal: boolean = false; 
+
+    @ViewChild(ToastComponent) toastComponent!: ToastComponent;
+
     constructor(
         private authService: AuthService,
         private router: Router,
-        private themeService: ThemeService,
+        private themeService: ThemeService
     ) {}
 
     ngOnInit() {
@@ -33,30 +42,53 @@ export class LoginComponent {
     }
 
     spotify() {
-        var email: any;
-        email = document.getElementById('email');
-        var password: any;
-        password = document.getElementById('password');
-
-        email.required = false;
-        password.required = false;
+        if (typeof window !== 'undefined') {
+            window.location.href = 'http://localhost:3000/api/auth/oauth-signin';
+        }
     }
 
     login() {
-        this.authService.login(this.username, this.password).subscribe(
-            (response) => {
+        this.authService.signIn(this.email, this.password).subscribe(
+            response => {
                 if (response.user) {
-                    localStorage.setItem('username', this.username);
+                    localStorage.setItem('username', this.email);
                     console.log('User logged in successfully', response);
-                    this.router.navigate(['/home']);
+                    this.toastComponent.showToast('User logged in successfully', 'success');
+                    setTimeout(() => {
+                        this.router.navigate(['/home']);
+                    }, 1000);
                 } else {
                     console.error('Error logging in user', response);
-                    alert('Invalid username or password');
+                    this.toastComponent.showToast('Invalid username or password', 'info');
                 }
             },
-            (error) => {
+            error => {
                 console.error('Error logging in user', error);
-            },
+                this.toastComponent.showToast('There was an issue logging in', 'error');
+            }
         );
     }
+
+    toggleModal(): void {
+        this.showModal = !this.showModal;
+      }
+    
+      toggleAboutModal(): void {
+        this.showAboutModal = !this.showAboutModal;
+      }
+    
+      toggleContactModal(): void {
+        this.showContactModal = !this.showContactModal;
+      }
+    
+      togglePrivacyModal(): void {
+        this.showPrivacyModal = !this.showPrivacyModal;
+      }
+    
+      closeModal(): void {
+        this.showModal = false;
+        this.showAboutModal = false;
+        this.showContactModal = false;
+        this.showPrivacyModal = false;
+      }
 }

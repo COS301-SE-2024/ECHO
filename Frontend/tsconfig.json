@@ -24,6 +24,9 @@
       "dom"
     ]
   },
+  "include": [
+    "src/app/types"
+  ],
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,

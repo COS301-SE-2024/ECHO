@@ -20,6 +20,7 @@ jobs:
 
       - name: Install Dependencies
         run: npm install
+          
 
       - name: Check formatting
-        run: npx prettier --check **/*.{js,ts}
+        run: npx prettier --check **/*.{js,ts} --write
