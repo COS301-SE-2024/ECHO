@@ -33,12 +33,12 @@
   - [1.2 Login](#12-login)
   - [1.3 Reset Password](#13-reset-password)
   - [1.4 Link Spotify Account](#14-link-spotify-account)
-  - [1.5 Upload Profile Picture](#15-upload-profile-picture)
-  - [1.6 View Recommendations](#16-view-recommendations)
-  - [1.7 Set Custom Recommendation Categories](#17-set-custom-recommendation-categories)
-  - [1.8 View Listening Insights](#18-view-listening-insights)
-  - [1.9 Customize Profile](#19-customize-profile)
-  - [1.10 View Artist Analytics](#110-view-artist-analytics)
+  - [1.5 View Recommendations](#15-view-recommendations)
+  - [1.6 View Recent Listening](#16-view-recent-listening)
+  - [1.7 Play Music](#17-play-music)
+  - [1.8 Resume Playback](#18-resume-playback)
+  - [1.9 Pause Playback](#19-pause-playback)
+  - [1.10 Set Music Player Volume](#110-set-music-player-volume)
 - [Use Case Diagrams](#use-case-diagrams)
   - [1. User Management Subsystem](#1-user-management-subsystem)
   - [2. Profile Management Subsystem](#2-profile-management-subsystem)
@@ -248,7 +248,8 @@ ECHO is a Progressive Web Application that interacts with the Spotify API and ta
 # Service Contracts
 
 ## 1.1 Register
-**Service Contract Name:** New user is registered.
+**Service Contract Name:** signup
+**Parameters:** { email: string, password: string, metadata: any }
 
 **Pre-conditions:**
 - The user must not be a registered user.
@@ -267,7 +268,8 @@ ECHO is a Progressive Web Application that interacts with the Spotify API and ta
 The user accesses the registration page, enters their details, and submits the form. The system prompts the user to link their Spotify account. The user logs into Spotify and grants the necessary permissions. The system verifies the details, creates a new account, links the Spotify account to the user's profile, and navigates the user to the main/landing page.
 
 ## 1.2 Login
-**Service Contract Name:** User is logged in.
+**Service Contract Name:** signin
+**Parameters:** { email: string, password: string }
 
 **Pre-conditions:**
 - The user must be a registered user.
@@ -283,7 +285,8 @@ The user accesses the registration page, enters their details, and submits the f
 The user enters their email and password on the login page. The system verifies the credentials and either grants access, navigating the user to the main/landing page, or denies access and prompts them to try again.
 
 ## 1.3 Reset Password
-**Service Contract Name:** User's password is reset.
+**Service Contract Name:** resetPassword
+**Parameters:** { email: string, newPassword: string }
 
 **Pre-conditions:**
 - The user must be a registered user with a verified email.
@@ -298,9 +301,9 @@ The user enters their email and password on the login page. The system verifies 
 **Scenario:**
 The user clicks "forgot password," enters their verified email, and receives a reset link. They set a new password via the reset link and are then navigated to the login page.
 
-
 ## 1.4 Link Spotify Account
-**Service Contract Name:** User's account is linked to Spotify.
+**Service Contract Name:** getSpotifyUser
+**Parameters:** { accessToken: string }
 
 **Pre-conditions:**
 - The user must be in the process of registering a new account.
@@ -316,25 +319,9 @@ The user clicks "forgot password," enters their verified email, and receives a r
 **Scenario:**
 The user initiates the registration process and is prompted to link their Spotify account. The user logs into Spotify and grants the necessary permissions. The system links the Spotify account to the user's profile, completing the registration process.
 
-## 1.5 Upload Profile Picture
-**Service Contract Name:** User uploads a profile picture.
-
-**Pre-conditions:**
-- The user must provide a valid image file.
-
-**Post-conditions:**
-- The image is uploaded to the storage service.
-- The path to the image is associated with the specific user in the database.
-- The user's profile picture is updated to be the uploaded image. 
-
-**Actors:**
-- User
-
-**Scenario:**
-The user selects an image to upload. The system stores the image and updates the user profile with the image path. The system now displays the uploaded image as the user's profile picture.
-
-## 1.6 View Recommendations
-**Service Contract Name:** User views song recommendations.
+## 1.5 View Recommendations
+**Service Contract Name:** getQueue
+**Parameters:** { artist: string, song_name: string }
 
 **Pre-conditions:**
 - The user must be logged into the system.
@@ -348,67 +335,90 @@ The user selects an image to upload. The system stores the image and updates the
 **Scenario:**
 The listener views the recommendations page, where the system fetches and displays personalised song recommendations based on various parameters.
 
-## 1.7 Set Custom Recommendation Categories
-**Service Contract Name:** User sets custom recommendations categories to prioritise on their profile.
+## 1.6 View Recent Listening
+**Service Contract Name:** getRecentlyPlayedTracks
+**Parameters:** { }
 
 **Pre-conditions:**
 - The user must be logged into the system.
+- The user must have songs that they have recently played on Spotify.
 
 **Post-conditions:**
-- The user's custom recommendation categories are saved on their account.
+- The user's recent listening is displayed.
 
 **Actors:**
 - Listener
 
 **Scenario:**
-The listener sets custom categories for song recommendations. The system saves these preferences and uses them for future song recommendations.
+The listener views the Recent Listening tab where the system fetches and displays past listening history. 
 
-## 1.8 View Listening Insights
-**Service Contract Name:** User views highlights that display their listening insights.
+## 1.7 Play Music
+**Service Contract Name:** playTrackById
+**Parameters:** { trackId: string, deviceId: string }
 
 **Pre-conditions:**
 - The user must be logged into the system.
+- The music player must be active.
 
 **Post-conditions:**
-- Intuitive graphs and charts showing listening habits are displayed.
+- The requested song is played on the device.
 
 **Actors:**
 - Listener
 
 **Scenario:**
-The listener accesses the insights page. The system fetches and displays various graphs and charts based on the user's listening history.
+The listener clicks on a displayed song. The system fetches the song and plays it on the device.
 
-## 1.9 Customize Profile
-**Service Contract Name:** User customises profile to meet their tastes.
+## 1.8 Resume Playback
+**Service Contract Name:** play
+**Parameters:** { }
 
 **Pre-conditions:**
 - The user must be logged into the system.
+- A song is paused on the music player.
 
 **Post-conditions:**
-- The user's profile is updated with their preferred genres and moods.
+- The requested song is played on the device.
 
 **Actors:**
 - Listener
 
 **Scenario:**
-The listener accesses their profile page and updates their preferences. The system saves these preferences for personalised recommendations.
+The listener clicks on the play button and playback for that song is resumed.
 
-## 1.10 View Artist Analytics
-**Service Contract Name:** Artist views analytics on their music's performance.
+## 1.9 Pause Playback
+**Service Contract Name:** pause
+**Parameters:** { }
 
 **Pre-conditions:**
-- The user must be logged into the system and have an artist profile.
+- The user must be logged into the system.
+- A song is playing on the music player.
 
 **Post-conditions:**
-- Detailed analytics about listeners who enjoy the artist's music are displayed.
+- The requested song is paused on the device.
 
 **Actors:**
-- Artist
+- Listener
 
 **Scenario:**
-The artist accesses the analytics page and views detailed insights about their listeners' preferences and behaviours.
+The listener clicks on the pause button and playback for that song is paused.
 
+## 1.10 Set Music Player Volume
+**Service Contract Name:** setVolume
+**Parameters:** { volume: int }
 
+**Pre-conditions:**
+- The user must be logged into the system.
+- A song is playing on the music player.
+
+**Post-conditions:**
+- The requested song's volume is adjusted.
+
+**Actors:**
+- Listener
+
+**Scenario:**
+The listener drags the volume slider on the music player. The system adjusts the volume of the currently playing song on the device. 
 
 <br />
 <br />
