@@ -46,3 +46,19 @@
     font-size: 24px;
     cursor: pointer;
   }
+  
+  footer.bg-gray-light {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000; /* Ensures the footer stays above other content */
+  }
+  
+  footer .container {
+    max-width: 100%; /* Adjust this value as needed */
+  }
+  
+  footer .text-center {
+    text-align: left;
+  }
