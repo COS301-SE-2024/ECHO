@@ -81,6 +81,8 @@ SOA structures the application as a collection of services that communicate over
 
 ## Architectural Overview
 
+![architecture diagram](<architecture.png>)
+
 ### Presentation Layer
 #### Components
 - **Angular:** Provides an interactive and user-friendly interface.
