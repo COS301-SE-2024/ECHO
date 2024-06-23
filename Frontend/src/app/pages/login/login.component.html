@@ -53,6 +53,61 @@
       </div>
     </div>
   </div>
+  <div *ngIf="showModal" class="modal-overlay">
+    <div class="modal-content">
+      <button (click)="closeModal()" class="close-button">
+        Close<!-- Need to add icon -->
+      </button>
+      <div class="p-5 text-center">
+        <h3 class="mb-5 text-lg font-bold text-pink">Frequently Asked Questions</h3>
+        
+        <p class="question">What is the ECHO Progressive Web App (PWA)?</p>
+        <p class="text">ECHO is a Progressive Web App designed to enhance your music experience by providing personalized song recommendations, sentiment analysis of lyrics, and insightful listening habits. It integrates seamlessly with Spotify to offer a comprehensive music platform.</p>
+        <br/>
+        <p class="question">I forgot my password. How can I reset it?</p>
+        <p class="text">Click on the "Forgot Password" link on the login page. Enter your registered email address, and follow the instructions sent to your email to reset your password.</p>
+        <br/>
+        <p class="question">How do I play music in ECHO?</p>
+        <p class="text">Select a song from your library or search results and click the "Play" button to start playing the music.</p>
+      </div>
+    </div>
+  </div> 
+
+  <div *ngIf="showAboutModal" class="modal-overlay">
+    <div class="modal-content">
+      <button (click)="closeModal()" class="close-button">
+        Close<!-- Need to add icon -->
+      </button>
+      <div>
+        <h3 class="mb-5 text-lg font-bold text-pink">About Us</h3>
+        <p class="text">ECHO is a team of passionate music lovers dedicated to enhancing your music listening experience. Learn more about our team, mission, and the technology behind ECHO.</p>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="showContactModal" class="modal-overlay">
+    <div class="modal-content">
+      <button (click)="closeModal()" class="close-button">
+        Close<!-- Need to add icon -->
+      </button>
+      <div>
+        <h3 class="mb-5 text-lg font-bold text-pink">Contact Details</h3>
+        <p class="text">Email address:</p>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="showPrivacyModal" class="modal-overlay">
+    <div class="modal-content">
+      <button (click)="closeModal()" class="close-button">
+        Close<!-- Need to add icon -->
+      </button>
+      <div>
+        <h3 class="mb-5 text-lg font-bold text-pink">Privacy Policy</h3>
+        <p class="text">At ECHO, we are committed to protecting your privacy. This Privacy Policy outlines the types of personal information we collect when you use our services, how we use it, and the steps we take to ensure your data is kept secure and confidential. We collect personal information such as your email address and music preferences to enhance our service and provide you with personalized music recommendations. We do not share your personal information with third parties without your explicit consent, except as necessary to provide the services or as required by law. Your continued use of our services signifies your acceptance of our Privacy Policy. If you have any questions regarding how we handle your data, please contact us through our support channels.</p>
+      </div>
+    </div>
+  </div> 
 </div>
 
 
@@ -61,10 +116,18 @@
     <div class="flex flex-wrap justify-between items-center">
       <div class="w-full lg:w-auto text-center lg:text-left">
         <ul class="flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-4">
-          <li><a href="/faq" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">FAQ</a></li>
-          <li><a href="/about-us" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">About Us</a></li>
-          <li><a href="/contact" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Contact</a></li>
-          <li><a href="/privacy-policy" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Privacy Policy</a></li>
+          <li>
+            <button (click)="toggleModal()" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">FAQ</button>
+          </li>
+          <li>
+            <button (click)="toggleAboutModal()" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">About Us</button>
+          </li>
+          <li>
+            <button (click)="toggleContactModal()" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Contact</button>
+          </li>
+          <li>
+            <button (click)="togglePrivacyModal()" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Privacy Policy</button>
+          </li>
         </ul>
       </div>
       <div class="w-full lg:w-auto text-center lg:text-right mt-4 lg:mt-0">
