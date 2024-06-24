@@ -6,6 +6,30 @@
     <app-search-bar class="col-start-2 row-start-1"></app-search-bar>
     <div class="fixed top-5 right-8 flex flex-col items-center">
       <img (click)="profile()" [src]="themeService.isDarkModeActive() ? '../../../../assets/icons/profile-light.png' : '../../../../assets/icons/profile-dark.png'" alt="profile" class="w-12 h-12 hover:cursor-pointer">
+      <div *ngIf="showModal" class="modal-overlay">
+        <div class="modal-content">
+          <button (click)="closeModal()" class="close-button">
+            Close
+          </button>
+          <div class="p-5 text-center">
+            <h3 class="mb-5 text-lg font-bold text-pink">Need help?</h3>
+            
+            <p class="question">Navigating the Interface</p>
+            <ul>
+              <li>Home: View your personalized dashboard.</li>
+              <li>Profile: View and edit your profile information.</li>
+            </ul>
+            <br/>
+            <p class="question">Playing Music</p><ul>
+              <li>Select a song from your library or search results.</li>
+              <li>Click the "Play" button to start playing the music.</li>
+            </ul>
+          </div>
+        </div>
+      </div> 
+      <button (click)="toggleModal()">
+        <img src="../../../assets/icons/info-pink.png" alt="Help" class="w-5 h-5">
+      </button>
       <button *ngIf="screenSize === 'desktop'" class="mt-2 p-2" (click)="switchTheme()">
           <img *ngIf="!themeService.isDarkModeActive()" src="../../../assets/icons/light-mode.png" alt="Light Mode" class="w-10 h-10">
           <img *ngIf="themeService.isDarkModeActive()" src="../../../assets/icons/dark-mode.png" alt="Dark Mode" class="w-10 h-10">

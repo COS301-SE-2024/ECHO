@@ -36,6 +36,8 @@ export class HomeComponent implements OnInit {
     title: string = 'Home';
     screenSize?: string;
     currentSelection: string = 'All';
+
+    showModal: boolean = false;
     constructor(
         protected themeService: ThemeService,
         private authService: AuthService,
@@ -64,5 +66,13 @@ export class HomeComponent implements OnInit {
 
     profile() {
         this.router.navigate(['/profile']);
+    }
+
+    toggleModal(): void {
+        this.showModal = !this.showModal;
+      }
+
+    closeModal(): void {
+    this.showModal = false;
     }
 }
