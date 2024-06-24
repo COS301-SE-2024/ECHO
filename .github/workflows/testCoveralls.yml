@@ -6,7 +6,7 @@ on:
       - main
       - develop
       - stablization
-      - hotfix
+      - feature/hotfix
   pull_request:
     branches:
       - main

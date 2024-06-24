@@ -7,7 +7,7 @@ on:
       - develop
       - feature/build-fix
       - stablization
-      - hotfix
+      - feature/hotfix
   pull_request:
 
 jobs:
