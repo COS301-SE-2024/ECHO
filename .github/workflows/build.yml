@@ -34,11 +34,11 @@ jobs:
         working-directory: ./
 
       - name: Build Angular App
-        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/feature/build-fix')
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/feature/build-fix' || github.ref == 'refs/heads/stablization' || github.ref == 'refs/heads/feature/hotfix')
         run: npm run build
         working-directory: ./Frontend
 
       - name: Build NestJS App
-        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/feature/build-fix')
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/feature/build-fix' || github.ref == 'refs/heads/stablization' || github.ref == 'refs/heads/feature/hotfix')
         run: npm run build
         working-directory: ./Backend
