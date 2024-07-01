@@ -57,4 +57,17 @@ export class AuthService {
         return supabase.auth.setSession({access_token: token,refresh_token: refresh_token});
 
     }
+
+    async getProvider() {
+        const { data: { user } } = await supabase.auth.getUser();
+
+        if (!user) {
+            return {
+                provider: 'none' ,
+                message: 'No user logged in'
+            };
+        }
+
+        return user.app_metadata.provider;
+    }
 }

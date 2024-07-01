@@ -107,4 +107,9 @@ export class AuthController {
         const { token } = body;
         return this.authService.getSpotifyUser(token);
     }
+
+    @Get("provider")
+    async getProvider() {
+        return await this.authService.getProvider();
+    }
 }
