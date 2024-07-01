@@ -12,6 +12,8 @@ import { ScreenSizeService } from '../../services/screen-size-service.service';
 import { BottomNavComponent } from '../../shared/bottom-nav/bottom-nav.component';
 import { SearchBarComponent } from '../../shared/search-bar/search-bar.component';
 import { BottomPlayerComponent } from "../../shared/bottom-player/bottom-player.component";
+import { TopNavComponent } from "../../shared/top-nav/top-nav.component";
+
 @Component({
     selector: 'app-home',
     standalone: true,
@@ -26,7 +28,8 @@ import { BottomPlayerComponent } from "../../shared/bottom-player/bottom-player.
         BottomPlayerComponent,
         MoodsComponent,
         BottomNavComponent,
-        SearchBarComponent
+        SearchBarComponent,
+        TopNavComponent,
     ],
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',
