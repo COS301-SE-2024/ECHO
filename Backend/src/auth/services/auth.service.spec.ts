@@ -2,9 +2,9 @@
 
 import { Test, TestingModule } from "@nestjs/testing";
 import { AuthService } from "./auth.service";
-import { SupabaseService } from "../supabase/supabase.service";
-import { supabaseServiceMock } from "../supabaseMock/supabase.service";
-import { createClient, MockSupabaseClient } from "./mockSupabaseClient"; // Adjust import as per your structure
+import { SupabaseService } from "../../supabase/services/supabase.service";
+import { supabaseServiceMock } from "../../supabaseMock/supabase.service";
+import { createClient, MockSupabaseClient } from "../../supabaseMock/mockSupabaseClient"; // Adjust import as per your structure
 
 describe("AuthService", () => {
     let service: AuthService;

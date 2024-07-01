@@ -1,9 +1,9 @@
 import { Controller, Post, Body, Get, Query, Res, Req } from "@nestjs/common";
 import { AuthService } from "../services/auth.service";
-import { SupabaseService } from "../supabase/supabase.service";
+import { SupabaseService } from "../../supabase/services/supabase.service";
 import { AuthDto } from "../dto/auth.dto";
 import { Response } from "express";
-import { supabase } from "../lib/supabaseClient";
+import { supabase } from "../../supabase/lib/supabaseClient";
 
 @Controller("auth")
 export class AuthController {

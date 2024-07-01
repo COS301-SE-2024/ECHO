@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { supabase } from '../lib/supabaseClient';
+import { supabase } from '../../supabase/lib/supabaseClient';
 import { AuthDto } from '../dto/auth.dto';
 
 @Injectable()
