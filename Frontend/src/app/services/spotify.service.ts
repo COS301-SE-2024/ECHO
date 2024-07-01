@@ -94,15 +94,9 @@ export class SpotifyService {
     }
 
     const spotifyUri = `spotify:track:${trackId}`;
-    const tokenRetrieval = (cb: any) => {
-      this.authService.getTokens().subscribe(tokens => {
-        cb(tokens.providerToken);
-      });
-    };
 
     const response = await this.http.put(`http://localhost:3000/api/spotify/play`, { trackId:trackId, deviceId: this.deviceId }).toPromise();
     await this.setCurrentlyPlayingTrack(trackId);
-    this.player._options.getOAuthToken(tokenRetrieval);
   }
 
   public pause(): void {
