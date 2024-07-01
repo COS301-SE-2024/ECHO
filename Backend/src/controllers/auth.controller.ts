@@ -109,7 +109,7 @@ export class AuthController {
     }
 
     @Get("provider")
-    async getProvider() {
+    async getProvider(): Promise<{ provider: string; message: string } | string> {
         return await this.authService.getProvider();
     }
 }

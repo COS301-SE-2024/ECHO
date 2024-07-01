@@ -41,4 +41,8 @@ export class AuthService {
   sendCodeToServer(code: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/code`, { code });
   }
+
+  getProvider(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/provider`);
+  }
 }
