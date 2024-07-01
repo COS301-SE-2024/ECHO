@@ -3,6 +3,8 @@ import { MatCard, MatCardContent } from '@angular/material/card';
 import { NgClass, NgForOf, NgIf } from '@angular/common';
 import { ThemeService } from '../../services/theme.service';
 import { SpotifyService } from '../../services/spotify.service';
+import { AuthService } from "../../services/auth.service";
+import { firstValueFrom } from "rxjs";
 
 @Component({
   selector: 'app-side-bar',
@@ -14,7 +16,8 @@ import { SpotifyService } from '../../services/spotify.service';
 export class SideBarComponent implements OnInit {
   constructor(
     protected themeService: ThemeService,
-    private spotifyService: SpotifyService
+    private spotifyService: SpotifyService,
+    private authService: AuthService
   ) {}
 
   title: string = 'Home';
@@ -22,22 +25,24 @@ export class SideBarComponent implements OnInit {
 
   upNextCardData: any[] = [];
   recentListeningCardData: any[] = [];
+  provider: string | null = null;
 
-  ngOnInit() {
+  async ngOnInit() {
     this.loadUpNextData();
     this.fetchRecentlyPlayedTracks();
+    this.provider = await firstValueFrom(this.authService.getProvider());
   }
 
   async loadUpNextData() {
     try {
-      this.upNextCardData = await this.spotifyService.getQueue();
+      this.upNextCardData = await this.spotifyService.getQueue(this.provider);
     } catch (error) {
       console.error('Error loading up next data:', error);
     }
   }
 
   private fetchRecentlyPlayedTracks(): void {
-    this.spotifyService.getRecentlyPlayedTracks().then(data => {
+    this.spotifyService.getRecentlyPlayedTracks(this.provider).then(data => {
       data.items.forEach((item: any) => {
         const trackId = item.track.id;
         if (!this.recentListeningCardData.find(track => track.id === trackId)) {

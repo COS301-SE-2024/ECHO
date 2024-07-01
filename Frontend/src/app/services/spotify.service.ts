@@ -144,7 +144,7 @@ export class SpotifyService {
     }
   }
 
-  public async getRecentlyPlayedTracks(): Promise<any> {
+  public async getRecentlyPlayedTracks(provider: string | null): Promise<any> {
     const cacheKey = 'recentlyPlayed';
     const currentTime = new Date().getTime();
 
@@ -172,8 +172,8 @@ export class SpotifyService {
     }
   }
 
-  public async getQueue(): Promise<TrackInfo[]> {
-    const recentlyPlayed = await this.getRecentlyPlayedTracks();
+  public async getQueue(provider: string | null): Promise<TrackInfo[]> {
+    const recentlyPlayed = await this.getRecentlyPlayedTracks("spotify");
     if (!recentlyPlayed || recentlyPlayed.items.length === 0) {
       throw new Error('No recently played tracks found');
     }
