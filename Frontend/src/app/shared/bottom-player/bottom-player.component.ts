@@ -4,6 +4,7 @@ import { NgIf } from "@angular/common";
 import { ThemeService } from "../../services/theme.service";
 import { SpotifyService } from "../../services/spotify.service";
 import { Subscription } from "rxjs";
+import { ScreenSizeService } from '../../services/screen-size-service.service';
 
 @Component({
   selector: "app-bottom-player",
@@ -16,6 +17,8 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
   protected imgsrc: string = "../../../assets/images/play.png";
   playing: boolean = false;
   started: boolean = false;
+  screenSize?: string;
+
   currentTrack: any = {
     name: "All In",
     artist: "Nasty C ft. TI",
@@ -25,7 +28,7 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
   private trackSubscription!: Subscription;
   private playingStateSubscription!: Subscription;
 
-  constructor(protected themeService: ThemeService, private spotifyService: SpotifyService) {
+  constructor(protected themeService: ThemeService, private spotifyService: SpotifyService,private screenSizeService: ScreenSizeService) {
   }
 
   ngAfterViewInit(): void {
@@ -46,7 +49,16 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
       this.updatePlayPauseIcon();
     });
   }
-
+  
+  async ngOnInit() {
+    this.screenSizeService.screenSize$.subscribe(screenSize => {
+      this.screenSize = screenSize;
+    });
+    if (typeof window !== 'undefined') {
+      await this.spotifyService.init();
+    }
+  }
+  
   ngOnDestroy(): void {
     this.spotifyService.disconnectPlayer();
     if (this.trackSubscription) {

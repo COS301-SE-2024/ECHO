@@ -10,7 +10,7 @@
           <img *ngIf="!themeService.isDarkModeActive()" src="../../../assets/icons/light-mode.png" alt="Light Mode" class="w-10 h-10">
           <img *ngIf="themeService.isDarkModeActive()" src="../../../assets/icons/dark-mode.png" alt="Dark Mode" class="w-10 h-10">
       </button>
-  </div>
+    </div>
 
     <!-- Mobile theme switcher -->
     <button *ngIf="screenSize === 'mobile'" class="fixed top-5 right-16 p-2 bg-gray-300 dark:bg-gray-700 rounded-full" (click)="switchTheme()">
@@ -21,8 +21,8 @@
       </svg>
     </button>
   </div>
+
   <app-side-bar *ngIf="screenSize === 'desktop'" class="col-start-1 col-span-1 row-start-1 row-span-6"></app-side-bar>
-  <app-bottom-nav *ngIf="screenSize === 'mobile'"></app-bottom-nav>
 
   <app-moods *ngIf="screenSize === 'desktop'" class="col-start-2 col-span-4 row-start-1 row-span-5 pl-16 pt-20 mr-5"></app-moods>
 

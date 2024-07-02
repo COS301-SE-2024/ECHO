@@ -2,4 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+/* CSS */
+.bottom-player {
+    bottom: 0; 
+}
 
+@media (max-width: 768px) {
+    .bottom-player {
+        bottom: 8vh;
+    }
+}

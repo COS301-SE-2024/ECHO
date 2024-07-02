@@ -1,4 +1,4 @@
-<div class="fixed bottom-0 mb-3" style="width: 95.5vw; height: 12vh; left:2vw ">
+<div class="fixed mb-3 bottom-player" style="width: 95.5vw; height: 12vh; left:2vw ">
   <div class="rounded-md h-full">
     <div class="absolute top-0 w-full z-20">
       <div class="w-full bg-gray-verylight rounded-t-full h-0">
@@ -7,17 +7,24 @@
     </div>
     <div class="bg-gray-background opacity-80 rounded-lg overflow-hidden h-full flex items-center p-4">
       <div class="flex items-center h-full w-full justify-between">
+        
         <div class="flex items-center space-x-5">
           <div class="flex-shrink-0">
             <img [src]="currentTrack.imageUrl" alt="Card image" class="w-16 h-auto rounded sm:w-8 md:w-12 lg:w-12 xl:w-12">
           </div>
+
+
           <div class="flex flex-col justify-center ml-3">
             <p class="text-sm text-gray-verylight font-bold">{{ currentTrack.name }}</p>
             <p class="text-xs text-gray-verylight">{{ currentTrack.artist }}</p>
           </div>
+
+
           <div class="flex flex-col justify-center" *ngIf="currentTrack.explicit">
             <img src="../assets/images/explicit-dark.png" alt="Explicit Icon" class="w-6 h-6">
           </div>
+
+
         </div>
         <div class="flex justify-center items-center">
           <img src="../assets/icons/skipback-light.png" alt="Skip Backward" class="w-6 h-6 hover:cursor-pointer">
@@ -31,9 +38,7 @@
 
           <img src="../assets/icons/skip-light.png" alt="Skip Forward" class="w-6 h-6 hover:cursor-pointer">
       </div>
-
-
-        <div class="flex space-x-3 mr-5 items-center">
+        <div class="flex space-x-3 mr-5 items-center" *ngIf="screenSize === 'desktop'">
           <div class="flex flex-col justify-center">
             <img src="../assets/icons/audio-light.png" alt="Volume Icon" class="w-6 h-6">
           </div>
