@@ -3,6 +3,7 @@ import { MatCard, MatCardContent } from '@angular/material/card';
 import { NgClass, NgForOf, NgIf } from '@angular/common';
 import { ThemeService } from '../../services/theme.service';
 import { SpotifyService } from '../../services/spotify.service';
+import { ScreenSizeService } from '../../services/screen-size-service.service';
 
 @Component({
   selector: 'app-side-bar',
@@ -14,7 +15,8 @@ import { SpotifyService } from '../../services/spotify.service';
 export class SideBarComponent implements OnInit {
   constructor(
     protected themeService: ThemeService,
-    private spotifyService: SpotifyService
+    private spotifyService: SpotifyService,
+    private screenSizeService: ScreenSizeService
   ) {}
 
   title: string = 'Home';
@@ -22,12 +24,17 @@ export class SideBarComponent implements OnInit {
 
   upNextCardData: any[] = [];
   recentListeningCardData: any[] = [];
-
-  ngOnInit() {
+  screenSize?: string;
+  async ngOnInit() {
     this.loadUpNextData();
     this.fetchRecentlyPlayedTracks();
+    this.screenSizeService.screenSize$.subscribe(screenSize => {
+      this.screenSize = screenSize;
+    });
+    if (typeof window !== 'undefined') {
+      await this.spotifyService.init();
+    }
   }
-
   async loadUpNextData() {
     try {
       this.upNextCardData = await this.spotifyService.getQueue();

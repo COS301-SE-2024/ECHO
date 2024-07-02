@@ -1,15 +1,16 @@
+<div *ngIf="screenSize === 'desktop'" class="flex flex-col">
 <div class="fixed z-10" style="--tw-w: 21vw; --tw-h: 75vh; left: 1vw; top: 10.2vh;">
   <div class="container">
-    <mat-card class="pl-5 py-4 shadow-xl border rounded-md h-full">
-      <mat-card-content class="bg-gray-lightcomponent dark:bg-gray-component rounded-lg overflow-auto h-full flex flex-col justify-between scrollbar-hidden">
+    <div class="pl-5 py-4 shadow-xl rounded-md h-full"> <!-- Removed border class here -->
+      <div class="bg-gray-lightcomponent dark:bg-gray-component rounded-lg overflow-auto h-full flex flex-col justify-between scrollbar-hidden">
         <div class="flex flex-col h-full">
           <div class="flex justify-between mb-4">
-            <div class="button-container" [ngClass]="{'underline-blue': selectedOption === 'upNext', 'underline-none': selectedOption !== 'upNext'}">
+            <div class="button-container" [class.underline-blue]="selectedOption === 'upNext'" [class.underline-none]="selectedOption !== 'upNext'">
               <button class="pl-5 pr-5 text-sm text-gray-800 dark:text-white focus:outline-none button"
                       (click)="selectOption('upNext')">Suggestions
               </button>
             </div>
-            <div class="button-container" [ngClass]="{'underline-blue': selectedOption === 'recentListening', 'underline-none': selectedOption !== 'recentListening'}">
+            <div class="button-container" [class.underline-blue]="selectedOption === 'recentListening'" [class.underline-none]="selectedOption !== 'recentListening'">
               <button class="pl-5 pr-5 text-sm text-gray-800 dark:text-white focus:outline-none button"
                       (click)="selectOption('recentListening')">Recent listening
               </button>
@@ -36,7 +37,44 @@
             </div>
           </div>
         </div>
-      </mat-card-content>
-    </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div *ngIf="screenSize === 'mobile'" class="flex flex-col w-full">
+  <!-- Recent Listening Title -->
+  <h2 class="text-xl font-semibold text-gray-800 dark:text-white px-5 py-4">Up Next...</h2>
+  
+  <!-- Cards Container -->
+  <div class="px-5 py-2 w-full"> 
+    <!-- ng-container for iterating over cards and adding View More button as the last card -->
+    <ng-container *ngFor="let card of getSelectedCardData(); let i = index; let last = last">
+      <!-- Card -->
+      <div class="mb-4 w-full rounded-lg shadow-lg overflow-hidden bg-gray-lightcomponent dark:bg-gray-component">
+        <div class="flex items-center p-4" (click)="playTrack(card.id)">
+          <!-- Card Image -->
+          <img class="w-16 h-16 rounded-lg" src="{{ card.imageUrl }}" alt="Album Art">
+          <!-- Card Content -->
+          <div class="ml-4">
+            <h3 class="text-lg font-bold text-gray-900 dark:text-white">{{ card.text }}</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400">{{ card.secondaryText }}</p>
+          </div>
+          <!-- Action Button -->
+          <div class="ml-auto">
+            <button class="text-gray-400 hover:text-gray-200">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 6.5a1.5 1.5 0 011.5 1.5V11h3a1.5 1.5 0 010 3h-3v3a1.5 1.5 0 01-3 0v-3h-3a1.5 1.5 0 010-3h3V8a1.5 1.5 0 011.5-1.5z"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- View More Button as a Card with extra bottom padding class -->
+      <div *ngIf="last" class="view-more-container text-center py-4 w-full rounded-lg shadow-lg overflow-hidden bg-gray-lightcomponent dark:bg-gray-component">
+        <button class="px-4 py-2 rounded-lg bg-blue-500 text-white font-semibold">View More</button>
+      </div>
+    </ng-container>
   </div>
 </div>
