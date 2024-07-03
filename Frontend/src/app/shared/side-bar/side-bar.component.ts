@@ -67,7 +67,9 @@ export class SideBarComponent implements OnInit {
       ? this.upNextCardData
       : this.recentListeningCardData;
   }
-
+  getRecentListeningCardData(): any[] {
+    return this.recentListeningCardData.slice(0, 10);
+  }
   selectOption(option: string) {
     this.selectedOption = option;
   }
