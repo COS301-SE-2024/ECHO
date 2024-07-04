@@ -3,9 +3,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { AuthService } from './auth.service';
 import { firstValueFrom, BehaviorSubject } from 'rxjs';
 import { HttpClient } from "@angular/common/http";
-import { map } from "rxjs/operators";
 import { TokenService } from "./token.service";
-
 
 export interface TrackInfo {
   id: string;
@@ -17,6 +15,7 @@ export interface TrackInfo {
   spotifyUrl: string;
   explicit: boolean;
 }
+
 @Injectable({
   providedIn: 'root',
 })
@@ -25,15 +24,21 @@ export class SpotifyService {
   private deviceId: string | null = null;
   private currentlyPlayingTrackSubject = new BehaviorSubject<any>(null);
   private playingStateSubject = new BehaviorSubject<boolean>(false);
+  private playbackProgressSubject = new BehaviorSubject<number>(0);
   currentlyPlayingTrack$ = this.currentlyPlayingTrackSubject.asObservable();
   playingState$ = this.playingStateSubject.asObservable();
+  playbackProgress$ = this.playbackProgressSubject.asObservable();
   private queueCache: { [key: string]: any } = {};
   private cacheTTL = 3600000;
   private recentlyPlayedCache: { data: any, timestamp: number } | null = null;
   private rcacheTTL = 600000;
 
-
-  constructor(private authService: AuthService, @Inject(PLATFORM_ID) private platformId: Object, private http: HttpClient, private tokenService: TokenService) {}
+  constructor(
+    private authService: AuthService,
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private http: HttpClient,
+    private tokenService: TokenService
+  ) {}
 
   // Initialize the Player
   public async init(): Promise<void> {
@@ -86,10 +91,25 @@ export class SpotifyService {
         const track = state.track_window.current_track;
         this.currentlyPlayingTrackSubject.next(track);
         this.playingStateSubject.next(!state.paused);
+
+        const progress = (state.position / state.duration) * 100;
+        this.playbackProgressSubject.next(progress);
       }
     });
 
     this.player.connect();
+  }
+
+  // Method to get the progress of the currently playing track
+  public getCurrentPlaybackState(): void {
+    if (this.player) {
+      this.player.getCurrentState().then((state: any) => {
+        if (state) {
+          const progress = (state.position / state.duration) * 100;
+          this.playbackProgressSubject.next(progress);
+        }
+      });
+    }
   }
 
   // Play a track by its Spotify ID
