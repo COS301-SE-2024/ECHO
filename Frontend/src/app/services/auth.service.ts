@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { TokenService } from "./token.service";
 
 @Injectable({
   providedIn: 'root',
@@ -8,14 +9,16 @@ import { Observable } from 'rxjs';
 export class AuthService {
   private apiUrl = 'http://localhost:3000/api/auth';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private tokenService: TokenService) {}
 
   signIn(email: string, password: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/signin`, { email, password });
   }
 
   getTokens(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/providertokens`);
+    const laccessToken = this.tokenService.getAccessToken();
+    const lrefreshToken = this.tokenService.getRefreshToken();
+    return this.http.post(`${this.apiUrl}/providertokens`, {accessToken: laccessToken, refreshToken: lrefreshToken});
   }
 
   signInWithSpotifyOAuth(): Observable<any> {
@@ -31,7 +34,8 @@ export class AuthService {
   }
 
   currentUser(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/current`);
+    const tokens = this.tokenService.getAllTokens();
+    return this.http.post(`${this.apiUrl}/current`, tokens);
   }
 
   sendTokensToServer(tokens: { accessToken: string | null; refreshToken: string | null; providerToken: string | null; providerRefreshToken: string | null }): Observable<any> {
