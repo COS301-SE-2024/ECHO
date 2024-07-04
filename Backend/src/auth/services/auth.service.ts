@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { createSupabaseClient } from '../lib/supabaseClient';
-import { AuthDto } from '../dto/auth.dto';
+import { createSupabaseClient } from '../../supabase/services/supabaseClient';
+import { AuthDto } from '../../dto/auth.dto';
 
 @Injectable()
 export class AuthService {

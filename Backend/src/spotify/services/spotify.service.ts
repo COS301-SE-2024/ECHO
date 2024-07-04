@@ -1,9 +1,9 @@
 import { Injectable, HttpException, HttpStatus } from "@nestjs/common";
 import { HttpService } from "@nestjs/axios";
 import { lastValueFrom } from "rxjs";
-import { createSupabaseClient } from "../lib/supabaseClient";
-import { SupabaseService } from "../supabase/supabase.service";
-import { accessKey } from "../config";
+import { createSupabaseClient } from "../../supabase/services/supabaseClient";
+import { SupabaseService } from "../../supabase/services/supabase.service";
+import { accessKey } from "../../config";
 
 @Injectable()
 export class SpotifyService {

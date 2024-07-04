@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
-import { createSupabaseClient } from "../lib/supabaseClient";
-import { encryptionKey } from "../config";
-import { AuthService } from "../services/auth.service";
+import { createSupabaseClient } from "./supabaseClient";
+import { encryptionKey } from "../../config";
+import { AuthService } from "../../auth/services/auth.service";
 import * as crypto from "crypto";
 
 @Injectable()

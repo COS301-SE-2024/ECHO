@@ -1,8 +1,8 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { AuthModule } from "./auth.module";
-import { AuthService } from "../services/auth.service";
-import { AuthController } from "../controllers/auth.controller";
-import { SupabaseService } from "../supabase/supabase.service";
+import { AuthService } from "./services/auth.service";
+import { AuthController } from "./controller/auth.controller";
+import { SupabaseService } from "../supabase/services/supabase.service";
 import { supabaseAnonKey, supabaseServiceMock, supabaseUrl } from "../supabaseMock/supabase.service";
 
 describe("AuthModule", () => {

@@ -1,8 +1,8 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { AuthController } from "./auth.controller";
-import { SupabaseService } from "../supabase/supabase.service";
+import { SupabaseService } from "../../supabase/services/supabase.service";
 import { AuthService } from "../services/auth.service";
-import { supabaseServiceMock } from "../supabaseMock/supabase.service";
+import { supabaseServiceMock } from "../../supabaseMock/supabase.service";
 
 describe("AuthController", () => {
     let authController: AuthController;
