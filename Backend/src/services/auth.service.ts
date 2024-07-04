@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { supabase } from '../lib/supabaseClient';
+import { createSupabaseClient } from '../lib/supabaseClient';
 import { AuthDto } from '../dto/auth.dto';
 
 @Injectable()
 export class AuthService {
     async signIn(authDto: AuthDto) {
         const { email, password } = authDto;
+        const supabase = createSupabaseClient();
         const { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
         if (error) {
@@ -16,6 +17,7 @@ export class AuthService {
     }
 
     async signUp(email: string, password: string, metadata: any) {
+        const supabase = createSupabaseClient();
         const { data, error } = await supabase.auth.signUp({
             email,
             password,
@@ -29,7 +31,9 @@ export class AuthService {
         return { user: data.user, session: data.session };
     }
 
-    async signOut() {
+    async signOut(accessToken: any, refreshToken: any) {
+        const supabase = createSupabaseClient();
+        await supabase.auth.setSession({ access_token: accessToken, refresh_token: refreshToken });
         const { error } = await supabase.auth.signOut();
 
         if (error) {
@@ -39,7 +43,9 @@ export class AuthService {
         return { message: 'Signed out successfully' };
     }
 
-    async getCurrentUser() {
+    async getCurrentUser(accessToken: string, refreshToken: any) {
+        const supabase = createSupabaseClient();
+        await supabase.auth.setSession({ access_token: accessToken, refresh_token: refreshToken });
         const { data: { user } } = await supabase.auth.getUser();
 
         if (!user) {
@@ -54,11 +60,14 @@ export class AuthService {
     }
 
     setSession(token: string, refresh_token: string) {
+        const supabase = createSupabaseClient();
         return supabase.auth.setSession({access_token: token,refresh_token: refresh_token});
 
     }
 
-    async getProvider() {
+    async getProvider(accessToken: string, refreshToken: string) {
+        const supabase = createSupabaseClient();
+        await supabase.auth.setSession({ access_token: accessToken, refresh_token: refreshToken });
         const { data: { user } } = await supabase.auth.getUser();
 
         if (!user) {

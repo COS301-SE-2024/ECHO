@@ -3,7 +3,8 @@ import { AuthService } from "../services/auth.service";
 import { SupabaseService } from "../supabase/supabase.service";
 import { AuthDto } from "../dto/auth.dto";
 import { Response } from "express";
-import { supabase } from "../lib/supabaseClient";
+import { createSupabaseClient } from "../lib/supabaseClient";
+import { accessKey } from "../config";
 
 @Controller("auth")
 export class AuthController {
@@ -24,15 +25,16 @@ export class AuthController {
     @Post("code")
     async receiveCode(@Body() body: { code: string }) {
         const { code } = body;
-        console.log("Received code: ", code);
         await this.supabaseService.exchangeCodeForSession(code);
         return { message: "Code received and processed" };
     }
 
-    @Get("providertokens")
-    async getProviderTokens(@Req() req): Promise<any> {
+    @Post("providertokens")
+    async getProviderTokens(@Body() body: {accessToken: string, refreshToken: string}): Promise<any> {
         try {
-            const { data, error: userError } = await supabase.auth.getUser();
+            const supabase = createSupabaseClient();
+            await supabase.auth.setSession(body.accessToken, body.refreshToken);
+            const { data, error: userError } = await supabase.auth.getUser(body.accessToken);
 
             if (!data || !data.user) {
                 console.error('User data is null:', { data, userError });
@@ -55,8 +57,6 @@ export class AuthController {
         @Query("refresh_token") refreshToken: string,
         @Res() res: Response
     ) {
-        console.log("Received Access Token:", accessToken);
-        console.log("Received Refresh Token:", refreshToken);
 
         if (accessToken && refreshToken) {
             try {
@@ -93,13 +93,15 @@ export class AuthController {
     }
 
     @Post("signout")
-    async signOut() {
-        return this.authService.signOut();
+    async signOut(@Body() body: {accessToken: string, refreshToken: string}) {
+        const {accessToken,refreshToken} = body;
+        return this.authService.signOut(accessToken,refreshToken);
     }
 
-    @Get("current")
-    async getCurrentUser() {
-        return this.authService.getCurrentUser();
+    @Post("current")
+    async getCurrentUser(@Body() body: {accessToken: string, refreshToken: string}) {
+        const {accessToken,refreshToken} = body;
+        return this.authService.getCurrentUser(accessToken,refreshToken);
     }
 
     @Post("spotifyUser")
@@ -109,7 +111,8 @@ export class AuthController {
     }
 
     @Get("provider")
-    async getProvider(): Promise<{ provider: string; message: string } | string> {
-        return await this.authService.getProvider();
+    async getProvider(@Body() body: {accessToken: string, refreshToken: string}): Promise<{ provider: string; message: string } | string> {
+        const {accessToken,refreshToken} = body;
+        return await this.authService.getProvider(accessToken,refreshToken);
     }
 }
