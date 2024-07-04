@@ -4,6 +4,7 @@ import { AuthService } from './auth.service';
 import { firstValueFrom, BehaviorSubject } from 'rxjs';
 import { HttpClient } from "@angular/common/http";
 import { map } from "rxjs/operators";
+import { TokenService } from "./token.service";
 
 
 export interface TrackInfo {
@@ -32,7 +33,7 @@ export class SpotifyService {
   private rcacheTTL = 600000;
 
 
-  constructor(private authService: AuthService, @Inject(PLATFORM_ID) private platformId: Object, private http: HttpClient) {}
+  constructor(private authService: AuthService, @Inject(PLATFORM_ID) private platformId: Object, private http: HttpClient, private tokenService: TokenService) {}
 
   public async init(): Promise<void> {
     if (isPlatformBrowser(this.platformId)) {
@@ -95,7 +96,10 @@ export class SpotifyService {
 
     const spotifyUri = `spotify:track:${trackId}`;
 
-    const response = await this.http.put(`http://localhost:3000/api/spotify/play`, { trackId:trackId, deviceId: this.deviceId }).toPromise();
+    const laccessToken = this.tokenService.getAccessToken();
+    const lrefreshToken = this.tokenService.getRefreshToken();
+
+    const response = await this.http.put(`http://localhost:3000/api/spotify/play`, { trackId:trackId, deviceId: this.deviceId, accessToken: laccessToken, refreshToken: lrefreshToken }).toPromise();
     await this.setCurrentlyPlayingTrack(trackId);
   }
 
@@ -154,7 +158,9 @@ export class SpotifyService {
     }
 
     try {
-      const response = await this.http.get<any>('http://localhost:3000/api/spotify/recently-played').toPromise();
+      const laccessToken = this.tokenService.getAccessToken();
+      const lrefreshToken = this.tokenService.getRefreshToken();
+      const response = await this.http.post<any>('http://localhost:3000/api/spotify/recently-played', {accessToken: laccessToken, refreshToken: lrefreshToken}).toPromise();
 
       if (!response) {
         throw new Error(`HTTP error! Status: ${response}`);
@@ -182,9 +188,14 @@ export class SpotifyService {
     const artist = mostRecentTrack.artists[0].name;
     const songName = mostRecentTrack.name;
 
+    const laccessToken = this.tokenService.getAccessToken();
+    const lrefreshToken = this.tokenService.getRefreshToken();
+
     const response = await this.http.post<any>(`http://localhost:3000/api/spotify/queue`, {
       artist,
-      song_name: songName
+      song_name: songName,
+      accessToken: laccessToken,
+      refreshToken: lrefreshToken
     }).toPromise();
 
 
@@ -210,7 +221,9 @@ export class SpotifyService {
 
   public async getCurrentlyPlayingTrack(): Promise<any> {
     try {
-      const response = await this.http.get<any>('http://localhost:3000/api/spotify/currently-playing').toPromise();
+      const laccessToken = this.tokenService.getAccessToken();
+      const lrefreshToken = this.tokenService.getRefreshToken();
+      const response = await this.http.post<any>('http://localhost:3000/api/spotify/currently-playing', {accessToken: laccessToken, refreshToken: lrefreshToken}).toPromise();
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -231,7 +244,9 @@ export class SpotifyService {
 
   private async getTrackDetails(trackId: string): Promise<any> {
     try {
-      const response = await this.http.post<any>('http://localhost:3000/api/spotify/track-details', {trackID: trackId}).toPromise();
+      const laccessToken = this.tokenService.getAccessToken();
+      const lrefreshToken = this.tokenService.getRefreshToken();
+      const response = await this.http.post<any>('http://localhost:3000/api/spotify/track-details', {trackID: trackId, accessToken: laccessToken, refreshToken: lrefreshToken}).toPromise();
 
       if (!response) {
         throw new Error(`HTTP error! Status: ${response}`);
