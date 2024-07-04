@@ -1,7 +1,5 @@
-
-
 import { Injectable } from "@nestjs/common";
-import { supabase } from "../lib/supabaseClient";
+import { createSupabaseClient } from "../lib/supabaseClient";
 import { encryptionKey } from "../config";
 import { AuthService } from "../services/auth.service";
 import * as crypto from "crypto";
@@ -15,6 +13,7 @@ export class SupabaseService {
     }
 
     async signInWithSpotifyOAuth() {
+        const supabase = createSupabaseClient();
         const { data, error } = await supabase.auth.signInWithOAuth({
             provider: "spotify",
             options: {
@@ -29,6 +28,7 @@ export class SupabaseService {
     }
 
     async exchangeCodeForSession(code: string) {
+        const supabase = createSupabaseClient();
         const { error } = await supabase.auth.exchangeCodeForSession(code);
         if (error) {
             throw new Error(error.message);
@@ -37,6 +37,7 @@ export class SupabaseService {
 
 
     async handleSpotifyTokens(accessToken: string, refreshToken: string, providerToken: string, providerRefreshToken: string) {
+        const supabase = createSupabaseClient();
         const { error } = await supabase.auth.setSession({ access_token: accessToken, refresh_token: refreshToken });
         if (error) {
             console.error("Error setting session:", error);
@@ -61,6 +62,7 @@ export class SupabaseService {
     async insertTokens(userId: string, providerToken: string, providerRefreshToken: string): Promise<void> {
         const encryptedProviderToken = providerToken;
         const encryptedProviderRefreshToken = providerRefreshToken;
+        const supabase = createSupabaseClient();
 
         const { data, error } = await supabase
             .from("user_tokens")
@@ -98,6 +100,7 @@ export class SupabaseService {
     }
 
     async retrieveTokens(userId: string) {
+        const supabase = createSupabaseClient();
         const { data, error } = await supabase
             .from("user_tokens")
             .select("encrypted_provider_token, encrypted_provider_refresh_token")
