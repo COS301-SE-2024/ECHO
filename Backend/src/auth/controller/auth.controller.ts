@@ -11,6 +11,7 @@ export class AuthController {
     constructor(private readonly authService: AuthService, private readonly supabaseService: SupabaseService) {
     }
 
+    //This is the endpoint that the frontend will call to store the tokens from the provider
     @Post("token")
     async receiveTokens(@Body() body: {
         accessToken: string,
@@ -22,6 +23,7 @@ export class AuthController {
         return { message: "Tokens received and processed" };
     }
 
+    //This is the endpoint that the frontend will call to store the code from the provider
     @Post("code")
     async receiveCode(@Body() body: { code: string }) {
         const { code } = body;
@@ -29,6 +31,7 @@ export class AuthController {
         return { message: "Code received and processed" };
     }
 
+    //This is the endpoint that the frontend will call to get the provider tokens
     @Post("providertokens")
     async getProviderTokens(@Body() body: {accessToken: string, refreshToken: string}): Promise<any> {
         try {
@@ -50,7 +53,7 @@ export class AuthController {
         }
     }
 
-
+    //This endpoint handles the callback from the provider
     @Get("callback")
     async authCallback(
         @Query("access_token") accessToken: string,
@@ -71,6 +74,7 @@ export class AuthController {
         }
     }
 
+    //This endpoint is used to sign in with OAuth through a provider
     @Get("oauth-signin")
     async signInWithSpotifyOAuth(@Res() res: Response) {
         try {
@@ -81,35 +85,34 @@ export class AuthController {
         }
     }
 
+    //This endpoint is used to sign in with email and password
     @Post("signin")
     async signIn(@Body() authDto: AuthDto) {
         return this.authService.signIn(authDto);
     }
 
+    //This endpoint is used to sign up with email and password
     @Post("signup")
     async signUp(@Body() body: { email: string; password: string; metadata: any }) {
         const { email, password, metadata } = body;
         return this.authService.signUp(email, password, metadata);
     }
 
+    //This endpoint is used to sign out
     @Post("signout")
     async signOut(@Body() body: {accessToken: string, refreshToken: string}) {
         const {accessToken,refreshToken} = body;
         return this.authService.signOut(accessToken,refreshToken);
     }
 
+    //This endpoint is used to get the current user
     @Post("current")
     async getCurrentUser(@Body() body: {accessToken: string, refreshToken: string}) {
         const {accessToken,refreshToken} = body;
         return this.authService.getCurrentUser(accessToken,refreshToken);
     }
 
-    @Post("spotifyUser")
-    async getSpotifyUser(@Body() body: { token: string }) {
-        const { token } = body;
-        return this.authService.getSpotifyUser(token);
-    }
-
+    //This endpoint is used to get the provider of a user
     @Get("provider")
     async getProvider(@Body() body: {accessToken: string, refreshToken: string}): Promise<{ provider: string; message: string } | string> {
         const {accessToken,refreshToken} = body;

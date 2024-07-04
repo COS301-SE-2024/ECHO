@@ -35,6 +35,7 @@ export class SpotifyService {
 
   constructor(private authService: AuthService, @Inject(PLATFORM_ID) private platformId: Object, private http: HttpClient, private tokenService: TokenService) {}
 
+  // Initialize the Player
   public async init(): Promise<void> {
     if (isPlatformBrowser(this.platformId)) {
       console.log('Initializing Spotify SDK in the browser...');
@@ -44,6 +45,7 @@ export class SpotifyService {
     }
   }
 
+  // Initialize the Spotify Web Playback SDK
   private async initializeSpotify(): Promise<void> {
     try {
       const tokens = await firstValueFrom(this.authService.getTokens());
@@ -53,6 +55,7 @@ export class SpotifyService {
     }
   }
 
+  // Load the Spotify Web Playback SDK script
   private loadSpotifySdk(providerToken: string): void {
     const script = document.createElement('script');
     script.src = 'https://sdk.scdn.co/spotify-player.js';
@@ -65,6 +68,7 @@ export class SpotifyService {
     document.head.appendChild(script);
   }
 
+  // Initialize the Spotify Web Playback player
   private initializePlayer(providerToken: string): void {
     this.player = new Spotify.Player({
       name: 'ECHO',
@@ -88,6 +92,7 @@ export class SpotifyService {
     this.player.connect();
   }
 
+  // Play a track by its Spotify ID
   public async playTrackById(trackId: string): Promise<void> {
     if (!this.deviceId) {
       console.error('Device ID is undefined. Ensure the player is ready before playing.');
@@ -103,6 +108,7 @@ export class SpotifyService {
     await this.setCurrentlyPlayingTrack(trackId);
   }
 
+  // Pause the currently playing track
   public pause(): void {
     if (!this.deviceId) {
       console.error('Device ID is undefined. Ensure the player is ready before pausing.');
@@ -115,6 +121,7 @@ export class SpotifyService {
     });
   }
 
+  // Resume playback
   public play(): void {
     if (!this.deviceId) {
       console.error('Device ID is undefined. Ensure the player is ready before continuing.');
@@ -142,12 +149,14 @@ export class SpotifyService {
     });
   }
 
+  // Set the volume of the player
   public setVolume(volume: number): void {
     if (this.player) {
       this.player.setVolume(volume).then(() => console.log(`Volume set to ${volume * 100}%`));
     }
   }
 
+  // Get the user's recent listening from Spotify
   public async getRecentlyPlayedTracks(provider: string | null): Promise<any> {
     const cacheKey = 'recentlyPlayed';
     const currentTime = new Date().getTime();
@@ -178,6 +187,7 @@ export class SpotifyService {
     }
   }
 
+  // Get the suggested tracks for the user from the ECHO API
   public async getQueue(provider: string | null): Promise<TrackInfo[]> {
     const recentlyPlayed = await this.getRecentlyPlayedTracks("spotify");
     if (!recentlyPlayed || recentlyPlayed.items.length === 0) {
@@ -218,7 +228,7 @@ export class SpotifyService {
     }
   }
 
-
+  // Get the currently playing track from Spotify
   public async getCurrentlyPlayingTrack(): Promise<any> {
     try {
       const laccessToken = this.tokenService.getAccessToken();
@@ -236,12 +246,14 @@ export class SpotifyService {
     }
   }
 
+  // Set the currently playing track
   private setCurrentlyPlayingTrack(trackId: string): void {
     this.getTrackDetails(trackId).then(track => {
       this.currentlyPlayingTrackSubject.next(track);
     });
   }
 
+  // Get the details of a track by its Spotify ID
   private async getTrackDetails(trackId: string): Promise<any> {
     try {
       const laccessToken = this.tokenService.getAccessToken();
@@ -259,6 +271,7 @@ export class SpotifyService {
     }
   }
 
+  // Disconnect the player
   disconnectPlayer() {
     if (this.player) {
       this.player.disconnect().then(() => {
@@ -269,6 +282,7 @@ export class SpotifyService {
     }
   }
 
+  // Truncate text to a specified length when song names are too long
   private truncateText(text: string, maxLength: number): string {
     if (text.length > maxLength) {
       return text.substring(0, maxLength) + '...';

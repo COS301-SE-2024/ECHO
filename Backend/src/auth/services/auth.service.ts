@@ -4,6 +4,8 @@ import { AuthDto } from '../../dto/auth.dto';
 
 @Injectable()
 export class AuthService {
+
+    // This function is used to sign in a user with their email and password
     async signIn(authDto: AuthDto) {
         const { email, password } = authDto;
         const supabase = createSupabaseClient();
@@ -16,6 +18,7 @@ export class AuthService {
         return { user: data.user, session: data.session };
     }
 
+    // This function is used to sign up a user with their email, password, and metadata
     async signUp(email: string, password: string, metadata: any) {
         const supabase = createSupabaseClient();
         const { data, error } = await supabase.auth.signUp({
@@ -31,6 +34,7 @@ export class AuthService {
         return { user: data.user, session: data.session };
     }
 
+    // This function is used to sign out a user
     async signOut(accessToken: any, refreshToken: any) {
         const supabase = createSupabaseClient();
         await supabase.auth.setSession({ access_token: accessToken, refresh_token: refreshToken });
@@ -43,6 +47,7 @@ export class AuthService {
         return { message: 'Signed out successfully' };
     }
 
+    // This function is used to get the current user object from Supabase
     async getCurrentUser(accessToken: string, refreshToken: any) {
         const supabase = createSupabaseClient();
         await supabase.auth.setSession({ access_token: accessToken, refresh_token: refreshToken });
@@ -55,16 +60,14 @@ export class AuthService {
         return { user };
     }
 
-    getSpotifyUser(token: string) {
-        return Promise.resolve(undefined);
-    }
-
+    // This function is used to set the session for a user
     setSession(token: string, refresh_token: string) {
         const supabase = createSupabaseClient();
         return supabase.auth.setSession({access_token: token,refresh_token: refresh_token});
 
     }
 
+    // This function is used to get the provider of a user
     async getProvider(accessToken: string, refreshToken: string) {
         const supabase = createSupabaseClient();
         await supabase.auth.setSession({ access_token: accessToken, refresh_token: refreshToken });
