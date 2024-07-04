@@ -5,4 +5,7 @@ if (!supabaseUrl || !supabaseAnonKey) {
     throw new Error('Supabase URL and anon key are required.');
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// Function to create a new Supabase client
+export const createSupabaseClient = (): any => { // Replace 'any' with the actual type of the client
+    return createClient(supabaseUrl, supabaseAnonKey);
+};
