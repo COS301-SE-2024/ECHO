@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { SpotifyService } from "../services/spotify.service";
+import { TokenService } from "../services/token.service";
 
 @Component({
   selector: "app-auth-callback",
@@ -10,13 +11,14 @@ import { SpotifyService } from "../services/spotify.service";
 })
 export class AuthCallbackComponent implements OnInit {
 
-  constructor(private authService: AuthService, private router: Router, private spotifyService: SpotifyService,) {}
+  constructor(private authService: AuthService, private router: Router, private spotifyService: SpotifyService, private tokenService: TokenService) {}
 
   ngOnInit() {
     if (typeof window !== 'undefined') {
       const hash = window.location.hash;
       const tokens = this.parseHashParams(hash);
       if (tokens.accessToken && tokens.refreshToken) {
+        this.tokenService.setTokens(tokens.accessToken, tokens.refreshToken);
         this.authService.sendTokensToServer(tokens).subscribe({
           next: async (res: any) => {
             console.log('Login successful:', res);
