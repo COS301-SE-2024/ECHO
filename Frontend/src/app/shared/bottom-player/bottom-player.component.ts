@@ -3,7 +3,7 @@ import { MatCard, MatCardContent } from "@angular/material/card";
 import { NgIf } from "@angular/common";
 import { ThemeService } from "../../services/theme.service";
 import { SpotifyService } from "../../services/spotify.service";
-import { Subscription } from "rxjs";
+import { Subscription, interval } from "rxjs";
 
 @Component({
   selector: "app-bottom-player",
@@ -20,23 +20,26 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
     name: "All In",
     artist: "Nasty C ft. TI",
     imageUrl: "../../../assets/images/nasty.jpg",
-    explicit: true
+    explicit: true,
+    duration_ms: 0
   };
+  trackProgress: number = 0;
   private trackSubscription!: Subscription;
   private playingStateSubscription!: Subscription;
+  private progressSubscription!: Subscription;
+  private progressUpdateSubscription!: Subscription;
 
-  constructor(protected themeService: ThemeService, private spotifyService: SpotifyService) {
-  }
+  constructor(protected themeService: ThemeService, private spotifyService: SpotifyService) {}
 
   ngAfterViewInit(): void {
-
     this.trackSubscription = this.spotifyService.currentlyPlayingTrack$.subscribe(track => {
       if (track) {
         this.currentTrack = {
           name: track.name,
           artist: track.artists.map((artist: any) => artist.name).join(", "),
           imageUrl: track.album.images[0]?.url || "",
-          explicit: track.explicit
+          explicit: track.explicit,
+          duration_ms: track.duration_ms
         };
       }
     });
@@ -44,6 +47,14 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
     this.playingStateSubscription = this.spotifyService.playingState$.subscribe(isPlaying => {
       this.playing = isPlaying;
       this.updatePlayPauseIcon();
+    });
+
+    this.progressSubscription = this.spotifyService.playbackProgress$.subscribe(progress => {
+      this.trackProgress = progress;
+    });
+
+    this.progressUpdateSubscription = interval(1000).subscribe(() => {
+      this.spotifyService.getCurrentPlaybackState();
     });
   }
 
@@ -54,6 +65,12 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
     }
     if (this.playingStateSubscription) {
       this.playingStateSubscription.unsubscribe();
+    }
+    if (this.progressSubscription) {
+      this.progressSubscription.unsubscribe();
+    }
+    if (this.progressUpdateSubscription) {
+      this.progressUpdateSubscription.unsubscribe();
     }
   }
 
@@ -71,7 +88,6 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
       this.started = true;
       this.playing = true;
       this.updatePlayPauseIcon();
-
     } else {
       if (this.playing) {
         if (!this.started)
@@ -118,5 +134,11 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
 
   pausedNowDark(): boolean {
     return ((!this.playing) && (this.themeService.isDarkModeActive()));
+  }
+
+  formatTime(seconds: number): string {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = Math.floor(seconds % 60);
+    return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
   }
 }
