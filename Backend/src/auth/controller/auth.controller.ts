@@ -39,8 +39,11 @@ export class AuthController {
             await supabase.auth.setSession(body.accessToken, body.refreshToken);
             const { data, error: userError } = await supabase.auth.getUser(body.accessToken);
 
+            if (userError) {
+                throw userError;
+            }
+
             if (!data || !data.user) {
-                console.error('User data is null:', { data, userError });
                 return { status: 'error', message: 'No user data available' };
             }
 
@@ -48,7 +51,6 @@ export class AuthController {
             const { providerToken, providerRefreshToken } = await this.supabaseService.retrieveTokens(userId);
             return { providerToken, providerRefreshToken };
         } catch (error) {
-            console.error('Error retrieving provider tokens:', error);
             return { status: 'error', message: 'Failed to retrieve provider tokens' };
         }
     }
