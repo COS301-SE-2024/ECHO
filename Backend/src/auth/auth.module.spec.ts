@@ -1,40 +1,36 @@
-import { Test, TestingModule } from "@nestjs/testing";
-import { AuthModule } from "./auth.module";
-import { AuthService } from "./services/auth.service";
-import { AuthController } from "./controller/auth.controller";
-import { SupabaseService } from "../supabase/services/supabase.service";
-import { supabaseAnonKey, supabaseServiceMock, supabaseUrl } from "../supabaseMock/supabase.service";
+import { Test } from '@nestjs/testing';
+import { AuthModule } from './auth.module';
+import { AuthService } from './services/auth.service';
+import { AuthController } from './controller/auth.controller';
+import { SupabaseModule } from '../supabase/supabase.module';
 
-describe("AuthModule", () => {
-    let authController: AuthController;
-    let authService: AuthService;
-    let supabaseService: SupabaseService;
+describe('AuthModule', () => {
+    let authModule: AuthModule;
 
     beforeEach(async () => {
-        const module = await Test.createTestingModule({
+        const moduleRef = await Test.createTestingModule({
             imports: [AuthModule],
-            providers: [
-                AuthService, 
-                    { provide: SupabaseService, useValue: supabaseServiceMock },
-                    { provide: 'supabaseUrl', useValue: supabaseUrl },
-                    { provide: 'supabaseAnonKey', useValue: supabaseAnonKey },
-            ],
         }).compile();
 
-        authController = module.get<AuthController>(AuthController);
-        authService = module.get<AuthService>(AuthService);
-        supabaseService = module.get<SupabaseService>(SupabaseService);
+        authModule = moduleRef.get<AuthModule>(AuthModule);
     });
 
-    it("should compile the module", () => {
-        expect(module).toBeDefined();
+    it('should be defined', () => {
+        expect(authModule).toBeDefined();
     });
 
-    it("should provide AuthService", () => {
-        expect(authService).toBeDefined();
+    it('should import SupabaseModule', () => {
+        const imports = Reflect.getMetadata('imports', AuthModule);
+        expect(imports).toContain(SupabaseModule);
     });
 
-    it("should provide AuthController", () => {
-        expect(authController).toBeDefined();
+    it('should provide AuthService', () => {
+        const providers = Reflect.getMetadata('providers', AuthModule);
+        expect(providers).toContain(AuthService);
+    });
+
+    it('should include AuthController', () => {
+        const controllers = Reflect.getMetadata('controllers', AuthModule);
+        expect(controllers).toContain(AuthController);
     });
 });
