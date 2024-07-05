@@ -2,21 +2,28 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { SpotifyService } from "../services/spotify.service";
+import { TokenService } from "../services/token.service";
 
 @Component({
   selector: "app-auth-callback",
-  template: "<div class='bg-stone-900 w-screen h-screen'><div class='left-1/2 top-1/2'><p class='text-gray-300'>Processing login...</p></div></div>",
+  template: `
+    <div class="flex flex-col items-center justify-center h-screen bg-desktop-bg">
+      <h1 class="text-2xl font-bold mb-4 text-gray-300">Processing login</h1>
+      <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-500"></div>
+    </div>
+  `,
   standalone: true
 })
 export class AuthCallbackComponent implements OnInit {
 
-  constructor(private authService: AuthService, private router: Router, private spotifyService: SpotifyService,) {}
+  constructor(private authService: AuthService, private router: Router, private spotifyService: SpotifyService, private tokenService: TokenService) {}
 
   ngOnInit() {
     if (typeof window !== 'undefined') {
       const hash = window.location.hash;
       const tokens = this.parseHashParams(hash);
       if (tokens.accessToken && tokens.refreshToken) {
+        this.tokenService.setTokens(tokens.accessToken, tokens.refreshToken);
         this.authService.sendTokensToServer(tokens).subscribe({
           next: async (res: any) => {
             console.log('Login successful:', res);

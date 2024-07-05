@@ -1,9 +1,7 @@
-
-
 import { Injectable } from "@nestjs/common";
-import { supabase } from "../lib/supabaseClient";
-import { encryptionKey } from "../config";
-import { AuthService } from "../services/auth.service";
+import { createSupabaseClient } from "./supabaseClient";
+import { encryptionKey } from "../../config";
+import { AuthService } from "../../auth/services/auth.service";
 import * as crypto from "crypto";
 
 @Injectable()
@@ -14,7 +12,9 @@ export class SupabaseService {
         this.encryptionKey = Buffer.from(encryptionKey, "base64");
     }
 
+    // This method is used to sign in with Spotify OAuth.
     async signInWithSpotifyOAuth() {
+        const supabase = createSupabaseClient();
         const { data, error } = await supabase.auth.signInWithOAuth({
             provider: "spotify",
             options: {
@@ -28,15 +28,18 @@ export class SupabaseService {
         return data.url;
     }
 
+    // This method is used to exchange the code (returned by a provider) for a session (from Supabase).
     async exchangeCodeForSession(code: string) {
+        const supabase = createSupabaseClient();
         const { error } = await supabase.auth.exchangeCodeForSession(code);
         if (error) {
             throw new Error(error.message);
         }
     }
 
-
+    // This method is used to handle tokens from Spotify and store them in the Supabase user_tokens table.
     async handleSpotifyTokens(accessToken: string, refreshToken: string, providerToken: string, providerRefreshToken: string) {
+        const supabase = createSupabaseClient();
         const { error } = await supabase.auth.setSession({ access_token: accessToken, refresh_token: refreshToken });
         if (error) {
             console.error("Error setting session:", error);
@@ -58,9 +61,11 @@ export class SupabaseService {
         }
     }
 
+    // This method is used to insert tokens into the user_tokens table.
     async insertTokens(userId: string, providerToken: string, providerRefreshToken: string): Promise<void> {
         const encryptedProviderToken = providerToken;
         const encryptedProviderRefreshToken = providerRefreshToken;
+        const supabase = createSupabaseClient();
 
         const { data, error } = await supabase
             .from("user_tokens")
@@ -81,6 +86,7 @@ export class SupabaseService {
         return data;
     }
 
+    // This method is used to encrypt a token.
     encryptToken(token: string): string {
         const iv = crypto.randomBytes(16);
         const cipher = crypto.createCipheriv("aes-256-cbc", this.encryptionKey, iv);
@@ -89,6 +95,7 @@ export class SupabaseService {
         return `${iv.toString("base64")}:${encrypted}`;
     }
 
+    // This method is used to decrypt a token.
     decryptToken(encryptedToken: string): string {
         const [iv, encrypted] = encryptedToken.split(":");
         const decipher = crypto.createDecipheriv("aes-256-cbc", this.encryptionKey, Buffer.from(iv, "base64"));
@@ -97,7 +104,9 @@ export class SupabaseService {
         return decrypted;
     }
 
+    // This method is used to retrieve tokens from the user_tokens table.
     async retrieveTokens(userId: string) {
+        const supabase = createSupabaseClient();
         const { data, error } = await supabase
             .from("user_tokens")
             .select("encrypted_provider_token, encrypted_provider_refresh_token")

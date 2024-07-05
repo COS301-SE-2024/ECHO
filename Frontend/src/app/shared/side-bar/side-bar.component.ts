@@ -4,6 +4,8 @@ import { NgClass, NgForOf, NgIf } from '@angular/common';
 import { ThemeService } from '../../services/theme.service';
 import { SpotifyService } from '../../services/spotify.service';
 import { ScreenSizeService } from '../../services/screen-size-service.service';
+import { AuthService } from "../../services/auth.service";
+import { firstValueFrom } from "rxjs";
 
 @Component({
   selector: 'app-side-bar',
@@ -16,7 +18,8 @@ export class SideBarComponent implements OnInit {
   constructor(
     protected themeService: ThemeService,
     private spotifyService: SpotifyService,
-    private screenSizeService: ScreenSizeService
+    private screenSizeService: ScreenSizeService,
+    private authService: AuthService
   ) {}
 
   title: string = 'Home';
@@ -25,26 +28,26 @@ export class SideBarComponent implements OnInit {
   upNextCardData: any[] = [];
   recentListeningCardData: any[] = [];
   screenSize?: string;
+  provider: string | null = null;
+  
   async ngOnInit() {
     this.loadUpNextData();
     this.fetchRecentlyPlayedTracks();
     this.screenSizeService.screenSize$.subscribe(screenSize => {
       this.screenSize = screenSize;
     });
-    if (typeof window !== 'undefined') {
-      await this.spotifyService.init();
-    }
+    this.provider = await firstValueFrom(this.authService.getProvider());
   }
   async loadUpNextData() {
     try {
-      this.upNextCardData = await this.spotifyService.getQueue();
+      this.upNextCardData = await this.spotifyService.getQueue(this.provider);
     } catch (error) {
       console.error('Error loading up next data:', error);
     }
   }
 
   private fetchRecentlyPlayedTracks(): void {
-    this.spotifyService.getRecentlyPlayedTracks().then(data => {
+    this.spotifyService.getRecentlyPlayedTracks(this.provider).then(data => {
       data.items.forEach((item: any) => {
         const trackId = item.track.id;
         if (!this.recentListeningCardData.find(track => track.id === trackId)) {

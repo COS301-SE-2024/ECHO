@@ -1,8 +1,8 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { SpotifyModule } from "./spotify.module";
-import { SpotifyService } from "../services/spotify.service";
-import { SpotifyController } from "../controllers/spotify.controller";
-import { SupabaseService } from "../supabase/supabase.service";
+import { SpotifyService } from "./services/spotify.service";
+import { SpotifyController } from "./controller/spotify.controller";
+import { SupabaseService } from "../supabase/services/supabase.service";
 import { HttpModule, HttpService } from "@nestjs/axios";
 
 describe("SpotifyModule", () => {

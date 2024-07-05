@@ -1,17 +1,20 @@
 import { Injectable, HttpException, HttpStatus } from "@nestjs/common";
 import { HttpService } from "@nestjs/axios";
 import { lastValueFrom } from "rxjs";
-import { supabase } from "../lib/supabaseClient";
-import { SupabaseService } from "../supabase/supabase.service";
-import { accessKey } from "../config";
+import { createSupabaseClient } from "../../supabase/services/supabaseClient";
+import { SupabaseService } from "../../supabase/services/supabase.service";
+import { accessKey } from "../../config";
 
 @Injectable()
 export class SpotifyService {
     constructor(private httpService: HttpService, private supabaseService: SupabaseService) {
     }
 
-    protected async getAccessToken(): Promise<string> {
+    // This function retrieves the provider token from the Supabase user_tokens table
+    protected async getAccessToken(accessToken: string, refreshToken: string): Promise<string> {
         try {
+            const supabase = createSupabaseClient();
+            supabase.auth.setSession({ access_token: accessToken, refresh_token: refreshToken });
             const { data, error: userError } = await supabase.auth.getUser();
 
             if (!data || !data.user) {
@@ -28,6 +31,7 @@ export class SpotifyService {
         }
     }
 
+    // This function retrieves the access key (for the Clustering recommendations) from the config file
     private async getAccessKey(): Promise<string> {
         try {
             return accessKey;
@@ -37,23 +41,26 @@ export class SpotifyService {
         }
     }
 
-    async getCurrentlyPlayingTrack(): Promise<any> {
-        const accessToken = await this.getAccessToken();
+    // This function retrieves the currently playing track from the Spotify API
+    async getCurrentlyPlayingTrack(accessToken: string, refreshToken: string): Promise<any> {
+        const providerToken = await this.getAccessToken(accessToken, refreshToken);
         const response = this.httpService.get("https://api.spotify.com/v1/me/player/currently-playing", {
-            headers: { "Authorization": `Bearer ${accessToken}` }
+            headers: { "Authorization": `Bearer ${providerToken}` }
         });
         return lastValueFrom(response).then(res => res.data);
     }
 
-    async getRecentlyPlayedTracks(): Promise<any> {
-        const accessToken = await this.getAccessToken();
-        const response = this.httpService.get("https://api.spotify.com/v1/me/player/recently-played", {
-            headers: { "Authorization": `Bearer ${accessToken}` }
+    // This function retrieves the recently played tracks from the Spotify API
+    async getRecentlyPlayedTracks(accessToken: string, refreshToken: string): Promise<any> {
+        const providerToken = await this.getAccessToken(accessToken, refreshToken);
+        const response = this.httpService.get("https://api.spotify.com/v1/me/player/recently-played?limit=15", {
+            headers: { "Authorization": `Bearer ${providerToken}` }
         });
         return lastValueFrom(response).then(res => res.data);
     }
 
-    async getQueue(artist: string, song_name: string): Promise<any> {
+    // This function retrieves the recommended tracks from the Echo API (Clustering recommendations)
+    async getQueue(artist: string, song_name: string, accessToken, refreshToken): Promise<any> {
         const accessKey = await this.getAccessKey();
         const response = await lastValueFrom(
             this.httpService.post(
@@ -75,18 +82,19 @@ export class SpotifyService {
             .map(track => track.track_uri.split(":").pop())
             .join(",");
 
-        return this.fetchSpotifyTracks(trackIds);
+        return this.fetchSpotifyTracks(trackIds, accessToken, refreshToken);
 
     }
 
-    private async fetchSpotifyTracks(trackIds: string): Promise<any> {
-        const spotifyAccessToken = await this.getAccessToken();
+    // This function fetches the tracks from the Spotify API based on the given trackIDs (a string of comma-delimited track IDs)
+    private async fetchSpotifyTracks(trackIds: string, accessToken: string, refreshToken:string): Promise<any> {
+        const providerToken = await this.getAccessToken(accessToken, refreshToken);
         const response = await lastValueFrom(
             this.httpService.get(
                 `https://api.spotify.com/v1/tracks?ids=${trackIds}`,
                 {
                     headers: {
-                        "Authorization": `Bearer ${spotifyAccessToken}`,
+                        "Authorization": `Bearer ${providerToken}`,
                         "Content-Type": "application/json"
                     }
                 }
@@ -96,48 +104,53 @@ export class SpotifyService {
         return response.data;
     }
 
-    async playTrackById(trackId: string, deviceId: string): Promise<any> {
-        const accessToken = await this.getAccessToken();
+    // This function plays the track with the given trackID on the device with the given deviceID
+    async playTrackById(trackId: string, deviceId: string, accessToken: string, refreshToken:string): Promise<any> {
+        const providerToken = await this.getAccessToken(accessToken, refreshToken);
         const response = this.httpService.put(`https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`, {
             uris: [`spotify:track:${trackId}`]
         }, {
             headers: {
-                "Authorization": `Bearer ${accessToken}`,
+                "Authorization": `Bearer ${providerToken}`,
                 "Content-Type": "application/json"
             }
         });
         return response.subscribe(response => response.data);
     }
 
-    async pause(): Promise<any> {
-        const accessToken = await this.getAccessToken();
+    // This function pauses the currently playing track
+    async pause(accessToken, refreshToken): Promise<any> {
+        const providerToken = await this.getAccessToken(accessToken, refreshToken);
         const response = this.httpService.put("https://api.spotify.com/v1/me/player/pause", {}, {
-            headers: { "Authorization": `Bearer ${accessToken}` }
+            headers: { "Authorization": `Bearer ${providerToken}` }
         });
         return response.subscribe(response => response.data);
     }
 
-    async play(): Promise<any> {
-        const accessToken = await this.getAccessToken();
+    // This function resumes the currently paused track
+    async play(accessToken, refreshToken): Promise<any> {
+        const providerToken = await this.getAccessToken(accessToken, refreshToken);
         const response = this.httpService.put("https://api.spotify.com/v1/me/player/play", {}, {
-            headers: { "Authorization": `Bearer ${accessToken}` }
+            headers: { "Authorization": `Bearer ${providerToken}` }
         });
         return response.subscribe(response => response.data);
     }
 
-    async setVolume(volume: number): Promise<any> {
-        const accessToken = await this.getAccessToken();
+    // This function sets the volume of the player to the given volume
+    async setVolume(volume: number, accessToken, refreshToken): Promise<any> {
+        const providerToken = await this.getAccessToken(accessToken, refreshToken);
         const response = this.httpService.put(`https://api.spotify.com/v1/me/player/volume?volume_percent=${volume}`, {}, {
-            headers: { "Authorization": `Bearer ${accessToken}` }
+            headers: { "Authorization": `Bearer ${providerToken}` }
         });
         return response.subscribe(response => response.data);
     }
 
-    async getTrackDetails(trackID: string) {
+    // This function retrieves the details of the track with the given trackID
+    async getTrackDetails(trackID: string, accessToken, refreshToken) {
         try {
-            const accessToken = await this.getAccessToken();
+            const providerToken = await this.getAccessToken(accessToken, refreshToken);
             const response = this.httpService.get(`https://api.spotify.com/v1/tracks/${trackID}`, {
-                headers: { "Authorization": `Bearer ${accessToken}` }
+                headers: { "Authorization": `Bearer ${providerToken}` }
             });
 
             if (!response) {
@@ -151,6 +164,7 @@ export class SpotifyService {
         }
     }
 
+    // This function extracts the relevant track information from the Spotify API response
     private extractSongs(data: any): TrackInfo[] {
         return data.tracks.map(track => ({
             id: track.id,
