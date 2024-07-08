@@ -43,10 +43,10 @@ export class LoginComponent implements OnInit {
         }
     }
 
-    spotify() {
-        if (typeof window !== 'undefined') {
-            window.location.href = 'http://localhost:3000/api/auth/oauth-signin';
-        }
+    async spotify() {
+      if (typeof window !== 'undefined') {
+        this.authService.signInWithOAuth();
+      }
     }
 
     login() {
