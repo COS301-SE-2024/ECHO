@@ -160,22 +160,250 @@ SOA structures the application as a collection of services that communicate over
 ## Technology Choices
 
 ### Programming Languages
-- **Frontend:** TypeScript, HTML (Angular Template Syntax).
-- **Backend:** JavaScript, TypeScript, Python.
+- **Frontend:** 
+  - **TypeScript**
+    - **Pros:**
+      - Static typing helps catch errors at compile time.
+      - Enhanced IDE support and autocompletion.
+      - Supports modern JavaScript features and can be transpiled to older versions.
+      - Large and active community.
+    - **Cons:**
+      - Requires a compilation step.
+      - Steeper learning curve for beginners compared to plain JavaScript.
+      - Can be overkill for small projects.
+
+  - **HTML (Angular Template Syntax)**
+    - **Pros:**
+      - Declarative syntax makes it easy to understand the structure of the application.
+      - Integrates seamlessly with Angular, enabling powerful data binding and directives.
+      - Supports Angular’s reactive programming model.
+    - **Cons:**
+      - Limited in terms of logic handling; complex logic should be moved to components.
+      - Requires understanding of Angular-specific attributes and syntax.
+
+- **Backend:** 
+  - **JavaScript**
+    - **Pros:**
+      - Ubiquitous language, used both on the client and server sides.
+      - Large ecosystem of libraries and frameworks.
+      - Event-driven, non-blocking I/O model suitable for real-time applications.
+    - **Cons:**
+      - Dynamic typing can lead to runtime errors.
+      - Callbacks can lead to complex, hard-to-maintain code (callback hell).
+      - Less performant for CPU-intensive operations.
+
+  - **TypeScript**
+    - **Pros:**
+      - All the advantages of JavaScript with added type safety.
+      - Better tooling and refactoring support.
+      - Easier to maintain and scale large codebases.
+    - **Cons:**
+      - Same cons as JavaScript with the addition of a necessary compilation step.
+      - Learning curve for developers not familiar with strongly typed languages.
+
+  - **Python**
+    - **Pros:**
+      - Simple and readable syntax.
+      - Extensive standard library and large ecosystem of third-party packages.
+      - Great for quick prototyping and scripting.
+      - Strong support for data science and machine learning applications.
+    - **Cons:**
+      - Interpreted language, generally slower than compiled languages.
+      - Not as suited for mobile and web client-side development.
+      - Global Interpreter Lock (GIL) can be a bottleneck for multi-threaded applications.
 
 ### Frameworks and Libraries
-- **Frontend:** Angular, Angular PWA, Tailwind CSS, Flowbite.
-- **Backend:** Node.js, Express.js, Nest.js, Mongoose.
-- **Package Management:** npm, pip.
+- **Frontend:** 
+  - **Angular**
+    - **Pros:**
+      - Robust framework with a comprehensive set of tools and features.
+      - Two-way data binding simplifies UI updates.
+      - Strong support for building large-scale enterprise applications.
+      - Powerful CLI for scaffolding and managing projects.
+    - **Cons:**
+      - Steep learning curve.
+      - Verbose and complex configuration.
+      - Can be overkill for small projects.
+
+  - **Angular PWA**
+    - **Pros:**
+      - Enhances user experience with offline capabilities.
+      - Uses service workers for better performance and reliability.
+      - Easy to convert an existing Angular application into a PWA.
+    - **Cons:**
+      - Adds complexity to the application.
+      - Requires careful handling of caching and updates.
+      - Browser support for PWA features varies.
+
+  - **Tailwind CSS**
+    - **Pros:**
+      - Utility-first approach allows for rapid styling without writing custom CSS.
+      - Highly customizable with configuration files.
+      - Helps in maintaining consistency across the application.
+    - **Cons:**
+      - Can result in verbose HTML with many utility classes.
+      - Initial learning curve for those used to traditional CSS/SASS approaches.
+      - Purging unused styles is necessary to keep file sizes small.
+
+  - **Flowbite**
+    - **Pros:**
+      - Provides a set of pre-designed UI components that work with Tailwind CSS.
+      - Speeds up development by reducing the need to design common components from scratch.
+      - Maintains consistency with Tailwind's utility-first approach.
+    - **Cons:**
+      - Limited customization compared to building components from scratch.
+      - Dependent on the styling and structure provided by Flowbite.
+      - May not cover all use cases and components required for a project.
+
+- **Backend:** 
+  - **Node.js**
+    - **Pros:**
+      - Asynchronous, non-blocking I/O model suitable for real-time applications.
+      - Unified language across frontend and backend (JavaScript).
+      - Large ecosystem with npm.
+    - **Cons:**
+      - Single-threaded, which can be a limitation for CPU-bound tasks.
+      - Callbacks and async code can become complex.
+      - Less mature compared to some other backend languages.
+
+  - **Express.js**
+    - **Pros:**
+      - Minimal and flexible framework for Node.js.
+      - Middleware system makes it extensible.
+      - Large community and a plethora of plugins.
+    - **Cons:**
+      - Requires additional setup for more complex applications.
+      - Limited built-in features compared to more comprehensive frameworks.
+      - Callback-heavy, which can affect readability and maintainability.
+
+  - **Nest.js**
+    - **Pros:**
+      - Built with TypeScript, providing type safety.
+      - Uses a modular architecture that is easy to maintain and scale.
+      - Built-in support for microservices and GraphQL.
+    - **Cons:**
+      - Steeper learning curve due to its comprehensive feature set.
+      - More complex setup compared to simpler frameworks like Express.js.
+      - Can be overkill for small projects.
+
+  - **Mongoose**
+    - **Pros:**
+      - Elegant MongoDB object modeling for Node.js.
+      - Provides schema validation and middleware.
+      - Supports built-in type casting and query building.
+    - **Cons:**
+      - Adds an abstraction layer over MongoDB, which can introduce complexity.
+      - Can be less performant for very high-volume operations.
+      - Learning curve for those new to ODMs.
+
+- **Package Management:** 
+  - **npm**
+    - **Pros:**
+      - Largest package registry for JavaScript.
+      - Integrated with the Node.js ecosystem.
+      - Easy to publish and manage packages.
+    - **Cons:**
+      - Security concerns due to the vast number of packages.
+      - Dependency management can become complex.
+      - Performance issues with older versions.
+
+  - **pip**
+    - **Pros:**
+      - Standard package manager for Python.
+      - Wide range of packages available on PyPI.
+      - Easy to use and integrate with virtual environments.
+    - **Cons:**
+      - Dependency resolution can be problematic.
+      - Some packages may have platform-specific issues.
+      - Security concerns with unvetted packages.
 
 ### Database Management System
 - **Primary:** MongoDB.
+  - **Pros:**
+    - Schema-less, allowing for flexible and scalable data models.
+    - High performance for read and write operations.
+    - Horizontal scaling with built-in sharding.
+    - Strong community and extensive documentation.
+  - **Cons:**
+    - Lacks ACID transactions for complex operations (though improvements have been made).
+    - Less mature tooling compared to relational databases.
+    - Learning curve for those accustomed to SQL databases.
+
 - **Cloud-Based:** Azure Cosmos DB with MongoDB API.
+  - **Pros:**
+    - Globally distributed, providing low latency and high availability.
+    - Supports multiple APIs, including MongoDB.
+    - Scalable throughput and storage.
+    - Managed service, reducing operational overhead.
+  - **Cons:**
+    - Higher cost compared to self-managed MongoDB instances.
+    - Potential for vendor lock-in.
+    - Complex pricing model.
 
 ### Development Tools
-- **IDEs and Editors:** Visual Studio Code, WebStorm, PyCharm.
-- **Version Control:** Git, GitHub.
-- **API Development:** Postman.
+- **IDEs and Editors:** 
+  - **Visual Studio Code**
+    - **Pros:**
+      - Lightweight and fast.
+      - Extensive plugin ecosystem.
+      - Excellent support for debugging and Git integration.
+      - Free and open-source.
+    - **Cons:**
+      - Can become sluggish with many plugins.
+      - Less powerful refactoring tools compared to some commercial IDEs.
+      - Configuration and customization can be time-consuming.
+
+  - **WebStorm**
+    - **Pros:**
+      - Comprehensive support for JavaScript and TypeScript.
+      - Powerful refactoring and navigation features.
+      - Integrated tools for debugging, testing, and version control.
+    - **Cons:**
+      - Commercial product, requires a license.
+      - Can be resource-intensive.
+      - Slower startup compared to lighter editors.
+
+  - **PyCharm**
+    - **Pros:**
+      - Excellent support for Python development.
+      - Powerful debugging and testing tools.
+      - Built-in support for web development frameworks.
+    - **Cons:**
+      - Commercial product, though a free community edition is available.
+      - Can be resource-intensive.
+      - Slower startup compared to lightweight editors.
+
+- **Version Control:** 
+  - **Git**
+    - **Pros:**
+      - Distributed version control system, enabling offline work.
+      - Powerful branching and merging capabilities.
+      - Widely adopted and supported.
+    - **Cons:**
+      - Steep learning curve for beginners.
+      - Complexity in managing large repositories.
+      - Can be confusing due to its many commands and options.
+
+  - **GitHub**
+    - **Pros:**
+      - Comprehensive platform for hosting and managing Git repositories.
+      - Integrated tools for issue tracking, CI/CD, and project management.
+      - Strong community and social coding features.
+    - **Cons:**
+      - Limited private repositories for free accounts (though improved recently).
+      - Dependency on GitHub’s ecosystem.
+      - Can be overkill for small projects.
+
+- **API Development:** Postman
+  - **Pros:**
+    - User-friendly interface for testing APIs.
+    - Supports automated testing and CI/CD integration.
+    - Extensive features for collaboration and documentation.
+    - Free tier available with sufficient features for most needs.
+  - **Cons:**
+    - Can be resource-intensive for large collections.
+    - Advanced features require a paid subscription.
+    - Learning curve for mastering all features.
 
 ### Technology Evaluation
 For each component of our system, we considered multiple technologies and selected the most suitable ones based on their compatibility with our architectural strategies, performance, scalability, and ease of integration.
