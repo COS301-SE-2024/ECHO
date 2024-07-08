@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { SpotifyService } from "../services/spotify.service";
 import { TokenService } from "../services/token.service";
+import { ProviderService } from "../services/provider.service";
 
 @Component({
   selector: "app-auth-callback",
@@ -16,12 +17,15 @@ import { TokenService } from "../services/token.service";
 })
 export class AuthCallbackComponent implements OnInit {
 
-  constructor(private authService: AuthService, private router: Router, private spotifyService: SpotifyService, private tokenService: TokenService) {}
+  constructor(private authService: AuthService, private router: Router, private spotifyService: SpotifyService, private tokenService: TokenService, private providerService: ProviderService) {}
 
   ngOnInit() {
     if (typeof window !== 'undefined') {
+      const provider = this.providerService.getProviderName();
       const hash = window.location.hash;
       const tokens = this.parseHashParams(hash);
+
+
       if (tokens.accessToken && tokens.refreshToken) {
         this.tokenService.setTokens(tokens.accessToken, tokens.refreshToken);
         this.authService.sendTokensToServer(tokens).subscribe({
@@ -31,6 +35,11 @@ export class AuthCallbackComponent implements OnInit {
             this.router.navigate(['/home']);
           },
           error: (err: any) => {
+            alert(this.providerService.getProviderName());
+            if (this.providerService.getProviderName() === 'google')
+            {
+              this.router.navigate(['/home']);
+            }
             alert('Error processing login:' + err);
             this.router.navigate(['/login']);
           }

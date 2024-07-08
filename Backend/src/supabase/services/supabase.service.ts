@@ -12,14 +12,18 @@ export class SupabaseService {
         this.encryptionKey = Buffer.from(encryptionKey, "base64");
     }
 
-    // This method is used to sign in with Spotify OAuth.
-    async signInWithSpotifyOAuth() {
+    // This method is used to sign in with OAuth.using the given provider.
+    async signinWithOAuth(providerName: string) {
         const supabase = createSupabaseClient();
+        let scope: string = "";
+        if (providerName === "spotify") {
+            scope = "streaming user-read-email user-read-private user-read-recently-played user-read-playback-state user-modify-playback-state user-library-read";
+        }
         const { data, error } = await supabase.auth.signInWithOAuth({
-            provider: "spotify",
+            provider: providerName,
             options: {
                 redirectTo: "http://localhost:4200/auth/callback",
-                scopes: "streaming user-read-email user-read-private user-read-recently-played user-read-playback-state user-modify-playback-state user-library-read"
+                scopes: scope
             }
         });
         if (error) {

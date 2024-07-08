@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Query, Res, Req } from "@nestjs/common";
+import { Controller, Post, Body, Get, Query, Res, Req, HttpStatus, HttpException } from "@nestjs/common";
 import { AuthService } from "../services/auth.service";
 import { SupabaseService } from "../../supabase/services/supabase.service";
 import { AuthDto } from "../../dto/auth.dto";
@@ -77,13 +77,13 @@ export class AuthController {
     }
 
     //This endpoint is used to sign in with OAuth through a provider
-    @Get("oauth-signin")
-    async signInWithSpotifyOAuth(@Res() res: Response) {
+    @Post("oauth-signin")
+    async signInWithSpotifyOAuth(@Body() body: {provider: string}) {
         try {
-            const url = await this.supabaseService.signInWithSpotifyOAuth();
-            res.redirect(303, url);
+            const url = await this.supabaseService.signinWithOAuth(body.provider);
+            return { url };
         } catch (error) {
-            res.status(400).send(error.message);
+            throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
         }
     }
 
