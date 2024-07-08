@@ -11,7 +11,6 @@
           <img *ngIf="themeService.isDarkModeActive()" src="../../../assets/icons/dark-mode.png" alt="Dark Mode" class="w-10 h-10">
       </button>
   </div>
-  <h1>{{title}}</h1>
     <!-- Mobile theme switcher -->
     <button *ngIf="screenSize === 'mobile'" class="fixed top-5 right-16 p-2 bg-gray-300 dark:bg-gray-700 rounded-full" (click)="switchTheme()">
       <svg class="w-6 h-6 text-gray-800 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -29,4 +28,20 @@
   <div *ngIf="title === 'Home' " class="col-start-2 col-span-4 row-start-1 row-span-5 pl-16 pt-20 mr-5">
     <app-moods *ngIf="screenSize === 'desktop'" class="col-start-2 col-span-4 row-start-1 row-span-5 pl-16 pt-20 mr-5"></app-moods>
   </div>  
+  <div *ngIf="title === 'Search' " class="col-start-2 col-span-4 row-start-1 row-span-5 pl-16 pt-20 mr-5">
+    
+    <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-200">Search Results for "{{searchQuery}}"</h1>
+
+    <div class="top-result dark:text-gray-200" style="float: left; width: 33%;">
+      <h1 style="font-weight: bold;"  >Top Result</h1>
+      <div class="big-card dark:text-gray-200 bg-gray-component" style="margin: auto; width: 80%; padding: 20px; border-radius: 10px; height: 43vh;">
+        <img src="./../../../assets/images/album.png" alt="Big Image" style="width: 30vw; border-radius: 10px;">
+        <h2 style="font-weight: bold;" class="py-1">Title</h1>
+        <p class="py-1" >Subtitle</p>
+      </div>
+    </div>
+    
+    <div class="songs dark:text-gray-200 " style="float: left; width: 33%;">Songs</div>
+    <div class="playlist dark:text-gray-200" style="float: left; width: 33%;">Playlist</div>
+  </div>
 </div>

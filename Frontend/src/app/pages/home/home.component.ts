@@ -36,6 +36,7 @@ export class HomeComponent implements OnInit {
     title: string = 'Home';
     screenSize?: string;
     currentSelection: string = 'All';
+    searchQuery: string = '';
     constructor(
         protected themeService: ThemeService,
         private authService: AuthService,
@@ -54,7 +55,9 @@ export class HomeComponent implements OnInit {
     }
     onSearchdown(subject:string) {
         console.log('Searching...'+subject);
+        this.searchQuery = subject;
         this.title = 'Search';
+        
     }
     async ngOnInit() {
       this.screenSizeService.screenSize$.subscribe(screenSize => {
