@@ -1,16 +1,18 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { SpotifyLoginComponent } from '../../spotify-login/spotify-login.component';
+import { SpotifyLoginComponent } from '../../shared/spotify-login/spotify-login.component';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ThemeService } from '../../services/theme.service';
 import { ToastComponent } from '../../shared/toast/toast.component';
 import { CommonModule } from '@angular/common';
+import { GoogleLoginComponent } from "../../shared/google-login/google-login.component";
+import { AppleLoginComponent } from "../../shared/apple-login/apple-login.component";
 
 @Component({
     selector: 'app-login',
     standalone: true,
-    imports: [CommonModule, FormsModule, SpotifyLoginComponent, ToastComponent],
+  imports: [CommonModule, FormsModule, SpotifyLoginComponent, ToastComponent, GoogleLoginComponent, AppleLoginComponent],
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.css'],
 })
@@ -21,7 +23,7 @@ export class LoginComponent implements OnInit {
     showModal: boolean = false;
     showAboutModal: boolean = false;
     showContactModal: boolean = false;
-    showPrivacyModal: boolean = false; 
+    showPrivacyModal: boolean = false;
 
     @ViewChild(ToastComponent) toastComponent!: ToastComponent;
 
@@ -72,19 +74,19 @@ export class LoginComponent implements OnInit {
     toggleModal(): void {
         this.showModal = !this.showModal;
       }
-    
+
       toggleAboutModal(): void {
         this.showAboutModal = !this.showAboutModal;
       }
-    
+
       toggleContactModal(): void {
         this.showContactModal = !this.showContactModal;
       }
-    
+
       togglePrivacyModal(): void {
         this.showPrivacyModal = !this.showPrivacyModal;
       }
-    
+
       closeModal(): void {
         this.showModal = false;
         this.showAboutModal = false;
