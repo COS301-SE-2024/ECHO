@@ -1,7 +1,7 @@
 <div *ngIf="screenSize === 'mobile'" class="mobile-layout">
   <div class="bg-gray-lightcomponent dark:bg-gray-component flex flex-col sm:px-6 sm:py-12 min-h-screen">
     <div class="profile-container w-full mx-auto">
-      <div id="profile" class="profile bg-cover bg-center w-full relative" [style.background-image]="'url(../../../assets/images/' + imgpath + ')'" style="background-size: cover; height: 50vh;">
+      <div id="profile" class="profile bg-cover bg-center w-full relative" [style.background-image]="'url('+ imgpath + ')'" style="background-size: cover; height: 40vh;">
         <!-- Centered content over the background image -->
         <div class="absolute inset-0 flex flex-col justify-center items-center bg-opacity-50 dark:bg-opacity-50">
           <h2 class="text-gray-900 dark:text-white font-bold py-4">&#64;{{ username }}</h2>
@@ -17,33 +17,14 @@
     <div class="w-full pr-4 overflow-hidden">
       <h2 class="text-gray-dark dark:text-gray-verylight font-bold mb-2">Top Songs</h2>
       <div class="flex space-x-2 overflow-x-auto scrollable-cards">
-        <ng-container *ngFor="let item of recentListeningCardData">
-          <mat-card
-            class="bg-white dark:bg-stone-800 shadow-md p-2 border border-gray-300 rounded-md flex-shrink-0"
-            style="width: 15vw; height: 20vw; max-width: 9rem; max-height: 12rem; min-width: 5rem; min-height: 7.5rem;">
-            <mat-card-content class="card-content">
-              <img [src]="item.imageUrl" alt="{{item.text}}" class="rounded">
-              <div class="text-center">
-                <p class="text-gray-900 dark:text-white text-sm font-bold">{{ item.text }}</p>
-                <p class="text-gray-500 dark:text-gray-400 text-xs">{{ item.secondaryText }}</p>
-              </div>
-            </mat-card-content>
-          </mat-card>
-        </ng-container>
+      <ng-container *ngFor="let item of recentListeningCardData">
+        <app-top-card [imageUrl]="item.imageUrl" [text]="item.text" [secondaryText]="item.secondaryText"></app-top-card>
+      </ng-container>
       </div>
       <h2 class="text-gray-dark dark:text-gray-verylight font-bold mb-2 mt-4">Top Artists</h2>
       <div class="flex space-x-2 overflow-x-auto scrollable-cards">
         <ng-container *ngFor="let artist of artists">
-          <mat-card
-            class="bg-white dark:bg-stone-800 shadow-md p-2 border border-gray-300 rounded-md flex-shrink-0"
-            style="width: 15vw; height: 20vw; max-width: 9rem; max-height: 12rem; min-width: 5rem; min-height: 7.5rem;">
-            <mat-card-content class="card-content">
-              <img [src]="artist.imageUrl" alt="{{artist.text}}" class="card-image">
-              <div class="text-center">
-                <p class="text-gray-900 dark:text-white text-sm font-bold">{{ artist.text }}</p>
-              </div>
-            </mat-card-content>
-          </mat-card>
+          <app-top-card [imageUrl]="artist.imageUrl" [text]="artist.text"></app-top-card>
         </ng-container>
       </div>
     </div>
@@ -88,17 +69,7 @@
                 <h2 class="text-gray-900 dark:text-white text-2xl font-bold mb-2">Top Songs</h2>
                 <div class="flex space-x-4 overflow-x-auto scrollable-cards">
                   <ng-container *ngFor="let item of recentListeningCardData">
-                    <mat-card
-                      class="bg-white dark:bg-stone-800 shadow-md p-2 border border-gray-300 rounded-md flex-shrink-0"
-                      style="width: 15vw; height: 20vw; max-width: 9rem; max-height: 12rem; min-width: 5rem; min-height: 7.5rem;">
-                      <mat-card-content class="card-content">
-                        <img [src]="item.imageUrl" alt="{{item.text}}" class="rounded">
-                        <div class="text-center">
-                          <p class="text-gray-900 dark:text-white text-sm font-bold">{{ item.text }}</p>
-                          <p class="text-gray-500 dark:text-gray-400 text-xs">{{ item.secondaryText }}</p>
-                        </div>
-                      </mat-card-content>
-                    </mat-card>
+                    <app-top-card [imageUrl]="item.imageUrl" [text]="item.text" [secondaryText]="item.secondaryText"></app-top-card>
                   </ng-container>
                 </div>
                 <h2 class="text-gray-900 dark:text-white font-bold mb-2 mt-4 text-2xl">Top Artists</h2>
