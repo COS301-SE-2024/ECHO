@@ -52,7 +52,10 @@ export class HomeComponent implements OnInit {
     onNavChange(newNav: string) {
         this.title = newNav;
     }
-
+    onSearchdown(subject:string) {
+        console.log('Searching...'+subject);
+        this.title = 'Search';
+    }
     async ngOnInit() {
       this.screenSizeService.screenSize$.subscribe(screenSize => {
         this.screenSize = screenSize;
