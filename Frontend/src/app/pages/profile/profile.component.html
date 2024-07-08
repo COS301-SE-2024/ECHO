@@ -46,11 +46,10 @@
 
       <div class="profile-container">
         <div id="profile" class="profile fixed right-4 top-4 mt-5 mr-5 ml-6 h-5/6">
-          <mat-card class="bg-gray-900 shadow-xl p-4 pl-24 pr-4 border border-gray-300 rounded-md h-full relative">
-            <mat-card-content class="bg-gray-lightcomponent dark:bg-gray-component rounded-lg overflow-hidden h-full relative">
+          <div class="ml-24 p-4 pr-4 rounded-md h-full relative">
+            <div class="bg-gray-lightcomponent dark:bg-gray-component rounded-lg overflow-hidden h-full relative">
               <div class="absolute top-2 left-1/2 transform -translate-x-1/2 text-center">
-                <img src="{{imgpath}}" alt="Profile Image"
-                     class="w-24 h-24 rounded-full border-2 border-white dark:border-gray-700 mx-auto">
+                <img src="{{imgpath}}" alt="Profile Image" class="w-24 h-24 rounded-full border-2 border-white dark:border-gray-700 mx-auto">
                 <h2 class="mt-2 text-gray-900 dark:text-white font-bold">&#64;{{ username }}</h2>
                 <div class="flex justify-center mt-2 space-x-4">
                   <p class="text-gray-900 dark:text-white">11 Followers</p>
@@ -58,38 +57,27 @@
                 </div>
               </div>
               <p class="absolute text-gray-900 top-8 left-20 dark:text-white font-bold">ECHO Rank: #1</p>
-              <button *ngIf="themeService.isDarkModeActive()" class="absolute btn btn-dark top-5 right-10"
-                      (click)="openDialog()">Edit Profile
-              </button>
-              <button *ngIf="!themeService.isDarkModeActive()" class="absolute btn btn-light top-5 right-10"
-                      (click)="openDialog()">Edit Profile
-              </button>
+              <!-- Use Flowbite for modal/dialog if needed, otherwise just Tailwind for buttons -->
+              <button *ngIf="themeService.isDarkModeActive()" class="absolute btn btn-dark top-5 right-10" (click)="openDialog()">Edit Profile</button>
+              <button *ngIf="!themeService.isDarkModeActive()" class="absolute btn btn-light top-5 right-10" (click)="openDialog()">Edit Profile</button>
 
               <div class="absolute bottom-24 left-16 w-full pr-10 overflow-hidden">
                 <h2 class="text-gray-900 dark:text-white text-2xl font-bold mb-2">Top Songs</h2>
                 <div class="flex space-x-4 overflow-x-auto scrollable-cards">
                   <ng-container *ngFor="let item of recentListeningCardData">
                     <app-top-card [imageUrl]="item.imageUrl" [text]="item.text" [secondaryText]="item.secondaryText"></app-top-card>
+                    <div class="card-style">...</div>
                   </ng-container>
                 </div>
                 <h2 class="text-gray-900 dark:text-white font-bold mb-2 mt-4 text-2xl">Top Artists</h2>
                 <div class="flex space-x-4 overflow-x-auto scrollable-cards">
                   <ng-container *ngFor="let artist of artists">
-                    <mat-card
-                      class="bg-white dark:bg-stone-800 shadow-md p-2 border border-gray-300 rounded-md flex-shrink-0"
-                      style="width: 15vw; height: 20vw; max-width: 9rem; max-height: 12rem; min-width: 5rem; min-height: 7.5rem;">
-                      <mat-card-content class="card-content">
-                        <img [src]="artist.imageUrl" alt="{{artist.text}}" class="card-image">
-                        <div class="text-center">
-                          <p class="text-gray-900 dark:text-white text-sm font-bold">{{ artist.text }}</p>
-                        </div>
-                      </mat-card-content>
-                    </mat-card>
+                      <app-top-card [imageUrl]="artist.imageUrl" [text]="artist.text"></app-top-card>
                   </ng-container>
                 </div>
               </div>
-            </mat-card-content>
-          </mat-card>
+            </div>
+          </div>
         </div>
       </div>
 
