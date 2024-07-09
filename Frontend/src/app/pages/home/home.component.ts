@@ -52,6 +52,14 @@ export class HomeComponent implements OnInit {
         {},
         {} ,{},
         {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
         {}
     ];
     switchTheme(): void {
