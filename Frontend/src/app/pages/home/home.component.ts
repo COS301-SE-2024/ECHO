@@ -45,7 +45,15 @@ export class HomeComponent implements OnInit {
         private screenSizeService: ScreenSizeService
     ) {}
 
-
+    songs : any = [ 
+        {},
+        {},
+        {} ,{},
+        {},
+        {} ,{},
+        {},
+        {}
+    ];
     switchTheme(): void {
         this.themeService.switchTheme();
     }
