@@ -32,6 +32,7 @@ export class SpotifyService {
   private cacheTTL = 3600000;
   private recentlyPlayedCache: { data: any, timestamp: number } | null = null;
   private rcacheTTL = 600000;
+  private hasBeenInitialized = false;
 
   constructor(
     private authService: AuthService,
@@ -42,9 +43,10 @@ export class SpotifyService {
 
   // Initialize the Player
   public async init(): Promise<void> {
-    if (isPlatformBrowser(this.platformId)) {
+    if (isPlatformBrowser(this.platformId) && !this.hasBeenInitialized) {
       console.log('Initializing Spotify SDK in the browser...');
       await this.initializeSpotify();
+      this.hasBeenInitialized = true;
     } else {
       console.log('Spotify SDK initialization skipped on the server.');
     }

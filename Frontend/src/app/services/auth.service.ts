@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TokenService } from "./token.service";
@@ -10,7 +10,8 @@ import { ProviderService } from "./provider.service";
 export class AuthService {
   private apiUrl = 'http://localhost:3000/api/auth';
 
-  constructor(private http: HttpClient, private tokenService: TokenService, private providerService: ProviderService) {}
+  constructor(private http: HttpClient, private tokenService: TokenService, private providerService: ProviderService) {
+  }
 
   // This function is used to sign in the user with email and password
   signIn(email: string, password: string): Observable<any> {

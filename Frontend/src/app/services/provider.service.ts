@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ProviderService {
-  private provider = new BehaviorSubject<string>('email');
+  provider = new BehaviorSubject<string>('email');
 
   // Method to set the provider
   setProviderName(providerName: string): void {

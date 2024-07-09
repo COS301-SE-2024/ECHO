@@ -38,7 +38,7 @@ import { SpotifyService } from "../../services/spotify.service";
     styleUrl: './profile.component.css',
 })
 export class ProfileComponent implements AfterViewInit {
-    imgpath: string = 'back.jpg';
+    imgpath: string = 'assets/images/back.jpg';
     screenSize?: string;
 
     recentListeningCardData = [
