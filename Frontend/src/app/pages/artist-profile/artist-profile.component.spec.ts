@@ -1,21 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientModule } from '@angular/common/http';
-import { ProfileComponent } from './profile.component';
+import { ArtistProfileComponent } from './artist-profile.component';
 
-describe('ProfileComponent', () => {
-    let component: ProfileComponent;
-    let fixture: ComponentFixture<ProfileComponent>;
+describe('ArtistProfileComponent', () => {
+    let component: ArtistProfileComponent;
+    let fixture: ComponentFixture<ArtistProfileComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [ProfileComponent, HttpClientModule],
+            imports: [ArtistProfileComponent, HttpClientModule],
         }).compileComponents();
 
-        fixture = TestBed.createComponent(ProfileComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
-    });
-
+        fixture = TestBed.createComponent(ArtistProfileComponent);
     it('should create', () => {
         expect(component).toBeTruthy();
     });

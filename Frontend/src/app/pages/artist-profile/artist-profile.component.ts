@@ -18,7 +18,7 @@ import { BottomNavComponent } from '../../shared/bottom-nav/bottom-nav.component
 import { SpotifyService } from "../../services/spotify.service";
 
 @Component({
-    selector: 'app-profile',
+    selector: 'app-artist-profile',
     standalone: true,
     imports: [
         NavbarComponent,
@@ -34,10 +34,10 @@ import { SpotifyService } from "../../services/spotify.service";
         CommonModule,
         BottomNavComponent
     ],
-    templateUrl: './profile.component.html',
-    styleUrl: './profile.component.css',
+    templateUrl: './artist-profile.component.html',
+    styleUrl: './artist-profile.component.css',
 })
-export class ProfileComponent implements AfterViewInit {
+export class ArtistProfileComponent implements AfterViewInit {
     imgpath: string = 'back.jpg';
     screenSize?: string;
 
