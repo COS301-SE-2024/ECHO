@@ -12,6 +12,7 @@ import { ScreenSizeService } from '../../services/screen-size-service.service';
 import { BottomNavComponent } from '../../shared/bottom-nav/bottom-nav.component';
 import { SearchBarComponent } from '../../shared/search-bar/search-bar.component';
 import { BottomPlayerComponent } from "../../shared/bottom-player/bottom-player.component";
+import {SearchComponent} from "../../pages/search/search.component";
 @Component({
     selector: 'app-home',
     standalone: true,
@@ -26,7 +27,8 @@ import { BottomPlayerComponent } from "../../shared/bottom-player/bottom-player.
         BottomPlayerComponent,
         MoodsComponent,
         BottomNavComponent,
-        SearchBarComponent
+        SearchBarComponent,
+        SearchComponent
     ],
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',
@@ -45,23 +47,6 @@ export class HomeComponent implements OnInit {
         private screenSizeService: ScreenSizeService
     ) {}
 
-    songs : any = [ 
-        {},
-        {},
-        {} ,{},
-        {},
-        {} ,{},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {}
-    ];
     switchTheme(): void {
         this.themeService.switchTheme();
     }
