@@ -12,6 +12,7 @@ import { ScreenSizeService } from '../../services/screen-size-service.service';
 import { BottomNavComponent } from '../../shared/bottom-nav/bottom-nav.component';
 import { SearchBarComponent } from '../../shared/search-bar/search-bar.component';
 import { BottomPlayerComponent } from "../../shared/bottom-player/bottom-player.component";
+import {SearchComponent} from "../../pages/search/search.component";
 @Component({
     selector: 'app-home',
     standalone: true,
@@ -26,7 +27,8 @@ import { BottomPlayerComponent } from "../../shared/bottom-player/bottom-player.
         BottomPlayerComponent,
         MoodsComponent,
         BottomNavComponent,
-        SearchBarComponent
+        SearchBarComponent,
+        SearchComponent
     ],
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',
@@ -36,6 +38,7 @@ export class HomeComponent implements OnInit {
     title: string = 'Home';
     screenSize?: string;
     currentSelection: string = 'All';
+    searchQuery: string = '';
     constructor(
         protected themeService: ThemeService,
         private authService: AuthService,
@@ -44,7 +47,6 @@ export class HomeComponent implements OnInit {
         private screenSizeService: ScreenSizeService
     ) {}
 
-
     switchTheme(): void {
         this.themeService.switchTheme();
     }
@@ -52,7 +54,12 @@ export class HomeComponent implements OnInit {
     onNavChange(newNav: string) {
         this.title = newNav;
     }
-
+    onSearchdown(subject:string) {
+        console.log('Searching...'+subject);
+        this.searchQuery = subject;
+        this.title = 'Search';
+        
+    }
     async ngOnInit() {
       this.screenSizeService.screenSize$.subscribe(screenSize => {
         this.screenSize = screenSize;

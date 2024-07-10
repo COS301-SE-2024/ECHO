@@ -42,14 +42,12 @@ export class NavbarComponent {
         switch (svgPath) {
             case this.homeSvg:
                 this.selectedNavChange.emit('Home');
-                this.router.navigate(['/home']);
                 break;
             case this.otherSvg1:
-                this.selectedNavChange.emit('Page 2');
+                this.selectedNavChange.emit('Search');
                 break;
             case this.otherSvg2:
                 this.selectedNavChange.emit('Library');
-                this.router.navigate(['/library']);
                 break;
         }
     }
