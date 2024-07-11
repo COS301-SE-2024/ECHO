@@ -16,6 +16,7 @@ import { ScreenSizeService } from '../../services/screen-size-service.service';
 import { CommonModule } from '@angular/common';
 import { BottomNavComponent } from '../../shared/bottom-nav/bottom-nav.component';
 import { SpotifyService } from "../../services/spotify.service";
+import { InfoBarComponent } from '../../shared/info-bar/info-bar.component';
 
 @Component({
     selector: 'app-artist-profile',
@@ -32,7 +33,8 @@ import { SpotifyService } from "../../services/spotify.service";
         BottomPlayerComponent,
         EditProfileModalComponent,
         CommonModule,
-        BottomNavComponent
+        BottomNavComponent,
+        InfoBarComponent,
     ],
     templateUrl: './artist-profile.component.html',
     styleUrl: './artist-profile.component.css',

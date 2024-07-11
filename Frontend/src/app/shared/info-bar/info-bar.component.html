@@ -1,43 +1,28 @@
 <div class="fixed z-10" style="--tw-w: 21vw; --tw-h: 75vh; left: 1vw; top: 10.2vh;">
-    <div class="container">
-      <mat-card class="pl-5 py-4 shadow-xl border rounded-md h-full">
-        <mat-card-content class="bg-gray-lightcomponent dark:bg-gray-component rounded-lg overflow-auto h-full flex flex-col justify-between scrollbar-hidden">
-          <div class="flex flex-col h-full">
-            <div class="flex justify-between mb-4">
-              <div class="button-container" [ngClass]="{'underline-blue': selectedOption === 'upNext', 'underline-none': selectedOption !== 'upNext'}">
-                <button class="pl-5 pr-5 text-sm text-gray-800 dark:text-white focus:outline-none button"
-                        (click)="selectOption('upNext')">Suggestions
-                </button>
-              </div>
-              <div class="button-container" [ngClass]="{'underline-blue': selectedOption === 'recentListening', 'underline-none': selectedOption !== 'recentListening'}">
-                <button class="pl-5 pr-5 text-sm text-gray-800 dark:text-white focus:outline-none button"
-                        (click)="selectOption('recentListening')">Recent listening
-                </button>
-              </div>
-            </div>
-  
-            <div class="mt-7 mx-3 flex-grow overflow-auto scrollbar-hidden">
-              <div *ngFor="let card of getSelectedCardData()" class="flex items-center mb-5 hover:cursor-pointer" (click)="playTrack(card.id)">
-                <!-- Image on the left -->
-                <div class="mr-4 flex-shrink-0" style="width: 25%;">
-                  <img [src]="card.imageUrl" alt="Card image" class="w-full h-auto rounded">
-                </div>
-                <!-- Text on the right -->
-                <div class="flex-grow">
-                  <!-- First text with icon -->
-                  <div class="flex items-center">
-                    <img *ngIf="card.explicit && themeService.isDarkModeActive()" src="../../../assets/images/explicit-dark.png" alt="Explicit Icon" class="w-6 h-6 mr-2">
-                    <img *ngIf="card.explicit && !themeService.isDarkModeActive()" src="../../../assets/images/explicit.png" alt="Explicit Icon" class="w-6 h-6 mr-2">
-                    <p class="text-gray-900 text-sm dark:text-white font-bold">{{ card.text }}</p>
-                  </div>
-                  <!-- Second text (underneath the first text) -->
-                  <p class="text-xs text-gray-light dark:text-gray-400">{{ card.secondaryText }}</p>
-                </div>
-              </div>
+  <div class="container">
+    <mat-card class="pl-5 py-4 shadow-xl border rounded-md h-full">
+      <mat-card-content class="bg-gray-lightcomponent dark:bg-gray-component rounded-lg overflow-auto h-full flex flex-col justify-between scrollbar-hidden">
+        <div class="flex flex-col h-full text-gray-background dark:text-gray-verylight ">
+          <div class="info-section">
+            <!-- Info content -->
+            <div>
+              <h2 class="text-xl font-bold mb-2">{{ artist.name }}</h2>
+              <p><strong>Description:</strong> {{ artist.description }}</p>
+              <p><strong>Genres:</strong> {{ artist.genres.join(', ') }}</p>
+              <p><strong>Artists Like Them:</strong> {{ artist.similarArtists.join(', ') }}</p>
             </div>
           </div>
-        </mat-card-content>
-      </mat-card>
-    </div>
+          
+          <div class="top-songs-section mt-4">
+            <!-- Top Songs content -->
+            <h2 class="text-xl font-bold mb-2">{{ artist.name }}'s Top Songs</h2>
+            <ul>
+              <li *ngFor="let song of artist.topSongs">{{ song }}</li>
+            </ul>
+          </div>
+          
+        </div>
+      </mat-card-content>
+    </mat-card>
   </div>
-  
+</div>

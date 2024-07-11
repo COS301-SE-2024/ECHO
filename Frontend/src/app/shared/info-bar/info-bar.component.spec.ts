@@ -1,36 +1,8 @@
-import { ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
-import { MatCardModule } from '@angular/material/card';
-import { NgForOf, NgIf, NgClass } from '@angular/common';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { InfoBarComponent } from './info-bar.component';
-import { SpotifyService } from '../../services/spotify.service';
-import { ThemeService } from '../../services/theme.service';
-
-// Simple TypeScript class mocks
-class MockSpotifyService {
-  getQueue() {
-    return Promise.resolve([
-      { id: '1', name: 'Queue Track 1', album: { images: [{ url: 'url1' }] } },
-      { id: '2', name: 'Queue Track 2', album: { images: [{ url: 'url2' }] } },
-    ]);
-  }
-
-  getRecentlyPlayedTracks() {
-    return Promise.resolve({
-      items: [
-        { track: { id: '1', name: 'Track 1', album: { images: [{ url: 'url1' }] }, artists: [{ name: 'Artist 1' }], explicit: false } },
-        { track: { id: '2', name: 'Track 2', album: { images: [{ url: 'url2' }] }, artists: [{ name: 'Artist 2' }], explicit: true } },
-      ],
-    });
-  }
-
-  playTrackById(trackId: string) {
-    return Promise.resolve();
-  }
-}
-
-class MockThemeService {
-  switchTheme() { }
-}
+import { By } from '@angular/platform-browser';
+import { MatCardModule } from '@angular/material/card';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('InfoBarComponent', () => {
   let component: InfoBarComponent;
@@ -38,19 +10,13 @@ describe('InfoBarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        MatCardModule, // Assuming you're using Angular Material cards
-        NgForOf,
-        NgIf,
-        NgClass,
-        InfoBarComponent  // Since it's a standalone component
-      ],
-      providers: [
-        { provide: SpotifyService, useClass: MockSpotifyService },
-        { provide: ThemeService, useClass: MockThemeService }
-      ]
-    }).compileComponents();
+      declarations: [ InfoBarComponent ],
+      imports: [ MatCardModule, NoopAnimationsModule ]
+    })
+    .compileComponents();
+  });
 
+  beforeEach(() => {
     fixture = TestBed.createComponent(InfoBarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -60,16 +26,43 @@ describe('InfoBarComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // Add tests for async methods if needed
-  it('should load queue data on init', fakeAsync(() => {
-    component.ngOnInit();
-    tick();
-    fixture.detectChanges();
-    expect(component.upNextCardData.length).toBe(2);
-    flush();
-  }));
+  it('should display artist info by default', () => {
+    const nameElement = fixture.debugElement.query(By.css('h2')).nativeElement;
+    expect(nameElement.textContent).toContain(component.artist.name);
+  });
 
-  afterEach(() => {
-    fixture.destroy();
+  it('should switch to Top Songs view when button is clicked', () => {
+    const button = fixture.debugElement.query(By.css('.button-container:nth-child(2) button')).nativeElement;
+    button.click();
+    fixture.detectChanges();
+
+    const nameElement = fixture.debugElement.query(By.css('h2')).nativeElement;
+    expect(nameElement.textContent).toContain(`${component.artist.name}'s Top Songs`);
+  });
+
+  it('should display artist debut, description, genres, and similar artists in Info view', () => {
+    component.selectedOption = 'Info';
+    fixture.detectChanges();
+
+    const debutElement = fixture.debugElement.query(By.css('p:nth-of-type(1)')).nativeElement;
+    const descriptionElement = fixture.debugElement.query(By.css('p:nth-of-type(2)')).nativeElement;
+    const genresElement = fixture.debugElement.query(By.css('p:nth-of-type(3)')).nativeElement;
+    const similarArtistsElement = fixture.debugElement.query(By.css('p:nth-of-type(4)')).nativeElement;
+
+    expect(debutElement.textContent).toContain(`Debut: ${component.artist.debut}`);
+    expect(descriptionElement.textContent).toContain(`Description: ${component.artist.description}`);
+    expect(genresElement.textContent).toContain(`Genres: ${component.artist.genres.join(', ')}`);
+    expect(similarArtistsElement.textContent).toContain(`More Artists Like Them: ${component.artist.similarArtists.join(', ')}`);
+  });
+
+  it('should display top songs in Top Songs view', () => {
+    component.selectedOption = 'TopSongs';
+    fixture.detectChanges();
+
+    const topSongsElements = fixture.debugElement.queryAll(By.css('li'));
+    expect(topSongsElements.length).toBe(component.artist.topSongs.length);
+    for (let i = 0; i < topSongsElements.length; i++) {
+      expect(topSongsElements[i].nativeElement.textContent).toContain(component.artist.topSongs[i]);
+    }
   });
 });
