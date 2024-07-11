@@ -12,7 +12,7 @@ import { ProviderService } from "./services/provider.service";
 @Component({
     selector: 'app-root',
     standalone: true,
-  imports: [RouterOutlet, BottomPlayerComponent, NgIf, SideBarComponent],
+  imports: [RouterOutlet, BottomPlayerComponent, NgIf, SideBarComponent, BottomNavComponent],
 
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',

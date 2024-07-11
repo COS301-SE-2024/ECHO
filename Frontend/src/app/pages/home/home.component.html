@@ -12,7 +12,6 @@
       </button>
   </div>
   </div>
-  <app-bottom-nav *ngIf="screenSize === 'mobile'"></app-bottom-nav>
 
   <app-side-bar *ngIf="screenSize === 'desktop'" class="col-start-1 col-span-1 row-start-1 row-span-6"></app-side-bar>
 
@@ -21,7 +20,7 @@
 
   <div *ngIf="title === 'Home' " class="col-start-2 col-span-4 row-start-1 row-span-5 pl-16 pt-20 mr-5">
     <app-moods *ngIf="screenSize === 'desktop'" class="col-start-2 col-span-4 row-start-1 row-span-5 pl-16 pt-20 mr-5"></app-moods>
-  </div>  
+  </div>
 
   <div *ngIf="title === 'Search' " class="col-start-2 col-span-4 row-start-1 row-span-5 pl-16 pt-20 mr-5">
     <app-search [searchQuery]="searchQuery" ></app-search>
