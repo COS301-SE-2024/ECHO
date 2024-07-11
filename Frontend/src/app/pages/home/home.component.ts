@@ -9,10 +9,7 @@ import { Router } from '@angular/router';
 import { MoodsComponent } from '../../shared/moods/moods.component';
 import { SpotifyService } from "../../services/spotify.service";
 import { ScreenSizeService } from '../../services/screen-size-service.service';
-import { BottomNavComponent } from '../../shared/bottom-nav/bottom-nav.component';
 import { SearchBarComponent } from '../../shared/search-bar/search-bar.component';
-import { BottomPlayerComponent } from "../../shared/bottom-player/bottom-player.component";
-import {SearchComponent} from "../../pages/search/search.component";
 @Component({
     selector: 'app-home',
     standalone: true,
@@ -24,11 +21,7 @@ import {SearchComponent} from "../../pages/search/search.component";
         NgIf,
         SideBarComponent,
         MoodsComponent,
-        BottomPlayerComponent,
-        MoodsComponent,
-        BottomNavComponent,
-        SearchBarComponent,
-        SearchComponent
+        SearchBarComponent
     ],
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',
