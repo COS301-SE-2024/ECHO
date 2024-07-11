@@ -8,14 +8,19 @@ export class ProviderService {
   private provider = new BehaviorSubject<string>('default');
 
   setProviderName(value: string): void {
-    localStorage.setItem('provider', value);
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('provider', value);
+    }
   }
 
   getProviderName(): string {
-    let ret = localStorage.getItem('provider');
-    if (ret === null) {
-      ret = 'default';
+    if (typeof localStorage !== 'undefined') {
+      let ret = localStorage.getItem('provider');
+      if (ret === null) {
+        ret = 'default';
+      }
+      return ret;
     }
-    return ret;
+    return 'email';
   }
 }
