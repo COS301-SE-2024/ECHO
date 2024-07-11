@@ -10,6 +10,7 @@ import { MoodsComponent } from '../../shared/moods/moods.component';
 import { SpotifyService } from "../../services/spotify.service";
 import { ScreenSizeService } from '../../services/screen-size-service.service';
 import { SearchBarComponent } from '../../shared/search-bar/search-bar.component';
+import {SearchComponent} from '../../pages/search/search.component';
 @Component({
     selector: 'app-home',
     standalone: true,
@@ -21,7 +22,8 @@ import { SearchBarComponent } from '../../shared/search-bar/search-bar.component
         NgIf,
         SideBarComponent,
         MoodsComponent,
-        SearchBarComponent
+        SearchBarComponent,
+        SearchComponent
     ],
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',
@@ -48,10 +50,9 @@ export class HomeComponent implements OnInit {
         this.title = newNav;
     }
     onSearchdown(subject:string) {
-        console.log('Searching...'+subject);
         this.searchQuery = subject;
         this.title = 'Search';
-        
+        console.log('Searching...'+this.title);
     }
     async ngOnInit() {
       this.screenSizeService.screenSize$.subscribe(screenSize => {
