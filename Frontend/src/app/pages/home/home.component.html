@@ -4,6 +4,7 @@
       <app-navbar (selectedNavChange)="onNavChange($event)"></app-navbar>
     </div>
     <app-search-bar *ngIf="screenSize === 'desktop'" class="col-start-2 row-start-1"></app-search-bar>
+
     <div class="fixed top-5 right-8 flex flex-col items-center">
       <img (click)="profile()" [src]="themeService.isDarkModeActive() ? '../../../../assets/icons/profile-light.png' : '../../../../assets/icons/profile-dark.png'" alt="profile" class="w-12 h-12 hover:cursor-pointer">
       <button *ngIf="screenSize === 'desktop'"  class="mt-2 p-2" (click)="switchTheme()">
@@ -12,11 +13,14 @@
       </button>
     </div>
   </div>
-
   <app-side-bar *ngIf="screenSize === 'desktop'" class="col-start-1 col-span-1 row-start-1 row-span-6"></app-side-bar>
   <app-moods *ngIf="screenSize === 'desktop'"  class="col-start-2 col-span-4 row-start-1 row-span-5 pl-16 pt-20 mr-5"></app-moods>
   
   <app-moods *ngIf="screenSize === 'mobile'" class="col-start-1 col-span-12 row-start-1 row-span-10 pt-20"></app-moods>
   <app-side-bar *ngIf="screenSize === 'mobile'" class="pt-12 col-start-1 col-span-12 row-start-2 row-span-9"></app-side-bar>
 
+
+  <div *ngIf="title === 'Search' " class="col-start-2 col-span-4 row-start-1 row-span-5 pl-16 pt-20 mr-5">
+    <app-search [searchQuery]="searchQuery" ></app-search>
+  </div>
 </div>

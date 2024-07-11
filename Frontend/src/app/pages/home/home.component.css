@@ -7,4 +7,6 @@
 .custom-scrollable {
     max-width: 100vw; /* Adjust as needed */
     overflow-x: auto;
+    overflow-y: hidden; /* Hide vertical scrollbar to remove arrows */
 }
+
