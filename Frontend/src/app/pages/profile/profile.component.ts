@@ -16,7 +16,7 @@ import { ScreenSizeService } from '../../services/screen-size-service.service';
 import { CommonModule } from '@angular/common';
 import { BottomNavComponent } from '../../shared/bottom-nav/bottom-nav.component';
 import { SpotifyService } from "../../services/spotify.service";
-
+import { TopCardComponent } from '../../shared/top-card/top-card.component';
 @Component({
     selector: 'app-profile',
     standalone: true,
@@ -32,7 +32,8 @@ import { SpotifyService } from "../../services/spotify.service";
         BottomPlayerComponent,
         EditProfileModalComponent,
         CommonModule,
-        BottomNavComponent
+        BottomNavComponent,
+        TopCardComponent
     ],
     templateUrl: './profile.component.html',
     styleUrl: './profile.component.css',
