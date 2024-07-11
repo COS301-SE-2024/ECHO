@@ -4,6 +4,7 @@ import { AuthService } from './auth.service';
 import { firstValueFrom, BehaviorSubject } from 'rxjs';
 import { HttpClient } from "@angular/common/http";
 import { TokenService } from "./token.service";
+import { ProviderService } from "./provider.service";
 
 export interface TrackInfo {
   id: string;
@@ -32,19 +33,22 @@ export class SpotifyService {
   private cacheTTL = 3600000;
   private recentlyPlayedCache: { data: any, timestamp: number } | null = null;
   private rcacheTTL = 600000;
+  private hasBeenInitialized = false;
 
   constructor(
     private authService: AuthService,
     @Inject(PLATFORM_ID) private platformId: Object,
     private http: HttpClient,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private providerService: ProviderService
   ) {}
 
   // Initialize the Player
   public async init(): Promise<void> {
-    if (isPlatformBrowser(this.platformId)) {
+    if (isPlatformBrowser(this.platformId) && !this.hasBeenInitialized) {
       console.log('Initializing Spotify SDK in the browser...');
       await this.initializeSpotify();
+      this.hasBeenInitialized = true;
     } else {
       console.log('Spotify SDK initialization skipped on the server.');
     }
