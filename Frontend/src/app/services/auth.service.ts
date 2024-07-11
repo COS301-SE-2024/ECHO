@@ -12,6 +12,16 @@ export class AuthService {
 
   constructor(private http: HttpClient, private tokenService: TokenService, private providerService: ProviderService) {
   }
+  private value: string = '';
+
+  setValue(val: string)
+  {
+    this.value = val;
+  }
+
+  getValue() {
+    return this.value;
+  }
 
   // This function is used to sign in the user with email and password
   signIn(email: string, password: string): Observable<any> {
@@ -26,7 +36,7 @@ export class AuthService {
   }
 
   // This function is used to sign in the user with Spotify OAuth
-  signInWithOAuth(): void {
+  async signInWithOAuth(): Promise<void> {
     const providerName = this.providerService.getProviderName();
     this.http.post<{ url: string }>(`${this.apiUrl}/oauth-signin`, { provider: providerName })
       .subscribe(

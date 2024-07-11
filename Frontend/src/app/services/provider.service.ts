@@ -5,25 +5,17 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ProviderService {
-  provider = new BehaviorSubject<string>('email');
+  private provider = new BehaviorSubject<string>('default');
 
-  // Method to set the provider
-  setProviderName(providerName: string): void {
-    this.provider.next(providerName);
+  setProviderName(value: string): void {
+    localStorage.setItem('provider', value);
   }
 
-  // Method to get the current provider value
   getProviderName(): string {
-    const currentValue = this.provider.getValue();
-    return currentValue;
-  }
-
-  // Method to clear the provider
-  clearProviderName(): void {
-    this.provider.next('email');
-  }
-
-  ngOnDestroy() {
-    this.clearProviderName();
+    let ret = localStorage.getItem('provider');
+    if (ret === null) {
+      ret = 'default';
+    }
+    return ret;
   }
 }

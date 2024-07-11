@@ -4,8 +4,8 @@ import { BottomPlayerComponent } from "./shared/bottom-player/bottom-player.comp
 import { Router, NavigationEnd, Event as RouterEvent } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { NgIf } from "@angular/common";
-import { ProviderService } from "./services/provider.service";
 import { SideBarComponent } from "./shared/side-bar/side-bar.component";
+import { ProviderService } from "./services/provider.service";
 @Component({
     selector: 'app-root',
     standalone: true,
@@ -14,7 +14,6 @@ import { SideBarComponent } from "./shared/side-bar/side-bar.component";
     styleUrl: './app.component.css',
 })
 export class AppComponent {
-  private providerService = inject(ProviderService);
     title = 'Echo';
 
   showPlayer = false;

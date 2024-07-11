@@ -4,6 +4,7 @@ import { AuthService } from './auth.service';
 import { firstValueFrom, BehaviorSubject } from 'rxjs';
 import { HttpClient } from "@angular/common/http";
 import { TokenService } from "./token.service";
+import { ProviderService } from "./provider.service";
 
 export interface TrackInfo {
   id: string;
@@ -38,7 +39,8 @@ export class SpotifyService {
     private authService: AuthService,
     @Inject(PLATFORM_ID) private platformId: Object,
     private http: HttpClient,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private providerService: ProviderService
   ) {}
 
   // Initialize the Player

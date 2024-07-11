@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from "@angular/core";
 import { SpotifyLoginComponent } from '../../shared/spotify-login/spotify-login.component';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
@@ -8,6 +8,7 @@ import { ToastComponent } from '../../shared/toast/toast.component';
 import { CommonModule } from '@angular/common';
 import { GoogleLoginComponent } from "../../shared/google-login/google-login.component";
 import { AppleLoginComponent } from "../../shared/apple-login/apple-login.component";
+import { ProviderService } from "../../services/provider.service";
 
 @Component({
     selector: 'app-login',
@@ -30,7 +31,8 @@ export class LoginComponent implements OnInit {
     constructor(
         private authService: AuthService,
         private router: Router,
-        private themeService: ThemeService
+        private themeService: ThemeService,
+        private providerService: ProviderService
     ) {}
 
     ngOnInit() {
@@ -93,4 +95,8 @@ export class LoginComponent implements OnInit {
         this.showContactModal = false;
         this.showPrivacyModal = false;
       }
+
+  google() {
+    this.providerService.setProviderName('google');
+  }
 }

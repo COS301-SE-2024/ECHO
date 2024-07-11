@@ -17,15 +17,12 @@ import { ProviderService } from "../services/provider.service";
 })
 export class AuthCallbackComponent implements OnInit {
 
-  constructor(private authService: AuthService, private router: Router, private spotifyService: SpotifyService, private tokenService: TokenService) {}
-
-  private providerService = inject(ProviderService);
+  constructor( private authService: AuthService, private router: Router, private spotifyService: SpotifyService, private tokenService: TokenService, private providerService: ProviderService) {
+  }
   ngOnInit() {
     if (typeof window !== 'undefined') {
-      const provider:string = 'email';
       const hash = window.location.hash;
       const tokens = this.parseHashParams(hash);
-
 
       if (tokens.accessToken && tokens.refreshToken) {
         this.tokenService.setTokens(tokens.accessToken, tokens.refreshToken);
@@ -36,11 +33,6 @@ export class AuthCallbackComponent implements OnInit {
             this.router.navigate(['/home']);
           },
           error: (err: any) => {
-            alert(this.providerService.getProviderName());
-            if (this.providerService.getProviderName() === 'google')
-            {
-              this.router.navigate(['/home']);
-            }
             alert('Error processing login:' + err);
             this.router.navigate(['/login']);
           }
