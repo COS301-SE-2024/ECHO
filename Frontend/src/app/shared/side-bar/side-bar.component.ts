@@ -3,6 +3,7 @@ import { MatCard, MatCardContent } from '@angular/material/card';
 import { NgClass, NgForOf, NgIf } from '@angular/common';
 import { ThemeService } from '../../services/theme.service';
 import { SpotifyService } from '../../services/spotify.service';
+import { ScreenSizeService } from '../../services/screen-size-service.service';
 import { AuthService } from "../../services/auth.service";
 import { firstValueFrom } from "rxjs";
 import { ProviderService } from "../../services/provider.service";
@@ -18,8 +19,9 @@ export class SideBarComponent implements OnInit {
   constructor(
     protected themeService: ThemeService,
     private spotifyService: SpotifyService,
-    private authService: AuthService,
-    private providerService: ProviderService
+    private providerService: ProviderService,
+    private screenSizeService: ScreenSizeService,
+    private authService: AuthService
   ) {}
 
   title: string = 'Home';
@@ -27,16 +29,19 @@ export class SideBarComponent implements OnInit {
 
   upNextCardData: any[] = [];
   recentListeningCardData: any[] = [];
+  screenSize?: string;
   provider: string | null = null;
-
+  
   async ngOnInit() {
     if (this.providerService.getProviderName() === 'spotify') {
       this.loadUpNextData();
       this.fetchRecentlyPlayedTracks();
       this.provider = await firstValueFrom(this.authService.getProvider());
     }
+    this.screenSizeService.screenSize$.subscribe(screenSize => {
+      this.screenSize = screenSize;
+    });
   }
-
   async loadUpNextData() {
     if (this.providerService.getProviderName() === 'spotify') {
       try {
@@ -73,7 +78,9 @@ export class SideBarComponent implements OnInit {
       ? this.upNextCardData
       : this.recentListeningCardData;
   }
-
+  getRecentListeningCardData(): any[] {
+    return this.recentListeningCardData.slice(0, 10);
+  }
   selectOption(option: string) {
     this.selectedOption = option;
   }

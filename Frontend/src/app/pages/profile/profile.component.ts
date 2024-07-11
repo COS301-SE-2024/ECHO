@@ -17,6 +17,7 @@ import { CommonModule } from '@angular/common';
 import { BottomNavComponent } from '../../shared/bottom-nav/bottom-nav.component';
 import { SpotifyService } from "../../services/spotify.service";
 import { ProviderService } from "../../services/provider.service";
+import { TopCardComponent } from '../../shared/top-card/top-card.component';
 
 @Component({
     selector: 'app-profile',
@@ -33,7 +34,8 @@ import { ProviderService } from "../../services/provider.service";
         BottomPlayerComponent,
         EditProfileModalComponent,
         CommonModule,
-        BottomNavComponent
+        BottomNavComponent,
+        TopCardComponent
     ],
     templateUrl: './profile.component.html',
     styleUrl: './profile.component.css',

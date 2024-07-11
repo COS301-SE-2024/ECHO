@@ -3,6 +3,7 @@ import { MatCard, MatCardContent } from "@angular/material/card";
 import { NgIf } from "@angular/common";
 import { ThemeService } from "../../services/theme.service";
 import { SpotifyService } from "../../services/spotify.service";
+import { ScreenSizeService } from '../../services/screen-size-service.service';
 import { Subscription, interval } from "rxjs";
 import { ProviderService } from "../../services/provider.service";
 
@@ -17,6 +18,8 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
   protected imgsrc: string = "../../../assets/images/play.png";
   playing: boolean = false;
   started: boolean = false;
+  screenSize?: string;
+
   currentTrack: any = {
     name: "All In",
     artist: "Nasty C ft. TI",
@@ -30,8 +33,10 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
   private progressSubscription!: Subscription;
   private progressUpdateSubscription!: Subscription;
 
-  constructor(protected themeService: ThemeService, private spotifyService: SpotifyService, private providerService: ProviderService) {
+
+  constructor(protected themeService: ThemeService, private spotifyService: SpotifyService,private screenSizeService: ScreenSizeService, private providerService: ProviderService) {
   }
+
 
   ngAfterViewInit(): void {
     if (this.providerService.getProviderName() === "spotify") {
@@ -61,7 +66,16 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
       });
     }
   }
-
+  
+  async ngOnInit() {
+    this.screenSizeService.screenSize$.subscribe(screenSize => {
+      this.screenSize = screenSize;
+    });
+    if (typeof window !== 'undefined') {
+      await this.spotifyService.init();
+    }
+  }
+  
   ngOnDestroy(): void {
     if (this.providerService.getProviderName() === "spotify") {
       this.spotifyService.disconnectPlayer();
