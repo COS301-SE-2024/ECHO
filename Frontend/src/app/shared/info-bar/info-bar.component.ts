@@ -12,7 +12,13 @@ import { NgClass, NgForOf, NgIf } from '@angular/common';
 export class InfoBarComponent {
   selectedOption: string = 'Info';
 
-  @Input() artist: any;
+  artist = {
+    name: 'Kendrick Lamar',
+    description: 'Kendrick Lamar, an influential figure in contemporary music, epitomizes artistic depth and cultural resonance. His discography navigates themes of identity, societal struggle, and personal introspection with poetic precision.',
+    genres: ['Hip Hop', 'Jazz', 'Funk'],
+    similarArtists: ['J. Cole', 'Chance the Rapper', 'Childish Gambino'],
+    topSongs: ['HUMBLE.', 'Alright', 'DNA.']
+  };
 
   selectOption(option: string) {
     this.selectedOption = option;

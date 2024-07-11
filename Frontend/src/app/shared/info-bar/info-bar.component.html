@@ -6,9 +6,12 @@
           <div class="info-section">
             <!-- Info content -->
             <div>
-              <h2 class="text-xl font-bold mb-2">{{ artist.name }}</h2>
+              <h2 class="text-3xl text-pink font-bold mb-2">{{ artist.name }}</h2>
+              <br/>
               <p><strong>Description:</strong> {{ artist.description }}</p>
+              <br/>
               <p><strong>Genres:</strong> {{ artist.genres.join(', ') }}</p>
+              <br/>
               <p><strong>Artists Like Them:</strong> {{ artist.similarArtists.join(', ') }}</p>
             </div>
           </div>
@@ -17,7 +20,7 @@
             <!-- Top Songs content -->
             <h2 class="text-xl font-bold mb-2">{{ artist.name }}'s Top Songs</h2>
             <ul>
-              <li *ngFor="let song of artist.topSongs">{{ song }}</li>
+              <li *ngFor="let song of artist.topSongs; let i = index">{{i+1}}. {{ song }}</li>
             </ul>
           </div>
           
