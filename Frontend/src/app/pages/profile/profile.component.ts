@@ -16,6 +16,7 @@ import { ScreenSizeService } from '../../services/screen-size-service.service';
 import { CommonModule } from '@angular/common';
 import { BottomNavComponent } from '../../shared/bottom-nav/bottom-nav.component';
 import { SpotifyService } from "../../services/spotify.service";
+import { ProviderService } from "../../services/provider.service";
 
 @Component({
     selector: 'app-profile',
@@ -125,22 +126,22 @@ export class ProfileComponent implements AfterViewInit {
         private router: Router,
         protected dialog: MatDialog,
         private screenSizeService: ScreenSizeService,
-        private spotifyService: SpotifyService
+        private spotifyService: SpotifyService,
+        private providerService: ProviderService
     ) {}
 
     ngAfterViewInit(): void {
-      let currUser = this.authService.currentUser().subscribe((res) => {
-        this.username = res.user.user_metadata.name;
-        this.imgpath = res.user.user_metadata.picture;
-      });
+      if (this.providerService.getProviderName() === "spotify") {
+        let currUser = this.authService.currentUser().subscribe((res) => {
+          this.username = res.user.user_metadata.name;
+          this.imgpath = res.user.user_metadata.picture;
+        });
+      }
     }
     async ngOnInit() {
-      this.screenSizeService.screenSize$.subscribe(screenSize => {
-        this.screenSize = screenSize;
-      });
-      if (typeof window !== 'undefined') {
-        await this.spotifyService.init();
-      }
+        this.screenSizeService.screenSize$.subscribe(screenSize => {
+          this.screenSize = screenSize;
+        });
     }
     switchTheme() {
         this.themeService.switchTheme();
@@ -168,8 +169,10 @@ export class ProfileComponent implements AfterViewInit {
     }
 
     refresh() {
-      this.authService.currentUser().subscribe((res) => {
-        this.username = res.user.user_metadata.username;
-      });
+      if (this.providerService.getProviderName() === "spotify") {
+        this.authService.currentUser().subscribe((res) => {
+          this.username = res.user.user_metadata.username;
+        });
+      }
     }
 }

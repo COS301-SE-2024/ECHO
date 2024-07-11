@@ -52,6 +52,7 @@ export class LoginComponent implements OnInit {
     }
 
     login() {
+      this.providerService.setProviderName('email');
         this.authService.signIn(this.email, this.password).subscribe(
             response => {
                 if (response.user) {
