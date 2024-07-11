@@ -13,8 +13,20 @@
       <div class="profile-container">
         <div id="profile" class="profile fixed right-4 top-4 mt-5 mr-5 ml-6 h-5/6">
           <mat-card class="bg-gray-900 shadow-xl p-4 pl-24 pr-4 border border-gray-300 rounded-md h-full relative">
+            <div class="text-5xl text-pink">
+              Kendrick Lamar
+            </div>
             <mat-card-content class="bg-gray-lightcomponent bg-gradient-to-b dark:bg-gray-component rounded-lg overflow-hidden h-full relative">
-              <img mat-card-image src="../assets/images/kendrick.jpg">
+              <!-- Adjust img styles to span the card content -->
+              <div class="songs-section mb-4">
+                <h2 class="text-2xl font-bold mb-2">Songs</h2>
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+                  <div *ngFor="let song of artist.topSongs; let i = index" class="flex flex-col items-center">
+                    <img [src]="getAlbumArt(song)" alt="Album Art" class="w-full h-32 object-cover rounded-lg mb-2">
+                    <p class="text-center text-sm text-gray-800 dark:text-white">{{ i + 1 }}. {{ song }}</p>
+                  </div>
+                </div>
+              </div>
             </mat-card-content>
           </mat-card>
         </div>

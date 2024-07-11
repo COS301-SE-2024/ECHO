@@ -43,81 +43,16 @@ export class ArtistProfileComponent implements AfterViewInit {
     imgpath: string = 'back.jpg';
     screenSize?: string;
 
-    recentListeningCardData = [
-        {
-            imageUrl: '../../../assets/images/red.jpg',
-            text: 'Californication',
-            secondaryText: 'Red Hot Chilli Peppers',
-            explicit: false,
-        },
-        {
-            imageUrl: '../../../assets/images/post.jpg',
-            text: 'Too Cool To Die',
-            secondaryText: 'Post Malone',
-            explicit: true,
-        },
-        {
-            imageUrl: '../../../assets/images/killers.png',
-            text: 'Mr. Brightside',
-            secondaryText: 'The Killers',
-            explicit: false,
-        },
-        {
-            imageUrl: '../../../assets/images/glass.jpg',
-            text: 'Youth',
-            secondaryText: 'Glass Animals',
-            explicit: false,
-        },
-        {
-            imageUrl: '../../../assets/images/wheatus.jpg',
-            text: 'Teenage Dirtbag',
-            secondaryText: 'Wheatus',
-            explicit: true,
-        },
-        {
-            imageUrl: '../../../assets/images/bastille.jpg',
-            text: 'Pompeii',
-            secondaryText: 'Bastille',
-            explicit: false,
-        },
-        {
-            imageUrl: '../../../assets/images/c.png',
-            text: 'Prayer in C',
-            secondaryText: 'Lilly Wood & The Prick',
-            explicit: false,
-        },
-    ];
-
-    artists = [
-        {
-            imageUrl: '../../../assets/images/ken.jpg',
-            text: 'Kendrick Lamar',
-        },
-        {
-            imageUrl: '../../../assets/images/malone.jpg',
-            text: 'Post Malone',
-        },
-        {
-            imageUrl: '../../../assets/images/thekill.jpg',
-            text: 'The Killers',
-        },
-        {
-            imageUrl: '../../../assets/images/rhcp.jpg',
-            text: 'Red Hot Chilli Peppers',
-        },
-        {
-            imageUrl: '../../../assets/images/bob.jpg',
-            text: 'Bob Marley',
-        },
-        {
-            imageUrl: '../../../assets/images/miller.jpg',
-            text: 'Mac Miller',
-        },
-        {
-            imageUrl: '../../../assets/images/cinemaclub.jpg',
-            text: 'Two Door Cinema Club',
-        },
-    ];
+    artist = {
+        name: 'Kendrick Lamar',
+        description: 'Kendrick Lamar, an influential figure in contemporary music, epitomizes artistic depth and cultural resonance. His discography navigates themes of identity, societal struggle, and personal introspection with poetic precision.',
+        genres: ['Hip-Hop', 'Rap', 'Conscious Hip-Hop'],
+        similarArtists: ['J. Cole', 'Drake', 'Kanye West'],
+        topSongs: ['HUMBLE.', 'Swimming Pools (Drank)', 'Money Trees', 'Alright', 'DNA.'],
+        albums: ['Good Kid, M.A.A.D City', 'To Pimp a Butterfly', 'DAMN.', 'Mr. Morale & The Big Steppers'],
+        features: ['Goosebumps (with Travis Scott)', 'Control (with Big Sean)', 'Collard Greens (with ScHoolboy Q)', 'Pray for Me (with The Weeknd)'],
+        playlists: ['Kendrick Essentials', 'RapCaviar', 'Hip-Hop Hits', 'Workout Mix'],
+      };
 
     username: string = '';
 
@@ -174,4 +109,9 @@ export class ArtistProfileComponent implements AfterViewInit {
         this.username = res.user.user_metadata.username;
       });
     }
+
+    getAlbumArt(song: string): string {
+        // Placeholder function to return a default album art
+        return '../../../assets/images/default-album-art.jpg';
+      }
 }
