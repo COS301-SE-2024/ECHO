@@ -1,15 +1,17 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
-import { SpotifyLoginComponent } from '../../spotify-login/spotify-login.component';
+import { SpotifyLoginComponent } from '../../shared/spotify-login/spotify-login.component';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ThemeService } from '../../services/theme.service';
 import { ToastComponent } from '../../shared/toast/toast.component';
 import { CommonModule } from '@angular/common';
+import { AppleLoginComponent } from "../../shared/apple-login/apple-login.component";
+import { GoogleLoginComponent } from "../../shared/google-login/google-login.component";
 @Component({
     selector: 'app-register',
     standalone: true,
-    imports: [SpotifyLoginComponent, FormsModule, ToastComponent, CommonModule],
+  imports: [SpotifyLoginComponent, FormsModule, ToastComponent, CommonModule, AppleLoginComponent, GoogleLoginComponent],
     templateUrl: './register.component.html',
     styleUrl: './register.component.css',
 })
@@ -20,7 +22,7 @@ export class RegisterComponent {
     showModal: boolean = false;
     showAboutModal: boolean = false;
     showContactModal: boolean = false;
-    showPrivacyModal: boolean = false; 
+    showPrivacyModal: boolean = false;
 
     @ViewChild(ToastComponent) toastComponent!: ToastComponent;
   constructor(
@@ -64,19 +66,19 @@ export class RegisterComponent {
     toggleModal(): void {
       this.showModal = !this.showModal;
     }
-  
+
     toggleAboutModal(): void {
       this.showAboutModal = !this.showAboutModal;
     }
-  
+
     toggleContactModal(): void {
       this.showContactModal = !this.showContactModal;
     }
-  
+
     togglePrivacyModal(): void {
       this.showPrivacyModal = !this.showPrivacyModal;
     }
-  
+
     closeModal(): void {
       this.showModal = false;
       this.showAboutModal = false;

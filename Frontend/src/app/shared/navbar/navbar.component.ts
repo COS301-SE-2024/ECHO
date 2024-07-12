@@ -42,6 +42,7 @@ export class NavbarComponent {
         switch (svgPath) {
             case this.homeSvg:
                 this.selectedNavChange.emit('Home');
+                this.router.navigate(['/home']);
                 break;
             case this.otherSvg1:
                 this.selectedNavChange.emit('Search');
