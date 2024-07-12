@@ -26,6 +26,7 @@ export class YouTubeService {
   playbackProgress$: Observable<number> = this.playbackProgressSubject.asObservable();
 
   private hasBeenInitialized = false;
+  private readonly apiURL = 'http://localhost:3000/api/youtube';
 
   constructor(
     private platformId: Object,
@@ -121,10 +122,7 @@ export class YouTubeService {
   }
 
   public async getQueue(query: string): Promise<YouTubeTrackInfo[]> {
-    // Implement YouTube search API call here
-    // You'll need to set up a YouTube Data API key and use it to make requests
-    const response = await this.http.get<any>(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${query}&type=video&key=YOUR_YOUTUBE_API_KEY`).toPromise();
-
+    const response = await this.http.post<any>(`${this.apiURL}/search`, { query }).toPromise();
     return response.items.map((item: any) => ({
       id: item.id.videoId,
       title: item.snippet.title,
@@ -139,19 +137,6 @@ export class YouTubeService {
     this.currentlyPlayingTrackSubject.next(videoDetails);
   }
 
-  private async getVideoDetails(videoId: string): Promise<YouTubeTrackInfo> {
-    // Implement YouTube video details API call here
-    const response = await this.http.get<any>(`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=YOUR_YOUTUBE_API_KEY`).toPromise();
-
-    const videoInfo = response.items[0].snippet;
-    return {
-      id: videoId,
-      title: videoInfo.title,
-      thumbnailUrl: videoInfo.thumbnails.default.url,
-      channelTitle: videoInfo.channelTitle,
-      videoUrl: `https://www.youtube.com/watch?v=${videoId}`
-    };
-  }
 
   public disconnectPlayer(): void {
     if (this.player && this.player.destroy) {
