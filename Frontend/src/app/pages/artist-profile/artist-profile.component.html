@@ -1,0 +1,60 @@
+<div *ngIf="screenSize === 'desktop'" class="desktop-layout bg-gray-background">
+  <div class="min-h-screen dark:bg-desktop-bg bg-gray-verylight flex flex-col justify-center px-6 py-12 lg:px-8">
+    <div class="flex justify-center items-center">
+      <div class="fixed top-1 right-12 flex flex-col items-center">
+        <button *ngIf="screenSize === 'desktop'" class="p-2" (click)="switchTheme()">
+          <img *ngIf="!themeService.isDarkModeActive()" src="../../../assets/icons/light-mode.png" alt="Light Mode" class="w-10 h-10">
+          <img *ngIf="themeService.isDarkModeActive()" src="../../../assets/icons/dark-mode.png" alt="Dark Mode" class="w-10 h-10">
+        </button>
+      </div>
+
+      <app-info-bar></app-info-bar>
+
+      <div class="profile-container">
+        <div id="profile" class="profile fixed right-4 top-4 mt-5 mr-5 ml-6 h-5/6">
+          <mat-card class="bg-gray-900 shadow-xl p-6 pl-24 pr-4 border border-gray-300 rounded-md h-full relative">
+            <mat-card-content class="bg-gray-lightcomponent bg-gradient-to-b dark:bg-gray-component rounded-lg overflow-auto h-full relative">
+              <!-- Adjust img styles to span the card content -->
+              <div class="text-6xl text-pink mb-10 static">
+                Kendrick Lamar
+              </div>
+              <div class="text-gray-verylight mb-8">
+                <h2 class="text-lg font-bold mb-2">Songs</h2>
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+                  <div *ngFor="let song of artist.topSongs; let i = index" class="flex flex-col items-center">
+                    <img [src]="getAlbumArt(song)" alt="Album Art" class="w-full h-full object-cover rounded-lg mb-2 aspect-square">
+                    <p class="text-center text-sm text-gray-800 dark:text-white">{{ i + 1 }}. {{ song }}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="text-gray-verylight mb-8">
+                <h2 class="text-lg font-bold mb-2">Albums</h2>
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+                  <div *ngFor="let album of artist.albums; let i = index" class="flex flex-col items-center">
+                    <img [src]="getAlbumArt(album)" alt="Album Art" class="w-full h-full object-cover rounded-lg mb-2 aspect-square">
+                    <p class="text-center text-sm text-gray-800 dark:text-white">{{ i + 1 }}. {{ album }}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="text-gray-verylight mb-8">
+                <h2 class="text-lg font-bold mb-2">Playlists</h2>
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+                  <div *ngFor="let playlist of artist.playlists; let i = index" class="flex flex-col items-center">
+                    <img [src]="getAlbumArt(playlist)" alt="Album Art" class="w-full h-full object-cover rounded-lg mb-2 aspect-square">
+                    <p class="text-center text-sm text-gray-800 dark:text-white">{{ i + 1 }}. {{ playlist }}</p>
+                  </div>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+
+      <div class="navbar-container">
+        <app-navbar (selectedNavChange)="onNavChange($event)"></app-navbar>
+      </div>
+    </div>
+  </div>
+</div>
