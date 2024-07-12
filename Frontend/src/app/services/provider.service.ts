@@ -23,4 +23,10 @@ export class ProviderService {
     }
     return 'email';
   }
+
+  clear()
+  {
+    if (typeof localStorage !== 'undefined')
+      localStorage.clear();
+  }
 }
