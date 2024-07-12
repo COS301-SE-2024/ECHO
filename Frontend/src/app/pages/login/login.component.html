@@ -7,7 +7,7 @@
       <img src="./assets/images/logo-dark-bg.png" alt="logo" class="h-72">
     </div>
   </div>
-  
+
   <div class="flex flex-1 items-center justify-center">
     <div class="w-full max-w-sm">
       <form class="space-y-6" action="#" method="POST">
@@ -40,8 +40,10 @@
           <div class="flex-grow border-t border-gray-light"></div>
         </div>
 
-        <div>
+        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
           <app-spotify-login (click)="spotify()"></app-spotify-login>
+          <app-google-login (click)="google()"></app-google-login>
+          <app-apple-login></app-apple-login>
         </div>
       </form>
       <p class="mt-10 text-center text-sm text-gray-500">
@@ -60,7 +62,7 @@
       </button>
       <div class="p-5 text-center">
         <h3 class="mb-5 text-lg font-bold text-pink">Frequently Asked Questions</h3>
-        
+
         <p class="question">What is the ECHO Progressive Web App (PWA)?</p>
         <p class="text">ECHO is a Progressive Web App designed to enhance your music experience by providing personalized song recommendations, sentiment analysis of lyrics, and insightful listening habits. It integrates seamlessly with Spotify to offer a comprehensive music platform.</p>
         <br/>
@@ -71,7 +73,7 @@
         <p class="text">Select a song from your library or search results and click the "Play" button to start playing the music.</p>
       </div>
     </div>
-  </div> 
+  </div>
 
   <div *ngIf="showAboutModal" class="modal-overlay">
     <div class="modal-content">
@@ -107,9 +109,9 @@
         <p class="text">At ECHO, we are committed to protecting your privacy. This Privacy Policy outlines the types of personal information we collect when you use our services, how we use it, and the steps we take to ensure your data is kept secure and confidential. We collect personal information such as your email address and music preferences to enhance our service and provide you with personalized music recommendations. We do not share your personal information with third parties without your explicit consent, except as necessary to provide the services or as required by law. Your continued use of our services signifies your acceptance of our Privacy Policy. If you have any questions regarding how we handle your data, please contact us through our support channels.</p>
       </div>
     </div>
-  </div> 
+  </div>
 
-  
+
 <footer class="bg-gray-light dark:bg-dark-bg py-1">
   <div class="container mx-auto px-6 lg:px-8">
     <div class="flex flex-wrap justify-between items-center">

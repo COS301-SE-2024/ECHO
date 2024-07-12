@@ -1,0 +1,19 @@
+/* For Webkit (Chrome, Safari, etc.) */
+.songs-container::-webkit-scrollbar {
+    width: 10px; /* Adjust scrollbar width */
+}
+
+.songs-container::-webkit-scrollbar-track {
+    background: transparent; /* Transparent track */
+}
+
+.songs-container::-webkit-scrollbar-thumb {
+    background: pink; /* Pink scrollbar thumb */
+    border-radius: 5px; /* Rounded corners for the scrollbar thumb */
+}
+
+/* For Firefox */
+.songs-container {
+    scrollbar-width: thin; /* Adjust scrollbar width */
+    scrollbar-color: #EE0258 transparent; /* Pink thumb and transparent track */
+}

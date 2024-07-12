@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,Output,EventEmitter } from '@angular/core';
 import { ScreenSizeService } from '../../services/screen-size-service.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; // Import FormsModule
@@ -14,6 +14,7 @@ export class SearchBarComponent {
   screenSize?: string;
   searchQuery:string = '';
   constructor(private screenSizeService: ScreenSizeService) {}
+  @Output() searchDown = new EventEmitter<string>();
 
   ngOnInit() {
     this.screenSizeService.screenSize$.subscribe(screenSize => {
@@ -21,7 +22,8 @@ export class SearchBarComponent {
     });
   }
   onSearchSubmit() {
-    console.log('Searching for:', this.searchQuery);
+    console.log('Searching...'+this.searchQuery);
+    this.searchDown.emit(this.searchQuery);
   }
 
 }

@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TokenService } from "./token.service";
+import { ProviderService } from "./provider.service";
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,18 @@ import { TokenService } from "./token.service";
 export class AuthService {
   private apiUrl = 'http://localhost:3000/api/auth';
 
-  constructor(private http: HttpClient, private tokenService: TokenService) {}
+  constructor(private http: HttpClient, private tokenService: TokenService, private providerService: ProviderService) {
+  }
+  private value: string = '';
+
+  setValue(val: string)
+  {
+    this.value = val;
+  }
+
+  getValue() {
+    return this.value;
+  }
 
   // This function is used to sign in the user with email and password
   signIn(email: string, password: string): Observable<any> {
@@ -24,8 +36,21 @@ export class AuthService {
   }
 
   // This function is used to sign in the user with Spotify OAuth
-  signInWithSpotifyOAuth(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/oauth-signin`);
+  async signInWithOAuth(): Promise<void> {
+    const providerName = this.providerService.getProviderName();
+    this.http.post<{ url: string }>(`${this.apiUrl}/oauth-signin`, { provider: providerName })
+      .subscribe(
+        (response) => {
+          if (response && response.url) {
+            window.location.href = response.url;
+          } else {
+            console.error('No URL returned from the server');
+          }
+        },
+        (error) => {
+          console.error('OAuth signin error:', error);
+        }
+      );
   }
 
   // This function is used to sign up the user with email and password
