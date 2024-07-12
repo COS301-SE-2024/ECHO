@@ -1,15 +1,15 @@
 <div *ngIf="screenSize === 'desktop'" class="fixed z-10" style="--tw-w: 21vw; --tw-h: 75vh; left: 1vw; top: 10.2vh;">
   <div class="container">
-    <div class="pl-5 py-4 shadow-xl rounded-md h-full"> <!-- Removed border class here -->
+    <div class="pl-5 py-4 rounded-md h-full"> <!-- Removed border class here -->
       <div class="bg-gray-lightcomponent dark:bg-gray-component rounded-lg overflow-auto h-full flex flex-col justify-between scrollbar-hidden">
         <div class="flex flex-col h-full">
           <div class="flex justify-between mb-4">
-            <div class="button-container" [class.underline-blue]="selectedOption === 'upNext'" [class.underline-none]="selectedOption !== 'upNext'">
+            <div class="button-container pt-2" [class.underline-blue]="selectedOption === 'upNext'" [class.underline-none]="selectedOption !== 'upNext'">
               <button class="pl-5 pr-5 text-sm text-gray-800 dark:text-white focus:outline-none button"
                       (click)="selectOption('upNext')">Suggestions
               </button>
             </div>
-            <div class="button-container" [class.underline-blue]="selectedOption === 'recentListening'" [class.underline-none]="selectedOption !== 'recentListening'">
+            <div class="button-container pt-2" [class.underline-blue]="selectedOption === 'recentListening'" [class.underline-none]="selectedOption !== 'recentListening'">
               <button class="pl-5 pr-5 text-sm text-gray-800 dark:text-white focus:outline-none button"
                       (click)="selectOption('recentListening')">Recent listening
               </button>
