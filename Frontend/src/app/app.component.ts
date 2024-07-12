@@ -22,6 +22,7 @@ export class AppComponent {
 
   screenSize?: string;
   showPlayer = false;
+  displayPlayer = false;
 
   constructor(private router: Router,private screenSizeService: ScreenSizeService  ) {
     this.router.events.pipe(
@@ -29,6 +30,13 @@ export class AppComponent {
     ).subscribe((event: RouterEvent) => {
       if (event instanceof NavigationEnd) {
         this.showPlayer = ['/home', '/profile'].includes(event.urlAfterRedirects);
+      }
+    });
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: RouterEvent) => {
+      if (event instanceof NavigationEnd) {
+        this.displayPlayer = ['/settings'].includes(event.urlAfterRedirects);
       }
     });
   }
