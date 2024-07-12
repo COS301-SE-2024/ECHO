@@ -112,6 +112,6 @@ export class ArtistProfileComponent implements AfterViewInit {
 
     getAlbumArt(song: string): string {
         // Placeholder function to return a default album art
-        return '../../../assets/images/default-album-art.jpg';
+        return '../assets/images/damn.jpeg';
       }
 }
