@@ -10,7 +10,7 @@ import { NgClass, NgForOf, NgIf } from '@angular/common';
 })
 export class SearchComponent {
   @Input() searchQuery!: string;
-
+  //on load chec
   
   songs : any = [ 
     {},

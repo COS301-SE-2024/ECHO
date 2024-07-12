@@ -35,7 +35,8 @@ import { TopCardComponent } from '../../shared/top-card/top-card.component';
         EditProfileModalComponent,
         CommonModule,
         BottomNavComponent,
-        TopCardComponent
+        TopCardComponent,
+        SideBarComponent
     ],
     templateUrl: './profile.component.html',
     styleUrl: './profile.component.css',

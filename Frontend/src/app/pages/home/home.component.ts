@@ -54,7 +54,6 @@ export class HomeComponent implements OnInit {
     onSearchdown(subject:string) {
         this.searchQuery = subject;
         this.title = 'Search';
-        console.log('Searching...'+this.title);
     }
     async ngOnInit() {
       this.screenSizeService.screenSize$.subscribe(screenSize => {

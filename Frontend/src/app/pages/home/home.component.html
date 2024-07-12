@@ -1,22 +1,22 @@
 <div class="min-h-screen dark:bg-desktop-bg bg-gray-verylight grid grid-cols-5 grid-rows-6 gap-4 px-6 py-3 lg:px-8" style="overflow: auto;">
   <div class="col-start-1 col-span-5 row-start-1">
-    <div class="fixed navbar-container pl-5">
-      <app-navbar (selectedNavChange)="onNavChange($event) "></app-navbar>
+    <div class="fixed navbar-container pt-[1vh] pl-5">
+        <app-navbar (selectedNavChange)="onNavChange($event) "></app-navbar>
+      </div>
+      <app-search-bar *ngIf="screenSize === 'desktop'" (searchDown)="onSearchdown($event)" class="col-start-2 row-start-1"></app-search-bar>
+      <div class="fixed top-5 right-8 flex flex-col items-center">
+        <img (click)="profile()" [src]="themeService.isDarkModeActive() ? '../../../../assets/icons/profile-light.png' : '../../../../assets/icons/profile-dark.png'" alt="profile" class="w-12 h-12 hover:cursor-pointer">
+        <button *ngIf="screenSize === 'desktop'" class="mt-2 p-2" (click)="switchTheme()">
+            <img *ngIf="!themeService.isDarkModeActive()" src="../../../assets/icons/light-mode.png" alt="Light Mode" class="w-10 h-10">
+            <img *ngIf="themeService.isDarkModeActive()" src="../../../assets/icons/dark-mode.png" alt="Dark Mode" class="w-10 h-10">
+        </button>
     </div>
-    <app-search-bar *ngIf="screenSize === 'desktop'" (searchDown)="onSearchdown($event)" class="col-start-2 row-start-1"></app-search-bar>
-    <div class="fixed top-5 right-8 flex flex-col items-center">
-      <img (click)="profile()" [src]="themeService.isDarkModeActive() ? '../../../../assets/icons/profile-light.png' : '../../../../assets/icons/profile-dark.png'" alt="profile" class="w-12 h-12 hover:cursor-pointer">
-      <button *ngIf="screenSize === 'desktop'" class="mt-2 p-2" (click)="switchTheme()">
-          <img *ngIf="!themeService.isDarkModeActive()" src="../../../assets/icons/light-mode.png" alt="Light Mode" class="w-10 h-10">
-          <img *ngIf="themeService.isDarkModeActive()" src="../../../assets/icons/dark-mode.png" alt="Dark Mode" class="w-10 h-10">
-      </button>
-  </div>
   </div>
 
   <ng-container [ngSwitch]="screenSize">
     <!-- Desktop Layout -->
     <ng-container *ngSwitchCase="'desktop'">
-      <app-side-bar class="col-start-1 col-span-1 row-start-1 row-span-6"></app-side-bar>
+      <app-side-bar class="col-start-1 col-span-1 row-start-1 row-span-6 "></app-side-bar>
       <div *ngIf="title === 'Home'" class="col-start-2 col-span-4 row-start-1 row-span-5 pl-16 pt-20 mr-5">
         <app-moods></app-moods>
       </div>
@@ -24,8 +24,8 @@
   
     <!-- Mobile Layout -->
     <ng-container *ngSwitchCase="'mobile'">
-      <app-moods class="col-start-1 col-span-12 row-start-1 row-span-10 pt-20"></app-moods>
-      <app-side-bar class="pt-12 col-start-1 col-span-12 row-start-2 row-span-9"></app-side-bar>
+      <app-moods class="col-start-1 col-span-12 row-start-1 row-span-10 pt-[8.5vh]"></app-moods>
+      <app-side-bar class="col-start-1 col-span-12 row-start-2 row-span-9"></app-side-bar>
     </ng-container>
   </ng-container>
   
@@ -33,5 +33,4 @@
   <div *ngIf="title === 'Search'" class="col-start-2 col-span-4 row-start-1 row-span-5 pl-16 pt-20 mr-5">
     <app-search [searchQuery]="searchQuery"></app-search>
   </div>
-  
 </div>
