@@ -32,7 +32,7 @@ export class SideBarComponent implements OnInit {
   screenSize?: string;
   provider: string | null = null;
   isDropdownVisible: boolean = false;
-  selected:string = "Recent Listening..."
+  selected:string = "Up Next..."
   options = ["Recent Listening...","Up Next..."];
   toggleDropdown(): void {
     this.isDropdownVisible = !this.isDropdownVisible;
@@ -60,6 +60,8 @@ export class SideBarComponent implements OnInit {
     if (this.providerService.getProviderName() === 'spotify') {
       try {
         this.upNextCardData = await this.spotifyService.getQueue(this.provider);
+        this.upNextCardData.unshift(this.getEchoedCardData()[0]);
+
       } catch (error) {
         console.error('Error loading up next data:', error);
       }
@@ -94,6 +96,9 @@ export class SideBarComponent implements OnInit {
   }
   getRecentListeningCardData(): any[] {
     return this.recentListeningCardData.slice(0, 10);
+  }
+  getEchoedCardData(): any[] {
+    return this.recentListeningCardData.slice(0, 1);
   }
   selectOption(option: string) {
     this.selectedOption = option;

@@ -17,7 +17,7 @@
           </div>
 
           <div class="mt-7 mx-3 flex-grow overflow-auto scrollbar-hidden">
-            <div *ngFor="let card of getSelectedCardData()" class="flex items-center mb-5 hover:cursor-pointer" (click)="playTrack(card.id)">
+            <div *ngFor="let card of getSelectedCardData(); let i = index" class="flex items-center mb-5 hover:cursor-pointer" (click)="playTrack(card.id)">
               <!-- Image on the left -->
               <div class="mr-4 flex-shrink-0" style="width: 25%;">
                 <img [src]="card.imageUrl" alt="Card image" class="w-full h-auto rounded">
@@ -33,6 +33,13 @@
                 <!-- Second text (underneath the first text) -->
                 <p class="text-xs text-gray-light dark:text-gray-400">{{ card.secondaryText }}</p>
               </div>
+              <svg *ngIf="i === 0" width="29" height="28" viewBox="0 0 29 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect y="9.33333" width="4.14286" height="9.33333" rx="2.07143" fill="#EE0258"/>
+                <rect x="24.8572" y="9.33333" width="4.14286" height="9.33333" rx="2.07143" fill="#EE0258"/>
+                <rect x="5.80005" y="5.44444" width="4.97143" height="15.5556" rx="2.48571" fill="#EE0258"/>
+                <rect x="18.2285" y="5.44444" width="4.97143" height="15.5556" rx="2.48571" fill="#EE0258"/>
+                <rect x="12.4285" width="4.14286" height="28" rx="2.07143" fill="#EE0258"/>
+              </svg>
             </div>
           </div>
         </div>
@@ -77,8 +84,15 @@
           <!-- Action Button -->
           <div class="ml-auto">
             <button class="text-gray-400 hover:text-gray-200">
-              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+              <svg *ngIf="i !== 0" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 6.5a1.5 1.5 0 011.5 1.5V11h3a1.5 1.5 0 010 3h-3v3a1.5 1.5 0 01-3 0v-3h-3a1.5 1.5 0 010-3h3V8a1.5 1.5 0 011.5-1.5z"/>
+              </svg>
+              <svg *ngIf="i === 0" width="29" height="28" viewBox="0 0 29 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect y="9.33333" width="4.14286" height="9.33333" rx="2.07143" fill="#EE0258"/>
+                <rect x="24.8572" y="9.33333" width="4.14286" height="9.33333" rx="2.07143" fill="#EE0258"/>
+                <rect x="5.80005" y="5.44444" width="4.97143" height="15.5556" rx="2.48571" fill="#EE0258"/>
+                <rect x="18.2285" y="5.44444" width="4.97143" height="15.5556" rx="2.48571" fill="#EE0258"/>
+                <rect x="12.4285" width="4.14286" height="28" rx="2.07143" fill="#EE0258"/>
               </svg>
             </button>
           </div>
