@@ -12,5 +12,11 @@ export class YoutubeController {
         return await this.youtubeService.getQueue(artist, song_name);
     }
 
+    @Post('track-details')
+    async getTrackDetails(@Body() body: { videoId: string }): Promise<any> {
+        const { videoId } = body;
+        return await this.youtubeService.fetchSingleTrackDetails(videoId);
+    }
+
 
 }

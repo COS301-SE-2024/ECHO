@@ -62,6 +62,29 @@ export class YoutubeService {
         }
     }
 
+    // This function retrieves the details of a single track with the given videoId
+    public async fetchSingleTrackDetails(videoId: string): Promise<YouTubeTrackInfo> {
+        const url = `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&id=${videoId}&key=${youtubeKey}`;
+
+        try {
+            const response = await lastValueFrom(
+                this.httpService.get(url)
+            );
+
+            const item = response.data.items[0];
+            return {
+                id: item.id,
+                title: item.snippet.title,
+                thumbnailUrl: item.snippet.thumbnails.default.url,
+                channelTitle: item.snippet.channelTitle,
+                videoUrl: `https://www.youtube.com/watch?v=${item.id}`
+            };
+        } catch (error) {
+            console.error('Error fetching YouTube track details:', error);
+            throw new HttpException('Failed to fetch YouTube track details', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     // This function fetches the tracks from the Youtube API based on the given track details
     private async fetchYoutubeTracks(trackDetails: { title: string, artist: string }[]): Promise<YouTubeTrackInfo[]> {
         const videoIds = await Promise.all(trackDetails.map(async (track) => {
