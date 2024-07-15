@@ -64,10 +64,6 @@ export class HomeComponent implements OnInit {
     }
 
     profile() {
-        this.router.navigate(['/settings']);
-    }
-
-    settings() {
-        this.router.navigate(['/settings']);
+        this.router.navigate(['/profile']);
     }
 }
