@@ -17,6 +17,7 @@ export interface YouTubeTrackInfo {
 })
 export class YouTubeService {
   private player: any;
+  private deviceId: string | null = null;
   private currentlyPlayingTrackSubject = new BehaviorSubject<YouTubeTrackInfo | null>(null);
   private playingStateSubject = new BehaviorSubject<boolean>(false);
   private playbackProgressSubject = new BehaviorSubject<number>(0);
@@ -38,9 +39,13 @@ export class YouTubeService {
 
   public async init(): Promise<void> {
     if (isPlatformBrowser(this.platformId) && !this.hasBeenInitialized) {
-      await this.loadYouTubeIframeAPI();
+      await this.initializeYouTube();
       this.hasBeenInitialized = true;
     }
+  }
+
+  private async initializeYouTube(): Promise<void> {
+    await this.loadYouTubeIframeAPI();
   }
 
   private loadYouTubeIframeAPI(): Promise<void> {
@@ -69,11 +74,12 @@ export class YouTubeService {
     });
   }
 
-  private onPlayerReady(event: any): void {
+  private onPlayerReady(event: YT.PlayerEvent): void {
     console.log('YouTube player is ready');
+    this.deviceId = 'youtube-player';
   }
 
-  private onPlayerStateChange(event: any): void {
+  private onPlayerStateChange(event: YT.OnStateChangeEvent): void {
     switch (event.data) {
       case YT.PlayerState.PLAYING:
         this.playingStateSubject.next(true);
@@ -96,22 +102,28 @@ export class YouTubeService {
     }
   }
 
-  public async playVideoById(videoId: string): Promise<void> {
-    if (this.player && this.player.loadVideoById) {
-      this.player.loadVideoById(videoId);
-      await this.setCurrentlyPlayingTrack(videoId);
+  public async playTrackById(trackId: string): Promise<void> {
+    if (!this.deviceId) {
+      console.error('Device ID is undefined. Ensure the player is ready before playing.');
+      return;
     }
+
+    await this.player.loadVideoById(trackId);
+    await this.setCurrentlyPlayingTrack(trackId);
+    this.playingStateSubject.next(true);
   }
 
   public pause(): void {
     if (this.player && this.player.pauseVideo) {
       this.player.pauseVideo();
+      this.playingStateSubject.next(false);
     }
   }
 
   public play(): void {
     if (this.player && this.player.playVideo) {
       this.player.playVideo();
+      this.playingStateSubject.next(true);
     }
   }
 
@@ -121,26 +133,63 @@ export class YouTubeService {
     }
   }
 
-  public async getQueue(query: string): Promise<YouTubeTrackInfo[]> {
-    const response = await this.http.post<any>(`${this.apiURL}/search`, { query }).toPromise();
-    return response.items.map((item: any) => ({
-      id: item.id.videoId,
-      title: item.snippet.title,
-      thumbnailUrl: item.snippet.thumbnails.default.url,
-      channelTitle: item.snippet.channelTitle,
-      videoUrl: `https://www.youtube.com/watch?v=${item.id.videoId}`
+  public async getRecentlyPlayedTracks(): Promise<any> {
+    return [];
+  }
+
+  public async getQueue(artist: string, songName: string): Promise<YouTubeTrackInfo[]> {
+    const query = `${artist} ${songName}`;
+    const response = await this.http.post<any>(`${this.apiURL}/queue`, { query }).toPromise();
+
+    return response.tracks.map((track: any) => ({
+      id: track.id,
+      title: track.snippet.title,
+      thumbnailUrl: track.snippet.thumbnails.default.url,
+      channelTitle: track.snippet.channelTitle,
+      videoUrl: `https://www.youtube.com/watch?v=${track.id}`
     }));
   }
 
+  public async getCurrentlyPlayingTrack(): Promise<YouTubeTrackInfo | null> {
+    if (this.player && this.player.getVideoData) {
+      const videoData = this.player.getVideoData();
+      return {
+        id: videoData.video_id,
+        title: videoData.title,
+        thumbnailUrl: `https://img.youtube.com/vi/${videoData.video_id}/default.jpg`,
+        channelTitle: videoData.author,
+        videoUrl: `https://www.youtube.com/watch?v=${videoData.video_id}`
+      };
+    }
+    return null;
+  }
+
   private async setCurrentlyPlayingTrack(videoId: string): Promise<void> {
-    const videoDetails = await this.getVideoDetails(videoId);
+    const videoDetails = await this.getTrackDetails(videoId);
     this.currentlyPlayingTrackSubject.next(videoDetails);
   }
 
+  private async getTrackDetails(videoId: string): Promise<YouTubeTrackInfo> {
+    const response = await this.http.post<any>(`${this.apiURL}/track-details`, { videoId }).toPromise();
+    return {
+      id: response.id,
+      title: response.snippet.title,
+      thumbnailUrl: response.snippet.thumbnails.default.url,
+      channelTitle: response.snippet.channelTitle,
+      videoUrl: `https://www.youtube.com/watch?v=${response.id}`
+    };
+  }
 
   public disconnectPlayer(): void {
     if (this.player && this.player.destroy) {
       this.player.destroy();
+    }
+  }
+
+  public getCurrentPlaybackState(): void {
+    if (this.player && this.player.getCurrentTime && this.player.getDuration) {
+      const progress = (this.player.getCurrentTime() / this.player.getDuration()) * 100;
+      this.playbackProgressSubject.next(progress);
     }
   }
 }
