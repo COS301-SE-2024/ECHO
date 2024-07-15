@@ -3,6 +3,12 @@ import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject, Observable } from 'rxjs';
 import { TokenService } from "./token.service";
+declare global {
+  interface Window {
+    onYouTubeIframeAPIReady: () => void;
+    YT: typeof YT;
+  }
+}
 
 export interface YouTubeTrackInfo {
   id: string;
