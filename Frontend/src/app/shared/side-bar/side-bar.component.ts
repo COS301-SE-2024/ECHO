@@ -31,7 +31,21 @@ export class SideBarComponent implements OnInit {
   recentListeningCardData: any[] = [];
   screenSize?: string;
   provider: string | null = null;
-  
+  isDropdownVisible: boolean = false;
+  selected:string = "Recent Listening..."
+  options = ["Recent Listening...","Up Next..."];
+  toggleDropdown(): void {
+    this.isDropdownVisible = !this.isDropdownVisible;
+  }
+  selectedOptionChange(option:string){
+    this.selected = option;
+    if(this.selected === 'Recent Listening...'){
+      this.selectedOption = 'recentListening';
+    }else{
+      this.selectedOption = 'upNext';
+    }
+    this.toggleDropdown();
+  }
   async ngOnInit() {
     if (this.providerService.getProviderName() === 'spotify') {
       this.loadUpNextData();
@@ -72,7 +86,7 @@ export class SideBarComponent implements OnInit {
       });
     }
   }
-
+  
   getSelectedCardData(): any[] {
     return this.selectedOption === 'upNext'
       ? this.upNextCardData

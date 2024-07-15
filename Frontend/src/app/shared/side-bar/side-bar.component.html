@@ -42,13 +42,28 @@
 </div>
 
 <div *ngIf="screenSize === 'mobile'" class="flex flex-col w-full">
-  <!-- Recent Listening Title -->
-  <h2 class="text-xl font-semibold text-gray-800 dark:text-white px-5 pb-4">Recent listening...</h2>
+  
+<button id="dropdownDefaultButton" (click)="toggleDropdown()" data-dropdown-toggle="dropdown" class="w-full justify-between text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-gray-component dark:hover:bg-pink dark:focus:ring-pink" type="button">{{selected}}<svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+</svg>
+</button>
+
+<!-- Styled Dropdown menu to match the button -->
+<div id="dropdown" *ngIf="isDropdownVisible" class="w-full z-10 bg-blue-700 divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-component">
+    <div class="flex flex-col h-full">
+      <ul class="py-2 text-sm text-white" aria-labelledby="dropdownDefaultButton">
+        <li *ngFor="let option of options">
+          <a (click)="selectedOptionChange(option)" class="block w-full px-4 py-2 rounded-lg hover:bg-blue-800 dark:hover:bg-pink dark:hover:text-white">{{option}}</a>
+        </li>
+      </ul>
+    </div>
+</div>
+  
   
   <!-- Cards Container -->
   <div class="px-5 py-2 w-full"> 
     <!-- ng-container for iterating over cards and adding View More button as the last card -->
-    <ng-container *ngFor="let card of getRecentListeningCardData(); let i = index; let last = last">
+    <ng-container *ngFor="let card of getSelectedCardData(); let i = index; let last = last">
             <!-- Card -->
       <div class="mb-4 w-full rounded-lg shadow-lg overflow-hidden bg-gray-lightcomponent dark:bg-gray-component">
         <div class="flex items-center p-4" (click)="playTrack(card.id)">
