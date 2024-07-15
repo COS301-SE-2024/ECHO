@@ -22,7 +22,6 @@ export class SearchBarComponent {
     });
   }
   onSearchSubmit() {
-    console.log('Searching...'+this.searchQuery);
     this.searchDown.emit(this.searchQuery);
   }
 
