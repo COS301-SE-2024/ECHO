@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { NgClass, NgForOf, NgIf } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatDialog } from '@angular/material/dialog';
+import { SongViewComponent } from '../song-view/song-view.component';
 import { ScreenSizeService } from '../../services/screen-size-service.service';
 
 @Component({
@@ -13,7 +15,11 @@ import { ScreenSizeService } from '../../services/screen-size-service.service';
 })
 export class MoodsComponent {
     screenSize?: string;
-    constructor(private screenSizeService: ScreenSizeService) {}
+    constructor(
+        private screenSizeService: ScreenSizeService,
+        protected dialog: MatDialog
+    ) {}
+    
     async ngOnInit() {
         this.screenSizeService.screenSize$.subscribe(screenSize => {
         this.screenSize = screenSize;
@@ -75,7 +81,13 @@ export class MoodsComponent {
 
     selectedMood: any = null;
 
-    openModal(mood: any) {
-        this.selectedMood = mood;
+    openModal(mood: any): void {
+        const dialogRef = this.dialog.open(SongViewComponent, {
+            width: '250px',
+        });
+
+        dialogRef.afterClosed().subscribe((result) => {
+            console.log('The dialog was closed');
+        });
     }
 }

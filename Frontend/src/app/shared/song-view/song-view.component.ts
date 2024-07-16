@@ -1,5 +1,6 @@
 // song-view.component.ts
 import { Component, Input } from '@angular/core';
+import { MatDialogRef } from "@angular/material/dialog";
 
 @Component({
   selector: 'app-song-view',
@@ -9,6 +10,11 @@ import { Component, Input } from '@angular/core';
 export class SongViewComponent {
   @Input() selectedSong: any;
   isModalOpen: boolean = false;
+
+  constructor(
+    public dialogRef: MatDialogRef<SongViewComponent>
+  ) {
+  }
 
   closeModal() {
     this.isModalOpen = false;
