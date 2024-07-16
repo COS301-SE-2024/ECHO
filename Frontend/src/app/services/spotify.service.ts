@@ -34,6 +34,8 @@ export class SpotifyService {
   private recentlyPlayedCache: { data: any, timestamp: number } | null = null;
   private rcacheTTL = 600000;
   private hasBeenInitialized = false;
+  private RecentListeningObject: any = null;
+  private QueueObject: any = null;
 
   constructor(
     private authService: AuthService,
@@ -62,6 +64,24 @@ export class SpotifyService {
     } catch (error) {
       console.error('Error fetching Spotify token from AuthService:', error);
     }
+  }
+
+  private recentListeningCached(): boolean {
+    if (sessionStorage.getItem('recentListening') !== null && sessionStorage.getItem('recentListening') !== '{}')
+    {
+      this.RecentListeningObject = JSON.parse(sessionStorage.getItem('recentListening') || '{}');
+      return true;
+    }
+    return false;
+  }
+
+  private queueCached(): boolean {
+    if (sessionStorage.getItem('queue') !== null && sessionStorage.getItem('queue') !== '{}')
+    {
+      this.QueueObject = JSON.parse(sessionStorage.getItem('queue') || '{}');
+      return true;
+    }
+    return false;
   }
 
   // Load the Spotify Web Playback SDK script
@@ -182,6 +202,11 @@ export class SpotifyService {
 
   // Get the user's recent listening from Spotify
   public async getRecentlyPlayedTracks(provider: string | null): Promise<any> {
+    if (this.recentListeningCached())
+    {
+      return this.RecentListeningObject;
+    }
+
     const cacheKey = 'recentlyPlayed';
     const currentTime = new Date().getTime();
 
@@ -204,6 +229,9 @@ export class SpotifyService {
         data: response
       };
 
+      sessionStorage.setItem('recentListening', JSON.stringify(response));
+      this.RecentListeningObject = response;
+
       return response;
     } catch (error) {
       console.error('Error fetching recently played tracks:', error);
@@ -213,6 +241,11 @@ export class SpotifyService {
 
   // Get the suggested tracks for the user from the ECHO API
   public async getQueue(provider: string | null): Promise<TrackInfo[]> {
+    if (this.queueCached())
+    {
+      return this.QueueObject;
+    }
+
     const recentlyPlayed = await this.getRecentlyPlayedTracks("spotify");
     if (!recentlyPlayed || recentlyPlayed.items.length === 0) {
       throw new Error('No recently played tracks found');
@@ -246,6 +279,10 @@ export class SpotifyService {
         explicit: track.explicit
       } as TrackInfo));
       console.log('Queue tracks:', tracks);
+
+      sessionStorage.setItem('queue', JSON.stringify(tracks));
+      this.QueueObject = tracks;
+
       return tracks;
     } else {
       throw new Error('Invalid response structure');
