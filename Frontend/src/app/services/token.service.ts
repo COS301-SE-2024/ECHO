@@ -8,10 +8,12 @@ export class TokenService {
   private accessTokenSubject = new BehaviorSubject<string | null>(null);
   private refreshTokenSubject = new BehaviorSubject<string | null>(null);
 
+  //The constructor checks whether the tokens were stored in session Storage to persist the user's session.
   constructor() {
     this.initializeFromStorage();
   }
 
+  //This method initializes the tokens from session Storage.
   private initializeFromStorage(): void {
     if (typeof sessionStorage === 'undefined') return;
 
@@ -22,6 +24,7 @@ export class TokenService {
     if (refreshToken) this.refreshTokenSubject.next(refreshToken);
   }
 
+  //This method sets the access token and refresh token in the BehaviorSubjects and session Storage.
   setTokens(accessToken: string, refreshToken: string): void {
     this.accessTokenSubject.next(accessToken);
     this.refreshTokenSubject.next(refreshToken);
@@ -29,14 +32,17 @@ export class TokenService {
     sessionStorage.setItem('refreshToken', refreshToken);
   }
 
+  //This method returns the access token.
   getAccessToken(): string | null {
     return this.accessTokenSubject.value;
   }
 
+  //This method returns the refresh token.
   getRefreshToken(): string | null {
     return this.refreshTokenSubject.value;
   }
 
+  //This method returns the access token and refresh token.
   getAllTokens(): { accessToken: string | null; refreshToken: string | null } {
     return {
       accessToken: this.accessTokenSubject.value,
@@ -44,6 +50,7 @@ export class TokenService {
     };
   }
 
+  //This method clears the access token and refresh token from the BehaviorSubjects and session Storage.
   clearTokens(): void {
     this.accessTokenSubject.next(null);
     this.refreshTokenSubject.next(null);
@@ -54,6 +61,7 @@ export class TokenService {
     sessionStorage.removeItem('refreshToken');
   }
 
+  //This method returns the access token as an Observable.
   getAccessToken$(): Observable<string | null> {
     return this.accessTokenSubject.asObservable();
   }
