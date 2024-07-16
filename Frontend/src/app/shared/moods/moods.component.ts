@@ -72,4 +72,10 @@ export class MoodsComponent {
             image: '/assets/moods/happy.jpg',
         },
     ];
+
+    selectedMood: any = null;
+
+    openModal(mood: any) {
+        this.selectedMood = mood;
+    }
 }
