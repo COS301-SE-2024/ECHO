@@ -66,7 +66,7 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
       });
     }
   }
-  
+
   async ngOnInit() {
     this.screenSizeService.screenSize$.subscribe(screenSize => {
       this.screenSize = screenSize;
@@ -75,7 +75,7 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
       await this.spotifyService.init();
     }
   }
-  
+
   ngOnDestroy(): void {
     if (this.providerService.getProviderName() === "spotify") {
       this.spotifyService.disconnectPlayer();
@@ -92,6 +92,7 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
         this.progressUpdateSubscription.unsubscribe();
       }
     }
+    this.providerService.clear()
   }
 
   playMusic(): void {
@@ -169,4 +170,5 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
     const remainingSeconds = Math.floor(seconds % 60);
     return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
   }
+
 }

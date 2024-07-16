@@ -23,7 +23,7 @@ export class AppComponent {
   screenSize?: string;
   showPlayer = false;
 
-  constructor(private router: Router,private screenSizeService: ScreenSizeService  ) {
+  constructor(private router: Router,private screenSizeService: ScreenSizeService, private providerService: ProviderService) {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: RouterEvent) => {
