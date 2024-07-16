@@ -1,6 +1,6 @@
 <div class="flex flex-col h-dvh dark:bg-desktop-bg bg-gray-verylight px-10 py-10 pb-36" style="overflow: hidden;">
     <!-- Main container -->
-     <div class="h-dvh flex bg-gray-component rounded-xl gap-x-20 p-20">
+     <div class="h-full flex bg-gray-component rounded-xl gap-x-20 p-20">
         <!-- Left Nav -->
         <div class="w-1/4 grid grid-cols-1 grid-rows-7 px-4 position: fixed;">
             <h2 class="text-white mb-4 text-2xl font-bold">Settings</h2>
@@ -22,12 +22,29 @@
         </div>
         <div class="border-r border-gray-light mx-0"></div>
         <!-- Right Page -->
-        <div class="w-3/4 row-start-1 ">
-            <h2 class="text-white mb-4 text-2xl font-bold">{{ settingName }}</h2>
-            <button class="mt-2 p-2" (click)="switchTheme()">
-                <img *ngIf="!themeService.isDarkModeActive()" src="../../../assets/icons/light-mode.png" alt="Light Mode" class="w-10 h-10">
-                <img *ngIf="themeService.isDarkModeActive()" src="../../../assets/icons/dark-mode.png" alt="Dark Mode" class="w-10 h-10">
-            </button>
+        <div class="w-3/4 row-start-1 h-full">
+            <h2 class="text-white mb-4 text-2xl font-bold">{{ activeSetting }}</h2>
+            <div class="overflow-auto h-full">
+                <button class="mt-2 p-2" (click)="switchTheme()">
+                    <img *ngIf="!themeService.isDarkModeActive()" src="../../../assets/icons/light-mode.png" alt="Light Mode" class="w-10 h-10">
+                    <img *ngIf="themeService.isDarkModeActive()" src="../../../assets/icons/dark-mode.png" alt="Dark Mode" class="w-10 h-10">
+                </button>
+                <ng-container *ngIf="activeSetting === 'Account'">
+                    <app-account></app-account>
+                </ng-container>
+                <ng-container *ngIf="activeSetting === 'Privacy'">
+                    <app-privacy></app-privacy>
+                </ng-container>
+                <ng-container *ngIf="activeSetting === 'Display'">
+                    <app-display></app-display>
+                </ng-container>
+                <ng-container *ngIf="activeSetting === 'Audio'">
+                    <app-audio></app-audio>
+                </ng-container>
+                <ng-container *ngIf="activeSetting === 'Language'">
+                    <app-language></app-language>
+                </ng-container>
+            </div>            
         </div>
      </div>
      <div></div>

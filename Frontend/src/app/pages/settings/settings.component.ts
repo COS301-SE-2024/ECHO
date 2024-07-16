@@ -4,13 +4,23 @@ import { NgClass, NgForOf, NgIf } from '@angular/common';
 import { BottomPlayerComponent } from '../../shared/bottom-player/bottom-player.component';
 import { SpotifyService } from '../../services/spotify.service';
 import { ScreenSizeService } from '../../services/screen-size-service.service';
+import { AccountComponent } from '../../shared/setting-pages/account/account.component';
+import { AudioComponent } from '../../shared/setting-pages/audio/audio.component';
+import { DisplayComponent } from '../../shared/setting-pages/display/display.component';
+import { LanguageComponent } from '../../shared/setting-pages/language/language.component';
+import { PrivacyComponent } from '../../shared/setting-pages/privacy/privacy.component';
 
 @Component({
   selector: 'app-settings',
   standalone: true,
   imports: [
     NgIf,
-    BottomPlayerComponent
+    BottomPlayerComponent,
+    AccountComponent,
+    AudioComponent,
+    DisplayComponent,
+    LanguageComponent,
+    PrivacyComponent,
   ],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.css'
@@ -18,7 +28,7 @@ import { ScreenSizeService } from '../../services/screen-size-service.service';
 
 export class SettingsComponent {
 
-  settingName: string = 'Choose a setting';
+  activeSetting: string = 'Choose a setting';
   screenSize?: string;
 
   constructor(
@@ -33,7 +43,7 @@ export class SettingsComponent {
 
   showSettings(buttonLabel: string)
   {
-    this.settingName = buttonLabel;
+    this.activeSetting = buttonLabel;
   }
 
   async ngOnInit() {
