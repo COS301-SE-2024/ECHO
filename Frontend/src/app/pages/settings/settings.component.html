@@ -25,10 +25,6 @@
         <div class="w-3/4 row-start-1 h-full">
             <h2 class="text-white mb-4 text-2xl font-bold">{{ activeSetting }}</h2>
             <div class="overflow-auto h-full">
-                <button class="mt-2 p-2" (click)="switchTheme()">
-                    <img *ngIf="!themeService.isDarkModeActive()" src="../../../assets/icons/light-mode.png" alt="Light Mode" class="w-10 h-10">
-                    <img *ngIf="themeService.isDarkModeActive()" src="../../../assets/icons/dark-mode.png" alt="Dark Mode" class="w-10 h-10">
-                </button>
                 <ng-container *ngIf="activeSetting === 'Account'">
                     <app-account></app-account>
                 </ng-container>
