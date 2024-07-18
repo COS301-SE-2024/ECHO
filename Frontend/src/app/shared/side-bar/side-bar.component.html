@@ -1,10 +1,10 @@
 <div *ngIf="screenSize === 'desktop'" class="fixed z-10" style="--tw-w: 21vw; --tw-h: 75vh; left: 1vw; top: 10.2vh;">
   <div class="container">
-    <div class="pl-5 py-4 rounded-md h-full"> <!-- Removed border class here -->
+    <div class="pl-5 py-4 rounded-md h-full">
       <div class="bg-gray-lightcomponent dark:bg-gray-component rounded-lg overflow-auto h-full flex flex-col justify-between scrollbar-hidden">
         <div class="flex flex-col h-full">
-          <div class="flex justify-between mb-4">
-            <div class="button-container pt-2" [class.underline-blue]="selectedOption === 'upNext'" [class.underline-none]="selectedOption !== 'upNext'">
+          <div class="flex justify-between mb-2 mt-2">
+            <div class="button-container" [class.underline-blue]="selectedOption === 'upNext'" [class.underline-none]="selectedOption !== 'upNext'">
               <button class="pl-5 pr-5 text-sm text-gray-800 dark:text-white focus:outline-none button"
                       (click)="selectOption('upNext')">Suggestions
               </button>
@@ -68,7 +68,7 @@
   
   
   <!-- Cards Container -->
-  <div class="px-5 py-2 w-full"> 
+  <div class="px-5 py-2 w-full">
     <!-- ng-container for iterating over cards and adding View More button as the last card -->
     <ng-container *ngFor="let card of getSelectedCardData(); let i = index; let last = last">
             <!-- Card -->
