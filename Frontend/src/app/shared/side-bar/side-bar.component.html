@@ -9,15 +9,15 @@
                       (click)="selectOption('upNext')">Suggestions
               </button>
             </div>
-            <div class="button-container" [class.underline-blue]="selectedOption === 'recentListening'" [class.underline-none]="selectedOption !== 'recentListening'">
+            <div class="button-container pt-2" [class.underline-blue]="selectedOption === 'recentListening'" [class.underline-none]="selectedOption !== 'recentListening'">
               <button class="pl-5 pr-5 text-sm text-gray-800 dark:text-white focus:outline-none button"
                       (click)="selectOption('recentListening')">Recent listening
               </button>
             </div>
           </div>
 
-          <div class="mt-5 mx-3 flex-grow overflow-auto scrollbar-hidden">
-            <div *ngFor="let card of getSelectedCardData()" class="flex items-center mb-5 hover:cursor-pointer" (click)="playTrack(card.id)">
+          <div class="mt-7 mx-3 flex-grow overflow-auto scrollbar-hidden">
+            <div *ngFor="let card of getSelectedCardData(); let i = index" class="flex items-center mb-5 hover:cursor-pointer" (click)="playTrack(card.id)">
               <!-- Image on the left -->
               <div class="mr-4 flex-shrink-0" style="width: 25%;">
                 <img [src]="card.imageUrl" alt="Card image" class="w-full h-auto rounded">
@@ -33,6 +33,13 @@
                 <!-- Second text (underneath the first text) -->
                 <p class="text-xs text-gray-light dark:text-gray-400">{{ card.secondaryText }}</p>
               </div>
+              <svg *ngIf="i === 0" width="29" height="28" viewBox="0 0 29 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect y="9.33333" width="4.14286" height="9.33333" rx="2.07143" fill="#EE0258"/>
+                <rect x="24.8572" y="9.33333" width="4.14286" height="9.33333" rx="2.07143" fill="#EE0258"/>
+                <rect x="5.80005" y="5.44444" width="4.97143" height="15.5556" rx="2.48571" fill="#EE0258"/>
+                <rect x="18.2285" y="5.44444" width="4.97143" height="15.5556" rx="2.48571" fill="#EE0258"/>
+                <rect x="12.4285" width="4.14286" height="28" rx="2.07143" fill="#EE0258"/>
+              </svg>
             </div>
           </div>
         </div>
@@ -42,13 +49,28 @@
 </div>
 
 <div *ngIf="screenSize === 'mobile'" class="flex flex-col w-full">
-  <!-- Recent Listening Title -->
-  <h2 class="text-xl font-semibold text-gray-800 dark:text-white px-5 pb-4">Recent listening...</h2>
+  
+<button id="dropdownDefaultButton" (click)="toggleDropdown()" data-dropdown-toggle="dropdown" class="w-full justify-between text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-gray-component dark:hover:bg-pink dark:focus:ring-pink" type="button">{{selected}}<svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+</svg>
+</button>
 
+<!-- Styled Dropdown menu to match the button -->
+<div id="dropdown" *ngIf="isDropdownVisible" class="w-full z-10 bg-blue-700 divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-component">
+    <div class="flex flex-col h-full">
+      <ul class="py-2 text-sm text-white" aria-labelledby="dropdownDefaultButton">
+        <li *ngFor="let option of options">
+          <a (click)="selectedOptionChange(option)" class="block w-full px-4 py-2 rounded-lg hover:bg-blue-800 dark:hover:bg-pink dark:hover:text-white">{{option}}</a>
+        </li>
+      </ul>
+    </div>
+</div>
+  
+  
   <!-- Cards Container -->
   <div class="px-5 py-2 w-full">
     <!-- ng-container for iterating over cards and adding View More button as the last card -->
-    <ng-container *ngFor="let card of getRecentListeningCardData(); let i = index; let last = last">
+    <ng-container *ngFor="let card of getSelectedCardData(); let i = index; let last = last">
             <!-- Card -->
       <div class="mb-4 w-full rounded-lg shadow-lg overflow-hidden bg-gray-lightcomponent dark:bg-gray-component">
         <div class="flex items-center p-4" (click)="playTrack(card.id)">
@@ -62,8 +84,15 @@
           <!-- Action Button -->
           <div class="ml-auto">
             <button class="text-gray-400 hover:text-gray-200">
-              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+              <svg *ngIf="i !== 0" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 6.5a1.5 1.5 0 011.5 1.5V11h3a1.5 1.5 0 010 3h-3v3a1.5 1.5 0 01-3 0v-3h-3a1.5 1.5 0 010-3h3V8a1.5 1.5 0 011.5-1.5z"/>
+              </svg>
+              <svg *ngIf="i === 0" width="29" height="28" viewBox="0 0 29 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect y="9.33333" width="4.14286" height="9.33333" rx="2.07143" fill="#EE0258"/>
+                <rect x="24.8572" y="9.33333" width="4.14286" height="9.33333" rx="2.07143" fill="#EE0258"/>
+                <rect x="5.80005" y="5.44444" width="4.97143" height="15.5556" rx="2.48571" fill="#EE0258"/>
+                <rect x="18.2285" y="5.44444" width="4.97143" height="15.5556" rx="2.48571" fill="#EE0258"/>
+                <rect x="12.4285" width="4.14286" height="28" rx="2.07143" fill="#EE0258"/>
               </svg>
             </button>
           </div>

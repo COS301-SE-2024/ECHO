@@ -28,7 +28,7 @@ export class AppComponent {
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: RouterEvent) => {
       if (event instanceof NavigationEnd) {
-        this.showPlayer = ['/home', '/profile'].includes(event.urlAfterRedirects);
+        this.showPlayer = ['/home', '/profile','/search'].includes(event.urlAfterRedirects);
       }
     });
   }
