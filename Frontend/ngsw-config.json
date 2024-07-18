@@ -11,7 +11,8 @@
           "/index.csr.html",
           "/manifest.webmanifest",
           "/*.css",
-          "/*.js"
+          "/*.js",
+          "/**/*.png"
         ]
       }
     },
