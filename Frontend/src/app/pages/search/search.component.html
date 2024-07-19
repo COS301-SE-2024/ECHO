@@ -1,15 +1,5 @@
 <div *ngIf="screenSize === 'desktop'" class="mobile-layout">
-    <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-200">Search Results for "{{searchQuery}}"</h1>
-
-    <div class="top-result dark:text-gray-200" style="float: left; width: 29%;">
-      <h1 class="py-3 " style="font-weight: bold; font-size: larger;">Top Result</h1>
-      <div class="big-card dark:text-gray-200 bg-gray-component mx-auto" style="width: 15vw; padding: 1vw; border-radius: 15px;">
-        <img src="./../../../assets/images/album.png" alt="Big Image" style="border-radius: 15px;">
-        <h2 style="font-weight: bold;" class="py-2">Title</h2>
-        <p class="py-1">Subtitle</p>
-      </div>
-    </div>
-    
+  <app-top-result [title]="'Title'" [subtitle]="'Subtitle'" [imageSrc]="'./../../../assets/images/album.png'"></app-top-result>
   
     <div class="songs dark:text-gray-200" style="float: left; width: 35%; position: relative;">
       <a style="position: absolute; top: 0; right: 0; margin: 10px; padding: 5px 10px; border-radius: 5px;cursor: pointer;">

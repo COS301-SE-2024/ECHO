@@ -5,11 +5,11 @@ import { ThemeService } from './../../services/theme.service';
 import { Router } from '@angular/router';
 import {NavbarComponent} from "./../../shared/navbar/navbar.component";
 import { SearchBarComponent } from '../../shared/search-bar/search-bar.component';
-
+import { TopResultComponent } from '../../shared/top-result/top-result.component';
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [NgIf,NgForOf,NgClass,NavbarComponent,SearchBarComponent],
+  imports: [NgIf,NgForOf,NgClass,NavbarComponent,SearchBarComponent,TopResultComponent],
   templateUrl: './search.component.html',
   styleUrl: './search.component.css'
 })
