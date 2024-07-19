@@ -204,7 +204,7 @@ export class SpotifyService {
   public async getRecentlyPlayedTracks(provider: string | null): Promise<any> {
     if (this.recentListeningCached())
     {
-      return this.RecentListeningObject;
+      return Promise.resolve(this.RecentListeningObject);
     }
 
     const cacheKey = 'recentlyPlayed';
@@ -243,7 +243,7 @@ export class SpotifyService {
   public async getQueue(provider: string | null): Promise<TrackInfo[]> {
     if (this.queueCached())
     {
-      return this.QueueObject;
+      return Promise.resolve(this.QueueObject);
     }
 
     const recentlyPlayed = await this.getRecentlyPlayedTracks("spotify");
