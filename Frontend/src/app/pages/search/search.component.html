@@ -3,28 +3,31 @@
     <div class="top-result dark:text-gray-200" style="float: left; width: 33%;">
       <h1 class="py-3" style="font-weight: bold; font-size: larger;">Top Result</h1>
       <div class="big-card dark:text-gray-200 bg-gray-component" style="width: 15vw; padding: 1vw; border-radius: 15px;">
-        <img src="./../../../assets/images/album.png" alt="Big Image" style="border-radius: 15px;">
-        <h2 style="font-weight: bold;" class="py-2">Title</h2>
-        <p class="py-1">Subtitle</p>
+        <ng-container *ngIf="topResult$ | async as topResult">
+          <img [src]="topResult.albumImageUrl" alt="Big Image" style="border-radius: 15px;">
+          <h2 style="font-weight: bold;" class="py-2">{{topResult.name}}</h2>
+          <p class="py-1">{{topResult.artistName}}</p>
+        </ng-container>
       </div>
     </div>
-    
-  
+
+
     <div class="songs dark:text-gray-200" style="float: left; width: 33%; position: relative;">
       <a style="position: absolute; top: 0; right: 0; margin: 10px; padding: 5px 10px; border-radius: 5px;cursor: pointer;">
         View More
       </a>
       <h1 class="py-2" style="font-weight: bold; font-size: larger;">Songs</h1>
       <div class="songs-container" style="display: flex; flex-direction: column; overflow-y: auto; height:20vw;">
-        <div class="song-card dark:text-gray-200 bg-gray-component" 
-            *ngFor="let song of songs" 
-            style="flex: 0 0 auto; width: 100%; margin-bottom: 20px; display: flex; padding: 5px; border-radius: 10px; box-sizing: border-box; height:6vw; padding: .5vw;">
-          <img src="./../../../assets/images/album.png" alt="Song Image" style="width: 30%; border-radius: 10px; margin-right: 10px;">
+        <div class="song-card dark:text-gray-200 bg-gray-component"
+             *ngFor="let song of songs$ | async"
+             style="flex: 0 0 auto; width: 100%; margin-bottom: 20px; display: flex; padding: 5px; border-radius: 10px; box-sizing: border-box; height:6vw; padding: .5vw;">
+          <img [src]="song.albumImageUrl" alt="Song Image" style="width: 25%; border-radius: 10px; margin-right: 10px;">
           <div>
-            <h2 style="font-weight: bold;" class="py-2">asd</h2>
-            <p class="py-1">asd</p>
+            <h2 style="font-weight: bold;" class="py-2">{{song.name}}</h2>
+            <p class="py-1">{{song.artistName}}</p>
           </div>
         </div>
+
       </div>
     </div>
 
@@ -34,22 +37,23 @@
       </a>
       <h1 class="py-2" style="font-weight: bold; font-size: larger;">Playlist</h1>
       <div class="songs-container" style="display: flex; flex-direction: column; overflow-y: auto; height:20vw;">
-        <div class="song-card dark:text-gray-200 bg-gray-component" 
-            *ngFor="let song of songs" 
-            style="flex: 0 0 auto; width: 100%; margin-bottom: 20px; display: flex; padding: 5px; border-radius: 10px; box-sizing: border-box; height:6vw;">
-          <img src="./../../../assets/images/album.png" alt="Song Image" style="width: 30%; border-radius: 10px; margin-right: 10px;">
+        <div class="song-card dark:text-gray-200 bg-gray-component"
+             *ngFor="let album of albums$ | async"
+             style="flex: 0 0 auto; width: 100%; margin-bottom: 20px; display: flex; padding: 5px; border-radius: 10px; box-sizing: border-box; height:6vw; padding: .5vw;">
+          <img [src]="album.albumImageUrl" alt="Song Image" style="width: 25%; border-radius: 10px; margin-right: 10px;">
           <div>
-            <h2 style="font-weight: bold;" class="py-2">asd</h2>
-            <p class="py-1">asd</p>
+            <h2 style="font-weight: bold;" class="py-2">{{album.albumName}}</h2>
+            <p class="py-1">{{album.artistName}}</p>
           </div>
         </div>
+
       </div>
     </div>
     <h1 class="dark:text-gray-200" style="padding-left: 20px; font-weight: bold; font-size: larger ;">From Your Library</h1>
 
     <div class="library-container songs-container dark:text-gray-200" style="width: 100%; overflow-x: auto; padding: 20px 0;">
       <div class="library-content" style="display: flex; flex-wrap: nowrap; gap: 20px; padding: 0 20px;">
-        <div class="library-card" *ngFor="let song of songs" style="display: flex; flex-direction: column; align-items: center; min-width: 150px; max-width: 200px; vertical-align: top;">
+        <div class="library-card" style="display: flex; flex-direction: column; align-items: center; min-width: 150px; max-width: 200px; vertical-align: top;">
           <img src="./../../../assets/images/album.png" alt="Album Image" style="width: 100%; max-width: 100%; border-radius: 10px;">
           <div style="text-align: center;">
             <h2 style="font-weight: bold; margin-top: 10px;">title</h2>
@@ -58,4 +62,3 @@
         </div>
       </div>
     </div>
-   
