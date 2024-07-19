@@ -26,7 +26,16 @@ module.exports = {
                     "light": '#454549',
                     "verylight": '#D9D9D9',
                     "lightcomponent": '#9A9A9E',
-                }
+                },
+                admiration: {
+                    DEFAULT: '#FFD700',
+                    "dark": '#FFD700',
+                    "text": '#FFD700',
+                },
+                anger:{
+                    DEFAULT: '#FF0000',
+                    "text": '#FF0000',
+                },
             }
         },
     },

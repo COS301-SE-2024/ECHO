@@ -6,10 +6,11 @@ import { Injectable } from '@angular/core';
 export class MoodService {
   private _currentMood: string = 'Neutral'; // Default mood set to 'Neutral'
   private _moodClasses = {
-    Anger: 'bg-red-300',
+    Anger: 'bg-anger ',
+    Admiration: 'bg-admiration hover:bg-admiration-dark text-black',
     Fear: 'bg-purple-300',
     Joy: 'bg-pink-300',
-    Neutral: 'bg-pink text-white hover:bg-pink-white',
+    Neutral: 'bg-pink text-white hover:bg-pink-dark',
   };
 
   getMoodClasses(): { [key: string]: string } {
