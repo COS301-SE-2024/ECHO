@@ -27,14 +27,22 @@ module.exports = {
                     "verylight": '#D9D9D9',
                     "lightcomponent": '#9A9A9E',
                 },
+                default: {
+                    DEFAULT: '#EE0258',
+                    "text": '#ffffff',
+                    "component": '#252525',
+                    "dark": '#C40047',
+                },
                 admiration: {
-                    DEFAULT: '#FFD700',
-                    "dark": '#FFD700',
+                    DEFAULT: '#D44000',
                     "text": '#FFD700',
+                    "component": '#252525',
                 },
                 anger:{
-                    DEFAULT: '#FF0000',
-                    "text": '#FF0000',
+                    DEFAULT: '#A40014',
+                    "text": '#FFB9B9',
+                    "component": '#221113',
+                    "dark": '#890817',
                 },
             }
         },
