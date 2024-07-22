@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { SpotifyService } from "../services/spotify.service";
@@ -16,9 +16,14 @@ import { ProviderService } from "../services/provider.service";
   standalone: true
 })
 export class AuthCallbackComponent implements OnInit {
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private spotifyService: SpotifyService,
+    private tokenService: TokenService,
+    private providerService: ProviderService
+  ) {}
 
-  constructor( private authService: AuthService, private router: Router, private spotifyService: SpotifyService, private tokenService: TokenService, private providerService: ProviderService) {
-  }
   ngOnInit() {
     if (typeof window !== 'undefined') {
       const hash = window.location.hash;
@@ -33,13 +38,12 @@ export class AuthCallbackComponent implements OnInit {
             this.router.navigate(['/home']);
           },
           error: (err: any) => {
-            alert('Error processing login:' + err);
+            console.error('Error processing login:', err);
             this.router.navigate(['/login']);
           }
         });
-      }
-      else {
-        alert("Oops! Something went wrong. Please try again.");
+      } else {
+        console.error("No tokens found in URL hash");
         this.router.navigate(['/login']);
       }
     }
