@@ -1,5 +1,7 @@
-import { Component,Input } from '@angular/core';
-import { NgClass, NgForOf, NgIf } from '@angular/common';
+import { Component, Input, OnInit } from "@angular/core";
+import { NgClass, NgForOf, NgIf, AsyncPipe } from '@angular/common';
+import { SearchService, Track } from "../../services/search.service";
+import { Observable } from 'rxjs';
 import { ScreenSizeService } from '../../services/screen-size-service.service';
 import { ThemeService } from './../../services/theme.service';
 import { Router } from '@angular/router';
@@ -9,48 +11,22 @@ import { SearchBarComponent } from '../../shared/search-bar/search-bar.component
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [NgIf,NgForOf,NgClass,NavbarComponent,SearchBarComponent],
+  imports: [NgIf, NgForOf, NgClass, AsyncPipe],
   templateUrl: './search.component.html',
   styleUrl: './search.component.css'
 })
-export class SearchComponent {
-  @Input() searchQuery: string ='';
-  screenSize?: string;
-  title?: string;
+export class SearchComponent implements OnInit {
+  @Input() searchQuery!: string;
+  songs$: Observable<Track[]>;
+  albums$: Observable<Track[]>;
+  topResult$: Observable<Track>;
 
-  constructor(private screenSizeService: ScreenSizeService,protected themeService: ThemeService,private router: Router) {}
-  async ngOnInit() {
-    this.screenSizeService.screenSize$.subscribe(screenSize => {
-      this.screenSize = screenSize;
-    });
+  constructor(private searchService: SearchService) {
+    this.songs$ = this.searchService.getSearch();
+    this.albums$ = this.searchService.getAlbumSearch();
+    this.topResult$ = this.searchService.getTopResult();
   }
-  onNavChange(newNav: string) {
-    this.title = newNav;
+
+  ngOnInit() {
   }
-  onSearchdown(seaarch:string) {
-    this.searchQuery = seaarch;
-  }
-  switchTheme(): void {
-    this.themeService.switchTheme();
-  }
-  profile() {
-    this.router.navigate(['/profile']);
-  }
-  songs : any = [ 
-    {},
-    {},
-    {} ,{},
-    {},
-    {} ,{},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {}
-];
 }
