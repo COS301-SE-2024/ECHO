@@ -23,17 +23,25 @@ export class AppComponent {
     update: boolean = false;
     screenSize?: string;
   showPlayer = false;
+  displayPlayer = false;
 
-    constructor(private router: Router,private screenSizeService: ScreenSizeService, private providerService: ProviderService, updates: SwUpdate) {
-      this.router.events.pipe(
-        filter(event => event instanceof NavigationEnd)
-      ).subscribe((event: RouterEvent) => {
-        if (event instanceof NavigationEnd) {
-          this.showPlayer = ['/home', '/profile','/search'].includes(event.urlAfterRedirects);
-        }
-      });
+  constructor(private router: Router,private screenSizeService: ScreenSizeService,private providerService: ProviderService, updates: SwUpdate ) {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: RouterEvent) => {
+      if (event instanceof NavigationEnd) {
+        this.showPlayer = ['/home', '/profile'].includes(event.urlAfterRedirects);
+      }
+    });
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: RouterEvent) => {
+      if (event instanceof NavigationEnd) {
+        this.displayPlayer = ['/settings'].includes(event.urlAfterRedirects);
+      }
+    });
     
-      updates.versionUpdates.subscribe(event => {
+    updates.versionUpdates.subscribe(event => {
         if (event.type === 'VERSION_READY') {
           console.log('Version ready to install:');
           updates.activateUpdate().then(() => {
@@ -42,12 +50,11 @@ export class AppComponent {
           });
         }
       });
-    }
-    async ngOnInit() {
-      this.screenSizeService.screenSize$.subscribe(screenSize => {
-        this.screenSize = screenSize;
-      });
-    }
+  }
+  async ngOnInit() {
+    this.screenSizeService.screenSize$.subscribe(screenSize => {
+      this.screenSize = screenSize;
+    });
   }
 
 

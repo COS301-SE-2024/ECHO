@@ -178,4 +178,8 @@ export class ProfileComponent implements AfterViewInit {
         });
       }
     }
+
+    settings() {
+        this.router.navigate(['/settings']);
+    }
 }
