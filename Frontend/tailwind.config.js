@@ -39,12 +39,28 @@ module.exports = {
                     "text": '#FFD700',
                     "component": '#252525',
                     "dark": '#890817',
+                    "background": '#5F3625',
                 },
                 anger:{
                     DEFAULT: '#A40014',
                     "text": '#FFB9B9',
                     "component": '#221113',
                     "dark": '#890817',
+                    "background": '#471C21',
+                },
+                fear:{
+                    DEFAULT: '#9A44CE',
+                    "text": '#1dff3c',
+                    "component": '#C639A2',
+                    "dark": '#ff00d8',
+                    "background": '#462E5E',
+                },
+                joy:{
+                    DEFAULT: '#FFD700',
+                    "text": 'black',
+                    "component": '#FFD700',
+                    "dark": '#0027f9',
+                    "background": '#b18a01',
                 },
             }
         },
