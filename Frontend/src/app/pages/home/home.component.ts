@@ -2,7 +2,7 @@ import { Component,OnInit } from '@angular/core';
 import { SongRecommendationComponent } from '../../shared/song-recommendation/song-recommendation.component';
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
 import { ThemeService } from './../../services/theme.service';
-import { NgClass, NgForOf, NgIf } from '@angular/common';
+import { NgClass, NgForOf, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
 import { SideBarComponent } from '../../shared/side-bar/side-bar.component';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
@@ -23,7 +23,9 @@ import {SearchComponent} from '../../pages/search/search.component';
         SideBarComponent,
         MoodsComponent,
         SearchBarComponent,
-        SearchComponent
+        SearchComponent,
+        NgSwitchCase,
+        NgSwitch
     ],
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',
@@ -52,7 +54,6 @@ export class HomeComponent implements OnInit {
     onSearchdown(subject:string) {
         this.searchQuery = subject;
         this.title = 'Search';
-        console.log('Searching...'+this.title);
     }
     async ngOnInit() {
       this.screenSizeService.screenSize$.subscribe(screenSize => {

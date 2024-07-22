@@ -43,7 +43,7 @@
         <div class="flex space-x-3 mr-5 items-center" *ngIf="screenSize === 'desktop'">
           <div class="flex flex-col justify-center">
             <img src="../assets/icons/audio-light.png" alt="Volume Icon" class="w-6 h-6">
-          </div>
+          </div>  
           <div class="flex flex-col justify-center w-32">
             <input type="range" min="0" max="100" step="1" value="50" (input)="onVolumeChange($event)" class="w-full h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
           </div>

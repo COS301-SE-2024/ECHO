@@ -35,7 +35,8 @@ import { TopCardComponent } from '../../shared/top-card/top-card.component';
         EditProfileModalComponent,
         CommonModule,
         BottomNavComponent,
-        TopCardComponent
+        TopCardComponent,
+        SideBarComponent
     ],
     templateUrl: './profile.component.html',
     styleUrl: './profile.component.css',
@@ -176,5 +177,9 @@ export class ProfileComponent implements AfterViewInit {
           this.username = res.user.user_metadata.username;
         });
       }
+    }
+
+    settings() {
+        this.router.navigate(['/settings']);
     }
 }
