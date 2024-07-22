@@ -56,5 +56,4 @@ export class AppComponent {
       this.screenSize = screenSize;
     });
   }
-
-
+}
