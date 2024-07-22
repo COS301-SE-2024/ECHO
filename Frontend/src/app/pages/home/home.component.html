@@ -1,4 +1,4 @@
-<div class="min-h-screen dark:bg-desktop-bg bg-gray-verylight grid grid-cols-5 grid-rows-6 gap-4 px-6 py-3 lg:px-8" style="overflow: auto;">
+<div  [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]" class="min-h-screen grid grid-cols-5 grid-rows-6 gap-4 px-6 py-3 lg:px-8" style="overflow: auto;">
   <div class="col-start-1 col-span-5 row-start-1">
     <div class="fixed navbar-container pt-[1vh] pl-5">
         <app-navbar (selectedNavChange)="onNavChange($event) "></app-navbar>
@@ -12,6 +12,7 @@
         </button>
     </div>
   </div>
+  <app-mood-drop-down></app-mood-drop-down>
 
   <ng-container [ngSwitch]="screenSize">
     <!-- Desktop Layout -->

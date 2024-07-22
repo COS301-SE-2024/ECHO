@@ -11,10 +11,10 @@ import { MoodService } from './../../services/mood-service.service';
 })
 export class MoodDropDownComponent {
   currentMood!: string;
-  moodClasses!:{ [key: string]: string };
+  moodComponentClasses!:{ [key: string]: string };
   constructor(public moodService: MoodService) {
-    this.currentMood = this.moodService.getCurrentMood(); // Ensure this method returns a valid string, even a default value
-    this.moodClasses = this.moodService.getMoodClasses(); // Ensure this method returns a valid object
+    this.currentMood = this.moodService.getCurrentMood(); 
+    this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
   }
   dropdownOpen = false;
   moods: string[] = [

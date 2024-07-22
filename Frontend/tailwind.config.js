@@ -32,11 +32,13 @@ module.exports = {
                     "text": '#ffffff',
                     "component": '#252525',
                     "dark": '#C40047',
+                    "background": '#323232',
                 },
                 admiration: {
                     DEFAULT: '#D44000',
                     "text": '#FFD700',
                     "component": '#252525',
+                    "dark": '#890817',
                 },
                 anger:{
                     DEFAULT: '#A40014',
