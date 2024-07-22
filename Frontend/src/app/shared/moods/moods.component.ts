@@ -54,11 +54,11 @@ export class MoodsComponent {
     dialogRef.componentInstance.selectedSong = {
       image: mood.image,
       title: mood.name,
-      artist: 'Artist Name', // Replace with actual artist data if available
-      album: 'Album Name', // Replace with actual album data if available
-      duration: 'Duration', // Replace with actual duration data if available
-      genre: 'Genre', // Replace with actual genre data if available
-      similarSongs: ['Song 1', 'Song 2', 'Song 3'] // Replace with actual similar songs data if available
+      artist: 'Artist Name', 
+      album: 'Album Name', 
+      duration: 'Duration', 
+      genre: 'Genre', 
+      similarSongs: ['Song 1', 'Song 2', 'Song 3'] 
     };
 
     dialogRef.afterClosed().subscribe(result => {

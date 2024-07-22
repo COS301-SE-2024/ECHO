@@ -3,16 +3,16 @@ import { MatDialogRef } from "@angular/material/dialog";
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-song-view',
+  selector: 'app-album-view',
   standalone: true,
-  templateUrl: './song-view.component.html',
-  styleUrls: ['./song-view.component.css'],
+  templateUrl: './album-view.component.html',
+  styleUrl: './album-view.component.css',
   imports: [CommonModule]
 })
-export class SongViewComponent {
-  @Input() selectedSong: any;
+export class AlbumViewComponent {
+  @Input() selectedAlbum: any;
 
-  constructor(public dialogRef: MatDialogRef<SongViewComponent>) {}
+  constructor(public dialogRef: MatDialogRef<AlbumViewComponent>) {}
 
   closeModal() {
     this.dialogRef.close();
