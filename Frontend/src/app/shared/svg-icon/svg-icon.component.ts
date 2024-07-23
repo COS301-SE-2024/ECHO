@@ -12,21 +12,17 @@ import { MoodService } from '../../services/mood-service.service';
 })
 export class SvgIconComponent {
       //Mood Service Variables
-    currentMood!: string;
-    moodComponentClasses!:{ [key: string]: string };
-    backgroundMoodClasses!:{ [key: string]: string };
-
-    constructor(private themeService: ThemeService, public moodService: MoodService) {
-        this.currentMood = this.moodService.getCurrentMood(); 
-        this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
-        this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
-    }
-
+      moodComponentClasses!:{ [key: string]: string };
+    
     @Input() svgPath?: string;
     @Input() fillColor?: string;
     @Input() selected?: boolean;
     @Output() svgClick = new EventEmitter<void>();
+    constructor(private themeService: ThemeService, public moodService: MoodService) {}
 
+    ngOnInit() {
+        this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
+    }
     onClick() {
         this.svgClick.emit();
     }

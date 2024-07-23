@@ -4,7 +4,9 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class MoodService {
-  private _currentMood: string = 'Neutral'; // Default mood set to 'Neutral'
+
+  private _currentMood: string; // No default initialization here
+
   private _componentMoodClasses = {
     Anger:      'dark:bg-anger text-anger-text hover:bg-anger-dark focus:ring-anger-dark fill-anger ',
     Admiration: 'bg-admiration text-admiration-text hover:bg-admiration-dark focus:ring-admiration-dark hover:text-admiration fill-admiration',
@@ -19,19 +21,33 @@ export class MoodService {
     Joy:        'dark:bg-joy-background  ',
     Neutral:    'dark:bg-default-background',
   };
+  
+  constructor() {
+    // Check if running in a browser environment
+    if (typeof window !== 'undefined') {
+      // Initialize _currentMood from local storage or set to 'Neutral' if not available
+      this._currentMood = localStorage.getItem('currentMood') || 'Neutral';
+    } else {
+      // Default to 'Neutral' if not running in a browser environment
+      this._currentMood = 'Neutral';
+    }
+  }
 
   getComponentMoodClasses(): { [key: string]: string } {
     return this._componentMoodClasses;
   }
+
   getBackgroundMoodClasses(): { [key: string]: string } {
     return this._backgroundMoodClasses;
   }
-  //get the mood 
+
   getCurrentMood(): string {
     return this._currentMood;
   }
-  //Set the mood 
+
   setCurrentMood(mood: string): void {
     this._currentMood = mood;
+    // Update local storage whenever the mood is set
+    localStorage.setItem('currentMood', mood);
   }
 }

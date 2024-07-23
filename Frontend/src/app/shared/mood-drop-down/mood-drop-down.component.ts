@@ -18,6 +18,7 @@ export class MoodDropDownComponent {
   }
   dropdownOpen = false;
   moods: string[] = [
+    'Neutral',
     'Admiration',
     'Amusement',
     'Anger',
@@ -45,7 +46,6 @@ export class MoodDropDownComponent {
     'Remorse',
     'Sadness',
     'Surprise',
-    'Neutral'
   ];
   toggleDropdown() {
     this.dropdownOpen = !this.dropdownOpen;
