@@ -4,8 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class MoodService {
-
-  private _currentMood: string; // No default initialization here
+  private _currentMood!: string;
 
   private _componentMoodClasses = {
     Anger:      'dark:bg-anger text-anger-text hover:bg-anger-dark focus:ring-anger-dark fill-anger ',
@@ -21,15 +20,37 @@ export class MoodService {
     Joy:        'dark:bg-joy-background  ',
     Neutral:    'dark:bg-default-background',
   };
-  
   constructor() {
-    // Check if running in a browser environment
+    this.initMood();
+  }
+
+  private initMood(): void {
     if (typeof window !== 'undefined') {
-      // Initialize _currentMood from local storage or set to 'Neutral' if not available
-      this._currentMood = localStorage.getItem('currentMood') || 'Neutral';
-    } else {
-      // Default to 'Neutral' if not running in a browser environment
-      this._currentMood = 'Neutral';
+      this._currentMood = this.getLocalStorageItem('currentMood') || 'Neutral';
+    } 
+  }
+
+  private getLocalStorageItem(key: string): string | null {
+    if (typeof localStorage === 'undefined') {
+      console.error('localStorage is not available in this environment.');
+      return null;
+    }
+    try {
+      return localStorage.getItem(key);
+    } catch (error) {
+      console.error('Error accessing local storage:', error);
+      return null; // Fallback or alternative logic here
+    }
+  }
+  private setLocalStorageItem(key: string, value: string): void {
+    if (typeof localStorage === 'undefined') {
+      console.error('localStorage is not available in this environment.');
+      return;
+    }
+    try {
+      localStorage.setItem(key, value);
+    } catch (error) {
+      console.error('Error setting local storage item:', error);
     }
   }
 
@@ -40,14 +61,12 @@ export class MoodService {
   getBackgroundMoodClasses(): { [key: string]: string } {
     return this._backgroundMoodClasses;
   }
-
   getCurrentMood(): string {
     return this._currentMood;
   }
 
   setCurrentMood(mood: string): void {
     this._currentMood = mood;
-    // Update local storage whenever the mood is set
-    localStorage.setItem('currentMood', mood);
+    this.setLocalStorageItem('currentMood', mood);
   }
 }
