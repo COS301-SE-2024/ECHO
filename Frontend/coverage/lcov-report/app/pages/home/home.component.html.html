@@ -84,7 +84,22 @@
 <a name='L19'></a><a href='#L19'>19</a>
 <a name='L20'></a><a href='#L20'>20</a>
 <a name='L21'></a><a href='#L21'>21</a>
-<a name='L22'></a><a href='#L22'>22</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -105,25 +120,55 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&lt;div class="min-h-screen dark:bg-stone-600 flex flex-col justify-center px-6 py-12 lg:px-8"&gt;
-  &lt;div style="display: flex; justify-content: center; align-items: center;"&gt;
-    &lt;button class="absolute bottom-4 left-4 p-2 bg-gray-300 dark:bg-gray-700 rounded-full" (click)="switchTheme()"&gt;
-      &lt;svg class="w-6 h-6 text-gray-800 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-           xmlns="http://www.w3.org/2000/svg"&gt;
-        &lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M21 12.79A9 9 0 1111.21 3a7 7 0 0010.79 9.79z" /&gt;
-      &lt;/svg&gt;
-    &lt;/button&gt;
-&nbsp;
-    &lt;app-side-bar&gt;&lt;/app-side-bar&gt;
-    &lt;h1 class="text-3xl font-bold text-gray-800 dark:text-gray-200"&gt;{{ title }}&lt;/h1&gt;
-&nbsp;
-    &lt;div class="navbar-container "&gt;
-      &lt;app-navbar (selectedNavChange)="onNavChange($event)"&gt;&lt;/app-navbar&gt;
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&lt;div class="min-h-screen dark:bg-desktop-bg bg-gray-verylight grid grid-cols-5 grid-rows-6 gap-4 px-6 py-3 lg:px-8" style="overflow: auto;"&gt;
+  &lt;div class="col-start-1 col-span-5 row-start-1"&gt;
+    &lt;div class="fixed navbar-container pt-[1vh] pl-5"&gt;
+        &lt;app-navbar (selectedNavChange)="onNavChange($event) "&gt;&lt;/app-navbar&gt;
+      &lt;/div&gt;
+      &lt;app-search-bar *ngIf="screenSize === 'desktop'" (searchDown)="onSearchdown($event)" class="col-start-2 row-start-1"&gt;&lt;/app-search-bar&gt;
+      &lt;div class="fixed top-5 right-8 flex flex-col items-center"&gt;
+        &lt;img (click)="profile()" [src]="themeService.isDarkModeActive() ? '../../../../assets/icons/profile-light.png' : '../../../../assets/icons/profile-dark.png'" alt="profile" class="w-12 h-12 hover:cursor-pointer"&gt;
+        &lt;button *ngIf="screenSize === 'desktop'" class="mt-2 p-2" (click)="switchTheme()"&gt;
+            &lt;img *ngIf="!themeService.isDarkModeActive()" src="../../../assets/icons/light-mode.png" alt="Light Mode" class="w-10 h-10"&gt;
+            &lt;img *ngIf="themeService.isDarkModeActive()" src="../../../assets/icons/dark-mode.png" alt="Dark Mode" class="w-10 h-10"&gt;
+        &lt;/button&gt;
     &lt;/div&gt;
-    &lt;img (click)="profile()" *ngIf="!themeService.isDarkModeActive()" src="../../../../assets/images/profile.png" alt="profile" class="w-8 h-8 shadow-lg dark:shadow-none absolute top-5 right-8 hover:cursor-pointer"&gt;
-    &lt;img (click)="profile()" *ngIf="themeService.isDarkModeActive()" src="../../../../assets/images/profile (1).png" alt="profile" class="w-8 h-8 shadow-lg dark:shadow-none absolute top-5 right-8 hover:cursor-pointer"&gt;
-    &lt;app-bottom-player&gt;&lt;/app-bottom-player&gt;
+  &lt;/div&gt;
+&nbsp;
+  &lt;ng-container [ngSwitch]="screenSize"&gt;
+    &lt;!-- Desktop Layout --&gt;
+    &lt;ng-container *ngSwitchCase="'desktop'"&gt;
+      &lt;app-side-bar class="col-start-1 col-span-1 row-start-1 row-span-6 "&gt;&lt;/app-side-bar&gt;
+      &lt;div *ngIf="title === 'Home'" class="col-start-2 col-span-4 row-start-1 row-span-5 pl-16 pt-20 mr-5"&gt;
+        &lt;app-moods&gt;&lt;/app-moods&gt;
+      &lt;/div&gt;
+    &lt;/ng-container&gt;
+  
+    &lt;!-- Mobile Layout --&gt;
+    &lt;ng-container *ngSwitchCase="'mobile'"&gt;
+      &lt;app-moods class="col-start-1 col-span-12 row-start-1 row-span-10 pt-[8.5vh]"&gt;&lt;/app-moods&gt;
+      &lt;app-side-bar class="col-start-1 col-span-12 row-start-2 row-span-9"&gt;&lt;/app-side-bar&gt;
+    &lt;/ng-container&gt;
+  &lt;/ng-container&gt;
+  
+  &lt;!-- Common Components Across Screen Sizes --&gt;
+  &lt;div *ngIf="title === 'Search'" class="col-start-2 col-span-4 row-start-1 row-span-5 pl-16 pt-16 mr-5"&gt;
+    &lt;app-search [searchQuery]="searchQuery"&gt;&lt;/app-search&gt;
   &lt;/div&gt;
 &lt;/div&gt;
 &nbsp;</pre></td></tr></table></pre>
@@ -133,7 +178,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-06-02T17:45:30.424Z
+                at 2024-07-22T08:50:17.459Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
