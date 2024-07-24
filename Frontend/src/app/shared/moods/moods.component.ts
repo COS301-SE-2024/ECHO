@@ -1,82 +1,62 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { NgClass, NgForOf, NgIf } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { ScreenSizeService } from '../../services/screen-size-service.service';
 import { MoodService } from '../../services/mood-service.service';
+import { Subscription } from 'rxjs';
+
 @Component({
     selector: 'app-moods',
     standalone: true,
     imports: [MatGridListModule, MatCardModule, NgClass, NgForOf, NgIf],
     templateUrl: './moods.component.html',
-    styleUrl: './moods.component.css',
+    styleUrls: ['./moods.component.css'], // Corrected property name and expected value type
 })
-export class MoodsComponent {
+export class MoodsComponent implements OnDestroy {
+    
+    favouriteMoods: any[] = []; // Corrected initialization
+    RecommendedMoods: any[] = []; // Added type and initialization
+
+    allMoods!: string[];
     screenSize?: string;
-    //Mood Service Variables
-    moodComponentClasses!:{ [key: string]: string };
-    backgroundMoodClasses!:{ [key: string]: string };
+    // Mood Service Variables
+    moodComponentClasses!: { [key: string]: string };
+    backgroundMoodClasses!: { [key: string]: string };
+
+    private screenSizeSubscription?: Subscription; // For unsubscribing
 
     constructor(private screenSizeService: ScreenSizeService, public moodService: MoodService) {
+        this.allMoods = this.moodService.getAllMoods();
         this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
         this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
     }
     async ngOnInit() {
-        this.screenSizeService.screenSize$.subscribe(screenSize => {
-        this.screenSize = screenSize;
+        this.screenSizeSubscription = this.screenSizeService.screenSize$.subscribe(screenSize => {
+            this.screenSize = screenSize;
+        });
+
+        const allMoodNames = this.allMoods;
+        const defaultImagePaths = [
+            '/assets/moods/arctic.jpeg',
+            '/assets/moods/kendrick.jpeg',
+            '/assets/moods/gambino.jpeg',
+            '/assets/moods/yonce.jpeg',
+            '/assets/moods/taylor.jpeg',
+            '/assets/moods/impala.jpeg',
+        ];
+    
+        allMoodNames.forEach((moodName, index) => {
+            const moodWithDefaultImage = {
+                name: moodName,
+                image: defaultImagePaths[index % defaultImagePaths.length],
+            };
+            this.favouriteMoods.push(moodWithDefaultImage);
+            this.RecommendedMoods.push(moodWithDefaultImage);
         });
     }
-    favouriteMoods = [
-        {
-            name: 'Anxious',
-            image: '/assets/moods/arctic.jpeg',
-        },
-        {
-            name: 'Chill',
-            image: '/assets/moods/kendrick.jpeg',
-        },
-        {
-            name: 'Happy',
-            image: '/assets/moods/gambino.jpeg',
-        },
-        {
-            name: 'Melancholy',
-            image: '/assets/moods/radiohead.jpeg',
-        },
-        {
-            name: 'Nostalgic',
-            image: '/assets/moods/sza.jpeg',
-        },
-        {
-            name: 'Unknown',
-            image: '/assets/moods/img6.jpg',
-        },
-    ];
 
-    RecommendedMoods = [
-        {
-            name: 'Mad',
-            image: '/assets/moods/yonce.jpeg',
-        },
-        {
-            name: 'Nostalgic',
-            image: '/assets/moods/taylor.jpeg',
-        },
-        {
-            name: 'Ethereal',
-            image: '/assets/moods/impala.jpeg',
-        },
-        {
-            name: 'Confident',
-            image: '/assets/moods/tyler.jpeg',
-        },
-        {
-            name: 'Happy',
-            image: '/assets/moods/beatles.jpeg',
-        },
-        {
-            name: 'Introspective',
-            image: '/assets/moods/happy.jpg',
-        },
-    ];
+    ngOnDestroy() {
+        this.screenSizeSubscription?.unsubscribe(); // Proper cleanup
+    }
 }
