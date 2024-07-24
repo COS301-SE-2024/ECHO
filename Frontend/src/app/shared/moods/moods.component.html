@@ -4,19 +4,19 @@
         <div class="card-body">
             <h5 class="card-title text-xl font-bold mb-4">Favourite Moods</h5>
             <div class="flex overflow-x-auto">
-                <div *ngFor="let mood of favouriteMoods" class="rounded-lg overflow-hidden transition-all duration-300 hover:rounded-lg hover:scale-110 hover:cursor-pointer" style="flex: 0 0 auto; width: 30vh; margin-right: 1vw;">
+                <div *ngFor="let mood of favouriteMoods" class="rounded-lg overflow-hidden transition-all duration-300 hover:rounded-lg hover:scale-110 hover:cursor-pointer" (click)="openModal(mood)" style="flex: 0 0 auto; width: 30vh; margin-right: 1vw;">
                     <div class="card w-full h-full relative overflow-hidden aspect-w-16 aspect-h-9 shadow-xl">
-                        <img src="{{ mood.image }}" alt="{{ mood.name }}" class="w-full h-full object-cover">
-                        <div class="card-body absolute bottom-2 right-3 text-white text-lg font-bold">
-                            {{ mood.name }}
-                        </div>
+                      <img src="{{ mood.image }}" alt="{{ mood.name }}" class="w-full h-full object-cover">
+                      <div class="card-body absolute bottom-2 right-3 text-white text-lg font-bold">
+                        {{ mood.name }}
+                      </div>
                     </div>
                 </div>
             </div>
             <br/>
             <h5 class="card-title text-xl font-bold mb-4">Recommended Moods</h5>
             <div class="flex overflow-x-auto">
-                <div *ngFor="let mood of RecommendedMoods" class="rounded-lg" style="flex: 0 0 auto; width: 30vh; margin-right: 1vw;">
+                <div *ngFor="let mood of RecommendedMoods" class="rounded-lg" style="flex: 0 0 auto; width: 30vh; margin-right: 1vw;" (click)="openModal(mood)" style="flex: 0 0 auto; width: 30vh; margin-right: 1vw;">
                     <div class="card w-full h-full relative overflow-hidden transition-all duration-300 hover:rounded-lg hover:scale-110 hover:cursor-pointer">
                         <img src="{{ mood.image }}" alt="{{ mood.name }}" class="rounded-lg w-full h-full object-cover">
                         <div class="card-body absolute bottom-2 left-2 text-white text-lg font-bold">
