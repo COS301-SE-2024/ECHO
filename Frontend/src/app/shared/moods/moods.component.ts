@@ -3,7 +3,7 @@ import { MatCardModule } from '@angular/material/card';
 import { NgClass, NgForOf, NgIf } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { ScreenSizeService } from '../../services/screen-size-service.service';
-
+import { MoodService } from '../../services/mood-service.service';
 @Component({
     selector: 'app-moods',
     standalone: true,
@@ -13,7 +13,14 @@ import { ScreenSizeService } from '../../services/screen-size-service.service';
 })
 export class MoodsComponent {
     screenSize?: string;
-    constructor(private screenSizeService: ScreenSizeService) {}
+    //Mood Service Variables
+    moodComponentClasses!:{ [key: string]: string };
+    backgroundMoodClasses!:{ [key: string]: string };
+
+    constructor(private screenSizeService: ScreenSizeService, public moodService: MoodService) {
+        this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
+        this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
+    }
     async ngOnInit() {
         this.screenSizeService.screenSize$.subscribe(screenSize => {
         this.screenSize = screenSize;
