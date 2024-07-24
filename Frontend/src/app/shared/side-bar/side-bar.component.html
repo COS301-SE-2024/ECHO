@@ -33,13 +33,7 @@
                 <!-- Second text (underneath the first text) -->
                 <p class="text-xs text-gray-light dark:text-gray-400">{{ card.secondaryText }}</p>
               </div>
-              <svg *ngIf="i === 0" width="29" height="28" viewBox="0 0 29 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect y="9.33333" width="4.14286" height="9.33333" rx="2.07143" fill="#EE0258"/>
-                <rect x="24.8572" y="9.33333" width="4.14286" height="9.33333" rx="2.07143" fill="#EE0258"/>
-                <rect x="5.80005" y="5.44444" width="4.97143" height="15.5556" rx="2.48571" fill="#EE0258"/>
-                <rect x="18.2285" y="5.44444" width="4.97143" height="15.5556" rx="2.48571" fill="#EE0258"/>
-                <rect x="12.4285" width="4.14286" height="28" rx="2.07143" fill="#EE0258"/>
-              </svg>
+              <app-echo-button *ngIf="i === 0" [color]="'#123456'" [width]="50" [height]="50"></app-echo-button>
             </div>
           </div>
         </div>
