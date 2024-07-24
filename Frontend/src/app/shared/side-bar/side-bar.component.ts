@@ -7,6 +7,8 @@ import { ScreenSizeService } from '../../services/screen-size-service.service';
 import { AuthService } from "../../services/auth.service";
 import { firstValueFrom } from "rxjs";
 import { ProviderService } from "../../services/provider.service";
+import { MoodService } from '../../services/mood-service.service';
+
 
 @Component({
   selector: 'app-side-bar',
@@ -16,13 +18,20 @@ import { ProviderService } from "../../services/provider.service";
   styleUrls: ['./side-bar.component.css'],
 })
 export class SideBarComponent implements OnInit {
+   // Mood Service Variables
+   moodComponentClasses!: { [key: string]: string };
+   backgroundMoodClasses!: { [key: string]: string };
   constructor(
     protected themeService: ThemeService,
     private spotifyService: SpotifyService,
     private providerService: ProviderService,
     private screenSizeService: ScreenSizeService,
-    private authService: AuthService
-  ) {}
+    private authService: AuthService,
+    public moodService: MoodService
+  ) {
+    this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
+    this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
+  }
 
   title: string = 'Home';
   selectedOption: string = 'upNext';
@@ -34,6 +43,9 @@ export class SideBarComponent implements OnInit {
   isDropdownVisible: boolean = false;
   selected:string = "Up Next..."
   options = ["Recent Listening...","Up Next..."];
+
+ 
+
   toggleDropdown(): void {
     this.isDropdownVisible = !this.isDropdownVisible;
   }

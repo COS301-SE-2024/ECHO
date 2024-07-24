@@ -7,11 +7,11 @@ export class MoodService {
   private _currentMood!: string;
 
     private _componentMoodClasses = {
+      Neutral:     'dark:bg-default-component text-default-text dark:hover:bg-default focus:ring-default-dark fill-default',
       Anger:       'dark:bg-anger text-anger-text hover:bg-anger-dark focus:ring-anger-dark fill-anger',
       Admiration:  'bg-admiration text-admiration-text hover:bg-admiration-dark focus:ring-admiration-dark hover:text-admiration fill-admiration',
       Fear:        'bg-fear text-fear-text hover:bg-fear-dark focus:ring-fear-dark fill-fear',
       Joy:         'bg-joy text-joy-text hover:bg-joy-dark focus:ring-joy-dark hover:text-joy fill-joy',
-      Neutral:     'dark:bg-default-component text-default-text dark:hover:bg-default focus:ring-default-dark fill-default',
       Amusement:   'bg-amusement text-amusement-text hover:bg-amusement-dark focus:ring-amusement-dark fill-amusement',
       Annoyance:   'bg-annoyance text-annoyance-text hover:bg-annoyance-dark focus:ring-annoyance-dark fill-annoyance',
       Approval:    'bg-approval text-approval-text hover:bg-approval-dark focus:ring-approval-dark fill-approval',
