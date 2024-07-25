@@ -7,6 +7,7 @@ import { ScreenSizeService } from '../../services/screen-size-service.service';
 import { AuthService } from "../../services/auth.service";
 import { firstValueFrom } from "rxjs";
 import { ProviderService } from "../../services/provider.service";
+import { SearchService } from "../../services/search.service";
 
 @Component({
   selector: 'app-side-bar',
@@ -21,7 +22,8 @@ export class SideBarComponent implements OnInit {
     private spotifyService: SpotifyService,
     private providerService: ProviderService,
     private screenSizeService: ScreenSizeService,
-    private authService: AuthService
+    private authService: AuthService,
+    private searchService: SearchService
   ) {}
 
   title: string = 'Home';
@@ -88,7 +90,7 @@ export class SideBarComponent implements OnInit {
       });
     }
   }
-  
+
   getSelectedCardData(): any[] {
     return this.selectedOption === 'upNext'
       ? this.upNextCardData
@@ -110,10 +112,24 @@ export class SideBarComponent implements OnInit {
     }
   }
 
+  async echoTrack(trackName: string, artistName: string): Promise<void> {
+    this.searchService.echo(trackName, artistName).then(tracks => {
+
+    }).catch(error => {
+      console.error('Error echoing track:', error);
+    });
+  }
+
   private truncateText(text: string, maxLength: number): string {
     if (text.length > maxLength) {
       return text.substring(0, maxLength) + '...';
     }
     return text;
+  }
+
+  echoSongs(track: string, artist: string) {
+    this.searchService.echo(track, artist).then(tracks => {
+
+    });
   }
 }
