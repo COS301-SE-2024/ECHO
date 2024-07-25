@@ -11,7 +11,7 @@ describe('InfoBarComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ InfoBarComponent ],
-      imports: [ MatCardModule, NoopAnimationsModule ]
+      imports: [ MatCardModule, NoopAnimationsModule, InfoBarComponent]
     })
     .compileComponents();
   });

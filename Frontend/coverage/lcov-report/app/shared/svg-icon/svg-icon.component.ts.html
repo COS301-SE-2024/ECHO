@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.88% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>8/9</span>
+                <span class='fraction'>9/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.66% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/3</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.5% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>7/8</span>
+                <span class='fraction'>8/8</span>
             </div>
         
             
@@ -89,57 +89,63 @@
 <a name='L24'></a><a href='#L24'>24</a>
 <a name='L25'></a><a href='#L25'>25</a>
 <a name='L26'></a><a href='#L26'>26</a>
-<a name='L27'></a><a href='#L27'>27</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Component, Input, Output, EventEmitter } from '@angular/core';
-import  {CommonModule} from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { ThemeService } from './../../services/theme.service';
 @Component({
-  selector: 'app-svg-icon',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './svg-icon.component.html',
-  styleUrls: ['./svg-icon.component.css']
+    selector: 'app-svg-icon',
+    standalone: true,
+    imports: [CommonModule],
+    templateUrl: './svg-icon.component.html',
+    styleUrls: ['./svg-icon.component.css'],
 })
 export class SvgIconComponent {
-constructor(private themeService: ThemeService) {}
+    constructor(private themeService: ThemeService) {}
 &nbsp;
-  @Input() svgPath?: string;
-  @Input() fillColor?: string;
-  @Input() selected?: boolean;
-  @Output() svgClick = new EventEmitter&lt;void&gt;();
+    @Input() svgPath?: string;
+    @Input() fillColor?: string;
+    @Input() selected?: boolean;
+    @Output() svgClick = new EventEmitter&lt;void&gt;();
 &nbsp;
-<span class="fstat-no" title="function not covered" >  onClick(</span>) {
-<span class="cstat-no" title="statement not covered" >    this.svgClick.emit();</span>
-  }
+    onClick() {
+        this.svgClick.emit();
+    }
 &nbsp;
-  get circleColor(): string {
-    return this.themeService.isDarkModeActive() ? <span class="branch-0 cbranch-no" title="branch not covered" >'rgb(238, 2, 88)' </span>: 'rgba(238, 2, 88, 0.5)';
-  }
+    get circleColor(): string {
+        return this.themeService.isDarkModeActive()
+            ? 'rgb(238, 2, 88)'
+            : 'rgba(238, 2, 88, 0.5)';
+    }
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -148,7 +154,7 @@ constructor(private themeService: ThemeService) {}
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-06-02T17:45:30.424Z
+                at 2024-07-22T08:50:17.459Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
