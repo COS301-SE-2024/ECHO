@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for app/shared/song-recommendation/song-recommendation.component.html</title>
+    <title>Code coverage report for app/shared/album-view/album-view.component.html</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,7 +19,7 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">app/shared/song-recommendation</a> song-recommendation.component.html</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">app/shared/album-view</a> album-view.component.html</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
@@ -95,10 +95,7 @@
 <a name='L30'></a><a href='#L30'>30</a>
 <a name='L31'></a><a href='#L31'>31</a>
 <a name='L32'></a><a href='#L32'>32</a>
-<a name='L33'></a><a href='#L33'>33</a>
-<a name='L34'></a><a href='#L34'>34</a>
-<a name='L35'></a><a href='#L35'>35</a>
-<a name='L36'></a><a href='#L36'>36</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L33'></a><a href='#L33'>33</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -130,45 +127,39 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&lt;div class="bg-white dark:bg-zinc-800 shadow-md rounded-lg p-6 mx-auto sm:max-w-xl md:max-w-2xl lg:max-w-3xl xl:max-w-4xl"&gt;
-    &lt;h2 class="text-lg font-semibold mb-2"&gt;{{ title }}&lt;/h2&gt;
-    &lt;div class="flex flex-col sm:flex-row items-center justify-between mb-4"&gt;
-        &lt;img [src]="currentSong.imageUrl" alt="Song" class="rounded-full" /&gt;
-        &lt;div class="mt-2 sm:mt-0 sm:ml-2"&gt;
-            &lt;p class="text-sm text-zinc-600 dark:text-zinc-400"&gt;Currently Listening To:&lt;/p&gt;
-            &lt;p class="font-semibold"&gt;{{ currentSong.title }}&lt;/p&gt;
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&nbsp;
+&lt;!-- Song view modal --&gt;
+&lt;div class="fixed inset-0 z-50 flex items-center justify-center bg-gray-component bg-opacity-50"&gt;
+    &lt;div class="relative p-4 w-full max-w-md max-h-full"&gt;
+      &lt;!-- Modal content --&gt;
+      &lt;div class="relative bg-gray-light rounded-lg shadow"&gt;
+        &lt;!-- Modal header --&gt;
+        &lt;div class="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600"&gt;
+          &lt;h3 class="text-lg font-semibold text-gray-900 dark:text-white"&gt;{{ selectedAlbum?.title }}&lt;/h3&gt;
+          &lt;button (click)="closeModal()" class="text-gray-400 bg-transparent hover:bg-gray-200 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"&gt;
+            &lt;svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"&gt;
+              &lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"&gt;&lt;/path&gt;
+            &lt;/svg&gt;
+          &lt;/button&gt;
         &lt;/div&gt;
-    &lt;/div&gt;
-    &lt;h3 class="text-base font-semibold mb-2"&gt;Recommended Songs&lt;/h3&gt;
-    &lt;div class="mb-4"&gt;
-        &lt;label for="category" class="block text-sm font-medium text-gray-700"&gt;Select a category&lt;/label&gt;
-        &lt;select id="category" name="category" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"&gt;
-            &lt;option *ngFor="let category of categories"&gt;{{ category }}&lt;/option&gt;
-        &lt;/select&gt;
-    &lt;/div&gt;
-    &lt;div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl m-4" *ngFor="let song of recommendedSongs"&gt;
-        &lt;div class="md:flex"&gt;
-            &lt;div class="md:flex-shrink-0"&gt;
-                &lt;img class="h-48 w-full object-cover md:w-48" src="https://place-hold.it/300x500" alt="Song image"&gt;
-            &lt;/div&gt;
-            &lt;div class="p-8"&gt;
-                &lt;div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold"&gt;Song title&lt;/div&gt;
-                &lt;p class="mt-2 text-gray-500"&gt;Song description...&lt;/p&gt;
-                &lt;p class="mt-2 sm:mt-0 sm:ml-2"&gt;{{ song.title }}&lt;/p&gt;
-                &lt;p class="mt-2 sm:mt-0 sm:ml-2"&gt;{{ song.bpm }}bpm&lt;/p&gt;
-                &lt;p class="mt-2 sm:mt-0 sm:ml-2"&gt;Theme:{{ song.theme }}&lt;/p&gt;
-                &lt;p class="mt-2 sm:mt-0 sm:ml-2"&gt;Mood:{{ song.mood }}&lt;/p&gt;
-            &lt;/div&gt;
+        &lt;!-- Song information --&gt;
+        &lt;div class="p-4 flex flex-col items-center mt-4"&gt;
+          &lt;div class="relative w-64 h-64 mb-4"&gt;
+              &lt;img [src]="selectedAlbum?.image" alt="Cover Art" class="w-full h-full object-cover rounded-lg"&gt;
+              &lt;img src="../assets/icons/play-pink.png" alt="Play Icon" class="absolute top-2 right-2 w-16 h-16"&gt;
+          &lt;/div&gt;
+          &lt;p&gt;&lt;span class="text-pink font-semibold"&gt;Artist: &lt;/span&gt; &lt;span class="text-gray-verylight"&gt;{{ selectedAlbum?.artist }}&lt;/span&gt;&lt;/p&gt;
+          &lt;p&gt;&lt;span class="text-pink font-semibold"&gt;Album: &lt;/span&gt; &lt;span class="text-gray-verylight"&gt;{{ selectedAlbum?.album }}&lt;/span&gt;&lt;/p&gt;
+          &lt;p&gt;&lt;span class="text-pink font-semibold"&gt;Genre: &lt;/span&gt; &lt;span class="text-gray-verylight"&gt;{{ selectedAlbum?.genre }}&lt;/span&gt;&lt;/p&gt;
+          &lt;br/&gt;
+          &lt;h5 class="text-lg font-bold mb-2 text-pink"&gt;Similar Songs&lt;/h5&gt;
+          &lt;ul class="list-disc list-inside text-gray-verylight"&gt;
+              &lt;li *ngFor="let song of selectedAlbum?.similarSongs"&gt;{{ song }}&lt;/li&gt;
+          &lt;/ul&gt;
         &lt;/div&gt;
+      &lt;/div&gt;
     &lt;/div&gt;
-&nbsp;
-&lt;/div&gt;
-&nbsp;
-&nbsp;
-&nbsp;</pre></td></tr></table></pre>
+  &lt;/div&gt;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
