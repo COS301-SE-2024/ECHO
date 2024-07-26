@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { MoodService } from '../../services/mood-service.service';
-
+import { NgClass } from '@angular/common';
 @Component({
   selector: 'app-echo-button',
   standalone: true,
+  imports: [NgClass],
   templateUrl: './echo-button.component.html',
   styleUrls: ['./echo-button.component.css']
 })

@@ -1,11 +1,11 @@
-<div class="fixed mb-3 bottom-player" style="width: 95.5vw; height: 12vh; left:2vw ">
+<div  class="fixed mb-3 bottom-player" style="width: 95.5vw; height: 12vh; left:2vw ">
   <div class="rounded-md h-full">
     <div class="absolute top-0 w-full z-20">
-      <div class="w-full bg-gray-verylight rounded-t-full h-1">
-        <div id="progressBar" class="bg-pink h-1 rounded-full" [style.width.%]="trackProgress"></div>
+      <div [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]" class="w-full  rounded-t-full h-1">
+        <div [ngClass]="moodClassesDark[this.moodService.getCurrentMood()]"    id="progressBar" class=" h-1 rounded-full" [style.width.%]="trackProgress"></div>
       </div>
     </div>
-    <div class="bg-gray-background opacity-80 rounded-lg overflow-hidden h-full flex items-center p-4">
+    <div [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]"  class=" opacity-80 rounded-lg overflow-hidden h-full flex items-center p-4">
       <div class="flex items-center h-full w-full justify-between">
         
         <div class="flex items-center space-x-5">
