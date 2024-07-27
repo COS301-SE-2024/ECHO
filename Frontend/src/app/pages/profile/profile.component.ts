@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
-import { NgForOf, NgIf } from '@angular/common';
+import { NgForOf, NgIf, NgClass } from '@angular/common';
 import { SideBarComponent } from '../../shared/side-bar/side-bar.component';
 import { ThemeService } from '../../services/theme.service';
 import { AuthService } from '../../services/auth.service';
@@ -18,6 +18,7 @@ import { BottomNavComponent } from '../../shared/bottom-nav/bottom-nav.component
 import { SpotifyService } from "../../services/spotify.service";
 import { ProviderService } from "../../services/provider.service";
 import { TopCardComponent } from '../../shared/top-card/top-card.component';
+import {MoodService} from "../../services/mood-service.service"
 
 @Component({
     selector: 'app-profile',
@@ -25,6 +26,7 @@ import { TopCardComponent } from '../../shared/top-card/top-card.component';
     imports: [
         NavbarComponent,
         NgIf,
+        NgClass,
         SideBarComponent,
         MatCard,
         MatCardContent,
@@ -36,7 +38,7 @@ import { TopCardComponent } from '../../shared/top-card/top-card.component';
         CommonModule,
         BottomNavComponent,
         TopCardComponent,
-        SideBarComponent
+        SideBarComponent,
     ],
     templateUrl: './profile.component.html',
     styleUrl: './profile.component.css',
@@ -44,6 +46,10 @@ import { TopCardComponent } from '../../shared/top-card/top-card.component';
 export class ProfileComponent implements AfterViewInit {
     imgpath: string = 'assets/images/back.jpg';
     screenSize?: string;
+    //Mood Service Variables
+    currentMood!: string;
+    moodComponentClasses!:{ [key: string]: string };
+    backgroundMoodClasses!:{ [key: string]: string };
 
     recentListeningCardData = [
         {
@@ -130,8 +136,13 @@ export class ProfileComponent implements AfterViewInit {
         protected dialog: MatDialog,
         private screenSizeService: ScreenSizeService,
         private spotifyService: SpotifyService,
-        private providerService: ProviderService
-    ) {}
+        private providerService: ProviderService,
+        public moodService: MoodService
+    ) {
+        this.currentMood = this.moodService.getCurrentMood(); 
+        this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
+        this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
+    }
 
     ngAfterViewInit(): void {
       if (this.providerService.getProviderName() === "spotify") {

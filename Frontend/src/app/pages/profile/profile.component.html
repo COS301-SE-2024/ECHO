@@ -1,5 +1,5 @@
 <div *ngIf="screenSize === 'mobile'" class="mobile-layout">
-  <div class="bg-gray-lightcomponent dark:bg-gray-component flex flex-col sm:px-6 sm:py-12 min-h-screen">
+  <div [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]" class=" flex flex-col sm:px-6 sm:py-12 min-h-screen">
     <div class="profile-container w-full mx-auto">
       <div id="profile" class="profile bg-cover bg-center w-full relative" [style.background-image]="'url('+ imgpath + ')'" style="background-size: cover; height: 40vh;">
         <!-- Centered content over the background image -->
@@ -33,8 +33,8 @@
   </div>
 </div>
 
-<div *ngIf="screenSize === 'desktop'" class="desktop-layout bg-gray-background">
-  <div class="min-h-screen dark:bg-desktop-bg bg-gray-verylight flex flex-col justify-center px-6 py-12 lg:px-8">
+<div *ngIf="screenSize === 'desktop'" class="desktop-layout">
+  <div [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]"  class="min-h-screen  flex flex-col justify-center px-6 py-12 lg:px-8">
     <div class="flex justify-center items-center">
       <div class="fixed top-1 right-12 flex flex-col items-center">
         <button *ngIf="screenSize === 'desktop'" class="p-2" (click)="switchTheme()">
@@ -47,7 +47,7 @@
       <div class="profile-container">
         <div id="profile" class="profile fixed right-4 top-4 mt-5 mr-5 ml-6 h-5/6">
           <div class="ml-24 p-4 pr-4 rounded-md h-full relative">
-            <div class="bg-gray-lightcomponent dark:bg-gray-component rounded-lg overflow-hidden h-full relative">
+            <div [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]" class="rounded-lg overflow-hidden h-full relative">
               <div class="absolute top-2 left-1/2 transform -translate-x-1/2 text-center">
                 <img src="{{imgpath}}" alt="Profile Image" class="w-24 h-24 rounded-full border-2 border-white dark:border-gray-700 mx-auto">
                 <h2 class="mt-2 text-gray-900 dark:text-white font-bold">&#64;{{ username }}</h2>
@@ -88,3 +88,4 @@
     </div>
   </div>
 </div>
+
