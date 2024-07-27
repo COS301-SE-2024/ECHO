@@ -5,7 +5,16 @@ module.exports = {
         extend: {
             fontFamily: {
                 'sans': ['Noto Sans', 'sans-serif'] 
-             },
+            },
+            transitionProperty: {
+                'mood': 'background-color, color', // Specify which properties to transition
+              },
+              transitionTimingFunction: {
+                'mood': 'ease-in-out',
+              },
+              transitionDuration: {
+                'mood': '1000ms', // Adjust the duration as needed
+              },
             colors: {
                 'dark-bg': '#191716',
                 'light-bg': '#ffffff',
@@ -227,7 +236,10 @@ module.exports = {
         },
     },
     variants: {
-        extend: {},
+        extend: {
+            backgroundColor: ['dark', 'hover', 'focus', 'transition'],
+            textColor: ['dark', 'hover', 'focus', 'transition'],
+        },
     },
     plugins: [require("@tailwindcss/forms"), require("flowbite/plugin")],
 };
