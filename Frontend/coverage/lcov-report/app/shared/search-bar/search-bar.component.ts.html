@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">68.42% </span>
+                <span class="strong">89.47% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>13/19</span>
+                <span class='fraction'>17/19</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">37.5% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/8</span>
+                <span class='fraction'>6/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.66% </span>
+                <span class="strong">88.88% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>12/18</span>
+                <span class='fraction'>16/18</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -121,29 +121,29 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -179,15 +179,15 @@ export class SearchBarComponent {
     });
   }
 &nbsp;
-<span class="fstat-no" title="function not covered" >  onSearchSubmit(</span>) {
-<span class="cstat-no" title="statement not covered" >    console.log('Searching...' + this.searchQuery);</span>
-<span class="cstat-no" title="statement not covered" >    this.searchDown.emit(this.searchQuery);</span>
-<span class="cstat-no" title="statement not covered" >    this.searchService.storeSearch(this.searchQuery).subscribe(</span>
-<span class="fstat-no" title="function not covered" >      () =</span>&gt; {},
+  onSearchSubmit() {
+    console.log('Searching...' + this.searchQuery);
+    this.searchDown.emit(this.searchQuery);
+    this.searchService.storeSearch(this.searchQuery).subscribe(
+      () =&gt; {},
 <span class="fstat-no" title="function not covered" >      error </span>=&gt; <span class="cstat-no" title="statement not covered" >console.error('Error performing search:', error)</span>
     );
-<span class="cstat-no" title="statement not covered" >    this.searchService.storeAlbumSearch(this.searchQuery).subscribe(</span>
-<span class="fstat-no" title="function not covered" >      () =</span>&gt; {},
+    this.searchService.storeAlbumSearch(this.searchQuery).subscribe(
+      () =&gt; {},
 <span class="fstat-no" title="function not covered" >      error </span>=&gt; <span class="cstat-no" title="statement not covered" >console.error('Error performing search:', error)</span>
     );
   }
@@ -199,7 +199,7 @@ export class SearchBarComponent {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-25T18:50:32.428Z
+                at 2024-07-28T13:26:10.652Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
