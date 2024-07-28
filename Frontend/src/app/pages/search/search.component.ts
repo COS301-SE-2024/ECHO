@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import {NavbarComponent} from "./../../shared/navbar/navbar.component";
 import { SearchBarComponent } from '../../shared/search-bar/search-bar.component';
 import { TopResultComponent } from '../../shared/top-result/top-result.component';
+import { MoodService } from '../../services/mood-service.service';
 @Component({
   selector: 'app-search',
   standalone: true,
@@ -14,11 +15,23 @@ import { TopResultComponent } from '../../shared/top-result/top-result.component
   styleUrl: './search.component.css'
 })
 export class SearchComponent {
+  //Mood Service Variables
+  currentMood!: string;
+  moodComponentClasses!:{ [key: string]: string };
+  backgroundMoodClasses!:{ [key: string]: string };
+
   @Input() searchQuery: string ='';
   screenSize?: string;
   title?: string;
 
-  constructor(private screenSizeService: ScreenSizeService,protected themeService: ThemeService,private router: Router) {}
+  constructor(private screenSizeService: ScreenSizeService,protected themeService: ThemeService,private router: Router,
+    public moodService: MoodService
+  ) {
+    this.currentMood = this.moodService.getCurrentMood(); 
+    this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
+    this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
+    
+  }
   async ngOnInit() {
     this.screenSizeService.screenSize$.subscribe(screenSize => {
       this.screenSize = screenSize;

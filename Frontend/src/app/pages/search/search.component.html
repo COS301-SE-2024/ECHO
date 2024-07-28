@@ -53,7 +53,7 @@
 </div>
 
 <div *ngIf="screenSize === 'mobile'" class="mobile-layout">
-  <div class="min-h-screen dark:bg-desktop-bg bg-gray-verylight" style="overflow: auto;">
+  <div [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]" class="min-h-screen" style="overflow: auto;">
     <!-- Flex container for top elements -->
     <div class="flex justify-between items-start p-5 fixed top-0 left-0 right-0">
       <!-- Navbar on the left -->
