@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1722174476648" clover="3.2.0">
-  <project timestamp="1722174476649" name="All files">
-    <metrics statements="817" coveredstatements="537" conditionals="133" coveredconditionals="48" methods="215" coveredmethods="113" elements="1165" coveredelements="698" complexity="0" loc="817" ncloc="817" packages="31" files="66" classes="66"/>
+<coverage generated="1722176463498" clover="3.2.0">
+  <project timestamp="1722176463498" name="All files">
+    <metrics statements="817" coveredstatements="541" conditionals="133" coveredconditionals="48" methods="215" coveredmethods="115" elements="1165" coveredelements="704" complexity="0" loc="817" ncloc="817" packages="31" files="66" classes="66"/>
     <package name="app">
       <metrics statements="34" coveredstatements="13" conditionals="3" coveredconditionals="0" methods="9" coveredmethods="0"/>
       <file name="app.component.html" path="/home/user/COS301/echo/ECHO/Frontend/src/app/app.component.html">
@@ -189,21 +189,21 @@
       </file>
     </package>
     <package name="app.pages.search">
-      <metrics statements="9" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
+      <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
       <file name="search.component.html" path="/home/user/COS301/echo/ECHO/Frontend/src/app/pages/search/search.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
       </file>
       <file name="search.component.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/pages/search/search.component.ts">
-        <metrics statements="8" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
         <line num="3" count="2" type="stmt"/>
         <line num="18" count="2" type="stmt"/>
-        <line num="24" count="0" type="stmt"/>
-        <line num="25" count="0" type="stmt"/>
-        <line num="26" count="0" type="stmt"/>
-        <line num="27" count="0" type="stmt"/>
+        <line num="24" count="2" type="stmt"/>
+        <line num="25" count="2" type="stmt"/>
+        <line num="26" count="2" type="stmt"/>
+        <line num="27" count="2" type="stmt"/>
       </file>
     </package>
     <package name="app.pages.settings">
@@ -309,7 +309,7 @@
         <line num="1" count="13" type="stmt"/>
         <line num="2" count="13" type="stmt"/>
         <line num="7" count="13" type="stmt"/>
-        <line num="8" count="12" type="stmt"/>
+        <line num="8" count="9" type="stmt"/>
         <line num="11" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="12" count="0" type="stmt"/>
         <line num="17" count="5" type="cond" truecount="1" falsecount="0"/>
@@ -328,10 +328,10 @@
         <line num="3" count="11" type="stmt"/>
         <line num="4" count="11" type="stmt"/>
         <line num="9" count="11" type="stmt"/>
-        <line num="11" count="37" type="cond" truecount="4" falsecount="0"/>
-        <line num="16" count="16" type="stmt"/>
-        <line num="17" count="16" type="cond" truecount="1" falsecount="1"/>
-        <line num="18" count="16" type="stmt"/>
+        <line num="11" count="34" type="cond" truecount="4" falsecount="0"/>
+        <line num="16" count="13" type="stmt"/>
+        <line num="17" count="13" type="cond" truecount="1" falsecount="1"/>
+        <line num="18" count="13" type="stmt"/>
         <line num="20" count="21" type="stmt"/>
         <line num="23" count="0" type="stmt"/>
       </file>
