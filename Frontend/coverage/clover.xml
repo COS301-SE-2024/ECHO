@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1722178739478" clover="3.2.0">
-  <project timestamp="1722178739478" name="All files">
-    <metrics statements="817" coveredstatements="602" conditionals="133" coveredconditionals="74" methods="215" coveredmethods="137" elements="1165" coveredelements="813" complexity="0" loc="817" ncloc="817" packages="31" files="66" classes="66"/>
+<coverage generated="1722246670074" clover="3.2.0">
+  <project timestamp="1722246670074" name="All files">
+    <metrics statements="817" coveredstatements="612" conditionals="133" coveredconditionals="75" methods="215" coveredmethods="141" elements="1165" coveredelements="828" complexity="0" loc="817" ncloc="817" packages="31" files="66" classes="66"/>
     <package name="app">
       <metrics statements="34" coveredstatements="13" conditionals="3" coveredconditionals="0" methods="9" coveredmethods="0"/>
       <file name="app.component.html" path="/home/user/COS301/echo/ECHO/Frontend/src/app/app.component.html">
@@ -276,7 +276,7 @@
       </file>
     </package>
     <package name="app.services">
-      <metrics statements="276" coveredstatements="154" conditionals="66" coveredconditionals="30" methods="74" coveredmethods="49"/>
+      <metrics statements="276" coveredstatements="157" conditionals="66" coveredconditionals="31" methods="74" coveredmethods="50"/>
       <file name="auth.service.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/services/auth.service.ts">
         <metrics statements="24" coveredstatements="22" conditionals="4" coveredconditionals="3" methods="12" coveredmethods="11"/>
         <line num="1" count="12" type="stmt"/>
@@ -309,7 +309,7 @@
         <line num="1" count="15" type="stmt"/>
         <line num="2" count="15" type="stmt"/>
         <line num="7" count="15" type="stmt"/>
-        <line num="8" count="14" type="stmt"/>
+        <line num="8" count="13" type="stmt"/>
         <line num="11" count="1" type="cond" truecount="1" falsecount="0"/>
         <line num="12" count="1" type="stmt"/>
         <line num="17" count="6" type="cond" truecount="1" falsecount="0"/>
@@ -534,18 +534,18 @@
         <line num="351" count="0" type="stmt"/>
       </file>
       <file name="theme.service.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/services/theme.service.ts">
-        <metrics statements="11" coveredstatements="8" conditionals="2" coveredconditionals="1" methods="3" coveredmethods="2"/>
-        <line num="1" count="11" type="stmt"/>
-        <line num="2" count="11" type="stmt"/>
-        <line num="7" count="11" type="stmt"/>
-        <line num="8" count="9" type="stmt"/>
-        <line num="10" count="9" type="stmt"/>
-        <line num="11" count="9" type="cond" truecount="1" falsecount="0"/>
-        <line num="12" count="9" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
-        <line num="18" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="19" count="0" type="stmt"/>
-        <line num="24" count="122" type="stmt"/>
+        <metrics statements="11" coveredstatements="11" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
+        <line num="1" count="12" type="stmt"/>
+        <line num="2" count="12" type="stmt"/>
+        <line num="7" count="12" type="stmt"/>
+        <line num="8" count="13" type="stmt"/>
+        <line num="10" count="13" type="stmt"/>
+        <line num="11" count="13" type="cond" truecount="1" falsecount="0"/>
+        <line num="12" count="11" type="stmt"/>
+        <line num="17" count="4" type="stmt"/>
+        <line num="18" count="4" type="cond" truecount="1" falsecount="0"/>
+        <line num="19" count="2" type="stmt"/>
+        <line num="24" count="127" type="stmt"/>
       </file>
       <file name="token.service.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/services/token.service.ts">
         <metrics statements="24" coveredstatements="18" conditionals="4" coveredconditionals="2" methods="8" coveredmethods="6"/>
@@ -744,38 +744,38 @@
       </file>
     </package>
     <package name="app.shared.google-login">
-      <metrics statements="10" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
+      <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
       <file name="google-login.component.html" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/google-login/google-login.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
       </file>
       <file name="google-login.component.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/google-login/google-login.component.ts">
-        <metrics statements="9" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="12" count="1" type="stmt"/>
-        <line num="14" count="0" type="stmt"/>
-        <line num="18" count="0" type="stmt"/>
-        <line num="20" count="0" type="stmt"/>
-        <line num="21" count="0" type="stmt"/>
-        <line num="23" count="0" type="stmt"/>
+        <line num="14" count="4" type="stmt"/>
+        <line num="18" count="3" type="stmt"/>
+        <line num="20" count="3" type="stmt"/>
+        <line num="21" count="3" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
       </file>
     </package>
     <package name="app.shared.info-bar">
-      <metrics statements="8" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
+      <metrics statements="8" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
       <file name="info-bar.component.html" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/info-bar/info-bar.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
       </file>
       <file name="info-bar.component.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/info-bar/info-bar.component.ts">
-        <metrics statements="7" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <metrics statements="7" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="12" count="1" type="stmt"/>
-        <line num="13" count="0" type="stmt"/>
-        <line num="15" count="0" type="stmt"/>
+        <line num="13" count="5" type="stmt"/>
+        <line num="15" count="5" type="stmt"/>
         <line num="26" count="0" type="stmt"/>
       </file>
     </package>
