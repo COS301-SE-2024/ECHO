@@ -31,11 +31,13 @@ export class SideBarComponent implements OnInit {
 
   upNextCardData: any[] = [];
   recentListeningCardData: any[] = [];
+  echoTracks: any[] = [];
   screenSize?: string;
   provider: string | null = null;
   isDropdownVisible: boolean = false;
   selected:string = "Up Next..."
   options = ["Recent Listening...","Up Next..."];
+  isEchoModalVisible: boolean = false;
   toggleDropdown(): void {
     this.isDropdownVisible = !this.isDropdownVisible;
   }
@@ -112,11 +114,13 @@ export class SideBarComponent implements OnInit {
     }
   }
 
-  async echoTrack(trackName: string, artistName: string): Promise<void> {
+  async echoTrack(trackName: string, artistName: string, event: MouseEvent): Promise<void> {
+    event.stopPropagation();
     this.searchService.echo(trackName, artistName).then(tracks => {
-
+      this.echoTracks = tracks;
+      this.isEchoModalVisible = true;
     }).catch(error => {
-      console.error('Error echoing track:', error);
+      console.error('Error echoing track: ', error);
     });
   }
 
@@ -127,9 +131,7 @@ export class SideBarComponent implements OnInit {
     return text;
   }
 
-  echoSongs(track: string, artist: string) {
-    this.searchService.echo(track, artist).then(tracks => {
-
-    });
+  closeModal() {
+    this.isEchoModalVisible = false;
   }
 }
