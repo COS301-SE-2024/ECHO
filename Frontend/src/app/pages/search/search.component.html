@@ -1,5 +1,5 @@
 <div *ngIf="screenSize === 'desktop'" class="mobile-layout">
-  <app-top-result [title]="'Title'" [subtitle]="'Subtitle'" [imageSrc]="'./../../../assets/images/album.png'"></app-top-result>
+  <app-top-result  [title]="'Title'" [subtitle]="'Subtitle'" [imageSrc]="'./../../../assets/images/album.png'"></app-top-result>
   
     <div class="songs dark:text-gray-200" style="float: left; width: 35%; position: relative;">
       <a style="position: absolute; top: 0; right: 0; margin: 10px; padding: 5px 10px; border-radius: 5px;cursor: pointer;">
@@ -118,7 +118,7 @@
     </div>
   </div>
 
-  <div class="library-container songs-container dark:text-gray-200 " style="width: 100%; overflow-x: auto; margin-bottom: 40vw; padding: 20px 0;">
+  <div  class="library-container songs-container dark:text-gray-200 " style="width: 100%; overflow-x: auto; margin-bottom: 40vw; padding: 20px 0;">
     <h1 class="dark:text-gray-200" style="padding-left: 20px; font-weight: bold; font-size: larger ;">From Your Library</h1>
     <div class="library-content" style="display: flex; flex-wrap: nowrap; gap: 20px; padding: 0 20px;">
       <div class="library-card" *ngFor="let song of songs" style="display: flex; flex-direction: column; align-items: center; min-width: 150px; max-width: 200px; vertical-align: top;">
