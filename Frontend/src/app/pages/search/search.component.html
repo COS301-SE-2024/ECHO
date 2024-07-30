@@ -74,7 +74,7 @@
 
   <div class="top-result dark:text-gray-200" style="float: left; width: 50%;">
     <h1 class="" style="font-weight: bold; font-size: larger;">Top Result</h1>
-    <div class="big-card dark:text-gray-200 bg-gray-component my-[1vw]" style="width: 90%; padding: 2vw; border-radius: 15px;">
+    <div [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]" class="  my-[1vw]" style="width: 90%; padding: 2vw; border-radius: 15px;">
       <img src="./../../../assets/images/album.png" alt="Big Image" style="border-radius: 15px;">
       <h2 style="font-weight: bold;" class="py-2">Title</h2>
       <p class="py-1">Subtitle</p>
