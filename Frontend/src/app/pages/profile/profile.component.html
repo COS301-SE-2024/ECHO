@@ -61,10 +61,10 @@
               <button *ngIf="themeService.isDarkModeActive()" class="absolute btn btn-dark top-5 right-10" (click)="openDialog()">Edit Profile</button>
               <button *ngIf="!themeService.isDarkModeActive()" class="absolute btn btn-light top-5 right-10" (click)="openDialog()">Edit Profile</button>
 
-              <div class="absolute bottom-24 left-16 w-full pr-10 overflow-hidden">
+              <div  class="absolute bottom-24 left-16 w-full pr-10 overflow-hidden">
                 <h2 class="text-gray-900 dark:text-white text-2xl font-bold mb-2">Top Songs</h2>
                 <div class="flex space-x-4 overflow-x-auto scrollable-cards">
-                  <ng-container *ngFor="let item of recentListeningCardData">
+                  <ng-container  *ngFor="let item of recentListeningCardData">
                     <app-top-card [imageUrl]="item.imageUrl" [text]="item.text" [secondaryText]="item.secondaryText"></app-top-card>
                     <div class="card-style">...</div>
                   </ng-container>

@@ -45,10 +45,10 @@ module.exports = {
                     "background": '#FFE1D2',
                 },
                 admiration: {
-                    DEFAULT: '#D44000',
+                    DEFAULT: '#FF5308',
                     "text": '#FFD700',
                     "component": '#252525',
-                    "dark": '#890817',
+                    "dark": '#D44000',
                     "backgrounddark": '#5F3625',
                     "background": '#FFEBCC',
                 },
