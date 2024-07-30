@@ -1,9 +1,10 @@
 import { Component,Input } from '@angular/core';
 import { MoodService } from '../../services/mood-service.service';
+import { NgModule } from '@angular/core';
 @Component({
   selector: 'app-top-card',
   standalone: true,
-  imports: [],
+  imports: [NgModule],
   templateUrl: './top-card.component.html',
   styleUrl: './top-card.component.css'
 })
