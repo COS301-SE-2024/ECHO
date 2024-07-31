@@ -19,35 +19,42 @@ import { ProviderService } from "./services/provider.service";
     styleUrl: './app.component.css',
 })
 export class AppComponent {
-    title = 'Echo';
-    update: boolean = false;
-    screenSize?: string;
+  title = 'Echo';
+  update: boolean = false;
+  screenSize?: string;
   showPlayer = false;
+  displayPlayer = false;
 
-    constructor(private router: Router,private screenSizeService: ScreenSizeService, private providerService: ProviderService, updates: SwUpdate) {
-      this.router.events.pipe(
-        filter(event => event instanceof NavigationEnd)
-      ).subscribe((event: RouterEvent) => {
-        if (event instanceof NavigationEnd) {
-          this.showPlayer = ['/home', '/profile','/search'].includes(event.urlAfterRedirects);
-        }
-      });
-    
-      updates.versionUpdates.subscribe(event => {
-        if (event.type === 'VERSION_READY') {
-          console.log('Version ready to install:');
-          updates.activateUpdate().then(() => {
-            this.update = true;
-            document.location.reload();
-          });
-        }
-      });
-    }
-    async ngOnInit() {
-      this.screenSizeService.screenSize$.subscribe(screenSize => {
-        this.screenSize = screenSize;
-      });
-    }
+  constructor(private router: Router, private screenSizeService: ScreenSizeService, private providerService: ProviderService, updates: SwUpdate) {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: RouterEvent) => {
+      if (event instanceof NavigationEnd) {
+        this.showPlayer = ['/home', '/profile'].includes(event.urlAfterRedirects);
+      }
+    });
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: RouterEvent) => {
+      if (event instanceof NavigationEnd) {
+        this.displayPlayer = ['/settings'].includes(event.urlAfterRedirects);
+      }
+    });
+
+    updates.versionUpdates.subscribe(event => {
+      if (event.type === 'VERSION_READY') {
+        console.log('Version ready to install:');
+        updates.activateUpdate().then(() => {
+          this.update = true;
+          document.location.reload();
+        });
+      }
+    });
   }
 
-
+  async ngOnInit() {
+    this.screenSizeService.screenSize$.subscribe(screenSize => {
+      this.screenSize = screenSize;
+    });
+  }
+}

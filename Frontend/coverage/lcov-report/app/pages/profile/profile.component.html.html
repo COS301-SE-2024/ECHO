@@ -131,7 +131,33 @@
 <a name='L66'></a><a href='#L66'>66</a>
 <a name='L67'></a><a href='#L67'>67</a>
 <a name='L68'></a><a href='#L68'>68</a>
-<a name='L69'></a><a href='#L69'>69</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -199,71 +225,123 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&nbsp;
-&lt;div class="min-h-screen dark:bg-stone-700 flex flex-col justify-center px-6 py-12 lg:px-8"&gt;
-  &lt;div class="flex justify-center items-center"&gt;
-    &lt;button class="absolute bottom-6 left-3 p-2 bg-gray-300 dark:bg-gray-700 rounded-full" (click)="switchTheme()"&gt;
-      &lt;svg class="w-6 h-6 text-gray-800 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"&gt;
-        &lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3a7 7 0 0010.79 9.79z" /&gt;
-      &lt;/svg&gt;
-    &lt;/button&gt;
-&nbsp;
-    &lt;app-side-bar&gt;&lt;/app-side-bar&gt;
-&nbsp;
-    &lt;div class="profile-container"&gt;
-      &lt;div id="profile" class="profile fixed right-4 top-4 mt-5 ml-6 h-5/6"&gt;
-        &lt;mat-card class="bg-gray-900 shadow-xl p-4 border border-gray-300 rounded-md h-full relative"&gt;
-          &lt;mat-card-content class="bg-stone-300 dark:bg-stone-800 rounded-lg overflow-hidden h-full relative"&gt;
-            &lt;div class="absolute top-16 left-1/2 transform -translate-x-1/2 text-center"&gt;
-              &lt;img src="../../../assets/images/back.jpg" alt="Profile Image" class="w-24 h-24 rounded-full border-2 border-white dark:border-gray-700 mx-auto"&gt;
-              &lt;h2 class="mt-2 text-gray-900 dark:text-white font-bold"&gt;&amp;#64;downinsmoke&lt;/h2&gt;
-              &lt;div class="flex justify-center mt-2 space-x-4"&gt;
-                &lt;p class="text-gray-900 dark:text-white"&gt;11 Followers&lt;/p&gt;
-                &lt;p class="text-gray-900 dark:text-white"&gt;3 Following&lt;/p&gt;
-              &lt;/div&gt;
-            &lt;/div&gt;
-            &lt;p class="absolute text-gray-900 top-8 left-20 dark:text-white font-bold"&gt;ECHO Rank: #1&lt;/p&gt;
-            &lt;button *ngIf="themeService.isDarkModeActive()" class="absolute btn btn-dark top-5 right-10"&gt;Edit Profile&lt;/button&gt;
-            &lt;button *ngIf="!themeService.isDarkModeActive()" class="absolute btn btn-light top-5 right-10"&gt;Edit Profile&lt;/button&gt;
-&nbsp;
-            &lt;div class="absolute bottom-2 left-20 w-full pr-10 overflow-hidden"&gt;
-              &lt;h2 class="text-gray-900 dark:text-white font-bold mb-2"&gt;Top Songs&lt;/h2&gt;
-              &lt;div class="flex space-x-4 overflow-x-auto scrollable-cards"&gt;
-                &lt;ng-container *ngFor="let item of recentListeningCardData"&gt;
-                  &lt;mat-card class="bg-white dark:bg-stone-800 shadow-md p-2 border border-gray-300 rounded-md flex-shrink-0" style="width: 15vw; height: 20vw; max-width: 9rem; max-height: 12rem; min-width: 5rem; min-height: 7.5rem;"&gt;
-                    &lt;mat-card-content class="card-content"&gt;
-                      &lt;img [src]="item.imageUrl" alt="{{item.text}}" class="rounded"&gt;
-                      &lt;div class="text-center"&gt;
-                        &lt;p class="text-gray-900 dark:text-white text-sm font-bold"&gt;{{item.text}}&lt;/p&gt;
-                        &lt;p class="text-gray-500 dark:text-gray-400 text-xs"&gt;{{item.secondaryText}}&lt;/p&gt;
-                      &lt;/div&gt;
-                    &lt;/mat-card-content&gt;
-                  &lt;/mat-card&gt;
-                &lt;/ng-container&gt;
-              &lt;/div&gt;
-              &lt;h2 class="text-gray-900 dark:text-white font-bold mb-2 mt-4"&gt;Top Artists&lt;/h2&gt;
-              &lt;div class="flex space-x-4 overflow-x-auto scrollable-cards"&gt;
-                &lt;ng-container *ngFor="let artist of artists"&gt;
-                  &lt;mat-card class="bg-white dark:bg-stone-800 shadow-md p-2 border border-gray-300 rounded-md flex-shrink-0" style="width: 15vw; height: 20vw; max-width: 9rem; max-height: 12rem; min-width: 5rem; min-height: 7.5rem;"&gt;
-                    &lt;mat-card-content class="card-content"&gt;
-                      &lt;img [src]="artist.imageUrl" alt="{{artist.text}}" class="card-image"&gt;
-                      &lt;div class="text-center"&gt;
-                        &lt;p class="text-gray-900 dark:text-white text-sm font-bold"&gt;{{artist.text}}&lt;/p&gt;
-                      &lt;/div&gt;
-                    &lt;/mat-card-content&gt;
-                  &lt;/mat-card&gt;
-                &lt;/ng-container&gt;
-              &lt;/div&gt;
-            &lt;/div&gt;
-          &lt;/mat-card-content&gt;
-        &lt;/mat-card&gt;
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&lt;div *ngIf="screenSize === 'mobile'" class="mobile-layout"&gt;
+  &lt;div class="bg-gray-lightcomponent dark:bg-gray-component flex flex-col sm:px-6 sm:py-12 min-h-screen"&gt;
+    &lt;div class="profile-container w-full mx-auto"&gt;
+      &lt;div id="profile" class="profile bg-cover bg-center w-full relative" [style.background-image]="'url('+ imgpath + ')'" style="background-size: cover; height: 40vh;"&gt;
+        &lt;!-- Centered content over the background image --&gt;
+        &lt;div class="absolute inset-0 flex flex-col justify-center items-center bg-opacity-50 dark:bg-opacity-50"&gt;
+          &lt;h2 class="text-gray-900 dark:text-white font-bold py-4"&gt;&amp;#64;{{ username }}&lt;/h2&gt;
+          &lt;div class="flex justify-center space-x-2 py-4"&gt;
+            &lt;p class="text-gray-900 dark:text-white"&gt;11 Followers&lt;/p&gt;
+            &lt;p class="text-gray-900 dark:text-white"&gt;3 Following&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;button *ngIf="themeService.isDarkModeActive()" class="btn btn-dark py-4" (click)="openDialog()"&gt;Edit Profile&lt;/button&gt;
+          &lt;button *ngIf="!themeService.isDarkModeActive()" class="btn btn-light py-4" (click)="openDialog()"&gt;Edit Profile&lt;/button&gt;
+        &lt;/div&gt;
       &lt;/div&gt;
     &lt;/div&gt;
+    &lt;div class="w-full pr-4 overflow-hidden"&gt;
+      &lt;h2 class="text-gray-dark dark:text-gray-verylight font-bold mb-2"&gt;Top Songs&lt;/h2&gt;
+      &lt;div class="flex space-x-2 overflow-x-auto scrollable-cards"&gt;
+      &lt;ng-container *ngFor="let item of recentListeningCardData"&gt;
+        &lt;app-top-card [imageUrl]="item.imageUrl" [text]="item.text" [secondaryText]="item.secondaryText"&gt;&lt;/app-top-card&gt;
+      &lt;/ng-container&gt;
+      &lt;/div&gt;
+      &lt;h2 class="text-gray-dark dark:text-gray-verylight font-bold mb-2 mt-4"&gt;Top Artists&lt;/h2&gt;
+      &lt;div class="flex space-x-2 overflow-x-auto scrollable-cards"&gt;
+        &lt;ng-container *ngFor="let artist of artists"&gt;
+          &lt;app-top-card [imageUrl]="artist.imageUrl" [text]="artist.text"&gt;&lt;/app-top-card&gt;
+        &lt;/ng-container&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;app-side-bar&gt;&lt;/app-side-bar&gt;
+    &lt;app-bottom-nav&gt;&lt;/app-bottom-nav&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
 &nbsp;
-    &lt;app-bottom-player&gt;&lt;/app-bottom-player&gt;
+&lt;div *ngIf="screenSize === 'desktop'" class="desktop-layout bg-gray-background"&gt;
+  &lt;div class="min-h-screen dark:bg-desktop-bg bg-gray-verylight flex flex-col justify-center px-6 py-12 lg:px-8"&gt;
+    &lt;div class="flex justify-center items-center"&gt;
+      &lt;div class="fixed top-1 right-12 flex flex-col items-center"&gt;
+        &lt;button *ngIf="screenSize === 'desktop'" class="p-2" (click)="switchTheme()"&gt;
+          &lt;img *ngIf="!themeService.isDarkModeActive()" src="../../../assets/icons/light-mode.png" alt="Light Mode" class="w-10 h-10"&gt;
+          &lt;img *ngIf="themeService.isDarkModeActive()" src="../../../assets/icons/dark-mode.png" alt="Dark Mode" class="w-10 h-10"&gt;
+        &lt;/button&gt;
+      &lt;/div&gt;
 &nbsp;
-    &lt;div class="navbar-container"&gt;
-      &lt;app-navbar (selectedNavChange)="onNavChange($event)"&gt;&lt;/app-navbar&gt;
+&nbsp;
+      &lt;div class="profile-container"&gt;
+        &lt;div id="profile" class="profile fixed right-4 top-4 mt-5 mr-5 ml-6 h-5/6"&gt;
+          &lt;div class="ml-24 p-4 pr-4 rounded-md h-full relative"&gt;
+            &lt;div class="bg-gray-lightcomponent dark:bg-gray-component rounded-lg overflow-hidden h-full relative"&gt;
+              &lt;div class="absolute top-2 left-1/2 transform -translate-x-1/2 text-center"&gt;
+                &lt;img src="{{imgpath}}" alt="Profile Image" class="w-24 h-24 rounded-full border-2 border-white dark:border-gray-700 mx-auto"&gt;
+                &lt;h2 class="mt-2 text-gray-900 dark:text-white font-bold"&gt;&amp;#64;{{ username }}&lt;/h2&gt;
+                &lt;div class="flex justify-center mt-2 space-x-4"&gt;
+                  &lt;p class="text-gray-900 dark:text-white"&gt;11 Followers&lt;/p&gt;
+                  &lt;p class="text-gray-900 dark:text-white"&gt;3 Following&lt;/p&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+              &lt;p class="absolute text-gray-900 top-8 left-20 dark:text-white font-bold"&gt;ECHO Rank: #1&lt;/p&gt;
+              &lt;!-- Use Flowbite for modal/dialog if needed, otherwise just Tailwind for buttons --&gt;
+              &lt;button *ngIf="themeService.isDarkModeActive()" class="absolute btn btn-dark top-5 right-10" (click)="openDialog()"&gt;Edit Profile&lt;/button&gt;
+              &lt;button *ngIf="!themeService.isDarkModeActive()" class="absolute btn btn-light top-5 right-10" (click)="openDialog()"&gt;Edit Profile&lt;/button&gt;
+              &lt;button class="absolute btn btn-dark top-5 right-52" (click)="settings()"&gt;
+                &lt;svg class="w-6 h-6 text-gray-800 dark:text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"&gt;
+                  &lt;path stroke="currentColor" stroke-linecap="square" stroke-linejoin="round" stroke-width="2" d="M10 19H5a1 1 0 0 1-1-1v-1a3 3 0 0 1 3-3h2m10 1a3 3 0 0 1-3 3m3-3a3 3 0 0 0-3-3m3 3h1m-4 3a3 3 0 0 1-3-3m3 3v1m-3-4a3 3 0 0 1 3-3m-3 3h-1m4-3v-1m-2.121 1.879-.707-.707m5.656 5.656-.707-.707m-4.242 0-.707.707m5.656-5.656-.707.707M12 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/&gt;
+                &lt;/svg&gt;
+              &lt;/button&gt;
+              &lt;div class="absolute bottom-24 left-16 w-full pr-10 overflow-hidden"&gt;
+                &lt;h2 class="text-gray-900 dark:text-white text-2xl font-bold mb-2"&gt;Top Songs&lt;/h2&gt;
+                &lt;div class="flex space-x-4 overflow-x-auto scrollable-cards"&gt;
+                  &lt;ng-container *ngFor="let item of recentListeningCardData"&gt;
+                    &lt;app-top-card [imageUrl]="item.imageUrl" [text]="item.text" [secondaryText]="item.secondaryText"&gt;&lt;/app-top-card&gt;
+                    &lt;div class="card-style"&gt;...&lt;/div&gt;
+                  &lt;/ng-container&gt;
+                &lt;/div&gt;
+                &lt;h2 class="text-gray-900 dark:text-white font-bold mb-2 mt-4 text-2xl"&gt;Top Artists&lt;/h2&gt;
+                &lt;div class="flex space-x-4 overflow-x-auto scrollable-cards"&gt;
+                  &lt;ng-container *ngFor="let artist of artists"&gt;
+                      &lt;app-top-card [imageUrl]="artist.imageUrl" [text]="artist.text"&gt;&lt;/app-top-card&gt;
+                  &lt;/ng-container&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+&nbsp;
+      &lt;div class="navbar-container"&gt;
+        &lt;app-navbar (selectedNavChange)="onNavChange($event)"&gt;&lt;/app-navbar&gt;
+      &lt;/div&gt;
+      
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;
@@ -274,7 +352,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-06-02T17:45:30.424Z
+                at 2024-07-22T08:50:17.459Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
