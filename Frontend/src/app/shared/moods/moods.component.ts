@@ -1,69 +1,83 @@
-// moods.component.ts
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { SongViewComponent } from '../song-view/song-view.component';
 import { ScreenSizeService } from '../../services/screen-size-service.service';
+import { MoodService } from '../../services/mood-service.service';
+import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-moods',
-  standalone: true,
-  imports: [MatGridListModule, MatCardModule, CommonModule, MatDialogModule],
-  templateUrl: './moods.component.html',
-  styleUrl: './moods.component.css',
+    selector: 'app-moods',
+    standalone: true,
+    imports: [MatGridListModule, MatCardModule, CommonModule],
+    templateUrl: './moods.component.html',
+    styleUrls: ['./moods.component.css'], // Corrected property name and expected value type
 })
-export class MoodsComponent {
-  screenSize?: string;
+export class MoodsComponent implements OnDestroy {
+    
+    favouriteMoods: any[] = []; // Corrected initialization
+    RecommendedMoods: any[] = []; // Added type and initialization
 
-  constructor(
-    private screenSizeService: ScreenSizeService,
-    private dialog: MatDialog
-  ) {}
+    allMoods!: string[];
+    screenSize?: string;
+    // Mood Service Variables
+    moodComponentClasses!: { [key: string]: string };
+    backgroundMoodClasses!: { [key: string]: string };
 
-  async ngOnInit() {
-    this.screenSizeService.screenSize$.subscribe(screenSize => {
-      this.screenSize = screenSize;
-    });
-  }
+    private screenSizeSubscription?: Subscription; // For unsubscribing
 
-  favouriteMoods = [
-    { name: 'Anxious', image: '/assets/moods/arctic.jpeg' },
-    { name: 'Chill', image: '/assets/moods/kendrick.jpeg' },
-    { name: 'Happy', image: '/assets/moods/gambino.jpeg' },
-    { name: 'Melancholy', image: '/assets/moods/radiohead.jpeg' },
-    { name: 'Nostalgic', image: '/assets/moods/sza.jpeg' },
-    { name: 'Unknown', image: '/assets/moods/img6.jpg' },
-  ];
+    constructor(private screenSizeService: ScreenSizeService, public moodService: MoodService,private dialog: MatDialog) {
+        this.allMoods = this.moodService.getAllMoods();
+        this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
+        this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
+    }
+    async ngOnInit() {
+        this.screenSizeSubscription = this.screenSizeService.screenSize$.subscribe(screenSize => {
+            this.screenSize = screenSize;
+        });
 
-  RecommendedMoods = [
-    { name: 'Mad', image: '/assets/moods/yonce.jpeg' },
-    { name: 'Nostalgic', image: '/assets/moods/taylor.jpeg' },
-    { name: 'Ethereal', image: '/assets/moods/impala.jpeg' },
-    { name: 'Confident', image: '/assets/moods/tyler.jpeg' },
-    { name: 'Happy', image: '/assets/moods/beatles.jpeg' },
-    { name: 'Introspective', image: '/assets/moods/happy.jpg' },
-  ];
+        const allMoodNames = this.allMoods;
+        const defaultImagePaths = [
+            '/assets/moods/arctic.jpeg',
+            '/assets/moods/kendrick.jpeg',
+            '/assets/moods/gambino.jpeg',
+            '/assets/moods/yonce.jpeg',
+            '/assets/moods/taylor.jpeg',
+            '/assets/moods/impala.jpeg',
+        ];
+    
+        allMoodNames.forEach((moodName, index) => {
+            const moodWithDefaultImage = {
+                name: moodName,
+                image: defaultImagePaths[index % defaultImagePaths.length],
+            };
+            this.favouriteMoods.push(moodWithDefaultImage);
+            this.RecommendedMoods.push(moodWithDefaultImage);
+        });
+    }
 
-  openModal(mood: any): void {
-    const dialogRef = this.dialog.open(SongViewComponent, {
-      width: '500px'
-    });
-
-    dialogRef.componentInstance.selectedSong = {
-      image: mood.image,
-      title: mood.name,
-      artist: 'Artist Name', 
-      album: 'Album Name', 
-      duration: 'Duration', 
-      genre: 'Genre', 
-      similarSongs: ['Song 1', 'Song 2', 'Song 3'] 
-    };
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
-  }
+    ngOnDestroy() {
+        this.screenSizeSubscription?.unsubscribe(); // Proper cleanup
+    }
+    openModal(mood: any): void {
+      const dialogRef = this.dialog.open(SongViewComponent, {
+        width: '500px'
+      });
+  
+      dialogRef.componentInstance.selectedSong = {
+        image: mood.image,
+        title: mood.name,
+        artist: 'Artist Name', 
+        album: 'Album Name', 
+        duration: 'Duration', 
+        genre: 'Genre', 
+        similarSongs: ['Song 1', 'Song 2', 'Song 3'] 
+      };
+  
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed');
+      });
+    }
 }
-
