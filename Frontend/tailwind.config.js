@@ -1,3 +1,4 @@
+const plugin = require('tailwindcss/plugin')
 module.exports = {
     content: ["./src/**/*.{html,ts}", "./node_modules/flowbite/**/*.js"],
     darkMode: "class", // or 'media'
@@ -269,5 +270,9 @@ module.exports = {
             textColor: ['dark', 'hover', 'focus', 'transition'],
         },
     },
-    plugins: [require("@tailwindcss/forms"), require("flowbite/plugin")],
+    plugins: [require("@tailwindcss/forms"), require("flowbite/plugin"),
+        plugin(function({ addVariant }) {
+            addVariant('slider-thumb', ['&::-webkit-slider-thumb', '&::slider-thumb']);
+          }),
+    ],
 };
