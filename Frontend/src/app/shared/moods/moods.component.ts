@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
 @Component({
     selector: 'app-moods',
     standalone: true,
-    imports: [MatGridListModule, MatCardModule, NgClass, NgForOf, NgIf],
+    imports: [MatGridListModule, MatCardModule, CommonModule],
     templateUrl: './moods.component.html',
     styleUrls: ['./moods.component.css'], // Corrected property name and expected value type
 })
@@ -28,7 +28,7 @@ export class MoodsComponent implements OnDestroy {
 
     private screenSizeSubscription?: Subscription; // For unsubscribing
 
-    constructor(private screenSizeService: ScreenSizeService, public moodService: MoodService,private Dailog: MatDialog) {
+    constructor(private screenSizeService: ScreenSizeService, public moodService: MoodService,private dialog: MatDialog) {
         this.allMoods = this.moodService.getAllMoods();
         this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
         this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
@@ -79,4 +79,5 @@ export class MoodsComponent implements OnDestroy {
       dialogRef.afterClosed().subscribe(result => {
         console.log('The dialog was closed');
       });
+    }
 }
