@@ -1,0 +1,8 @@
+<!-- input.component.html -->
+<input  [ngClass]="[moodComponentClasses[this.moodService.getCurrentMood()], 
+            'block','rounded-full',
+            'border-0','py-2','shadow-sm','ring-1',
+            'ring-inset','ring-gray-300','placeholder:text-gray-light',
+            'sm:text-sm','sm:leading-6']"
+[placeholder]="placeholder" 
+[type]="type" />

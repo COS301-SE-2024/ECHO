@@ -1,6 +1,7 @@
 //angular imports
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
+//services
 import { MoodService } from '../../../services/mood-service.service';
 @Component({
   selector: 'app-button-component',

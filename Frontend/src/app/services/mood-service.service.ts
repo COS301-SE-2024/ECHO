@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class MoodService {
-  private _currentMood: string = 'Neutral';
+  private _currentMood!: string;
      private _componentMoodClassesHover = {
       Neutral:     'bg-default text-default-text hover:bg-default-dark focus:ring-default-dark fill-default font-semibold shadow-sm',
       Anger:       'bg-anger text-anger-text dark:hover:bg-anger-dark focus:ring-anger-dark fill-anger-dark',
