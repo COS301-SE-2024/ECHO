@@ -1,1 +1,7 @@
-<p>button-component works!</p>
+<button 
+               [ngClass]="[moodComponentClasses[this.moodService.getCurrentMood()], 
+               'button','semi-bold',
+               'rounded-full']" 
+               (click)="handleClick($event)">
+               {{ label }}
+</button>
