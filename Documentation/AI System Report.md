@@ -1,7 +1,7 @@
 # AI Music Recommendation System Report
 
 ## Introduction
-This report details the implementation of an AI-based music recommendation system developed in Python and deployed as an Azure Function App. The system uses a dataset of 270k songs from the Spotify API to cluster songs based on various audio features and provide custom recommendations. Additionally, it imcorporates a custom sentiment analysis model to classify song lyrics into 28 categories, further refining the clustering process and enhancing recommendation quality. 
+This report details the implementation of an AI-based music recommendation system developed in Python and deployed as an Azure Function App. The system uses a dataset of 270k songs from the Spotify API to cluster songs based on various audio features and provide custom recommendations. Additionally, it incorporates a custom sentiment analysis model to classify song lyrics into 28 categories, further refining the clustering process and enhancing recommendation quality. 
 
 ## Dataset
 
@@ -13,7 +13,7 @@ The dataset was taken from Kaggle.com (278k Emotion Labeled Spotify Songs, uploa
 - **Instrumentalness:** Predicts whether a track contains no vocals. Values above 0.5 represent instrumental tracks. 
 - **Liveness:** Detects the presence of an audience in the recording. 
 - **Loudness:** The overall loudness of a track in decibels (dB), typically between -60 and 0 dB.
-- **Speechiness:** Detects the presence of spoken words in a track. Values above 0.66 describe tracks that are probably made entirely of spoken words, and values below 0.33 descrive tracks that are likely music. 
+- **Speechiness:** Detects the presence of spoken words in a track. Values above 0.66 describe tracks that are probably made entirely of spoken words, and values below 0.33 describe tracks that are likely music. 
 - **Valence:** A measure that describes the musical positiveness conveyed by a track. 
 - **Tempo:** The overall estimated tempo of a track in beats per minute (BPM).
 
@@ -60,7 +60,7 @@ The system clusters the songs based on their audio features using K-Means cluste
 ### Sentiment Analysis
 The system incorporates a custom sentiment analysis model to classify song lyrics into 28 categories. This additional layer of analysis allows for more nuanced clustering and recommendations. The sentiment analysis process includes:
   1. **Preprocessing Lyrics:** Tokenising and cleaning the song lyrics to prepare them for analysis. 
-  2. **Classification:** Using a machine learning model to classify the lyrics into one of the 26 sentimen categories. 
+  2. **Classification:** Using a machine learning model to classify the lyrics into one of the 26 sentiment categories. 
   3. **Integration with Audio Features:** Combining sentiment scores with audio features to enhance the clustering process. 
 
 ### Recommendation System
