@@ -165,6 +165,84 @@ export class SpotifyService {
     });
   }
 
+  //This function plays the next track on the current device
+  public async playNextTrack(): Promise<void> {
+    if (!this.deviceId) {
+      console.error('Device ID is undefined. Ensure the player is ready before continuing.');
+      return;
+    }
+
+    const laccessToken = this.tokenService.getAccessToken();
+    const lrefreshToken = this.tokenService.getRefreshToken();
+
+    try {
+      await this.http.put(`http://localhost:3000/api/spotify/next-track`, {
+        deviceId: this.deviceId,
+        accessToken: laccessToken,
+        refreshToken: lrefreshToken
+      }).toPromise();
+
+      await new Promise(resolve => setTimeout(resolve, 200));
+
+      const currentTrack = await this.getCurrentlyPlayingTrack();
+      if (currentTrack && currentTrack.item) {
+        await this.setCurrentlyPlayingTrack(currentTrack.item.id);
+      }
+    } catch (error) {
+      console.error('Error playing next track:', error);
+    }
+  }
+
+  //This function plays the next track on the current device
+  public async playPreviousTrack(): Promise<void> {
+    if (!this.deviceId) {
+      console.error('Device ID is undefined. Ensure the player is ready before continuing.');
+      return;
+    }
+
+    const laccessToken = this.tokenService.getAccessToken();
+    const lrefreshToken = this.tokenService.getRefreshToken();
+
+    try {
+      await this.http.put(`http://localhost:3000/api/spotify/previous-track`, {
+        deviceId: this.deviceId,
+        accessToken: laccessToken,
+        refreshToken: lrefreshToken
+      }).toPromise();
+
+      await new Promise(resolve => setTimeout(resolve, 200));
+
+      const currentTrack = await this.getCurrentlyPlayingTrack();
+      if (currentTrack && currentTrack.item) {
+        await this.setCurrentlyPlayingTrack(currentTrack.item.id);
+      }
+    } catch (error) {
+      console.error('Error playing previous track:', error);
+    }
+  }
+
+  // Seek to a specific position in the currently playing track
+  public async seekToPosition(progress: number): Promise<void> {
+    if (!this.deviceId) {
+      console.error('Device ID is undefined. Ensure the player is ready before continuing.');
+      return;
+    }
+
+    const laccessToken = this.tokenService.getAccessToken();
+    const lrefreshToken = this.tokenService.getRefreshToken();
+
+    try {
+      await this.http.put(`http://localhost:3000/api/spotify/seek`, {
+        deviceId: this.deviceId,
+        progress: progress,
+        accessToken: laccessToken,
+        refreshToken: lrefreshToken
+      }).toPromise();
+    } catch (error) {
+      console.error('Error seeking to position:', error);
+    }
+  }
+
   // Resume playback
   public play(): void {
     if (!this.deviceId) {
