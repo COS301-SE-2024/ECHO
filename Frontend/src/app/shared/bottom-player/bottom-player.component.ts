@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, OnDestroy } from "@angular/core";
+import { Component, AfterViewInit, OnDestroy, ViewChild, ElementRef, ChangeDetectorRef } from "@angular/core";
 import { MatCard, MatCardContent } from "@angular/material/card";
 import { NgIf } from "@angular/common";
 import { ThemeService } from "../../services/theme.service";
@@ -15,6 +15,7 @@ import { ProviderService } from "../../services/provider.service";
   styleUrls: ["./bottom-player.component.css"]
 })
 export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
+  @ViewChild('progressContainer') private progressContainer!: ElementRef;
   protected imgsrc: string = "../../../assets/images/play.png";
   playing: boolean = false;
   started: boolean = false;
@@ -34,7 +35,7 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
   private progressUpdateSubscription!: Subscription;
 
 
-  constructor(protected themeService: ThemeService, private spotifyService: SpotifyService,private screenSizeService: ScreenSizeService, private providerService: ProviderService) {
+  constructor(protected themeService: ThemeService, private spotifyService: SpotifyService,private screenSizeService: ScreenSizeService, private providerService: ProviderService, private cdr: ChangeDetectorRef) {
   }
 
 
@@ -79,20 +80,38 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.providerService.getProviderName() === "spotify") {
       this.spotifyService.disconnectPlayer();
-      if (this.trackSubscription) {
-        this.trackSubscription.unsubscribe();
-      }
-      if (this.playingStateSubscription) {
-        this.playingStateSubscription.unsubscribe();
-      }
-      if (this.progressSubscription) {
-        this.progressSubscription.unsubscribe();
-      }
-      if (this.progressUpdateSubscription) {
-        this.progressUpdateSubscription.unsubscribe();
-      }
+      this.unsubscribeAll();
     }
     this.providerService.clear()
+  }
+
+  private unsubscribeAll(): void {
+    [this.trackSubscription, this.playingStateSubscription,
+      this.progressSubscription, this.progressUpdateSubscription].forEach(sub => {
+      if (sub) {
+        sub.unsubscribe();
+      }
+    });
+  }
+
+
+  updateProgress(event: MouseEvent): void {
+    if (!this.progressContainer) {
+      console.error('Progress container not initialized');
+      return;
+    }
+
+    const progressContainer = this.progressContainer.nativeElement;
+    const clickX = event.clientX - progressContainer.getBoundingClientRect().left;
+    const containerWidth = progressContainer.offsetWidth;
+    const newProgress = (clickX / containerWidth) * 100;
+
+    // Update the local progress
+    this.trackProgress = newProgress;
+    this.cdr.detectChanges(); // Trigger change detection
+
+    // Update the progress in your Spotify service
+    this.spotifyService.seekToPosition(newProgress);
   }
 
   playMusic(): void {
@@ -130,6 +149,18 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
     }
   }
 
+  playNext() {
+    if (this.providerService.getProviderName() === "spotify") {
+      this.spotifyService.playNextTrack();
+    }
+  }
+
+  playPrevious() {
+    if (this.providerService.getProviderName() === "spotify") {
+      this.spotifyService.playPreviousTrack();
+    }
+  }
+
   onVolumeChange(event: any): void {
     if (this.providerService.getProviderName() === 'spotify') {
       const volume = event.target.value / 100;
@@ -148,6 +179,7 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
         : "../../../assets/images/play.png";
     }
   }
+
 
   playingNowDark(): boolean {
     return (this.playing && this.themeService.isDarkModeActive());
