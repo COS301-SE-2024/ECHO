@@ -85,4 +85,39 @@ export class SpotifyController {
         const {trackID,accessToken,refreshToken} = body;
         return await this.spotifyService.getTrackDetails(trackID,accessToken,refreshToken);
     }
+
+    // This endpoint is used to play the next track on a specific device.
+    @Put('next-track')
+    async playNextTrack(@Body() body: { accessToken: string; refreshToken: string; deviceId: string }): Promise<any> {
+        if (!body.accessToken || !body.refreshToken || !body.deviceId) {
+            throw new UnauthorizedException('Access token, refresh token, or device ID is missing while attempting to play the next song from Spotify.');
+        }
+        const {accessToken,refreshToken,deviceId} = body;
+        return await this.spotifyService.playNextTrack(accessToken,refreshToken,deviceId);
+    }
+
+    // This endpoint is used to play the previous track on a specific device.
+    @Put('previous-track')
+    async playPreviousTrack(@Body() body: { accessToken: string; refreshToken: string; deviceId: string }): Promise<any> {
+        if (!body.accessToken || !body.refreshToken || !body.deviceId) {
+            throw new UnauthorizedException('Access token, refresh token, or device ID is missing while attempting to play the next song from Spotify.');
+        }
+        const {accessToken,refreshToken,deviceId} = body;
+        return await this.spotifyService.playPreviousTrack(accessToken,refreshToken,deviceId);
+    }
+
+    // This endpoint is used to seek to a specific position in the currently playing track on a specific device.
+    @Put('seek')
+    async seekToPosition(@Body() body: { deviceId: string; progress: number; accessToken: string; refreshToken: string }) {
+        if (!body.accessToken || !body.refreshToken || !body.deviceId) {
+            throw new UnauthorizedException('Access token, refresh token, or device ID is missing while attempting to seek to a position with Spotify.');
+        }
+
+        const { deviceId, progress, accessToken, refreshToken } = body;
+
+        const trackDurationMs = await this.spotifyService.getTrackDuration(accessToken, refreshToken);
+        const position_ms = Math.floor((progress / 100) * trackDurationMs);
+
+        return await this.spotifyService.seekToPosition(accessToken, refreshToken, position_ms, deviceId);
+    }
 }
