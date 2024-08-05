@@ -122,7 +122,8 @@
 <a name='L57'></a><a href='#L57'>57</a>
 <a name='L58'></a><a href='#L58'>58</a>
 <a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -171,6 +172,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -202,13 +204,13 @@ import { ProviderService } from "./services/provider.service";
     styleUrl: './app.component.css',
 })
 export class AppComponent {
-<span class="cstat-no" title="statement not covered" >    title = 'Echo';</span>
-<span class="cstat-no" title="statement not covered" >    update: boolean = false;</span>
-    screenSize?: string;
+<span class="cstat-no" title="statement not covered" >  title = 'Echo';</span>
+<span class="cstat-no" title="statement not covered" >  update: boolean = false;</span>
+  screenSize?: string;
 <span class="cstat-no" title="statement not covered" >  showPlayer = false;</span>
 <span class="cstat-no" title="statement not covered" >  displayPlayer = false;</span>
 &nbsp;
-<span class="fstat-no" title="function not covered" >  constructor(private <span class="cstat-no" title="statement not covered" >r</span>outer: Router,</span>private <span class="cstat-no" title="statement not covered" >screenSizeService: ScreenSizeService,</span>private <span class="cstat-no" title="statement not covered" >providerService: ProviderService,</span> updates: SwUpdate ) {
+<span class="fstat-no" title="function not covered" >  constructor(private <span class="cstat-no" title="statement not covered" >r</span>outer: Router,</span> private <span class="cstat-no" title="statement not covered" >screenSizeService: ScreenSizeService,</span> private <span class="cstat-no" title="statement not covered" >providerService: ProviderService,</span> updates: SwUpdate) {
 <span class="cstat-no" title="statement not covered" >    this.router.events.pipe(</span>
       filter(<span class="fstat-no" title="function not covered" >event </span>=&gt; <span class="cstat-no" title="statement not covered" >event instanceof NavigationEnd)</span>
     ).subscribe(<span class="fstat-no" title="function not covered" >(e</span>vent: RouterEvent) =&gt; {
@@ -223,17 +225,18 @@ export class AppComponent {
 <span class="cstat-no" title="statement not covered" >        this.displayPlayer = ['/settings'].includes(event.urlAfterRedirects);</span>
       }
     });
-    
+&nbsp;
 <span class="cstat-no" title="statement not covered" >    updates.versionUpdates.subscribe(<span class="fstat-no" title="function not covered" >event </span>=&gt; {</span>
-<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>if (event.type === 'VERSION_READY') {</span>
-<span class="cstat-no" title="statement not covered" >          console.log('Version ready to install:');</span>
-<span class="cstat-no" title="statement not covered" >          updates.activateUpdate().then(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
-<span class="cstat-no" title="statement not covered" >            this.update = true;</span>
-<span class="cstat-no" title="statement not covered" >            document.location.reload();</span>
-          });
-        }
-      });
+<span class="cstat-no" title="statement not covered" >      <span class="missing-if-branch" title="if path not taken" >I</span>if (event.type === 'VERSION_READY') {</span>
+<span class="cstat-no" title="statement not covered" >        console.log('Version ready to install:');</span>
+<span class="cstat-no" title="statement not covered" >        updates.activateUpdate().then(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+<span class="cstat-no" title="statement not covered" >          this.update = true;</span>
+<span class="cstat-no" title="statement not covered" >          document.location.reload();</span>
+        });
+      }
+    });
   }
+&nbsp;
 <span class="fstat-no" title="function not covered" >  async </span>ngOnInit() {
 <span class="cstat-no" title="statement not covered" >    this.screenSizeService.screenSize$.subscribe(<span class="fstat-no" title="function not covered" >screenSize </span>=&gt; {</span>
 <span class="cstat-no" title="statement not covered" >      this.screenSize = screenSize;</span>
@@ -247,7 +250,7 @@ export class AppComponent {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-22T08:50:17.459Z
+                at 2024-08-01T14:56:03.920Z
             </div>
         <script src="../prettify.js"></script>
         <script>

@@ -57,7 +57,7 @@ export class SpotifyService {
   }
 
   // Initialize the Spotify Web Playback SDK
-  private async initializeSpotify(): Promise<void> {
+  public async initializeSpotify(): Promise<void> {
     try {
       const tokens = await firstValueFrom(this.authService.getTokens());
       this.loadSpotifySdk(tokens.providerToken);
@@ -66,7 +66,7 @@ export class SpotifyService {
     }
   }
 
-  private recentListeningCached(): boolean {
+  public recentListeningCached(): boolean {
     if (sessionStorage.getItem('recentListening') !== null && sessionStorage.getItem('recentListening') !== '{}')
     {
       this.RecentListeningObject = JSON.parse(sessionStorage.getItem('recentListening') || '{}');
@@ -75,7 +75,7 @@ export class SpotifyService {
     return false;
   }
 
-  private queueCached(): boolean {
+  public queueCached(): boolean {
     if (sessionStorage.getItem('queue') !== null && sessionStorage.getItem('queue') !== '{}')
     {
       this.QueueObject = JSON.parse(sessionStorage.getItem('queue') || '{}');
@@ -85,7 +85,7 @@ export class SpotifyService {
   }
 
   // Load the Spotify Web Playback SDK script
-  private loadSpotifySdk(providerToken: string): void {
+  public loadSpotifySdk(providerToken: string): void {
     const script = document.createElement('script');
     script.src = 'https://sdk.scdn.co/spotify-player.js';
     script.async = true;
@@ -98,7 +98,7 @@ export class SpotifyService {
   }
 
   // Initialize the Spotify Web Playback player
-  private initializePlayer(providerToken: string): void {
+  public initializePlayer(providerToken: string): void {
     this.player = new Spotify.Player({
       name: 'ECHO',
       getOAuthToken: cb => { cb(providerToken); },
@@ -308,14 +308,14 @@ export class SpotifyService {
   }
 
   // Set the currently playing track
-  private setCurrentlyPlayingTrack(trackId: string): void {
+  public setCurrentlyPlayingTrack(trackId: string): void {
     this.getTrackDetails(trackId).then(track => {
       this.currentlyPlayingTrackSubject.next(track);
     });
   }
 
   // Get the details of a track by its Spotify ID
-  private async getTrackDetails(trackId: string): Promise<any> {
+  public async getTrackDetails(trackId: string): Promise<any> {
     try {
       const laccessToken = this.tokenService.getAccessToken();
       const lrefreshToken = this.tokenService.getRefreshToken();
@@ -344,7 +344,7 @@ export class SpotifyService {
   }
 
   // Truncate text to a specified length when song names are too long
-  private truncateText(text: string, maxLength: number): string {
+  public truncateText(text: string, maxLength: number): string {
     if (text.length > maxLength) {
       return text.substring(0, maxLength) + '...';
     }

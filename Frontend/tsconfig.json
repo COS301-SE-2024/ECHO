@@ -23,7 +23,7 @@
       "ES2022",
       "dom"
     ],
-    "types": ["youtube"]
+    "types": ["youtube", "jest"]
   },
   "include": [
     "src/app/types"
