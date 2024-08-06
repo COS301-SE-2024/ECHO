@@ -33,9 +33,11 @@ export class AppComponent {
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: RouterEvent) => {
       if (event instanceof NavigationEnd) {
-        this.showPlayer = ['/home', '/profile'].includes(event.urlAfterRedirects);
+        this.showPlayer = ['/home','/home#search', '/home#library', '/profile'].includes(event.urlAfterRedirects);
         switch (event.urlAfterRedirects) {
           case '/home':
+          case '/home#search':
+          case '/home#library':
             this.currentPage = 'Home';
             this.displayPageName = true;
             break;
@@ -45,10 +47,6 @@ export class AppComponent {
             break;
           case '/settings':
             this.currentPage = 'Settings';
-            this.displayPageName = true;
-            break;
-          case '/search':
-            this.currentPage = 'Search';
             this.displayPageName = true;
             break;
           default:
