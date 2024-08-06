@@ -1,13 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { YoutubeController } from './youtube.controller';
-import { YoutubeService } from '../services/youtube.service';
-
-interface YouTubeTrackInfo {
-  title: string;
-  artist: string;
-  videoId: string;
-  duration: string;
-}
+import { YoutubeService, YouTubeTrackInfo } from '../services/youtube.service';
 
 describe('YoutubeController', () => {
   let controller: YoutubeController;
@@ -37,12 +30,13 @@ describe('YoutubeController', () => {
 
   describe('getQueue', () => {
     it('should return the result of youtubeService.getQueue', async () => {
-      const mockResult: YouTubeTrackInfo = {
-        title: 'Some Title',
-        artist: 'Some Artist',
-        videoId: 'someVideoId',
-        duration: '4:00'
-      };
+        const mockResult: YouTubeTrackInfo[] = [{
+            id: 'someId',
+            title: 'Some Title',
+            thumbnailUrl: 'http://example.com/thumbnail.jpg',
+            channelTitle: 'Some Channel',
+            videoUrl: 'http://example.com/video'
+        }];
       const body = { artist: 'Artist Name', song_name: 'Song Name' };
       jest.spyOn(youtubeService, 'getQueue').mockResolvedValue(mockResult);
 
@@ -56,10 +50,11 @@ describe('YoutubeController', () => {
   describe('getTrackDetails', () => {
     it('should return the result of youtubeService.fetchSingleTrackDetails', async () => {
       const mockResult: YouTubeTrackInfo = {
+        id: 'someId',
         title: 'Some Title',
-        artist: 'Some Artist',
-        videoId: 'someVideoId',
-        duration: '4:00'
+        thumbnailUrl: 'http://example.com/thumbnail.jpg',
+        channelTitle: 'Some Channel',
+        videoUrl: 'http://example.com/video'
       };
       const body = { videoId: '123456' };
       jest.spyOn(youtubeService, 'fetchSingleTrackDetails').mockResolvedValue(mockResult);
