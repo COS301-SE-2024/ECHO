@@ -60,4 +60,11 @@ export class SpotifyController {
         const {trackID,accessToken,refreshToken} = body;
         return await this.spotifyService.getTrackDetails(trackID,accessToken,refreshToken);
     }
+
+    // This endpoint is used to play a track by it's name and artist on a specific device.
+    @Post('play-by-name')
+    async playTrackByName(@Body() body: { trackName: string, accessToken: string; refreshToken: string }): Promise<any> {
+        const {trackName,accessToken,refreshToken} = body;
+        return await this.spotifyService.getTrackDetails(trackName,accessToken,refreshToken);
+    }
 }
