@@ -168,24 +168,20 @@ describe('AuthController', () => {
         });
     });
 
-/*
+
+
+    /*
     describe('signInWithSpotifyOAuth', () => {
         it('should redirect to Spotify OAuth URL', async () => {
             const mockResponse = {
                 redirect: jest.fn(),
             } as unknown as Response;
-    
-            // Mock the signinWithOAuth method
-            const mockSigninWithOAuth = jest
-                .spyOn(supabaseService, 'signinWithOAuth')
-                .mockResolvedValue('https://spotify.oauth.url');
-    
+
+            (supabaseService.signinWithOAuth('spotify') as unknown as jest.Mock).mockResolvedValue('https://spotify.oauth.url');
+
             await controller.signInWithSpotifyOAuth(mockResponse);
-    
-            // Verify that signinWithOAuth was called with the correct provider
-            expect(mockSigninWithOAuth).toHaveBeenCalledWith({ provider: 'spotify' });
-    
-            // Verify that the response redirected correctly
+
+            expect(supabaseService.signinWithOAuth('spotify')).toHaveBeenCalled();
             expect(mockResponse.redirect).toHaveBeenCalledWith(303, 'https://spotify.oauth.url');
         });
     });
