@@ -43,6 +43,9 @@ export class SupabaseService {
 
     // This method is used to handle tokens from Spotify and store them in the Supabase user_tokens table.
     async handleSpotifyTokens(accessToken: string, refreshToken: string, providerToken: string, providerRefreshToken: string) {
+        if (!(accessToken && refreshToken && providerToken && providerRefreshToken)) {
+            return {message: "Error occurred during OAuth Sign In while processing tokens - please try again."}
+        }
         const supabase = createSupabaseClient();
         const { error } = await supabase.auth.setSession({ access_token: accessToken, refresh_token: refreshToken });
         if (error) {
@@ -67,6 +70,9 @@ export class SupabaseService {
 
     // This method is used to insert tokens into the user_tokens table.
     async insertTokens(userId: string, providerToken: string, providerRefreshToken: string): Promise<void> {
+        if (!(userId && providerToken && providerRefreshToken)) {
+            return;
+        }
         const encryptedProviderToken = providerToken;
         const encryptedProviderRefreshToken = providerRefreshToken;
         const supabase = createSupabaseClient();

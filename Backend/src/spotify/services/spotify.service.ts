@@ -1,6 +1,6 @@
 import { Injectable, HttpException, HttpStatus } from "@nestjs/common";
 import { HttpService } from "@nestjs/axios";
-import { lastValueFrom } from "rxjs";
+import { firstValueFrom, lastValueFrom } from "rxjs";
 import { createSupabaseClient } from "../../supabase/services/supabaseClient";
 import { SupabaseService } from "../../supabase/services/supabase.service";
 import { accessKey } from "../../config";
@@ -177,6 +177,105 @@ export class SpotifyService {
         }));
     }
 
+    //This function plays the next track on the device with the given deviceID using the Spotify API
+    async playNextTrack(accessToken: string, refreshToken: string, deviceId: string) {
+        try {
+            const providerToken = await this.getAccessToken(accessToken, refreshToken);
+
+            await firstValueFrom(this.httpService.post('https://api.spotify.com/v1/me/player/next', null, {
+                headers: {
+                    "Authorization": `Bearer ${providerToken}`
+                },
+                params: {
+                    "device_id": deviceId
+                }
+            }));
+
+            return { message: "Skipped to next track successfully" };
+
+        } catch (error) {
+            console.error('Error playing next track:', error.response?.data || error.message);
+            throw new HttpException('Failed to play next track', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    //This function plays the previous track on the device with the given deviceID using the Spotify API
+    async playPreviousTrack(accessToken: string, refreshToken: string, deviceId: string) {
+        try {
+            const providerToken = await this.getAccessToken(accessToken, refreshToken);
+
+            await firstValueFrom(this.httpService.post('https://api.spotify.com/v1/me/player/previous', null, {
+                headers: {
+                    "Authorization": `Bearer ${providerToken}`
+                },
+                params: {
+                    "device_id": deviceId
+                }
+            }));
+
+            return { message: "Switched to previous track successfully" };
+
+        } catch (error) {
+            console.error('Error playing previous track:', error.response?.data || error.message);
+            throw new HttpException('Failed to play next track', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    //This function retrieves the track duration of the currently playing track using the Spotify API
+    public async getTrackDuration(accessToken: string, refreshToken: string): Promise<number> {
+        if (!accessToken) {
+            throw new HttpException('Access token is missing while attempting to fetch track duration', HttpStatus.BAD_REQUEST);
+        }
+        try {
+            const providerToken = await this.getAccessToken(accessToken, refreshToken);
+            const response = await lastValueFrom(
+                this.httpService.get('https://api.spotify.com/v1/me/player/currently-playing', {
+                    headers: {
+                        'Authorization': `Bearer ${providerToken}`,
+                    },
+                })
+            );
+
+            if (response.data && response.data.item && response.data.item.duration_ms) {
+                return response.data.item.duration_ms;
+            } else {
+                throw new Error('Unable to fetch track duration');
+            }
+        } catch (error) {
+            console.error('Error fetching track duration:', error.response?.data || error.message);
+            throw new HttpException('Error fetching track duration', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public async seekToPosition(accessToken: string, refreshToken:string, position_ms: number, deviceId: string): Promise<any> {
+        try {
+            const providerToken = await this.getAccessToken(accessToken, refreshToken);
+            const response = await lastValueFrom(
+                this.httpService.put(
+                    'https://api.spotify.com/v1/me/player/seek',
+                    null,
+                    {
+                        params: {
+                            position_ms,
+                            device_id: deviceId,
+                        },
+                        headers: {
+                            'Authorization': `Bearer ${providerToken}`,
+                        },
+                    }
+                )
+            );
+
+            if (response.status === 204) {
+                return { message: 'Seek position updated successfully' };
+            } else {
+                throw new HttpException('Failed to update seek position', HttpStatus.BAD_REQUEST);
+            }
+        } catch (error) {
+            console.error('Error seeking to position:', error.response?.data || error.message);
+            throw new HttpException('Error seeking to position', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
 
 interface TrackInfo {
