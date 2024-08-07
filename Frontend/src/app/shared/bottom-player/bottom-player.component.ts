@@ -1,16 +1,16 @@
 import { Component, AfterViewInit, OnDestroy, ViewChild, ElementRef, ChangeDetectorRef } from "@angular/core";
 import { MatCard, MatCardContent } from "@angular/material/card";
-import { NgIf } from "@angular/common";
+import { NgIf,NgClass } from "@angular/common";
 import { ThemeService } from "../../services/theme.service";
 import { SpotifyService } from "../../services/spotify.service";
 import { ScreenSizeService } from '../../services/screen-size-service.service';
 import { Subscription, interval } from "rxjs";
 import { ProviderService } from "../../services/provider.service";
-
+import { MoodService } from '../../services/mood-service.service';
 @Component({
   selector: "app-bottom-player",
   standalone: true,
-  imports: [MatCard, MatCardContent, NgIf],
+  imports: [MatCard, MatCardContent, NgIf,NgClass],
   templateUrl: "./bottom-player.component.html",
   styleUrls: ["./bottom-player.component.css"]
 })
@@ -21,6 +21,10 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
   started: boolean = false;
   screenSize?: string;
 
+  //Mood Service Variables
+  moodComponentClasses!:{ [key: string]: string };
+  backgroundMoodClasses!:{ [key: string]: string };
+  moodClassesDark!:{ [key: string]: string };
   currentTrack: any = {
     name: "All In",
     artist: "Nasty C ft. TI",
@@ -35,8 +39,18 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
   private progressUpdateSubscription!: Subscription;
 
 
-  constructor(protected themeService: ThemeService, private spotifyService: SpotifyService,private screenSizeService: ScreenSizeService, private providerService: ProviderService, private cdr: ChangeDetectorRef) {
-  }
+
+  constructor(protected themeService: ThemeService, 
+    private spotifyService: SpotifyService,
+    private screenSizeService: ScreenSizeService,
+    private providerService: ProviderService,
+    public moodService: MoodService,
+    private cdr: ChangeDetectorRef
+    ) {
+      this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
+      this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
+      this.moodClassesDark = this.moodService.getComponentMoodClassesDark();
+      }
 
 
   ngAfterViewInit(): void {

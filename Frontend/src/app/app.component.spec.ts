@@ -1,84 +1,90 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { Router, NavigationEnd, Event as RouterEvent } from '@angular/router';
-import { ReplaySubject, of } from 'rxjs';
-import { HttpClientModule } from '@angular/common/http';
-import { AuthService } from './services/auth.service';
-import { SpotifyService } from './services/spotify.service';
-
-// Mock classes
-class MockRouter {
-  private eventSubject = new ReplaySubject<RouterEvent>(1);
-  events = this.eventSubject.asObservable();
-
-  // Simulate navigation events
-  simulateNavigation(url: string) {
-    this.eventSubject.next(new NavigationEnd(1, url, url));
-  }
-}
-
-class MockAuthService {
-  sendTokensToServer() {
-    return of({});
-  }
-}
-
-class MockSpotifyService {
-  init() {
-    return Promise.resolve();
-  }
-
-  disconnectPlayer() {
-    // Mock implementation for disconnectPlayer
-  }
-
-  currentlyPlayingTrack$ = new ReplaySubject<any>(1); // Observable for currently playing track
-  playingState$ = new ReplaySubject<boolean>(1); // Observable for playing state
-}
+import { Router, NavigationEnd } from '@angular/router';
+import { ScreenSizeService } from './services/screen-size-service.service';
+import { ProviderService } from './services/provider.service';
+import { SwUpdate } from '@angular/service-worker';
+import { of, Subject } from 'rxjs';
+import { By } from '@angular/platform-browser';
 
 describe('AppComponent', () => {
   let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
-  let mockRouter: MockRouter;
-  let mockAuthService: MockAuthService;
-  let mockSpotifyService: MockSpotifyService;
+  let router: Router;
+  let screenSizeService: ScreenSizeService;
+  let providerService: ProviderService;
+  let swUpdate: SwUpdate;
+  let routerEventsSubject: Subject<any>;
+  let screenSizeSubject: Subject<string>;
 
   beforeEach(async () => {
-    mockRouter = new MockRouter();
-    mockAuthService = new MockAuthService();
-    mockSpotifyService = new MockSpotifyService();
+    routerEventsSubject = new Subject<any>();
+    screenSizeSubject = new Subject<string>();
 
     await TestBed.configureTestingModule({
-      imports: [HttpClientModule, AppComponent],
+      declarations: [AppComponent],
       providers: [
-        { provide: Router, useValue: mockRouter },
-        { provide: AuthService, useValue: mockAuthService },
-        { provide: SpotifyService, useValue: mockSpotifyService }
+        { provide: Router, useValue: { events: routerEventsSubject.asObservable() } },
+        { provide: ScreenSizeService, useValue: { screenSize$: screenSizeSubject.asObservable() } },
+        { provide: ProviderService, useValue: {} },
+        { provide: SwUpdate, useValue: { versionUpdates: of({ type: 'VERSION_READY' }), activateUpdate: jest.fn().mockResolvedValue({}) } }
       ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    router = TestBed.inject(Router);
+    screenSizeService = TestBed.inject(ScreenSizeService);
+    providerService = TestBed.inject(ProviderService);
+    swUpdate = TestBed.inject(SwUpdate);
   });
 
-  it('should create', () => {
+  it('should create the app', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should show player on specific routes', () => {
-    mockRouter.simulateNavigation('/home');
-    fixture.detectChanges();
-    expect(component.showPlayer).toBe(true);
-
-    mockRouter.simulateNavigation('/profile');
-    fixture.detectChanges();
-    expect(component.showPlayer).toBe(true);
+  it('should initialize title to Echo', () => {
+    expect(component.title).toBe('Echo');
   });
 
-  it('should not show player on other routes', () => {
-    mockRouter.simulateNavigation('/other');
-    fixture.detectChanges();
+  it('should update showPlayer based on navigation end events', () => {
+    routerEventsSubject.next(new NavigationEnd(0, '/home', '/home'));
+    expect(component.showPlayer).toBe(true);
+    
+    routerEventsSubject.next(new NavigationEnd(0, '/profile', '/profile'));
+    expect(component.showPlayer).toBe(true);
+    
+    routerEventsSubject.next(new NavigationEnd(0, '/other', '/other'));
     expect(component.showPlayer).toBe(false);
+  });
+
+  it('should update displayPlayer based on navigation end events', () => {
+    routerEventsSubject.next(new NavigationEnd(0, '/settings', '/settings'));
+    expect(component.displayPlayer).toBe(true);
+    
+    routerEventsSubject.next(new NavigationEnd(0, '/home', '/home'));
+    expect(component.displayPlayer).toBe(false);
+  });
+
+  it('should handle version updates', async () => {
+    const activateUpdateSpy = jest.spyOn(swUpdate, 'activateUpdate').mockResolvedValue(true);
+    const reloadSpy = jest.spyOn(window.location, 'reload').mockImplementation(() => {});
+
+    swUpdate.versionUpdates.subscribe(event => {
+      if (event.type === 'VERSION_READY') {
+        expect(activateUpdateSpy).toHaveBeenCalled();
+        expect(component.update).toBe(true);
+        expect(reloadSpy).toHaveBeenCalled();
+      }
+    });
+  });
+
+  it('should subscribe to screen size changes on init', () => {
+    component.ngOnInit();
+    screenSizeSubject.next('large');
+    expect(component.screenSize).toBe('large');
+    
+    screenSizeSubject.next('small');
+    expect(component.screenSize).toBe('small');
   });
 });

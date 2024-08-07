@@ -8,23 +8,32 @@ import { AuthService } from "../../services/auth.service";
 import { firstValueFrom } from "rxjs";
 import { ProviderService } from "../../services/provider.service";
 import { SearchService } from "../../services/search.service";
+import { MoodService } from '../../services/mood-service.service';
+import {EchoButtonComponent} from '../echo-button/echo-button.component';
 
 @Component({
   selector: 'app-side-bar',
   standalone: true,
-  imports: [MatCard, MatCardContent, NgForOf, NgIf, NgClass],
+  imports: [MatCard, MatCardContent, NgForOf, NgIf, NgClass,EchoButtonComponent],
   templateUrl: './side-bar.component.html',
   styleUrls: ['./side-bar.component.css'],
 })
 export class SideBarComponent implements OnInit {
+   // Mood Service Variables
+   moodComponentClasses!: { [key: string]: string };
+   backgroundMoodClasses!: { [key: string]: string };
   constructor(
     protected themeService: ThemeService,
     private spotifyService: SpotifyService,
     private providerService: ProviderService,
     private screenSizeService: ScreenSizeService,
     private authService: AuthService,
-    private searchService: SearchService
-  ) {}
+    private searchService: SearchService,
+    public moodService: MoodService
+  ) {
+    this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
+    this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
+  }
 
   title: string = 'Home';
   selectedOption: string = 'upNext';
@@ -38,6 +47,7 @@ export class SideBarComponent implements OnInit {
   selected:string = "Up Next..."
   options = ["Recent Listening...","Up Next..."];
   isEchoModalVisible: boolean = false;
+
   toggleDropdown(): void {
     this.isDropdownVisible = !this.isDropdownVisible;
   }

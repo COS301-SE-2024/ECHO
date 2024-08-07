@@ -1,5 +1,5 @@
 <!-- listening-card.component.html -->
-<div class="bg-white dark:bg-gray-component p-2 rounded-md flex-shrink-0"
+<div [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]" class="p-2 rounded-md flex-shrink-0"
 	 style="width: 15vw; height: 20vw; max-width: 9rem; max-height: 12rem; min-width: 5rem; min-height: 7.5rem;">
   <div class="card-content">
 	<img src="{{ imageUrl }}" alt="{{ text }}" class="rounded mx-auto" style="border-radius: 50%;">

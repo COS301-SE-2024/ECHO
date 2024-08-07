@@ -1,18 +1,30 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { EditProfileModalComponent } from './edit-profile-modal.component';
+import { ThemeService } from '../../services/theme.service';
+import { AuthService } from '../../services/auth.service';
 
 describe('EditProfileModalComponent', () => {
     let component: EditProfileModalComponent;
     let fixture: ComponentFixture<EditProfileModalComponent>;
+    let mockDialogRef: MatDialogRef<EditProfileModalComponent>;
+    let mockThemeService: ThemeService;
+    let mockAuthService: AuthService;
 
     beforeEach(async () => {
+        mockDialogRef = { close: jest.fn() } as any;
+        mockThemeService = {} as any;
+        mockAuthService = { currentUser: jest.fn() } as any;
+
         await TestBed.configureTestingModule({
             imports: [EditProfileModalComponent, HttpClientTestingModule], // add HttpClientTestingModule here
             providers: [
-                { provide: MatDialogRef, useValue: {} }
+                { provide: MatDialogRef, useValue: mockDialogRef },
+                { provide: ThemeService, useValue: mockThemeService },
+                { provide: AuthService, useValue: mockAuthService },
+                { provide: MAT_DIALOG_DATA, useValue: {} }
             ]
         }).compileComponents();
 
@@ -24,4 +36,17 @@ describe('EditProfileModalComponent', () => {
     it('should create', () => {
         expect(component).toBeTruthy();
     });
+      
+      describe('Functionality', () => {
+        it('should close the dialog when onNoClick is called', () => {
+          component.onNoClick();
+          expect(mockDialogRef.close).toHaveBeenCalled();
+        });
+      
+        it('should close the dialog when saveChanges is called', () => {
+          component.saveChanges();
+          expect(mockDialogRef.close).toHaveBeenCalled();
+        });
+      });
+      
 });

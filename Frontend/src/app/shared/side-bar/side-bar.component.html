@@ -1,7 +1,7 @@
 <div *ngIf="screenSize === 'desktop'" class="fixed z-10" style="--tw-w: 21vw; --tw-h: 75vh; left: 1vw; top: 10.2vh;">
   <div class="container">
     <div class="pl-5 py-4 rounded-md h-full">
-      <div class="bg-gray-lightcomponent dark:bg-gray-component rounded-lg overflow-auto h-full flex flex-col justify-between scrollbar-hidden">
+      <div [ngClass]="this.moodComponentClasses[this.moodService.getCurrentMood()]" class=" rounded-lg overflow-auto h-full flex flex-col justify-between scrollbar-hidden">
         <div class="flex flex-col h-full">
           <div class="flex justify-between mb-2 mt-2">
             <div class="button-container" [class.underline-blue]="selectedOption === 'upNext'" [class.underline-none]="selectedOption !== 'upNext'">
@@ -49,9 +49,8 @@
 </div>
 
 
-<div *ngIf="screenSize === 'mobile'" class="flex flex-col w-full">
-
-<button id="dropdownDefaultButton" (click)="toggleDropdown()" data-dropdown-toggle="dropdown" class="w-full justify-between text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-gray-component dark:hover:bg-pink dark:focus:ring-pink" type="button">{{selected}}<svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+<div *ngIf="screenSize === 'mobile'" class="flex flex-col w-full"> 
+<button id="dropdownDefaultButton" (click)="toggleDropdown()" [ngClass]="this.moodComponentClasses[this.moodService.getCurrentMood()]" data-dropdown-toggle="dropdown" class="w-full justify-between font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center" type="button">{{selected}}<svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
 </svg>
 </button>
@@ -59,10 +58,10 @@
 <!-- Styled Dropdown menu to match the button -->
 <div id="dropdown" *ngIf="isDropdownVisible" class="w-full z-10 bg-blue-700 divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-component">
     <div class="flex flex-col h-full">
-      <ul class="py-2 text-sm text-white" aria-labelledby="dropdownDefaultButton">
+      <ul class="py-2" [ngClass]="this.moodComponentClasses[this.moodService.getCurrentMood()]"  aria-labelledby="dropdownDefaultButton">
         <li *ngFor="let option of options">
-          <a (click)="selectedOptionChange(option)" class="block w-full px-4 py-2 rounded-lg hover:bg-blue-800 dark:hover:bg-pink dark:hover:text-white">{{option}}</a>
-        </li>
+          <a (click)="selectedOptionChange(option)" [ngClass]="this.moodComponentClasses[this.moodService.getCurrentMood()]" class="block w-full px-4">{{option}}</a>
+        </li> 
       </ul>
     </div>
 </div>
@@ -73,7 +72,7 @@
     <!-- ng-container for iterating over cards and adding View More button as the last card -->
     <ng-container *ngFor="let card of getSelectedCardData(); let i = index; let last = last">
             <!-- Card -->
-      <div class="mb-4 w-full rounded-lg shadow-lg overflow-hidden bg-gray-lightcomponent dark:bg-gray-component">
+      <div [ngClass]="this.moodComponentClasses[this.moodService.getCurrentMood()]"  class="mb-4 w-full rounded-lg shadow-lg overflow-hidden">
         <div class="flex items-center p-4" (click)="playTrack(card.id)">
           <!-- Card Image -->
           <img class="w-16 h-16 rounded-lg" src="{{ card.imageUrl }}" alt="Album Art">
@@ -100,8 +99,8 @@
         </div>
       </div>
       <!-- View More Button as a Card with extra bottom padding class -->
-      <div *ngIf="last" class="view-more-container text-center py-4 w-full rounded-lg shadow-lg overflow-hidden bg-gray-lightcomponent dark:bg-gray-component">
-        <button class="px-4 py-2 rounded-lg bg-pink text-white font-semibold">View More</button>
+      <div *ngIf="last" [ngClass]="this.moodComponentClasses[this.moodService.getCurrentMood()]" class="view-more-container text-center py-4 w-full rounded-lg shadow-lg overflow-hidden">
+        <button [ngClass]="this.moodComponentClasses[this.moodService.getCurrentMood()]" class="px-4 py-2 rounded-lg font-semibold">View More</button>
       </div>
     </ng-container>
   </div>
