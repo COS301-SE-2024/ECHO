@@ -25,6 +25,22 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/providertokens`, {accessToken: laccessToken, refreshToken: lrefreshToken});
   }
 
+  verifyOfflineSession(): Promise<boolean>
+  {
+    if (localStorage.getItem('loggedIn') === 'true')
+    {
+      return new Promise<boolean>((resolve) => {
+              resolve(true);
+      });
+    }
+    else
+    {
+      return new Promise<boolean>((resolve) => {
+              resolve(false);
+      });
+    }
+  }
+
   // This function is used to sign in the user with Spotify OAuth
   async signInWithOAuth(): Promise<void> {
     const providerName = this.providerService.getProviderName();
