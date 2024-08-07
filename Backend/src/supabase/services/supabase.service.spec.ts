@@ -27,7 +27,7 @@ describe('SupabaseService', () => {
             };
             (createSupabaseClient as jest.Mock).mockReturnValue(mockSupabase);
 
-            const result = await supabaseService.signInWithSpotifyOAuth();
+            const result = await supabaseService.signinWithOAuth("Spotify");
             expect(mockSupabase.auth.signInWithOAuth).toHaveBeenCalledWith({
                 provider: 'spotify',
                 options: {
@@ -46,7 +46,7 @@ describe('SupabaseService', () => {
             };
             (createSupabaseClient as jest.Mock).mockReturnValue(mockSupabase);
 
-            await expect(supabaseService.signInWithSpotifyOAuth()).rejects.toThrow('OAuth error');
+            await expect(supabaseService.signinWithOAuth("Spotify")).rejects.toThrow('OAuth error');
         });
     });
 
