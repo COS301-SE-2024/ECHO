@@ -14,8 +14,6 @@ CONNECTION_STRING = os.environ.get("BLOB_STORAGE_CONNECTION_STRING")
 BLOB_SERVICE_CLIENT = BlobServiceClient.from_connection_string(CONNECTION_STRING)
 CONTAINER_NAME = "inputdata"
 
-features = ['duration_ms', 'danceability', 'energy', 'loudness', 'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo']
-
 
 def get_scaler():
     FILE_NAME = "scaler.pkl"
@@ -86,7 +84,9 @@ def recommend_songs(music_features, n_recommendations=50):
             ).idxmax()
             cluster_data = cluster_data.drop(index=existing_song_index)
 
-        cluster_indices = cluster_data.index
+        half_cluster_data = cluster_data.sample(frac=0.5, random_state=1)
+
+        cluster_indices = half_cluster_data.index
         cluster_features = X_scaled[cluster_indices]
         distances = np.linalg.norm(cluster_features - new_song_scaled, axis=1)
 
@@ -99,7 +99,7 @@ def recommend_songs(music_features, n_recommendations=50):
     
 
 def get_cluster_number(music_features):
-    clustered_data, centroids = get_cluster_data(), get_centroids()
+    centroids = get_centroids()
 
     if music_features:
         music_features = {key: music_features[key] for key in features if key in music_features}
