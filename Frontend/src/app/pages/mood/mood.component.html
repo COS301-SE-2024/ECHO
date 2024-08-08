@@ -1,0 +1,21 @@
+<div *ngIf="screenSize === 'mobile'" class="mobile-layout">
+    
+</div>
+  
+<div *ngIf="screenSize === 'desktop'" class="desktop-layout">
+    <div [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]"  class="min-h-screen  flex flex-col justify-center px-6 py-12 lg:px-8">
+        <div class="flex justify-center items-center">
+            <div class="fixed top-1 right-12 flex flex-col items-center">
+            </div>
+            <div class="profile-container">
+                
+            </div>
+
+            <div class="navbar-container">
+                <app-navbar (selectedNavChange)="onNavChange($event)"></app-navbar>
+            </div>
+        </div>
+    </div>
+</div>
+  
+  

@@ -9,6 +9,7 @@ import { UserLibraryComponent } from "./pages/user-library/user-library.componen
 import { ArtistProfileComponent } from "./pages/artist-profile/artist-profile.component";
 import { SearchComponent } from "./pages/search/search.component";
 import { SettingsComponent } from "./pages/settings/settings.component";
+import { MoodComponent } from "./pages/mood/mood.component";
 import { NgModule } from '@angular/core';
 
 export const routes: Routes = [
@@ -20,6 +21,7 @@ export const routes: Routes = [
     { path: 'library', component: UserLibraryComponent },
   ] },
   { path: "profile", component: ProfileComponent },
+  { path: "mood", component: MoodComponent },
   { path: "auth/callback", component: AuthCallbackComponent },
   { path: "", redirectTo: "/login", pathMatch: "full" },
   {path: "settings", component: SettingsComponent},
