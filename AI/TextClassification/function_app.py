@@ -1,16 +1,17 @@
+import os
+
 import azure.functions as func
 
 import os
 import json
 
-import genre
-import utils
+import classification
 
 app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
 
-@app.route(route="get_genres")
+
+@app.route(route="get_sentiments")
 def get_songs(req: func.HttpRequest) -> func.HttpResponse:
-    print("received")
     req_body = req.get_json()
     access_key = os.environ.get('ACCESS_KEY')
     provided_key = req_body.get('access_key')
@@ -23,7 +24,7 @@ def get_songs(req: func.HttpRequest) -> func.HttpResponse:
         )
 
     try:
-        song_genres = []
+        similar_songs = []
         recommended_tracks = req_body.get('recommended_tracks', [])
 
         for track in recommended_tracks:
@@ -32,16 +33,16 @@ def get_songs(req: func.HttpRequest) -> func.HttpResponse:
 
             if not track_name or not artist_name:
                 return func.HttpResponse(
-                json.dumps({"error": "Please provide both song_name and artist."}),
-                mimetype="application/json",
-                status_code=400
-            )
+                    json.dumps({"error": "Please provide both song_name and artist."}),
+                    mimetype="application/json",
+                    status_code=400
+                )
 
-            album_genre = genre.get_album_genre(track_name, artist_name)
+            emotion = classification.run_lyric_analysis(track_name, artist_name)
 
-            song_genres.append({
-                "track": track, 
-                "genre": album_genre
+            similar_songs.append({
+                "track": track,
+                "emotion": emotion
             })
 
     except Exception as e:
@@ -52,7 +53,7 @@ def get_songs(req: func.HttpRequest) -> func.HttpResponse:
         )
     
     return func.HttpResponse(
-        json.dumps({"recommended_tracks": song_genres}),
+        json.dumps({"recommended_tracks": similar_songs}),
         mimetype="application/json",
         status_code=200
     )

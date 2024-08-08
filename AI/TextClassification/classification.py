@@ -152,7 +152,7 @@ def get_sentiment(lyrics):
     completion = client.chat.completions.create(
         model="gpt-4o-mini",
         messages=[
-            {"role": "user", "content": "I am going to give you song lyrics. Please respond with one and only one of the following categories that the lyrics best fit into: Admiration, Amusement, Anger, Annoyance, Approval, Caring, Confusion, Curiosity, Desire, Disappointment, Disapproval, Disgust, Embarrassment, Excitement, Fear, Gratitude, Grief, Joy, Love, Nervousness, Optimism, Pride, Realisation, Relief, Remorse, Sadness, Surprise. Please only respond with the ONE word."},
+            {"role": "system", "content": "I am going to give you song lyrics. Please respond with one and only one of the following categories that the lyrics best fit into: Admiration, Amusement, Anger, Annoyance, Approval, Caring, Confusion, Curiosity, Desire, Disappointment, Disapproval, Disgust, Embarrassment, Excitement, Fear, Gratitude, Grief, Joy, Love, Nervousness, Optimism, Pride, Realisation, Relief, Remorse, Sadness, Surprise. Please only respond with the ONE word."},
             {"role": "user", "content": lyrics}
         ]
     )
