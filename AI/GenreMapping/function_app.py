@@ -1,5 +1,3 @@
-import os
-
 import azure.functions as func
 
 import os
@@ -10,9 +8,9 @@ import utils
 
 app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
 
-
-@app.route('/get_genres')
+@app.route(route="get_genres")
 def get_songs(req: func.HttpRequest) -> func.HttpResponse:
+    print("received")
     req_body = req.get_json()
     access_key = os.environ.get('ACCESS_KEY')
     provided_key = req_body.get('access_key')
@@ -25,6 +23,8 @@ def get_songs(req: func.HttpRequest) -> func.HttpResponse:
         )
 
     try:
+        similar_songs = []
+
         song_name = req_body.get('song_name')
         artist = req_body.get('artist')
 
@@ -42,23 +42,20 @@ def get_songs(req: func.HttpRequest) -> func.HttpResponse:
                 mimetype="application/json",
                 status_code=400
             )
-        
-            similar_songs = []
 
-            for track in recommended_tracks:
-                similar_genre = False
-                album_genre = genre.get_album_genre(track_name, artist_name)
+            similar_genre = False
+            album_genre = genre.get_album_genre(track_name, artist_name)
 
-                if given_genre and album_genre:
-                    distance = utils.genre_similarity[given_genre][album_genre]
-                    if distance >= 7:
-                        similar_genre = True
+            if given_genre and album_genre:
+                distance = utils.genre_similarity[given_genre][album_genre]
+                if distance >= 7:
+                    similar_genre = True
 
-                    if similar_genre:
-                        similar_songs.append({
-                            "track": track, 
-                            "genre": album_genre
-                        })
+                if similar_genre is True:
+                    similar_songs.append({
+                        "track": track, 
+                        "genre": album_genre
+                    })
 
     except Exception as e:
         return func.HttpResponse(
@@ -72,17 +69,3 @@ def get_songs(req: func.HttpRequest) -> func.HttpResponse:
         mimetype="application/json",
         status_code=200
     )
-
-
-@app.route('/')
-def index():
-   print('Request for index page received')
-   return func.HttpResponse(
-        json.dumps({"success": "page loaded, go to /get_genres to see recommendations"}),
-        mimetype="application/json",
-        status_code=200
-    )
-
-
-if __name__ == '__main__':
-   app.run()
