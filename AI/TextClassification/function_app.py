@@ -1,18 +1,16 @@
-import os
-
 import azure.functions as func
 
 import os
 import json
 
-import classification
+import genre
 import utils
 
 app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
 
-
-@app.route(route="get_sentiments")
+@app.route(route="get_genres")
 def get_songs(req: func.HttpRequest) -> func.HttpResponse:
+    print("received")
     req_body = req.get_json()
     access_key = os.environ.get('ACCESS_KEY')
     provided_key = req_body.get('access_key')
@@ -25,14 +23,8 @@ def get_songs(req: func.HttpRequest) -> func.HttpResponse:
         )
 
     try:
-        similar_songs = []
-
-        song_name = req_body.get('song_name')
-        artist = req_body.get('artist')
-
+        song_genres = []
         recommended_tracks = req_body.get('recommended_tracks', [])
-        
-        given_emotion = classification.run_lyric_analysis(song_name, artist)
 
         for track in recommended_tracks:
             track_name = track.get('track_name')
@@ -40,24 +32,17 @@ def get_songs(req: func.HttpRequest) -> func.HttpResponse:
 
             if not track_name or not artist_name:
                 return func.HttpResponse(
-                    json.dumps({"error": "Please provide both song_name and artist."}),
-                    mimetype="application/json",
-                    status_code=400
-                )
-        
-            similar_emotion = False
-            emotion = classification.run_lyric_analysis(track_name, artist_name)
+                json.dumps({"error": "Please provide both song_name and artist."}),
+                mimetype="application/json",
+                status_code=400
+            )
 
-            if emotion and given_emotion:
-                distance = utils.emotional_similarity[emotion.lower()][given_emotion.lower()]
-                if distance >= 7:
-                    similar_emotion = True
+            album_genre = genre.get_album_genre(track_name, artist_name)
 
-                if similar_emotion:
-                    similar_songs.append({
-                    "track": track,
-                    "emotion": emotion
-                })
+            song_genres.append({
+                "track": track, 
+                "genre": album_genre
+            })
 
     except Exception as e:
         return func.HttpResponse(
@@ -67,7 +52,7 @@ def get_songs(req: func.HttpRequest) -> func.HttpResponse:
         )
     
     return func.HttpResponse(
-        json.dumps({"recommended_tracks": similar_songs}),
+        json.dumps({"recommended_tracks": song_genres}),
         mimetype="application/json",
         status_code=200
     )
