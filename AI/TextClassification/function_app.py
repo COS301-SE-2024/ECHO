@@ -25,6 +25,8 @@ def get_songs(req: func.HttpRequest) -> func.HttpResponse:
         )
 
     try:
+        similar_songs = []
+
         song_name = req_body.get('song_name')
         artist = req_body.get('artist')
 
@@ -43,22 +45,19 @@ def get_songs(req: func.HttpRequest) -> func.HttpResponse:
                     status_code=400
                 )
         
-            similar_songs = []
+            similar_emotion = False
+            emotion = classification.run_lyric_analysis(track_name, artist_name)
 
-            for track in recommended_tracks:
-                similar_emotion = False
-                emotion = classification.run_lyric_analysis(track_name, artist_name)
+            if emotion and given_emotion:
+                distance = utils.emotional_similarity[emotion.lower()][given_emotion.lower()]
+                if distance >= 7:
+                    similar_emotion = True
 
-                if emotion and given_emotion:
-                    distance = utils.emotional_similarity[emotion][given_emotion]
-                    if distance >= 7:
-                        similar_emotion = True
-
-                    if similar_emotion:
-                        similar_songs.append({
-                        "track": track,
-                        "emotion": emotion
-                    })
+                if similar_emotion:
+                    similar_songs.append({
+                    "track": track,
+                    "emotion": emotion
+                })
 
     except Exception as e:
         return func.HttpResponse(
@@ -72,17 +71,3 @@ def get_songs(req: func.HttpRequest) -> func.HttpResponse:
         mimetype="application/json",
         status_code=200
     )
-
-
-@app.route('/')
-def index():
-   print('Request for index page received')
-   return func.HttpResponse(
-        json.dumps({"success": "page loaded, go to /get_sentiments to see recommendations"}),
-        mimetype="application/json",
-        status_code=200
-    )
-
-
-if __name__ == '__main__':
-   app.run()

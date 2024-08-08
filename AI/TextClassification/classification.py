@@ -157,5 +157,8 @@ def get_sentiment(lyrics):
         ]
     )
 
-    print(completion.choices[0].message)
-    return(completion.choices[0].message)
+    if completion.choices and completion.choices[0].message:
+        sentiment = completion.choices[0].message.content
+        return sentiment
+    else:
+        return ""
