@@ -56,6 +56,7 @@ def get_songs(req: func.HttpRequest) -> func.HttpResponse:
         mimetype="application/json",
         status_code=200
     )
+    
     except Exception as e:
         return func.HttpResponse(
             json.dumps({"error": str(e)}),
