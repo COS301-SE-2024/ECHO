@@ -52,12 +52,11 @@ def get_cluster_songs(song_name, artist, n_recommendations):
     recommended_songs = cluster.recommend_songs(song_features, n_recommendations)
 
     recommended_tracks = []
-    recommended_tracks.append({"original_id": track_id})
 
     for uri in recommended_songs:
         recommended_tracks.append({"track_uri": uri})
 
-    return recommended_tracks
+    return track_id, recommended_tracks
 
 
 def get_cluster(song_name, artist):

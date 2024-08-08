@@ -39,7 +39,7 @@ def get_songs(req: func.HttpRequest) -> func.HttpResponse:
 
         cluster_number = utils.get_cluster(track_name, artist_name)
         cluster_number = int(cluster_number)
-        cluster_songs = utils.get_cluster_songs(track_name, artist_name, INITIAL_SONGS_REQUESTED)
+        original_song_id, cluster_songs = utils.get_cluster_songs(track_name, artist_name, INITIAL_SONGS_REQUESTED)
 
         if cluster_songs is None:
             return func.HttpResponse(
@@ -51,6 +51,7 @@ def get_songs(req: func.HttpRequest) -> func.HttpResponse:
         return func.HttpResponse(
             json.dumps({
                 "cluster_number": cluster_number,
+                "original_id": original_song_id, 
                 "recommended_tracks": cluster_songs
             }),
         mimetype="application/json",
