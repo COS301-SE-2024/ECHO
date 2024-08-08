@@ -6,6 +6,9 @@ import { HomeComponent } from "./pages/home/home.component";
 import { ProfileComponent } from "./pages/profile/profile.component";
 import { AuthCallbackComponent } from "./authcallback/authcallback.component";
 import { UserLibraryComponent } from "./pages/user-library/user-library.component";
+import { ArtistProfileComponent } from "./pages/artist-profile/artist-profile.component";
+import {SearchComponent} from "./pages/search/search.component";
+import { SettingsComponent } from "./pages/settings/settings.component";
 
 export const routes: Routes = [
   { path: "landing", component: LandingPageComponent },
@@ -15,6 +18,9 @@ export const routes: Routes = [
   { path: "profile", component: ProfileComponent },
   { path: "auth/callback", component: AuthCallbackComponent },
   { path: "", redirectTo: "/login", pathMatch: "full" },
-  { path: "library", component: UserLibraryComponent}
+  { path: "library", component: UserLibraryComponent},
+  {path: "search", component: SearchComponent},
+  {path: "settings", component: SettingsComponent},
+  { path: "artist-profile", component: ArtistProfileComponent},
   //{ path: "**", redirectTo: "/login", pathMatch: "full" },
 ];

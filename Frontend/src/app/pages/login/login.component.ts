@@ -1,16 +1,19 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { SpotifyLoginComponent } from '../../spotify-login/spotify-login.component';
+import { Component, Inject, OnInit, ViewChild } from "@angular/core";
+import { SpotifyLoginComponent } from '../../shared/spotify-login/spotify-login.component';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ThemeService } from '../../services/theme.service';
 import { ToastComponent } from '../../shared/toast/toast.component';
 import { CommonModule } from '@angular/common';
+import { GoogleLoginComponent } from "../../shared/google-login/google-login.component";
+import { AppleLoginComponent } from "../../shared/apple-login/apple-login.component";
+import { ProviderService } from "../../services/provider.service";
 
 @Component({
     selector: 'app-login',
     standalone: true,
-    imports: [CommonModule, FormsModule, SpotifyLoginComponent, ToastComponent],
+  imports: [CommonModule, FormsModule, SpotifyLoginComponent, ToastComponent, GoogleLoginComponent, AppleLoginComponent],
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.css'],
 })
@@ -21,14 +24,15 @@ export class LoginComponent implements OnInit {
     showModal: boolean = false;
     showAboutModal: boolean = false;
     showContactModal: boolean = false;
-    showPrivacyModal: boolean = false; 
+    showPrivacyModal: boolean = false;
 
     @ViewChild(ToastComponent) toastComponent!: ToastComponent;
 
     constructor(
         private authService: AuthService,
         private router: Router,
-        private themeService: ThemeService
+        private themeService: ThemeService,
+        private providerService: ProviderService
     ) {}
 
     ngOnInit() {
@@ -41,13 +45,14 @@ export class LoginComponent implements OnInit {
         }
     }
 
-    spotify() {
-        if (typeof window !== 'undefined') {
-            window.location.href = 'http://localhost:3000/api/auth/oauth-signin';
-        }
+    async spotify() {
+      if (typeof window !== 'undefined') {
+        this.authService.signInWithOAuth();
+      }
     }
 
     login() {
+      this.providerService.setProviderName('email');
         this.authService.signIn(this.email, this.password).subscribe(
             response => {
                 if (response.user) {
@@ -72,23 +77,27 @@ export class LoginComponent implements OnInit {
     toggleModal(): void {
         this.showModal = !this.showModal;
       }
-    
+
       toggleAboutModal(): void {
         this.showAboutModal = !this.showAboutModal;
       }
-    
+
       toggleContactModal(): void {
         this.showContactModal = !this.showContactModal;
       }
-    
+
       togglePrivacyModal(): void {
         this.showPrivacyModal = !this.showPrivacyModal;
       }
-    
+
       closeModal(): void {
         this.showModal = false;
         this.showAboutModal = false;
         this.showContactModal = false;
         this.showPrivacyModal = false;
       }
+
+  google() {
+    this.providerService.setProviderName('google');
+  }
 }

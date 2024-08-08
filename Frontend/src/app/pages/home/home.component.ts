@@ -2,16 +2,18 @@ import { Component,OnInit } from '@angular/core';
 import { SongRecommendationComponent } from '../../shared/song-recommendation/song-recommendation.component';
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
 import { ThemeService } from './../../services/theme.service';
-import { NgClass, NgForOf, NgIf } from '@angular/common';
+import { NgClass, NgForOf, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
 import { SideBarComponent } from '../../shared/side-bar/side-bar.component';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { MoodsComponent } from '../../shared/moods/moods.component';
 import { SpotifyService } from "../../services/spotify.service";
 import { ScreenSizeService } from '../../services/screen-size-service.service';
-import { BottomNavComponent } from '../../shared/bottom-nav/bottom-nav.component';
 import { SearchBarComponent } from '../../shared/search-bar/search-bar.component';
-import { BottomPlayerComponent } from "../../shared/bottom-player/bottom-player.component";
+import { SearchComponent } from '../../pages/search/search.component';
+import { MoodDropDownComponent } from './../../shared/mood-drop-down/mood-drop-down.component';
+import { MoodService } from '../../services/mood-service.service';
+
 @Component({
     selector: 'app-home',
     standalone: true,
@@ -23,27 +25,39 @@ import { BottomPlayerComponent } from "../../shared/bottom-player/bottom-player.
         NgIf,
         SideBarComponent,
         MoodsComponent,
-        BottomPlayerComponent,
-        MoodsComponent,
-        BottomNavComponent,
-        SearchBarComponent
+        SearchBarComponent,
+        SearchComponent,
+        NgSwitchCase,
+        NgSwitch,
+        MoodDropDownComponent
     ],
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',
 })
 
 export class HomeComponent implements OnInit {
+    //Mood Service Variables
+    currentMood!: string;
+    moodComponentClasses!:{ [key: string]: string };
+    backgroundMoodClasses!:{ [key: string]: string };
+    // Page Variables
     title: string = 'Home';
     screenSize?: string;
     currentSelection: string = 'All';
+    searchQuery: string = '';
+
     constructor(
         protected themeService: ThemeService,
         private authService: AuthService,
         private router: Router,
         private spotifyService: SpotifyService,
-        private screenSizeService: ScreenSizeService
-    ) {}
-
+        private screenSizeService: ScreenSizeService,
+        public moodService: MoodService
+    ) {
+        this.currentMood = this.moodService.getCurrentMood(); 
+        this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
+        this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
+    }
 
     switchTheme(): void {
         this.themeService.switchTheme();
@@ -52,7 +66,10 @@ export class HomeComponent implements OnInit {
     onNavChange(newNav: string) {
         this.title = newNav;
     }
-
+    onSearchdown(subject:string) {
+        this.searchQuery = subject;
+        this.title = 'Search';
+    }
     async ngOnInit() {
       this.screenSizeService.screenSize$.subscribe(screenSize => {
         this.screenSize = screenSize;

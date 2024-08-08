@@ -18,8 +18,11 @@
 .scrollable-cards {
   overflow-x: auto;
   scrollbar-width: none; /* For Firefox */
-}
+  overflow-y: hidden;
+  min-height: 15vh;
 
+}
+  
 .scrollable-cards::-webkit-scrollbar {
   display: none; /* For Chrome, Safari, and Opera */
 }
@@ -99,7 +102,10 @@
   }
 
   .scrollable-cards {
-    flex-direction: column;
+    overflow-x: auto;
+    scrollbar-width: none; /* For Firefox */
+    overflow-y: hidden;
+    min-height: 15vh;
   }
 }
 

@@ -1,6 +1,8 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ThemeService } from './../../services/theme.service';
+import { MoodService } from '../../services/mood-service.service';
+
 @Component({
     selector: 'app-svg-icon',
     standalone: true,
@@ -9,20 +11,25 @@ import { ThemeService } from './../../services/theme.service';
     styleUrls: ['./svg-icon.component.css'],
 })
 export class SvgIconComponent {
-    constructor(private themeService: ThemeService) {}
-
+      //Mood Service Variables
+      moodComponentClasses!:{ [key: string]: string };
+    
     @Input() svgPath?: string;
     @Input() fillColor?: string;
     @Input() selected?: boolean;
     @Output() svgClick = new EventEmitter<void>();
+    constructor(private themeService: ThemeService, public moodService: MoodService) {}
 
+    ngOnInit() {
+        this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
+    }
     onClick() {
         this.svgClick.emit();
     }
 
-    get circleColor(): string {
+    circleColor(): string {
         return this.themeService.isDarkModeActive()
-            ? 'rgb(238, 2, 88)'
+            ? this.moodComponentClasses[this.moodService.getCurrentMood()]
             : 'rgba(238, 2, 88, 0.5)';
     }
 }

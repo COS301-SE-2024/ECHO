@@ -1,29 +1,39 @@
-<div class="min-h-screen dark:bg-desktop-bg bg-gray-verylight grid grid-cols-5 grid-rows-6 gap-4 px-6 py-3 lg:px-8" style="overflow: auto;">
+<div [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]" class="min-h-screen grid grid-cols-5 grid-rows-6 gap-4 px-6 py-3 lg:px-8" style="overflow: auto;">
   <div class="col-start-1 col-span-5 row-start-1">
-    <div class="fixed navbar-container pl-5">
-      <app-navbar (selectedNavChange)="onNavChange($event)"></app-navbar>
+    <div class="fixed navbar-container pt-[1vh] pl-5">
+        <app-navbar (selectedNavChange)="onNavChange($event)"></app-navbar>
     </div>
-    <app-search-bar class="col-start-2 row-start-1"></app-search-bar>
+    <app-search-bar *ngIf="screenSize === 'desktop'" (searchDown)="onSearchdown($event)" class="col-start-2 row-start-1"></app-search-bar>
     <div class="fixed top-5 right-8 flex flex-col items-center">
+      <!-- Moved Mood Drop Down Here, Directly to the Left of Profile -->
+      <app-mood-drop-down class="mb-4"></app-mood-drop-down>
       <img (click)="profile()" [src]="themeService.isDarkModeActive() ? '../../../../assets/icons/profile-light.png' : '../../../../assets/icons/profile-dark.png'" alt="profile" class="w-12 h-12 hover:cursor-pointer">
       <button *ngIf="screenSize === 'desktop'" class="mt-2 p-2" (click)="switchTheme()">
           <img *ngIf="!themeService.isDarkModeActive()" src="../../../assets/icons/light-mode.png" alt="Light Mode" class="w-10 h-10">
           <img *ngIf="themeService.isDarkModeActive()" src="../../../assets/icons/dark-mode.png" alt="Dark Mode" class="w-10 h-10">
       </button>
+    </div>
   </div>
-
-    <!-- Mobile theme switcher -->
-    <button *ngIf="screenSize === 'mobile'" class="fixed top-5 right-16 p-2 bg-gray-300 dark:bg-gray-700 rounded-full" (click)="switchTheme()">
-      <svg class="w-6 h-6 text-gray-800 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M21 12.79A9 9 0 1111.21 3a7 7 0 0010.79 9.79z" />
-      </svg>
-    </button>
+  <ng-container [ngSwitch]="screenSize">  
+    <!-- Desktop Layout -->
+    <ng-container *ngSwitchCase="'desktop'">
+      <app-side-bar class="col-start-1 col-span-1 row-start-1 row-span-6"></app-side-bar>
+      <div *ngIf="title === 'Home'" class="col-start-2 col-span-4 row-start-1 row-span-5 pl-16 pt-20 mr-5">
+        <app-moods></app-moods>
+      </div>
+    </ng-container>
+  
+    <!-- Mobile Layout -->
+    <ng-container *ngSwitchCase="'mobile'">
+      <app-moods class="col-start-1 col-span-12 row-start-1 row-span-10 pt-[8.5vh]"></app-moods>
+      <app-side-bar class="col-start-1 col-span-12 row-start-2 row-span-9"></app-side-bar>
+    </ng-container>
+  </ng-container>
+  
+  <!-- Common Components Across Screen Sizes -->
+  <div *ngIf="title === 'Search'" class="col-start-2 col-span-4 row-start-1 row-span-5 pl-16 pt-16 mr-5">
+    <app-search [searchQuery]="searchQuery"></app-search>
   </div>
-  <app-side-bar *ngIf="screenSize === 'desktop'" class="col-start-1 col-span-1 row-start-1 row-span-6"></app-side-bar>
-  <app-bottom-nav *ngIf="screenSize === 'mobile'"></app-bottom-nav>
-
-  <app-moods *ngIf="screenSize === 'desktop'" class="col-start-2 col-span-4 row-start-1 row-span-5 pl-16 pt-20 mr-5"></app-moods>
-
 </div>
+
+
