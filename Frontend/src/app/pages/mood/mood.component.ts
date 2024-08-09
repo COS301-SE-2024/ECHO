@@ -23,6 +23,11 @@ export class MoodComponent {
     currentSelection: string = 'All';
     searchQuery: string = '';
     title: string = 'Mood';
+    albums = [
+      { title: 'Wheatus', imageUrl: '../assets/images/wheatus.jpg' },
+      { title: 'Hot Fuss', imageUrl: '../assets/images/killers.png' },
+      { title: 'From Under the Cork Tree', imageUrl: '../assets/images/fallout.png' }
+    ];
     
     constructor(
       private screenSizeService: ScreenSizeService,
@@ -37,6 +42,22 @@ export class MoodComponent {
       this.screenSizeService.screenSize$.subscribe(screenSize => {
         this.screenSize = screenSize;
       });
+    }
+
+    changeMood(newMood: string) {
+      this.moodService.setCurrentMood(newMood);
+      this.title = newMood; // Update title to the new mood
+      // Update the albums array based on the selected mood (if needed)
+      this.albums = this.getAlbumsForMood(newMood);
+    }
+
+    getAlbumsForMood(mood: string) {
+      // Mock implementation: Adjust based on actual logic or API call
+      return [
+        { title: `${mood} Album 1`, imageUrl: 'assets/path/to/album1.jpg' },
+        { title: `${mood} Album 2`, imageUrl: 'assets/path/to/album2.jpg' },
+        { title: `${mood} Album 3`, imageUrl: 'assets/path/to/album3.jpg' }
+      ];
     }
 
     onNavChange($event: string) {}
