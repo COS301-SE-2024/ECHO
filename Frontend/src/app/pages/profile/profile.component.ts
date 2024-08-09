@@ -18,7 +18,7 @@ import { BottomNavComponent } from '../../shared/bottom-nav/bottom-nav.component
 import { SpotifyService } from "../../services/spotify.service";
 import { ProviderService } from "../../services/provider.service";
 import { TopCardComponent } from '../../shared/top-card/top-card.component';
-import {MoodService} from "../../services/mood-service.service"
+import { MoodService } from "../../services/mood-service.service";
 
 @Component({
     selector: 'app-profile',

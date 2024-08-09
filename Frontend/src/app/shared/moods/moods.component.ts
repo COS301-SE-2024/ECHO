@@ -7,6 +7,7 @@ import { SongViewComponent } from '../song-view/song-view.component';
 import { ScreenSizeService } from '../../services/screen-size-service.service';
 import { MoodService } from '../../services/mood-service.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-moods',
@@ -28,7 +29,12 @@ export class MoodsComponent implements OnDestroy {
 
     private screenSizeSubscription?: Subscription; // For unsubscribing
 
-    constructor(private screenSizeService: ScreenSizeService, public moodService: MoodService,private dialog: MatDialog) {
+    constructor(
+        private screenSizeService: ScreenSizeService, 
+        public moodService: MoodService,
+        private dialog: MatDialog,
+        private router: Router
+    ) {
         this.allMoods = this.moodService.getAllMoods();
         this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
         this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
@@ -61,23 +67,28 @@ export class MoodsComponent implements OnDestroy {
     ngOnDestroy() {
         this.screenSizeSubscription?.unsubscribe(); // Proper cleanup
     }
-    openModal(mood: any): void {
-      const dialogRef = this.dialog.open(SongViewComponent, {
-        width: '500px'
-      });
-  
-      dialogRef.componentInstance.selectedSong = {
-        image: mood.image,
-        title: mood.name,
-        artist: 'Artist Name', 
-        album: 'Album Name', 
-        duration: 'Duration', 
-        genre: 'Genre', 
-        similarSongs: ['Song 1', 'Song 2', 'Song 3'] 
-      };
-  
-      dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
-      });
+
+    redirectToMoodPage(mood: any): void {
+        this.router.navigate(['/mood'], { queryParams: { title: mood.name } });
     }
+    
+    // openModal(mood: any): void {
+    //   const dialogRef = this.dialog.open(SongViewComponent, {
+    //     width: '500px'
+    //   });
+  
+    //   dialogRef.componentInstance.selectedSong = {
+    //     image: mood.image,
+    //     title: mood.name,
+    //     artist: 'Artist Name', 
+    //     album: 'Album Name', 
+    //     duration: 'Duration', 
+    //     genre: 'Genre', 
+    //     similarSongs: ['Song 1', 'Song 2', 'Song 3'] 
+    //   };
+  
+    //   dialogRef.afterClosed().subscribe(result => {
+    //     console.log('The dialog was closed');
+    //   });
+    // }
 }

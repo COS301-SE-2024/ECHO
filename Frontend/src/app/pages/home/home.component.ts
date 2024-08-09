@@ -65,11 +65,15 @@ export class HomeComponent implements OnInit {
 
     onNavChange(newNav: string) {
         this.title = newNav;
+        this.router.navigate(['/home'], { fragment: newNav.toLowerCase() });
     }
+    
     onSearchdown(subject:string) {
         this.searchQuery = subject;
         this.title = 'Search';
+        this.router.navigate(['/home'], { fragment: 'search' });
     }
+
     async ngOnInit() {
       this.screenSizeService.screenSize$.subscribe(screenSize => {
         this.screenSize = screenSize;
