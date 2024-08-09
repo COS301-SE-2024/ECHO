@@ -27,13 +27,15 @@ export class AppComponent {
   displayPlayer = false;
   currentPage: string = '';
   displayPageName: boolean = false;
+  showSideBar = true;
 
   constructor(private router: Router, private screenSizeService: ScreenSizeService, private providerService: ProviderService, updates: SwUpdate) {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: RouterEvent) => {
       if (event instanceof NavigationEnd) {
-        this.showPlayer = ['/home','/home#search', '/home#library', '/profile'].includes(event.urlAfterRedirects);
+        this.showPlayer = ['/home','/home#search', '/home#library', '/profile', '/mood'].includes(event.urlAfterRedirects);
+        this.showSideBar = !event.urlAfterRedirects.includes('/mood');
         switch (event.urlAfterRedirects) {
           case '/home':
           case '/home#search':
