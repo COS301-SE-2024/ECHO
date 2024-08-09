@@ -317,6 +317,16 @@ export class SpotifyService {
     }
   }
 
+  // Check if the queue has been created
+  private queueCreated(): boolean {
+    return localStorage.getItem('queueCreated') === 'true';
+  }
+
+  // Set the queue as created
+  private setQueueCreated(): void {
+    localStorage.setItem('queueCreated', 'true');
+  }
+
   // Get the suggested tracks for the user from the ECHO API
   public async getQueue(provider: string | null): Promise<TrackInfo[]> {
     if (this.queueCached())
@@ -344,18 +354,32 @@ export class SpotifyService {
     }).toPromise();
 
 
+
     // Map the tracks array in the response
     if (response && Array.isArray(response.tracks)) {
-      const tracks = response.tracks.map((track: any) => ({
-        id: track.id,
-        text: track.name,
-        albumName: track.album.name,
-        imageUrl: track.album.images[0]?.url,
-        secondaryText: track.artists[0]?.name,
-        previewUrl: track.preview_url,
-        spotifyUrl: track.external_urls.spotify,
-        explicit: track.explicit
-      } as TrackInfo));
+      let count: number = 0;
+      const tracks = response.tracks.map((track: any) => {
+        if (this.player) {
+          if (count < 5 && !this.queueCreated()) {
+            this.addTrackToQueue(track.id);
+            ++count;
+          }
+          else if (count >= 5) {
+            this.setQueueCreated();
+          }
+        }
+
+        return {
+          id: track.id,
+          text: track.name,
+          albumName: track.album.name,
+          imageUrl: track.album.images[0]?.url,
+          secondaryText: track.artists[0]?.name,
+          previewUrl: track.preview_url,
+          spotifyUrl: track.external_urls.spotify,
+          explicit: track.explicit
+        } as TrackInfo;
+      });
       console.log('Queue tracks:', tracks);
 
       sessionStorage.setItem('queue', JSON.stringify(tracks));
@@ -429,12 +453,38 @@ export class SpotifyService {
     return text;
   }
 
+  // Add a track to the queue
+  public async addTrackToQueue(trackId: string): Promise<void> {
+     const fullTrackId: string = 'spotify:track:' + trackId;
+
+    try
+    {
+      const laccessToken = this.tokenService.getAccessToken();
+      const lrefreshToken = this.tokenService.getRefreshToken();
+      const response = await this.http.post<any>('http://localhost:3000/api/spotify/add-to-queue', {uri: fullTrackId, device_id: this.deviceId, accessToken: laccessToken, refreshToken: lrefreshToken}).toPromise();
+
+      if (!response)
+      {
+        throw new Error(`HTTP error! Status: ${response}`);
+      }
+
+      return response;
+    }
+    catch (error)
+    {
+      console.error('Error adding to queue: ', error);
+      throw error;
+    }
+  }
+
+  // Mute the player
   public async mute() {
     if (this.player) {
       this.player.setVolume(0).then(() => console.log(`Muted player`));
     }
   }
 
+  // Unmute the player
   public async unmute() {
     if (this.player) {
       this.player.setVolume(0.5).then(() => console.log(`Unmuted player`));
