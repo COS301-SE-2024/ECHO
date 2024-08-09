@@ -34,7 +34,7 @@ export class AppComponent {
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: RouterEvent) => {
       if (event instanceof NavigationEnd) {
-        this.showPlayer = ['/home','/home#search', '/home#library', '/profile', '/mood'].includes(event.urlAfterRedirects);
+        this.showPlayer = ['/home', '/home#','/home#search', '/home#library', '/profile', '/mood'].includes(event.urlAfterRedirects);
         this.showSideBar = !event.urlAfterRedirects.includes('/mood');
         switch (event.urlAfterRedirects) {
           case '/home':
