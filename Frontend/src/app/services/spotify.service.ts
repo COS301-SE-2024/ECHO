@@ -428,4 +428,16 @@ export class SpotifyService {
     }
     return text;
   }
+
+  public async mute() {
+    if (this.player) {
+      this.player.setVolume(0).then(() => console.log(`Muted player`));
+    }
+  }
+
+  public async unmute() {
+    if (this.player) {
+      this.player.setVolume(0.5).then(() => console.log(`Unmuted player`));
+    }
+  }
 }
