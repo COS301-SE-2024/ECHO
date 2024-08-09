@@ -276,6 +276,37 @@ export class SpotifyService {
             throw new HttpException('Error seeking to position', HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    // This function adds the track with the given artist and song name to user's the queue
+    async addToQueue(uri: string, accessToken: string, refreshToken: string)
+    {
+        try {
+            const providerToken = await this.getAccessToken(accessToken, refreshToken);
+            const response = await lastValueFrom(
+                this.httpService.post(
+                    'https://api.spotify.com/v1/me/player/queue',
+                    null,
+                    {
+                        params: {
+                            uri: uri,
+                        },
+                        headers: {
+                            'Authorization': `Bearer ${providerToken}`,
+                        },
+                    }
+                )
+            );
+
+            if (response.status === 204) {
+                return { message: 'Song added to queue successfully' };
+            } else {
+                throw new HttpException('Failed to add Song to queue', HttpStatus.BAD_REQUEST);
+            }
+        } catch (error) {
+            console.error('Error adding to queue:', error.response?.data || error.message);
+            throw new HttpException('Error adding to queue.', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
 
 interface TrackInfo {

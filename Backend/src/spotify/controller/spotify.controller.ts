@@ -128,4 +128,14 @@ export class SpotifyController {
 
         return await this.spotifyService.seekToPosition(accessToken, refreshToken, position_ms, deviceId);
     }
+
+    //This endpoint is used to add a song to the queue on spotify
+    @Post('add-to-queue')
+    async addToQueue(@Body() body: { uri: string, accessToken: string, refreshToken: string }): Promise<any> {
+        if (!body.uri || !body.accessToken || !body.refreshToken) {
+            return { status: 'error', error: 'Artist, song name, access token or refresh token is missing while attempting to retrieve suggested songs from the ECHO API.' };
+        }
+        const { uri , accessToken,refreshToken} = body;
+        return await this.spotifyService.addToQueue(uri, accessToken,refreshToken);
+    }
 }
