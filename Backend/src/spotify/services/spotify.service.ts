@@ -278,7 +278,7 @@ export class SpotifyService {
     }
 
     // This function adds the track with the given artist and song name to user's the queue
-    async addToQueue(uri: string, accessToken: string, refreshToken: string)
+    async addToQueue(uri: string, device_id: string, accessToken: string, refreshToken: string)
     {
         try {
             const providerToken = await this.getAccessToken(accessToken, refreshToken);
@@ -289,6 +289,7 @@ export class SpotifyService {
                     {
                         params: {
                             uri: uri,
+                            device_id: device_id,
                         },
                         headers: {
                             'Authorization': `Bearer ${providerToken}`,
