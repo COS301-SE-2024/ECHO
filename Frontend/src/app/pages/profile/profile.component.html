@@ -18,7 +18,13 @@
       <h2 class="text-gray-dark dark:text-gray-verylight font-bold mb-2">Top Songs</h2>
       <div class="flex space-x-2 overflow-x-auto scrollable-cards">
       <ng-container *ngFor="let item of recentListeningCardData">
-        <app-top-card [imageUrl]="item.imageUrl" [text]="item.text" [secondaryText]="item.secondaryText"></app-top-card>
+        <app-top-card 
+          [imageUrl]="item.imageUrl" 
+          [text]="item.text" 
+          [secondaryText]="item.secondaryText"
+          (click)="openModal()" 
+        >
+        </app-top-card>
       </ng-container>
       </div>
       <h2 class="text-gray-dark dark:text-gray-verylight font-bold mb-2 mt-4">Top Artists</h2>

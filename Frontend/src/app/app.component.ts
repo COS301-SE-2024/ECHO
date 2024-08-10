@@ -80,6 +80,17 @@ export class AppComponent {
     this.screenSizeService.screenSize$.subscribe(screenSize => {
       this.screenSize = screenSize;
     });
+
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.showSideBar = this.shouldShowSideBar(event.urlAfterRedirects);
+      }
+    });
+  }
+
+  shouldShowSideBar(url: string): boolean {
+    const excludedRoutes = ['/mood', '/login', '/register'];
+    return !excludedRoutes.some(route => url.includes(route));
   }
 }
 
