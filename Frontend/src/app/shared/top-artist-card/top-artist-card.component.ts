@@ -1,18 +1,17 @@
 import { Component,Input } from '@angular/core';
 import { MoodService } from '../../services/mood-service.service';
 import { NgClass} from '@angular/common';
-import { SongViewComponent } from '../song-view/song-view.component';
-import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-top-card',
+  selector: 'app-top-artist-card',
   standalone: true,
   imports: [NgClass],
-  templateUrl: './top-card.component.html',
-  styleUrl: './top-card.component.css'
+  templateUrl: './top-artist-card.component.html',
+  styleUrl: './top-artist-card.component.css'
 })
 
-export class TopCardComponent {
+export class TopArtistCardComponent {
 
   @Input() imageUrl!: string;
   @Input() text!: string;
@@ -24,20 +23,15 @@ export class TopCardComponent {
 
   constructor(
     public moodService: MoodService,
-    protected dialog: MatDialog,
+    private router: Router,
   ) {
     this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
     this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
     this.MoodClassesDark = this.moodService.getComponentMoodClassesDark();
   }
 
-  openModal(): void {
-    const dialogRef = this.dialog.open(SongViewComponent, {
-        
-    });
+  openArtistProfile(): void {
+    this.router.navigate(['/artist-profile']);
+  } 
 
-    dialogRef.afterClosed().subscribe((result) => {
-        console.log('The dialog was closed');
-    });
-  }
 }

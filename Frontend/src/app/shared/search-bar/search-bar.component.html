@@ -7,21 +7,25 @@
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
             </svg>
         </div>
-        <input type="search" id="mobile-search" class="block w-full mt-4 p-1 ps-10 text-sm text-gray-900 border border-gray-300 rounded-full bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-white-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500" placeholder="What are you looking for ?" [(ngModel)]="searchQuery" name="mobileSearch" required />
+        <input type="search" id="mobile-search" class="block w-full mt-4 p-1 ps-10 text-sm text-gray-900 border border-gray-300 rounded-full bg-gray-50 focus:ring-pink focus:border-pink dark:bg-white-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-pink" placeholder="What are you looking for ?" [(ngModel)]="searchQuery" name="mobileSearch" required />
     </div>
 </form>
 </div>
 
-<div *ngIf="screenSize === 'desktop'" class="desktop-layout w-full mx-auto md:w-1/2">
-        <form class="max-w-5xl pl-28 mx-auto text-left" (ngSubmit)="onSearchSubmit()"> 
-        <label for="desktop-search" class="mb-5 text-sm font-medium text-gray-900 sr-only dark:text-black">Search</label>
+<div *ngIf="screenSize === 'desktop'" class="desktop-layout mx-auto w-2/3">
+    <form class="mx-auto text-left w-full pl-32" (ngSubmit)="onSearchSubmit()"> 
+        <label for="desktop-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-black">Search</label>
         <div class="relative">
             <div class="absolute inset-y-0 end-0 flex items-center pe-3 pointer-events-none">
                 <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8 a7 7 0 0 1 14 0Z"/>
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                 </svg>
             </div>
-            <input type="search" id="desktop-search" class="search-input block w-full h-10 mt-4 pl-15 pr-10 text-sm text-gray-900 border-none rounded-full bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-white-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500" placeholder="Looking for something?" [(ngModel)]="searchQuery" name="desktopSearch" required />
+            <input type="search" id="desktop-search" 
+                   class="search-input block w-full h-10 mt-4 pr-10 text-sm text-gray-900 border-none rounded-full bg-gray-50 focus:ring-pink focus:border-pink" 
+                   placeholder="Looking for something?" 
+                   [(ngModel)]="searchQuery" name="desktopSearch" required />
         </div>
     </form>
 </div>
+

@@ -28,7 +28,7 @@ import { PrivacyComponent } from '../../shared/setting-pages/privacy/privacy.com
 
 export class SettingsComponent {
 
-  activeSetting: string = 'Choose a setting';
+  activeSetting: string = 'Account';
   screenSize?: string;
 
   constructor(
