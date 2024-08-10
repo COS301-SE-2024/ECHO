@@ -89,7 +89,7 @@ export class AppComponent {
   }
 
   shouldShowSideBar(url: string): boolean {
-    const excludedRoutes = ['/mood', '/login', '/register', '/artist-profile',];
+    const excludedRoutes = ['/mood', '/login', '/register', '/artist-profile', '/settings'];
     return !excludedRoutes.some(route => url.includes(route));
   }
 }
