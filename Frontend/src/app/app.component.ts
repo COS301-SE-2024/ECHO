@@ -37,12 +37,16 @@ export class AppComponent {
       if (event instanceof NavigationEnd) {
         this.displaySideBar = ['/home', '/profile', '/mood', '/home#','/home#search', '/home#library'].includes(event.urlAfterRedirects);
         this.displayPlayer = ['/settings'].includes(event.urlAfterRedirects);
-        this.showPlayer = ['/home', '/profile', '/mood', '/home#','/home#search', '/home#library'].includes(event.urlAfterRedirects);
+        this.showPlayer = ['/home', '/profile', '/mood', '/home#','/home#search', '/home#library','/home#insight'].includes(event.urlAfterRedirects);
         switch (event.urlAfterRedirects) {
           case '/home':
           case '/home#search':
           case '/home#library':
             this.currentPage = 'Home';
+            this.displayPageName = true;
+            break;
+          case '/home#insight':
+            this.currentPage = 'Insight';
             this.displayPageName = true;
             break;
           case '/profile':
