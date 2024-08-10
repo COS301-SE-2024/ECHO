@@ -12,8 +12,10 @@ describe('ArtistProfileComponent', () => {
         }).compileComponents();
 
         fixture = TestBed.createComponent(ArtistProfileComponent);
-        it('should create', () => {
-            expect(component).toBeTruthy();
-        });
+        component = fixture.componentInstance;
+    });
+
+    it('should create', () => {
+        expect(component).toBeTruthy();
     });
 });

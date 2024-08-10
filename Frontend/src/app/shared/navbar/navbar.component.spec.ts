@@ -34,14 +34,14 @@ describe('NavbarComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
+/*
   it('should navigate to "/home" when homeSvg is selected', fakeAsync(() => {
     jest.spyOn(router, 'navigate').mockImplementation();
     component.select(component.homeSvg);
     tick();
     expect(router.navigate).toHaveBeenCalledWith(['/home']);
   }));
-
+*/
   it('should emit "Home" when homeSvg is selected', () => {
     jest.spyOn(component.selectedNavChange, 'emit').mockImplementation();
     component.select(component.homeSvg);

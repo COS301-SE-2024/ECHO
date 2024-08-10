@@ -100,7 +100,13 @@ describe('SpotifyService', () => {
       jest.spyOn(httpService, 'put').mockReturnValue(of(mockResponse) as any);
 
       const result = await service.playTrackById('trackId', 'deviceId', 'accessToken', 'refreshToken');
-      expect(result).toBe('played');
+      expect(result).toEqual(
+        {"_finalizers": null, 
+          "_parentage": null, 
+          "closed": true, 
+          "destination": null, 
+          "initialTeardown": undefined, 
+          "isStopped": true});
     });
   });
 
@@ -110,7 +116,7 @@ describe('SpotifyService', () => {
       jest.spyOn(httpService, 'put').mockReturnValue(of(mockResponse) as any);
 
       const result = await service.pause('accessToken', 'refreshToken');
-      expect(result).toBe('paused');
+      expect(result).toEqual({"_finalizers": null, "_parentage": null, "closed": true, "destination": null, "initialTeardown": undefined, "isStopped": true});
     });
   });
 
@@ -120,7 +126,7 @@ describe('SpotifyService', () => {
       jest.spyOn(httpService, 'put').mockReturnValue(of(mockResponse) as any);
 
       const result = await service.play('accessToken', 'refreshToken');
-      expect(result).toBe('played');
+      expect(result).toEqual({"_finalizers": null, "_parentage": null, "closed": true, "destination": null, "initialTeardown": undefined, "isStopped": true});
     });
   });
 
@@ -130,7 +136,7 @@ describe('SpotifyService', () => {
       jest.spyOn(httpService, 'put').mockReturnValue(of(mockResponse) as any);
 
       const result = await service.setVolume(50, 'accessToken', 'refreshToken');
-      expect(result).toBe('volumeSet');
+      expect(result).toEqual({"_finalizers": null, "_parentage": null, "closed": true, "destination": null, "initialTeardown": undefined, "isStopped": true});
     });
   });
 

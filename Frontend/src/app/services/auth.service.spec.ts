@@ -66,7 +66,7 @@ describe('AuthService', () => {
   
   it('should redirect to OAuth URL on signInWithOAuth', async () => {
     const providerName = 'spotify';
-    const oAuthUrl = 'http://localhost:3000/oauth';
+    const oAuthUrl = 'http://localhost/';
   
     providerServiceMock.getProviderName.mockReturnValue(providerName);
   

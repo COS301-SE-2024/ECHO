@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { MatDialogRef } from '@angular/material/dialog';
 import { SongViewComponent } from './song-view.component';
+
+class MatDialogRefMock {
+  close() {}
+}
 
 describe('SongViewComponent', () => {
   let component: SongViewComponent;
@@ -8,7 +12,11 @@ describe('SongViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SongViewComponent]
+      imports: [SongViewComponent,
+      ],
+      providers: [
+        { provide: MatDialogRef, useClass: MatDialogRefMock },
+      ]
     })
     .compileComponents();
 

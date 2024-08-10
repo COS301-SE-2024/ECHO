@@ -8,7 +8,7 @@ describe('ArtistModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ArtistModalComponent]
+      declarations: [ArtistModalComponent]
     })
     .compileComponents();
 

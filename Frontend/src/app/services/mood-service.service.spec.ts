@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { MoodServiceService } from './mood-service.service';
+import { MoodService } from './mood-service.service';
 
 describe('MoodServiceService', () => {
-  let service: MoodServiceService;
+  let service: MoodService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(MoodServiceService);
+    service = TestBed.inject(MoodService);
   });
 
   it('should be created', () => {

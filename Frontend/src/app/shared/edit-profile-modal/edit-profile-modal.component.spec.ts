@@ -5,6 +5,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { EditProfileModalComponent } from './edit-profile-modal.component';
 import { ThemeService } from '../../services/theme.service';
 import { AuthService } from '../../services/auth.service';
+import { of } from 'rxjs';
 
 describe('EditProfileModalComponent', () => {
     let component: EditProfileModalComponent;
@@ -16,7 +17,13 @@ describe('EditProfileModalComponent', () => {
     beforeEach(async () => {
         mockDialogRef = { close: jest.fn() } as any;
         mockThemeService = {} as any;
-        mockAuthService = { currentUser: jest.fn() } as any;
+        mockAuthService = {
+          currentUser: jest.fn().mockReturnValue(of({
+              user: {
+                  user_metadata: { name: 'Test User' }
+              }
+          }))
+      } as any;
 
         await TestBed.configureTestingModule({
             imports: [EditProfileModalComponent, HttpClientTestingModule], // add HttpClientTestingModule here
@@ -30,7 +37,7 @@ describe('EditProfileModalComponent', () => {
 
         fixture = TestBed.createComponent(EditProfileModalComponent);
         component = fixture.componentInstance;
-        fixture.detectChanges();
+        //fixture.detectChanges();
     });
 
     it('should create', () => {

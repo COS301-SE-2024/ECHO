@@ -8,4 +8,4 @@ import { HttpModule } from "@nestjs/axios";
     providers: [SearchService],
     controllers: [SearchController],
 })
-export class SpotifyModule {}
+export class SearchModule {}
