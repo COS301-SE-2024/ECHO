@@ -4,9 +4,11 @@
   <h1 class="py-3" style="font-weight: bold; font-size: larger;">Top Result</h1>
   <div [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]" class="big-card hover:cursor-pointer" style="width: 15vw; padding: 1vw; border-radius: 15px;">
     <ng-container *ngIf="topResult$ | async as topResult">
+      <div (click)="playTrack(topResult.name, topResult.artistName)">
       <img [src]="topResult.albumImageUrl" alt="Big Image" style="border-radius: 15px;">
       <h2 style="font-weight: bold;" class="py-2">{{topResult.name}}</h2>
       <p class="py-1">{{topResult.artistName}}</p>
+      </div>
     </ng-container>
   </div>
 </div>
@@ -20,7 +22,7 @@
   <div class="songs-container" style="display: flex; flex-direction: column; overflow-y: auto; height:20vw;">
     <div [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]" class="song-card hover:cursor-pointer"
          *ngFor="let song of songs$ | async"
-         style="flex: 0 0 auto; width: 100%; margin-bottom: 20px; display: flex; padding: 5px; border-radius: 10px; box-sizing: border-box; height:6vw; padding: .5vw;">
+         style="flex: 0 0 auto; width: 100%; margin-bottom: 20px; display: flex; padding: 5px; border-radius: 10px; box-sizing: border-box; height:6vw; padding: .5vw;" (click)="playTrack(song.name, song.artistName)">
       <img [src]="song.albumImageUrl" alt="Song Image" style="width: 25%; border-radius: 10px; margin-right: 10px;">
       <div>
         <h2 style="font-weight: bold;" class="py-2">{{song.name}}</h2>
