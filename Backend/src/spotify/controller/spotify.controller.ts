@@ -193,7 +193,7 @@ export class SpotifyController
 		return await this.spotifyService.addToQueue(uri, device_id, accessToken, refreshToken);
 	}
 
-	@Post("track-details")
+	@Post("track-details-by-name")
 	async getTrackDetailsByName(
 		@Body() body: {
 			artistName: string;
