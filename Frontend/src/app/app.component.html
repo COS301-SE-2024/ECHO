@@ -5,5 +5,5 @@
   <app-page-header *ngIf="displayPageName" class="page-header" [pageTitle]=currentPage></app-page-header>
   <app-bottom-nav *ngIf="screenSize === 'mobile'"></app-bottom-nav>
   <app-bottom-player *ngIf="showPlayer || displayPlayer"></app-bottom-player>
-  <app-side-bar *ngIf="showSideBar" class="col-start-1 col-span-1 row-start-1 row-span-6"></app-side-bar>
+  <app-side-bar *ngIf="displaySideBar" class="col-start-1 col-span-1 row-start-1 row-span-6"></app-side-bar>
 </div>

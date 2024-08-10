@@ -12,12 +12,12 @@ import { SideBarComponent } from "./shared/side-bar/side-bar.component";
 import { ProviderService } from "./services/provider.service";
 import { PageHeaderComponent } from "./shared/page-header/page-header.component";
 @Component({
-    selector: 'app-root',
-    standalone: true,
+  selector: 'app-root',
+  standalone: true,
   imports: [RouterOutlet, BottomPlayerComponent, NgIf, SideBarComponent, BottomNavComponent, PageHeaderComponent],
 
-    templateUrl: './app.component.html',
-    styleUrl: './app.component.css',
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css',
 })
 export class AppComponent {
   title = 'Echo';
@@ -25,17 +25,19 @@ export class AppComponent {
   screenSize?: string;
   showPlayer = false;
   displayPlayer = false;
+  displaySideBar = false;
   currentPage: string = '';
   displayPageName: boolean = false;
-  showSideBar = true;
 
   constructor(private router: Router, private screenSizeService: ScreenSizeService, private providerService: ProviderService, updates: SwUpdate) {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: RouterEvent) => {
+
       if (event instanceof NavigationEnd) {
-        this.showPlayer = ['/home', '/home#','/home#search', '/home#library', '/profile', '/mood'].includes(event.urlAfterRedirects);
-        this.showSideBar = !event.urlAfterRedirects.includes('/mood');
+        this.displaySideBar = ['/home', '/profile', '/mood', '/home#','/home#search', '/home#library'].includes(event.urlAfterRedirects);
+        this.displayPlayer = ['/settings'].includes(event.urlAfterRedirects);
+        this.showPlayer = ['/home', '/profile', '/mood', '/home#','/home#search', '/home#library'].includes(event.urlAfterRedirects);
         switch (event.urlAfterRedirects) {
           case '/home':
           case '/home#search':
@@ -57,13 +59,6 @@ export class AppComponent {
         }
       }
     });
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe((event: RouterEvent) => {
-      if (event instanceof NavigationEnd) {
-        this.displayPlayer = ['/settings'].includes(event.urlAfterRedirects);
-      }
-    });
 
     updates.versionUpdates.subscribe(event => {
       if (event.type === 'VERSION_READY') {
@@ -80,17 +75,5 @@ export class AppComponent {
     this.screenSizeService.screenSize$.subscribe(screenSize => {
       this.screenSize = screenSize;
     });
-
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        this.showSideBar = this.shouldShowSideBar(event.urlAfterRedirects);
-      }
-    });
-  }
-
-  shouldShowSideBar(url: string): boolean {
-    const excludedRoutes = ['/mood', '/login', '/register', '/artist-profile', '/settings'];
-    return !excludedRoutes.some(route => url.includes(route));
   }
 }
-
