@@ -12,19 +12,24 @@ export class SearchController {
         return await this.searchService.searchByTitle(title);
     }
 
-    // This endpoint is used to get the details of a specific album.
+    // This endpoint is used to search for albums based on their title.
     @Post('album')
     async searchByAlbum(@Body() body: { title: string }): Promise<any> {
         const {title} = body;
         return await this.searchService.searchByAlbum(title);
     }
 
-    // This endpoint is used to get the details of a specific album.
+    // This endpoint is used to get the details of a specific artist.
     @Post('artist')
     async searchForArtist(@Body() body: { artist: string }): Promise<any> {
         const {artist} = body;
         return await this.searchService.artistSearch(artist);
     }
 
-
+    // This endpoint is used to get the details of a specific album.
+    @Post('album-info')
+    async albumInfo(@Body() body: { title: string }): Promise<any> {
+        const {title} = body;
+        return await this.searchService.searchAlbums(title);
+    }
 }
