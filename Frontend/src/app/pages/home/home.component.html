@@ -26,10 +26,16 @@
     </ng-container>
   </ng-container>
   
-  <!-- Common Components Across Screen Sizes -->
+  <!-- Search and Insight Components -->
   <div *ngIf="title === 'Search'" class="col-start-2 col-span-4 row-start-1 row-span-5 pl-16 pt-16 mr-5">
     <app-search [searchQuery]="searchQuery"></app-search>
   </div>
+  <!-- Insight Component -->
+  <div *ngIf="title === 'Insight'" class="col-start-2 col-span-4 row-start-1 row-span-5 pl-16 pt-16 mr-5">
+    <app-insights></app-insights>
+  </div>
+
+
 </div>
 
 

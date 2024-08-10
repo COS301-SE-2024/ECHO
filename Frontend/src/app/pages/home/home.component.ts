@@ -13,7 +13,7 @@ import { SearchBarComponent } from '../../shared/search-bar/search-bar.component
 import { SearchComponent } from '../../pages/search/search.component';
 import { MoodDropDownComponent } from './../../shared/mood-drop-down/mood-drop-down.component';
 import { MoodService } from '../../services/mood-service.service';
-
+import { InsightsComponent } from "../insights/insights.component";
 @Component({
     selector: 'app-home',
     standalone: true,
@@ -29,7 +29,8 @@ import { MoodService } from '../../services/mood-service.service';
         SearchComponent,
         NgSwitchCase,
         NgSwitch,
-        MoodDropDownComponent
+        MoodDropDownComponent,
+        InsightsComponent
     ],
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',
