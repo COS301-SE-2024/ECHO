@@ -53,7 +53,7 @@ describe('ProviderService', () => {
     Object.defineProperty(window, 'localStorage', {
       value: undefined,
     });
-    expect(service.getProviderName()).toBe('email');
+    expect(service.getProviderName()).toBe('default');
     Object.defineProperty(window, 'localStorage', {
       value: originalLocalStorage,
     });

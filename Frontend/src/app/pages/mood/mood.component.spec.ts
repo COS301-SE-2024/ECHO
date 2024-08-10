@@ -52,7 +52,7 @@ describe('MoodComponent', () => {
     });
 
     it('should navigate to profile when profile() is called', () => {
-        const routerSpy = spyOn(component['router'], 'navigate');
+        const routerSpy = jest.spyOn(component['router'], 'navigate');
         component.profile();
         expect(routerSpy).toHaveBeenCalledWith(['/profile']);
     });

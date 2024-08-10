@@ -157,7 +157,27 @@
 <a name='L92'></a><a href='#L92'>92</a>
 <a name='L93'></a><a href='#L93'>93</a>
 <a name='L94'></a><a href='#L94'>94</a>
-<a name='L95'></a><a href='#L95'>95</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -252,7 +272,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&lt;div *ngIf="screenSize === 'mobile'" class="mobile-layout"&gt;
-  &lt;div class="bg-gray-lightcomponent dark:bg-gray-component flex flex-col sm:px-6 sm:py-12 min-h-screen"&gt;
+  &lt;div [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]" class=" flex flex-col sm:px-6 sm:py-12 min-h-screen"&gt;
     &lt;div class="profile-container w-full mx-auto"&gt;
       &lt;div id="profile" class="profile bg-cover bg-center w-full relative" [style.background-image]="'url('+ imgpath + ')'" style="background-size: cover; height: 40vh;"&gt;
         &lt;!-- Centered content over the background image --&gt;
@@ -271,13 +291,22 @@
       &lt;h2 class="text-gray-dark dark:text-gray-verylight font-bold mb-2"&gt;Top Songs&lt;/h2&gt;
       &lt;div class="flex space-x-2 overflow-x-auto scrollable-cards"&gt;
       &lt;ng-container *ngFor="let item of recentListeningCardData"&gt;
-        &lt;app-top-card [imageUrl]="item.imageUrl" [text]="item.text" [secondaryText]="item.secondaryText"&gt;&lt;/app-top-card&gt;
+        &lt;app-top-card 
+          [imageUrl]="item.imageUrl" 
+          [text]="item.text" 
+          [secondaryText]="item.secondaryText"
+        &gt;
+        &lt;/app-top-card&gt;
       &lt;/ng-container&gt;
       &lt;/div&gt;
       &lt;h2 class="text-gray-dark dark:text-gray-verylight font-bold mb-2 mt-4"&gt;Top Artists&lt;/h2&gt;
       &lt;div class="flex space-x-2 overflow-x-auto scrollable-cards"&gt;
         &lt;ng-container *ngFor="let artist of artists"&gt;
-          &lt;app-top-card [imageUrl]="artist.imageUrl" [text]="artist.text"&gt;&lt;/app-top-card&gt;
+          &lt;app-top-artist-card 
+            [imageUrl]="artist.imageUrl" 
+            [text]="artist.text"
+          &gt;
+        &lt;/app-top-artist-card&gt;
         &lt;/ng-container&gt;
       &lt;/div&gt;
     &lt;/div&gt;
@@ -286,8 +315,8 @@
   &lt;/div&gt;
 &lt;/div&gt;
 &nbsp;
-&lt;div *ngIf="screenSize === 'desktop'" class="desktop-layout bg-gray-background"&gt;
-  &lt;div class="min-h-screen dark:bg-desktop-bg bg-gray-verylight flex flex-col justify-center px-6 py-12 lg:px-8"&gt;
+&lt;div *ngIf="screenSize === 'desktop'" class="desktop-layout"&gt;
+  &lt;div [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]"  class="min-h-screen  flex flex-col justify-center px-6 py-12 lg:px-8"&gt;
     &lt;div class="flex justify-center items-center"&gt;
       &lt;div class="fixed top-1 right-12 flex flex-col items-center"&gt;
         &lt;button *ngIf="screenSize === 'desktop'" class="p-2" (click)="switchTheme()"&gt;
@@ -300,7 +329,7 @@
       &lt;div class="profile-container"&gt;
         &lt;div id="profile" class="profile fixed right-4 top-4 mt-5 mr-5 ml-6 h-5/6"&gt;
           &lt;div class="ml-24 p-4 pr-4 rounded-md h-full relative"&gt;
-            &lt;div class="bg-gray-lightcomponent dark:bg-gray-component rounded-lg overflow-hidden h-full relative"&gt;
+            &lt;div [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]" class="rounded-lg overflow-hidden h-full relative"&gt;
               &lt;div class="absolute top-2 left-1/2 transform -translate-x-1/2 text-center"&gt;
                 &lt;img src="{{imgpath}}" alt="Profile Image" class="w-24 h-24 rounded-full border-2 border-white dark:border-gray-700 mx-auto"&gt;
                 &lt;h2 class="mt-2 text-gray-900 dark:text-white font-bold"&gt;&amp;#64;{{ username }}&lt;/h2&gt;
@@ -321,7 +350,7 @@
               &lt;div class="absolute bottom-24 left-16 w-full pr-10 overflow-hidden"&gt;
                 &lt;h2 class="text-gray-900 dark:text-white text-2xl font-bold mb-2"&gt;Top Songs&lt;/h2&gt;
                 &lt;div class="flex space-x-4 overflow-x-auto scrollable-cards"&gt;
-                  &lt;ng-container *ngFor="let item of recentListeningCardData"&gt;
+                  &lt;ng-container  *ngFor="let item of recentListeningCardData"&gt;
                     &lt;app-top-card [imageUrl]="item.imageUrl" [text]="item.text" [secondaryText]="item.secondaryText"&gt;&lt;/app-top-card&gt;
                     &lt;div class="card-style"&gt;&lt;/div&gt;
                   &lt;/ng-container&gt;
@@ -329,7 +358,7 @@
                 &lt;h2 class="text-gray-900 dark:text-white font-bold mb-2 mt-4 text-2xl"&gt;Top Artists&lt;/h2&gt;
                 &lt;div class="flex space-x-4 overflow-x-auto scrollable-cards"&gt;
                   &lt;ng-container *ngFor="let artist of artists"&gt;
-                      &lt;app-top-card [imageUrl]="artist.imageUrl" [text]="artist.text"&gt;&lt;/app-top-card&gt;
+                      &lt;app-top-artist-card [imageUrl]="artist.imageUrl" [text]="artist.text"&gt;&lt;/app-top-artist-card&gt;
                   &lt;/ng-container&gt;
                 &lt;/div&gt;
               &lt;/div&gt;
@@ -345,6 +374,7 @@
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;
+&nbsp;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -352,7 +382,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-28T14:11:41.339Z
+                at 2024-08-10T12:16:28.747Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

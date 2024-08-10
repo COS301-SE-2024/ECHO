@@ -170,7 +170,73 @@
 <a name='L105'></a><a href='#L105'>105</a>
 <a name='L106'></a><a href='#L106'>106</a>
 <a name='L107'></a><a href='#L107'>107</a>
-<a name='L108'></a><a href='#L108'>108</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a>
+<a name='L120'></a><a href='#L120'>120</a>
+<a name='L121'></a><a href='#L121'>121</a>
+<a name='L122'></a><a href='#L122'>122</a>
+<a name='L123'></a><a href='#L123'>123</a>
+<a name='L124'></a><a href='#L124'>124</a>
+<a name='L125'></a><a href='#L125'>125</a>
+<a name='L126'></a><a href='#L126'>126</a>
+<a name='L127'></a><a href='#L127'>127</a>
+<a name='L128'></a><a href='#L128'>128</a>
+<a name='L129'></a><a href='#L129'>129</a>
+<a name='L130'></a><a href='#L130'>130</a>
+<a name='L131'></a><a href='#L131'>131</a>
+<a name='L132'></a><a href='#L132'>132</a>
+<a name='L133'></a><a href='#L133'>133</a>
+<a name='L134'></a><a href='#L134'>134</a>
+<a name='L135'></a><a href='#L135'>135</a>
+<a name='L136'></a><a href='#L136'>136</a>
+<a name='L137'></a><a href='#L137'>137</a>
+<a name='L138'></a><a href='#L138'>138</a>
+<a name='L139'></a><a href='#L139'>139</a>
+<a name='L140'></a><a href='#L140'>140</a>
+<a name='L141'></a><a href='#L141'>141</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -280,7 +346,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&lt;div *ngIf="screenSize === 'desktop'" class="fixed z-10" style="--tw-w: 21vw; --tw-h: 75vh; left: 1vw; top: 10.2vh;"&gt;
   &lt;div class="container"&gt;
     &lt;div class="pl-5 py-4 rounded-md h-full"&gt;
-      &lt;div class="bg-gray-lightcomponent dark:bg-gray-component rounded-lg overflow-auto h-full flex flex-col justify-between scrollbar-hidden"&gt;
+      &lt;div [ngClass]="this.moodComponentClasses[this.moodService.getCurrentMood()]" class=" rounded-lg overflow-auto h-full flex flex-col justify-between scrollbar-hidden"&gt;
         &lt;div class="flex flex-col h-full"&gt;
           &lt;div class="flex justify-between mb-2 mt-2"&gt;
             &lt;div class="button-container" [class.underline-blue]="selectedOption === 'upNext'" [class.underline-none]="selectedOption !== 'upNext'"&gt;
@@ -312,7 +378,7 @@
                 &lt;!-- Second text (underneath the first text) --&gt;
                 &lt;p class="text-xs text-gray-light dark:text-gray-400"&gt;{{ card.secondaryText }}&lt;/p&gt;
               &lt;/div&gt;
-              &lt;svg *ngIf="i === 0" width="29" height="28" viewBox="0 0 29 28" fill="none" xmlns="http://www.w3.org/2000/svg"&gt;
+              &lt;svg data-modal-target="echo-songs" data-modal-toggle="echo-songs" class="echo-button hover:cursor-pointer" (click)="echoTrack(card.text, card.secondaryText, $event)" width="29" height="28" viewBox="0 0 29 28" fill="none" xmlns="http://www.w3.org/2000/svg"&gt;
                 &lt;rect y="9.33333" width="4.14286" height="9.33333" rx="2.07143" fill="#EE0258"/&gt;
                 &lt;rect x="24.8572" y="9.33333" width="4.14286" height="9.33333" rx="2.07143" fill="#EE0258"/&gt;
                 &lt;rect x="5.80005" y="5.44444" width="4.97143" height="15.5556" rx="2.48571" fill="#EE0258"/&gt;
@@ -327,9 +393,9 @@
   &lt;/div&gt;
 &lt;/div&gt;
 &nbsp;
-&lt;div *ngIf="screenSize === 'mobile'" class="flex flex-col w-full"&gt;
-  
-&lt;button id="dropdownDefaultButton" (click)="toggleDropdown()" data-dropdown-toggle="dropdown" class="w-full justify-between text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-gray-component dark:hover:bg-pink dark:focus:ring-pink" type="button"&gt;{{selected}}&lt;svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6"&gt;
+&nbsp;
+&lt;div *ngIf="screenSize === 'mobile'" class="flex flex-col w-full"&gt; 
+&lt;button id="dropdownDefaultButton" (click)="toggleDropdown()" [ngClass]="this.moodComponentClasses[this.moodService.getCurrentMood()]" data-dropdown-toggle="dropdown" class="w-full justify-between font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center" type="button"&gt;{{selected}}&lt;svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6"&gt;
   &lt;path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/&gt;
 &lt;/svg&gt;
 &lt;/button&gt;
@@ -337,21 +403,21 @@
 &lt;!-- Styled Dropdown menu to match the button --&gt;
 &lt;div id="dropdown" *ngIf="isDropdownVisible" class="w-full z-10 bg-blue-700 divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-component"&gt;
     &lt;div class="flex flex-col h-full"&gt;
-      &lt;ul class="py-2 text-sm text-white" aria-labelledby="dropdownDefaultButton"&gt;
+      &lt;ul class="py-2" [ngClass]="this.moodComponentClasses[this.moodService.getCurrentMood()]"  aria-labelledby="dropdownDefaultButton"&gt;
         &lt;li *ngFor="let option of options"&gt;
-          &lt;a (click)="selectedOptionChange(option)" class="block w-full px-4 py-2 rounded-lg hover:bg-blue-800 dark:hover:bg-pink dark:hover:text-white"&gt;{{option}}&lt;/a&gt;
-        &lt;/li&gt;
+          &lt;a (click)="selectedOptionChange(option)" [ngClass]="this.moodComponentClasses[this.moodService.getCurrentMood()]" class="block w-full px-4"&gt;{{option}}&lt;/a&gt;
+        &lt;/li&gt; 
       &lt;/ul&gt;
     &lt;/div&gt;
 &lt;/div&gt;
-  
-  
+&nbsp;
+&nbsp;
   &lt;!-- Cards Container --&gt;
   &lt;div class="px-5 py-2 w-full"&gt;
     &lt;!-- ng-container for iterating over cards and adding View More button as the last card --&gt;
     &lt;ng-container *ngFor="let card of getSelectedCardData(); let i = index; let last = last"&gt;
             &lt;!-- Card --&gt;
-      &lt;div class="mb-4 w-full rounded-lg shadow-lg overflow-hidden bg-gray-lightcomponent dark:bg-gray-component"&gt;
+      &lt;div [ngClass]="this.moodComponentClasses[this.moodService.getCurrentMood()]"  class="mb-4 w-full rounded-lg shadow-lg overflow-hidden"&gt;
         &lt;div class="flex items-center p-4" (click)="playTrack(card.id)"&gt;
           &lt;!-- Card Image --&gt;
           &lt;img class="w-16 h-16 rounded-lg" src="{{ card.imageUrl }}" alt="Album Art"&gt;
@@ -362,7 +428,7 @@
           &lt;/div&gt;
           &lt;!-- Action Button --&gt;
           &lt;div class="ml-auto"&gt;
-            &lt;button class="text-gray-400 hover:text-gray-200"&gt;
+            &lt;button class="text-gray-400 hover:text-gray-200" (click)="echoTrack(card.text, card.secondaryText, $event)"&gt;
               &lt;svg *ngIf="i !== 0" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"&gt;
                 &lt;path d="M12 6.5a1.5 1.5 0 011.5 1.5V11h3a1.5 1.5 0 010 3h-3v3a1.5 1.5 0 01-3 0v-3h-3a1.5 1.5 0 010-3h3V8a1.5 1.5 0 011.5-1.5z"/&gt;
               &lt;/svg&gt;
@@ -378,10 +444,43 @@
         &lt;/div&gt;
       &lt;/div&gt;
       &lt;!-- View More Button as a Card with extra bottom padding class --&gt;
-      &lt;div *ngIf="last" class="view-more-container text-center py-4 w-full rounded-lg shadow-lg overflow-hidden bg-gray-lightcomponent dark:bg-gray-component"&gt;
-        &lt;button class="px-4 py-2 rounded-lg bg-pink text-white font-semibold"&gt;View More&lt;/button&gt;
+      &lt;div *ngIf="last" [ngClass]="this.moodComponentClasses[this.moodService.getCurrentMood()]" class="view-more-container text-center py-4 w-full rounded-lg shadow-lg overflow-hidden"&gt;
+        &lt;button [ngClass]="this.moodComponentClasses[this.moodService.getCurrentMood()]" class="px-4 py-2 rounded-lg font-semibold"&gt;View More&lt;/button&gt;
       &lt;/div&gt;
     &lt;/ng-container&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&nbsp;
+&nbsp;
+&lt;div *ngIf="isEchoModalVisible" id="echo-songs" tabindex="-1" aria-hidden="true" class="fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full bg-black bg-opacity-50"&gt;
+&lt;div class="relative p-4 w-full max-w-2xl max-h-full"&gt;
+    &lt;!-- Modal content --&gt;
+    &lt;div class="relative bg-white rounded-lg shadow dark:bg-gray-700"&gt;
+      &lt;!-- Modal header --&gt;
+      &lt;div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600"&gt;
+        &lt;h3 class="text-xl font-semibold text-gray-900 dark:text-white"&gt;
+          Echo Songs
+        &lt;/h3&gt;
+        &lt;button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal" (click)="closeModal()"&gt;
+          &lt;svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14"&gt;
+            &lt;path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/&gt;
+          &lt;/svg&gt;
+          &lt;span class="sr-only"&gt;Close&lt;/span&gt;
+        &lt;/button&gt;
+      &lt;/div&gt;
+      &lt;!-- Modal body --&gt;
+      &lt;div *ngFor="let track of echoTracks" class="p-4 md:p-5 space-y-4"&gt;
+        &lt;div&gt;
+        &lt;img class="object-center w24 h-24" src="{{track.imageUrl}}" alt="Album Art"&gt;
+        &lt;p class="text-lg text-center text-gray-500 dark:text-gray-400"&gt;
+          {{track.text}}
+        &lt;/p&gt;
+        &lt;p class="text-md text-center text-gray-500 dark:text-gray-400"&gt;
+          {{track.secondaryText}}
+        &lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;
 &nbsp;</pre></td></tr></table></pre>
@@ -391,7 +490,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-28T14:11:41.339Z
+                at 2024-08-10T12:16:28.747Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
