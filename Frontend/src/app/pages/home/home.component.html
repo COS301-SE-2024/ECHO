@@ -32,7 +32,7 @@
   </div>
   <!-- Insight Component -->
   <div *ngIf="title === 'Insight'" class="col-start-2 col-span-4 row-start-1 row-span-5 pl-16 pt-16 mr-5">
-    <app-insights></app-insights>
+    <app-insights [percentageData]="getMoodPercentageData()"></app-insights>
   </div>
 
 

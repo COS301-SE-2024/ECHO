@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Inject, PLATFORM_ID } from "@angular/core";
+import { AfterViewInit, Component, Inject, PLATFORM_ID,Input } from "@angular/core";
 import { isPlatformBrowser } from "@angular/common";
 import Chart from "chart.js/auto";
 
@@ -12,6 +12,7 @@ import Chart from "chart.js/auto";
 export class InsightsComponent implements AfterViewInit {
   public chart: any;
   private colorCache: { [key: string]: string } = {};
+  @Input() percentageData: number[] = [];
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object)
   {
@@ -55,8 +56,7 @@ export class InsightsComponent implements AfterViewInit {
             ],
             datasets: [{
               label: "Percentage of recent Moods",
-              data: [25, 5, 30, 40, 10, 15, 20, 25, 30, 10, 15, 5, 20, 5, 5, 15, 10, 
-                     10, 25, 10, 20, 15, 10, 5, 20, 15, 10],
+              data: this.percentageData,
               backgroundColor: [
                 this.getTailwindColor('bg-anger'), // Anger
                 this.getTailwindColor('bg-annoyance'), // Annoyance
