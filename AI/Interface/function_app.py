@@ -19,9 +19,6 @@ def get_recommendations(req: func.HttpRequest) -> func.HttpResponse:
             mimetype="application/json",
             status_code=401
         )
-    
-    song_name = req_body.get('song_name')
-    artist = req_body.get('artist')
 
     try:
         song_name = req_body.get("song_name")
@@ -45,26 +42,50 @@ def get_recommendations(req: func.HttpRequest) -> func.HttpResponse:
         unprocessed_songs = []
 
         if original_song is None:
-            unprocessed_songs.append(original_song)
+            original_uri = utils.get_track_id(song_name, artist)
+            original_genre = utils.get_genre(song_name, artist)
+            original_emotion = utils.get_sentiment(song_name, artist)
+
+            original_json = {
+                # "id": original_uri, 
+                "SongName": song_name,
+                "Artist": artist,
+                "URI": original_uri,
+                "ClusterNumber": cluster_number,
+                "Emotion": original_emotion,
+                "AlbumGenre": original_genre
+            }
+            db.store_song(original_json)
+
         else:
+            original_uri = original_song.get('URI')
             original_emotion = original_song.get('Emotion', "")
             original_genre = original_song.get('Album Genre', "")
+
+        print("Original Genre: " + original_genre)
+        print("Original Emotion: " + original_emotion)
+        print()
         
         for song in cluster_songs:
             song_uri = song.get('track_uri')
-            db_song = db.in_database(song_uri)
+            db_song = db.check_id(song_uri)
 
             similar_emotion = False
             similar_genre = False
 
             if db_song is None:
-                unprocessed_songs.append(song)
+                track_name, artist_name = utils.get_track_details(song.get('track_uri'))
+                unprocessed_songs.append({"track_name": track_name, "artist_name": artist_name, "track_uri": song_uri})
             else:
-                emotion = song.get('Emotion', "")
-                genre = song.get('Album Genre', "")
+                emotion = db_song.get('Emotion', "")
+                genre = db_song.get('Album Genre', "")
+
+                print("Emotion: " + emotion)
+                print("Genre: " + genre)
+                print()
 
                 if emotion is not "" and original_emotion is not "":
-                    distance = utils.emotional_similarity[original_emotion.lower()][emotion.lower]
+                    distance = utils.emotional_similarity[original_emotion.lower()][emotion.lower()]
                     if distance >= 7:
                         similar_emotion = True
 
@@ -75,7 +96,49 @@ def get_recommendations(req: func.HttpRequest) -> func.HttpResponse:
 
                 if similar_emotion and similar_genre:
                     similar_songs.append({"track": song, "emotion": emotion})
-            
+
+        if unprocessed_songs:
+            emotions = utils.get_all_sentiments(unprocessed_songs)
+            genres = utils.get_all_genres(unprocessed_songs)
+
+            for i, song in enumerate(unprocessed_songs):
+                song_name = song.get('track_name')
+                artist_name = song.get('artist_name')
+                track_uri = song.get('track_uri')
+                
+                emotion = emotions["recommended_tracks"][i].get("emotion", "")
+                genre = genres["recommended_tracks"][i].get("genre", "")
+
+                print("Emotion: " + emotion)
+                print("Genre: " + genre)
+                print()
+
+                song_json = {
+                    "id": track_uri,
+                    "SongName": song_name,
+                    "Artist": artist_name,
+                    "URI": track_uri,
+                    "ClusterNumber": str(cluster_number),
+                    "Emotion": emotion,
+                    "AlbumGenre": genre
+                }
+                db.store_song(song_json)
+
+                similar_emotion = False
+                similar_genre = False
+
+                if emotion is not "" and original_emotion is not "":
+                    distance = utils.emotional_similarity[original_emotion.lower()][emotion.lower()]
+                    if distance >= 7:
+                        similar_emotion = True
+
+                if genre is not "" and original_genre is not "":
+                    distance = utils.genre_similarity[original_genre][genre]
+                    if distance >= 7:
+                        similar_genre = True
+
+                if similar_emotion and similar_genre:
+                    similar_songs.append({"track": song, "emotion": emotion})
 
         
         return func.HttpResponse(
@@ -84,7 +147,6 @@ def get_recommendations(req: func.HttpRequest) -> func.HttpResponse:
             status_code=200
         )
 
-        
     except Exception as e:
         return func.HttpResponse(
             json.dumps({"error": str(e)}),
