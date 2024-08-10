@@ -11,6 +11,7 @@ import azapi
 client = OpenAI()
 
 ACCESS_TOKEN = os.environ.get("ACCESS_TOKEN")
+LYRICS_TOKEN = os.environ.get("LYRICS_TOKEN")
 
 
 # def process_lyrics(text):
@@ -128,26 +129,69 @@ ACCESS_TOKEN = os.environ.get("ACCESS_TOKEN")
 #     return cleaned_text
 
 
-def get_lyrics(song_name, artist):
-    API = azapi.AZlyrics()
+def get_song_id(artist_name, song_name):
+    search_url = 'http://api.musixmatch.com/ws/1.1/track.search'
+    search_params = {
+        'q_artist': artist_name,
+        'q_track': song_name,
+        'page_size': 1,         
+        'page': 1,              
+        'apikey': LYRICS_TOKEN
+    }
 
-    API.artist = artist
-    API.title = song_name
+    response = requests.get(search_url, params=search_params)
+    data = response.json()
 
-    API.getLyrics(save=True, ext='lrc')
+    if data['message']['header']['status_code'] == 200:
+        track_list = data['message']['body']['track_list']
+        if track_list:
+            track_id = track_list[0]['track']['track_id']
+            return track_id
+        else:
+            return None
+    else:
+        return None
 
-    if not API.lyrics or API.lyrics == "Google found nothing!":
-        return None 
+
+def get_lyrics_by_id(song_name, artist):
+    song_id = get_song_id(song_name, artist)
+
+    if song_id is None:
+        print("No song ID found")
+        return None
+
+    lyrics_url = 'http://api.musixmatch.com/ws/1.1/track.lyrics.get'
+    lyrics_params = {
+        'track_id': song_id,
+        'apikey': LYRICS_TOKEN
+    }
+
+    response = requests.get(lyrics_url, params=lyrics_params)
+    data = response.json()
+
+    if data['message']['header']['status_code'] == 200:
+        lyrics_body = data['message']['body']['lyrics']['lyrics_body']
+        return lyrics_body
+    else:
+        print("No song lyrics found")
+        return None
     
-    print(API.artist + " " + API.title)
 
-    return API.lyrics
+def get_lyrics_ovh(song_name, artist_name):
+    url = f"https://api.lyrics.ovh/v1/{artist_name}/{song_name}"
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        lyrics = response.json().get("lyrics", "Lyrics not found.")
+        return lyrics
+    else:
+        return None
 
 
 def run_lyric_analysis(song_name, artist):
-    lyrics = get_lyrics(song_name, artist)
+    lyrics = get_lyrics_ovh(song_name, artist)
     
-    if not lyrics:
+    if lyrics is None:
         return "" 
 
     sentiment = get_sentiment(lyrics)
