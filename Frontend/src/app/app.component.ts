@@ -10,10 +10,11 @@ import { filter } from 'rxjs/operators';
 import { NgIf } from "@angular/common";
 import { SideBarComponent } from "./shared/side-bar/side-bar.component";
 import { ProviderService } from "./services/provider.service";
+import { PageHeaderComponent } from "./shared/page-header/page-header.component";
 @Component({
     selector: 'app-root',
     standalone: true,
-  imports: [RouterOutlet, BottomPlayerComponent, NgIf, SideBarComponent, BottomNavComponent],
+  imports: [RouterOutlet, BottomPlayerComponent, NgIf, SideBarComponent, BottomNavComponent, PageHeaderComponent],
 
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
@@ -24,13 +25,36 @@ export class AppComponent {
   screenSize?: string;
   showPlayer = false;
   displayPlayer = false;
+  currentPage: string = '';
+  displayPageName: boolean = false;
+  showSideBar = true;
 
   constructor(private router: Router, private screenSizeService: ScreenSizeService, private providerService: ProviderService, updates: SwUpdate) {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: RouterEvent) => {
       if (event instanceof NavigationEnd) {
-        this.showPlayer = ['/home', '/profile'].includes(event.urlAfterRedirects);
+        this.showPlayer = ['/home', '/home#','/home#search', '/home#library', '/profile', '/mood'].includes(event.urlAfterRedirects);
+        this.showSideBar = !event.urlAfterRedirects.includes('/mood');
+        switch (event.urlAfterRedirects) {
+          case '/home':
+          case '/home#search':
+          case '/home#library':
+            this.currentPage = 'Home';
+            this.displayPageName = true;
+            break;
+          case '/profile':
+            this.currentPage = 'Profile';
+            this.displayPageName = true;
+            break;
+          case '/settings':
+            this.currentPage = 'Settings';
+            this.displayPageName = true;
+            break;
+          default:
+            this.currentPage = '';
+            this.displayPageName = false;
+        }
       }
     });
     this.router.events.pipe(
@@ -56,5 +80,17 @@ export class AppComponent {
     this.screenSizeService.screenSize$.subscribe(screenSize => {
       this.screenSize = screenSize;
     });
+
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.showSideBar = this.shouldShowSideBar(event.urlAfterRedirects);
+      }
+    });
+  }
+
+  shouldShowSideBar(url: string): boolean {
+    const excludedRoutes = ['/mood', '/login', '/register', '/artist-profile', '/settings'];
+    return !excludedRoutes.some(route => url.includes(route));
   }
 }
+

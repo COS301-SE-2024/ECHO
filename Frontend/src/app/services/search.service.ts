@@ -92,7 +92,6 @@ export class SearchService {
     }).toPromise();
 
 
-    // Map the tracks array in the response
     if (response && Array.isArray(response.tracks)) {
       const tracks = response.tracks.map((track: any) => ({
         id: track.id,

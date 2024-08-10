@@ -18,7 +18,9 @@ import { BottomNavComponent } from '../../shared/bottom-nav/bottom-nav.component
 import { SpotifyService } from "../../services/spotify.service";
 import { ProviderService } from "../../services/provider.service";
 import { TopCardComponent } from '../../shared/top-card/top-card.component';
-import {MoodService} from "../../services/mood-service.service"
+import { MoodService } from "../../services/mood-service.service";
+import { SongViewComponent } from '../../shared/song-view/song-view.component';
+import { TopArtistCardComponent } from '../../shared/top-artist-card/top-artist-card.component';
 
 @Component({
     selector: 'app-profile',
@@ -39,6 +41,8 @@ import {MoodService} from "../../services/mood-service.service"
         BottomNavComponent,
         TopCardComponent,
         SideBarComponent,
+        SongViewComponent,
+        TopArtistCardComponent
     ],
     templateUrl: './profile.component.html',
     styleUrl: './profile.component.css',
@@ -171,8 +175,6 @@ export class ProfileComponent implements AfterViewInit {
         dialogRef.afterClosed().subscribe((result) => {
             console.log('The dialog was closed');
         });
-
-
     }
 
     save() {

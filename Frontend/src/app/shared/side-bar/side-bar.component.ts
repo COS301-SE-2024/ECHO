@@ -7,6 +7,7 @@ import { ScreenSizeService } from '../../services/screen-size-service.service';
 import { AuthService } from "../../services/auth.service";
 import { firstValueFrom } from "rxjs";
 import { ProviderService } from "../../services/provider.service";
+import { SearchService } from "../../services/search.service";
 import { MoodService } from '../../services/mood-service.service';
 import {EchoButtonComponent} from '../echo-button/echo-button.component';
 
@@ -27,6 +28,7 @@ export class SideBarComponent implements OnInit {
     private providerService: ProviderService,
     private screenSizeService: ScreenSizeService,
     private authService: AuthService,
+    private searchService: SearchService,
     public moodService: MoodService
   ) {
     this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
@@ -38,13 +40,13 @@ export class SideBarComponent implements OnInit {
 
   upNextCardData: any[] = [];
   recentListeningCardData: any[] = [];
+  echoTracks: any[] = [];
   screenSize?: string;
   provider: string | null = null;
   isDropdownVisible: boolean = false;
   selected:string = "Up Next..."
   options = ["Recent Listening...","Up Next..."];
-
- 
+  isEchoModalVisible: boolean = false;
 
   toggleDropdown(): void {
     this.isDropdownVisible = !this.isDropdownVisible;
@@ -100,7 +102,7 @@ export class SideBarComponent implements OnInit {
       });
     }
   }
-  
+
   getSelectedCardData(): any[] {
     return this.selectedOption === 'upNext'
       ? this.upNextCardData
@@ -122,10 +124,24 @@ export class SideBarComponent implements OnInit {
     }
   }
 
+  async echoTrack(trackName: string, artistName: string, event: MouseEvent): Promise<void> {
+    event.stopPropagation();
+    this.searchService.echo(trackName, artistName).then(tracks => {
+      this.echoTracks = tracks;
+      this.isEchoModalVisible = true;
+    }).catch(error => {
+      console.error('Error echoing track: ', error);
+    });
+  }
+
   private truncateText(text: string, maxLength: number): string {
     if (text.length > maxLength) {
       return text.substring(0, maxLength) + '...';
     }
     return text;
+  }
+
+  closeModal() {
+    this.isEchoModalVisible = false;
   }
 }
