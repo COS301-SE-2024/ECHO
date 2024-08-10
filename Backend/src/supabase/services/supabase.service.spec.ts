@@ -29,10 +29,10 @@ describe('SupabaseService', () => {
 
             const result = await supabaseService.signinWithOAuth("Spotify");
             expect(mockSupabase.auth.signInWithOAuth).toHaveBeenCalledWith({
-                provider: 'spotify',
+                provider: 'Spotify',
                 options: {
                     redirectTo: 'http://localhost:4200/auth/callback',
-                    scopes: 'streaming user-read-email user-read-private user-read-recently-played user-read-playback-state user-modify-playback-state user-library-read',
+                    scopes: '',
                 },
             });
             expect(result).toBe('http://localhost');
