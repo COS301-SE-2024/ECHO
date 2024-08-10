@@ -22,7 +22,6 @@
           [imageUrl]="item.imageUrl" 
           [text]="item.text" 
           [secondaryText]="item.secondaryText"
-          (click)="openModal()" 
         >
         </app-top-card>
       </ng-container>
@@ -30,7 +29,11 @@
       <h2 class="text-gray-dark dark:text-gray-verylight font-bold mb-2 mt-4">Top Artists</h2>
       <div class="flex space-x-2 overflow-x-auto scrollable-cards">
         <ng-container *ngFor="let artist of artists">
-          <app-top-card [imageUrl]="artist.imageUrl" [text]="artist.text"></app-top-card>
+          <app-top-artist-card 
+            [imageUrl]="artist.imageUrl" 
+            [text]="artist.text"
+          >
+        </app-top-artist-card>
         </ng-container>
       </div>
     </div>
@@ -82,7 +85,7 @@
                 <h2 class="text-gray-900 dark:text-white font-bold mb-2 mt-4 text-2xl">Top Artists</h2>
                 <div class="flex space-x-4 overflow-x-auto scrollable-cards">
                   <ng-container *ngFor="let artist of artists">
-                      <app-top-card [imageUrl]="artist.imageUrl" [text]="artist.text"></app-top-card>
+                      <app-top-artist-card [imageUrl]="artist.imageUrl" [text]="artist.text"></app-top-artist-card>
                   </ng-container>
                 </div>
               </div>
