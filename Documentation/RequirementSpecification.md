@@ -449,7 +449,7 @@ The listener drags the volume slider on the music player. The system adjusts the
 ![analytics](<images/Analytics Display.png>)
 
 ## 4. AI Processing Subsystem
-![AI-processing](<images/new AI Subsystem.png>)
+![AI-processing](<images/AI Processing Subsystem.png>)
 
 ## 5. Spotify Integration Subsystem
 ![spotify-integration](<images/Spotify Integration Subsystem.png>)
