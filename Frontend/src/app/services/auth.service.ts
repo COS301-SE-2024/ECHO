@@ -15,6 +15,7 @@ export class AuthService {
 
   // This function is used to sign in the user with email and password
   signIn(email: string, password: string): Observable<any> {
+    localStorage.setItem('loggedIn', 'true');
     return this.http.post(`${this.apiUrl}/signin`, { email, password });
   }
 
@@ -25,6 +26,22 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/providertokens`, {accessToken: laccessToken, refreshToken: lrefreshToken});
   }
 
+  verifyOfflineSession(): Promise<boolean>
+  {
+    if (localStorage.getItem('loggedIn') === 'true')
+    {
+      return new Promise<boolean>((resolve) => {
+              resolve(true);
+      });
+    }
+    else
+    {
+      return new Promise<boolean>((resolve) => {
+              resolve(false);
+      });
+    }
+  }
+
   // This function is used to sign in the user with Spotify OAuth
   async signInWithOAuth(): Promise<void> {
     const providerName = this.providerService.getProviderName();
@@ -32,6 +49,7 @@ export class AuthService {
       .subscribe(
         (response) => {
           if (response && response.url) {
+            localStorage.setItem('loggedIn', 'true');
             window.location.href = response.url;
           } else {
             console.error('No URL returned from the server');
@@ -45,6 +63,7 @@ export class AuthService {
 
   // This function is used to sign up the user with email and password
   signUp(email: string, password: string, metadata: any): Observable<any> {
+    localStorage.setItem('loggedIn', 'true');
     return this.http.post(`${this.apiUrl}/signup`, { email, password, metadata });
   }
 

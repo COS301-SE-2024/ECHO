@@ -1,97 +1,69 @@
-import csv
 import json
 import os
 
 import numpy as np
 import pandas as pd
-from sklearn.decomposition import PCA
-from sklearn.preprocessing import StandardScaler
-from sklearn.cluster import KMeans
-import matplotlib.pyplot as plt
+import pickle
 
-
-file_path = 'music_data.csv'
-data = pd.read_csv(file_path, delimiter=',')
-
+file_path = 'clustered_music_data.csv'
 features = ['duration_ms', 'danceability', 'energy', 'loudness', 'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo']
 
-X = data[features]
-X = X.dropna()
-scalar = StandardScaler()
-X_scaled = scalar.fit_transform(X)
-sse = []
+from azure.storage.blob import BlobServiceClient
+
+CONNECTION_STRING = os.environ.get("BLOB_STORAGE_CONNECTION_STRING")
+BLOB_SERVICE_CLIENT = BlobServiceClient.from_connection_string(CONNECTION_STRING)
+CONTAINER_NAME = "inputdata"
 
 
-def visualise_clusters(clustered_data, centroids, X_scaled):
-    pca = PCA(n_components=2)
-    X_pca = pca.fit_transform(X_scaled)
+def get_scaler():
+    FILE_NAME = "scaler.pkl"
+    BLOB_CLIENT = BLOB_SERVICE_CLIENT.get_blob_client(container=CONTAINER_NAME, blob=FILE_NAME)
 
-    plt.figure(figsize=(10, 6))
-    plt.scatter(X_pca[:, 0], X_pca[:, 1], c=clustered_data['Cluster'], cmap='viridis', alpha=0.5, label='Data Points')
-
-    centroids_pca = pca.transform(centroids)
-    plt.scatter(centroids_pca[:, 0], centroids_pca[:, 1], c='red', marker='X', s=100, label='Cluster Centroids')
-
-    plt.title('Cluster Visualisation (PCA)')
-    plt.xlabel('Principal Component 1')
-    plt.ylabel('Principal Component 2')
-    plt.legend()
-    plt.colorbar()
-    plt.grid(True)
-    plt.show()
+    data = BLOB_CLIENT.download_blob().readall()
+    scaler = pickle.loads(data)
+    return scaler
 
 
-def determine_clusters():
-    for k in range(1, 21):
-        kmeans = KMeans(n_clusters=k, random_state=42)
-        kmeans.fit(X_scaled)
-        sse.append(kmeans.inertia_)
+def get_X_Scaled():
+    FILE_NAME = "X_scaled.pkl"
+    BLOB_CLIENT = BLOB_SERVICE_CLIENT.get_blob_client(container=CONTAINER_NAME, blob=FILE_NAME)
 
-    optimal_clusters = 15
-    return optimal_clusters
-
-
-def cluster(optimal_clusters):
-    kmeans = KMeans(n_clusters=optimal_clusters, random_state=42)
-    kmeans.fit(X_scaled)
-
-    data['Cluster'] = kmeans.labels_
-
-    data.to_csv('clustered_music_data.csv', index=False)
-
-    centroids = kmeans.cluster_centers_
-    with open('cluster_centroids.json', 'w') as f:
-        json.dump(centroids.tolist(), f)
-
-    return kmeans
+    data = BLOB_CLIENT.download_blob().readall()
+    X_scaled = pickle.loads(data)
+    return X_scaled
 
 
-def load_cluster_data():
-    if os.path.exists('clustered_music_data.csv') and os.path.exists('cluster_centroids.json'):
-        clustered_data = pd.read_csv('clustered_music_data.csv')
-        with open('cluster_centroids.json', 'r') as f:
-            centroids = np.array(json.load(f))
-        return clustered_data, centroids
-    else:
-        return None, None
+def get_cluster_data():
+    csv_file_path = "clustered_music_data.csv"
+
+    try:
+        df = pd.read_csv(csv_file_path)
+        return df
+    except Exception as e:
+        print(e)
+        return None
 
 
-def append_uri(uri):
-    with open(file_path, 'a', newline='') as csvfile:
-        writer = csv.writer(csvfile)
-        writer.writerow([uri])
+def get_centroids():
+    FILE_NAME = "cluster_centroids.json"
+    BLOB_CLIENT = BLOB_SERVICE_CLIENT.get_blob_client(container=CONTAINER_NAME, blob=FILE_NAME)
+
+    data = BLOB_CLIENT.download_blob().readall().decode('utf-8')
+    centroids = json.loads(data)
+    return centroids
 
 
-def recommend_songs(music_features, n_recommendations=5):
-    clustered_data, centroids = load_cluster_data()
+def recommend_songs(music_features, n_recommendations=50):
+    clustered_data = get_cluster_data()
+    centroids = get_centroids()
 
-    if clustered_data is None or centroids is None:
-        optimal_clusters = determine_clusters()
-        cluster(optimal_clusters)
-        clustered_data, centroids = load_cluster_data()
+    scaler = get_scaler()
+    X_scaled = get_X_Scaled()
+
+    if clustered_data is None:
+        return None
 
     if music_features:
-
         uri = music_features['uri']
         music_features = {key: music_features[key] for key in features if key in music_features}
         new_song = pd.DataFrame([music_features])
@@ -100,13 +72,7 @@ def recommend_songs(music_features, n_recommendations=5):
             (clustered_data[features] == new_song[features].iloc[0]).all(axis=1)
         ).any()
 
-        if not is_existing_song:
-            new_row = [music_features[key] for key in features]
-            new_row.append(uri)
-            data.loc[len(data)] = new_row
-            data.to_csv(file_path, index=False)
-
-        new_song_scaled = scalar.transform(new_song[features])
+        new_song_scaled = scaler.transform(new_song[features])
         distances_to_centroids = np.linalg.norm(centroids - new_song_scaled, axis=1)
         closest_centroid_index = np.argmin(distances_to_centroids)
 
@@ -118,7 +84,9 @@ def recommend_songs(music_features, n_recommendations=5):
             ).idxmax()
             cluster_data = cluster_data.drop(index=existing_song_index)
 
-        cluster_indices = cluster_data.index
+        half_cluster_data = cluster_data.sample(frac=0.5, random_state=1)
+
+        cluster_indices = half_cluster_data.index
         cluster_features = X_scaled[cluster_indices]
         distances = np.linalg.norm(cluster_features - new_song_scaled, axis=1)
 
@@ -128,9 +96,21 @@ def recommend_songs(music_features, n_recommendations=5):
         return closest_songs['uri']
     else:
         return None
+    
 
+def get_cluster_number(music_features):
+    centroids = get_centroids()
 
-# clustered_data, centroids = load_cluster_data()
-#
-# if clustered_data is not None and centroids is not None:
-#     visualise_clusters(clustered_data, centroids, X_scaled)
+    if music_features:
+        music_features = {key: music_features[key] for key in features if key in music_features}
+        new_song = pd.DataFrame([music_features])
+
+        scaler = get_scaler()
+
+        new_song_scaled = scaler.transform(new_song[features])
+        distances_to_centroids = np.linalg.norm(centroids - new_song_scaled, axis=1)
+        closest_centroid_index = np.argmin(distances_to_centroids)
+
+        return closest_centroid_index
+    else:
+        return None

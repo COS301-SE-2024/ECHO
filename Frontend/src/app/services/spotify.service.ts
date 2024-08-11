@@ -1,12 +1,14 @@
-import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
-import { AuthService } from './auth.service';
-import { firstValueFrom, BehaviorSubject } from 'rxjs';
+import { Injectable, Inject, PLATFORM_ID } from "@angular/core";
+import { isPlatformBrowser } from "@angular/common";
+import { AuthService } from "./auth.service";
+import { firstValueFrom, BehaviorSubject } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { TokenService } from "./token.service";
 import { ProviderService } from "./provider.service";
+import { MoodService } from "./mood-service.service";
 
-export interface TrackInfo {
+export interface TrackInfo
+{
   id: string;
   text: string;
   albumName: string;
@@ -17,10 +19,19 @@ export interface TrackInfo {
   explicit: boolean;
 }
 
+export interface TrackAnalysis
+{
+  valence: number;
+  energy: number;
+  danceability: number;
+  tempo: number;
+}
+
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root"
 })
-export class SpotifyService {
+export class SpotifyService
+{
   private player: any;
   private deviceId: string | null = null;
   private currentlyPlayingTrackSubject = new BehaviorSubject<any>(null);
@@ -42,55 +53,70 @@ export class SpotifyService {
     @Inject(PLATFORM_ID) private platformId: Object,
     private http: HttpClient,
     private tokenService: TokenService,
-    private providerService: ProviderService
-  ) {}
+    private providerService: ProviderService,
+    private moodService: MoodService
+  )
+  {
+  }
 
   // Initialize the Player
-  public async init(): Promise<void> {
-    if (isPlatformBrowser(this.platformId) && !this.hasBeenInitialized) {
-      console.log('Initializing Spotify SDK in the browser...');
+  public async init(): Promise<void>
+  {
+    if (isPlatformBrowser(this.platformId) && !this.hasBeenInitialized)
+    {
+      console.log("Initializing Spotify SDK in the browser...");
       await this.initializeSpotify();
       this.hasBeenInitialized = true;
-    } else {
-      console.log('Spotify SDK initialization skipped on the server.');
+    }
+    else
+    {
+      console.log("Spotify SDK initialization skipped on the server.");
     }
   }
 
   // Initialize the Spotify Web Playback SDK
-  public async initializeSpotify(): Promise<void> {
-    try {
+  public async initializeSpotify(): Promise<void>
+  {
+    try
+    {
       const tokens = await firstValueFrom(this.authService.getTokens());
       this.loadSpotifySdk(tokens.providerToken);
-    } catch (error) {
-      console.error('Error fetching Spotify token from AuthService:', error);
+    }
+    catch (error)
+    {
+      console.error("Error fetching Spotify token from AuthService:", error);
     }
   }
 
-  public recentListeningCached(): boolean {
-    if (sessionStorage.getItem('recentListening') !== null && sessionStorage.getItem('recentListening') !== '{}')
+  public recentListeningCached(): boolean
+  {
+    if (sessionStorage.getItem("recentListening") !== null && sessionStorage.getItem("recentListening") !== "{}")
     {
-      this.RecentListeningObject = JSON.parse(sessionStorage.getItem('recentListening') || '{}');
+      this.RecentListeningObject = JSON.parse(sessionStorage.getItem("recentListening") || "{}");
       return true;
     }
     return false;
   }
 
-  public queueCached(): boolean {
-    if (sessionStorage.getItem('queue') !== null && sessionStorage.getItem('queue') !== '{}')
+  public queueCached(): boolean
+  {
+    if (sessionStorage.getItem("queue") !== null && sessionStorage.getItem("queue") !== "{}")
     {
-      this.QueueObject = JSON.parse(sessionStorage.getItem('queue') || '{}');
+      this.QueueObject = JSON.parse(sessionStorage.getItem("queue") || "{}");
       return true;
     }
     return false;
   }
 
   // Load the Spotify Web Playback SDK script
-  public loadSpotifySdk(providerToken: string): void {
-    const script = document.createElement('script');
-    script.src = 'https://sdk.scdn.co/spotify-player.js';
+  public loadSpotifySdk(providerToken: string): void
+  {
+    const script = document.createElement("script");
+    script.src = "https://sdk.scdn.co/spotify-player.js";
     script.async = true;
 
-    window.onSpotifyWebPlaybackSDKReady = () => {
+    window.onSpotifyWebPlaybackSDKReady = () =>
+    {
       this.initializePlayer(providerToken);
     };
 
@@ -98,20 +124,27 @@ export class SpotifyService {
   }
 
   // Initialize the Spotify Web Playback player
-  public initializePlayer(providerToken: string): void {
+  public initializePlayer(providerToken: string): void
+  {
     this.player = new Spotify.Player({
-      name: 'ECHO',
-      getOAuthToken: cb => { cb(providerToken); },
+      name: "ECHO",
+      getOAuthToken: cb =>
+      {
+        cb(providerToken);
+      },
       volume: 0.5
     });
 
-    this.player.addListener('ready', ({ device_id }: { device_id: string }) => {
-      console.log('Ready with Device ID', device_id);
+    this.player.addListener("ready", ({ device_id }: { device_id: string }) =>
+    {
+      console.log("Ready with Device ID", device_id);
       this.deviceId = device_id;
     });
 
-    this.player.addListener('player_state_changed', (state: any) => {
-      if (state) {
+    this.player.addListener("player_state_changed", (state: any) =>
+    {
+      if (state)
+      {
         const track = state.track_window.current_track;
         this.currentlyPlayingTrackSubject.next(track);
         this.playingStateSubject.next(!state.paused);
@@ -125,10 +158,14 @@ export class SpotifyService {
   }
 
   // Method to get the progress of the currently playing track
-  public getCurrentPlaybackState(): void {
-    if (this.player) {
-      this.player.getCurrentState().then((state: any) => {
-        if (state) {
+  public getCurrentPlaybackState(): void
+  {
+    if (this.player)
+    {
+      this.player.getCurrentState().then((state: any) =>
+      {
+        if (state)
+        {
           const progress = (state.position / state.duration) * 100;
           this.playbackProgressSubject.next(progress);
         }
@@ -137,9 +174,11 @@ export class SpotifyService {
   }
 
   // Play a track by its Spotify ID
-  public async playTrackById(trackId: string): Promise<void> {
-    if (!this.deviceId) {
-      console.error('Device ID is undefined. Ensure the player is ready before playing.');
+  public async playTrackById(trackId: string): Promise<void>
+  {
+    if (!this.deviceId)
+    {
+      console.error("Device ID is undefined. Ensure the player is ready before playing.");
       return;
     }
 
@@ -148,34 +187,46 @@ export class SpotifyService {
     const laccessToken = this.tokenService.getAccessToken();
     const lrefreshToken = this.tokenService.getRefreshToken();
 
-    const response = await this.http.put(`http://localhost:3000/api/spotify/play`, { trackId:trackId, deviceId: this.deviceId, accessToken: laccessToken, refreshToken: lrefreshToken }).toPromise();
+    const response = await this.http.put(`http://localhost:3000/api/spotify/play`, {
+      trackId: trackId,
+      deviceId: this.deviceId,
+      accessToken: laccessToken,
+      refreshToken: lrefreshToken
+    }).toPromise();
     await this.setCurrentlyPlayingTrack(trackId);
+    this.moodService.setCurrentMood(await this.getTrackMood(trackId));
   }
 
   // Pause the currently playing track
-  public pause(): void {
-    if (!this.deviceId) {
-      console.error('Device ID is undefined. Ensure the player is ready before pausing.');
+  public pause(): void
+  {
+    if (!this.deviceId)
+    {
+      console.error("Device ID is undefined. Ensure the player is ready before pausing.");
       return;
     }
 
-    this.player.pause().then(() => {
-      console.log('Playback paused');
+    this.player.pause().then(() =>
+    {
+      console.log("Playback paused");
       this.playingStateSubject.next(false);
     });
   }
 
   //This function plays the next track on the current device
-  public async playNextTrack(): Promise<void> {
-    if (!this.deviceId) {
-      console.error('Device ID is undefined. Ensure the player is ready before continuing.');
+  public async playNextTrack(): Promise<void>
+  {
+    if (!this.deviceId)
+    {
+      console.error("Device ID is undefined. Ensure the player is ready before continuing.");
       return;
     }
 
     const laccessToken = this.tokenService.getAccessToken();
     const lrefreshToken = this.tokenService.getRefreshToken();
 
-    try {
+    try
+    {
       await this.http.put(`http://localhost:3000/api/spotify/next-track`, {
         deviceId: this.deviceId,
         accessToken: laccessToken,
@@ -185,25 +236,31 @@ export class SpotifyService {
       await new Promise(resolve => setTimeout(resolve, 200));
 
       const currentTrack = await this.getCurrentlyPlayingTrack();
-      if (currentTrack && currentTrack.item) {
+      if (currentTrack && currentTrack.item)
+      {
         await this.setCurrentlyPlayingTrack(currentTrack.item.id);
       }
-    } catch (error) {
-      console.error('Error playing next track:', error);
+    }
+    catch (error)
+    {
+      console.error("Error playing next track:", error);
     }
   }
 
   //This function plays the next track on the current device
-  public async playPreviousTrack(): Promise<void> {
-    if (!this.deviceId) {
-      console.error('Device ID is undefined. Ensure the player is ready before continuing.');
+  public async playPreviousTrack(): Promise<void>
+  {
+    if (!this.deviceId)
+    {
+      console.error("Device ID is undefined. Ensure the player is ready before continuing.");
       return;
     }
 
     const laccessToken = this.tokenService.getAccessToken();
     const lrefreshToken = this.tokenService.getRefreshToken();
 
-    try {
+    try
+    {
       await this.http.put(`http://localhost:3000/api/spotify/previous-track`, {
         deviceId: this.deviceId,
         accessToken: laccessToken,
@@ -213,92 +270,119 @@ export class SpotifyService {
       await new Promise(resolve => setTimeout(resolve, 200));
 
       const currentTrack = await this.getCurrentlyPlayingTrack();
-      if (currentTrack && currentTrack.item) {
+      if (currentTrack && currentTrack.item)
+      {
         await this.setCurrentlyPlayingTrack(currentTrack.item.id);
       }
-    } catch (error) {
-      console.error('Error playing previous track:', error);
+    }
+    catch (error)
+    {
+      console.error("Error playing previous track:", error);
     }
   }
 
   // Seek to a specific position in the currently playing track
-  public async seekToPosition(progress: number): Promise<void> {
-    if (!this.deviceId) {
-      console.error('Device ID is undefined. Ensure the player is ready before continuing.');
+  public async seekToPosition(progress: number): Promise<void>
+  {
+    if (!this.deviceId)
+    {
+      console.error("Device ID is undefined. Ensure the player is ready before continuing.");
       return;
     }
 
     const laccessToken = this.tokenService.getAccessToken();
     const lrefreshToken = this.tokenService.getRefreshToken();
 
-    try {
+    try
+    {
       await this.http.put(`http://localhost:3000/api/spotify/seek`, {
         deviceId: this.deviceId,
         progress: progress,
         accessToken: laccessToken,
         refreshToken: lrefreshToken
       }).toPromise();
-    } catch (error) {
-      console.error('Error seeking to position:', error);
+    }
+    catch (error)
+    {
+      console.error("Error seeking to position:", error);
     }
   }
 
   // Resume playback
-  public play(): void {
-    if (!this.deviceId) {
-      console.error('Device ID is undefined. Ensure the player is ready before continuing.');
+  public play(): void
+  {
+    if (!this.deviceId)
+    {
+      console.error("Device ID is undefined. Ensure the player is ready before continuing.");
       return;
     }
 
-    this.player.getCurrentState().then((state: any) => {
-      if (!state) {
-        console.error('User is not playing music through the Web Playback SDK');
+    this.player.getCurrentState().then((state: any) =>
+    {
+      if (!state)
+      {
+        console.error("User is not playing music through the Web Playback SDK");
         return;
       }
 
-      if (state.paused) {
-        this.player.resume().then(() => {
-          console.log('Playback resumed');
+      if (state.paused)
+      {
+        this.player.resume().then(() =>
+        {
+          console.log("Playback resumed");
           this.playingStateSubject.next(true);
-        }).catch((error: any) => {
-          console.error('Failed to resume playback', error);
+        }).catch((error: any) =>
+        {
+          console.error("Failed to resume playback", error);
         });
-      } else {
-        console.log('Playback is already ongoing');
       }
-    }).catch((error: any) => {
-      console.error('Failed to get player state', error);
+      else
+      {
+        console.log("Playback is already ongoing");
+      }
+    }).catch((error: any) =>
+    {
+      console.error("Failed to get player state", error);
     });
   }
 
   // Set the volume of the player
-  public setVolume(volume: number): void {
-    if (this.player) {
+  public setVolume(volume: number): void
+  {
+    if (this.player)
+    {
       this.player.setVolume(volume).then(() => console.log(`Volume set to ${volume * 100}%`));
     }
   }
 
   // Get the user's recent listening from Spotify
-  public async getRecentlyPlayedTracks(provider: string | null): Promise<any> {
+  public async getRecentlyPlayedTracks(provider: string | null): Promise<any>
+  {
     if (this.recentListeningCached())
     {
       return Promise.resolve(this.RecentListeningObject);
     }
 
-    const cacheKey = 'recentlyPlayed';
+    const cacheKey = "recentlyPlayed";
     const currentTime = new Date().getTime();
 
     // Check if data is cached and within TTL
-    if (this.recentlyPlayedCache && (currentTime - this.recentlyPlayedCache.timestamp) < this.rcacheTTL) {
+    if (this.recentlyPlayedCache && (currentTime - this.recentlyPlayedCache.timestamp) < this.rcacheTTL)
+    {
       return this.recentlyPlayedCache.data;
     }
 
-    try {
+    try
+    {
       const laccessToken = this.tokenService.getAccessToken();
       const lrefreshToken = this.tokenService.getRefreshToken();
-      const response = await this.http.post<any>('http://localhost:3000/api/spotify/recently-played', {accessToken: laccessToken, refreshToken: lrefreshToken}).toPromise();
+      const response = await this.http.post<any>("http://localhost:3000/api/spotify/recently-played", {
+        accessToken: laccessToken,
+        refreshToken: lrefreshToken
+      }).toPromise();
 
-      if (!response) {
+      if (!response)
+      {
         throw new Error(`HTTP error! Status: ${response}`);
       }
 
@@ -307,26 +391,42 @@ export class SpotifyService {
         data: response
       };
 
-      sessionStorage.setItem('recentListening', JSON.stringify(response));
+      sessionStorage.setItem("recentListening", JSON.stringify(response));
       this.RecentListeningObject = response;
 
       return response;
-    } catch (error) {
-      console.error('Error fetching recently played tracks:', error);
+    }
+    catch (error)
+    {
+      console.error("Error fetching recently played tracks:", error);
       throw error;
     }
   }
 
+  // Check if the queue has been created
+  private queueCreated(): boolean
+  {
+    return localStorage.getItem("queueCreated") === "true";
+  }
+
+  // Set the queue as created
+  private setQueueCreated(): void
+  {
+    localStorage.setItem("queueCreated", "true");
+  }
+
   // Get the suggested tracks for the user from the ECHO API
-  public async getQueue(provider: string | null): Promise<TrackInfo[]> {
+  public async getQueue(provider: string | null): Promise<TrackInfo[]>
+  {
     if (this.queueCached())
     {
       return Promise.resolve(this.QueueObject);
     }
 
     const recentlyPlayed = await this.getRecentlyPlayedTracks("spotify");
-    if (!recentlyPlayed || recentlyPlayed.items.length === 0) {
-      throw new Error('No recently played tracks found');
+    if (!recentlyPlayed || recentlyPlayed.items.length === 0)
+    {
+      throw new Error("No recently played tracks found");
     }
 
     const mostRecentTrack = recentlyPlayed.items[0].track;
@@ -345,87 +445,266 @@ export class SpotifyService {
 
 
     // Map the tracks array in the response
-    if (response && Array.isArray(response.tracks)) {
-      const tracks = response.tracks.map((track: any) => ({
-        id: track.id,
-        text: track.name,
-        albumName: track.album.name,
-        imageUrl: track.album.images[0]?.url,
-        secondaryText: track.artists[0]?.name,
-        previewUrl: track.preview_url,
-        spotifyUrl: track.external_urls.spotify,
-        explicit: track.explicit
-      } as TrackInfo));
-      console.log('Queue tracks:', tracks);
+    if (response && Array.isArray(response.tracks))
+    {
+      let count: number = 0;
+      const tracks = response.tracks.map((track: any) =>
+      {
+        if (this.player)
+        {
+          if (count < 5 && !this.queueCreated())
+          {
+            this.addTrackToQueue(track.id);
+            ++count;
+          }
+          else if (count >= 5)
+          {
+            this.setQueueCreated();
+          }
+        }
 
-      sessionStorage.setItem('queue', JSON.stringify(tracks));
+        return {
+          id: track.id,
+          text: track.name,
+          albumName: track.album.name,
+          imageUrl: track.album.images[0]?.url,
+          secondaryText: track.artists[0]?.name,
+          previewUrl: track.preview_url,
+          spotifyUrl: track.external_urls.spotify,
+          explicit: track.explicit
+        } as TrackInfo;
+      });
+      console.log("Queue tracks:", tracks);
+
+      sessionStorage.setItem("queue", JSON.stringify(tracks));
       this.QueueObject = tracks;
 
       return tracks;
-    } else {
-      throw new Error('Invalid response structure');
+    }
+    else
+    {
+      throw new Error("Invalid response structure");
     }
   }
 
   // Get the currently playing track from Spotify
-  public async getCurrentlyPlayingTrack(): Promise<any> {
-    try {
+  public async getCurrentlyPlayingTrack(): Promise<any>
+  {
+    try
+    {
       const laccessToken = this.tokenService.getAccessToken();
       const lrefreshToken = this.tokenService.getRefreshToken();
-      const response = await this.http.post<any>('http://localhost:3000/api/spotify/currently-playing', {accessToken: laccessToken, refreshToken: lrefreshToken}).toPromise();
+      const response = await this.http.post<any>("http://localhost:3000/api/spotify/currently-playing", {
+        accessToken: laccessToken,
+        refreshToken: lrefreshToken
+      }).toPromise();
 
-      if (!response.ok) {
+      if (!response.ok)
+      {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
       return response;
-    } catch (error) {
-      console.error('Error fetching currently playing track:', error);
+    }
+    catch (error)
+    {
+      console.error("Error fetching currently playing track:", error);
       throw error;
     }
   }
 
   // Set the currently playing track
-  public setCurrentlyPlayingTrack(trackId: string): void {
-    this.getTrackDetails(trackId).then(track => {
+  public setCurrentlyPlayingTrack(trackId: string): void
+  {
+    this.getTrackDetails(trackId).then(track =>
+    {
       this.currentlyPlayingTrackSubject.next(track);
     });
   }
 
   // Get the details of a track by its Spotify ID
-  public async getTrackDetails(trackId: string): Promise<any> {
-    try {
+  public async getTrackDetails(trackId: string): Promise<any>
+  {
+    try
+    {
       const laccessToken = this.tokenService.getAccessToken();
       const lrefreshToken = this.tokenService.getRefreshToken();
-      const response = await this.http.post<any>('http://localhost:3000/api/spotify/track-details', {trackID: trackId, accessToken: laccessToken, refreshToken: lrefreshToken}).toPromise();
+      const response = await this.http.post<any>("http://localhost:3000/api/spotify/track-details", {
+        trackID: trackId,
+        accessToken: laccessToken,
+        refreshToken: lrefreshToken
+      }).toPromise();
 
-      if (!response) {
+      if (!response)
+      {
         throw new Error(`HTTP error! Status: ${response}`);
       }
 
       return response;
-    } catch (error) {
-      console.error('Error fetching recently played tracks:', error);
+    }
+    catch (error)
+    {
+      console.error("Error fetching recently played tracks:", error);
       throw error;
     }
   }
 
   // Disconnect the player
-  disconnectPlayer() {
-    if (this.player) {
-      this.player.disconnect().then(() => {
-        console.log('Player disconnected');
-      }).catch((error: any) => {
-        console.error('Failed to disconnect player', error);
+  disconnectPlayer()
+  {
+    if (this.player)
+    {
+      this.player.disconnect().then(() =>
+      {
+        console.log("Player disconnected");
+      }).catch((error: any) =>
+      {
+        console.error("Failed to disconnect player", error);
       });
     }
   }
 
   // Truncate text to a specified length when song names are too long
-  public truncateText(text: string, maxLength: number): string {
-    if (text.length > maxLength) {
-      return text.substring(0, maxLength) + '...';
+  public truncateText(text: string, maxLength: number): string
+  {
+    if (text.length > maxLength)
+    {
+      return text.substring(0, maxLength) + "...";
     }
     return text;
+  }
+
+  // Add a track to the queue
+  public async addTrackToQueue(trackId: string): Promise<void>
+  {
+    const fullTrackId: string = "spotify:track:" + trackId;
+
+    try
+    {
+      const laccessToken = this.tokenService.getAccessToken();
+      const lrefreshToken = this.tokenService.getRefreshToken();
+      const response = await this.http.post<any>("http://localhost:3000/api/spotify/add-to-queue", {
+        uri: fullTrackId,
+        device_id: this.deviceId,
+        accessToken: laccessToken,
+        refreshToken: lrefreshToken
+      }).toPromise();
+
+      if (!response)
+      {
+        throw new Error(`HTTP error! Status: ${response}`);
+      }
+
+      return response;
+    }
+    catch (error)
+    {
+      console.error("Error adding to queue: ", error);
+      throw error;
+    }
+  }
+
+  // Mute the player
+  public async mute()
+  {
+    if (this.player)
+    {
+      this.player.setVolume(0).then(() => console.log(`Muted player`));
+    }
+  }
+
+  // Unmute the player
+  public async unmute()
+  {
+    if (this.player)
+    {
+      this.player.setVolume(0.5).then(() => console.log(`Unmuted player`));
+    }
+  }
+
+  // This method is used to get the details of a track based on the track name and artist name
+  public async getTrackDetailsByName(trackName: string, artistName: string): Promise<any>
+  {
+    try
+    {
+      const laccessToken = this.tokenService.getAccessToken();
+      const lrefreshToken = this.tokenService.getRefreshToken();
+      const response = await this.http.post<any>("http://localhost:3000/api/spotify/track-details-by-name", {
+        trackName: trackName,
+        artistName: artistName,
+        accessToken: laccessToken,
+        refreshToken: lrefreshToken
+      }).toPromise();
+      if (!response)
+      {
+        throw new Error(`HTTP error! Status: ${response}`);
+      }
+      return response;
+    }
+    catch (error)
+    {
+      console.error("Error fetching track details by name:", error);
+    }
+  }
+
+  public async getTrackMood(trackId: string): Promise<string>
+  {
+    try
+    {
+      const laccessToken = this.tokenService.getAccessToken();
+      const lrefreshToken = this.tokenService.getRefreshToken();
+      const response = await this.http.post<TrackAnalysis>("http://localhost:3000/api/spotify/track-analysis", {
+        trackId: trackId,
+        accessToken: laccessToken,
+        refreshToken: lrefreshToken
+      }).toPromise();
+
+      if (!response)
+      {
+        throw new Error(`HTTP error! Status: ${response}`);
+      }
+      return this.classifyMood(response);
+    }
+    catch (error)
+    {
+      console.error("Error fetching track analysis:", error);
+      throw error;
+    }
+  }
+
+  private classifyMood(analysis: TrackAnalysis): string
+  {
+    const { valence, energy, danceability, tempo } = analysis;
+
+    if (0.4 <= valence && valence <= 0.6 && 0.4 <= energy && energy <= 0.6) return "Neutral";
+    if (valence < 0.4 && energy > 0.7) return "Anger";
+    if (valence > 0.6 && energy > 0.5) return "Admiration";
+    if (valence < 0.3 && energy > 0.6) return "Fear";
+    if (valence > 0.7 && energy > 0.7) return "Joy";
+    if (valence > 0.6 && energy > 0.6 && danceability > 0.6) return "Amusement";
+    if (valence < 0.4 && 0.4 < energy && energy < 0.7) return "Annoyance";
+    if (valence > 0.6 && 0.4 < energy && energy < 0.7) return "Approval";
+    if (valence > 0.5 && energy < 0.5) return "Caring";
+    if (0.4 <= valence && valence <= 0.6 && 0.3 <= energy && energy <= 0.5) return "Confusion";
+    if (0.5 < valence && valence < 0.7 && 0.5 < energy && energy < 0.7) return "Curiosity";
+    if (valence > 0.6 && energy > 0.6) return "Desire";
+    if (valence < 0.4 && energy < 0.4) return "Disappointment";
+    if (valence < 0.3 && 0.3 < energy && energy < 0.6) return "Disapproval";
+    if (valence < 0.3 && energy > 0.5) return "Disgust";
+    if (valence < 0.4 && energy < 0.5) return "Embarrassment";
+    if (valence > 0.7 && energy > 0.8) return "Excitement";
+    if (valence > 0.6 && energy < 0.5) return "Gratitude";
+    if (valence < 0.3 && energy < 0.4) return "Grief";
+    if (valence > 0.7 && energy < 0.7) return "Love";
+    if (0.3 < valence && valence < 0.5 && energy > 0.6) return "Nervousness";
+    if (valence > 0.6 && energy > 0.5) return "Optimism";
+    if (valence > 0.7 && energy > 0.6) return "Pride";
+    if (0.4 < valence && valence < 0.6 && 0.4 < energy && energy < 0.6) return "Realisation";
+    if (valence > 0.5 && energy < 0.4) return "Relief";
+    if (valence < 0.4 && energy < 0.4) return "Remorse";
+    if (valence < 0.3 && energy < 0.5) return "Sadness";
+    if (valence > 0.5 && energy > 0.7 && tempo > 120) return "Surprise";
+
+    return "Neutral";
   }
 }

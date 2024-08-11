@@ -9,10 +9,12 @@ import {NavbarComponent} from "./../../shared/navbar/navbar.component";
 import { SearchBarComponent } from '../../shared/search-bar/search-bar.component';
 import { TopResultComponent } from '../../shared/top-result/top-result.component';
 import { MoodService } from '../../services/mood-service.service';
+import { SpotifyService } from "../../services/spotify.service";
+import { ProviderService } from "../../services/provider.service";
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [NgIf, NgForOf, NgClass, AsyncPipe,TopResultComponent],
+  imports: [NgIf, NgForOf, NgClass, AsyncPipe, TopResultComponent, NavbarComponent, SearchBarComponent],
   templateUrl: './search.component.html',
   styleUrl: './search.component.css'
 })
@@ -30,10 +32,10 @@ export class SearchComponent implements OnInit {
   title?: string;
 
   constructor(private screenSizeService: ScreenSizeService,protected themeService: ThemeService,private router: Router,
-    public moodService: MoodService,private searchService: SearchService
+    public moodService: MoodService,private searchService: SearchService, private spotifyService: SpotifyService, private providerService: ProviderService
   ) {
-    this.currentMood = this.moodService.getCurrentMood(); 
-    this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
+    this.currentMood = this.moodService.getCurrentMood();
+    this.moodComponentClasses = this.moodService.getComponentMoodClasses();
     this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
     this.songs$ = this.searchService.getSearch();
     this.albums$ = this.searchService.getAlbumSearch();
@@ -57,4 +59,15 @@ export class SearchComponent implements OnInit {
     this.router.navigate(['/profile']);
   }
 
+  playTrack(name: string, artistName: string)
+  {
+    if (this.providerService.getProviderName() === 'spotify')
+    {
+      this.spotifyService.getTrackDetailsByName(name, artistName).then(async (track) =>
+      {
+        console.log(track);
+        await this.spotifyService.playTrackById(track.id);
+      });
+    }
+  }
 }
