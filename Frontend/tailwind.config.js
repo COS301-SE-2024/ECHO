@@ -5,8 +5,17 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                'sans': ['Noto Sans', 'sans-serif'] 
+                'sans': ['Noto Sans', 'sans-serif'],
+                'app': ['Montserrat', 'sans-serif'], 
             },
+            margin: {
+                '100': '400px', 
+                '104': '416px', 
+                '108': '432px', 
+                '112': '448px', 
+                '120': '480px', 
+                '128': '512px', 
+              },
             transitionProperty: {
                 'mood': 'background-color, color', // Specify which properties to transition
               },

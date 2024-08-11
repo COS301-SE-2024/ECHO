@@ -14,6 +14,7 @@ import { SearchComponent } from '../../pages/search/search.component';
 import { MoodDropDownComponent } from './../../shared/mood-drop-down/mood-drop-down.component';
 import { MoodService } from '../../services/mood-service.service';
 import { InsightsComponent } from "../insights/insights.component";
+
 @Component({
     selector: 'app-home',
     standalone: true,
@@ -46,6 +47,13 @@ export class HomeComponent implements OnInit {
     screenSize?: string;
     currentSelection: string = 'All';
     searchQuery: string = '';
+    moods = [
+        'All', 'Sad', 'Relaxed', 'Energetic', 
+        'Focused', 'Calm', 'Excited', 'Chill', 
+        'Melancholic', 'Motivated', 'Joy', 'Admiration', 'Love'
+      ];
+    selectedMood: number | null = null;
+
 
     constructor(
         protected themeService: ThemeService,
@@ -83,6 +91,12 @@ export class HomeComponent implements OnInit {
         await this.spotifyService.init();
       }
     }
+
+    selectMood(index: number) {
+        this.selectedMood = index;
+        // Additional logic to handle mood selection
+      }
+
     getMoodPercentageData(): number[] {
         // "Anger", "Annoyance", "Fear", "Excitement", "Amusement", "Admiration", 
         // "Approval", "Caring", "Joy", "Desire", "Curiosity", "Confusion", 
