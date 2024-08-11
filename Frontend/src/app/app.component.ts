@@ -70,6 +70,10 @@ export class AppComponent {
             this.currentPage = 'Settings';
             this.displayPageName = true;
             break;
+          case '/search':
+            this.currentPage = 'Search';
+            this.displayPageName = true;
+            break;
           default:
             this.currentPage = '';
             this.displayPageName = false;
