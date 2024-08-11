@@ -1,7 +1,9 @@
 <div *ngIf="screenSize === 'mobile'" class="mobile-layout">
-  <div [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]" class=" flex flex-col sm:px-6 sm:py-12 min-h-screen">
+  <div [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]"
+       class=" flex flex-col sm:px-6 sm:py-12 min-h-screen">
     <div class="profile-container w-full mx-auto">
-      <div id="profile" class="profile bg-cover bg-center w-full relative" [style.background-image]="'url('+ imgpath + ')'" style="background-size: cover; height: 40vh;">
+      <div id="profile" class="profile bg-cover bg-center w-full relative"
+           [style.background-image]="'url('+ imgpath + ')'" style="background-size: cover; height: 40vh;">
         <!-- Centered content over the background image -->
         <div class="absolute inset-0 flex flex-col justify-center items-center bg-opacity-50 dark:bg-opacity-50">
           <h2 class="text-gray-900 dark:text-white font-bold py-4">&#64;{{ username }}</h2>
@@ -9,31 +11,37 @@
             <p class="text-gray-900 dark:text-white">11 Followers</p>
             <p class="text-gray-900 dark:text-white">3 Following</p>
           </div>
-          <button *ngIf="themeService.isDarkModeActive()" class="btn btn-dark py-4" (click)="openDialog()">Edit Profile</button>
-          <button *ngIf="!themeService.isDarkModeActive()" class="btn btn-light py-4" (click)="openDialog()">Edit Profile</button>
+          <button *ngIf="themeService.isDarkModeActive()" class="btn btn-dark py-4" (click)="openDialog()">Edit
+            Profile
+          </button>
+          <button *ngIf="!themeService.isDarkModeActive()" class="btn btn-light py-4" (click)="openDialog()">Edit
+            Profile
+          </button>
         </div>
       </div>
     </div>
     <div class="w-full pr-4 overflow-hidden">
-      <h2 class="text-gray-dark dark:text-gray-verylight font-bold mb-2">Top Songs</h2>
+      <h2 class="text-gray-dark dark:text-gray-verylight font-bold mb-4">Top Songs</h2>
       <div class="flex space-x-2 overflow-x-auto scrollable-cards">
-      <ng-container *ngFor="let item of recentListeningCardData">
-        <app-top-card 
-          [imageUrl]="item.imageUrl" 
-          [text]="item.text" 
-          [secondaryText]="item.secondaryText"
-        >
-        </app-top-card>
-      </ng-container>
+        <ng-container *ngFor="let item of topTracks">
+          <div (click)="playTrack(item.id)">
+            <app-top-card
+              [imageUrl]="item.imageUrl"
+              [text]="item.text"
+              [secondaryText]="item.secondaryText"
+            >
+            </app-top-card>
+          </div>
+        </ng-container>
       </div>
-      <h2 class="text-gray-dark dark:text-gray-verylight font-bold mb-2 mt-4">Top Artists</h2>
+      <h2 class="text-gray-dark dark:text-gray-verylight font-bold mt-4">Top Artists</h2>
       <div class="flex space-x-2 overflow-x-auto scrollable-cards">
-        <ng-container *ngFor="let artist of artists">
-          <app-top-artist-card 
-            [imageUrl]="artist.imageUrl" 
-            [text]="artist.text"
+        <ng-container *ngFor="let artist of topArtists">
+          <app-top-artist-card
+            [imageUrl]="artist.imageUrl"
+            [text]="artist.name"
           >
-        </app-top-artist-card>
+          </app-top-artist-card>
         </ng-container>
       </div>
     </div>
@@ -43,12 +51,15 @@
 </div>
 
 <div *ngIf="screenSize === 'desktop'" class="desktop-layout">
-  <div [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]"  class="min-h-screen  flex flex-col justify-center px-6 py-12 lg:px-8">
+  <div [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]"
+       class="min-h-screen  flex flex-col justify-center px-6 py-12 lg:px-8">
     <div class="flex justify-center items-center">
       <div class="fixed top-1 right-12 flex flex-col items-center">
         <button *ngIf="screenSize === 'desktop'" class="p-2" (click)="switchTheme()">
-          <img *ngIf="!themeService.isDarkModeActive()" src="../../../assets/icons/light-mode.png" alt="Light Mode" class="w-10 h-10">
-          <img *ngIf="themeService.isDarkModeActive()" src="../../../assets/icons/dark-mode.png" alt="Dark Mode" class="w-10 h-10">
+          <img *ngIf="!themeService.isDarkModeActive()" src="../../../assets/icons/light-mode.png" alt="Light Mode"
+               class="w-10 h-10">
+          <img *ngIf="themeService.isDarkModeActive()" src="../../../assets/icons/dark-mode.png" alt="Dark Mode"
+               class="w-10 h-10">
         </button>
       </div>
 
@@ -56,9 +67,11 @@
       <div class="profile-container">
         <div id="profile" class="profile fixed right-4 top-4 mt-5 mr-5 ml-6 h-5/6">
           <div class="ml-24 p-4 pr-4 rounded-md h-full relative">
-            <div [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]" class="rounded-lg overflow-hidden h-full relative">
+            <div [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]"
+                 class="rounded-lg overflow-hidden h-full relative">
               <div class="absolute top-2 left-1/2 transform -translate-x-1/2 text-center">
-                <img src="{{imgpath}}" alt="Profile Image" class="w-24 h-24 rounded-full border-2 border-white dark:border-gray-700 mx-auto">
+                <img src="{{imgpath}}" alt="Profile Image"
+                     class="w-24 h-24 rounded-full border-2 border-white dark:border-gray-700 mx-auto">
                 <h2 class="mt-2 text-gray-900 dark:text-white font-bold">&#64;{{ username }}</h2>
                 <div class="flex justify-center mt-2 space-x-4">
                   <p class="text-gray-900 dark:text-white">11 Followers</p>
@@ -67,25 +80,34 @@
               </div>
               <p class="absolute text-gray-900 top-8 left-20 dark:text-white font-bold">ECHO Rank: #1</p>
               <!-- Use Flowbite for modal/dialog if needed, otherwise just Tailwind for buttons -->
-              <button *ngIf="themeService.isDarkModeActive()" class="absolute btn btn-dark top-5 right-10" (click)="openDialog()">Edit Profile</button>
-              <button *ngIf="!themeService.isDarkModeActive()" class="absolute btn btn-light top-5 right-10" (click)="openDialog()">Edit Profile</button>
+              <button *ngIf="themeService.isDarkModeActive()" class="absolute btn btn-dark top-5 right-10"
+                      (click)="openDialog()">Edit Profile
+              </button>
+              <button *ngIf="!themeService.isDarkModeActive()" class="absolute btn btn-light top-5 right-10"
+                      (click)="openDialog()">Edit Profile
+              </button>
               <button class="absolute btn btn-dark top-5 right-52" (click)="settings()">
-                <svg class="w-6 h-6 text-gray-800 dark:text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                  <path stroke="currentColor" stroke-linecap="square" stroke-linejoin="round" stroke-width="2" d="M10 19H5a1 1 0 0 1-1-1v-1a3 3 0 0 1 3-3h2m10 1a3 3 0 0 1-3 3m3-3a3 3 0 0 0-3-3m3 3h1m-4 3a3 3 0 0 1-3-3m3 3v1m-3-4a3 3 0 0 1 3-3m-3 3h-1m4-3v-1m-2.121 1.879-.707-.707m5.656 5.656-.707-.707m-4.242 0-.707.707m5.656-5.656-.707.707M12 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                <svg class="w-6 h-6 text-gray-800 dark:text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                     width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="square" stroke-linejoin="round" stroke-width="2"
+                        d="M10 19H5a1 1 0 0 1-1-1v-1a3 3 0 0 1 3-3h2m10 1a3 3 0 0 1-3 3m3-3a3 3 0 0 0-3-3m3 3h1m-4 3a3 3 0 0 1-3-3m3 3v1m-3-4a3 3 0 0 1 3-3m-3 3h-1m4-3v-1m-2.121 1.879-.707-.707m5.656 5.656-.707-.707m-4.242 0-.707.707m5.656-5.656-.707.707M12 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                 </svg>
               </button>
               <div class="absolute bottom-24 left-16 w-full pr-10 overflow-hidden">
                 <h2 class="text-gray-900 dark:text-white text-2xl font-bold mb-2">Top Songs</h2>
                 <div class="flex space-x-4 overflow-x-auto scrollable-cards">
-                  <ng-container  *ngFor="let item of recentListeningCardData">
-                    <app-top-card [imageUrl]="item.imageUrl" [text]="item.text" [secondaryText]="item.secondaryText"></app-top-card>
-                    <div class="card-style"></div>
+                  <ng-container *ngFor="let item of topTracks">
+                    <div (click)="playTrack(item.id)">
+                      <app-top-card [imageUrl]="item.imageUrl" [text]="item.text"
+                                    [secondaryText]="item.secondaryText"></app-top-card>
+                      <div class="card-style"></div>
+                    </div>
                   </ng-container>
                 </div>
                 <h2 class="text-gray-900 dark:text-white font-bold mb-2 mt-4 text-2xl">Top Artists</h2>
                 <div class="flex space-x-4 overflow-x-auto scrollable-cards">
-                  <ng-container *ngFor="let artist of artists">
-                      <app-top-artist-card [imageUrl]="artist.imageUrl" [text]="artist.text"></app-top-artist-card>
+                  <ng-container *ngFor="let artist of topArtists">
+                    <app-top-artist-card [imageUrl]="artist.imageUrl" [text]="artist.name"></app-top-artist-card>
                   </ng-container>
                 </div>
               </div>
@@ -97,7 +119,7 @@
       <div class="navbar-container">
         <app-navbar (selectedNavChange)="onNavChange($event)"></app-navbar>
       </div>
-      
+
     </div>
   </div>
 </div>
