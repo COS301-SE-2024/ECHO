@@ -98,7 +98,19 @@ The core of the interface is encapsulated within an Azure Function that handles 
 
 ## Challenges and Future Work
 
+### Challenges
+During the development and deployment of the Music Recommendation System, several significant challenges were encountered:
+- **Inconsistent Genre Data:** Reliance on external APIs such as Deezer for genre detection led to inconsistencies in data availability and accuracy. This resulted in cases where genre information was missing or incorrect, which impacted the quality of recommendations. 
+- **Cluster Quality:** The K-Means clustering algotithm's effectiveness was influenced by the quality of input data, sometimes resulting in clusters that were not sufficiently distinct. This necessitated adjustments to the clustering features and the number of clusters to enhance recommendation relevance. 
+- **Sentiment Misclassification:** The sentiment analysis module occasionally misclassified songs, particularly those with ambiguous or complex lyrics, which affected the overall recommendation quality. 
+- **Ensuring 10 Recommendations:** Maintaining exactly 10 song recommendations posed a challenge, especially when the initial pool of cluster songs was insufficient. This required careful management of the recommendation process to balance quality and relevance. 
+- **Deplyoment Issues:** Deployment presented significant challenges, particularly with custom-built models for text and audio classification. These models, which worked well during development, failed during deployment, requiring the system to be rebuilt almost from scratch. Additionally, a custom web scraper that was integrated into the system for lyric detection did not function as expected in the deployment environment, further complicating the process. 
 
-## Conclusion
+### Future Work
+To address the challenges encountered and to anhance the system's capabilities, the following improvements are planned:
+- **Genre Detection Failsafe:** Implementing a failsafe mechanism in the genre detection module will help ensure that if a song is not found in Deezer's database, the system will attemp to retrieve the genre from an album by the same artist. This will reduce the impact of missing or inaccurate genre data and improve recommendation reliability.
+- **Guaranteed 10 Recommendations:** The system will be modified to consistently recommend exactly 10 songs. If the initial set of cluster songs is insufficient, the system will either truncate the list at 10 songs or continue the process with additional cluster songs, ensuring a consistent user experience. 
+- **Language Detection and Profanity Filtering:** Future iterations will include language detection and profanity filtering, allowing the system to tailor recommendations based on language preferences and to filter out explicit content when necessary. This will enhance the system's adaptability to diverse user needs.
+- **User Feedback Integration:** Incorporating user feedback into the recommendation process will be a key focus. By allowing users to rate recommendations and provide feedback, the system can learn and adapt over time, leading to more personalised and accurate recommendations. 
 
 ## Appendices
