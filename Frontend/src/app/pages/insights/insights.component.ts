@@ -46,10 +46,8 @@ export class InsightsComponent implements AfterViewInit, AfterViewChecked {
       const chartCanvas = document.getElementById("MyChart") as HTMLCanvasElement;
       if (chartCanvas) {
         this.createChart().then(() => {
-          console.log("Chart created successfully");
           this.chartInitialized = true; // Set chart initialization flag
         }).catch(error => {
-          console.error("Failed to create chart:", error);
         });
       }
     }
@@ -74,7 +72,6 @@ export class InsightsComponent implements AfterViewInit, AfterViewChecked {
   createChart(): Promise<void> {
     return new Promise((resolve, reject) => {
       try {
-        console.log("createChart called");
         const chartCanvas = document.getElementById("MyChart") as HTMLCanvasElement;
         if (chartCanvas) {
           console.log("Canvas element found");
@@ -131,11 +128,9 @@ export class InsightsComponent implements AfterViewInit, AfterViewChecked {
           });
           resolve();
         } else {
-          console.log("Canvas element not found");
           reject("Canvas element not found");
         }
       } catch (error) {
-        console.error("Failed to create chart:", error);
         reject(error);
       }
     });
@@ -144,9 +139,7 @@ export class InsightsComponent implements AfterViewInit, AfterViewChecked {
   nextChartType() {
     this.currentChartIndex = (this.currentChartIndex + 1) % this.chartTypes.length;
     this.createChart().then(() => {
-      console.log("Chart type changed successfully");
     }).catch(error => {
-      console.error("Failed to change chart type:", error);
     });
   }
 }

@@ -1,5 +1,5 @@
 <div [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]" class="min-h-screen grid grid-cols-5 grid-rows-6 gap-4 px-6 py-3 lg:px-8" style="overflow: auto;">
-  <div class="col-start-1 col-span-5 row-start-1">
+  <div class="col-start-1 col-span-5 row-start-1" style="padding-top: 50px;"> <!-- Adjust padding-top as needed -->
     <div class="fixed navbar-container pt-[1vh] pl-5">
         <app-navbar (selectedNavChange)="onNavChange($event)"></app-navbar>
     </div>
@@ -18,7 +18,7 @@
         <app-moods></app-moods>
       </div>
     </ng-container>
-  
+    
     <!-- Mobile Layout -->
     <ng-container *ngSwitchCase="'mobile'">
       <app-moods class="col-start-1 col-span-12 row-start-1 row-span-10 pt-[8.5vh]"></app-moods>
@@ -34,8 +34,4 @@
   <div *ngIf="title === 'Insight'" class="col-start-2 col-span-4 row-start-1 row-span-5 pl-16 pt-16 mr-5">
     <app-insights [percentageData]="getMoodPercentageData()"></app-insights>
   </div>
-
-
 </div>
-
-

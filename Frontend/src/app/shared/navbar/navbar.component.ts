@@ -60,7 +60,7 @@ export class NavbarComponent {
         let fragment: string = '';
         switch (svgPath) {
             case this.homeSvg:
-                fragment = '';
+                fragment = 'home';
                 this.selectedNavChange.emit('Home');
                 break;
             case this.insightSvg:
