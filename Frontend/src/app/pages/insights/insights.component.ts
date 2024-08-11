@@ -17,8 +17,8 @@ export class InsightsComponent implements AfterViewInit, AfterViewChecked {
   public chart: any;
   private colorCache: { [key: string]: string } = {};
   // Chart Variables
-  private chartTypes: ChartType[] = ["pie", "bar", "line", "doughnut", "radar", "polarArea"];
-  private currentChartIndex: number = 0;
+  public chartTypes: ChartType[] = ["pie", "bar", "line", "doughnut", "radar", "polarArea"];
+  public currentChartIndex: number = 0;
   screenSize?: string;
   //Mood Service Variables
   currentMood!: string;
