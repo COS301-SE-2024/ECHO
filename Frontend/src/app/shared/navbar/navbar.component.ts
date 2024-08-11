@@ -60,12 +60,12 @@ export class NavbarComponent {
         let fragment: string = '';
         switch (svgPath) {
             case this.homeSvg:
-                fragment = '';
+                fragment = 'home';
                 this.selectedNavChange.emit('Home');
                 break;
             case this.insightSvg:
-                fragment = 'search';
-                this.selectedNavChange.emit('Search');
+                fragment = 'insight';
+                this.selectedNavChange.emit('Insight');
                 break;
             case this.otherSvg2:
                 fragment = 'library';

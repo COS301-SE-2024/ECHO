@@ -13,6 +13,7 @@ import { SearchBarComponent } from '../../shared/search-bar/search-bar.component
 import { SearchComponent } from '../../pages/search/search.component';
 import { MoodDropDownComponent } from './../../shared/mood-drop-down/mood-drop-down.component';
 import { MoodService } from '../../services/mood-service.service';
+import { InsightsComponent } from "../insights/insights.component";
 
 @Component({
     selector: 'app-home',
@@ -29,7 +30,8 @@ import { MoodService } from '../../services/mood-service.service';
         SearchComponent,
         NgSwitchCase,
         NgSwitch,
-        MoodDropDownComponent
+        MoodDropDownComponent,
+        InsightsComponent
     ],
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',
@@ -45,6 +47,13 @@ export class HomeComponent implements OnInit {
     screenSize?: string;
     currentSelection: string = 'All';
     searchQuery: string = '';
+    moods = [
+        'All', 'Sad', 'Relaxed', 'Energetic', 
+        'Focused', 'Calm', 'Excited', 'Chill', 
+        'Melancholic', 'Motivated', 'Joy', 'Admiration', 'Love'
+      ];
+    selectedMood: number | null = null;
+
 
     constructor(
         protected themeService: ThemeService,
@@ -83,6 +92,19 @@ export class HomeComponent implements OnInit {
       }
     }
 
+    selectMood(index: number) {
+        this.selectedMood = index;
+        // Additional logic to handle mood selection
+      }
+
+    getMoodPercentageData(): number[] {
+        // "Anger", "Annoyance", "Fear", "Excitement", "Amusement", "Admiration", 
+        // "Approval", "Caring", "Joy", "Desire", "Curiosity", "Confusion", 
+        // "Gratitude", "Surprise", "Disappointment", "Disapproval", "Disgust", 
+        // "Embarrassment", "Sadness", "Grief", "Love", "Nervousness", "Optimism", 
+        // "Pride", "Realisation", "Relief"
+        return [25, 5, 30, 40, 10, 15, 20, 25, 30, 10, 15, 5, 20, 5, 5, 15, 10, 10, 25, 10, 20, 15, 10, 5, 20, 15, 10];
+    }
     profile() {
         this.router.navigate(['/profile']);
     }

@@ -3,18 +3,28 @@
     <div class="pl-5 py-4 rounded-md h-full">
       <div [ngClass]="this.moodComponentClasses[this.moodService.getCurrentMood()]" class=" rounded-lg overflow-auto h-full flex flex-col justify-between scrollbar-hidden">
         <div class="flex flex-col h-full">
-          <div class="flex justify-between mb-2 mt-2">
-            <div class="button-container" [class.underline-blue]="selectedOption === 'upNext'" [class.underline-none]="selectedOption !== 'upNext'">
-              <button class="pl-5 pr-5 text-sm text-gray-800 dark:text-white focus:outline-none button"
-                      (click)="selectOption('upNext')">Suggestions
-              </button>
+          <div class="flex justify-between items-center mb-2 mt-3">
+            <!-- Suggestions Button -->
+            <div class="button-container" 
+                 [class.underline-blue]="selectedOption === 'upNext'" 
+                 [class.underline-none]="selectedOption !== 'upNext'">
+                <button class="px-10 text-sm text-gray-800 dark:text-white focus:outline-none"
+                        (click)="selectOption('upNext')">
+                    Suggestions
+                </button>
             </div>
-            <div class="button-container pt-2" [class.underline-blue]="selectedOption === 'recentListening'" [class.underline-none]="selectedOption !== 'recentListening'">
-              <button class="pl-5 pr-5 text-sm text-gray-800 dark:text-white focus:outline-none button"
-                      (click)="selectOption('recentListening')">Recent listening
-              </button>
+        
+            <!-- Recent Listening Button -->
+            <div class="button-container" 
+                 [class.underline-blue]="selectedOption === 'recentListening'" 
+                 [class.underline-none]="selectedOption !== 'recentListening'">
+                <button class="px-10 text-sm text-gray-800 dark:text-white focus:outline-none"
+                        (click)="selectOption('recentListening')">
+                    Recent listening
+                </button>
             </div>
-          </div>
+        </div>
+        
 
           <div class="mt-7 mx-3 flex-grow overflow-auto scrollbar-hidden">
             <div *ngFor="let card of getSelectedCardData(); let i = index" class="flex items-center mb-5 hover:cursor-pointer" (click)="playTrack(card.id)">
