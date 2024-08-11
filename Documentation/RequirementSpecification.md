@@ -449,7 +449,7 @@ The listener drags the volume slider on the music player. The system adjusts the
 ![music-player](<images/Music Player Subsystem.png>)
 
 ## 7. AI Clustering Subsystem
-![AI-clustering](<images/clustering use case.png>)
+![AI-clustering](<images/Clustering Subsystem.png>)
 
 <br />
 <br />
