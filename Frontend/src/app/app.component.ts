@@ -7,14 +7,15 @@ import { ScreenSizeService } from './services/screen-size-service.service';
 import { Router, NavigationEnd, Event as RouterEvent } from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
 import { filter } from 'rxjs/operators';
-import { NgIf } from "@angular/common";
+import { NgIf,NgClass } from "@angular/common";
 import { SideBarComponent } from "./shared/side-bar/side-bar.component";
 import { ProviderService } from "./services/provider.service";
 import { PageHeaderComponent } from "./shared/page-header/page-header.component";
+
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, BottomPlayerComponent, NgIf, SideBarComponent, BottomNavComponent, PageHeaderComponent],
+  imports: [RouterOutlet, BottomPlayerComponent, NgIf, SideBarComponent, BottomNavComponent, PageHeaderComponent,NgClass],
 
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
@@ -29,19 +30,34 @@ export class AppComponent {
   currentPage: string = '';
   displayPageName: boolean = false;
 
-  constructor(private router: Router, private screenSizeService: ScreenSizeService, private providerService: ProviderService, updates: SwUpdate) {
+
+  constructor(private router: Router, private screenSizeService: ScreenSizeService, private providerService: ProviderService, updates: SwUpdate,) {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: RouterEvent) => {
 
       if (event instanceof NavigationEnd) {
-        this.displaySideBar = ['/home', '/profile', '/mood', '/home#','/home#search', '/home#library'].includes(event.urlAfterRedirects);
+        this.displaySideBar = ['/home', '/profile', '/mood', '/home#','/home#search','/home#home', '/home#library'].includes(event.urlAfterRedirects);
         this.displayPlayer = ['/settings'].includes(event.urlAfterRedirects);
-        this.showPlayer = ['/home', '/profile', '/mood', '/home#','/home#search', '/home#library'].includes(event.urlAfterRedirects);
+        this.showPlayer = ['/home', '/profile', '/mood', '/home#','/home#home','/home#search', '/home#library','/home#insight'].includes(event.urlAfterRedirects);
         switch (event.urlAfterRedirects) {
           case '/home':
+            this.currentPage = 'Home';
+            this.displayPageName = true;
+            break;
           case '/home#search':
+            this.currentPage = 'Search';
+            this.displayPageName = true;
+            break;
           case '/home#library':
+            this.currentPage = 'Library';
+            this.displayPageName = true;
+            break;
+          case '/home#insight':
+            this.currentPage = 'Insight';
+            this.displayPageName = true;
+            break;
+          case "/home#home":
             this.currentPage = 'Home';
             this.displayPageName = true;
             break;
@@ -49,6 +65,7 @@ export class AppComponent {
             this.currentPage = 'Profile';
             this.displayPageName = true;
             break;
+          
           case '/settings':
             this.currentPage = 'Settings';
             this.displayPageName = true;
@@ -69,6 +86,7 @@ export class AppComponent {
         });
       }
     });
+
   }
 
   async ngOnInit() {

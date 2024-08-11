@@ -26,7 +26,8 @@
     "types": ["youtube", "jest"]
   },
   "include": [
-    "src/app/types"
+    "src/app/types",
+    "src/**/*.ts"
   ],
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
