@@ -4,6 +4,7 @@
 # Table of contents
 - [ECHO Requirements Specification](#echo-requirements-specification)
 - [Table of contents](#table-of-contents)
+- [Link to previous documentation versions:](#link-to-previous-documentation-versions)
 - [Introduction](#introduction)
     - [Vision and Mission](#vision-and-mission)
     - [Business Needs](#business-needs)
@@ -46,6 +47,7 @@
   - [4. AI Processing Subsystem](#4-ai-processing-subsystem)
   - [5. Spotify Integration Subsystem](#5-spotify-integration-subsystem)
   - [6. Music Player Subsystem](#6-music-player-subsystem)
+  - [7. AI Clustering Subsystem](#7-ai-clustering-subsystem)
 - [UML Class Diagram](#uml-class-diagram)
 - [Design Patterns](#design-patterns)
   - [Observer](#observer)
@@ -429,31 +431,31 @@ The listener drags the volume slider on the music player. The system adjusts the
 # Use Case Diagrams
 
 ## 1. User Management Subsystem
-![user-management](<User Management.png>)
+![user-management](<images/User Management.png>)
 
 ## 2. Profile Management Subsystem
-![profile-management](<Profile Management.png>)
+![profile-management](<images/Profile Management.png>)
 
 ## 3. Analytics Display Subsystem
-![analytics](<Analytics Display.png>)
+![analytics](<images/Analytics Display.png>)
 
 ## 4. AI Processing Subsystem
-![AI-processing](<new AI Subsystem.png>)
+![AI-processing](<images/new AI Subsystem.png>)
 
 ## 5. Spotify Integration Subsystem
-![spotify-integration](<Spotify Integration Subsystem.png>)
+![spotify-integration](<images/Spotify Integration Subsystem.png>)
 
 ## 6. Music Player Subsystem
-![music-player](<Music Player Subsystem.png>)
+![music-player](<images/Music Player Subsystem.png>)
 
 ## 7. AI Clustering Subsystem
-![AI-clustering](<clustering use case.png>)
+![AI-clustering](<images/clustering use case.png>)
 
 <br />
 <br />
 
 # UML Class Diagram
-![class diagram](<class diagram.drawio.png>)
+![class diagram](<images/class diagram.drawio.png>)
 
 <br />
 <br />
