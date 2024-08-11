@@ -69,7 +69,17 @@ The sentiment analysis process begins with the retrieval of song lyrics. This is
    - **LLM Emotion Prediction Without Lyrics:** If lyrics are not available for a given song, the system falls back on an LLM to predict the likely emotion based on the song's title and artist. This prediction is based on general knowledge and patterns associated wiht similar songs.  
 
 ### Genre Detection
+The Genre Detection system is a critical component of the Music Recommendation System, responsible for identifying the genre of a song. This information is used to tailor recommendations based on users' genre preferences, ensuring that the suggested tracks align with their musical tastes. 
 
+#### Overview of the Genre Detection Process
+The genre detection process involved determining the genre of a song by analysing its metadata and leveraging external APIs to obtain accurate genre information. The system identifies the genre of a song by querying Deezer's extensive music database, ehich provides genre classification at the album level. This ensures that the system can provide reliable genre information even for less mainstream tracks. 
+
+#### Interaction with Deezer API
+The genre detection process is heavily reliant on the Deezer API, which is used to search for the song and retrieve its associated metadata, including its genre. The process works as follows:
+1. **Song and Artist Query:** The system constructs a query string using the song name and artist name provided by the user. This query is then sent to the Deezer API to search for matching tracks in Deezer's music database. 
+2. **Retrieving Album Information:** If a matching song is found, the system retrieves detailed information about the track, including the album it belongs to. The genre information is typically associated with the album rather than individual tracks, so obtaining the album details is crucial. 
+3. **Extracting Genre Data:** Once the album information is retrieved, the system checks for genre data within the album's metadata. If genre information is available, it is extracted and returned as the genre of the song. 
+4. **Fallback Mechanism:** In cases where the genre information is not available or the track is not found in Deezer's database, the system returns an empty string of attempts to infer the genre using alternative methods. However, reliance on Deezer ensures that the genre detection process is generally accurate and reliable, 
 
 ### Expert System Functionality
 
