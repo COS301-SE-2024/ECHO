@@ -3,8 +3,28 @@
     <div class="fixed navbar-container pt-[1vh] pl-5">
         <app-navbar (selectedNavChange)="onNavChange($event)"></app-navbar>
     </div>
-    <app-search-bar *ngIf="screenSize === 'desktop'" (searchDown)="onSearchdown($event)" class="col-start-2 row-start-1"></app-search-bar>
-    <div class="fixed top-5 right-8 flex flex-row items-center space-x-4">
+    <app-search-bar 
+      *ngIf="screenSize === 'desktop'" 
+      (searchDown)="onSearchdown($event)" 
+      class="mb-4 col-start-2 row-start-1">
+    </app-search-bar>
+
+    <div class="flex space-x-2 mb-10 col-start-2 row-start-2">
+      <!-- Button for Mood -->
+      <button
+        *ngFor="let mood of moods; let i = index"
+        (click)="selectMood(i)"
+        [class.bg-pink]="selectedMood === null && i === 0 || selectedMood === i"
+        [class.text-white]="selectedMood === null && i === 0 || selectedMood === i"
+        [class.bg-gray-component]="!(selectedMood === null && i === 0) && selectedMood !== i"
+        [class.text-gray-verylight]="!(selectedMood === null && i === 0) && selectedMood !== i"
+        class="ml-108 my-5 px-5 py-2 rounded-full focus:outline-none focus:cursor-pointer transition-colors duration-300">
+        {{ mood }}
+      </button> 
+    </div>
+
+    
+    <div class="fixed top-5 right-8 flex flex-row items-center space-x-4 mr-8">
       <!-- Moved Mood Drop Down Here, Directly to the Left of Profile -->
       <app-mood-drop-down class="mt-2"></app-mood-drop-down>
       <img (click)="profile()" [src]="'../../../../assets/icons/profile-light.png'" alt="profile" class="w-12 h-12 hover:cursor-pointer">
