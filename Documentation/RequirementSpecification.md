@@ -29,6 +29,9 @@
   - [12. Music Playback](#12-music-playback)
   - [13. Queue Management](#13-queue-management)
   - [14. View Listening History](#14-view-listening-history)
+  - [15. Mobile Separation](#15-mobile-separation)
+  
+
 - [Service Contracts](#service-contracts)
   - [1.1 Register](#11-register)
   - [1.2 Login](#12-login)
@@ -246,6 +249,12 @@ ECHO is a Progressive Web Application that interacts with the Spotify API and ta
 ## 14. View Listening History 
 14.1 View recently listened
 - Allow users to view a list of songs in order of most recently listened.
+
+## 15. Mobile Separation
+  15.1 Mobile Separation of concerns
+- Ensure that the mobile application has a clear separation of concerns to improve maintainability and scalability.
+15.2 Mobile-specific features
+- Implement features that are specifically designed for mobile users.
 
 <br />
 <br />
