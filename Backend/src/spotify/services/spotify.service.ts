@@ -451,7 +451,7 @@ export class SpotifyService
 			const providerToken = await this.getAccessToken(accessToken, refreshToken);
 
 			const response = await lastValueFrom(
-				this.httpService.get('https://api.spotify.com/v1/me/top/tracks?limit=7', {
+				this.httpService.get('https://api.spotify.com/v1/me/top/tracks?limit=10', {
 					headers: { Authorization: `Bearer ${providerToken}` },
 				})
 			);
@@ -476,7 +476,7 @@ export class SpotifyService
 			const providerToken = await this.getAccessToken(accessToken, refreshToken);
 
 			const response = await lastValueFrom(
-				this.httpService.get('https://api.spotify.com/v1/me/top/artists?limit=7', {
+				this.httpService.get('https://api.spotify.com/v1/me/top/artists?limit=10', {
 					headers: { Authorization: `Bearer ${providerToken}` },
 				})
 			);

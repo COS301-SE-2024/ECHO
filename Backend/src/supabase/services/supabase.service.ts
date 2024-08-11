@@ -17,7 +17,7 @@ export class SupabaseService {
         const supabase = createSupabaseClient();
         let scope: string = "";
         if (providerName === "spotify") {
-            scope = "streaming user-read-email user-read-private user-read-recently-played user-read-playback-state user-modify-playback-state user-library-read";
+            scope = "streaming user-read-email user-read-private user-read-recently-played user-read-playback-state user-modify-playback-state user-library-read user-top-read";
         }
         const { data, error } = await supabase.auth.signInWithOAuth({
             provider: providerName,
