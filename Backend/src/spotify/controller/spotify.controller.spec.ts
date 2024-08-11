@@ -103,4 +103,15 @@ describe('SpotifyController', () => {
       expect(service.getTrackDetails).toHaveBeenCalledWith(body.trackID, body.accessToken, body.refreshToken);
     });
   });
+
+  describe('playTrackByName', () => {
+    it('should call playTrackByName method of SpotifyService with correct parameters', async () => {
+      const body = { trackName: 'testTrackName', accessToken: 'testAccessToken', refreshToken: 'testRefreshToken' };
+      await controller.playTrackByName(body);
+      expect(service.getTrackDetails).toHaveBeenCalledWith(body.trackName, body.accessToken, body.refreshToken);
+    });
+  });
+
+  
+  
 });

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1723370050927" clover="3.2.0">
-  <project timestamp="1723370050928" name="All files">
-    <metrics statements="1243" coveredstatements="908" conditionals="284" coveredconditionals="83" methods="303" coveredmethods="188" elements="1830" coveredelements="1179" complexity="0" loc="1243" ncloc="1243" packages="40" files="85" classes="85"/>
+<coverage generated="1723381733306" clover="3.2.0">
+  <project timestamp="1723381733306" name="All files">
+    <metrics statements="1219" coveredstatements="878" conditionals="285" coveredconditionals="79" methods="296" coveredmethods="184" elements="1800" coveredelements="1141" complexity="0" loc="1219" ncloc="1219" packages="39" files="83" classes="83"/>
     <package name="app">
-      <metrics statements="48" coveredstatements="48" conditionals="8" coveredconditionals="8" methods="7" coveredmethods="7"/>
-      <file name="app.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\app.component.html">
+      <metrics statements="60" coveredstatements="48" conditionals="10" coveredconditionals="6" methods="7" coveredmethods="7"/>
+      <file name="app.component.html" path="/home/user/COS301/echo/ECHO/Frontend/src/app/app.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
       </file>
-      <file name="app.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\app.component.ts">
-        <metrics statements="47" coveredstatements="47" conditionals="8" coveredconditionals="8" methods="7" coveredmethods="7"/>
+      <file name="app.component.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/app.component.ts">
+        <metrics statements="59" coveredstatements="47" conditionals="10" coveredconditionals="6" methods="7" coveredmethods="7"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -22,46 +22,58 @@
         <line num="11" count="1" type="stmt"/>
         <line num="12" count="1" type="stmt"/>
         <line num="13" count="1" type="stmt"/>
-        <line num="22" count="1" type="stmt"/>
-        <line num="23" count="6" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
         <line num="24" count="6" type="stmt"/>
-        <line num="26" count="6" type="stmt"/>
+        <line num="25" count="6" type="stmt"/>
         <line num="27" count="6" type="stmt"/>
         <line num="28" count="6" type="stmt"/>
         <line num="29" count="6" type="stmt"/>
         <line num="30" count="6" type="stmt"/>
-        <line num="32" count="6" type="stmt"/>
-        <line num="33" count="6" type="stmt"/>
-        <line num="34" count="5" type="stmt"/>
-        <line num="37" count="5" type="cond" truecount="1" falsecount="0"/>
-        <line num="38" count="5" type="stmt"/>
-        <line num="39" count="5" type="stmt"/>
+        <line num="31" count="6" type="stmt"/>
+        <line num="34" count="6" type="stmt"/>
+        <line num="35" count="6" type="stmt"/>
+        <line num="36" count="5" type="stmt"/>
+        <line num="39" count="5" type="cond" truecount="1" falsecount="0"/>
         <line num="40" count="5" type="stmt"/>
-        <line num="41" count="5" type="cond" truecount="6" falsecount="0"/>
+        <line num="41" count="5" type="stmt"/>
+        <line num="42" count="5" type="stmt"/>
+        <line num="43" count="5" type="cond" truecount="4" falsecount="4"/>
         <line num="45" count="2" type="stmt"/>
         <line num="46" count="2" type="stmt"/>
         <line num="47" count="2" type="stmt"/>
-        <line num="49" count="1" type="stmt"/>
-        <line num="50" count="1" type="stmt"/>
-        <line num="51" count="1" type="stmt"/>
-        <line num="53" count="1" type="stmt"/>
-        <line num="54" count="1" type="stmt"/>
-        <line num="55" count="1" type="stmt"/>
-        <line num="57" count="1" type="stmt"/>
-        <line num="58" count="1" type="stmt"/>
-        <line num="63" count="6" type="stmt"/>
-        <line num="64" count="6" type="cond" truecount="1" falsecount="0"/>
-        <line num="65" count="6" type="stmt"/>
-        <line num="66" count="6" type="stmt"/>
-        <line num="67" count="6" type="stmt"/>
-        <line num="68" count="6" type="stmt"/>
+        <line num="49" count="0" type="stmt"/>
+        <line num="50" count="0" type="stmt"/>
+        <line num="51" count="0" type="stmt"/>
+        <line num="53" count="0" type="stmt"/>
+        <line num="54" count="0" type="stmt"/>
+        <line num="55" count="0" type="stmt"/>
+        <line num="57" count="0" type="stmt"/>
+        <line num="58" count="0" type="stmt"/>
+        <line num="59" count="0" type="stmt"/>
+        <line num="61" count="0" type="stmt"/>
+        <line num="62" count="0" type="stmt"/>
+        <line num="63" count="0" type="stmt"/>
+        <line num="65" count="1" type="stmt"/>
+        <line num="66" count="1" type="stmt"/>
+        <line num="67" count="1" type="stmt"/>
+        <line num="70" count="1" type="stmt"/>
+        <line num="71" count="1" type="stmt"/>
+        <line num="72" count="1" type="stmt"/>
+        <line num="74" count="1" type="stmt"/>
         <line num="75" count="1" type="stmt"/>
-        <line num="76" count="2" type="stmt"/>
+        <line num="80" count="6" type="stmt"/>
+        <line num="81" count="6" type="cond" truecount="1" falsecount="0"/>
+        <line num="82" count="6" type="stmt"/>
+        <line num="83" count="6" type="stmt"/>
+        <line num="84" count="6" type="stmt"/>
+        <line num="85" count="6" type="stmt"/>
+        <line num="93" count="1" type="stmt"/>
+        <line num="94" count="2" type="stmt"/>
       </file>
     </package>
     <package name="app.authcallback">
       <metrics statements="27" coveredstatements="25" conditionals="5" coveredconditionals="4" methods="5" coveredmethods="5"/>
-      <file name="authcallback.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\authcallback\authcallback.component.ts">
+      <file name="authcallback.component.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/authcallback/authcallback.component.ts">
         <metrics statements="27" coveredstatements="25" conditionals="5" coveredconditionals="4" methods="5" coveredmethods="5"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -94,11 +106,11 @@
     </package>
     <package name="app.pages.artist-profile">
       <metrics statements="45" coveredstatements="29" conditionals="2" coveredconditionals="0" methods="13" coveredmethods="1"/>
-      <file name="artist-profile.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\pages\artist-profile\artist-profile.component.html">
+      <file name="artist-profile.component.html" path="/home/user/COS301/echo/ECHO/Frontend/src/app/pages/artist-profile/artist-profile.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
       </file>
-      <file name="artist-profile.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\pages\artist-profile\artist-profile.component.ts">
+      <file name="artist-profile.component.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/pages/artist-profile/artist-profile.component.ts">
         <metrics statements="44" coveredstatements="28" conditionals="2" coveredconditionals="0" methods="13" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -146,62 +158,13 @@
         <line num="115" count="0" type="stmt"/>
       </file>
     </package>
-    <package name="app.pages.home">
-      <metrics statements="40" coveredstatements="33" conditionals="1" coveredconditionals="1" methods="7" coveredmethods="3"/>
-      <file name="home.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\pages\home\home.component.html">
-        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-      </file>
-      <file name="home.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\pages\home\home.component.ts">
-        <metrics statements="39" coveredstatements="32" conditionals="1" coveredconditionals="1" methods="7" coveredmethods="3"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="9" count="1" type="stmt"/>
-        <line num="10" count="1" type="stmt"/>
-        <line num="11" count="1" type="stmt"/>
-        <line num="12" count="1" type="stmt"/>
-        <line num="13" count="1" type="stmt"/>
-        <line num="14" count="1" type="stmt"/>
-        <line num="15" count="1" type="stmt"/>
-        <line num="38" count="1" type="stmt"/>
-        <line num="44" count="2" type="stmt"/>
-        <line num="46" count="2" type="stmt"/>
-        <line num="47" count="2" type="stmt"/>
-        <line num="50" count="2" type="stmt"/>
-        <line num="51" count="2" type="stmt"/>
-        <line num="52" count="2" type="stmt"/>
-        <line num="53" count="2" type="stmt"/>
-        <line num="54" count="2" type="stmt"/>
-        <line num="55" count="2" type="stmt"/>
-        <line num="57" count="2" type="stmt"/>
-        <line num="58" count="2" type="stmt"/>
-        <line num="59" count="2" type="stmt"/>
-        <line num="63" count="0" type="stmt"/>
-        <line num="67" count="0" type="stmt"/>
-        <line num="68" count="0" type="stmt"/>
-        <line num="72" count="0" type="stmt"/>
-        <line num="73" count="0" type="stmt"/>
-        <line num="74" count="0" type="stmt"/>
-        <line num="78" count="1" type="stmt"/>
-        <line num="79" count="1" type="stmt"/>
-        <line num="81" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="82" count="1" type="stmt"/>
-        <line num="87" count="0" type="stmt"/>
-      </file>
-    </package>
     <package name="app.pages.landing-page">
       <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="landing-page.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\pages\landing-page\landing-page.component.html">
+      <file name="landing-page.component.html" path="/home/user/COS301/echo/ECHO/Frontend/src/app/pages/landing-page/landing-page.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
       </file>
-      <file name="landing-page.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\pages\landing-page\landing-page.component.ts">
+      <file name="landing-page.component.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/pages/landing-page/landing-page.component.ts">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="9" count="1" type="stmt"/>
@@ -209,11 +172,11 @@
     </package>
     <package name="app.pages.mood">
       <metrics statements="29" coveredstatements="29" conditionals="0" coveredconditionals="0" methods="8" coveredmethods="7"/>
-      <file name="mood.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\pages\mood\mood.component.html">
+      <file name="mood.component.html" path="/home/user/COS301/echo/ECHO/Frontend/src/app/pages/mood/mood.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
       </file>
-      <file name="mood.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\pages\mood\mood.component.ts">
+      <file name="mood.component.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/pages/mood/mood.component.ts">
         <metrics statements="28" coveredstatements="28" conditionals="0" coveredconditionals="0" methods="8" coveredmethods="7"/>
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
@@ -247,11 +210,11 @@
     </package>
     <package name="app.pages.profile">
       <metrics statements="55" coveredstatements="42" conditionals="3" coveredconditionals="0" methods="13" coveredmethods="4"/>
-      <file name="profile.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\pages\profile\profile.component.html">
+      <file name="profile.component.html" path="/home/user/COS301/echo/ECHO/Frontend/src/app/pages/profile/profile.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
       </file>
-      <file name="profile.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\pages\profile\profile.component.ts">
+      <file name="profile.component.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/pages/profile/profile.component.ts">
         <metrics statements="54" coveredstatements="41" conditionals="3" coveredconditionals="0" methods="13" coveredmethods="4"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -311,25 +274,25 @@
     </package>
     <package name="app.pages.search">
       <metrics statements="32" coveredstatements="24" conditionals="1" coveredconditionals="0" methods="9" coveredmethods="3"/>
-      <file name="search.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\pages\search\search.component.html">
+      <file name="search.component.html" path="/home/user/COS301/echo/ECHO/Frontend/src/app/pages/search/search.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="2" type="stmt"/>
+        <line num="1" count="1" type="stmt"/>
       </file>
-      <file name="search.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\pages\search\search.component.ts">
+      <file name="search.component.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/pages/search/search.component.ts">
         <metrics statements="31" coveredstatements="23" conditionals="1" coveredconditionals="0" methods="9" coveredmethods="3"/>
-        <line num="1" count="2" type="stmt"/>
-        <line num="2" count="2" type="stmt"/>
-        <line num="3" count="2" type="stmt"/>
-        <line num="5" count="2" type="stmt"/>
-        <line num="6" count="2" type="stmt"/>
-        <line num="7" count="2" type="stmt"/>
-        <line num="8" count="2" type="stmt"/>
-        <line num="9" count="2" type="stmt"/>
-        <line num="10" count="2" type="stmt"/>
-        <line num="11" count="2" type="stmt"/>
-        <line num="12" count="2" type="stmt"/>
-        <line num="13" count="2" type="stmt"/>
-        <line num="21" count="2" type="stmt"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
         <line num="34" count="2" type="stmt"/>
         <line num="35" count="2" type="stmt"/>
         <line num="37" count="2" type="stmt"/>
@@ -352,11 +315,11 @@
     </package>
     <package name="app.pages.settings">
       <metrics statements="23" coveredstatements="23" conditionals="1" coveredconditionals="1" methods="5" coveredmethods="5"/>
-      <file name="settings.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\pages\settings\settings.component.html">
+      <file name="settings.component.html" path="/home/user/COS301/echo/ECHO/Frontend/src/app/pages/settings/settings.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
       </file>
-      <file name="settings.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\pages\settings\settings.component.ts">
+      <file name="settings.component.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/pages/settings/settings.component.ts">
         <metrics statements="22" coveredstatements="22" conditionals="1" coveredconditionals="1" methods="5" coveredmethods="5"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -384,11 +347,11 @@
     </package>
     <package name="app.pages.user-library">
       <metrics statements="28" coveredstatements="25" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="3"/>
-      <file name="user-library.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\pages\user-library\user-library.component.html">
+      <file name="user-library.component.html" path="/home/user/COS301/echo/ECHO/Frontend/src/app/pages/user-library/user-library.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
       </file>
-      <file name="user-library.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\pages\user-library\user-library.component.ts">
+      <file name="user-library.component.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/pages/user-library/user-library.component.ts">
         <metrics statements="27" coveredstatements="24" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="3"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -421,20 +384,20 @@
     </package>
     <package name="app.services">
       <metrics statements="436" coveredstatements="221" conditionals="199" coveredconditionals="34" methods="108" coveredmethods="63"/>
-      <file name="auth.service.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\services\auth.service.ts">
+      <file name="auth.service.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/services/auth.service.ts">
         <metrics statements="32" coveredstatements="25" conditionals="6" coveredconditionals="3" methods="15" coveredmethods="11"/>
-        <line num="1" count="16" type="stmt"/>
-        <line num="2" count="16" type="stmt"/>
-        <line num="4" count="16" type="stmt"/>
-        <line num="5" count="16" type="stmt"/>
-        <line num="10" count="16" type="stmt"/>
-        <line num="11" count="14" type="stmt"/>
-        <line num="13" count="14" type="stmt"/>
+        <line num="1" count="15" type="stmt"/>
+        <line num="2" count="15" type="stmt"/>
+        <line num="4" count="15" type="stmt"/>
+        <line num="5" count="15" type="stmt"/>
+        <line num="10" count="15" type="stmt"/>
+        <line num="11" count="13" type="stmt"/>
+        <line num="13" count="13" type="stmt"/>
         <line num="18" count="1" type="stmt"/>
         <line num="19" count="1" type="stmt"/>
-        <line num="24" count="2" type="stmt"/>
-        <line num="25" count="2" type="stmt"/>
-        <line num="26" count="2" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="26" count="1" type="stmt"/>
         <line num="31" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="33" count="0" type="stmt"/>
         <line num="34" count="0" type="stmt"/>
@@ -456,7 +419,7 @@
         <line num="88" count="1" type="stmt"/>
         <line num="93" count="1" type="stmt"/>
       </file>
-      <file name="mood-service.service.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\services\mood-service.service.ts">
+      <file name="mood-service.service.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/services/mood-service.service.ts">
         <metrics statements="30" coveredstatements="22" conditionals="5" coveredconditionals="3" methods="11" coveredmethods="10"/>
         <line num="1" count="21" type="stmt"/>
         <line num="6" count="21" type="stmt"/>
@@ -480,61 +443,61 @@
         <line num="158" count="1" type="stmt"/>
         <line num="159" count="1" type="stmt"/>
         <line num="161" count="0" type="stmt"/>
-        <line num="166" count="106" type="stmt"/>
+        <line num="166" count="96" type="stmt"/>
         <line num="169" count="0" type="stmt"/>
         <line num="172" count="26" type="stmt"/>
-        <line num="175" count="63" type="stmt"/>
-        <line num="178" count="217" type="stmt"/>
+        <line num="175" count="57" type="stmt"/>
+        <line num="178" count="203" type="stmt"/>
         <line num="182" count="1" type="stmt"/>
         <line num="183" count="1" type="stmt"/>
-        <line num="186" count="2" type="stmt"/>
+        <line num="186" count="1" type="stmt"/>
       </file>
-      <file name="provider.service.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\services\provider.service.ts">
+      <file name="provider.service.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/services/provider.service.ts">
         <metrics statements="14" coveredstatements="13" conditionals="4" coveredconditionals="4" methods="4" coveredmethods="4"/>
-        <line num="1" count="18" type="stmt"/>
-        <line num="2" count="18" type="stmt"/>
-        <line num="7" count="18" type="stmt"/>
-        <line num="8" count="13" type="stmt"/>
+        <line num="1" count="17" type="stmt"/>
+        <line num="2" count="17" type="stmt"/>
+        <line num="7" count="17" type="stmt"/>
+        <line num="8" count="12" type="stmt"/>
         <line num="11" count="1" type="cond" truecount="1" falsecount="0"/>
         <line num="12" count="1" type="stmt"/>
-        <line num="17" count="4" type="cond" truecount="1" falsecount="0"/>
-        <line num="18" count="4" type="stmt"/>
-        <line num="19" count="4" type="cond" truecount="1" falsecount="0"/>
-        <line num="20" count="3" type="stmt"/>
-        <line num="22" count="4" type="stmt"/>
+        <line num="17" count="3" type="cond" truecount="1" falsecount="0"/>
+        <line num="18" count="3" type="stmt"/>
+        <line num="19" count="3" type="cond" truecount="1" falsecount="0"/>
+        <line num="20" count="2" type="stmt"/>
+        <line num="22" count="3" type="stmt"/>
         <line num="24" count="0" type="stmt"/>
         <line num="29" count="1" type="cond" truecount="1" falsecount="0"/>
         <line num="30" count="1" type="stmt"/>
       </file>
-      <file name="screen-size-service.service.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\services\screen-size-service.service.ts">
+      <file name="screen-size-service.service.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/services/screen-size-service.service.ts">
         <metrics statements="11" coveredstatements="10" conditionals="6" coveredconditionals="5" methods="3" coveredmethods="3"/>
-        <line num="1" count="14" type="stmt"/>
-        <line num="2" count="14" type="stmt"/>
-        <line num="3" count="14" type="stmt"/>
-        <line num="4" count="14" type="stmt"/>
-        <line num="9" count="14" type="stmt"/>
-        <line num="11" count="48" type="cond" truecount="4" falsecount="0"/>
-        <line num="16" count="17" type="stmt"/>
-        <line num="17" count="17" type="cond" truecount="1" falsecount="1"/>
-        <line num="18" count="17" type="stmt"/>
-        <line num="20" count="31" type="stmt"/>
+        <line num="1" count="13" type="stmt"/>
+        <line num="2" count="13" type="stmt"/>
+        <line num="3" count="13" type="stmt"/>
+        <line num="4" count="13" type="stmt"/>
+        <line num="9" count="13" type="stmt"/>
+        <line num="11" count="42" type="cond" truecount="4" falsecount="0"/>
+        <line num="16" count="16" type="stmt"/>
+        <line num="17" count="16" type="cond" truecount="1" falsecount="1"/>
+        <line num="18" count="16" type="stmt"/>
+        <line num="20" count="26" type="stmt"/>
         <line num="23" count="0" type="stmt"/>
       </file>
-      <file name="search.service.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\services\search.service.ts">
+      <file name="search.service.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/services/search.service.ts">
         <metrics statements="47" coveredstatements="24" conditionals="13" coveredconditionals="1" methods="15" coveredmethods="8"/>
-        <line num="1" count="10" type="stmt"/>
-        <line num="2" count="10" type="stmt"/>
-        <line num="3" count="10" type="stmt"/>
-        <line num="4" count="10" type="stmt"/>
-        <line num="5" count="10" type="stmt"/>
-        <line num="48" count="10" type="stmt"/>
-        <line num="51" count="19" type="stmt"/>
-        <line num="52" count="19" type="stmt"/>
-        <line num="53" count="19" type="stmt"/>
-        <line num="55" count="19" type="stmt"/>
-        <line num="56" count="19" type="stmt"/>
-        <line num="57" count="19" type="stmt"/>
-        <line num="59" count="19" type="stmt"/>
+        <line num="1" count="9" type="stmt"/>
+        <line num="2" count="9" type="stmt"/>
+        <line num="3" count="9" type="stmt"/>
+        <line num="4" count="9" type="stmt"/>
+        <line num="5" count="9" type="stmt"/>
+        <line num="48" count="9" type="stmt"/>
+        <line num="51" count="18" type="stmt"/>
+        <line num="52" count="18" type="stmt"/>
+        <line num="53" count="18" type="stmt"/>
+        <line num="55" count="18" type="stmt"/>
+        <line num="56" count="18" type="stmt"/>
+        <line num="57" count="18" type="stmt"/>
+        <line num="59" count="18" type="stmt"/>
         <line num="66" count="1" type="stmt"/>
         <line num="70" count="1" type="stmt"/>
         <line num="71" count="1" type="stmt"/>
@@ -570,44 +533,44 @@
         <line num="199" count="0" type="stmt"/>
         <line num="203" count="0" type="stmt"/>
       </file>
-      <file name="spotify.service.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\services\spotify.service.ts">
+      <file name="spotify.service.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/services/spotify.service.ts">
         <metrics statements="267" coveredstatements="92" conditionals="159" coveredconditionals="14" methods="49" coveredmethods="16"/>
-        <line num="1" count="12" type="stmt"/>
-        <line num="2" count="12" type="stmt"/>
-        <line num="3" count="12" type="stmt"/>
-        <line num="4" count="12" type="stmt"/>
-        <line num="5" count="12" type="stmt"/>
-        <line num="6" count="12" type="stmt"/>
-        <line num="7" count="12" type="stmt"/>
-        <line num="8" count="12" type="stmt"/>
-        <line num="33" count="12" type="stmt"/>
-        <line num="36" count="20" type="stmt"/>
-        <line num="37" count="20" type="stmt"/>
-        <line num="38" count="20" type="stmt"/>
-        <line num="39" count="20" type="stmt"/>
-        <line num="40" count="20" type="stmt"/>
-        <line num="41" count="20" type="stmt"/>
-        <line num="42" count="20" type="stmt"/>
-        <line num="43" count="20" type="stmt"/>
-        <line num="44" count="20" type="stmt"/>
-        <line num="45" count="20" type="stmt"/>
-        <line num="46" count="20" type="stmt"/>
-        <line num="47" count="20" type="stmt"/>
-        <line num="48" count="20" type="stmt"/>
-        <line num="49" count="20" type="stmt"/>
-        <line num="52" count="20" type="stmt"/>
-        <line num="53" count="20" type="stmt"/>
-        <line num="54" count="20" type="stmt"/>
-        <line num="55" count="20" type="stmt"/>
-        <line num="56" count="20" type="stmt"/>
-        <line num="57" count="20" type="stmt"/>
-        <line num="65" count="3" type="cond" truecount="4" falsecount="0"/>
-        <line num="67" count="2" type="stmt"/>
-        <line num="68" count="2" type="stmt"/>
+        <line num="1" count="11" type="stmt"/>
+        <line num="2" count="11" type="stmt"/>
+        <line num="3" count="11" type="stmt"/>
+        <line num="4" count="11" type="stmt"/>
+        <line num="5" count="11" type="stmt"/>
+        <line num="6" count="11" type="stmt"/>
+        <line num="7" count="11" type="stmt"/>
+        <line num="8" count="11" type="stmt"/>
+        <line num="33" count="11" type="stmt"/>
+        <line num="36" count="19" type="stmt"/>
+        <line num="37" count="19" type="stmt"/>
+        <line num="38" count="19" type="stmt"/>
+        <line num="39" count="19" type="stmt"/>
+        <line num="40" count="19" type="stmt"/>
+        <line num="41" count="19" type="stmt"/>
+        <line num="42" count="19" type="stmt"/>
+        <line num="43" count="19" type="stmt"/>
+        <line num="44" count="19" type="stmt"/>
+        <line num="45" count="19" type="stmt"/>
+        <line num="46" count="19" type="stmt"/>
+        <line num="47" count="19" type="stmt"/>
+        <line num="48" count="19" type="stmt"/>
+        <line num="49" count="19" type="stmt"/>
+        <line num="52" count="19" type="stmt"/>
+        <line num="53" count="19" type="stmt"/>
+        <line num="54" count="19" type="stmt"/>
+        <line num="55" count="19" type="stmt"/>
+        <line num="56" count="19" type="stmt"/>
+        <line num="57" count="19" type="stmt"/>
+        <line num="65" count="2" type="cond" truecount="4" falsecount="0"/>
+        <line num="67" count="1" type="stmt"/>
+        <line num="68" count="1" type="stmt"/>
         <line num="69" count="1" type="stmt"/>
         <line num="73" count="1" type="stmt"/>
-        <line num="80" count="3" type="stmt"/>
-        <line num="82" count="3" type="stmt"/>
+        <line num="80" count="2" type="stmt"/>
+        <line num="82" count="2" type="stmt"/>
         <line num="83" count="1" type="stmt"/>
         <line num="87" count="1" type="stmt"/>
         <line num="93" count="3" type="cond" truecount="1" falsecount="2"/>
@@ -840,39 +803,39 @@
         <line num="706" count="0" type="cond" truecount="0" falsecount="4"/>
         <line num="708" count="0" type="stmt"/>
       </file>
-      <file name="theme.service.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\services\theme.service.ts">
+      <file name="theme.service.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/services/theme.service.ts">
         <metrics statements="11" coveredstatements="11" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
-        <line num="1" count="15" type="stmt"/>
-        <line num="2" count="15" type="stmt"/>
-        <line num="7" count="15" type="stmt"/>
-        <line num="8" count="18" type="stmt"/>
-        <line num="10" count="18" type="stmt"/>
-        <line num="11" count="18" type="cond" truecount="1" falsecount="0"/>
-        <line num="12" count="16" type="stmt"/>
+        <line num="1" count="14" type="stmt"/>
+        <line num="2" count="14" type="stmt"/>
+        <line num="7" count="14" type="stmt"/>
+        <line num="8" count="17" type="stmt"/>
+        <line num="10" count="17" type="stmt"/>
+        <line num="11" count="17" type="cond" truecount="1" falsecount="0"/>
+        <line num="12" count="15" type="stmt"/>
         <line num="17" count="4" type="stmt"/>
         <line num="18" count="4" type="cond" truecount="1" falsecount="0"/>
         <line num="19" count="2" type="stmt"/>
-        <line num="24" count="105" type="stmt"/>
+        <line num="24" count="97" type="stmt"/>
       </file>
-      <file name="token.service.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\services\token.service.ts">
+      <file name="token.service.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/services/token.service.ts">
         <metrics statements="24" coveredstatements="24" conditionals="4" coveredconditionals="2" methods="8" coveredmethods="8"/>
-        <line num="1" count="19" type="stmt"/>
-        <line num="2" count="19" type="stmt"/>
-        <line num="7" count="19" type="stmt"/>
-        <line num="8" count="30" type="stmt"/>
-        <line num="9" count="30" type="stmt"/>
-        <line num="13" count="30" type="stmt"/>
-        <line num="18" count="30" type="cond" truecount="0" falsecount="1"/>
-        <line num="20" count="30" type="stmt"/>
-        <line num="21" count="30" type="stmt"/>
-        <line num="23" count="30" type="cond" truecount="1" falsecount="0"/>
-        <line num="24" count="30" type="cond" truecount="1" falsecount="0"/>
+        <line num="1" count="18" type="stmt"/>
+        <line num="2" count="18" type="stmt"/>
+        <line num="7" count="18" type="stmt"/>
+        <line num="8" count="29" type="stmt"/>
+        <line num="9" count="29" type="stmt"/>
+        <line num="13" count="29" type="stmt"/>
+        <line num="18" count="29" type="cond" truecount="0" falsecount="1"/>
+        <line num="20" count="29" type="stmt"/>
+        <line num="21" count="29" type="stmt"/>
+        <line num="23" count="29" type="cond" truecount="1" falsecount="0"/>
+        <line num="24" count="29" type="cond" truecount="1" falsecount="0"/>
         <line num="29" count="6" type="stmt"/>
         <line num="30" count="6" type="stmt"/>
         <line num="31" count="6" type="stmt"/>
         <line num="32" count="6" type="stmt"/>
-        <line num="37" count="4" type="stmt"/>
-        <line num="42" count="4" type="stmt"/>
+        <line num="37" count="3" type="stmt"/>
+        <line num="42" count="3" type="stmt"/>
         <line num="47" count="1" type="stmt"/>
         <line num="55" count="1" type="stmt"/>
         <line num="56" count="1" type="stmt"/>
@@ -884,11 +847,11 @@
     </package>
     <package name="app.shared.album-view">
       <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
-      <file name="album-view.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\album-view\album-view.component.html">
+      <file name="album-view.component.html" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/album-view/album-view.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
       </file>
-      <file name="album-view.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\album-view\album-view.component.ts">
+      <file name="album-view.component.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/album-view/album-view.component.ts">
         <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -900,11 +863,11 @@
     </package>
     <package name="app.shared.apple-login">
       <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
-      <file name="apple-login.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\apple-login\apple-login.component.html">
+      <file name="apple-login.component.html" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/apple-login/apple-login.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
       </file>
-      <file name="apple-login.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\apple-login\apple-login.component.ts">
+      <file name="apple-login.component.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/apple-login/apple-login.component.ts">
         <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -916,11 +879,11 @@
     </package>
     <package name="app.shared.artist-modal">
       <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="artist-modal.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\artist-modal\artist-modal.component.html">
+      <file name="artist-modal.component.html" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/artist-modal/artist-modal.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
       </file>
-      <file name="artist-modal.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\artist-modal\artist-modal.component.ts">
+      <file name="artist-modal.component.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/artist-modal/artist-modal.component.ts">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="8" count="1" type="stmt"/>
@@ -928,11 +891,11 @@
     </package>
     <package name="app.shared.bottom-nav">
       <metrics statements="12" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="5"/>
-      <file name="bottom-nav.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\bottom-nav\bottom-nav.component.html">
+      <file name="bottom-nav.component.html" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/bottom-nav/bottom-nav.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="6" type="stmt"/>
       </file>
-      <file name="bottom-nav.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\bottom-nav\bottom-nav.component.ts">
+      <file name="bottom-nav.component.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/bottom-nav/bottom-nav.component.ts">
         <metrics statements="11" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="5"/>
         <line num="1" count="6" type="stmt"/>
         <line num="2" count="6" type="stmt"/>
@@ -949,11 +912,11 @@
     </package>
     <package name="app.shared.bottom-player">
       <metrics statements="101" coveredstatements="75" conditionals="39" coveredconditionals="26" methods="27" coveredmethods="20"/>
-      <file name="bottom-player.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\bottom-player\bottom-player.component.html">
+      <file name="bottom-player.component.html" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/bottom-player/bottom-player.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="7" type="stmt"/>
       </file>
-      <file name="bottom-player.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\bottom-player\bottom-player.component.ts">
+      <file name="bottom-player.component.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/bottom-player/bottom-player.component.ts">
         <metrics statements="100" coveredstatements="74" conditionals="39" coveredconditionals="26" methods="27" coveredmethods="20"/>
         <line num="1" count="7" type="stmt"/>
         <line num="2" count="7" type="stmt"/>
@@ -1059,16 +1022,16 @@
     </package>
     <package name="app.shared.echo-button">
       <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-      <file name="echo-button.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\echo-button\echo-button.component.html">
+      <file name="echo-button.component.html" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/echo-button/echo-button.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="8" type="stmt"/>
+        <line num="1" count="7" type="stmt"/>
       </file>
-      <file name="echo-button.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\echo-button\echo-button.component.ts">
+      <file name="echo-button.component.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/echo-button/echo-button.component.ts">
         <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="1" count="8" type="stmt"/>
-        <line num="2" count="8" type="stmt"/>
-        <line num="3" count="8" type="stmt"/>
-        <line num="11" count="8" type="stmt"/>
+        <line num="1" count="7" type="stmt"/>
+        <line num="2" count="7" type="stmt"/>
+        <line num="3" count="7" type="stmt"/>
+        <line num="11" count="7" type="stmt"/>
         <line num="12" count="1" type="stmt"/>
         <line num="13" count="1" type="stmt"/>
         <line num="14" count="1" type="stmt"/>
@@ -1079,11 +1042,11 @@
     </package>
     <package name="app.shared.echo-songs-modal">
       <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="echo-songs-modal.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\echo-songs-modal\echo-songs-modal.component.html">
+      <file name="echo-songs-modal.component.html" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/echo-songs-modal/echo-songs-modal.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
       </file>
-      <file name="echo-songs-modal.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\echo-songs-modal\echo-songs-modal.component.ts">
+      <file name="echo-songs-modal.component.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/echo-songs-modal/echo-songs-modal.component.ts">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="10" count="1" type="stmt"/>
@@ -1091,11 +1054,11 @@
     </package>
     <package name="app.shared.edit-profile-modal">
       <metrics statements="22" coveredstatements="18" conditionals="1" coveredconditionals="0" methods="7" coveredmethods="3"/>
-      <file name="edit-profile-modal.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\edit-profile-modal\edit-profile-modal.component.html">
+      <file name="edit-profile-modal.component.html" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/edit-profile-modal/edit-profile-modal.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
       </file>
-      <file name="edit-profile-modal.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\edit-profile-modal\edit-profile-modal.component.ts">
+      <file name="edit-profile-modal.component.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/edit-profile-modal/edit-profile-modal.component.ts">
         <metrics statements="21" coveredstatements="17" conditionals="1" coveredconditionals="0" methods="7" coveredmethods="3"/>
         <line num="1" count="4" type="stmt"/>
         <line num="2" count="4" type="stmt"/>
@@ -1122,11 +1085,11 @@
     </package>
     <package name="app.shared.google-login">
       <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
-      <file name="google-login.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\google-login\google-login.component.html">
+      <file name="google-login.component.html" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/google-login/google-login.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
       </file>
-      <file name="google-login.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\google-login\google-login.component.ts">
+      <file name="google-login.component.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/google-login/google-login.component.ts">
         <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -1141,11 +1104,11 @@
     </package>
     <package name="app.shared.info-bar">
       <metrics statements="8" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
-      <file name="info-bar.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\info-bar\info-bar.component.html">
+      <file name="info-bar.component.html" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/info-bar/info-bar.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
       </file>
-      <file name="info-bar.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\info-bar\info-bar.component.ts">
+      <file name="info-bar.component.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/info-bar/info-bar.component.ts">
         <metrics statements="7" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -1158,21 +1121,21 @@
     </package>
     <package name="app.shared.mood-drop-down">
       <metrics statements="15" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="1"/>
-      <file name="mood-drop-down.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\mood-drop-down\mood-drop-down.component.html">
+      <file name="mood-drop-down.component.html" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/mood-drop-down/mood-drop-down.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="3" type="stmt"/>
+        <line num="1" count="2" type="stmt"/>
       </file>
-      <file name="mood-drop-down.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\mood-drop-down\mood-drop-down.component.ts">
+      <file name="mood-drop-down.component.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/mood-drop-down/mood-drop-down.component.ts">
         <metrics statements="14" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="1"/>
-        <line num="1" count="3" type="stmt"/>
-        <line num="2" count="3" type="stmt"/>
-        <line num="3" count="3" type="stmt"/>
-        <line num="12" count="3" type="stmt"/>
-        <line num="15" count="8" type="stmt"/>
-        <line num="16" count="8" type="stmt"/>
-        <line num="17" count="8" type="stmt"/>
-        <line num="19" count="8" type="stmt"/>
-        <line num="20" count="8" type="stmt"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="12" count="2" type="stmt"/>
+        <line num="15" count="6" type="stmt"/>
+        <line num="16" count="6" type="stmt"/>
+        <line num="17" count="6" type="stmt"/>
+        <line num="19" count="6" type="stmt"/>
+        <line num="20" count="6" type="stmt"/>
         <line num="51" count="0" type="stmt"/>
         <line num="54" count="0" type="stmt"/>
         <line num="55" count="0" type="stmt"/>
@@ -1182,75 +1145,75 @@
     </package>
     <package name="app.shared.moods">
       <metrics statements="29" coveredstatements="28" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="5"/>
-      <file name="moods.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\moods\moods.component.html">
+      <file name="moods.component.html" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/moods/moods.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="3" type="stmt"/>
+        <line num="1" count="2" type="stmt"/>
       </file>
-      <file name="moods.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\moods\moods.component.ts">
+      <file name="moods.component.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/moods/moods.component.ts">
         <metrics statements="28" coveredstatements="27" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="5"/>
-        <line num="1" count="3" type="stmt"/>
-        <line num="2" count="3" type="stmt"/>
-        <line num="3" count="3" type="stmt"/>
-        <line num="4" count="3" type="stmt"/>
-        <line num="5" count="3" type="stmt"/>
-        <line num="7" count="3" type="stmt"/>
-        <line num="8" count="3" type="stmt"/>
-        <line num="10" count="3" type="stmt"/>
-        <line num="19" count="3" type="stmt"/>
-        <line num="21" count="2" type="stmt"/>
-        <line num="22" count="2" type="stmt"/>
-        <line num="33" count="2" type="stmt"/>
-        <line num="34" count="2" type="stmt"/>
-        <line num="35" count="2" type="stmt"/>
-        <line num="36" count="2" type="stmt"/>
-        <line num="38" count="2" type="stmt"/>
-        <line num="39" count="2" type="stmt"/>
-        <line num="40" count="2" type="stmt"/>
-        <line num="43" count="2" type="stmt"/>
-        <line num="44" count="2" type="stmt"/>
-        <line num="47" count="2" type="stmt"/>
-        <line num="48" count="2" type="stmt"/>
-        <line num="57" count="2" type="stmt"/>
-        <line num="58" count="56" type="stmt"/>
-        <line num="62" count="56" type="stmt"/>
-        <line num="63" count="56" type="stmt"/>
-        <line num="68" count="2" type="stmt"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="8" count="2" type="stmt"/>
+        <line num="10" count="2" type="stmt"/>
+        <line num="19" count="2" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="33" count="1" type="stmt"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
+        <line num="38" count="1" type="stmt"/>
+        <line num="39" count="1" type="stmt"/>
+        <line num="40" count="1" type="stmt"/>
+        <line num="43" count="1" type="stmt"/>
+        <line num="44" count="1" type="stmt"/>
+        <line num="47" count="1" type="stmt"/>
+        <line num="48" count="1" type="stmt"/>
+        <line num="57" count="1" type="stmt"/>
+        <line num="58" count="28" type="stmt"/>
+        <line num="62" count="28" type="stmt"/>
+        <line num="63" count="28" type="stmt"/>
+        <line num="68" count="1" type="stmt"/>
         <line num="72" count="0" type="stmt"/>
       </file>
     </package>
     <package name="app.shared.navbar">
       <metrics statements="46" coveredstatements="37" conditionals="11" coveredconditionals="2" methods="8" coveredmethods="7"/>
-      <file name="navbar.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\navbar\navbar.component.html">
+      <file name="navbar.component.html" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/navbar/navbar.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="7" type="stmt"/>
+        <line num="1" count="6" type="stmt"/>
       </file>
-      <file name="navbar.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\navbar\navbar.component.ts">
+      <file name="navbar.component.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/navbar/navbar.component.ts">
         <metrics statements="45" coveredstatements="36" conditionals="11" coveredconditionals="2" methods="8" coveredmethods="7"/>
-        <line num="2" count="7" type="stmt"/>
-        <line num="3" count="7" type="stmt"/>
-        <line num="4" count="7" type="stmt"/>
-        <line num="5" count="7" type="stmt"/>
-        <line num="6" count="7" type="stmt"/>
-        <line num="7" count="7" type="stmt"/>
-        <line num="8" count="7" type="stmt"/>
-        <line num="10" count="7" type="stmt"/>
-        <line num="24" count="7" type="stmt"/>
-        <line num="26" count="14" type="stmt"/>
-        <line num="28" count="14" type="stmt"/>
-        <line num="31" count="14" type="stmt"/>
-        <line num="32" count="14" type="stmt"/>
-        <line num="33" count="14" type="stmt"/>
-        <line num="36" count="14" type="stmt"/>
-        <line num="43" count="14" type="stmt"/>
-        <line num="44" count="14" type="stmt"/>
-        <line num="45" count="14" type="stmt"/>
-        <line num="46" count="14" type="stmt"/>
-        <line num="48" count="14" type="stmt"/>
-        <line num="49" count="14" type="stmt"/>
-        <line num="50" count="14" type="stmt"/>
-        <line num="51" count="14" type="stmt"/>
-        <line num="54" count="13" type="stmt"/>
-        <line num="55" count="13" type="stmt"/>
+        <line num="2" count="6" type="stmt"/>
+        <line num="3" count="6" type="stmt"/>
+        <line num="4" count="6" type="stmt"/>
+        <line num="5" count="6" type="stmt"/>
+        <line num="6" count="6" type="stmt"/>
+        <line num="7" count="6" type="stmt"/>
+        <line num="8" count="6" type="stmt"/>
+        <line num="10" count="6" type="stmt"/>
+        <line num="24" count="6" type="stmt"/>
+        <line num="26" count="12" type="stmt"/>
+        <line num="28" count="12" type="stmt"/>
+        <line num="31" count="12" type="stmt"/>
+        <line num="32" count="12" type="stmt"/>
+        <line num="33" count="12" type="stmt"/>
+        <line num="36" count="12" type="stmt"/>
+        <line num="43" count="12" type="stmt"/>
+        <line num="44" count="12" type="stmt"/>
+        <line num="45" count="12" type="stmt"/>
+        <line num="46" count="12" type="stmt"/>
+        <line num="48" count="12" type="stmt"/>
+        <line num="49" count="12" type="stmt"/>
+        <line num="50" count="12" type="stmt"/>
+        <line num="51" count="12" type="stmt"/>
+        <line num="54" count="12" type="stmt"/>
+        <line num="55" count="12" type="stmt"/>
         <line num="59" count="1" type="stmt"/>
         <line num="60" count="1" type="stmt"/>
         <line num="61" count="1" type="cond" truecount="1" falsecount="2"/>
@@ -1269,43 +1232,47 @@
         <line num="86" count="0" type="stmt"/>
         <line num="87" count="0" type="stmt"/>
         <line num="88" count="0" type="cond" truecount="0" falsecount="6"/>
-        <line num="91" count="66" type="stmt"/>
-        <line num="92" count="66" type="cond" truecount="1" falsecount="1"/>
+        <line num="91" count="60" type="stmt"/>
+        <line num="92" count="60" type="cond" truecount="1" falsecount="1"/>
       </file>
     </package>
     <package name="app.shared.page-header">
-      <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-      <file name="page-header.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\page-header\page-header.component.html">
+      <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <file name="page-header.component.html" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/page-header/page-header.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
       </file>
-      <file name="page-header.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\page-header\page-header.component.ts">
-        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <file name="page-header.component.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/page-header/page-header.component.ts">
+        <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="1" count="2" type="stmt"/>
-        <line num="10" count="2" type="stmt"/>
-        <line num="11" count="1" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="12" count="2" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
       </file>
     </package>
     <package name="app.shared.search-bar">
       <metrics statements="19" coveredstatements="17" conditionals="0" coveredconditionals="0" methods="8" coveredmethods="6"/>
-      <file name="search-bar.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\search-bar\search-bar.component.html">
+      <file name="search-bar.component.html" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/search-bar/search-bar.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="5" type="stmt"/>
+        <line num="1" count="4" type="stmt"/>
       </file>
-      <file name="search-bar.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\search-bar\search-bar.component.ts">
+      <file name="search-bar.component.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/search-bar/search-bar.component.ts">
         <metrics statements="18" coveredstatements="16" conditionals="0" coveredconditionals="0" methods="8" coveredmethods="6"/>
-        <line num="1" count="5" type="stmt"/>
-        <line num="2" count="5" type="stmt"/>
-        <line num="3" count="5" type="stmt"/>
-        <line num="4" count="5" type="stmt"/>
-        <line num="5" count="5" type="stmt"/>
-        <line num="14" count="5" type="stmt"/>
-        <line num="16" count="10" type="stmt"/>
-        <line num="18" count="10" type="stmt"/>
-        <line num="21" count="10" type="stmt"/>
-        <line num="22" count="10" type="stmt"/>
-        <line num="26" count="10" type="stmt"/>
-        <line num="27" count="10" type="stmt"/>
+        <line num="1" count="4" type="stmt"/>
+        <line num="2" count="4" type="stmt"/>
+        <line num="3" count="4" type="stmt"/>
+        <line num="4" count="4" type="stmt"/>
+        <line num="5" count="4" type="stmt"/>
+        <line num="14" count="4" type="stmt"/>
+        <line num="16" count="9" type="stmt"/>
+        <line num="18" count="9" type="stmt"/>
+        <line num="21" count="9" type="stmt"/>
+        <line num="22" count="9" type="stmt"/>
+        <line num="26" count="9" type="stmt"/>
+        <line num="27" count="9" type="stmt"/>
         <line num="32" count="1" type="stmt"/>
         <line num="33" count="1" type="stmt"/>
         <line num="34" count="1" type="stmt"/>
@@ -1316,11 +1283,11 @@
     </package>
     <package name="app.shared.setting-pages.account">
       <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="account.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\setting-pages\account\account.component.html">
+      <file name="account.component.html" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/setting-pages/account/account.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
       </file>
-      <file name="account.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\setting-pages\account\account.component.ts">
+      <file name="account.component.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/setting-pages/account/account.component.ts">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
         <line num="10" count="2" type="stmt"/>
@@ -1328,11 +1295,11 @@
     </package>
     <package name="app.shared.setting-pages.audio">
       <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="audio.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\setting-pages\audio\audio.component.html">
+      <file name="audio.component.html" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/setting-pages/audio/audio.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
       </file>
-      <file name="audio.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\setting-pages\audio\audio.component.ts">
+      <file name="audio.component.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/setting-pages/audio/audio.component.ts">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
         <line num="10" count="2" type="stmt"/>
@@ -1340,11 +1307,11 @@
     </package>
     <package name="app.shared.setting-pages.display">
       <metrics statements="7" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
-      <file name="display.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\setting-pages\display\display.component.html">
+      <file name="display.component.html" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/setting-pages/display/display.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
       </file>
-      <file name="display.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\setting-pages\display\display.component.ts">
+      <file name="display.component.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/setting-pages/display/display.component.ts">
         <metrics statements="6" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -1356,11 +1323,11 @@
     </package>
     <package name="app.shared.setting-pages.language">
       <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="language.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\setting-pages\language\language.component.html">
+      <file name="language.component.html" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/setting-pages/language/language.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
       </file>
-      <file name="language.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\setting-pages\language\language.component.ts">
+      <file name="language.component.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/setting-pages/language/language.component.ts">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
         <line num="10" count="2" type="stmt"/>
@@ -1368,68 +1335,68 @@
     </package>
     <package name="app.shared.setting-pages.privacy">
       <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="privacy.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\setting-pages\privacy\privacy.component.html">
+      <file name="privacy.component.html" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/setting-pages/privacy/privacy.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
       </file>
-      <file name="privacy.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\setting-pages\privacy\privacy.component.ts">
+      <file name="privacy.component.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/setting-pages/privacy/privacy.component.ts">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
         <line num="10" count="2" type="stmt"/>
       </file>
     </package>
     <package name="app.shared.side-bar">
-      <metrics statements="73" coveredstatements="57" conditionals="10" coveredconditionals="6" methods="22" coveredmethods="13"/>
-      <file name="side-bar.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\side-bar\side-bar.component.html">
+      <metrics statements="73" coveredstatements="56" conditionals="10" coveredconditionals="5" methods="22" coveredmethods="12"/>
+      <file name="side-bar.component.html" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/side-bar/side-bar.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="7" type="stmt"/>
+        <line num="1" count="6" type="stmt"/>
       </file>
-      <file name="side-bar.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\side-bar\side-bar.component.ts">
-        <metrics statements="72" coveredstatements="56" conditionals="10" coveredconditionals="6" methods="22" coveredmethods="13"/>
-        <line num="1" count="7" type="stmt"/>
-        <line num="2" count="7" type="stmt"/>
-        <line num="3" count="7" type="stmt"/>
-        <line num="4" count="7" type="stmt"/>
-        <line num="5" count="7" type="stmt"/>
-        <line num="6" count="7" type="stmt"/>
-        <line num="7" count="7" type="stmt"/>
-        <line num="8" count="7" type="stmt"/>
-        <line num="9" count="7" type="stmt"/>
-        <line num="10" count="7" type="stmt"/>
-        <line num="11" count="7" type="stmt"/>
-        <line num="12" count="7" type="stmt"/>
-        <line num="21" count="7" type="stmt"/>
-        <line num="26" count="9" type="stmt"/>
-        <line num="27" count="9" type="stmt"/>
-        <line num="28" count="9" type="stmt"/>
-        <line num="29" count="9" type="stmt"/>
-        <line num="30" count="9" type="stmt"/>
-        <line num="31" count="9" type="stmt"/>
-        <line num="32" count="9" type="stmt"/>
-        <line num="34" count="9" type="stmt"/>
-        <line num="35" count="9" type="stmt"/>
-        <line num="38" count="9" type="stmt"/>
-        <line num="39" count="9" type="stmt"/>
-        <line num="41" count="9" type="stmt"/>
-        <line num="42" count="9" type="stmt"/>
-        <line num="43" count="9" type="stmt"/>
-        <line num="45" count="9" type="stmt"/>
-        <line num="46" count="9" type="stmt"/>
-        <line num="47" count="9" type="stmt"/>
-        <line num="48" count="9" type="stmt"/>
-        <line num="49" count="9" type="stmt"/>
+      <file name="side-bar.component.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/side-bar/side-bar.component.ts">
+        <metrics statements="72" coveredstatements="55" conditionals="10" coveredconditionals="5" methods="22" coveredmethods="12"/>
+        <line num="1" count="6" type="stmt"/>
+        <line num="2" count="6" type="stmt"/>
+        <line num="3" count="6" type="stmt"/>
+        <line num="4" count="6" type="stmt"/>
+        <line num="5" count="6" type="stmt"/>
+        <line num="6" count="6" type="stmt"/>
+        <line num="7" count="6" type="stmt"/>
+        <line num="8" count="6" type="stmt"/>
+        <line num="9" count="6" type="stmt"/>
+        <line num="10" count="6" type="stmt"/>
+        <line num="11" count="6" type="stmt"/>
+        <line num="12" count="6" type="stmt"/>
+        <line num="21" count="6" type="stmt"/>
+        <line num="26" count="8" type="stmt"/>
+        <line num="27" count="8" type="stmt"/>
+        <line num="28" count="8" type="stmt"/>
+        <line num="29" count="8" type="stmt"/>
+        <line num="30" count="8" type="stmt"/>
+        <line num="31" count="8" type="stmt"/>
+        <line num="32" count="8" type="stmt"/>
+        <line num="34" count="8" type="stmt"/>
+        <line num="35" count="8" type="stmt"/>
+        <line num="38" count="8" type="stmt"/>
+        <line num="39" count="8" type="stmt"/>
+        <line num="41" count="8" type="stmt"/>
+        <line num="42" count="8" type="stmt"/>
+        <line num="43" count="8" type="stmt"/>
+        <line num="45" count="8" type="stmt"/>
+        <line num="46" count="8" type="stmt"/>
+        <line num="47" count="8" type="stmt"/>
+        <line num="48" count="8" type="stmt"/>
+        <line num="49" count="8" type="stmt"/>
         <line num="52" count="3" type="stmt"/>
         <line num="55" count="1" type="stmt"/>
         <line num="56" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="57" count="1" type="stmt"/>
         <line num="59" count="0" type="stmt"/>
         <line num="61" count="1" type="stmt"/>
-        <line num="64" count="10" type="cond" truecount="1" falsecount="0"/>
+        <line num="64" count="9" type="cond" truecount="1" falsecount="0"/>
         <line num="65" count="9" type="stmt"/>
         <line num="66" count="9" type="stmt"/>
         <line num="67" count="9" type="stmt"/>
-        <line num="69" count="10" type="stmt"/>
-        <line num="70" count="10" type="stmt"/>
+        <line num="69" count="9" type="stmt"/>
+        <line num="70" count="9" type="stmt"/>
         <line num="74" count="10" type="cond" truecount="1" falsecount="0"/>
         <line num="75" count="10" type="stmt"/>
         <line num="76" count="10" type="stmt"/>
@@ -1443,7 +1410,7 @@
         <line num="91" count="0" type="stmt"/>
         <line num="95" count="0" type="stmt"/>
         <line num="101" count="0" type="stmt"/>
-        <line num="107" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="107" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="112" count="1" type="stmt"/>
         <line num="115" count="10" type="stmt"/>
         <line num="118" count="1" type="stmt"/>
@@ -1462,15 +1429,15 @@
     </package>
     <package name="app.shared.song-recommendation">
       <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-      <file name="song-recommendation.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\song-recommendation\song-recommendation.component.html">
+      <file name="song-recommendation.component.html" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/song-recommendation/song-recommendation.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="3" type="stmt"/>
+        <line num="1" count="2" type="stmt"/>
       </file>
-      <file name="song-recommendation.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\song-recommendation\song-recommendation.component.ts">
+      <file name="song-recommendation.component.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/song-recommendation/song-recommendation.component.ts">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="1" count="3" type="stmt"/>
-        <line num="2" count="3" type="stmt"/>
-        <line num="11" count="3" type="stmt"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="11" count="2" type="stmt"/>
         <line num="12" count="1" type="stmt"/>
         <line num="14" count="1" type="stmt"/>
         <line num="16" count="1" type="stmt"/>
@@ -1479,11 +1446,11 @@
     </package>
     <package name="app.shared.song-view">
       <metrics statements="7" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
-      <file name="song-view.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\song-view\song-view.component.html">
+      <file name="song-view.component.html" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/song-view/song-view.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
       </file>
-      <file name="song-view.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\song-view\song-view.component.ts">
+      <file name="song-view.component.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/song-view/song-view.component.ts">
         <metrics statements="6" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
         <line num="1" count="4" type="stmt"/>
         <line num="2" count="4" type="stmt"/>
@@ -1495,11 +1462,11 @@
     </package>
     <package name="app.shared.spotify-login">
       <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
-      <file name="spotify-login.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\spotify-login\spotify-login.component.html">
+      <file name="spotify-login.component.html" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/spotify-login/spotify-login.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
       </file>
-      <file name="spotify-login.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\spotify-login\spotify-login.component.ts">
+      <file name="spotify-login.component.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/spotify-login/spotify-login.component.ts">
         <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -1511,31 +1478,31 @@
     </package>
     <package name="app.shared.svg-icon">
       <metrics statements="11" coveredstatements="11" conditionals="2" coveredconditionals="1" methods="4" coveredmethods="4"/>
-      <file name="svg-icon.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\svg-icon\svg-icon.component.html">
+      <file name="svg-icon.component.html" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/svg-icon/svg-icon.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="8" type="stmt"/>
+        <line num="1" count="7" type="stmt"/>
       </file>
-      <file name="svg-icon.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\svg-icon\svg-icon.component.ts">
+      <file name="svg-icon.component.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/svg-icon/svg-icon.component.ts">
         <metrics statements="10" coveredstatements="10" conditionals="2" coveredconditionals="1" methods="4" coveredmethods="4"/>
-        <line num="1" count="8" type="stmt"/>
-        <line num="2" count="8" type="stmt"/>
-        <line num="3" count="8" type="stmt"/>
-        <line num="4" count="8" type="stmt"/>
-        <line num="13" count="8" type="stmt"/>
-        <line num="20" count="35" type="stmt"/>
-        <line num="21" count="35" type="stmt"/>
-        <line num="24" count="35" type="stmt"/>
+        <line num="1" count="7" type="stmt"/>
+        <line num="2" count="7" type="stmt"/>
+        <line num="3" count="7" type="stmt"/>
+        <line num="4" count="7" type="stmt"/>
+        <line num="13" count="7" type="stmt"/>
+        <line num="20" count="32" type="stmt"/>
+        <line num="21" count="32" type="stmt"/>
+        <line num="24" count="32" type="stmt"/>
         <line num="27" count="1" type="stmt"/>
-        <line num="31" count="22" type="cond" truecount="1" falsecount="1"/>
+        <line num="31" count="20" type="cond" truecount="1" falsecount="1"/>
       </file>
     </package>
     <package name="app.shared.toast">
       <metrics statements="17" coveredstatements="17" conditionals="1" coveredconditionals="0" methods="6" coveredmethods="6"/>
-      <file name="toast.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\toast\toast.component.html">
+      <file name="toast.component.html" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/toast/toast.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
       </file>
-      <file name="toast.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\toast\toast.component.ts">
+      <file name="toast.component.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/toast/toast.component.ts">
         <metrics statements="16" coveredstatements="16" conditionals="1" coveredconditionals="0" methods="6" coveredmethods="6"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -1557,11 +1524,11 @@
     </package>
     <package name="app.shared.top-artist-card">
       <metrics statements="12" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
-      <file name="top-artist-card.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\top-artist-card\top-artist-card.component.html">
+      <file name="top-artist-card.component.html" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/top-artist-card/top-artist-card.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="3" type="stmt"/>
       </file>
-      <file name="top-artist-card.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\top-artist-card\top-artist-card.component.ts">
+      <file name="top-artist-card.component.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/top-artist-card/top-artist-card.component.ts">
         <metrics statements="11" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
         <line num="1" count="3" type="stmt"/>
         <line num="2" count="3" type="stmt"/>
@@ -1578,11 +1545,11 @@
     </package>
     <package name="app.shared.top-card">
       <metrics statements="15" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="1"/>
-      <file name="top-card.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\top-card\top-card.component.html">
+      <file name="top-card.component.html" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/top-card/top-card.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="3" type="stmt"/>
       </file>
-      <file name="top-card.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\top-card\top-card.component.ts">
+      <file name="top-card.component.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/top-card/top-card.component.ts">
         <metrics statements="14" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="1"/>
         <line num="1" count="3" type="stmt"/>
         <line num="2" count="3" type="stmt"/>
@@ -1602,16 +1569,16 @@
     </package>
     <package name="app.shared.top-result">
       <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-      <file name="top-result.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\top-result\top-result.component.html">
+      <file name="top-result.component.html" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/top-result/top-result.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="3" type="stmt"/>
+        <line num="1" count="2" type="stmt"/>
       </file>
-      <file name="top-result.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\top-result\top-result.component.ts">
+      <file name="top-result.component.ts" path="/home/user/COS301/echo/ECHO/Frontend/src/app/shared/top-result/top-result.component.ts">
         <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="2" count="3" type="stmt"/>
-        <line num="3" count="3" type="stmt"/>
-        <line num="4" count="3" type="stmt"/>
-        <line num="12" count="3" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="12" count="2" type="stmt"/>
         <line num="13" count="1" type="stmt"/>
         <line num="14" count="1" type="stmt"/>
         <line num="15" count="1" type="stmt"/>
