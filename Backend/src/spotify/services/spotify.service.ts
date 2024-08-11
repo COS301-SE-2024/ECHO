@@ -412,6 +412,37 @@ export class SpotifyService
 			throw error;
 		}
 	}
+
+	async getTrackAnalysis(trackId: string, accessToken: string, refreshToken: string)
+	{
+		try
+		{
+			const providerToken = await this.getAccessToken(accessToken, refreshToken);
+			const audioFeaturesResponse = await lastValueFrom(
+				this.httpService.get(
+					`https://api.spotify.com/v1/audio-features/${trackId}`,
+					{
+						headers: { Authorization: `Bearer ${providerToken}` }
+					}
+				)
+			);
+
+			const audioFeatures = audioFeaturesResponse.data;
+			const trackAnalysis: TrackAnalysis = {
+				valence: audioFeatures.valence,
+				energy: audioFeatures.energy,
+				danceability: audioFeatures.danceability,
+				tempo: audioFeatures.tempo
+			};
+
+			return trackAnalysis;
+		}
+		catch (error)
+		{
+			console.error("Error fetching track analysis:", error);
+		}
+
+	}
 }
 
 interface TrackInfo
@@ -423,4 +454,11 @@ interface TrackInfo
 	artistName: string;
 	previewUrl: string;
 	spotifyUrl: string;
+}
+
+interface TrackAnalysis {
+	valence: number;
+	energy: number;
+	danceability: number;
+	tempo: number;
 }

@@ -193,6 +193,7 @@ export class SpotifyController
 		return await this.spotifyService.addToQueue(uri, device_id, accessToken, refreshToken);
 	}
 
+	// This endpoint is used to get the details of a track by its name and artist.
 	@Post("track-details-by-name")
 	async getTrackDetailsByName(
 		@Body() body: {
@@ -213,5 +214,26 @@ export class SpotifyController
 		}
 
 		return this.spotifyService.getTrackDetailsByName(artistName, trackName, accessToken, refreshToken);
+	}
+
+	@Post("track-analysis")
+	async getTrackAnalysis(
+		@Body() body: {
+			trackId: string;
+			accessToken: string;
+			refreshToken: string;
+		}
+	): Promise<any>
+	{
+		const { trackId, accessToken, refreshToken } = body;
+
+		if (!trackId || !accessToken || !refreshToken)
+		{
+			throw new UnauthorizedException(
+				"TrackId, access token, or refresh token is missing while attempting to retrieve track analysis from Spotify."
+			);
+		}
+
+		return this.spotifyService.getTrackAnalysis(trackId, accessToken, refreshToken);
 	}
 }
