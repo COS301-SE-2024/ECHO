@@ -105,7 +105,7 @@
 
     <div class="top-result dark:text-gray-200" style="float: left; width: 50%;">
       <h1 class="" style="font-weight: bold; font-size: larger;">Top Result</h1>
-      <div class="big-card dark:text-gray-200 bg-gray-component my-[1vw] hover:cursor-pointer"
+      <div [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]" class="big-card  my-[1vw] hover:cursor-pointer"
            style="width: 90%; padding: 2vw; border-radius: 15px;">
         <ng-container *ngIf="topResult$ | async as topResult">
           <div (click)="playTrack(topResult.name, topResult.artistName)">
