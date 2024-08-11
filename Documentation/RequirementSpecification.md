@@ -30,8 +30,6 @@
   - [13. Queue Management](#13-queue-management)
   - [14. View Listening History](#14-view-listening-history)
   - [15. Mobile Separation](#15-mobile-separation)
-  
-
 - [Service Contracts](#service-contracts)
   - [1.1 Register](#11-register)
   - [1.2 Login](#12-login)
@@ -51,6 +49,7 @@
   - [5. Spotify Integration Subsystem](#5-spotify-integration-subsystem)
   - [6. Music Player Subsystem](#6-music-player-subsystem)
   - [7. AI Clustering Subsystem](#7-ai-clustering-subsystem)
+  - [8. AI Sentiment Analysis Subsystem](#8-ai-sentiment-analysis-subsystem)
 - [UML Class Diagram](#uml-class-diagram)
 - [Design Patterns](#design-patterns)
   - [Observer](#observer)
@@ -459,6 +458,9 @@ The listener drags the volume slider on the music player. The system adjusts the
 
 ## 7. AI Clustering Subsystem
 ![AI-clustering](<images/Clustering Subsystem.png>)
+
+## 8. AI Sentiment Analysis Subsystem
+![AI-sentiment-analysis](<images/Sentiment Analysis Subsystem.png>)
 
 <br />
 <br />
