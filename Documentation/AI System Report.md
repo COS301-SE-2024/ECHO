@@ -24,8 +24,36 @@ The system uses Azure CosmosDB to store song data, clustering information, senti
 ## Implementation Details
 
 ### K-Means Clustering
+The K-Means Clustering system is responsible for grouping songs into clusters based on their musical attributes. This clustering enables the system to identify and recommend songs that are similar to a given track, enhancing the relevance of the recommendations provided to the users. 
+
+#### Overview of the Clustering Process
+The clustering process is driven by the K-Means algorithm, which is a well-known unsupervised learning method for partitioning data into distinct clusters. In this system, each songs is represented by a sest of features that capture various musical aspects, such as tempo, loudness, and danceability. The clustering algorithm groups songs into clusters based on these features, allowing the system to easily retrieve and recommend similar tracks. 
+
+#### Features Used for Clustering
+The clustering system uses the following musical features to represent each song:
+- **'duration_ms':** The length of the song in milliseconds.
+- **'danceability':** A measure of how suitable a track is for dancing, based on a combination of musical elements.
+- **'energy':** A measure of intensity and activity in the track. 
+- **'loudness':** The overall loudness of the track in decibels.
+- **'speechiness':** A measure of the presence of spoken words in the track.
+- **'acousticness':** A measure of the likelihood that the track is acoustic.
+- **'instrumentalness':** A measure of the likelihood that the track contains no vocals.
+- **'liveness':** A measure of the presence of a live audience in the track.
+- **'valence':** A measure of the musical positiveness conveyed by the track.
+- **'tempo':** The speed or pace of the track.
+
+These features are normalised using a trained scaler before being passed to the clustering algorithm, which ensures that all features contribute equally to the clustering process regardless of their original scale. 
+
+#### Song Recommendation Process
+The core functionality of the clustering system is to recommend songs based on their proximity to the centroid of a cluster. This is done through the following steps:
+1. **Input Song Feature Extraction:** The features of the input song (provided by the user) are extracted and normalised using the pre-trained scaler. 
+2. **Cluster Assignment:** The input song's features are compared to the centroids of all clusters using Euclidean distance. The song is assigned to the closest cluster, identified by the minimum distance to the centroid.
+3. **Existing Song Check:** The system checks if the song is already present in the cluster. If it is, the song is excluded from the list of recommendations to avoid self-recommendation.
+4. **Similar Song Selection:** The system selects a random subset of songs from the same cluster as potential recommendations. These songs are chosen based on their proximity to the input song within the cluster. A certain number of closest songs are then recommended to the user. 
+5. **Recommendation Generation:** The selected songs are returned as recommendations, ensuring that they share similar musical attributes with the input song. 
 
 ### Sentiment Analysis
+
 
 ### Genre Detection
 
