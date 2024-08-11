@@ -1,21 +1,25 @@
-import { AfterViewInit, Component, Inject, PLATFORM_ID,Input } from "@angular/core";
+import { AfterViewInit, Component, Inject, PLATFORM_ID, Input } from "@angular/core";
 import { isPlatformBrowser } from "@angular/common";
-import Chart from "chart.js/auto";
+import Chart, { ChartType } from "chart.js/auto";
+import { MoodService } from '../../services/mood-service.service';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: "app-insights",
   standalone: true,
-  imports: [],
+  imports: [NgClass],
   templateUrl: "./insights.component.html",
   styleUrls: ["./insights.component.css"]
 })
 export class InsightsComponent implements AfterViewInit {
+  @Input() percentageData: number[] = [];
   public chart: any;
   private colorCache: { [key: string]: string } = {};
-  @Input() percentageData: number[] = [];
-
-  constructor(@Inject(PLATFORM_ID) private platformId: Object)
-  {
+  private chartTypes: ChartType[] = ["pie", "bar", "line", "doughnut", "radar","polarArea"];
+  private currentChartIndex: number = 0;
+  moodComponentClasses!:{ [key: string]: string };
+  constructor(@Inject(PLATFORM_ID) private platformId: Object,public moodService: MoodService) {
+    this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
   }
 
   ngAfterViewInit() {
@@ -28,13 +32,13 @@ export class InsightsComponent implements AfterViewInit {
     if (this.colorCache[className]) {
       return this.colorCache[className];
     }
-  
+
     const tempDiv = document.createElement('div');
     tempDiv.className = className;
     document.body.appendChild(tempDiv);
-  
+
     const color = getComputedStyle(tempDiv).backgroundColor;
-  
+
     document.body.removeChild(tempDiv);
     this.colorCache[className] = color;
     return color;
@@ -44,8 +48,11 @@ export class InsightsComponent implements AfterViewInit {
     try {
       const chartCanvas = document.getElementById("MyChart") as HTMLCanvasElement;
       if (chartCanvas) {
+        if (this.chart) {
+          this.chart.destroy();
+        }
         this.chart = new Chart(chartCanvas, {
-          type: "pie",
+          type: this.chartTypes[this.currentChartIndex],
           data: {
             labels: [
               "Anger", "Annoyance", "Fear", "Excitement", "Amusement", "Admiration", 
@@ -96,5 +103,10 @@ export class InsightsComponent implements AfterViewInit {
     } catch (error) {
       console.error("Failed to create chart:", error);
     }
+  }
+
+  nextChartType() {
+    this.currentChartIndex = (this.currentChartIndex + 1) % this.chartTypes.length;
+    this.createChart();
   }
 }

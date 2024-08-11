@@ -84,6 +84,11 @@ export class HomeComponent implements OnInit {
       }
     }
     getMoodPercentageData(): number[] {
+        // "Anger", "Annoyance", "Fear", "Excitement", "Amusement", "Admiration", 
+        // "Approval", "Caring", "Joy", "Desire", "Curiosity", "Confusion", 
+        // "Gratitude", "Surprise", "Disappointment", "Disapproval", "Disgust", 
+        // "Embarrassment", "Sadness", "Grief", "Love", "Nervousness", "Optimism", 
+        // "Pride", "Realisation", "Relief"
         return [25, 5, 30, 40, 10, 15, 20, 25, 30, 10, 15, 5, 20, 5, 5, 15, 10, 10, 25, 10, 20, 15, 10, 5, 20, 15, 10];
     }
     profile() {
