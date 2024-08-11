@@ -42,7 +42,6 @@ export class AppComponent {
         this.showPlayer = ['/home', '/profile', '/mood', '/home#','/home#home','/home#search', '/home#library','/home#insight'].includes(event.urlAfterRedirects);
         switch (event.urlAfterRedirects) {
           case '/home':
-          case '/home#home':
             this.currentPage = 'Home';
             this.displayPageName = true;
             break;
