@@ -413,6 +413,7 @@ export class SpotifyService
 		}
 	}
 
+	// This function retrieves the analysis of a track by it's ID
 	async getTrackAnalysis(trackId: string, accessToken: string, refreshToken: string)
 	{
 		try
@@ -443,6 +444,53 @@ export class SpotifyService
 		}
 
 	}
+
+	// This function retrieves the top tracks of the user from the Spotify API
+	async getTopTracks(accessToken: string, refreshToken: string): Promise<TrackInfo[]> {
+		try {
+			const providerToken = await this.getAccessToken(accessToken, refreshToken);
+
+			const response = await lastValueFrom(
+				this.httpService.get('https://api.spotify.com/v1/me/top/tracks?limit=10', {
+					headers: { Authorization: `Bearer ${providerToken}` },
+				})
+			);
+
+			return response.data.items.map(item => ({
+				id: item.id,
+				name: item.name,
+				albumName: item.album.name,
+				albumImageUrl: item.album.images[0]?.url,
+				artistName: item.artists[0]?.name,
+				previewUrl: item.preview_url,
+				spotifyUrl: item.external_urls.spotify,
+			}));
+		} catch (error) {
+			console.error('Error fetching top tracks:', error);
+		}
+	}
+
+	// This function retrieves the top artists of the user from the Spotify API
+	async getTopArtists(accessToken: string, refreshToken: string): Promise<ArtistInfo[]> {
+		try {
+			const providerToken = await this.getAccessToken(accessToken, refreshToken);
+
+			const response = await lastValueFrom(
+				this.httpService.get('https://api.spotify.com/v1/me/top/artists?limit=10', {
+					headers: { Authorization: `Bearer ${providerToken}` },
+				})
+			);
+
+			return response.data.items.map(item => ({
+				id: item.id,
+				name: item.name,
+				imageUrl: item.images[0]?.url,
+				spotifyUrl: item.uri,
+			}));
+		} catch (error) {
+			console.error('Error fetching top artists:', error);
+		}
+	}
 }
 
 interface TrackInfo
@@ -453,6 +501,14 @@ interface TrackInfo
 	albumImageUrl: string;
 	artistName: string;
 	previewUrl: string;
+	spotifyUrl: string;
+}
+
+interface ArtistInfo
+{
+	id: string;
+	name: string;
+	imageUrl: string;
 	spotifyUrl: string;
 }
 

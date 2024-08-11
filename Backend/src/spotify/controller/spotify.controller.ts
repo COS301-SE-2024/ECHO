@@ -236,4 +236,46 @@ export class SpotifyController
 
 		return this.spotifyService.getTrackAnalysis(trackId, accessToken, refreshToken);
 	}
+
+	// This endpoint is used to get the top tracks of the user from the Spotify API.
+	@Post("top-tracks")
+	async getTopTracks(
+		@Body() body: {
+			accessToken: string;
+			refreshToken: string;
+		}
+	): Promise<any>
+	{
+		const { accessToken, refreshToken } = body;
+
+		if (!accessToken || !refreshToken)
+		{
+			throw new UnauthorizedException(
+				"Access token, or refresh token is missing while attempting to retrieve track analysis from Spotify."
+			);
+		}
+
+		return this.spotifyService.getTopTracks(accessToken, refreshToken);
+	}
+
+	// This endpoint is used to get the top artists of the user from the Spotify API.
+	@Post("top-artists")
+	async getTopArtists(
+		@Body() body: {
+			accessToken: string;
+			refreshToken: string;
+		}
+	): Promise<any>
+	{
+		const { accessToken, refreshToken } = body;
+
+		if (!accessToken || !refreshToken)
+		{
+			throw new UnauthorizedException(
+				"Access token, or refresh token is missing while attempting to retrieve top artists from Spotify."
+			);
+		}
+
+		return this.spotifyService.getTopArtists(accessToken, refreshToken);
+	}
 }
