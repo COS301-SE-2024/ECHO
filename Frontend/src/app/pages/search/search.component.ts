@@ -14,7 +14,7 @@ import { ProviderService } from "../../services/provider.service";
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [NgIf, NgForOf, NgClass, AsyncPipe,TopResultComponent],
+  imports: [NgIf, NgForOf, NgClass, AsyncPipe, TopResultComponent, NavbarComponent, SearchBarComponent],
   templateUrl: './search.component.html',
   styleUrl: './search.component.css'
 })
@@ -65,6 +65,7 @@ export class SearchComponent implements OnInit {
     {
       this.spotifyService.getTrackDetailsByName(name, artistName).then(async (track) =>
       {
+        console.log(track);
         await this.spotifyService.playTrackById(track.id);
       });
     }
