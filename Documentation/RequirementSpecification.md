@@ -50,6 +50,7 @@
   - [6. Music Player Subsystem](#6-music-player-subsystem)
   - [7. AI Clustering Subsystem](#7-ai-clustering-subsystem)
   - [8. AI Sentiment Analysis Subsystem](#8-ai-sentiment-analysis-subsystem)
+  - [9. Genre Detection Subsystem](#9-genre-detection-subsystem)
 - [UML Class Diagram](#uml-class-diagram)
 - [Design Patterns](#design-patterns)
   - [Observer](#observer)
@@ -461,6 +462,9 @@ The listener drags the volume slider on the music player. The system adjusts the
 
 ## 8. AI Sentiment Analysis Subsystem
 ![AI-sentiment-analysis](<images/Sentiment Analysis Subsystem.png>)
+
+## 9. Genre Detection Subsystem
+![genre-detection](<images/Genre Detection Subsystem.png>)
 
 <br />
 <br />
