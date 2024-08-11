@@ -63,7 +63,7 @@ export class AppComponent {
             break;
           case '/profile':
             this.currentPage = 'Profile';
-            this.displayPageName = true;
+            this.displayPageName = false;
             break;
           
           case '/settings':
