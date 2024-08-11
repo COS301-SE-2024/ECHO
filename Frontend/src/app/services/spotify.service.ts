@@ -672,7 +672,7 @@ export class SpotifyService
     }
   }
 
-  private classifyMood(analysis: TrackAnalysis): string
+  public classifyMood(analysis: TrackAnalysis): string
   {
     const { valence, energy, danceability, tempo } = analysis;
 

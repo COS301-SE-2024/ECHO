@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for app/shared/setting-pages/audio/audio.component.ts</title>
+    <title>Code coverage report for app/pages/insights/insights.component.html</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../../prettify.css" />
-    <link rel="stylesheet" href="../../../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.png" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../../../sort-arrow-sprite.png);
+            background-image: url(../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">app/shared/setting-pages/audio</a> audio.component.ts</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">app/pages/insights</a> insights.component.html</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
@@ -84,22 +84,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Component } from '@angular/core';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&lt;div *ngIf="screenSize === 'desktop'" class="desktop-layout"&gt;
+  &lt;div class="chart-container"&gt;
+    &lt;canvas class="left-1/2 top-1/2 pt-12" id="MyChart"&gt;&lt;/canvas&gt;
+  &lt;/div&gt;
+  &lt;button [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]" class="font-medium rounded-lg text-sm px-4 py-2.5 text-center" (click)="nextChartType()"&gt;Next&lt;/button&gt;
+&lt;/div&gt;
 &nbsp;
-@Component({
-  selector: 'app-audio',
-  standalone: true,
-  imports: [],
-  templateUrl: './audio.component.html',
-  styleUrl: './audio.component.css'
-})
-export class AudioComponent {
-&nbsp;
-}
-&nbsp;</pre></td></tr></table></pre>
+&lt;div *ngIf="screenSize === 'mobile'" class="mobile-layout"&gt;
+  &lt;div [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]" class="min-h-screen grid grid-cols-5 grid-rows-6 gap-4 px-6 py-3 lg:px-8" style="overflow: auto;"&gt;
+      &lt;canvas class="left-1/2 top-1/2 pt-12" id="MyChart" &gt;&lt;/canvas&gt;
+  &lt;/div&gt;
+  &lt;button [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]" class="font-medium rounded-lg text-sm px-4 py-2.5 text-center" (click)="nextChartType()"&gt;Next&lt;/button&gt;
+&lt;/div&gt;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
@@ -108,14 +108,14 @@ export class AudioComponent {
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
                 at 2024-08-11T17:02:15.898Z
             </div>
-        <script src="../../../../prettify.js"></script>
+        <script src="../../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../../../sorter.js"></script>
-        <script src="../../../../block-navigation.js"></script>
+        <script src="../../../sorter.js"></script>
+        <script src="../../../block-navigation.js"></script>
     </body>
 </html>
     
