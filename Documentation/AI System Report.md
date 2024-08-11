@@ -82,8 +82,22 @@ The genre detection process is heavily reliant on the Deezer API, which is used 
 4. **Fallback Mechanism:** In cases where the genre information is not available or the track is not found in Deezer's database, the system returns an empty string of attempts to infer the genre using alternative methods. However, reliance on Deezer ensures that the genre detection process is generally accurate and reliable, 
 
 ### Expert System Functionality
+The Expert System Interface is the central component that orchestrates the interaction between the various modules of the Music Recommendation System, including the K-Means Clustering, Sentiment Analysis, and Genre Detection modules. It serves as the integration point where all the analytical outputs are combined to generate personalised music recommendations for users. The interface is implemented as an Azure Function, enabling scalable and secure access to the system's functionalities. 
+
+#### Overview of the Interface
+The Expert System Interface is designed to process user requests, manage data retrieval and analysis, and generate recommendations based on the combined outputs of the clustering, sentiment analysis, and genre detection modules. 
+
+#### Azure Function Implementation
+The core of the interface is encapsulated within an Azure Function that handles HTTP requests. This function is responsible for processing the user's request, performing necessary validations, and invoking the relevant modules to generate recommendations.
+1. **Input Validation:** The function first validates the input request, ensuring that the necessary parameters, such as the song name and artist, are provided. It also checks for the presence of an access key to ensure that only authorised requests are processed. 
+2. **Data Retrieval:** The function attempts to retrieve existing data for the requested song from the database. If the song is already stored, it uses the stored data to generate recommendations without reprocessing the song through the various modules. 
+3. **Cluster Assignment and Song Retrieval:** If the song is not found in the database, the function invoked the K-Means Clustering module to assign the song to a cluster and retrieve similar songs from the same cluster. 
+4. **Sentiment and Genre Analysis:** The function performs sentiment analysis and genre detection on the input song and the similar songs retrieved from the cluster using the corresponding Azure Functions for sentiment analysis and genre detection. The results are used to filter and rank the similar songs.
+5. **Recommendation Generation:** The function combines the clustering, sentiment, and genre data to generate a lsit of recommended songs. It prioritises songs that share similar emotional tones and genres with the imput song. 
+6. **Storing Recommendations:** The generated recommendations are stored in the database for future reference. This allows the system to return cached results if the same song is requested again. 
 
 ## Challenges and Future Work
+
 
 ## Conclusion
 
