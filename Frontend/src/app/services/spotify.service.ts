@@ -5,6 +5,7 @@ import { firstValueFrom, BehaviorSubject } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { TokenService } from "./token.service";
 import { ProviderService } from "./provider.service";
+import { MoodService } from "./mood-service.service";
 
 export interface TrackInfo
 {
@@ -16,6 +17,14 @@ export interface TrackInfo
   previewUrl: string;
   spotifyUrl: string;
   explicit: boolean;
+}
+
+export interface TrackAnalysis
+{
+  valence: number;
+  energy: number;
+  danceability: number;
+  tempo: number;
 }
 
 @Injectable({
@@ -44,7 +53,8 @@ export class SpotifyService
     @Inject(PLATFORM_ID) private platformId: Object,
     private http: HttpClient,
     private tokenService: TokenService,
-    private providerService: ProviderService
+    private providerService: ProviderService,
+    private moodService: MoodService
   )
   {
   }
@@ -184,6 +194,7 @@ export class SpotifyService
       refreshToken: lrefreshToken
     }).toPromise();
     await this.setCurrentlyPlayingTrack(trackId);
+    this.moodService.setCurrentMood(await this.getTrackMood(trackId));
   }
 
   // Pause the currently playing track
@@ -634,5 +645,66 @@ export class SpotifyService
     {
       console.error("Error fetching track details by name:", error);
     }
+  }
+
+  public async getTrackMood(trackId: string): Promise<string>
+  {
+    try
+    {
+      const laccessToken = this.tokenService.getAccessToken();
+      const lrefreshToken = this.tokenService.getRefreshToken();
+      const response = await this.http.post<TrackAnalysis>("http://localhost:3000/api/spotify/track-analysis", {
+        trackId: trackId,
+        accessToken: laccessToken,
+        refreshToken: lrefreshToken
+      }).toPromise();
+
+      if (!response)
+      {
+        throw new Error(`HTTP error! Status: ${response}`);
+      }
+      return this.classifyMood(response);
+    }
+    catch (error)
+    {
+      console.error("Error fetching track analysis:", error);
+      throw error;
+    }
+  }
+
+  private classifyMood(analysis: TrackAnalysis): string
+  {
+    const { valence, energy, danceability, tempo } = analysis;
+
+    if (0.4 <= valence && valence <= 0.6 && 0.4 <= energy && energy <= 0.6) return "Neutral";
+    if (valence < 0.4 && energy > 0.7) return "Anger";
+    if (valence > 0.6 && energy > 0.5) return "Admiration";
+    if (valence < 0.3 && energy > 0.6) return "Fear";
+    if (valence > 0.7 && energy > 0.7) return "Joy";
+    if (valence > 0.6 && energy > 0.6 && danceability > 0.6) return "Amusement";
+    if (valence < 0.4 && 0.4 < energy && energy < 0.7) return "Annoyance";
+    if (valence > 0.6 && 0.4 < energy && energy < 0.7) return "Approval";
+    if (valence > 0.5 && energy < 0.5) return "Caring";
+    if (0.4 <= valence && valence <= 0.6 && 0.3 <= energy && energy <= 0.5) return "Confusion";
+    if (0.5 < valence && valence < 0.7 && 0.5 < energy && energy < 0.7) return "Curiosity";
+    if (valence > 0.6 && energy > 0.6) return "Desire";
+    if (valence < 0.4 && energy < 0.4) return "Disappointment";
+    if (valence < 0.3 && 0.3 < energy && energy < 0.6) return "Disapproval";
+    if (valence < 0.3 && energy > 0.5) return "Disgust";
+    if (valence < 0.4 && energy < 0.5) return "Embarrassment";
+    if (valence > 0.7 && energy > 0.8) return "Excitement";
+    if (valence > 0.6 && energy < 0.5) return "Gratitude";
+    if (valence < 0.3 && energy < 0.4) return "Grief";
+    if (valence > 0.7 && energy < 0.7) return "Love";
+    if (0.3 < valence && valence < 0.5 && energy > 0.6) return "Nervousness";
+    if (valence > 0.6 && energy > 0.5) return "Optimism";
+    if (valence > 0.7 && energy > 0.6) return "Pride";
+    if (0.4 < valence && valence < 0.6 && 0.4 < energy && energy < 0.6) return "Realisation";
+    if (valence > 0.5 && energy < 0.4) return "Relief";
+    if (valence < 0.4 && energy < 0.4) return "Remorse";
+    if (valence < 0.3 && energy < 0.5) return "Sadness";
+    if (valence > 0.5 && energy > 0.7 && tempo > 120) return "Surprise";
+
+    return "Neutral";
   }
 }
