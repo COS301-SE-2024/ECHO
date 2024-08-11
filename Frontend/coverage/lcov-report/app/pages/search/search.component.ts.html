@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.18% </span>
+                <span class="strong">78.37% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>23/27</span>
+                <span class='fraction'>29/37</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">42.85% </span>
+                <span class="strong">33.33% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/7</span>
+                <span class='fraction'>3/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.6% </span>
+                <span class="strong">74.19% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>19/23</span>
+                <span class='fraction'>23/31</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -123,15 +123,30 @@
 <a name='L58'></a><a href='#L58'>58</a>
 <a name='L59'></a><a href='#L59'>59</a>
 <a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -180,6 +195,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -194,10 +220,12 @@ import {NavbarComponent} from "./../../shared/navbar/navbar.component";
 import { SearchBarComponent } from '../../shared/search-bar/search-bar.component';
 import { TopResultComponent } from '../../shared/top-result/top-result.component';
 import { MoodService } from '../../services/mood-service.service';
+import { SpotifyService } from "../../services/spotify.service";
+import { ProviderService } from "../../services/provider.service";
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [NgIf, NgForOf, NgClass, AsyncPipe,TopResultComponent],
+  imports: [NgIf, NgForOf, NgClass, AsyncPipe, TopResultComponent, NavbarComponent, SearchBarComponent],
   templateUrl: './search.component.html',
   styleUrl: './search.component.css'
 })
@@ -215,10 +243,10 @@ export class SearchComponent implements OnInit {
   title?: string;
 &nbsp;
   constructor(private screenSizeService: ScreenSizeService,protected themeService: ThemeService,private router: Router,
-    public moodService: MoodService,private searchService: SearchService
+    public moodService: MoodService,private searchService: SearchService, private spotifyService: SpotifyService, private providerService: ProviderService
   ) {
-    this.currentMood = this.moodService.getCurrentMood(); 
-    this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
+    this.currentMood = this.moodService.getCurrentMood();
+    this.moodComponentClasses = this.moodService.getComponentMoodClasses();
     this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
     this.songs$ = this.searchService.getSearch();
     this.albums$ = this.searchService.getAlbumSearch();
@@ -242,6 +270,17 @@ export class SearchComponent implements OnInit {
 <span class="cstat-no" title="statement not covered" >    this.router.navigate(['/profile']);</span>
   }
 &nbsp;
+<span class="fstat-no" title="function not covered" >  playTrack(</span>name: string, artistName: string)
+  {
+<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (this.providerService.getProviderName() === 'spotify')</span>
+    {
+<span class="cstat-no" title="statement not covered" >      this.spotifyService.getTrackDetailsByName(name, artistName).then(<span class="fstat-no" title="function not covered" >async </span>(track) =&gt;</span>
+      {
+<span class="cstat-no" title="statement not covered" >        console.log(track);</span>
+<span class="cstat-no" title="statement not covered" >        await this.spotifyService.playTrackById(track.id);</span>
+      });
+    }
+  }
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -250,7 +289,7 @@ export class SearchComponent implements OnInit {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-08-10T13:00:38.942Z
+                at 2024-08-11T09:54:09.926Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
