@@ -53,9 +53,23 @@ The core functionality of the clustering system is to recommend songs based on t
 5. **Recommendation Generation:** The selected songs are returned as recommendations, ensuring that they share similar musical attributes with the input song. 
 
 ### Sentiment Analysis
+The Sentiment Analysis system in the Music Recommendation System plays a crucial role in understanding the emotional tone conveyed by the lyrics of a song. This information is then used to enhance the personalisation of music recommendations, ensuring that users receive songs that not only match their genre preferences but also resonate with their current mood or emotional state.
 
+#### Overview of the Sentiment Analysis Process
+The sentiment analysis process involved analysing the lyrics of a song to determine the dominant emotion conveyed by the text. The system uses a combination of natural language processing (NLP) techniques and large language models (LLMs) to categorise lyrics into specific emotional labels. These labels are then used as a factor in the recommendation engine, allowing the system to suggest songs that match the emotional tone of the user's preferences or current listening context. 
+
+#### Lyrics Retrieval and Analysis
+The sentiment analysis process begins with the retrieval of song lyrics. This is accomplished using various methods depending ont he availability of the lyrics data:
+1. **Lyrics Retrieval via API:**
+   - **Musixmatch API:** The system first attempts to retrieve lyrics using the Musixmatch API by searching for the song and artist names. If a matching song is found, the lyrics are fetched using the track ID.
+   - **OVH Lyrics API:** As a fallback, the system uses the OVH Lyrics API to retrieve lyrics directly by providing the song and artist names. This ensures that the system can handle cases where the primary API does not return results. 
+2. **Lyrics Analysis:** Once the lyrics are retrieved, the system performs sentiment analysis. This function first attempts to analyse the lyrics directly. If lyrics are not available or cannot be retrieved, the system generates an emotion prediction based on the song and artist names using an LLM (GPT-based model).
+3. **Sentiment Classification:** 
+   - **LLM Sentiment Classification:** The primary method for determining the sentiment of the lyrics involves using an LLM (GPT-4). The model is prompted with the lyrics and asked to categorise them into one of several predefined emotion categories, such as 'Joy', 'Sadness', 'Anger', etc. The model is specifically instructed to select the best-fitting emotion based on the content of the lyrics. 
+   - **LLM Emotion Prediction Without Lyrics:** If lyrics are not available for a given song, the system falls back on an LLM to predict the likely emotion based on the song's title and artist. This prediction is based on general knowledge and patterns associated wiht similar songs.  
 
 ### Genre Detection
+
 
 ### Expert System Functionality
 
