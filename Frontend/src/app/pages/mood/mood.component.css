@@ -1,0 +1,33 @@
+.navbar-container {
+  top: 0;
+  left: 0;
+  z-index: 1000; /* Ensure the navbar stays on top */
+}
+
+.mood-container {
+  display: flex;
+  height: 80%;
+  justify-content: center;
+  width: 100%;
+}
+
+.mood {
+  width: 79%;
+  max-width: 79%;
+  min-width: 79%;
+  height: 82%;
+}
+
+/* Adjustments for mobile view */
+@media (max-width: 600px) {
+  .mood-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .mood {
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+  }
+}

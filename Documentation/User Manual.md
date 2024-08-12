@@ -1,26 +1,28 @@
 # ECHO Progressive Web App User Manual
 
 ## Table of Contents
-1. [Introduction](#introduction)
-2. [Getting Started](#getting-started)
+- [ECHO Progressive Web App User Manual](#echo-progressive-web-app-user-manual)
+  - [Table of Contents](#table-of-contents)
+  - [Introduction](#introduction)
+  - [Getting Started](#getting-started)
     - [System Requirements](#system-requirements)
     - [Installation](#installation)
-3. [User Registration and Login](#user-registration-and-login)
+  - [User Registration and Login](#user-registration-and-login)
     - [Login](#login)
     - [Resetting Your Password](#resetting-your-password)
-    - [Creating a New Account](#creating-a-new-account)
-4. [Using the Application](#using-the-application)
+    - [Creating a new account](#creating-a-new-account)
+  - [Using the Application](#using-the-application)
     - [Navigating the Interface](#navigating-the-interface)
     - [Viewing Your Music Library](#viewing-your-music-library)
     - [Following Users and Artists](#following-users-and-artists)
     - [Searching and Discovering Music](#searching-and-discovering-music)
     - [Playing Music](#playing-music)
-    - [Changing from Dark to Light Mode](#changing-from-dark-to-light-mode)
-5. [Suggestions](#suggestions)
-6. [Insights](#insights)
-7. [Library](#library)
-8. [Editing Your Profile](#editing-your-profile)
-9. [Support](#support)
+    - [Changing from dark to light mode](#changing-from-dark-to-light-mode)
+    - [Suggestions](#suggestions)
+    - [Insights](#insights)
+    - [Settings](#settings)
+    - [Editing your profile](#editing-your-profile)
+  - [Support](#support)
     - [Frequently Asked Questions](#frequently-asked-questions)
     - [Contact Support](#contact-support)
 
@@ -43,11 +45,11 @@ Welcome to the ECHO Progressive Web App! This user manual will guide you through
 ### Login
 Upon first accessing our app you should be presented with this login page:
 
-<img src="loginPage.png" alt="drawing" width="300" />
+<img src="images/loginPage.png" alt="drawing" width="300" />
 
 To log in with an existing account:
-1. Enter your Username in the text field underneth the 'Username' Label.
-2. Enter your Password in the text field underneth the 'Password' Label.
+1. Enter your Username in the text field underneath the 'Username' Label.
+2. Enter your Password in the text field underneath the 'Password' Label.
 3. Click the 'Sign In' Button.
 
 To log in using Spotify:
@@ -64,7 +66,7 @@ To create a new account, click the link highlighted in blue 'Sign Up now'.
 
 You should be presented with the following page:
 
-<img src="createAccount.png" alt="drawing" width="400" />
+<img src="images/createAccount.png" alt="drawing" width="400" />
 
 1. Enter a new username in the text field under the 'Username' label.
 2. Enter a valid email address in the text field under the 'Email address' label.
@@ -75,7 +77,7 @@ Alternatively, you can click the 'Login with Spotify' Button. This will automate
 
 ## Using the Application
 
-![alt text](homePage.png)
+![alt text](images/homePage.png)
 
 ### Navigating the Interface
 - **Home:** (The House Icon) View your personalized dashboard.
@@ -104,29 +106,43 @@ Alternatively, you can click the 'Login with Spotify' Button. This will automate
 ### Changing from dark to light mode
 1. Click the switch on the top right hand corner of the window.
 
-## Suggestions
+### Suggestions
 This tab is located beneath the Home tab, and is based off your most recent listening. To play any of the suggested songs, click on the album cover and it should begin to play through Echo shortly.
 
-![alt text](recomendations.png)
+![alt text](images/recomendations.png)
 
-## Insights
-This is the bar icon between the house and the music folder.
+### Insights
+To view your listening insights, click on the bar icon between the Home and Library buttons on the left navigation bar. This will bring up various charts and statistics related to your listening habits. In a future app release, these charts and statistics will be displayed in a dashboard format, where clicking on a tile will bring up detailed information about the clicked option. 
 
-## Library
-This is the music file icon to the right of the bar and house.
+The results should look similar to this:
 
-## Editing your profile
+![alt text](images/insights-1.png)
+
+Clicking on the "Next" button should bring up alternate formats:
+
+![alt text](images/insights-2.png)
+
+### Settings
+To view the Settings page, navigate to the Profile icon on the top right corner of the screen. Click on the Settings button at the top right of the Profile page. This will bring up a list of customisations and settings, including display settings, preferences, and audio settings for Echo.
+
+![alt text](images/home-settings.png)
+
+![alt text](images/profile-settings.png)
+
+![alt text](images/settings.png)
+
+### Editing your profile
 To view your profile, click on the icon on the top right side of the page. This should appear either as an individual's silhouette or your profile picture.
 
 A menu similar to this should appear:
 
-![alt text](profile.png)
+![alt text](images/profile.png)
 
 To edit your username or user icon, click 'Edit your profile'.
 
 The following popup should appear.
 
-![alt text](profileedit.png)
+![alt text](images/profileedit.png)
 
 Enter your new username or the path to your new profile picture in the fields below. Then click Save.
 

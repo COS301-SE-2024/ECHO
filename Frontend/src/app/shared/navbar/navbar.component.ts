@@ -20,6 +20,7 @@ const SVG_PATHS = {
     templateUrl: './navbar.component.html',
     styleUrl: './navbar.component.css',
 })
+
 export class NavbarComponent {
     //Event Emitter
     @Output() selectedNavChange = new EventEmitter<string>();
@@ -56,18 +57,22 @@ export class NavbarComponent {
     }   
     select(svgPath: string): void {
         this.selectedSvg = svgPath;
+        let fragment: string = '';
         switch (svgPath) {
             case this.homeSvg:
+                fragment = 'home';
                 this.selectedNavChange.emit('Home');
-                this.router.navigate(['/home']);
                 break;
             case this.insightSvg:
-                this.selectedNavChange.emit('Search');
+                fragment = 'insight';
+                this.selectedNavChange.emit('Insight');
                 break;
             case this.otherSvg2:
+                fragment = 'library';
                 this.selectedNavChange.emit('Library');
                 break;
         }
+        this.router.navigate(['/home'], { fragment: fragment });
     }
 
     switchTheme(): void {
@@ -84,9 +89,6 @@ export class NavbarComponent {
     }
     getFillColor(svg: string): string {
         const isDarkMode = this.themeService.isDarkModeActive();
-        if (this.selectedSvg === svg) {
-        return isDarkMode ? '#D9D9D9' : '#323232';
-        }
         return isDarkMode ? '#D9D9D9' : '#323232';
     }
 }

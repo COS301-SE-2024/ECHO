@@ -36,12 +36,12 @@ Each layer has specific responsibilities and interacts with other layers through
 The MVC pattern divides the application into three main components:
 - **Model:** Manages the data and business logic.
 - **View:** Handles the display and user interface.
-- **Controller:** Processes the user input and itneracts with the Model and View
+- **Controller:** Processes the user input and interacts with the Model and View
 
 #### Justification for MVC
 - **Separation of Concerns:** MVC separates the application into distinct components, making it easier to develop, test and maintain.
 - **Reusability:** Views and Models can be reused across different parts of the application.
-- **Ease of Testing:** Individual components can be tested independently, improving voerall testability.
+- **Ease of Testing:** Individual components can be tested independently, improving overall testability.
 - **Encapsulation:** Sensitive business logic is encapsulated within the Mode, protecting it from direct user interaction. 
 
 ### Service-Oriented Architecture (SOA)
@@ -81,7 +81,7 @@ SOA structures the application as a collection of services that communicate over
 
 ## Architectural Overview
 
-![architecture diagram](<architecture.png>)
+![architecture diagram](<images/ECHO Architecture.png>)
 
 ### Presentation Layer
 #### Components

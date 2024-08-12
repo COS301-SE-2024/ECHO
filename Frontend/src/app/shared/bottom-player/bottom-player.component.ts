@@ -1,30 +1,31 @@
 import { Component, AfterViewInit, OnDestroy, ViewChild, ElementRef, ChangeDetectorRef } from "@angular/core";
 import { MatCard, MatCardContent } from "@angular/material/card";
-import { NgIf,NgClass } from "@angular/common";
+import { NgIf, NgClass } from "@angular/common";
 import { ThemeService } from "../../services/theme.service";
 import { SpotifyService } from "../../services/spotify.service";
-import { ScreenSizeService } from '../../services/screen-size-service.service';
+import { ScreenSizeService } from "../../services/screen-size-service.service";
 import { Subscription, interval } from "rxjs";
 import { ProviderService } from "../../services/provider.service";
-import { MoodService } from '../../services/mood-service.service';
+import { MoodService } from "../../services/mood-service.service";
+
 @Component({
   selector: "app-bottom-player",
   standalone: true,
-  imports: [MatCard, MatCardContent, NgIf,NgClass],
+  imports: [MatCard, MatCardContent, NgIf, NgClass],
   templateUrl: "./bottom-player.component.html",
   styleUrls: ["./bottom-player.component.css"]
 })
 export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
-  @ViewChild('progressContainer') private progressContainer!: ElementRef;
+  @ViewChild("progressContainer") private progressContainer!: ElementRef;
   protected imgsrc: string = "../../../assets/images/play.png";
   playing: boolean = false;
   started: boolean = false;
   screenSize?: string;
 
   //Mood Service Variables
-  moodComponentClasses!:{ [key: string]: string };
-  backgroundMoodClasses!:{ [key: string]: string };
-  moodClassesDark!:{ [key: string]: string };
+  moodComponentClasses!: { [key: string]: string };
+  backgroundMoodClasses!: { [key: string]: string };
+  moodClassesDark!: { [key: string]: string };
   currentTrack: any = {
     name: "All In",
     artist: "Nasty C ft. TI",
@@ -37,20 +38,20 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
   private playingStateSubscription!: Subscription;
   private progressSubscription!: Subscription;
   private progressUpdateSubscription!: Subscription;
+  public muted: boolean = false;
 
 
-
-  constructor(protected themeService: ThemeService, 
-    private spotifyService: SpotifyService,
-    private screenSizeService: ScreenSizeService,
-    private providerService: ProviderService,
-    public moodService: MoodService,
-    private cdr: ChangeDetectorRef
-    ) {
-      this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
-      this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
-      this.moodClassesDark = this.moodService.getComponentMoodClassesDark();
-      }
+  constructor(protected themeService: ThemeService,
+              private spotifyService: SpotifyService,
+              private screenSizeService: ScreenSizeService,
+              private providerService: ProviderService,
+              public moodService: MoodService,
+              private cdr: ChangeDetectorRef
+  ) {
+        this.moodComponentClasses = this.moodService.getComponentMoodClasses();
+        this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
+        this.moodClassesDark = this.moodService.getComponentMoodClassesDark();
+  }
 
 
   ngAfterViewInit(): void {
@@ -86,7 +87,7 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
     this.screenSizeService.screenSize$.subscribe(screenSize => {
       this.screenSize = screenSize;
     });
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       await this.spotifyService.init();
     }
   }
@@ -96,7 +97,7 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
       this.spotifyService.disconnectPlayer();
       this.unsubscribeAll();
     }
-    this.providerService.clear()
+    this.providerService.clear();
   }
 
   private unsubscribeAll(): void {
@@ -108,10 +109,28 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
     });
   }
 
+  async mute(): Promise<void> {
+    this.muted = !this.muted;
+    if (this.providerService.getProviderName() === "spotify") {
+      await this.spotifyService.mute();
+    }
+  }
 
-  updateProgress(event: MouseEvent): void {
-    if (!this.progressContainer) {
-      console.error('Progress container not initialized');
+  async unmute(): Promise<void>
+  {
+    this.muted = false;
+    if (this.providerService.getProviderName() === "spotify")
+    {
+      await this.spotifyService.unmute();
+    }
+  }
+
+
+  updateProgress(event: MouseEvent): void
+  {
+    if (!this.progressContainer)
+    {
+      console.error("Progress container not initialized");
       return;
     }
 
@@ -176,7 +195,7 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
   }
 
   onVolumeChange(event: any): void {
-    if (this.providerService.getProviderName() === 'spotify') {
+    if (this.providerService.getProviderName() === "spotify") {
       const volume = event.target.value / 100;
       this.spotifyService.setVolume(volume);
     }

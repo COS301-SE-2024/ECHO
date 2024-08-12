@@ -6,6 +6,7 @@ import { ThemeService } from '../../services/theme.service';
 import { AuthService } from '../../services/auth.service';
 import { SpotifyService } from '../../services/spotify.service';
 import { ScreenSizeService } from '../../services/screen-size-service.service';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 // Mock classes for services
 class MockThemeService {
@@ -31,9 +32,10 @@ describe('UserLibraryComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        UserLibraryComponent  // Importing as standalone component
+        UserLibraryComponent,  // Importing as standalone component
       ],
       providers: [
+        provideHttpClient(withInterceptorsFromDi()),
         { provide: ThemeService, useClass: MockThemeService },
         { provide: AuthService, useClass: MockAuthService },
         { provide: SpotifyService, useClass: MockSpotifyService },

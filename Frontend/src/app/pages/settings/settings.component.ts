@@ -9,18 +9,23 @@ import { AudioComponent } from '../../shared/setting-pages/audio/audio.component
 import { DisplayComponent } from '../../shared/setting-pages/display/display.component';
 import { LanguageComponent } from '../../shared/setting-pages/language/language.component';
 import { PrivacyComponent } from '../../shared/setting-pages/privacy/privacy.component';
+import { MoodService } from '../../services/mood-service.service';
+import { BackButtonComponent } from '../../shared/back-button/back-button.component';
+
 
 @Component({
   selector: 'app-settings',
   standalone: true,
   imports: [
     NgIf,
+    NgClass,
     BottomPlayerComponent,
     AccountComponent,
     AudioComponent,
     DisplayComponent,
     LanguageComponent,
     PrivacyComponent,
+    BackButtonComponent,
   ],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.css'
@@ -28,14 +33,22 @@ import { PrivacyComponent } from '../../shared/setting-pages/privacy/privacy.com
 
 export class SettingsComponent {
 
-  activeSetting: string = 'Choose a setting';
+  activeSetting: string = 'Account';
   screenSize?: string;
+  currentMood!: string;
+  moodComponentClasses!:{ [key: string]: string };
+  backgroundMoodClasses!:{ [key: string]: string };
 
   constructor(
     protected themeService: ThemeService,
     private spotifyService: SpotifyService,
-        private screenSizeService: ScreenSizeService
-  ) {}
+    private screenSizeService: ScreenSizeService,
+    public moodService: MoodService,
+  ) {
+    this.currentMood = this.moodService.getCurrentMood(); 
+    this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
+    this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
+  }
 
   switchTheme(): void {
     this.themeService.switchTheme();

@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SearchComponent } from './search.component';
 import { SearchService, Track } from '../../services/search.service';
 import { of } from 'rxjs';
+import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
 
 describe('SearchComponent', () => {
   let component: SearchComponent;
@@ -17,6 +18,7 @@ describe('SearchComponent', () => {
     };
     await TestBed.configureTestingModule({
       providers: [
+        provideHttpClient(withInterceptorsFromDi()),
         SearchComponent,
         { provide: SearchService, useValue: searchServiceMock }
       ]

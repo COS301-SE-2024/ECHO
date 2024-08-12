@@ -118,7 +118,8 @@
 <a name='L53'></a><a href='#L53'>53</a>
 <a name='L54'></a><a href='#L54'>54</a>
 <a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -173,49 +174,48 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&lt;div class="min-h-screen dark:bg-desktop-bg bg-gray-verylight grid grid-cols-5 grid-rows-6 gap-4 px-6 py-3 lg:px-8" style="overflow: auto;"&gt;
-  &lt;div class="col-start-1 col-span-5 row-start-1"&gt;
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&lt;div [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]" class="min-h-screen grid grid-cols-5 grid-rows-6 gap-4 px-6 py-3 lg:px-8" style="overflow: auto;"&gt;
+  &lt;div class="col-start-1 col-span-5 row-start-1" style="padding-top: 50px;"&gt; &lt;!-- Adjust padding-top as needed --&gt;
     &lt;div class="fixed navbar-container pt-[1vh] pl-5"&gt;
-        &lt;app-navbar (selectedNavChange)="onNavChange($event) "&gt;&lt;/app-navbar&gt;
-      &lt;/div&gt;
-      &lt;app-search-bar *ngIf="screenSize === 'desktop'" (searchDown)="onSearchdown($event)" class="col-start-2 row-start-1"&gt;&lt;/app-search-bar&gt;
-      &lt;div class="fixed top-5 right-8 flex flex-col items-center"&gt;
-        &lt;img (click)="profile()" [src]="themeService.isDarkModeActive() ? '../../../../assets/icons/profile-light.png' : '../../../../assets/icons/profile-dark.png'" alt="profile" class="w-12 h-12 hover:cursor-pointer"&gt;
-        &lt;button *ngIf="screenSize === 'desktop'" class="mt-2 p-2" (click)="switchTheme()"&gt;
-            &lt;img *ngIf="!themeService.isDarkModeActive()" src="../../../assets/icons/light-mode.png" alt="Light Mode" class="w-10 h-10"&gt;
-            &lt;img *ngIf="themeService.isDarkModeActive()" src="../../../assets/icons/dark-mode.png" alt="Dark Mode" class="w-10 h-10"&gt;
-        &lt;/button&gt;
+        &lt;app-navbar (selectedNavChange)="onNavChange($event)"&gt;&lt;/app-navbar&gt;
+    &lt;/div&gt;
+    &lt;app-search-bar 
+      *ngIf="screenSize === 'desktop'" 
+      (searchDown)="onSearchdown($event)" 
+      class="mb-4 col-start-2 row-start-1"&gt;
+    &lt;/app-search-bar&gt;
+&nbsp;
+    &lt;div class="flex space-x-2 mb-10 col-start-2 row-start-2"&gt;
+      &lt;!-- Button for Mood --&gt;
+      &lt;button
+        *ngFor="let mood of moods; let i = index"
+        (click)="selectMood(i)"
+        [class.bg-pink]="selectedMood === null &amp;&amp; i === 0 || selectedMood === i"
+        [class.text-white]="selectedMood === null &amp;&amp; i === 0 || selectedMood === i"
+        [class.bg-gray-component]="!(selectedMood === null &amp;&amp; i === 0) &amp;&amp; selectedMood !== i"
+        [class.text-gray-verylight]="!(selectedMood === null &amp;&amp; i === 0) &amp;&amp; selectedMood !== i"
+        class="ml-108 my-5 px-5 py-2 rounded-full focus:outline-none focus:cursor-pointer transition-colors duration-300"&gt;
+        {{ mood }}
+      &lt;/button&gt; 
     &lt;/div&gt;
 &nbsp;
-    &lt;app-search-bar *ngIf="screenSize === 'desktop'" (searchDown)="onSearchdown($event)" class="col-start-2 row-start-1"&gt;&lt;/app-search-bar&gt;
-    &lt;div class="fixed top-5 right-8 flex flex-col items-center"&gt;
-      &lt;img (click)="profile()" [src]="themeService.isDarkModeActive() ? '../../../../assets/icons/profile-light.png' : '../../../../assets/icons/profile-dark.png'" alt="profile" class="w-12 h-12 hover:cursor-pointer"&gt;
-      &lt;button *ngIf="screenSize === 'desktop'" class="mt-2 p-2" (click)="switchTheme()"&gt;
-          &lt;img *ngIf="!themeService.isDarkModeActive()" src="../../../assets/icons/light-mode.png" alt="Light Mode" class="w-10 h-10"&gt;
-          &lt;img *ngIf="themeService.isDarkModeActive()" src="../../../assets/icons/dark-mode.png" alt="Dark Mode" class="w-10 h-10"&gt;
-      &lt;/button&gt;
+    
+    &lt;div class="fixed top-5 right-8 flex flex-row items-center space-x-4 mr-8"&gt;
+      &lt;!-- Moved Mood Drop Down Here, Directly to the Left of Profile --&gt;
+      &lt;app-mood-drop-down class="mt-2"&gt;&lt;/app-mood-drop-down&gt;
+      &lt;img (click)="profile()" [src]="'../../../../assets/icons/profile-light.png'" alt="profile" class="w-12 h-12 hover:cursor-pointer"&gt;
     &lt;/div&gt;
   &lt;/div&gt;
-&nbsp;
-  &lt;app-side-bar *ngIf="screenSize === 'desktop'" class="col-start-1 col-span-1 row-start-1 row-span-6"&gt;&lt;/app-side-bar&gt;
-&nbsp;
-  &lt;app-moods *ngIf="screenSize === 'mobile'" class="col-start-1 col-span-12 row-start-1 row-span-10 pt-20"&gt;&lt;/app-moods&gt;
-  &lt;app-side-bar *ngIf="screenSize === 'mobile'" class="pt-12 col-start-1 col-span-12 row-start-2 row-span-9"&gt;&lt;/app-side-bar&gt;
-&nbsp;
-  &lt;div *ngIf="title === 'Home' " class="col-start-2 col-span-4 row-start-1 row-span-5 pl-16 pt-20 mr-5"&gt;
-    &lt;app-moods *ngIf="screenSize === 'desktop'" class="col-start-2 col-span-4 row-start-1 row-span-5 pl-16 pt-20 mr-5"&gt;&lt;/app-moods&gt;
-&nbsp;
-  &lt;/div&gt;
-&nbsp;
-  &lt;ng-container [ngSwitch]="screenSize"&gt;
+  &lt;ng-container [ngSwitch]="screenSize"&gt;  
     &lt;!-- Desktop Layout --&gt;
     &lt;ng-container *ngSwitchCase="'desktop'"&gt;
-      &lt;app-side-bar class="col-start-1 col-span-1 row-start-1 row-span-6 "&gt;&lt;/app-side-bar&gt;
+      &lt;app-side-bar class="col-start-1 col-span-1 row-start-1 row-span-6"&gt;&lt;/app-side-bar&gt;
       &lt;div *ngIf="title === 'Home'" class="col-start-2 col-span-4 row-start-1 row-span-5 pl-16 pt-20 mr-5"&gt;
         &lt;app-moods&gt;&lt;/app-moods&gt;
       &lt;/div&gt;
     &lt;/ng-container&gt;
-  
+    
     &lt;!-- Mobile Layout --&gt;
     &lt;ng-container *ngSwitchCase="'mobile'"&gt;
       &lt;app-moods class="col-start-1 col-span-12 row-start-1 row-span-10 pt-[8.5vh]"&gt;&lt;/app-moods&gt;
@@ -223,19 +223,22 @@
     &lt;/ng-container&gt;
   &lt;/ng-container&gt;
   
-  &lt;!-- Common Components Across Screen Sizes --&gt;
+  &lt;!-- Search and Insight Components --&gt;
   &lt;div *ngIf="title === 'Search'" class="col-start-2 col-span-4 row-start-1 row-span-5 pl-16 pt-16 mr-5"&gt;
     &lt;app-search [searchQuery]="searchQuery"&gt;&lt;/app-search&gt;
   &lt;/div&gt;
-&lt;/div&gt;
-&nbsp;</pre></td></tr></table></pre>
+  &lt;!-- Insight Component --&gt;
+  &lt;div *ngIf="title === 'Insight'" class="col-start-2 col-span-4 row-start-1 row-span-5 pl-16 pt-16 mr-5"&gt;
+    &lt;app-insights [percentageData]="getMoodPercentageData()"&gt;&lt;/app-insights&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-08-01T14:56:03.920Z
+                at 2024-08-12T11:27:50.360Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

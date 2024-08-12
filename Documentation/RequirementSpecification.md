@@ -4,6 +4,7 @@
 # Table of contents
 - [ECHO Requirements Specification](#echo-requirements-specification)
 - [Table of contents](#table-of-contents)
+- [Link to previous documentation versions:](#link-to-previous-documentation-versions)
 - [Introduction](#introduction)
     - [Vision and Mission](#vision-and-mission)
     - [Business Needs](#business-needs)
@@ -28,6 +29,7 @@
   - [12. Music Playback](#12-music-playback)
   - [13. Queue Management](#13-queue-management)
   - [14. View Listening History](#14-view-listening-history)
+  - [15. Mobile Separation](#15-mobile-separation)
 - [Service Contracts](#service-contracts)
   - [1.1 Register](#11-register)
   - [1.2 Login](#12-login)
@@ -46,6 +48,9 @@
   - [4. AI Processing Subsystem](#4-ai-processing-subsystem)
   - [5. Spotify Integration Subsystem](#5-spotify-integration-subsystem)
   - [6. Music Player Subsystem](#6-music-player-subsystem)
+  - [7. AI Clustering Subsystem](#7-ai-clustering-subsystem)
+  - [8. AI Sentiment Analysis Subsystem](#8-ai-sentiment-analysis-subsystem)
+  - [9. Genre Detection Subsystem](#9-genre-detection-subsystem)
 - [UML Class Diagram](#uml-class-diagram)
 - [Design Patterns](#design-patterns)
   - [Observer](#observer)
@@ -245,6 +250,12 @@ ECHO is a Progressive Web Application that interacts with the Spotify API and ta
 14.1 View recently listened
 - Allow users to view a list of songs in order of most recently listened.
 
+## 15. Mobile Separation
+  15.1 Mobile Separation of concerns
+- Ensure that the mobile application has a clear separation of concerns to improve maintainability and scalability.
+15.2 Mobile-specific features
+- Implement features that are specifically designed for mobile users.
+
 <br />
 <br />
 
@@ -429,31 +440,37 @@ The listener drags the volume slider on the music player. The system adjusts the
 # Use Case Diagrams
 
 ## 1. User Management Subsystem
-![user-management](<User Management.png>)
+![user-management](<images/User Management.png>)
 
 ## 2. Profile Management Subsystem
-![profile-management](<Profile Management.png>)
+![profile-management](<images/Profile Management.png>)
 
 ## 3. Analytics Display Subsystem
-![analytics](<Analytics Display.png>)
+![analytics](<images/Analytics Display.png>)
 
 ## 4. AI Processing Subsystem
-![AI-processing](<new AI Subsystem.png>)
+![AI-processing](<images/AI Processing Subsystem.png>)
 
 ## 5. Spotify Integration Subsystem
-![spotify-integration](<Spotify Integration Subsystem.png>)
+![spotify-integration](<images/Spotify Integration Subsystem.png>)
 
 ## 6. Music Player Subsystem
-![music-player](<Music Player Subsystem.png>)
+![music-player](<images/Music Player Subsystem.png>)
 
 ## 7. AI Clustering Subsystem
-![AI-clustering](<clustering use case.png>)
+![AI-clustering](<images/Clustering Subsystem.png>)
+
+## 8. AI Sentiment Analysis Subsystem
+![AI-sentiment-analysis](<images/Sentiment Analysis Subsystem.png>)
+
+## 9. Genre Detection Subsystem
+![genre-detection](<images/Genre Detection Subsystem.png>)
 
 <br />
 <br />
 
 # UML Class Diagram
-![class diagram](<class diagram.drawio.png>)
+![class diagram](<images/class diagram.drawio.png>)
 
 <br />
 <br />
