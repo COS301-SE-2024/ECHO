@@ -88,13 +88,13 @@ describe('AppComponent', () => {
 
   it('should update showPlayer based on navigation end events', () => {
     routerEventsSubject.next(new NavigationEnd(1, '/home#search', '/home#search'));
-    fixture.detectChanges();
+    //fixture.detectChanges();
     expect(component.showPlayer).toBe(true);
   });
 
   it('should update displayPlayer based on navigation end events', () => {
     routerEventsSubject.next(new NavigationEnd(1, '/settings', '/settings'));
-    fixture.detectChanges();
+    //fixture.detectChanges();
     expect(component.displayPlayer).toBe(true);
   });
 

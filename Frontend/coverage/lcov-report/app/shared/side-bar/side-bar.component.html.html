@@ -203,7 +203,27 @@
 <a name='L138'></a><a href='#L138'>138</a>
 <a name='L139'></a><a href='#L139'>139</a>
 <a name='L140'></a><a href='#L140'>140</a>
-<a name='L141'></a><a href='#L141'>141</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">7x</span>
+<a name='L141'></a><a href='#L141'>141</a>
+<a name='L142'></a><a href='#L142'>142</a>
+<a name='L143'></a><a href='#L143'>143</a>
+<a name='L144'></a><a href='#L144'>144</a>
+<a name='L145'></a><a href='#L145'>145</a>
+<a name='L146'></a><a href='#L146'>146</a>
+<a name='L147'></a><a href='#L147'>147</a>
+<a name='L148'></a><a href='#L148'>148</a>
+<a name='L149'></a><a href='#L149'>149</a>
+<a name='L150'></a><a href='#L150'>150</a>
+<a name='L151'></a><a href='#L151'>151</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -348,24 +368,34 @@
     &lt;div class="pl-5 py-4 rounded-md h-full"&gt;
       &lt;div [ngClass]="this.moodComponentClasses[this.moodService.getCurrentMood()]" class=" rounded-lg overflow-auto h-full flex flex-col justify-between scrollbar-hidden"&gt;
         &lt;div class="flex flex-col h-full"&gt;
-          &lt;div class="flex justify-between mb-2 mt-2"&gt;
-            &lt;div class="button-container" [class.underline-blue]="selectedOption === 'upNext'" [class.underline-none]="selectedOption !== 'upNext'"&gt;
-              &lt;button class="pl-5 pr-5 text-sm text-gray-800 dark:text-white focus:outline-none button"
-                      (click)="selectOption('upNext')"&gt;Suggestions
-              &lt;/button&gt;
+          &lt;div class="flex justify-between items-center mb-2 mt-3"&gt;
+            &lt;!-- Suggestions Button --&gt;
+            &lt;div class="button-container" 
+                 [class.underline-blue]="selectedOption === 'upNext'" 
+                 [class.underline-none]="selectedOption !== 'upNext'"&gt;
+                &lt;button class="px-10 text-sm text-gray-800 dark:text-white focus:outline-none"
+                        (click)="selectOption('upNext')"&gt;
+                    Suggestions
+                &lt;/button&gt;
             &lt;/div&gt;
-            &lt;div class="button-container pt-2" [class.underline-blue]="selectedOption === 'recentListening'" [class.underline-none]="selectedOption !== 'recentListening'"&gt;
-              &lt;button class="pl-5 pr-5 text-sm text-gray-800 dark:text-white focus:outline-none button"
-                      (click)="selectOption('recentListening')"&gt;Recent listening
-              &lt;/button&gt;
+        
+            &lt;!-- Recent Listening Button --&gt;
+            &lt;div class="button-container" 
+                 [class.underline-blue]="selectedOption === 'recentListening'" 
+                 [class.underline-none]="selectedOption !== 'recentListening'"&gt;
+                &lt;button class="px-10 text-sm text-gray-800 dark:text-white focus:outline-none"
+                        (click)="selectOption('recentListening')"&gt;
+                    Recent listening
+                &lt;/button&gt;
             &lt;/div&gt;
-          &lt;/div&gt;
+        &lt;/div&gt;
+        
 &nbsp;
           &lt;div class="mt-7 mx-3 flex-grow overflow-auto scrollbar-hidden"&gt;
             &lt;div *ngFor="let card of getSelectedCardData(); let i = index" class="flex items-center mb-5 hover:cursor-pointer" (click)="playTrack(card.id)"&gt;
               &lt;!-- Image on the left --&gt;
               &lt;div class="mr-4 flex-shrink-0" style="width: 25%;"&gt;
-                &lt;img [src]="card.imageUrl" alt="Card image" class="w-full h-auto rounded"&gt;
+                &lt;img [src]="card?.imageUrl || 'path/to/default-image.jpg'" alt="Card image" class="w-full h-auto rounded"&gt;
               &lt;/div&gt;
               &lt;!-- Text on the right --&gt;
               &lt;div class="flex-grow"&gt;
@@ -394,7 +424,7 @@
 &lt;/div&gt;
 &nbsp;
 &nbsp;
-&lt;div *ngIf="screenSize === 'mobile'" class="flex flex-col w-full"&gt; 
+&lt;div *ngIf="screenSize === 'mobile'" class="flex flex-col w-full"&gt;
 &lt;button id="dropdownDefaultButton" (click)="toggleDropdown()" [ngClass]="this.moodComponentClasses[this.moodService.getCurrentMood()]" data-dropdown-toggle="dropdown" class="w-full justify-between font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center" type="button"&gt;{{selected}}&lt;svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6"&gt;
   &lt;path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/&gt;
 &lt;/svg&gt;
@@ -406,7 +436,7 @@
       &lt;ul class="py-2" [ngClass]="this.moodComponentClasses[this.moodService.getCurrentMood()]"  aria-labelledby="dropdownDefaultButton"&gt;
         &lt;li *ngFor="let option of options"&gt;
           &lt;a (click)="selectedOptionChange(option)" [ngClass]="this.moodComponentClasses[this.moodService.getCurrentMood()]" class="block w-full px-4"&gt;{{option}}&lt;/a&gt;
-        &lt;/li&gt; 
+        &lt;/li&gt;
       &lt;/ul&gt;
     &lt;/div&gt;
 &lt;/div&gt;
@@ -420,7 +450,7 @@
       &lt;div [ngClass]="this.moodComponentClasses[this.moodService.getCurrentMood()]"  class="mb-4 w-full rounded-lg shadow-lg overflow-hidden"&gt;
         &lt;div class="flex items-center p-4" (click)="playTrack(card.id)"&gt;
           &lt;!-- Card Image --&gt;
-          &lt;img class="w-16 h-16 rounded-lg" src="{{ card.imageUrl }}" alt="Album Art"&gt;
+          &lt;img class="w-16 h-16 rounded-lg" [src]="card?.imageUrl || 'path/to/default-image.jpg'" alt="Album Art"&gt;
           &lt;!-- Card Content --&gt;
           &lt;div class="ml-4"&gt;
             &lt;h3 class="text-lg font-bold text-gray-900 dark:text-white"&gt;{{ card.text }}&lt;/h3&gt;
@@ -490,7 +520,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-08-11T09:54:09.926Z
+                at 2024-08-12T08:57:09.854Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
