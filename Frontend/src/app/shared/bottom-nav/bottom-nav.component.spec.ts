@@ -1,8 +1,10 @@
 import { BottomNavComponent } from './bottom-nav.component';
+import { MoodService } from "./../../services/mood-service.service";
 import { Router } from '@angular/router';
 
 describe('BottomNavComponent', () => {
   let component: BottomNavComponent;
+  let moodService: MoodService;
   let router: Router;
 
   beforeEach(() => {
@@ -11,8 +13,15 @@ describe('BottomNavComponent', () => {
       navigate: jest.fn()
     } as any;
 
-    // Initialize the component with the mocked router
-    component = new BottomNavComponent(router);
+    // Mock the MoodService
+    moodService = {
+      getComponentMoodClasses: jest.fn().mockReturnValue([]),
+      getBackgroundMoodClasses: jest.fn().mockReturnValue([]),
+      getComponentMoodClassesDark: jest.fn().mockReturnValue([])
+    } as any;
+
+    // Initialize the component with the mocked router and moodService
+    component = new BottomNavComponent(router, moodService);
   });
 
   it('should create', () => {

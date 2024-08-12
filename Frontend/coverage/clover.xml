@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1723370050927" clover="3.2.0">
-  <project timestamp="1723370050928" name="All files">
-    <metrics statements="1243" coveredstatements="908" conditionals="284" coveredconditionals="83" methods="303" coveredmethods="188" elements="1830" coveredelements="1179" complexity="0" loc="1243" ncloc="1243" packages="40" files="85" classes="85"/>
+<coverage generated="1723462071146" clover="3.2.0">
+  <project timestamp="1723462071146" name="All files">
+    <metrics statements="1369" coveredstatements="1037" conditionals="297" coveredconditionals="142" methods="328" coveredmethods="215" elements="1994" coveredelements="1394" complexity="0" loc="1369" ncloc="1369" packages="41" files="87" classes="87"/>
     <package name="app">
-      <metrics statements="48" coveredstatements="48" conditionals="8" coveredconditionals="8" methods="7" coveredmethods="7"/>
+      <metrics statements="60" coveredstatements="48" conditionals="10" coveredconditionals="6" methods="7" coveredmethods="7"/>
       <file name="app.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\app.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
       </file>
       <file name="app.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\app.component.ts">
-        <metrics statements="47" coveredstatements="47" conditionals="8" coveredconditionals="8" methods="7" coveredmethods="7"/>
+        <metrics statements="59" coveredstatements="47" conditionals="10" coveredconditionals="6" methods="7" coveredmethods="7"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -22,41 +22,53 @@
         <line num="11" count="1" type="stmt"/>
         <line num="12" count="1" type="stmt"/>
         <line num="13" count="1" type="stmt"/>
-        <line num="22" count="1" type="stmt"/>
-        <line num="23" count="6" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
         <line num="24" count="6" type="stmt"/>
-        <line num="26" count="6" type="stmt"/>
+        <line num="25" count="6" type="stmt"/>
         <line num="27" count="6" type="stmt"/>
         <line num="28" count="6" type="stmt"/>
         <line num="29" count="6" type="stmt"/>
         <line num="30" count="6" type="stmt"/>
-        <line num="32" count="6" type="stmt"/>
-        <line num="33" count="6" type="stmt"/>
-        <line num="34" count="5" type="stmt"/>
-        <line num="37" count="5" type="cond" truecount="1" falsecount="0"/>
-        <line num="38" count="5" type="stmt"/>
-        <line num="39" count="5" type="stmt"/>
+        <line num="31" count="6" type="stmt"/>
+        <line num="34" count="6" type="stmt"/>
+        <line num="35" count="6" type="stmt"/>
+        <line num="36" count="5" type="stmt"/>
+        <line num="39" count="5" type="cond" truecount="1" falsecount="0"/>
         <line num="40" count="5" type="stmt"/>
-        <line num="41" count="5" type="cond" truecount="6" falsecount="0"/>
+        <line num="41" count="5" type="stmt"/>
+        <line num="42" count="5" type="stmt"/>
+        <line num="43" count="5" type="cond" truecount="4" falsecount="4"/>
         <line num="45" count="2" type="stmt"/>
         <line num="46" count="2" type="stmt"/>
         <line num="47" count="2" type="stmt"/>
-        <line num="49" count="1" type="stmt"/>
-        <line num="50" count="1" type="stmt"/>
-        <line num="51" count="1" type="stmt"/>
-        <line num="53" count="1" type="stmt"/>
-        <line num="54" count="1" type="stmt"/>
-        <line num="55" count="1" type="stmt"/>
-        <line num="57" count="1" type="stmt"/>
-        <line num="58" count="1" type="stmt"/>
-        <line num="63" count="6" type="stmt"/>
-        <line num="64" count="6" type="cond" truecount="1" falsecount="0"/>
-        <line num="65" count="6" type="stmt"/>
-        <line num="66" count="6" type="stmt"/>
-        <line num="67" count="6" type="stmt"/>
-        <line num="68" count="6" type="stmt"/>
+        <line num="49" count="0" type="stmt"/>
+        <line num="50" count="0" type="stmt"/>
+        <line num="51" count="0" type="stmt"/>
+        <line num="53" count="0" type="stmt"/>
+        <line num="54" count="0" type="stmt"/>
+        <line num="55" count="0" type="stmt"/>
+        <line num="57" count="0" type="stmt"/>
+        <line num="58" count="0" type="stmt"/>
+        <line num="59" count="0" type="stmt"/>
+        <line num="61" count="0" type="stmt"/>
+        <line num="62" count="0" type="stmt"/>
+        <line num="63" count="0" type="stmt"/>
+        <line num="65" count="1" type="stmt"/>
+        <line num="66" count="1" type="stmt"/>
+        <line num="67" count="1" type="stmt"/>
+        <line num="70" count="1" type="stmt"/>
+        <line num="71" count="1" type="stmt"/>
+        <line num="72" count="1" type="stmt"/>
+        <line num="74" count="1" type="stmt"/>
         <line num="75" count="1" type="stmt"/>
-        <line num="76" count="2" type="stmt"/>
+        <line num="80" count="6" type="stmt"/>
+        <line num="81" count="6" type="cond" truecount="1" falsecount="0"/>
+        <line num="82" count="6" type="stmt"/>
+        <line num="83" count="6" type="stmt"/>
+        <line num="84" count="6" type="stmt"/>
+        <line num="85" count="6" type="stmt"/>
+        <line num="93" count="1" type="stmt"/>
+        <line num="94" count="2" type="stmt"/>
       </file>
     </package>
     <package name="app.authcallback">
@@ -93,13 +105,13 @@
       </file>
     </package>
     <package name="app.pages.artist-profile">
-      <metrics statements="45" coveredstatements="29" conditionals="2" coveredconditionals="0" methods="13" coveredmethods="1"/>
+      <metrics statements="45" coveredstatements="40" conditionals="2" coveredconditionals="1" methods="13" coveredmethods="9"/>
       <file name="artist-profile.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\pages\artist-profile\artist-profile.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
       </file>
       <file name="artist-profile.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\pages\artist-profile\artist-profile.component.ts">
-        <metrics statements="44" coveredstatements="28" conditionals="2" coveredconditionals="0" methods="13" coveredmethods="1"/>
+        <metrics statements="44" coveredstatements="39" conditionals="2" coveredconditionals="1" methods="13" coveredmethods="9"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -119,41 +131,41 @@
         <line num="18" count="1" type="stmt"/>
         <line num="19" count="1" type="stmt"/>
         <line num="42" count="1" type="stmt"/>
-        <line num="43" count="1" type="stmt"/>
-        <line num="46" count="1" type="stmt"/>
-        <line num="57" count="1" type="stmt"/>
-        <line num="60" count="1" type="stmt"/>
-        <line num="61" count="1" type="stmt"/>
-        <line num="62" count="1" type="stmt"/>
-        <line num="63" count="1" type="stmt"/>
-        <line num="64" count="1" type="stmt"/>
-        <line num="65" count="1" type="stmt"/>
-        <line num="69" count="0" type="stmt"/>
-        <line num="70" count="0" type="stmt"/>
-        <line num="71" count="0" type="stmt"/>
-        <line num="75" count="0" type="stmt"/>
-        <line num="76" count="0" type="stmt"/>
-        <line num="78" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="79" count="0" type="stmt"/>
-        <line num="83" count="0" type="stmt"/>
+        <line num="43" count="6" type="stmt"/>
+        <line num="46" count="6" type="stmt"/>
+        <line num="57" count="6" type="stmt"/>
+        <line num="60" count="6" type="stmt"/>
+        <line num="61" count="6" type="stmt"/>
+        <line num="62" count="6" type="stmt"/>
+        <line num="63" count="6" type="stmt"/>
+        <line num="64" count="6" type="stmt"/>
+        <line num="65" count="6" type="stmt"/>
+        <line num="69" count="1" type="stmt"/>
+        <line num="70" count="1" type="stmt"/>
+        <line num="71" count="1" type="stmt"/>
+        <line num="75" count="1" type="stmt"/>
+        <line num="76" count="1" type="stmt"/>
+        <line num="78" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="79" count="1" type="stmt"/>
+        <line num="83" count="1" type="stmt"/>
         <line num="89" count="0" type="stmt"/>
         <line num="93" count="0" type="stmt"/>
         <line num="94" count="0" type="stmt"/>
         <line num="101" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="103" count="0" type="stmt"/>
-        <line num="108" count="0" type="stmt"/>
-        <line num="109" count="0" type="stmt"/>
-        <line num="115" count="0" type="stmt"/>
+        <line num="108" count="1" type="stmt"/>
+        <line num="109" count="1" type="stmt"/>
+        <line num="115" count="1" type="stmt"/>
       </file>
     </package>
     <package name="app.pages.home">
-      <metrics statements="40" coveredstatements="33" conditionals="1" coveredconditionals="1" methods="7" coveredmethods="3"/>
+      <metrics statements="45" coveredstatements="36" conditionals="1" coveredconditionals="1" methods="9" coveredmethods="3"/>
       <file name="home.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\pages\home\home.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
       </file>
       <file name="home.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\pages\home\home.component.ts">
-        <metrics statements="39" coveredstatements="32" conditionals="1" coveredconditionals="1" methods="7" coveredmethods="3"/>
+        <metrics statements="44" coveredstatements="35" conditionals="1" coveredconditionals="1" methods="9" coveredmethods="3"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -169,30 +181,91 @@
         <line num="13" count="1" type="stmt"/>
         <line num="14" count="1" type="stmt"/>
         <line num="15" count="1" type="stmt"/>
-        <line num="38" count="1" type="stmt"/>
-        <line num="44" count="2" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="40" count="1" type="stmt"/>
         <line num="46" count="2" type="stmt"/>
-        <line num="47" count="2" type="stmt"/>
+        <line num="48" count="2" type="stmt"/>
+        <line num="49" count="2" type="stmt"/>
         <line num="50" count="2" type="stmt"/>
-        <line num="51" count="2" type="stmt"/>
-        <line num="52" count="2" type="stmt"/>
-        <line num="53" count="2" type="stmt"/>
-        <line num="54" count="2" type="stmt"/>
         <line num="55" count="2" type="stmt"/>
-        <line num="57" count="2" type="stmt"/>
-        <line num="58" count="2" type="stmt"/>
         <line num="59" count="2" type="stmt"/>
-        <line num="63" count="0" type="stmt"/>
-        <line num="67" count="0" type="stmt"/>
-        <line num="68" count="0" type="stmt"/>
+        <line num="60" count="2" type="stmt"/>
+        <line num="61" count="2" type="stmt"/>
+        <line num="62" count="2" type="stmt"/>
+        <line num="63" count="2" type="stmt"/>
+        <line num="64" count="2" type="stmt"/>
+        <line num="66" count="2" type="stmt"/>
+        <line num="67" count="2" type="stmt"/>
+        <line num="68" count="2" type="stmt"/>
         <line num="72" count="0" type="stmt"/>
-        <line num="73" count="0" type="stmt"/>
-        <line num="74" count="0" type="stmt"/>
-        <line num="78" count="1" type="stmt"/>
-        <line num="79" count="1" type="stmt"/>
-        <line num="81" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="82" count="1" type="stmt"/>
-        <line num="87" count="0" type="stmt"/>
+        <line num="76" count="0" type="stmt"/>
+        <line num="77" count="0" type="stmt"/>
+        <line num="81" count="0" type="stmt"/>
+        <line num="82" count="0" type="stmt"/>
+        <line num="83" count="0" type="stmt"/>
+        <line num="87" count="1" type="stmt"/>
+        <line num="88" count="1" type="stmt"/>
+        <line num="90" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="91" count="1" type="stmt"/>
+        <line num="96" count="0" type="stmt"/>
+        <line num="106" count="0" type="stmt"/>
+        <line num="109" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="app.pages.insights">
+      <metrics statements="47" coveredstatements="43" conditionals="9" coveredconditionals="6" methods="12" coveredmethods="10"/>
+      <file name="insights.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\pages\insights\insights.component.html">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="2" type="stmt"/>
+      </file>
+      <file name="insights.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\pages\insights\insights.component.ts">
+        <metrics statements="46" coveredstatements="42" conditionals="9" coveredconditionals="6" methods="12" coveredmethods="10"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="15" count="2" type="stmt"/>
+        <line num="16" count="6" type="stmt"/>
+        <line num="18" count="6" type="stmt"/>
+        <line num="20" count="6" type="stmt"/>
+        <line num="21" count="6" type="stmt"/>
+        <line num="28" count="6" type="stmt"/>
+        <line num="30" count="6" type="stmt"/>
+        <line num="31" count="6" type="stmt"/>
+        <line num="32" count="6" type="stmt"/>
+        <line num="36" count="7" type="stmt"/>
+        <line num="37" count="7" type="stmt"/>
+        <line num="38" count="7" type="cond" truecount="1" falsecount="0"/>
+        <line num="39" count="7" type="stmt"/>
+        <line num="45" count="7" type="cond" truecount="3" falsecount="0"/>
+        <line num="46" count="7" type="stmt"/>
+        <line num="47" count="7" type="cond" truecount="1" falsecount="0"/>
+        <line num="48" count="1" type="stmt"/>
+        <line num="49" count="1" type="stmt"/>
+        <line num="57" count="53" type="cond" truecount="0" falsecount="1"/>
+        <line num="58" count="0" type="stmt"/>
+        <line num="61" count="53" type="stmt"/>
+        <line num="62" count="53" type="stmt"/>
+        <line num="63" count="53" type="stmt"/>
+        <line num="65" count="53" type="stmt"/>
+        <line num="67" count="53" type="stmt"/>
+        <line num="68" count="53" type="stmt"/>
+        <line num="69" count="53" type="stmt"/>
+        <line num="73" count="2" type="stmt"/>
+        <line num="74" count="2" type="stmt"/>
+        <line num="75" count="2" type="stmt"/>
+        <line num="76" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="77" count="2" type="stmt"/>
+        <line num="78" count="2" type="cond" truecount="0" falsecount="1"/>
+        <line num="79" count="0" type="stmt"/>
+        <line num="81" count="2" type="stmt"/>
+        <line num="129" count="2" type="stmt"/>
+        <line num="131" count="0" type="stmt"/>
+        <line num="134" count="0" type="stmt"/>
+        <line num="140" count="1" type="stmt"/>
+        <line num="141" count="1" type="stmt"/>
       </file>
     </package>
     <package name="app.pages.landing-page">
@@ -246,13 +319,13 @@
       </file>
     </package>
     <package name="app.pages.profile">
-      <metrics statements="55" coveredstatements="42" conditionals="3" coveredconditionals="0" methods="13" coveredmethods="4"/>
+      <metrics statements="59" coveredstatements="41" conditionals="3" coveredconditionals="0" methods="16" coveredmethods="4"/>
       <file name="profile.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\pages\profile\profile.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
       </file>
       <file name="profile.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\pages\profile\profile.component.ts">
-        <metrics statements="54" coveredstatements="41" conditionals="3" coveredconditionals="0" methods="13" coveredmethods="4"/>
+        <metrics statements="58" coveredstatements="40" conditionals="3" coveredconditionals="0" methods="16" coveredmethods="4"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
         <line num="3" count="2" type="stmt"/>
@@ -266,6 +339,7 @@
         <line num="11" count="2" type="stmt"/>
         <line num="12" count="2" type="stmt"/>
         <line num="13" count="2" type="stmt"/>
+        <line num="14" count="2" type="stmt"/>
         <line num="15" count="2" type="stmt"/>
         <line num="16" count="2" type="stmt"/>
         <line num="17" count="2" type="stmt"/>
@@ -273,40 +347,43 @@
         <line num="19" count="2" type="stmt"/>
         <line num="20" count="2" type="stmt"/>
         <line num="21" count="2" type="stmt"/>
-        <line num="22" count="2" type="stmt"/>
-        <line num="23" count="2" type="stmt"/>
-        <line num="50" count="2" type="stmt"/>
-        <line num="51" count="1" type="stmt"/>
+        <line num="48" count="2" type="stmt"/>
+        <line num="50" count="1" type="stmt"/>
+        <line num="57" count="1" type="stmt"/>
         <line num="58" count="1" type="stmt"/>
-        <line num="103" count="1" type="stmt"/>
-        <line num="134" count="1" type="stmt"/>
-        <line num="137" count="1" type="stmt"/>
-        <line num="138" count="1" type="stmt"/>
-        <line num="139" count="1" type="stmt"/>
-        <line num="140" count="1" type="stmt"/>
-        <line num="141" count="1" type="stmt"/>
-        <line num="142" count="1" type="stmt"/>
-        <line num="143" count="1" type="stmt"/>
-        <line num="144" count="1" type="stmt"/>
-        <line num="146" count="1" type="stmt"/>
-        <line num="147" count="1" type="stmt"/>
-        <line num="148" count="1" type="stmt"/>
-        <line num="152" count="1" type="cond" truecount="0" falsecount="1"/>
+        <line num="60" count="1" type="stmt"/>
+        <line num="63" count="1" type="stmt"/>
+        <line num="64" count="1" type="stmt"/>
+        <line num="65" count="1" type="stmt"/>
+        <line num="66" count="1" type="stmt"/>
+        <line num="67" count="1" type="stmt"/>
+        <line num="68" count="1" type="stmt"/>
+        <line num="69" count="1" type="stmt"/>
+        <line num="70" count="1" type="stmt"/>
+        <line num="73" count="1" type="stmt"/>
+        <line num="74" count="1" type="stmt"/>
+        <line num="75" count="1" type="stmt"/>
+        <line num="80" count="1" type="cond" truecount="0" falsecount="1"/>
+        <line num="82" count="0" type="stmt"/>
+        <line num="84" count="0" type="stmt"/>
+        <line num="85" count="0" type="stmt"/>
+        <line num="87" count="0" type="stmt"/>
+        <line num="88" count="0" type="stmt"/>
+        <line num="94" count="1" type="stmt"/>
+        <line num="96" count="1" type="stmt"/>
+        <line num="102" count="0" type="stmt"/>
+        <line num="111" count="0" type="stmt"/>
+        <line num="115" count="0" type="stmt"/>
+        <line num="117" count="0" type="stmt"/>
+        <line num="123" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="126" count="0" type="stmt"/>
+        <line num="132" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="134" count="0" type="stmt"/>
+        <line num="136" count="0" type="stmt"/>
+        <line num="143" count="0" type="stmt"/>
+        <line num="148" count="0" type="stmt"/>
         <line num="153" count="0" type="stmt"/>
-        <line num="154" count="0" type="stmt"/>
-        <line num="155" count="0" type="stmt"/>
-        <line num="160" count="1" type="stmt"/>
-        <line num="161" count="1" type="stmt"/>
-        <line num="165" count="0" type="stmt"/>
-        <line num="171" count="0" type="stmt"/>
-        <line num="175" count="0" type="stmt"/>
-        <line num="176" count="0" type="stmt"/>
-        <line num="181" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="183" count="0" type="stmt"/>
-        <line num="188" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="189" count="0" type="stmt"/>
-        <line num="190" count="0" type="stmt"/>
-        <line num="196" count="0" type="stmt"/>
+        <line num="158" count="0" type="stmt"/>
       </file>
     </package>
     <package name="app.pages.search">
@@ -351,13 +428,13 @@
       </file>
     </package>
     <package name="app.pages.settings">
-      <metrics statements="23" coveredstatements="23" conditionals="1" coveredconditionals="1" methods="5" coveredmethods="5"/>
+      <metrics statements="28" coveredstatements="28" conditionals="1" coveredconditionals="1" methods="5" coveredmethods="5"/>
       <file name="settings.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\pages\settings\settings.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
       </file>
       <file name="settings.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\pages\settings\settings.component.ts">
-        <metrics statements="22" coveredstatements="22" conditionals="1" coveredconditionals="1" methods="5" coveredmethods="5"/>
+        <metrics statements="27" coveredstatements="27" conditionals="1" coveredconditionals="1" methods="5" coveredmethods="5"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -369,17 +446,22 @@
         <line num="9" count="1" type="stmt"/>
         <line num="10" count="1" type="stmt"/>
         <line num="11" count="1" type="stmt"/>
-        <line num="29" count="1" type="stmt"/>
-        <line num="31" count="5" type="stmt"/>
-        <line num="35" count="5" type="stmt"/>
-        <line num="36" count="5" type="stmt"/>
-        <line num="37" count="5" type="stmt"/>
-        <line num="41" count="1" type="stmt"/>
-        <line num="46" count="1" type="stmt"/>
-        <line num="50" count="7" type="stmt"/>
-        <line num="51" count="7" type="stmt"/>
-        <line num="53" count="7" type="cond" truecount="1" falsecount="0"/>
-        <line num="54" count="7" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="32" count="1" type="stmt"/>
+        <line num="34" count="5" type="stmt"/>
+        <line num="41" count="5" type="stmt"/>
+        <line num="42" count="5" type="stmt"/>
+        <line num="43" count="5" type="stmt"/>
+        <line num="44" count="5" type="stmt"/>
+        <line num="46" count="5" type="stmt"/>
+        <line num="47" count="5" type="stmt"/>
+        <line num="48" count="5" type="stmt"/>
+        <line num="52" count="1" type="stmt"/>
+        <line num="57" count="1" type="stmt"/>
+        <line num="61" count="7" type="stmt"/>
+        <line num="62" count="7" type="stmt"/>
+        <line num="64" count="7" type="cond" truecount="1" falsecount="0"/>
+        <line num="65" count="7" type="stmt"/>
       </file>
     </package>
     <package name="app.pages.user-library">
@@ -420,7 +502,7 @@
       </file>
     </package>
     <package name="app.services">
-      <metrics statements="436" coveredstatements="221" conditionals="199" coveredconditionals="34" methods="108" coveredmethods="63"/>
+      <metrics statements="455" coveredstatements="250" conditionals="201" coveredconditionals="88" methods="112" coveredmethods="64"/>
       <file name="auth.service.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\services\auth.service.ts">
         <metrics statements="32" coveredstatements="25" conditionals="6" coveredconditionals="3" methods="15" coveredmethods="11"/>
         <line num="1" count="16" type="stmt"/>
@@ -428,8 +510,8 @@
         <line num="4" count="16" type="stmt"/>
         <line num="5" count="16" type="stmt"/>
         <line num="10" count="16" type="stmt"/>
-        <line num="11" count="14" type="stmt"/>
-        <line num="13" count="14" type="stmt"/>
+        <line num="11" count="13" type="stmt"/>
+        <line num="13" count="13" type="stmt"/>
         <line num="18" count="1" type="stmt"/>
         <line num="19" count="1" type="stmt"/>
         <line num="24" count="2" type="stmt"/>
@@ -458,20 +540,20 @@
       </file>
       <file name="mood-service.service.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\services\mood-service.service.ts">
         <metrics statements="30" coveredstatements="22" conditionals="5" coveredconditionals="3" methods="11" coveredmethods="10"/>
-        <line num="1" count="21" type="stmt"/>
-        <line num="6" count="21" type="stmt"/>
-        <line num="8" count="58" type="stmt"/>
-        <line num="39" count="58" type="stmt"/>
-        <line num="69" count="58" type="stmt"/>
-        <line num="100" count="58" type="stmt"/>
-        <line num="132" count="58" type="stmt"/>
-        <line num="136" count="58" type="cond" truecount="1" falsecount="0"/>
-        <line num="137" count="58" type="cond" truecount="2" falsecount="0"/>
-        <line num="142" count="58" type="cond" truecount="0" falsecount="1"/>
+        <line num="1" count="28" type="stmt"/>
+        <line num="6" count="28" type="stmt"/>
+        <line num="8" count="75" type="stmt"/>
+        <line num="39" count="75" type="stmt"/>
+        <line num="69" count="75" type="stmt"/>
+        <line num="100" count="75" type="stmt"/>
+        <line num="132" count="75" type="stmt"/>
+        <line num="136" count="75" type="cond" truecount="1" falsecount="0"/>
+        <line num="137" count="75" type="cond" truecount="2" falsecount="0"/>
+        <line num="142" count="75" type="cond" truecount="0" falsecount="1"/>
         <line num="143" count="0" type="stmt"/>
         <line num="144" count="0" type="stmt"/>
-        <line num="146" count="58" type="stmt"/>
-        <line num="147" count="58" type="stmt"/>
+        <line num="146" count="75" type="stmt"/>
+        <line num="147" count="75" type="stmt"/>
         <line num="149" count="0" type="stmt"/>
         <line num="150" count="0" type="stmt"/>
         <line num="154" count="1" type="cond" truecount="0" falsecount="1"/>
@@ -480,11 +562,11 @@
         <line num="158" count="1" type="stmt"/>
         <line num="159" count="1" type="stmt"/>
         <line num="161" count="0" type="stmt"/>
-        <line num="166" count="106" type="stmt"/>
+        <line num="166" count="108" type="stmt"/>
         <line num="169" count="0" type="stmt"/>
-        <line num="172" count="26" type="stmt"/>
-        <line num="175" count="63" type="stmt"/>
-        <line num="178" count="217" type="stmt"/>
+        <line num="172" count="12" type="stmt"/>
+        <line num="175" count="64" type="stmt"/>
+        <line num="178" count="226" type="stmt"/>
         <line num="182" count="1" type="stmt"/>
         <line num="183" count="1" type="stmt"/>
         <line num="186" count="2" type="stmt"/>
@@ -494,7 +576,7 @@
         <line num="1" count="18" type="stmt"/>
         <line num="2" count="18" type="stmt"/>
         <line num="7" count="18" type="stmt"/>
-        <line num="8" count="13" type="stmt"/>
+        <line num="8" count="12" type="stmt"/>
         <line num="11" count="1" type="cond" truecount="1" falsecount="0"/>
         <line num="12" count="1" type="stmt"/>
         <line num="17" count="4" type="cond" truecount="1" falsecount="0"/>
@@ -508,15 +590,15 @@
       </file>
       <file name="screen-size-service.service.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\services\screen-size-service.service.ts">
         <metrics statements="11" coveredstatements="10" conditionals="6" coveredconditionals="5" methods="3" coveredmethods="3"/>
-        <line num="1" count="14" type="stmt"/>
-        <line num="2" count="14" type="stmt"/>
-        <line num="3" count="14" type="stmt"/>
-        <line num="4" count="14" type="stmt"/>
-        <line num="9" count="14" type="stmt"/>
-        <line num="11" count="48" type="cond" truecount="4" falsecount="0"/>
-        <line num="16" count="17" type="stmt"/>
-        <line num="17" count="17" type="cond" truecount="1" falsecount="1"/>
-        <line num="18" count="17" type="stmt"/>
+        <line num="1" count="15" type="stmt"/>
+        <line num="2" count="15" type="stmt"/>
+        <line num="3" count="15" type="stmt"/>
+        <line num="4" count="15" type="stmt"/>
+        <line num="9" count="15" type="stmt"/>
+        <line num="11" count="47" type="cond" truecount="4" falsecount="0"/>
+        <line num="16" count="16" type="stmt"/>
+        <line num="17" count="16" type="cond" truecount="1" falsecount="1"/>
+        <line num="18" count="16" type="stmt"/>
         <line num="20" count="31" type="stmt"/>
         <line num="23" count="0" type="stmt"/>
       </file>
@@ -571,7 +653,7 @@
         <line num="203" count="0" type="stmt"/>
       </file>
       <file name="spotify.service.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\services\spotify.service.ts">
-        <metrics statements="267" coveredstatements="92" conditionals="159" coveredconditionals="14" methods="49" coveredmethods="16"/>
+        <metrics statements="286" coveredstatements="121" conditionals="161" coveredconditionals="68" methods="53" coveredmethods="17"/>
         <line num="1" count="12" type="stmt"/>
         <line num="2" count="12" type="stmt"/>
         <line num="3" count="12" type="stmt"/>
@@ -580,293 +662,312 @@
         <line num="6" count="12" type="stmt"/>
         <line num="7" count="12" type="stmt"/>
         <line num="8" count="12" type="stmt"/>
-        <line num="33" count="12" type="stmt"/>
-        <line num="36" count="20" type="stmt"/>
-        <line num="37" count="20" type="stmt"/>
-        <line num="38" count="20" type="stmt"/>
-        <line num="39" count="20" type="stmt"/>
-        <line num="40" count="20" type="stmt"/>
-        <line num="41" count="20" type="stmt"/>
-        <line num="42" count="20" type="stmt"/>
-        <line num="43" count="20" type="stmt"/>
-        <line num="44" count="20" type="stmt"/>
-        <line num="45" count="20" type="stmt"/>
-        <line num="46" count="20" type="stmt"/>
-        <line num="47" count="20" type="stmt"/>
-        <line num="48" count="20" type="stmt"/>
-        <line num="49" count="20" type="stmt"/>
-        <line num="52" count="20" type="stmt"/>
-        <line num="53" count="20" type="stmt"/>
-        <line num="54" count="20" type="stmt"/>
-        <line num="55" count="20" type="stmt"/>
-        <line num="56" count="20" type="stmt"/>
-        <line num="57" count="20" type="stmt"/>
-        <line num="65" count="3" type="cond" truecount="4" falsecount="0"/>
-        <line num="67" count="2" type="stmt"/>
-        <line num="68" count="2" type="stmt"/>
-        <line num="69" count="1" type="stmt"/>
-        <line num="73" count="1" type="stmt"/>
-        <line num="80" count="3" type="stmt"/>
-        <line num="82" count="3" type="stmt"/>
-        <line num="83" count="1" type="stmt"/>
-        <line num="87" count="1" type="stmt"/>
-        <line num="93" count="3" type="cond" truecount="1" falsecount="2"/>
-        <line num="95" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="96" count="0" type="stmt"/>
-        <line num="98" count="3" type="stmt"/>
-        <line num="103" count="2" type="cond" truecount="1" falsecount="2"/>
-        <line num="105" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="106" count="0" type="stmt"/>
-        <line num="108" count="2" type="stmt"/>
-        <line num="114" count="1" type="stmt"/>
-        <line num="115" count="1" type="stmt"/>
-        <line num="116" count="1" type="stmt"/>
-        <line num="118" count="1" type="stmt"/>
-        <line num="120" count="0" type="stmt"/>
+        <line num="41" count="12" type="stmt"/>
+        <line num="44" count="27" type="stmt"/>
+        <line num="45" count="27" type="stmt"/>
+        <line num="46" count="27" type="stmt"/>
+        <line num="47" count="27" type="stmt"/>
+        <line num="48" count="27" type="stmt"/>
+        <line num="49" count="27" type="stmt"/>
+        <line num="50" count="27" type="stmt"/>
+        <line num="51" count="27" type="stmt"/>
+        <line num="52" count="27" type="stmt"/>
+        <line num="53" count="27" type="stmt"/>
+        <line num="54" count="27" type="stmt"/>
+        <line num="55" count="27" type="stmt"/>
+        <line num="56" count="27" type="stmt"/>
+        <line num="57" count="27" type="stmt"/>
+        <line num="60" count="27" type="stmt"/>
+        <line num="61" count="27" type="stmt"/>
+        <line num="62" count="27" type="stmt"/>
+        <line num="63" count="27" type="stmt"/>
+        <line num="64" count="27" type="stmt"/>
+        <line num="65" count="27" type="stmt"/>
+        <line num="73" count="3" type="cond" truecount="4" falsecount="0"/>
+        <line num="75" count="2" type="stmt"/>
+        <line num="76" count="2" type="stmt"/>
+        <line num="77" count="1" type="stmt"/>
+        <line num="81" count="1" type="stmt"/>
+        <line num="88" count="3" type="stmt"/>
+        <line num="90" count="3" type="stmt"/>
+        <line num="91" count="1" type="stmt"/>
+        <line num="95" count="1" type="stmt"/>
+        <line num="101" count="2" type="cond" truecount="1" falsecount="2"/>
+        <line num="103" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="104" count="0" type="stmt"/>
+        <line num="106" count="2" type="stmt"/>
+        <line num="111" count="2" type="cond" truecount="1" falsecount="2"/>
+        <line num="113" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="114" count="0" type="stmt"/>
+        <line num="116" count="2" type="stmt"/>
+        <line num="122" count="1" type="stmt"/>
         <line num="123" count="1" type="stmt"/>
-        <line num="129" count="1" type="stmt"/>
-        <line num="133" count="0" type="stmt"/>
-        <line num="138" count="1" type="stmt"/>
-        <line num="140" count="0" type="stmt"/>
+        <line num="124" count="1" type="stmt"/>
+        <line num="126" count="1" type="stmt"/>
+        <line num="128" count="0" type="stmt"/>
+        <line num="131" count="1" type="stmt"/>
+        <line num="137" count="1" type="stmt"/>
         <line num="141" count="0" type="stmt"/>
-        <line num="144" count="1" type="stmt"/>
-        <line num="146" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="146" count="1" type="stmt"/>
         <line num="148" count="0" type="stmt"/>
         <line num="149" count="0" type="stmt"/>
-        <line num="150" count="0" type="stmt"/>
-        <line num="152" count="0" type="stmt"/>
-        <line num="153" count="0" type="stmt"/>
-        <line num="157" count="1" type="stmt"/>
-        <line num="163" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="152" count="1" type="stmt"/>
+        <line num="154" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="156" count="0" type="stmt"/>
+        <line num="157" count="0" type="stmt"/>
+        <line num="158" count="0" type="stmt"/>
+        <line num="160" count="0" type="stmt"/>
+        <line num="161" count="0" type="stmt"/>
         <line num="165" count="1" type="stmt"/>
-        <line num="167" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="169" count="1" type="stmt"/>
-        <line num="170" count="1" type="stmt"/>
-        <line num="179" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="181" count="0" type="stmt"/>
-        <line num="182" count="0" type="stmt"/>
-        <line num="185" count="0" type="stmt"/>
-        <line num="187" count="0" type="stmt"/>
-        <line num="188" count="0" type="stmt"/>
+        <line num="171" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="173" count="1" type="stmt"/>
+        <line num="175" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="177" count="1" type="stmt"/>
+        <line num="178" count="1" type="stmt"/>
+        <line num="187" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="189" count="0" type="stmt"/>
         <line num="190" count="0" type="stmt"/>
+        <line num="193" count="0" type="stmt"/>
+        <line num="195" count="0" type="stmt"/>
         <line num="196" count="0" type="stmt"/>
-        <line num="197" count="0" type="stmt"/>
-        <line num="203" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="205" count="1" type="stmt"/>
-        <line num="206" count="1" type="stmt"/>
-        <line num="209" count="0" type="stmt"/>
-        <line num="211" count="0" type="stmt"/>
-        <line num="212" count="0" type="stmt"/>
-        <line num="219" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="221" count="0" type="stmt"/>
-        <line num="222" count="0" type="stmt"/>
-        <line num="225" count="0" type="stmt"/>
-        <line num="226" count="0" type="stmt"/>
-        <line num="228" count="0" type="stmt"/>
+        <line num="198" count="0" type="stmt"/>
+        <line num="204" count="0" type="stmt"/>
+        <line num="205" count="0" type="stmt"/>
+        <line num="211" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="213" count="1" type="stmt"/>
+        <line num="214" count="1" type="stmt"/>
+        <line num="217" count="0" type="stmt"/>
+        <line num="219" count="0" type="stmt"/>
+        <line num="220" count="0" type="stmt"/>
+        <line num="227" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="229" count="0" type="stmt"/>
         <line num="230" count="0" type="stmt"/>
+        <line num="233" count="0" type="stmt"/>
+        <line num="234" count="0" type="stmt"/>
         <line num="236" count="0" type="stmt"/>
         <line num="238" count="0" type="stmt"/>
-        <line num="239" count="0" type="cond" truecount="0" falsecount="3"/>
-        <line num="241" count="0" type="stmt"/>
+        <line num="244" count="0" type="stmt"/>
         <line num="246" count="0" type="stmt"/>
-        <line num="253" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="255" count="0" type="stmt"/>
-        <line num="256" count="0" type="stmt"/>
-        <line num="259" count="0" type="stmt"/>
-        <line num="260" count="0" type="stmt"/>
-        <line num="262" count="0" type="stmt"/>
+        <line num="247" count="0" type="cond" truecount="0" falsecount="3"/>
+        <line num="249" count="0" type="stmt"/>
+        <line num="254" count="0" type="stmt"/>
+        <line num="261" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="263" count="0" type="stmt"/>
         <line num="264" count="0" type="stmt"/>
+        <line num="267" count="0" type="stmt"/>
+        <line num="268" count="0" type="stmt"/>
         <line num="270" count="0" type="stmt"/>
         <line num="272" count="0" type="stmt"/>
-        <line num="273" count="0" type="cond" truecount="0" falsecount="3"/>
-        <line num="275" count="0" type="stmt"/>
+        <line num="278" count="0" type="stmt"/>
         <line num="280" count="0" type="stmt"/>
-        <line num="287" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="289" count="0" type="stmt"/>
-        <line num="290" count="0" type="stmt"/>
-        <line num="293" count="0" type="stmt"/>
-        <line num="294" count="0" type="stmt"/>
-        <line num="296" count="0" type="stmt"/>
+        <line num="281" count="0" type="cond" truecount="0" falsecount="3"/>
+        <line num="283" count="0" type="stmt"/>
+        <line num="288" count="0" type="stmt"/>
+        <line num="295" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="297" count="0" type="stmt"/>
         <line num="298" count="0" type="stmt"/>
-        <line num="307" count="0" type="stmt"/>
-        <line num="314" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="316" count="0" type="stmt"/>
-        <line num="317" count="0" type="stmt"/>
-        <line num="320" count="0" type="stmt"/>
+        <line num="301" count="0" type="stmt"/>
+        <line num="302" count="0" type="stmt"/>
+        <line num="304" count="0" type="stmt"/>
+        <line num="306" count="0" type="stmt"/>
+        <line num="315" count="0" type="stmt"/>
         <line num="322" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="324" count="0" type="stmt"/>
         <line num="325" count="0" type="stmt"/>
-        <line num="328" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="330" count="0" type="stmt"/>
+        <line num="328" count="0" type="stmt"/>
+        <line num="330" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="332" count="0" type="stmt"/>
         <line num="333" count="0" type="stmt"/>
-        <line num="336" count="0" type="stmt"/>
+        <line num="336" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="338" count="0" type="stmt"/>
+        <line num="340" count="0" type="stmt"/>
         <line num="341" count="0" type="stmt"/>
-        <line num="345" count="0" type="stmt"/>
-        <line num="352" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="354" count="1" type="stmt"/>
-        <line num="361" count="1" type="cond" truecount="0" falsecount="1"/>
-        <line num="363" count="0" type="stmt"/>
-        <line num="366" count="1" type="stmt"/>
-        <line num="367" count="1" type="stmt"/>
-        <line num="370" count="1" type="cond" truecount="1" falsecount="2"/>
-        <line num="372" count="0" type="stmt"/>
+        <line num="344" count="0" type="stmt"/>
+        <line num="349" count="0" type="stmt"/>
+        <line num="353" count="0" type="stmt"/>
+        <line num="360" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="362" count="1" type="stmt"/>
+        <line num="369" count="1" type="cond" truecount="0" falsecount="1"/>
+        <line num="371" count="0" type="stmt"/>
+        <line num="374" count="1" type="stmt"/>
         <line num="375" count="1" type="stmt"/>
-        <line num="377" count="1" type="stmt"/>
-        <line num="378" count="1" type="stmt"/>
-        <line num="379" count="1" type="stmt"/>
-        <line num="384" count="1" type="cond" truecount="0" falsecount="1"/>
-        <line num="386" count="0" type="stmt"/>
-        <line num="389" count="1" type="stmt"/>
-        <line num="394" count="1" type="stmt"/>
-        <line num="395" count="1" type="stmt"/>
+        <line num="378" count="1" type="cond" truecount="1" falsecount="2"/>
+        <line num="380" count="0" type="stmt"/>
+        <line num="383" count="1" type="stmt"/>
+        <line num="385" count="1" type="stmt"/>
+        <line num="386" count="1" type="stmt"/>
+        <line num="387" count="1" type="stmt"/>
+        <line num="392" count="1" type="cond" truecount="0" falsecount="1"/>
+        <line num="394" count="0" type="stmt"/>
         <line num="397" count="1" type="stmt"/>
-        <line num="401" count="0" type="stmt"/>
-        <line num="402" count="0" type="stmt"/>
+        <line num="402" count="1" type="stmt"/>
+        <line num="403" count="1" type="stmt"/>
+        <line num="405" count="1" type="stmt"/>
         <line num="409" count="0" type="stmt"/>
-        <line num="415" count="0" type="stmt"/>
-        <line num="421" count="1" type="cond" truecount="0" falsecount="1"/>
+        <line num="410" count="0" type="stmt"/>
+        <line num="417" count="0" type="stmt"/>
         <line num="423" count="0" type="stmt"/>
-        <line num="426" count="1" type="stmt"/>
-        <line num="427" count="1" type="cond" truecount="2" falsecount="1"/>
-        <line num="429" count="0" type="stmt"/>
-        <line num="432" count="1" type="stmt"/>
-        <line num="433" count="1" type="stmt"/>
+        <line num="429" count="1" type="cond" truecount="0" falsecount="1"/>
+        <line num="431" count="0" type="stmt"/>
         <line num="434" count="1" type="stmt"/>
-        <line num="436" count="1" type="stmt"/>
-        <line num="437" count="1" type="stmt"/>
-        <line num="439" count="1" type="stmt"/>
-        <line num="448" count="0" type="cond" truecount="0" falsecount="4"/>
-        <line num="450" count="0" type="stmt"/>
-        <line num="451" count="0" type="stmt"/>
-        <line num="453" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="455" count="0" type="cond" truecount="0" falsecount="4"/>
-        <line num="457" count="0" type="stmt"/>
+        <line num="435" count="1" type="cond" truecount="2" falsecount="1"/>
+        <line num="437" count="0" type="stmt"/>
+        <line num="440" count="1" type="stmt"/>
+        <line num="441" count="1" type="stmt"/>
+        <line num="442" count="1" type="stmt"/>
+        <line num="444" count="1" type="stmt"/>
+        <line num="445" count="1" type="stmt"/>
+        <line num="447" count="1" type="stmt"/>
+        <line num="456" count="0" type="cond" truecount="0" falsecount="4"/>
         <line num="458" count="0" type="stmt"/>
-        <line num="460" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="462" count="0" type="stmt"/>
+        <line num="459" count="0" type="stmt"/>
+        <line num="461" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="463" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="465" count="0" type="stmt"/>
         <line num="466" count="0" type="stmt"/>
-        <line num="477" count="0" type="stmt"/>
-        <line num="479" count="0" type="stmt"/>
-        <line num="480" count="0" type="stmt"/>
-        <line num="482" count="0" type="stmt"/>
+        <line num="468" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="470" count="0" type="stmt"/>
+        <line num="474" count="0" type="stmt"/>
         <line num="486" count="0" type="stmt"/>
-        <line num="493" count="1" type="stmt"/>
-        <line num="495" count="1" type="stmt"/>
-        <line num="496" count="1" type="stmt"/>
-        <line num="497" count="1" type="stmt"/>
-        <line num="502" count="1" type="cond" truecount="0" falsecount="1"/>
-        <line num="504" count="0" type="stmt"/>
-        <line num="507" count="1" type="stmt"/>
+        <line num="487" count="0" type="stmt"/>
+        <line num="489" count="0" type="stmt"/>
+        <line num="493" count="0" type="stmt"/>
+        <line num="500" count="1" type="stmt"/>
+        <line num="502" count="1" type="stmt"/>
+        <line num="503" count="1" type="stmt"/>
+        <line num="504" count="1" type="stmt"/>
+        <line num="509" count="1" type="cond" truecount="0" falsecount="1"/>
         <line num="511" count="0" type="stmt"/>
-        <line num="512" count="0" type="stmt"/>
+        <line num="514" count="1" type="stmt"/>
+        <line num="518" count="0" type="stmt"/>
         <line num="519" count="0" type="stmt"/>
-        <line num="521" count="0" type="stmt"/>
+        <line num="526" count="0" type="stmt"/>
         <line num="528" count="0" type="stmt"/>
-        <line num="530" count="0" type="stmt"/>
-        <line num="531" count="0" type="stmt"/>
-        <line num="532" count="0" type="stmt"/>
-        <line num="538" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="540" count="0" type="stmt"/>
-        <line num="543" count="0" type="stmt"/>
+        <line num="535" count="0" type="stmt"/>
+        <line num="537" count="0" type="stmt"/>
+        <line num="538" count="0" type="stmt"/>
+        <line num="539" count="0" type="stmt"/>
+        <line num="545" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="547" count="0" type="stmt"/>
-        <line num="548" count="0" type="stmt"/>
-        <line num="555" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="557" count="0" type="stmt"/>
-        <line num="559" count="0" type="stmt"/>
-        <line num="562" count="0" type="stmt"/>
-        <line num="570" count="2" type="cond" truecount="1" falsecount="0"/>
-        <line num="572" count="1" type="stmt"/>
-        <line num="574" count="1" type="stmt"/>
-        <line num="580" count="0" type="stmt"/>
-        <line num="582" count="0" type="stmt"/>
-        <line num="584" count="0" type="stmt"/>
-        <line num="585" count="0" type="stmt"/>
-        <line num="586" count="0" type="stmt"/>
-        <line num="593" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="595" count="0" type="stmt"/>
-        <line num="598" count="0" type="stmt"/>
+        <line num="550" count="0" type="stmt"/>
+        <line num="554" count="0" type="stmt"/>
+        <line num="555" count="0" type="stmt"/>
+        <line num="562" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="564" count="0" type="stmt"/>
+        <line num="566" count="0" type="stmt"/>
+        <line num="569" count="0" type="stmt"/>
+        <line num="577" count="2" type="cond" truecount="1" falsecount="0"/>
+        <line num="579" count="1" type="stmt"/>
+        <line num="581" count="1" type="stmt"/>
+        <line num="587" count="0" type="stmt"/>
+        <line num="589" count="0" type="stmt"/>
+        <line num="591" count="0" type="stmt"/>
+        <line num="592" count="0" type="stmt"/>
+        <line num="593" count="0" type="stmt"/>
+        <line num="600" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="602" count="0" type="stmt"/>
-        <line num="603" count="0" type="stmt"/>
-        <line num="610" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="612" count="0" type="stmt"/>
-        <line num="619" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="621" count="0" type="stmt"/>
+        <line num="605" count="0" type="stmt"/>
+        <line num="609" count="0" type="stmt"/>
+        <line num="610" count="0" type="stmt"/>
+        <line num="617" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="619" count="0" type="stmt"/>
+        <line num="626" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="628" count="0" type="stmt"/>
-        <line num="630" count="0" type="stmt"/>
-        <line num="631" count="0" type="stmt"/>
-        <line num="632" count="0" type="stmt"/>
-        <line num="638" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="640" count="0" type="stmt"/>
-        <line num="642" count="0" type="stmt"/>
-        <line num="646" count="0" type="stmt"/>
-        <line num="652" count="0" type="stmt"/>
-        <line num="654" count="0" type="stmt"/>
-        <line num="655" count="0" type="stmt"/>
-        <line num="656" count="0" type="stmt"/>
-        <line num="662" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="635" count="0" type="stmt"/>
+        <line num="637" count="0" type="stmt"/>
+        <line num="638" count="0" type="stmt"/>
+        <line num="639" count="0" type="stmt"/>
+        <line num="645" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="647" count="0" type="stmt"/>
+        <line num="649" count="0" type="stmt"/>
+        <line num="653" count="0" type="stmt"/>
+        <line num="660" count="0" type="stmt"/>
+        <line num="662" count="0" type="stmt"/>
+        <line num="663" count="0" type="stmt"/>
         <line num="664" count="0" type="stmt"/>
-        <line num="666" count="0" type="stmt"/>
-        <line num="670" count="0" type="stmt"/>
-        <line num="671" count="0" type="stmt"/>
-        <line num="677" count="0" type="stmt"/>
-        <line num="679" count="0" type="cond" truecount="0" falsecount="5"/>
-        <line num="680" count="0" type="cond" truecount="0" falsecount="3"/>
-        <line num="681" count="0" type="cond" truecount="0" falsecount="3"/>
-        <line num="682" count="0" type="cond" truecount="0" falsecount="3"/>
-        <line num="683" count="0" type="cond" truecount="0" falsecount="3"/>
-        <line num="684" count="0" type="cond" truecount="0" falsecount="4"/>
-        <line num="685" count="0" type="cond" truecount="0" falsecount="4"/>
-        <line num="686" count="0" type="cond" truecount="0" falsecount="4"/>
-        <line num="687" count="0" type="cond" truecount="0" falsecount="3"/>
-        <line num="688" count="0" type="cond" truecount="0" falsecount="5"/>
-        <line num="689" count="0" type="cond" truecount="0" falsecount="5"/>
-        <line num="690" count="0" type="cond" truecount="0" falsecount="3"/>
-        <line num="691" count="0" type="cond" truecount="0" falsecount="3"/>
-        <line num="692" count="0" type="cond" truecount="0" falsecount="4"/>
-        <line num="693" count="0" type="cond" truecount="0" falsecount="3"/>
-        <line num="694" count="0" type="cond" truecount="0" falsecount="3"/>
-        <line num="695" count="0" type="cond" truecount="0" falsecount="3"/>
-        <line num="696" count="0" type="cond" truecount="0" falsecount="3"/>
-        <line num="697" count="0" type="cond" truecount="0" falsecount="3"/>
-        <line num="698" count="0" type="cond" truecount="0" falsecount="3"/>
-        <line num="699" count="0" type="cond" truecount="0" falsecount="4"/>
-        <line num="700" count="0" type="cond" truecount="0" falsecount="3"/>
-        <line num="701" count="0" type="cond" truecount="0" falsecount="3"/>
-        <line num="702" count="0" type="cond" truecount="0" falsecount="5"/>
-        <line num="703" count="0" type="cond" truecount="0" falsecount="3"/>
-        <line num="704" count="0" type="cond" truecount="0" falsecount="3"/>
-        <line num="705" count="0" type="cond" truecount="0" falsecount="3"/>
-        <line num="706" count="0" type="cond" truecount="0" falsecount="4"/>
-        <line num="708" count="0" type="stmt"/>
+        <line num="670" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="672" count="0" type="stmt"/>
+        <line num="674" count="0" type="stmt"/>
+        <line num="678" count="0" type="stmt"/>
+        <line num="679" count="0" type="stmt"/>
+        <line num="686" count="8" type="stmt"/>
+        <line num="688" count="8" type="cond" truecount="5" falsecount="0"/>
+        <line num="689" count="7" type="cond" truecount="3" falsecount="0"/>
+        <line num="690" count="6" type="cond" truecount="3" falsecount="0"/>
+        <line num="691" count="3" type="cond" truecount="3" falsecount="0"/>
+        <line num="692" count="2" type="cond" truecount="1" falsecount="2"/>
+        <line num="693" count="2" type="cond" truecount="1" falsecount="3"/>
+        <line num="694" count="2" type="cond" truecount="2" falsecount="2"/>
+        <line num="695" count="2" type="cond" truecount="1" falsecount="3"/>
+        <line num="696" count="2" type="cond" truecount="2" falsecount="1"/>
+        <line num="697" count="2" type="cond" truecount="4" falsecount="1"/>
+        <line num="698" count="2" type="cond" truecount="4" falsecount="1"/>
+        <line num="699" count="2" type="cond" truecount="1" falsecount="2"/>
+        <line num="700" count="2" type="cond" truecount="3" falsecount="0"/>
+        <line num="701" count="1" type="cond" truecount="1" falsecount="3"/>
+        <line num="702" count="1" type="cond" truecount="1" falsecount="2"/>
+        <line num="703" count="1" type="cond" truecount="1" falsecount="2"/>
+        <line num="704" count="1" type="cond" truecount="1" falsecount="2"/>
+        <line num="705" count="1" type="cond" truecount="1" falsecount="2"/>
+        <line num="706" count="1" type="cond" truecount="1" falsecount="2"/>
+        <line num="707" count="1" type="cond" truecount="1" falsecount="2"/>
+        <line num="708" count="1" type="cond" truecount="2" falsecount="2"/>
+        <line num="709" count="1" type="cond" truecount="1" falsecount="2"/>
+        <line num="710" count="1" type="cond" truecount="1" falsecount="2"/>
+        <line num="711" count="1" type="cond" truecount="2" falsecount="3"/>
+        <line num="712" count="1" type="cond" truecount="2" falsecount="1"/>
+        <line num="713" count="1" type="cond" truecount="1" falsecount="2"/>
+        <line num="714" count="1" type="cond" truecount="1" falsecount="2"/>
+        <line num="715" count="1" type="cond" truecount="4" falsecount="0"/>
+        <line num="717" count="0" type="stmt"/>
+        <line num="723" count="0" type="stmt"/>
+        <line num="725" count="0" type="stmt"/>
+        <line num="726" count="0" type="stmt"/>
+        <line num="727" count="0" type="stmt"/>
+        <line num="732" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="734" count="0" type="stmt"/>
+        <line num="737" count="0" type="stmt"/>
+        <line num="739" count="0" type="stmt"/>
+        <line num="749" count="0" type="stmt"/>
+        <line num="750" count="0" type="stmt"/>
+        <line num="757" count="0" type="stmt"/>
+        <line num="759" count="0" type="stmt"/>
+        <line num="760" count="0" type="stmt"/>
+        <line num="761" count="0" type="stmt"/>
+        <line num="766" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="768" count="0" type="stmt"/>
+        <line num="771" count="0" type="stmt"/>
+        <line num="773" count="0" type="stmt"/>
+        <line num="787" count="0" type="stmt"/>
+        <line num="788" count="0" type="stmt"/>
       </file>
       <file name="theme.service.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\services\theme.service.ts">
         <metrics statements="11" coveredstatements="11" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
         <line num="1" count="15" type="stmt"/>
         <line num="2" count="15" type="stmt"/>
         <line num="7" count="15" type="stmt"/>
-        <line num="8" count="18" type="stmt"/>
-        <line num="10" count="18" type="stmt"/>
-        <line num="11" count="18" type="cond" truecount="1" falsecount="0"/>
-        <line num="12" count="16" type="stmt"/>
+        <line num="8" count="17" type="stmt"/>
+        <line num="10" count="17" type="stmt"/>
+        <line num="11" count="17" type="cond" truecount="1" falsecount="0"/>
+        <line num="12" count="15" type="stmt"/>
         <line num="17" count="4" type="stmt"/>
         <line num="18" count="4" type="cond" truecount="1" falsecount="0"/>
         <line num="19" count="2" type="stmt"/>
-        <line num="24" count="105" type="stmt"/>
+        <line num="24" count="101" type="stmt"/>
       </file>
       <file name="token.service.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\services\token.service.ts">
         <metrics statements="24" coveredstatements="24" conditionals="4" coveredconditionals="2" methods="8" coveredmethods="8"/>
         <line num="1" count="19" type="stmt"/>
         <line num="2" count="19" type="stmt"/>
         <line num="7" count="19" type="stmt"/>
-        <line num="8" count="30" type="stmt"/>
-        <line num="9" count="30" type="stmt"/>
-        <line num="13" count="30" type="stmt"/>
-        <line num="18" count="30" type="cond" truecount="0" falsecount="1"/>
-        <line num="20" count="30" type="stmt"/>
-        <line num="21" count="30" type="stmt"/>
-        <line num="23" count="30" type="cond" truecount="1" falsecount="0"/>
-        <line num="24" count="30" type="cond" truecount="1" falsecount="0"/>
+        <line num="8" count="29" type="stmt"/>
+        <line num="9" count="29" type="stmt"/>
+        <line num="13" count="29" type="stmt"/>
+        <line num="18" count="29" type="cond" truecount="0" falsecount="1"/>
+        <line num="20" count="29" type="stmt"/>
+        <line num="21" count="29" type="stmt"/>
+        <line num="23" count="29" type="cond" truecount="1" falsecount="0"/>
+        <line num="24" count="29" type="cond" truecount="1" falsecount="0"/>
         <line num="29" count="6" type="stmt"/>
         <line num="30" count="6" type="stmt"/>
         <line num="31" count="6" type="stmt"/>
@@ -1157,27 +1258,27 @@
       </file>
     </package>
     <package name="app.shared.mood-drop-down">
-      <metrics statements="15" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="1"/>
+      <metrics statements="15" coveredstatements="15" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="5"/>
       <file name="mood-drop-down.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\mood-drop-down\mood-drop-down.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="3" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
       </file>
       <file name="mood-drop-down.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\mood-drop-down\mood-drop-down.component.ts">
-        <metrics statements="14" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="1"/>
-        <line num="1" count="3" type="stmt"/>
-        <line num="2" count="3" type="stmt"/>
-        <line num="3" count="3" type="stmt"/>
-        <line num="12" count="3" type="stmt"/>
-        <line num="15" count="8" type="stmt"/>
-        <line num="16" count="8" type="stmt"/>
-        <line num="17" count="8" type="stmt"/>
-        <line num="19" count="8" type="stmt"/>
-        <line num="20" count="8" type="stmt"/>
-        <line num="51" count="0" type="stmt"/>
-        <line num="54" count="0" type="stmt"/>
-        <line num="55" count="0" type="stmt"/>
-        <line num="58" count="0" type="stmt"/>
-        <line num="61" count="0" type="stmt"/>
+        <metrics statements="14" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="5"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="3" count="5" type="stmt"/>
+        <line num="12" count="5" type="stmt"/>
+        <line num="15" count="14" type="stmt"/>
+        <line num="16" count="14" type="stmt"/>
+        <line num="17" count="14" type="stmt"/>
+        <line num="19" count="14" type="stmt"/>
+        <line num="20" count="14" type="stmt"/>
+        <line num="51" count="3" type="stmt"/>
+        <line num="54" count="1" type="stmt"/>
+        <line num="55" count="1" type="stmt"/>
+        <line num="58" count="2" type="stmt"/>
+        <line num="61" count="1" type="stmt"/>
       </file>
     </package>
     <package name="app.shared.moods">
@@ -1274,16 +1375,20 @@
       </file>
     </package>
     <package name="app.shared.page-header">
-      <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
       <file name="page-header.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\page-header\page-header.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
       </file>
       <file name="page-header.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\page-header\page-header.component.ts">
-        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="1" count="2" type="stmt"/>
-        <line num="10" count="2" type="stmt"/>
-        <line num="11" count="1" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="12" count="2" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
       </file>
     </package>
     <package name="app.shared.search-bar">
@@ -1315,67 +1420,97 @@
       </file>
     </package>
     <package name="app.shared.setting-pages.account">
-      <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
       <file name="account.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\setting-pages\account\account.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
       </file>
       <file name="account.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\setting-pages\account\account.component.ts">
-        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="1" count="2" type="stmt"/>
-        <line num="10" count="2" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="12" count="2" type="stmt"/>
+        <line num="18" count="6" type="stmt"/>
+        <line num="20" count="6" type="stmt"/>
+        <line num="21" count="6" type="stmt"/>
+        <line num="22" count="6" type="stmt"/>
       </file>
     </package>
     <package name="app.shared.setting-pages.audio">
-      <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
       <file name="audio.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\setting-pages\audio\audio.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
       </file>
       <file name="audio.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\setting-pages\audio\audio.component.ts">
-        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="1" count="2" type="stmt"/>
-        <line num="10" count="2" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="12" count="2" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
       </file>
     </package>
     <package name="app.shared.setting-pages.display">
-      <metrics statements="7" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
+      <metrics statements="13" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
       <file name="display.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\setting-pages\display\display.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
       </file>
       <file name="display.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\setting-pages\display\display.component.ts">
-        <metrics statements="6" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
+        <metrics statements="12" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
         <line num="3" count="2" type="stmt"/>
-        <line num="12" count="2" type="stmt"/>
-        <line num="14" count="1" type="stmt"/>
-        <line num="18" count="0" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="14" count="2" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
       </file>
     </package>
     <package name="app.shared.setting-pages.language">
-      <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
       <file name="language.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\setting-pages\language\language.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
       </file>
       <file name="language.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\setting-pages\language\language.component.ts">
-        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="1" count="2" type="stmt"/>
-        <line num="10" count="2" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="12" count="2" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
       </file>
     </package>
     <package name="app.shared.setting-pages.privacy">
-      <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
       <file name="privacy.component.html" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\setting-pages\privacy\privacy.component.html">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
       </file>
       <file name="privacy.component.ts" path="C:\Users\djpla\OneDrive\Documents\GitHub\ECHO\Frontend\src\app\shared\setting-pages\privacy\privacy.component.ts">
-        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="1" count="2" type="stmt"/>
-        <line num="10" count="2" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="12" count="2" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
       </file>
     </package>
     <package name="app.shared.side-bar">
@@ -1568,11 +1703,11 @@
         <line num="3" count="3" type="stmt"/>
         <line num="4" count="3" type="stmt"/>
         <line num="14" count="3" type="stmt"/>
-        <line num="25" count="8" type="stmt"/>
-        <line num="26" count="8" type="stmt"/>
-        <line num="28" count="8" type="stmt"/>
-        <line num="29" count="8" type="stmt"/>
-        <line num="30" count="8" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="30" count="1" type="stmt"/>
         <line num="34" count="0" type="stmt"/>
       </file>
     </package>
@@ -1590,11 +1725,11 @@
         <line num="4" count="3" type="stmt"/>
         <line num="5" count="3" type="stmt"/>
         <line num="15" count="3" type="stmt"/>
-        <line num="26" count="9" type="stmt"/>
-        <line num="27" count="9" type="stmt"/>
-        <line num="29" count="9" type="stmt"/>
-        <line num="30" count="9" type="stmt"/>
-        <line num="31" count="9" type="stmt"/>
+        <line num="26" count="2" type="stmt"/>
+        <line num="27" count="2" type="stmt"/>
+        <line num="29" count="2" type="stmt"/>
+        <line num="30" count="2" type="stmt"/>
+        <line num="31" count="2" type="stmt"/>
         <line num="35" count="0" type="stmt"/>
         <line num="39" count="0" type="stmt"/>
         <line num="40" count="0" type="stmt"/>

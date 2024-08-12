@@ -48,8 +48,8 @@ export class HomeComponent implements OnInit {
     currentSelection: string = 'All';
     searchQuery: string = '';
     moods = [
-        'All', 'Sad', 'Relaxed', 'Energetic', 
-        'Focused', 'Calm', 'Excited', 'Chill', 
+        'All', 'Sad', 'Relaxed', 'Energetic',
+        'Focused', 'Calm', 'Excited', 'Chill',
         'Melancholic', 'Motivated', 'Joy', 'Admiration', 'Love'
       ];
     selectedMood: number | null = null;
@@ -63,8 +63,8 @@ export class HomeComponent implements OnInit {
         private screenSizeService: ScreenSizeService,
         public moodService: MoodService
     ) {
-        this.currentMood = this.moodService.getCurrentMood(); 
-        this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
+        this.currentMood = this.moodService.getCurrentMood();
+        this.moodComponentClasses = this.moodService.getComponentMoodClasses();
         this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
     }
 
@@ -76,7 +76,7 @@ export class HomeComponent implements OnInit {
         this.title = newNav;
         this.router.navigate(['/home'], { fragment: newNav.toLowerCase() });
     }
-    
+
     onSearchdown(subject:string) {
         this.searchQuery = subject;
         this.title = 'Search';
@@ -98,15 +98,9 @@ export class HomeComponent implements OnInit {
 
     selectMood(index: number) {
         this.selectedMood = index;
-        // Additional logic to handle mood selection
       }
 
     getMoodPercentageData(): number[] {
-        // "Anger", "Annoyance", "Fear", "Excitement", "Amusement", "Admiration", 
-        // "Approval", "Caring", "Joy", "Desire", "Curiosity", "Confusion", 
-        // "Gratitude", "Surprise", "Disappointment", "Disapproval", "Disgust", 
-        // "Embarrassment", "Sadness", "Grief", "Love", "Nervousness", "Optimism", 
-        // "Pride", "Realisation", "Relief"
         return [25, 5, 30, 40, 10, 15, 20, 25, 30, 10, 15, 5, 20, 5, 5, 15, 10, 10, 25, 10, 20, 15, 10, 5, 20, 15, 10];
     }
     profile() {

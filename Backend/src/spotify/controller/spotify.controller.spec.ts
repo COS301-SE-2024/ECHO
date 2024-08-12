@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { SpotifyController } from './spotify.controller';
 import { SpotifyService } from '../services/spotify.service';
+import { HttpException, HttpStatus, UnauthorizedException } from '@nestjs/common';
 
 describe('SpotifyController', () => {
   let controller: SpotifyController;
@@ -46,6 +47,24 @@ describe('SpotifyController', () => {
       await controller.getCurrentlyPlayingTrack(body);
       expect(service.getCurrentlyPlayingTrack).toHaveBeenCalledWith(body.accessToken, body.refreshToken);
     });
+
+    it('should throw HttpException when access token is missing', async () => {
+      const accessToken = '';
+      const refreshToken = 'valid-refresh-token';
+
+      await expect(controller.getCurrentlyPlayingTrack({ accessToken, refreshToken }))
+        .rejects
+        .toThrow(new HttpException("Access token or refresh token is missing while attempting to retrieve the currently playing song from Spotify.", HttpStatus.UNAUTHORIZED));
+    });
+
+    it('should throw HttpException when refresh token is missing', async () => {
+      const accessToken = 'valid-access-token';
+      const refreshToken = '';
+
+      await expect(controller.getCurrentlyPlayingTrack({ accessToken, refreshToken }))
+        .rejects
+        .toThrow(new HttpException("Access token or refresh token is missing while attempting to retrieve the currently playing song from Spotify.", HttpStatus.UNAUTHORIZED));
+    });
   });
 
   describe('getRecentlyPlayedTracks', () => {
@@ -53,6 +72,24 @@ describe('SpotifyController', () => {
       const body = { accessToken: 'testAccessToken', refreshToken: 'testRefreshToken' };
       await controller.getRecentlyPlayedTracks(body);
       expect(service.getRecentlyPlayedTracks).toHaveBeenCalledWith(body.accessToken, body.refreshToken);
+    });
+
+    it('should throw UnauthorizedException when access token is missing', async () => {
+      const accessToken = '';
+      const refreshToken = 'valid-refresh-token';
+
+      await expect(controller.getRecentlyPlayedTracks({ accessToken, refreshToken }))
+        .rejects
+        .toThrow(new UnauthorizedException("Access token or refresh token is missing while attempting to retrieve recently played songs from Spotify."));
+    });
+
+    it('should throw UnauthorizedException when refresh token is missing', async () => {
+      const accessToken = 'valid-access-token';
+      const refreshToken = '';
+
+      await expect(controller.getRecentlyPlayedTracks({ accessToken, refreshToken }))
+        .rejects
+        .toThrow(new UnauthorizedException("Access token or refresh token is missing while attempting to retrieve recently played songs from Spotify."));
     });
   });
 
@@ -103,4 +140,15 @@ describe('SpotifyController', () => {
       expect(service.getTrackDetails).toHaveBeenCalledWith(body.trackID, body.accessToken, body.refreshToken);
     });
   });
+
+  describe('playTrackByName', () => {
+    it('should call playTrackByName method of SpotifyService with correct parameters', async () => {
+      const body = { trackName: 'testTrackName', accessToken: 'testAccessToken', refreshToken: 'testRefreshToken' };
+      await controller.playTrackByName(body);
+      expect(service.getTrackDetails).toHaveBeenCalledWith(body.trackName, body.accessToken, body.refreshToken);
+    });
+  });
+
+  
+  
 });

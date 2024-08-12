@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TokenService } from "./token.service";
 import { ProviderService } from "./provider.service";
+import { Router } from "@angular/router";
 
 @Injectable({
   providedIn: 'root',
@@ -10,12 +11,19 @@ import { ProviderService } from "./provider.service";
 export class AuthService {
   private apiUrl = 'http://localhost:3000/api/auth';
 
-  constructor(private http: HttpClient, private tokenService: TokenService, private providerService: ProviderService) {
+  constructor(private http: HttpClient, private tokenService: TokenService, private providerService: ProviderService, private router: Router) {
   }
 
   // This function is used to sign in the user with email and password
   signIn(email: string, password: string): Observable<any> {
-    localStorage.setItem('loggedIn', 'true');
+    if (localStorage.getItem('loggedIn') === 'true')
+    {
+      this.router.navigate(['/home']);
+    }
+    else
+    {
+      localStorage.setItem('loggedIn', 'true');
+    }
     return this.http.post(`${this.apiUrl}/signin`, { email, password });
   }
 
@@ -44,6 +52,14 @@ export class AuthService {
 
   // This function is used to sign in the user with Spotify OAuth
   async signInWithOAuth(): Promise<void> {
+    if (localStorage.getItem('loggedIn') === 'true')
+    {
+      this.router.navigate(['/home']);
+    }
+    else
+    {
+      localStorage.setItem('loggedIn', 'true');
+    }
     const providerName = this.providerService.getProviderName();
     this.http.post<{ url: string }>(`${this.apiUrl}/oauth-signin`, { provider: providerName })
       .subscribe(

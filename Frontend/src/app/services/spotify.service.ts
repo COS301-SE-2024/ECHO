@@ -19,6 +19,14 @@ export interface TrackInfo
   explicit: boolean;
 }
 
+export interface ArtistInfo
+{
+  id: string;
+  name: string;
+  imageUrl: string;
+  spotifyUrl: string;
+}
+
 export interface TrackAnalysis
 {
   valence: number;
@@ -474,7 +482,6 @@ export class SpotifyService
           explicit: track.explicit
         } as TrackInfo;
       });
-      console.log("Queue tracks:", tracks);
 
       sessionStorage.setItem("queue", JSON.stringify(tracks));
       this.QueueObject = tracks;
@@ -647,6 +654,7 @@ export class SpotifyService
     }
   }
 
+  // This method is used to get the mood of a track based on its audio features
   public async getTrackMood(trackId: string): Promise<string>
   {
     try
@@ -672,7 +680,8 @@ export class SpotifyService
     }
   }
 
-  private classifyMood(analysis: TrackAnalysis): string
+  public classifyMood(analysis: TrackAnalysis): string
+  // Classify the mood of a track based on its audio features
   {
     const { valence, energy, danceability, tempo } = analysis;
 
@@ -706,5 +715,77 @@ export class SpotifyService
     if (valence > 0.5 && energy > 0.7 && tempo > 120) return "Surprise";
 
     return "Neutral";
+  }
+
+  // Get the user's top artists from Spotify
+  public async getTopArtists(): Promise<ArtistInfo[]>
+  {
+    try
+    {
+      const laccessToken = this.tokenService.getAccessToken();
+      const lrefreshToken = this.tokenService.getRefreshToken();
+      const response = await this.http.post<any>("http://localhost:3000/api/spotify/top-artists", {
+        accessToken: laccessToken,
+        refreshToken: lrefreshToken
+      }).toPromise();
+
+      if (!response)
+      {
+        throw new Error(`HTTP error! Status: ${response}`);
+      }
+
+      return response.map((artist: any) =>
+      {
+        return {
+          id: artist.id,
+          name: artist.name,
+          imageUrl: artist.imageUrl,
+          spotifyUrl: artist.spotifyUrl
+        } as ArtistInfo;
+      });
+    }
+    catch (error)
+    {
+      console.error("Error fetching top artists:", error);
+      throw error;
+    }
+  }
+
+  // Get the user's top tracks from Spotify
+  public async getTopTracks(): Promise<TrackInfo[]>
+  {
+    try
+    {
+      const laccessToken = this.tokenService.getAccessToken();
+      const lrefreshToken = this.tokenService.getRefreshToken();
+      const response = await this.http.post<any>("http://localhost:3000/api/spotify/top-tracks", {
+        accessToken: laccessToken,
+        refreshToken: lrefreshToken
+      }).toPromise();
+
+      if (!response)
+      {
+        throw new Error(`HTTP error! Status: ${response}`);
+      }
+
+      return response.map((track: any) =>
+      {
+        return {
+          id: track.id,
+          text: track.name,
+          albumName: track.albumName,
+          imageUrl: track.albumImageUrl,
+          secondaryText: track.artistName,
+          previewUrl: track.preview_url,
+          spotifyUrl: track.spotifyUrl,
+          explicit: false
+        } as TrackInfo;
+      });
+    }
+    catch (error)
+    {
+      console.error("Error fetching top tracks:", error);
+      throw error;
+    }
   }
 }

@@ -30,7 +30,9 @@ export const routes: Routes = [
   { path: "settings", component: SettingsComponent },
   { path: "artist-profile", component: ArtistProfileComponent },
   { path: "help", component: HelpMenuComponent },
-  {path: "insights", component: InsightsComponent}
+  {path: "insights", component: InsightsComponent},
+  {path: "insights", component: InsightsComponent},
+  {path: "search", component: SearchComponent}
   //{ path: "**", redirectTo: "/login", pathMatch: "full" },
 ];
 
