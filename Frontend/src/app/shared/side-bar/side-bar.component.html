@@ -67,54 +67,53 @@
 
 <!-- Styled Dropdown menu to match the button -->
 <div id="dropdown" *ngIf="isDropdownVisible" class="w-full z-10 bg-blue-700 divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-component">
-    <div class="flex flex-col h-full">
-      <ul class="py-2" [ngClass]="this.moodComponentClasses[this.moodService.getCurrentMood()]"  aria-labelledby="dropdownDefaultButton">
-        <li *ngFor="let option of options">
-          <a (click)="selectedOptionChange(option)" [ngClass]="this.moodComponentClasses[this.moodService.getCurrentMood()]" class="block w-full px-4">{{option}}</a>
-        </li>
+  <div class="flex flex-col h-full max-h-64 overflow-y-auto">
+      <ul class="py-2" [ngClass]="this.moodComponentClasses[this.moodService.getCurrentMood()]" aria-labelledby="dropdownDefaultButton">
+          <li *ngFor="let option of options">
+              <a (click)="selectedOptionChange(option)" [ngClass]="this.moodComponentClasses[this.moodService.getCurrentMood()]" class="block w-full px-4">{{option}}</a>
+          </li>
       </ul>
-    </div>
+  </div>
 </div>
 
-
-  <!-- Cards Container -->
-  <div class="px-5 py-2 w-full">
-    <!-- ng-container for iterating over cards and adding View More button as the last card -->
-    <ng-container *ngFor="let card of getSelectedCardData(); let i = index; let last = last">
-            <!-- Card -->
-      <div [ngClass]="this.moodComponentClasses[this.moodService.getCurrentMood()]"  class="mb-4 w-full rounded-lg shadow-lg overflow-hidden">
-        <div class="flex items-center p-4" (click)="playTrack(card.id)">
-          <!-- Card Image -->
-          <img class="w-16 h-16 rounded-lg" [src]="card?.imageUrl || 'path/to/default-image.jpg'" alt="Album Art">
-          <!-- Card Content -->
-          <div class="ml-4">
-            <h3 class="text-lg font-bold text-gray-900 dark:text-white">{{ card.text }}</h3>
-            <p class="text-sm text-gray-600 dark:text-gray-400">{{ card.secondaryText }}</p>
+<!-- Cards Container -->
+<div class="px-5 py-2 w-full max-h-96 overflow-y-auto">
+  <!-- ng-container for iterating over cards and adding View More button as the last card -->
+  <ng-container *ngFor="let card of getSelectedCardData(); let i = index; let last = last">
+      <!-- Card -->
+      <div [ngClass]="this.moodComponentClasses[this.moodService.getCurrentMood()]" class="mb-4 w-full rounded-lg shadow-lg overflow-hidden">
+          <div class="flex items-center p-4" (click)="playTrack(card.id)">
+              <!-- Card Image -->
+              <img class="w-16 h-16 rounded-lg" [src]="card?.imageUrl || 'path/to/default-image.jpg'" alt="Album Art">
+              <!-- Card Content -->
+              <div class="ml-4">
+                  <h3 class="text-lg font-bold text-gray-900 dark:text-white">{{ card.text }}</h3>
+                  <p class="text-sm text-gray-600 dark:text-gray-400">{{ card.secondaryText }}</p>
+              </div>
+              <!-- Action Button -->
+              <div class="ml-auto">
+                  <button class="text-gray-400 hover:text-gray-200" (click)="echoTrack(card.text, card.secondaryText, $event)">
+                      <svg *ngIf="i !== 0" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M12 6.5a1.5 1.5 0 011.5 1.5V11h3a1.5 1.5 0 010 3h-3v3a1.5 1.5 0 01-3 0v-3h-3a1.5 1.5 0 010-3h3V8a1.5 1.5 0 011.5-1.5z"/>
+                      </svg>
+                      <svg *ngIf="i === 0" width="29" height="28" viewBox="0 0 29 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <rect y="9.33333" width="4.14286" height="9.33333" rx="2.07143" fill="#EE0258"/>
+                          <rect x="24.8572" y="9.33333" width="4.14286" height="9.33333" rx="2.07143" fill="#EE0258"/>
+                          <rect x="5.80005" y="5.44444" width="4.97143" height="15.5556" rx="2.48571" fill="#EE0258"/>
+                          <rect x="18.2285" y="5.44444" width="4.97143" height="15.5556" rx="2.48571" fill="#EE0258"/>
+                          <rect x="12.4285" width="4.14286" height="28" rx="2.07143" fill="#EE0258"/>
+                      </svg>
+                  </button>
+              </div>
           </div>
-          <!-- Action Button -->
-          <div class="ml-auto">
-            <button class="text-gray-400 hover:text-gray-200" (click)="echoTrack(card.text, card.secondaryText, $event)">
-              <svg *ngIf="i !== 0" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 6.5a1.5 1.5 0 011.5 1.5V11h3a1.5 1.5 0 010 3h-3v3a1.5 1.5 0 01-3 0v-3h-3a1.5 1.5 0 010-3h3V8a1.5 1.5 0 011.5-1.5z"/>
-              </svg>
-              <svg *ngIf="i === 0" width="29" height="28" viewBox="0 0 29 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect y="9.33333" width="4.14286" height="9.33333" rx="2.07143" fill="#EE0258"/>
-                <rect x="24.8572" y="9.33333" width="4.14286" height="9.33333" rx="2.07143" fill="#EE0258"/>
-                <rect x="5.80005" y="5.44444" width="4.97143" height="15.5556" rx="2.48571" fill="#EE0258"/>
-                <rect x="18.2285" y="5.44444" width="4.97143" height="15.5556" rx="2.48571" fill="#EE0258"/>
-                <rect x="12.4285" width="4.14286" height="28" rx="2.07143" fill="#EE0258"/>
-              </svg>
-            </button>
-          </div>
-        </div>
       </div>
       <!-- View More Button as a Card with extra bottom padding class -->
       <div *ngIf="last" [ngClass]="this.moodComponentClasses[this.moodService.getCurrentMood()]" class="view-more-container text-center py-4 w-full rounded-lg shadow-lg overflow-hidden">
-        <button [ngClass]="this.moodComponentClasses[this.moodService.getCurrentMood()]" class="px-4 py-2 rounded-lg font-semibold">View More</button>
+          <button [ngClass]="this.moodComponentClasses[this.moodService.getCurrentMood()]" class="px-4 py-2 rounded-lg font-semibold">View More</button>
       </div>
-    </ng-container>
-  </div>
+  </ng-container>
 </div>
+
 
 
 <div *ngIf="isEchoModalVisible" id="echo-songs" tabindex="-1" aria-hidden="true" class="fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full bg-black bg-opacity-50">
