@@ -10,6 +10,7 @@ import { DisplayComponent } from '../../shared/setting-pages/display/display.com
 import { LanguageComponent } from '../../shared/setting-pages/language/language.component';
 import { PrivacyComponent } from '../../shared/setting-pages/privacy/privacy.component';
 import { MoodService } from '../../services/mood-service.service';
+import { BackButtonComponent } from '../../shared/back-button/back-button.component';
 
 
 @Component({
@@ -24,6 +25,7 @@ import { MoodService } from '../../services/mood-service.service';
     DisplayComponent,
     LanguageComponent,
     PrivacyComponent,
+    BackButtonComponent,
   ],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.css'

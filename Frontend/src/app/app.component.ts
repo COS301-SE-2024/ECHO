@@ -51,7 +51,7 @@ export class AppComponent implements OnInit
       if (event instanceof NavigationEnd) {
         this.displaySideBar = ['/home', '/profile', '/mood', '/home#','/home#search','/home#home', '/home#library'].includes(event.urlAfterRedirects);
         this.displayPlayer = ['/settings'].includes(event.urlAfterRedirects);
-        this.showPlayer = ['/home', '/profile', '/mood',"/search", '/home#','/home#home','/home#search', '/home#library','/home#insight'].includes(event.urlAfterRedirects);
+        this.showPlayer = ['/home', '/profile', '/mood', 'artist-profile',"/search", '/home#','/home#home','/home#search', '/home#library','/home#insight'].includes(event.urlAfterRedirects);
         switch (event.urlAfterRedirects) {
           case '/home':
             this.currentPage = 'Home';
