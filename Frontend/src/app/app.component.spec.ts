@@ -30,7 +30,7 @@ describe('AppComponent', () => {
           provide: Router,
           useValue: {
             events: routerEventsSubject.asObservable(),
-            navigate: jasmine.createSpy('navigate')
+            navigate: jest.fn()
           }
         },
         {
@@ -38,10 +38,10 @@ describe('AppComponent', () => {
           useValue: {
             snapshot: {
               paramMap: {
-                get: jasmine.createSpy('get').and.returnValue('mockValue')
+                get: jest.fn().mockReturnValue('mockValue')
               },
               queryParamMap: {
-                get: jasmine.createSpy('get').and.returnValue('mockValue')
+                get: jest.fn().mockReturnValue('mockValue')
               }
             }
           }
@@ -60,7 +60,7 @@ describe('AppComponent', () => {
             versionUpdates: of({
               type: 'VERSION_READY'
             }),
-            activateUpdate: jasmine.createSpy('activateUpdate').and.returnValue(Promise.resolve())
+            activateUpdate: jest.fn().mockReturnValue(Promise.resolve())
           }
         },
       ],
