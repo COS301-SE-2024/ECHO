@@ -37,4 +37,6 @@ describe('TopCardComponent', () => {
     expect(textElement.textContent).toContain(testText);
     expect(secondaryTextElement.textContent).toContain(testSecondaryText);
   });
+
+  
 });

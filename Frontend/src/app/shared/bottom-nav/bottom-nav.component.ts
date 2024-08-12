@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {CommonModule} from '@angular/common';
+import { MoodService } from "../../services/mood-service.service";
+
 @Component({
   selector: 'app-bottom-nav',
   standalone: true,
@@ -9,9 +11,16 @@ import {CommonModule} from '@angular/common';
   styleUrl: './bottom-nav.component.css'
 })
 export class BottomNavComponent {
+  //Mood Service Variables
+  moodComponentClasses!: { [key: string]: string };
+  backgroundMoodClasses!: { [key: string]: string };
+  moodClassesDark!: { [key: string]: string };
   selectedIndex:string = 'home';
-  constructor(private router: Router) {}
-
+  constructor(private router: Router,public moodService: MoodService) {
+    this.moodComponentClasses = this.moodService.getComponentMoodClasses();
+    this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
+    this.moodClassesDark = this.moodService.getComponentMoodClassesDark();
+  }
   selectedIndexChanged(index: string){
     this.selectedIndex = index;
   }

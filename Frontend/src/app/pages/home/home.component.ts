@@ -14,7 +14,8 @@ import { SearchComponent } from '../../pages/search/search.component';
 import { MoodDropDownComponent } from './../../shared/mood-drop-down/mood-drop-down.component';
 import { MoodService } from '../../services/mood-service.service';
 import { InsightsComponent } from "../insights/insights.component";
-
+import {TopCardComponent} from '../../shared/top-card/top-card.component';
+import {TopArtistCardComponent} from "../../shared/top-artist-card/top-artist-card.component";
 @Component({
     selector: 'app-home',
     standalone: true,
@@ -31,7 +32,9 @@ import { InsightsComponent } from "../insights/insights.component";
         NgSwitchCase,
         NgSwitch,
         MoodDropDownComponent,
-        InsightsComponent
+        InsightsComponent,
+        TopCardComponent,
+        TopArtistCardComponent
     ],
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',
@@ -54,7 +57,80 @@ export class HomeComponent implements OnInit {
       ];
     selectedMood: number | null = null;
 
-
+    artists = [
+        {
+            imageUrl: '../../../assets/images/ken.jpg',
+            text: 'Kendrick Lamar',
+        },
+        {
+            imageUrl: '../../../assets/images/malone.jpg',
+            text: 'Post Malone',
+        },
+        {
+            imageUrl: '../../../assets/images/thekill.jpg',
+            text: 'The Killers',
+        },
+        {
+            imageUrl: '../../../assets/images/rhcp.jpg',
+            text: 'Red Hot Chilli Peppers',
+        },
+        {
+            imageUrl: '../../../assets/images/bob.jpg',
+            text: 'Bob Marley',
+        },
+        {
+            imageUrl: '../../../assets/images/miller.jpg',
+            text: 'Mac Miller',
+        },
+        {
+            imageUrl: '../../../assets/images/cinemaclub.jpg',
+            text: 'Two Door Cinema Club',
+        },
+    ];
+    recentListeningCardData = [
+        {
+            imageUrl: '../../../assets/images/red.jpg',
+            text: 'Californication',
+            secondaryText: 'Red Hot Chilli Peppers',
+            explicit: false,
+        },
+        {
+            imageUrl: '../../../assets/images/post.jpg',
+            text: 'Too Cool To Die',
+            secondaryText: 'Post Malone',
+            explicit: true,
+        },
+        {
+            imageUrl: '../../../assets/images/killers.png',
+            text: 'Mr. Brightside',
+            secondaryText: 'The Killers',
+            explicit: false,
+        },
+        {
+            imageUrl: '../../../assets/images/glass.jpg',
+            text: 'Youth',
+            secondaryText: 'Glass Animals',
+            explicit: false,
+        },
+        {
+            imageUrl: '../../../assets/images/wheatus.jpg',
+            text: 'Teenage Dirtbag',
+            secondaryText: 'Wheatus',
+            explicit: true,
+        },
+        {
+            imageUrl: '../../../assets/images/bastille.jpg',
+            text: 'Pompeii',
+            secondaryText: 'Bastille',
+            explicit: false,
+        },
+        {
+            imageUrl: '../../../assets/images/c.png',
+            text: 'Prayer in C',
+            secondaryText: 'Lilly Wood & The Prick',
+            explicit: false,
+        },
+    ];
     constructor(
         protected themeService: ThemeService,
         private authService: AuthService,
@@ -90,6 +166,10 @@ export class HomeComponent implements OnInit {
       if (typeof window !== 'undefined') {
         await this.spotifyService.init();
       }
+    }
+
+    openHelpMenu() {
+        this.router.navigate(['/help']);
     }
 
     selectMood(index: number) {

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
-import { NgForOf, NgIf } from '@angular/common';
+import { NgForOf, NgIf, NgClass } from '@angular/common';
 import { SideBarComponent } from '../../shared/side-bar/side-bar.component';
 import { ThemeService } from '../../services/theme.service';
 import { AuthService } from '../../services/auth.service';
@@ -17,6 +17,8 @@ import { CommonModule } from '@angular/common';
 import { BottomNavComponent } from '../../shared/bottom-nav/bottom-nav.component';
 import { SpotifyService } from "../../services/spotify.service";
 import { InfoBarComponent } from '../../shared/info-bar/info-bar.component';
+import { MoodService } from '../../services/mood-service.service';
+import { BackButtonComponent } from '../../shared/back-button/back-button.component';
 
 @Component({
     selector: 'app-artist-profile',
@@ -35,6 +37,8 @@ import { InfoBarComponent } from '../../shared/info-bar/info-bar.component';
         CommonModule,
         BottomNavComponent,
         InfoBarComponent,
+        NgClass,
+        BackButtonComponent,
     ],
     templateUrl: './artist-profile.component.html',
     styleUrl: './artist-profile.component.css',
@@ -42,6 +46,9 @@ import { InfoBarComponent } from '../../shared/info-bar/info-bar.component';
 export class ArtistProfileComponent implements AfterViewInit {
     imgpath: string = 'back.jpg';
     screenSize?: string;
+    currentMood!: string;
+    moodComponentClasses!:{ [key: string]: string };
+    backgroundMoodClasses!:{ [key: string]: string };
 
     artist = {
         name: 'Kendrick Lamar',
@@ -62,8 +69,13 @@ export class ArtistProfileComponent implements AfterViewInit {
         private router: Router,
         protected dialog: MatDialog,
         private screenSizeService: ScreenSizeService,
-        private spotifyService: SpotifyService
-    ) {}
+        private spotifyService: SpotifyService,
+        public moodService: MoodService,
+    ) {
+      this.currentMood = this.moodService.getCurrentMood(); 
+      this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
+      this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
+    }
 
     ngAfterViewInit(): void {
       let currUser = this.authService.currentUser().subscribe((res) => {

@@ -77,7 +77,6 @@ export class AppComponent implements OnInit
             this.currentPage = 'Profile';
             this.displayPageName = false;
             break;
-
           case '/settings':
             this.currentPage = 'Settings';
             this.displayPageName = true;
@@ -90,7 +89,6 @@ export class AppComponent implements OnInit
             this.currentPage = '';
             this.displayPageName = false;
         }
-        
       }
     });
 

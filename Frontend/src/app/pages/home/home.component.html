@@ -9,7 +9,7 @@
       class="mb-4 col-start-2 row-start-1">
     </app-search-bar>
 
-    <div class="flex space-x-2 mb-10 col-start-2 row-start-2">
+    <div  *ngIf="screenSize === 'desktop'" class="flex space-x-2 mb-10 col-start-2 row-start-2">
       <!-- Button for Mood -->
       <button
         *ngFor="let mood of moods; let i = index"
@@ -26,6 +26,7 @@
     
     <div class="fixed top-5 right-8 flex flex-row items-center space-x-4 mr-8">
       <!-- Moved Mood Drop Down Here, Directly to the Left of Profile -->
+      <img class="h-8 w-8 hover:cursor-pointer" src="../assets/icons/info-pink.png" (click)="openHelpMenu()">
       <app-mood-drop-down class="mt-2"></app-mood-drop-down>
       <img (click)="profile()" [src]="'../../../../assets/icons/profile-light.png'" alt="profile" class="w-12 h-12 hover:cursor-pointer">
     </div>
@@ -37,21 +38,48 @@
       <div *ngIf="title === 'Home'" class="col-start-2 col-span-4 row-start-1 row-span-5 pl-16 pt-20 mr-5">
         <app-moods></app-moods>
       </div>
+        <!-- Search and Insight Components -->
+      <div *ngIf="title === 'Search'" class="col-start-2 col-span-4 row-start-1 row-span-5 pl-16 mt-[17.5vh] mr-5">
+        <app-search [searchQuery]="searchQuery"></app-search>
+      </div>
+      <!-- Insight Component -->
+      <div *ngIf="title === 'Insight'" class="col-start-2 col-span-4 row-start-1 row-span-5 pl-16 mt-[12vh] mr-5">
+        <app-insights [percentageData]="getMoodPercentageData()"></app-insights>
+      </div>
+      
+      
+      <div *ngIf="title === 'Library'" class="col-start-2 col-span-4 row-start-1 row-span-5 pl-16 pt-20 mt-32">
+        <h2 class="text-gray-dark dark:text-gray-verylight font-bold mb-2 mt-4">My Artists</h2>
+        <div class="flex space-x-2 overflow-x-autono-scrollbar">
+          <ng-container *ngFor="let artist of artists">
+            <app-top-artist-card 
+              [imageUrl]="artist.imageUrl" 
+              [text]="artist.text"
+            >
+          </app-top-artist-card>
+          </ng-container>
+        </div>
+
+        <h2 class="text-gray-dark dark:text-gray-verylight font-bold mb-2 mt-10">My Songs</h2>
+          <div class="flex space-x-2 overflow-x-auto no-scrollbar">
+          <ng-container *ngFor="let item of recentListeningCardData">
+            <app-top-card 
+              [imageUrl]="item.imageUrl" 
+              [text]="item.text" 
+              [secondaryText]="item.secondaryText"
+            >
+            </app-top-card>
+          </ng-container>
+          </div>
+      </div>
+      
     </ng-container>
-    
     <!-- Mobile Layout -->
     <ng-container *ngSwitchCase="'mobile'">
-      <app-moods class="col-start-1 col-span-12 row-start-1 row-span-10 pt-[8.5vh]"></app-moods>
-      <app-side-bar class="col-start-1 col-span-12 row-start-2 row-span-9"></app-side-bar>
+      <app-moods class="col-start-1 col-span-12 row-start-1 row-span-10 mt-[8.5vh]"></app-moods>
+      <app-side-bar class="col-start-1 col-span-12 row-start-2 row-span-9 mt-[17.5vh]"></app-side-bar>
     </ng-container>
   </ng-container>
   
-  <!-- Search and Insight Components -->
-  <div *ngIf="title === 'Search'" class="col-start-2 col-span-4 row-start-1 row-span-5 pl-16 pt-16 mr-5">
-    <app-search [searchQuery]="searchQuery"></app-search>
-  </div>
-  <!-- Insight Component -->
-  <div *ngIf="title === 'Insight'" class="col-start-2 col-span-4 row-start-1 row-span-5 pl-16 pt-16 mr-5">
-    <app-insights [percentageData]="getMoodPercentageData()"></app-insights>
-  </div>
+
 </div>

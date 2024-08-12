@@ -680,8 +680,8 @@ export class SpotifyService
     }
   }
 
+  public classifyMood(analysis: TrackAnalysis): string
   // Classify the mood of a track based on its audio features
-  private classifyMood(analysis: TrackAnalysis): string
   {
     const { valence, energy, danceability, tempo } = analysis;
 
