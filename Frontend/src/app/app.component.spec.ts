@@ -6,6 +6,7 @@ import { ProviderService } from './services/provider.service';
 import { SwUpdate } from '@angular/service-worker';
 import { of, Subject } from 'rxjs';
 import { By } from '@angular/platform-browser';
+import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -24,6 +25,7 @@ describe('AppComponent', () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent],
       providers: [
+        provideHttpClient(withInterceptorsFromDi()),
         { provide: Router, useValue: { events: routerEventsSubject.asObservable() } },
         { provide: ScreenSizeService, useValue: { screenSize$: screenSizeSubject.asObservable() } },
         { provide: ProviderService, useValue: {} },
@@ -50,10 +52,10 @@ describe('AppComponent', () => {
   it('should update showPlayer based on navigation end events', () => {
     routerEventsSubject.next(new NavigationEnd(0, '/home', '/home'));
     expect(component.showPlayer).toBe(true);
-    
+
     routerEventsSubject.next(new NavigationEnd(0, '/profile', '/profile'));
     expect(component.showPlayer).toBe(true);
-    
+
     routerEventsSubject.next(new NavigationEnd(0, '/other', '/other'));
     expect(component.showPlayer).toBe(false);
   });
@@ -61,7 +63,7 @@ describe('AppComponent', () => {
   it('should update displayPlayer based on navigation end events', () => {
     routerEventsSubject.next(new NavigationEnd(0, '/settings', '/settings'));
     expect(component.displayPlayer).toBe(true);
-    
+
     routerEventsSubject.next(new NavigationEnd(0, '/home', '/home'));
     expect(component.displayPlayer).toBe(false);
   });
@@ -83,7 +85,7 @@ describe('AppComponent', () => {
     component.ngOnInit();
     screenSizeSubject.next('large');
     expect(component.screenSize).toBe('large');
-    
+
     screenSizeSubject.next('small');
     expect(component.screenSize).toBe('small');
   });
