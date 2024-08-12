@@ -114,6 +114,14 @@ This tab is located beneath the Home tab, and is based off your most recent list
 ### Insights
 To view your listening insights, click on the bar icon between the Home and Library buttons on the left navigation bar. This will bring up various charts and statistics related to your listening habits. In a future app release, these charts and statistics will be displayed in a dashboard format, where clicking on a tile will bring up detailed information about the clicked option. 
 
+The results should look similar to this:
+
+![alt text](images/insights-1.png)
+
+Clicking on the "Next" button should bring up alternate formats:
+
+![alt text](images/insights-2.png)
+
 ### Settings
 To view the Settings page, navigate to the Profile section on the top right corner of the screen. On this page, click on the Settings button at the top right of the Profile page. This will bring up a list of customisations. 
 
