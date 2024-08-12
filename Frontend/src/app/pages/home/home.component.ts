@@ -92,6 +92,10 @@ export class HomeComponent implements OnInit {
       }
     }
 
+    openHelpMenu() {
+        this.router.navigate(['/help']);
+    }
+
     selectMood(index: number) {
         this.selectedMood = index;
         // Additional logic to handle mood selection

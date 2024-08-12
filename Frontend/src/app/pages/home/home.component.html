@@ -26,6 +26,7 @@
     
     <div class="fixed top-5 right-8 flex flex-row items-center space-x-4 mr-8">
       <!-- Moved Mood Drop Down Here, Directly to the Left of Profile -->
+      <img class="h-8 w-8 hover:cursor-pointer" src="../assets/icons/info-pink.png" (click)="openHelpMenu()">
       <app-mood-drop-down class="mt-2"></app-mood-drop-down>
       <img (click)="profile()" [src]="'../../../../assets/icons/profile-light.png'" alt="profile" class="w-12 h-12 hover:cursor-pointer">
     </div>

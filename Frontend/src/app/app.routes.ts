@@ -12,6 +12,7 @@ import { SettingsComponent } from "./pages/settings/settings.component";
 import { MoodComponent } from "./pages/mood/mood.component";
 import { NgModule } from "@angular/core";
 import { InsightsComponent } from "./pages/insights/insights.component";
+import { HelpMenuComponent } from "./pages/help-menu/help-menu.component";
 
 export const routes: Routes = [
   { path: "landing", component: LandingPageComponent },
@@ -28,6 +29,7 @@ export const routes: Routes = [
   { path: "", redirectTo: "/login", pathMatch: "full" },
   { path: "settings", component: SettingsComponent },
   { path: "artist-profile", component: ArtistProfileComponent },
+  { path: "help", component: HelpMenuComponent },
   {path: "insights", component: InsightsComponent}
   //{ path: "**", redirectTo: "/login", pathMatch: "full" },
 ];
