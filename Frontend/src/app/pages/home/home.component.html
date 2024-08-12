@@ -9,7 +9,7 @@
       class="mb-4 col-start-2 row-start-1">
     </app-search-bar>
 
-    <div class="flex space-x-2 mb-10 col-start-2 row-start-2">
+    <div  *ngIf="screenSize === 'desktop'" class="flex space-x-2 mb-10 col-start-2 row-start-2">
       <!-- Button for Mood -->
       <button
         *ngFor="let mood of moods; let i = index"
@@ -37,8 +37,15 @@
       <div *ngIf="title === 'Home'" class="col-start-2 col-span-4 row-start-1 row-span-5 pl-16 pt-20 mr-5">
         <app-moods></app-moods>
       </div>
+        <!-- Search and Insight Components -->
+      <div *ngIf="title === 'Search'" class="col-start-2 col-span-4 row-start-1 row-span-5 pl-16 pt-16 mr-5">
+        <app-search [searchQuery]="searchQuery"></app-search>
+      </div>
+      <!-- Insight Component -->
+      <div *ngIf="title === 'Insight'" class="col-start-2 col-span-4 row-start-1 row-span-5 pl-16 pt-16 mr-5">
+        <app-insights [percentageData]="getMoodPercentageData()"></app-insights>
+      </div>
     </ng-container>
-    
     <!-- Mobile Layout -->
     <ng-container *ngSwitchCase="'mobile'">
       <app-moods class="col-start-1 col-span-12 row-start-1 row-span-10 pt-[8.5vh]"></app-moods>
@@ -46,12 +53,5 @@
     </ng-container>
   </ng-container>
   
-  <!-- Search and Insight Components -->
-  <div *ngIf="title === 'Search'" class="col-start-2 col-span-4 row-start-1 row-span-5 pl-16 pt-16 mr-5">
-    <app-search [searchQuery]="searchQuery"></app-search>
-  </div>
-  <!-- Insight Component -->
-  <div *ngIf="title === 'Insight'" class="col-start-2 col-span-4 row-start-1 row-span-5 pl-16 pt-16 mr-5">
-    <app-insights [percentageData]="getMoodPercentageData()"></app-insights>
-  </div>
+
 </div>
