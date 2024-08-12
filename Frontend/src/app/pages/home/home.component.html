@@ -38,11 +38,11 @@
         <app-moods></app-moods>
       </div>
         <!-- Search and Insight Components -->
-      <div *ngIf="title === 'Search'" class="col-start-2 col-span-4 row-start-1 row-span-5 pl-16 pt-16 mr-5">
+      <div *ngIf="title === 'Search'" class="col-start-2 col-span-4 row-start-1 row-span-5 pl-16 mt-[17.5vh] mr-5">
         <app-search [searchQuery]="searchQuery"></app-search>
       </div>
       <!-- Insight Component -->
-      <div *ngIf="title === 'Insight'" class="col-start-2 col-span-4 row-start-1 row-span-5 pl-16 pt-16 mr-5">
+      <div *ngIf="title === 'Insight'" class="col-start-2 col-span-4 row-start-1 row-span-5 pl-16 mt-[12vh] mr-5">
         <app-insights [percentageData]="getMoodPercentageData()"></app-insights>
       </div>
     </ng-container>
