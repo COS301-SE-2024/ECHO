@@ -5,7 +5,7 @@ import { NgClass } from '@angular/common';
 @Component({
   selector: 'app-help-menu',
   standalone: true,
-  imports: [ NgClass],
+  imports: [ NgClass ],
   templateUrl: './help-menu.component.html',
   styleUrl: './help-menu.component.css'
 })
@@ -18,6 +18,12 @@ export class HelpMenuComponent {
   constructor(
     public moodService: MoodService,
     ) {
+      this.currentMood = this.moodService.getCurrentMood();
+      this.moodComponentClasses = this.moodService.getComponentMoodClasses();
+      this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
+    }
+
+    ngOnInit(): void {
       this.currentMood = this.moodService.getCurrentMood();
       this.moodComponentClasses = this.moodService.getComponentMoodClasses();
       this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();

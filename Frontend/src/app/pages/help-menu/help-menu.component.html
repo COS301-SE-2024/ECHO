@@ -1,6 +1,6 @@
 <div class="min-h-screen grid grid-cols-5 gap-4 px-6 py-3 lg:px-8" [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]"> 
     <div class="col-span-5 rounded-xl p-10">
-        <h1 class="text-5xl text-gray-component font-bold mb-8">Help Menu</h1>
+        <h1 class="text-5xl text-pink font-bold mb-8">Help Menu</h1>
         <div class="space-y-6">
 
             <!-- Accordion for Login Page -->
@@ -11,7 +11,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
-                <div [ngClass]="{'block': isAccordionOpen('login'), 'hidden': !isAccordionOpen('login')}" class="mt-2 pl-4 text-gray-600">
+                <div [ngClass]="{'block': isAccordionOpen('login'), 'hidden': !isAccordionOpen('login')}" class="mt-2 pl-4 text-white">
                     <p>The login page allows users to sign in with their credentials. Key components include the email and password fields, a login button, and links to reset the password or register a new account.</p>
                     <p class="mt-2">Ensure that your email and password are correct to avoid login issues. If you have forgotten your password, use the "Forgot Password" link to reset it. For new users, the registration link will guide you through creating an account.</p>
                 </div>
@@ -25,7 +25,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
-                <div [ngClass]="{'block': isAccordionOpen('register'), 'hidden': !isAccordionOpen('register')}" class="mt-2 pl-4 text-gray-600">
+                <div [ngClass]="{'block': isAccordionOpen('register'), 'hidden': !isAccordionOpen('register')}" class="mt-2 pl-4 text-white">
                     <p>Users can create a new account on the register page. It includes fields for the username, email, password, and confirm password, along with a registration button.</p>
                     <p class="mt-2">Make sure your password is strong and meets the security requirements. The email you provide will be used for account verification and password recovery, so ensure it is accessible.</p>
                 </div>
@@ -39,7 +39,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
-                <div [ngClass]="{'block': isAccordionOpen('home'), 'hidden': !isAccordionOpen('home')}" class="mt-2 pl-4 text-gray-600">
+                <div [ngClass]="{'block': isAccordionOpen('home'), 'hidden': !isAccordionOpen('home')}" class="mt-2 pl-4 text-white">
                     <p>The home page is the main dashboard where users can access various features like search and their library. It typically includes a navigation bar, search bar, and quick links to different sections.</p>
                     <div class="mt-2">
                         <strong>Subpages:</strong>
@@ -60,7 +60,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
-                <div [ngClass]="{'block': isAccordionOpen('profile'), 'hidden': !isAccordionOpen('profile')}" class="mt-2 pl-4 text-gray-600">
+                <div [ngClass]="{'block': isAccordionOpen('profile'), 'hidden': !isAccordionOpen('profile')}" class="mt-2 pl-4 text-white">
                     <p>The profile page shows user information and activity. Users can update their profile picture, view listening history, and access account settings.</p>
                     <p class="mt-2">Regularly updating your profile ensures that your information remains accurate. Your listening history can help you discover trends in your music preferences.</p>
                 </div>
@@ -74,7 +74,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
-                <div [ngClass]="{'block': isAccordionOpen('mood'), 'hidden': !isAccordionOpen('mood')}" class="mt-2 pl-4 text-gray-600">
+                <div [ngClass]="{'block': isAccordionOpen('mood'), 'hidden': !isAccordionOpen('mood')}" class="mt-2 pl-4 text-white">
                     <p>The mood page allows users to select a mood and discover music that matches it. Key components include mood selection buttons, recommended songs, and mood-based playlists.</p>
                     <p class="mt-2">Selecting a mood tailors the music recommendations to fit your current feelings, providing a personalized listening experience. Explore the different moods to discover new music that resonates with you.</p>
                 </div>
@@ -88,7 +88,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
-                <div [ngClass]="{'block': isAccordionOpen('settings'), 'hidden': !isAccordionOpen('settings')}" class="mt-2 pl-4 text-gray-600">
+                <div [ngClass]="{'block': isAccordionOpen('settings'), 'hidden': !isAccordionOpen('settings')}" class="mt-2 pl-4 text-white">
                     <p>The settings page allows users to customize their experience. This includes account settings, privacy settings, and theme options.</p>
                     <p class="mt-2">Adjust the settings to suit your preferences, ensuring a seamless and enjoyable user experience. Privacy settings help you control the information shared within the application.</p>
                 </div>
@@ -102,7 +102,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
-                <div [ngClass]="{'block': isAccordionOpen('artistProfile'), 'hidden': !isAccordionOpen('artistProfile')}" class="mt-2 pl-4 text-gray-600">
+                <div [ngClass]="{'block': isAccordionOpen('artistProfile'), 'hidden': !isAccordionOpen('artistProfile')}" class="mt-2 pl-4 text-white">
                     <p>The artist profile page provides detailed information about a particular artist, including their discography, top songs, and related artists.</p>
                     <p class="mt-2">Explore an artist’s profile to discover their music catalog and learn more about their career. The related artists section can introduce you to similar music that you might enjoy.</p>
                 </div>
@@ -116,7 +116,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
-                <div [ngClass]="{'block': isAccordionOpen('insights'), 'hidden': !isAccordionOpen('insights')}" class="mt-2 pl-4 text-gray-600">
+                <div [ngClass]="{'block': isAccordionOpen('insights'), 'hidden': !isAccordionOpen('insights')}" class="mt-2 pl-4 text-white">
                     <p>The insights page provides analytics and data on the user’s listening habits. This includes trends, favorite genres, and listening duration.</p>
                     <p class="mt-2">Use insights to gain a deeper understanding of your music preferences and discover patterns in your listening habits. This can help you curate a more personalized music experience.</p>
                 </div>
