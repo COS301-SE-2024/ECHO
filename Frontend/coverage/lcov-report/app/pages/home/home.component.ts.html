@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.5% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>33/40</span>
+                <span class='fraction'>36/45</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">42.85% </span>
+                <span class="strong">33.33% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/7</span>
+                <span class='fraction'>3/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.05% </span>
+                <span class="strong">79.54% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>32/39</span>
+                <span class='fraction'>35/44</span>
             </div>
         
             
@@ -152,7 +152,23 @@
 <a name='L87'></a><a href='#L87'>87</a>
 <a name='L88'></a><a href='#L88'>88</a>
 <a name='L89'></a><a href='#L89'>89</a>
-<a name='L90'></a><a href='#L90'>90</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -167,6 +183,8 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -199,6 +217,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -236,6 +261,13 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -256,6 +288,7 @@ import { SearchBarComponent } from '../../shared/search-bar/search-bar.component
 import { SearchComponent } from '../../pages/search/search.component';
 import { MoodDropDownComponent } from './../../shared/mood-drop-down/mood-drop-down.component';
 import { MoodService } from '../../services/mood-service.service';
+import { InsightsComponent } from "../insights/insights.component";
 &nbsp;
 @Component({
     selector: 'app-home',
@@ -272,7 +305,8 @@ import { MoodService } from '../../services/mood-service.service';
         SearchComponent,
         NgSwitchCase,
         NgSwitch,
-        MoodDropDownComponent
+        MoodDropDownComponent,
+        InsightsComponent
     ],
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',
@@ -288,6 +322,13 @@ export class HomeComponent implements OnInit {
     screenSize?: string;
     currentSelection: string = 'All';
     searchQuery: string = '';
+    moods = [
+        'All', 'Sad', 'Relaxed', 'Energetic',
+        'Focused', 'Calm', 'Excited', 'Chill',
+        'Melancholic', 'Motivated', 'Joy', 'Admiration', 'Love'
+      ];
+    selectedMood: number | null = null;
+&nbsp;
 &nbsp;
     constructor(
         protected themeService: ThemeService,
@@ -297,8 +338,8 @@ export class HomeComponent implements OnInit {
         private screenSizeService: ScreenSizeService,
         public moodService: MoodService
     ) {
-        this.currentMood = this.moodService.getCurrentMood(); 
-        this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
+        this.currentMood = this.moodService.getCurrentMood();
+        this.moodComponentClasses = this.moodService.getComponentMoodClasses();
         this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
     }
 &nbsp;
@@ -310,7 +351,7 @@ export class HomeComponent implements OnInit {
 <span class="cstat-no" title="statement not covered" >        this.title = newNav;</span>
 <span class="cstat-no" title="statement not covered" >        this.router.navigate(['/home'], { fragment: newNav.toLowerCase() });</span>
     }
-    
+&nbsp;
 <span class="fstat-no" title="function not covered" >    onSearchdown(</span>subject:string) {
 <span class="cstat-no" title="statement not covered" >        this.searchQuery = subject;</span>
 <span class="cstat-no" title="statement not covered" >        this.title = 'Search';</span>
@@ -326,6 +367,13 @@ export class HomeComponent implements OnInit {
       }
     }
 &nbsp;
+<span class="fstat-no" title="function not covered" >    selectMood(</span>index: number) {
+<span class="cstat-no" title="statement not covered" >        this.selectedMood = index;</span>
+      }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    getMoodPercentageData(</span>): number[] {
+<span class="cstat-no" title="statement not covered" >        return [25, 5, 30, 40, 10, 15, 20, 25, 30, 10, 15, 5, 20, 5, 5, 15, 10, 10, 25, 10, 20, 15, 10, 5, 20, 15, 10];</span>
+    }
 <span class="fstat-no" title="function not covered" >    profile(</span>) {
 <span class="cstat-no" title="statement not covered" >        this.router.navigate(['/profile']);</span>
     }
@@ -337,7 +385,7 @@ export class HomeComponent implements OnInit {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-08-11T09:54:09.926Z
+                at 2024-08-12T08:57:09.854Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

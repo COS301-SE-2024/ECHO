@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for app/shared/page-header/page-header.component.ts</title>
+    <title>Code coverage report for app/pages/insights/insights.component.html</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">app/shared/page-header</a> page-header.component.ts</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">app/pages/insights</a> insights.component.html</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>8/8</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>7/7</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
@@ -75,16 +75,7 @@
 <a name='L10'></a><a href='#L10'>10</a>
 <a name='L11'></a><a href='#L11'>11</a>
 <a name='L12'></a><a href='#L12'>12</a>
-<a name='L13'></a><a href='#L13'>13</a>
-<a name='L14'></a><a href='#L14'>14</a>
-<a name='L15'></a><a href='#L15'>15</a>
-<a name='L16'></a><a href='#L16'>16</a>
-<a name='L17'></a><a href='#L17'>17</a>
-<a name='L18'></a><a href='#L18'>18</a>
-<a name='L19'></a><a href='#L19'>19</a>
-<a name='L20'></a><a href='#L20'>20</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<a name='L13'></a><a href='#L13'>13</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -93,34 +84,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Component, Input } from '@angular/core';
-import { MoodService } from './../../services/mood-service.service';
-import { NgClass } from "@angular/common";
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&lt;div *ngIf="screenSize === 'desktop'" class="desktop-layout"&gt;
+  &lt;div class="chart-container"&gt;
+    &lt;canvas class="left-1/2 top-1/2 pt-12" id="MyChart"&gt;&lt;/canvas&gt;
+  &lt;/div&gt;
+  &lt;button [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]" class="font-medium rounded-lg text-sm px-4 py-2.5 text-center" (click)="nextChartType()"&gt;Next&lt;/button&gt;
+&lt;/div&gt;
 &nbsp;
-@Component({
-  selector: 'app-page-header',
-  standalone: true,
-  imports: [NgClass],
-  templateUrl: './page-header.component.html',
-  styleUrl: './page-header.component.css'
-})
-export class PageHeaderComponent {
-  @Input() pageTitle: string = 'Default Page Title';
-    //Mood Service Variables
-    moodComponentClasses!:{ [key: string]: string };
-    constructor (public moodService: MoodService ) {
-        this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
-    }
-}
-&nbsp;</pre></td></tr></table></pre>
+&lt;div *ngIf="screenSize === 'mobile'" class="mobile-layout"&gt;
+  &lt;div [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]" class="min-h-screen grid grid-cols-5 grid-rows-6 gap-4 px-6 py-3 lg:px-8" style="overflow: auto;"&gt;
+      &lt;canvas class="left-1/2 top-1/2 pt-12" id="MyChart" &gt;&lt;/canvas&gt;
+  &lt;/div&gt;
+  &lt;button [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]" class="font-medium rounded-lg text-sm px-4 py-2.5 text-center" (click)="nextChartType()"&gt;Next&lt;/button&gt;
+&lt;/div&gt;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
