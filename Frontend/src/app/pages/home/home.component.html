@@ -46,6 +46,33 @@
       <div *ngIf="title === 'Insight'" class="col-start-2 col-span-4 row-start-1 row-span-5 pl-16 mt-[12vh] mr-5">
         <app-insights [percentageData]="getMoodPercentageData()"></app-insights>
       </div>
+      
+      
+      <div *ngIf="title === 'Library'" class="col-start-2 col-span-4 row-start-1 row-span-5 pl-16 pt-20 mt-32">
+        <h2 class="text-gray-dark dark:text-gray-verylight font-bold mb-2 mt-4">My Artists</h2>
+        <div class="flex space-x-2 overflow-x-autono-scrollbar">
+          <ng-container *ngFor="let artist of artists">
+            <app-top-artist-card 
+              [imageUrl]="artist.imageUrl" 
+              [text]="artist.text"
+            >
+          </app-top-artist-card>
+          </ng-container>
+        </div>
+
+        <h2 class="text-gray-dark dark:text-gray-verylight font-bold mb-2 mt-10">My Songs</h2>
+          <div class="flex space-x-2 overflow-x-auto no-scrollbar">
+          <ng-container *ngFor="let item of recentListeningCardData">
+            <app-top-card 
+              [imageUrl]="item.imageUrl" 
+              [text]="item.text" 
+              [secondaryText]="item.secondaryText"
+            >
+            </app-top-card>
+          </ng-container>
+          </div>
+      </div>
+      
     </ng-container>
     <!-- Mobile Layout -->
     <ng-container *ngSwitchCase="'mobile'">
