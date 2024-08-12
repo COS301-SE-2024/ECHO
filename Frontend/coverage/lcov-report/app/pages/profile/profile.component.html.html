@@ -167,7 +167,51 @@
 <a name='L102'></a><a href='#L102'>102</a>
 <a name='L103'></a><a href='#L103'>103</a>
 <a name='L104'></a><a href='#L104'>104</a>
-<a name='L105'></a><a href='#L105'>105</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a>
+<a name='L120'></a><a href='#L120'>120</a>
+<a name='L121'></a><a href='#L121'>121</a>
+<a name='L122'></a><a href='#L122'>122</a>
+<a name='L123'></a><a href='#L123'>123</a>
+<a name='L124'></a><a href='#L124'>124</a>
+<a name='L125'></a><a href='#L125'>125</a>
+<a name='L126'></a><a href='#L126'>126</a>
+<a name='L127'></a><a href='#L127'>127</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -272,9 +316,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&lt;div *ngIf="screenSize === 'mobile'" class="mobile-layout"&gt;
-  &lt;div [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]" class=" flex flex-col sm:px-6 sm:py-12 min-h-screen"&gt;
+  &lt;div [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]"
+       class=" flex flex-col sm:px-6 sm:py-12 min-h-screen"&gt;
     &lt;div class="profile-container w-full mx-auto"&gt;
-      &lt;div id="profile" class="profile bg-cover bg-center w-full relative" [style.background-image]="'url('+ imgpath + ')'" style="background-size: cover; height: 40vh;"&gt;
+      &lt;div id="profile" class="profile bg-cover bg-center w-full relative"
+           [style.background-image]="'url('+ imgpath + ')'" style="background-size: cover; height: 40vh;"&gt;
         &lt;!-- Centered content over the background image --&gt;
         &lt;div class="absolute inset-0 flex flex-col justify-center items-center bg-opacity-50 dark:bg-opacity-50"&gt;
           &lt;h2 class="text-gray-900 dark:text-white font-bold py-4"&gt;&amp;#64;{{ username }}&lt;/h2&gt;
@@ -282,31 +328,37 @@
             &lt;p class="text-gray-900 dark:text-white"&gt;11 Followers&lt;/p&gt;
             &lt;p class="text-gray-900 dark:text-white"&gt;3 Following&lt;/p&gt;
           &lt;/div&gt;
-          &lt;button *ngIf="themeService.isDarkModeActive()" class="btn btn-dark py-4" (click)="openDialog()"&gt;Edit Profile&lt;/button&gt;
-          &lt;button *ngIf="!themeService.isDarkModeActive()" class="btn btn-light py-4" (click)="openDialog()"&gt;Edit Profile&lt;/button&gt;
+          &lt;button *ngIf="themeService.isDarkModeActive()" class="btn btn-dark py-4" (click)="openDialog()"&gt;Edit
+            Profile
+          &lt;/button&gt;
+          &lt;button *ngIf="!themeService.isDarkModeActive()" class="btn btn-light py-4" (click)="openDialog()"&gt;Edit
+            Profile
+          &lt;/button&gt;
         &lt;/div&gt;
       &lt;/div&gt;
     &lt;/div&gt;
     &lt;div class="w-full pr-4 overflow-hidden"&gt;
-      &lt;h2 class="text-gray-dark dark:text-gray-verylight font-bold mb-2"&gt;Top Songs&lt;/h2&gt;
+      &lt;h2 class="text-gray-dark dark:text-gray-verylight font-bold mb-4"&gt;Top Songs&lt;/h2&gt;
       &lt;div class="flex space-x-2 overflow-x-auto scrollable-cards"&gt;
-      &lt;ng-container *ngFor="let item of recentListeningCardData"&gt;
-        &lt;app-top-card 
-          [imageUrl]="item.imageUrl" 
-          [text]="item.text" 
-          [secondaryText]="item.secondaryText"
-        &gt;
-        &lt;/app-top-card&gt;
-      &lt;/ng-container&gt;
+        &lt;ng-container *ngFor="let item of topTracks"&gt;
+          &lt;div (click)="playTrack(item.id)"&gt;
+            &lt;app-top-card
+              [imageUrl]="item.imageUrl"
+              [text]="item.text"
+              [secondaryText]="item.secondaryText"
+            &gt;
+            &lt;/app-top-card&gt;
+          &lt;/div&gt;
+        &lt;/ng-container&gt;
       &lt;/div&gt;
-      &lt;h2 class="text-gray-dark dark:text-gray-verylight font-bold mb-2 mt-4"&gt;Top Artists&lt;/h2&gt;
+      &lt;h2 class="text-gray-dark dark:text-gray-verylight font-bold mt-4"&gt;Top Artists&lt;/h2&gt;
       &lt;div class="flex space-x-2 overflow-x-auto scrollable-cards"&gt;
-        &lt;ng-container *ngFor="let artist of artists"&gt;
-          &lt;app-top-artist-card 
-            [imageUrl]="artist.imageUrl" 
-            [text]="artist.text"
+        &lt;ng-container *ngFor="let artist of topArtists"&gt;
+          &lt;app-top-artist-card
+            [imageUrl]="artist.imageUrl"
+            [text]="artist.name"
           &gt;
-        &lt;/app-top-artist-card&gt;
+          &lt;/app-top-artist-card&gt;
         &lt;/ng-container&gt;
       &lt;/div&gt;
     &lt;/div&gt;
@@ -316,22 +368,27 @@
 &lt;/div&gt;
 &nbsp;
 &lt;div *ngIf="screenSize === 'desktop'" class="desktop-layout"&gt;
-  &lt;div [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]"  class="min-h-screen  flex flex-col justify-center px-6 py-12 lg:px-8"&gt;
+  &lt;div [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]"
+       class="min-h-screen  flex flex-col justify-center px-6 py-12 lg:px-8"&gt;
     &lt;div class="flex justify-center items-center"&gt;
       &lt;div class="fixed top-1 right-12 flex flex-col items-center"&gt;
         &lt;button *ngIf="screenSize === 'desktop'" class="p-2" (click)="switchTheme()"&gt;
-          &lt;img *ngIf="!themeService.isDarkModeActive()" src="../../../assets/icons/light-mode.png" alt="Light Mode" class="w-10 h-10"&gt;
-          &lt;img *ngIf="themeService.isDarkModeActive()" src="../../../assets/icons/dark-mode.png" alt="Dark Mode" class="w-10 h-10"&gt;
+          &lt;img *ngIf="!themeService.isDarkModeActive()" src="../../../assets/icons/light-mode.png" alt="Light Mode"
+               class="w-10 h-10"&gt;
+          &lt;img *ngIf="themeService.isDarkModeActive()" src="../../../assets/icons/dark-mode.png" alt="Dark Mode"
+               class="w-10 h-10"&gt;
         &lt;/button&gt;
       &lt;/div&gt;
 &nbsp;
 &nbsp;
       &lt;div class="profile-container"&gt;
-        &lt;div id="profile" class="profile fixed right-4 top-4 mt-5 mr-5 ml-6 h-5/6"&gt;
+        &lt;div id="profile" class="profile fixed right-4 top-4 mt-2 mr-5 ml-6 h-5/6"&gt;
           &lt;div class="ml-24 p-4 pr-4 rounded-md h-full relative"&gt;
-            &lt;div [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]" class="rounded-lg overflow-hidden h-full relative"&gt;
+            &lt;div [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]"
+                 class="rounded-lg overflow-hidden h-full relative"&gt;
               &lt;div class="absolute top-2 left-1/2 transform -translate-x-1/2 text-center"&gt;
-                &lt;img src="{{imgpath}}" alt="Profile Image" class="w-24 h-24 rounded-full border-2 border-white dark:border-gray-700 mx-auto"&gt;
+                &lt;img src="{{imgpath}}" alt="Profile Image"
+                     class="w-24 h-24 rounded-full border-2 border-white dark:border-gray-700 mx-auto"&gt;
                 &lt;h2 class="mt-2 text-gray-900 dark:text-white font-bold"&gt;&amp;#64;{{ username }}&lt;/h2&gt;
                 &lt;div class="flex justify-center mt-2 space-x-4"&gt;
                   &lt;p class="text-gray-900 dark:text-white"&gt;11 Followers&lt;/p&gt;
@@ -340,25 +397,34 @@
               &lt;/div&gt;
               &lt;p class="absolute text-gray-900 top-8 left-20 dark:text-white font-bold"&gt;ECHO Rank: #1&lt;/p&gt;
               &lt;!-- Use Flowbite for modal/dialog if needed, otherwise just Tailwind for buttons --&gt;
-              &lt;button *ngIf="themeService.isDarkModeActive()" class="absolute btn btn-dark top-5 right-10" (click)="openDialog()"&gt;Edit Profile&lt;/button&gt;
-              &lt;button *ngIf="!themeService.isDarkModeActive()" class="absolute btn btn-light top-5 right-10" (click)="openDialog()"&gt;Edit Profile&lt;/button&gt;
+              &lt;button *ngIf="themeService.isDarkModeActive()" class="absolute btn btn-dark top-5 right-10"
+                      (click)="openDialog()"&gt;Edit Profile
+              &lt;/button&gt;
+              &lt;button *ngIf="!themeService.isDarkModeActive()" class="absolute btn btn-light top-5 right-10"
+                      (click)="openDialog()"&gt;Edit Profile
+              &lt;/button&gt;
               &lt;button class="absolute btn btn-dark top-5 right-52" (click)="settings()"&gt;
-                &lt;svg class="w-6 h-6 text-gray-800 dark:text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"&gt;
-                  &lt;path stroke="currentColor" stroke-linecap="square" stroke-linejoin="round" stroke-width="2" d="M10 19H5a1 1 0 0 1-1-1v-1a3 3 0 0 1 3-3h2m10 1a3 3 0 0 1-3 3m3-3a3 3 0 0 0-3-3m3 3h1m-4 3a3 3 0 0 1-3-3m3 3v1m-3-4a3 3 0 0 1 3-3m-3 3h-1m4-3v-1m-2.121 1.879-.707-.707m5.656 5.656-.707-.707m-4.242 0-.707.707m5.656-5.656-.707.707M12 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/&gt;
+                &lt;svg class="w-6 h-6 text-gray-800 dark:text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                     width="24" height="24" fill="none" viewBox="0 0 24 24"&gt;
+                  &lt;path stroke="currentColor" stroke-linecap="square" stroke-linejoin="round" stroke-width="2"
+                        d="M10 19H5a1 1 0 0 1-1-1v-1a3 3 0 0 1 3-3h2m10 1a3 3 0 0 1-3 3m3-3a3 3 0 0 0-3-3m3 3h1m-4 3a3 3 0 0 1-3-3m3 3v1m-3-4a3 3 0 0 1 3-3m-3 3h-1m4-3v-1m-2.121 1.879-.707-.707m5.656 5.656-.707-.707m-4.242 0-.707.707m5.656-5.656-.707.707M12 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /&gt;
                 &lt;/svg&gt;
               &lt;/button&gt;
-              &lt;div class="absolute bottom-24 left-16 w-full pr-10 overflow-hidden"&gt;
-                &lt;h2 class="text-gray-900 dark:text-white text-2xl font-bold mb-2"&gt;Top Songs&lt;/h2&gt;
+              &lt;div class="absolute bottom-8 left-16 w-full pr-10 overflow-hidden"&gt;
+                &lt;h2 class="text-white text-2xl font-bold mb-2 mt-5"&gt;Top Songs&lt;/h2&gt;
                 &lt;div class="flex space-x-4 overflow-x-auto scrollable-cards"&gt;
-                  &lt;ng-container  *ngFor="let item of recentListeningCardData"&gt;
-                    &lt;app-top-card [imageUrl]="item.imageUrl" [text]="item.text" [secondaryText]="item.secondaryText"&gt;&lt;/app-top-card&gt;
-                    &lt;div class="card-style"&gt;&lt;/div&gt;
+                  &lt;ng-container *ngFor="let item of topTracks"&gt;
+                    &lt;div (click)="playTrack(item.id)"&gt;
+                      &lt;app-top-card [imageUrl]="item.imageUrl" [text]="item.text"
+                                    [secondaryText]="item.secondaryText"&gt;&lt;/app-top-card&gt;
+                      &lt;div class="card-style"&gt;&lt;/div&gt;
+                    &lt;/div&gt;
                   &lt;/ng-container&gt;
                 &lt;/div&gt;
-                &lt;h2 class="text-gray-900 dark:text-white font-bold mb-2 mt-4 text-2xl"&gt;Top Artists&lt;/h2&gt;
+                &lt;h2 class="text-white text-2xl font-bold mb-2 mt-5"&gt;Top Artists&lt;/h2&gt;
                 &lt;div class="flex space-x-4 overflow-x-auto scrollable-cards"&gt;
-                  &lt;ng-container *ngFor="let artist of artists"&gt;
-                      &lt;app-top-artist-card [imageUrl]="artist.imageUrl" [text]="artist.text"&gt;&lt;/app-top-artist-card&gt;
+                  &lt;ng-container *ngFor="let artist of topArtists"&gt;
+                    &lt;app-top-artist-card [imageUrl]="artist.imageUrl" [text]="artist.name"&gt;&lt;/app-top-artist-card&gt;
                   &lt;/ng-container&gt;
                 &lt;/div&gt;
               &lt;/div&gt;
@@ -370,7 +436,7 @@
       &lt;div class="navbar-container"&gt;
         &lt;app-navbar (selectedNavChange)="onNavChange($event)"&gt;&lt;/app-navbar&gt;
       &lt;/div&gt;
-      
+&nbsp;
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;
@@ -382,7 +448,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-08-11T17:02:15.898Z
+                at 2024-08-12T07:07:17.763Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

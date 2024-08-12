@@ -13,14 +13,25 @@ jest.mock('@angular/common', () => ({
   isPlatformBrowser: jest.fn(),
 }));
 
+const MockPlayer = jest.fn().mockImplementation(() => ({
+  addListener: jest.fn(),
+  connect: jest.fn()
+}));
+
+
 describe('SpotifyService', () => {
   let service: SpotifyService;
   let httpMock: HttpTestingController;
   let authServiceMock: any;
   let tokenServiceMock: any;
   let providerServiceMock: any;
+  let httpService: any;
+  let mockPlayer: jest.Mocked<Spotify.Player>;
 
   beforeEach(() => {
+
+    mockPlayer = new MockPlayer();
+
     authServiceMock = {
       getTokens: jest.fn(),
     }
@@ -34,6 +45,9 @@ describe('SpotifyService', () => {
       getProvider: jest.fn(),
     }
 
+    httpService = {
+      post: jest.fn()
+    };
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [
