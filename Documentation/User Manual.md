@@ -123,7 +123,13 @@ Clicking on the "Next" button should bring up alternate formats:
 ![alt text](images/insights-2.png)
 
 ### Settings
-To view the Settings page, navigate to the Profile section on the top right corner of the screen. On this page, click on the Settings button at the top right of the Profile page. This will bring up a list of customisations. 
+To view the Settings page, navigate to the Profile icon on the top right corner of the screen. Click on the Settings button at the top right of the Profile page. This will bring up a list of customisations and settings, including display settings, preferences, and audio settings for Echo.
+
+![alt text](images/home-settings.png)
+
+![alt text](images/profile-settings.png)
+
+![alt text](images/settings.png)
 
 ### Editing your profile
 To view your profile, click on the icon on the top right side of the page. This should appear either as an individual's silhouette or your profile picture.
