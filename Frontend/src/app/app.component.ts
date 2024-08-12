@@ -90,6 +90,7 @@ export class AppComponent implements OnInit
             this.currentPage = '';
             this.displayPageName = false;
         }
+        
       }
     });
 
