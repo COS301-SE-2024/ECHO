@@ -81,7 +81,7 @@ SOA structures the application as a collection of services that communicate over
 
 ## Architectural Overview
 
-![architecture diagram](<images/architecture.png>)
+![architecture diagram](<images/ECHO Architecture.png>)
 
 ### Presentation Layer
 #### Components
