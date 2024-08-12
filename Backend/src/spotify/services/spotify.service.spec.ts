@@ -149,4 +149,192 @@ describe('SpotifyService', () => {
       expect(result).toEqual({ id: 'trackId' });
     });
   });
+  describe('getRecentlyPlayedTracks', () => {
+    it('should return recently played tracks', async () => {
+      const mockTracks = { data: { items: ['track1', 'track2'] } };
+      jest.spyOn(httpService, 'get').mockReturnValue(of(mockTracks) as any);
+
+      const result = await service.getRecentlyPlayedTracks('accessToken', 'refreshToken');
+      expect(result).toEqual({ items: ['track1', 'track2'] });
+    });
+  });
+/*
+  describe('getQueue', () => {
+    it('should return the recommended tracks', async () => {
+      const mockResponse = {
+        data: { recommended_tracks: [{ track_uri: 'spotify:track:track1' }, { track_uri: 'spotify:track:track2' }] },
+      };
+      jest.spyOn(httpService, 'post').mockReturnValue(of(mockResponse) as any);
+      jest.spyOn(service, 'fetchSpotifyTracks').mockResolvedValue(['track1', 'track2']);
+
+      const result = await service.getQueue('artist', 'song_name', 'accessToken', 'refreshToken');
+      expect(result).toEqual(['track1', 'track2']);
+    });
+  });
+*/
+  describe('fetchSpotifyTracks', () => {
+    it('should return track data', async () => {
+      const mockResponse = { data: { tracks: ['track1', 'track2'] } };
+      jest.spyOn(httpService, 'get').mockReturnValue(of(mockResponse) as any);
+
+      const result = await service['fetchSpotifyTracks']('trackIds', 'accessToken', 'refreshToken');
+      expect(result).toEqual({ tracks: ['track1', 'track2'] });
+    });
+  });
+
+  describe('playTrackById', () => {
+    it('should play a track by ID', async () => {
+      const mockResponse = { data: 'mockPlayResponse' };
+      jest.spyOn(httpService, 'put').mockReturnValue(of(mockResponse) as any);
+
+      const result = await service.playTrackById('trackId', 'deviceId', 'accessToken', 'refreshToken');
+      expect(result).toEqual({"_finalizers": null, "_parentage": null, "closed": true, "destination": null, "initialTeardown": undefined, "isStopped": true});
+    });
+  });
+
+  describe('pause', () => {
+    it('should pause the currently playing track', async () => {
+      const mockResponse = { data: 'mockPauseResponse' };
+      jest.spyOn(httpService, 'put').mockReturnValue(of(mockResponse) as any);
+
+      const result = await service.pause('accessToken', 'refreshToken');
+      expect(result).toEqual({"_finalizers": null, "_parentage": null, "closed": true, "destination": null, "initialTeardown": undefined, "isStopped": true});
+    });
+  });
+
+  describe('play', () => {
+    it('should resume the currently paused track', async () => {
+      const mockResponse = { data: 'mockPlayResponse' };
+      jest.spyOn(httpService, 'put').mockReturnValue(of(mockResponse) as any);
+
+      const result = await service.play('accessToken', 'refreshToken');
+      expect(result).toEqual({"_finalizers": null, "_parentage": null, "closed": true, "destination": null, "initialTeardown": undefined, "isStopped": true});
+    });
+  });
+
+  describe('setVolume', () => {
+    it('should set the player volume', async () => {
+      const mockResponse = { data: 'mockVolumeResponse' };
+      jest.spyOn(httpService, 'put').mockReturnValue(of(mockResponse) as any);
+
+      const result = await service.setVolume(50, 'accessToken', 'refreshToken');
+      expect(result).toEqual({"_finalizers": null, "_parentage": null, "closed": true, "destination": null, "initialTeardown": undefined, "isStopped": true});
+    });
+  });
+
+  describe('getTrackDetails', () => {
+    it('should return track details', async () => {
+      const mockResponse = { data: { id: 'track1' } };
+      jest.spyOn(httpService, 'get').mockReturnValue(of(mockResponse) as any);
+
+      const result = await service.getTrackDetails('track1', 'accessToken', 'refreshToken');
+      expect(result).toEqual({ id: 'track1' });
+    });
+  });
+
+  describe('playNextTrack', () => {
+    it('should play the next track', async () => {
+      const mockResponse = { status: 204 };
+      jest.spyOn(httpService, 'post').mockReturnValue(of(mockResponse) as any);
+
+      const result = await service.playNextTrack('accessToken', 'refreshToken', 'deviceId');
+      expect(result).toEqual({ message: 'Skipped to next track successfully' });
+    });
+  });
+
+  describe('playPreviousTrack', () => {
+    it('should play the previous track', async () => {
+      const mockResponse = { status: 204 };
+      jest.spyOn(httpService, 'post').mockReturnValue(of(mockResponse) as any);
+
+      const result = await service.playPreviousTrack('accessToken', 'refreshToken', 'deviceId');
+      expect(result).toEqual({ message: 'Switched to previous track successfully' });
+    });
+  });
+
+  describe('getTrackDuration', () => {
+    it('should return the track duration', async () => {
+      const mockResponse = { data: { item: { duration_ms: 200000 } } };
+      jest.spyOn(httpService, 'get').mockReturnValue(of(mockResponse) as any);
+
+      const result = await service.getTrackDuration('accessToken', 'refreshToken');
+      expect(result).toBe(200000);
+    });
+  });
+
+  describe('seekToPosition', () => {
+    it('should seek to a specific position in a track', async () => {
+      const mockResponse = { status: 204 };
+      jest.spyOn(httpService, 'put').mockReturnValue(of(mockResponse) as any);
+
+      const result = await service.seekToPosition('accessToken', 'refreshToken', 60000, 'deviceId');
+      expect(result).toEqual({ message: 'Seek position updated successfully' });
+    });
+  });
+
+  describe('addToQueue', () => {
+    it('should add a track to the queue', async () => {
+      const mockResponse = { status: 204 };
+      jest.spyOn(httpService, 'post').mockReturnValue(of(mockResponse) as any);
+
+      const result = await service.addToQueue('spotify:track:trackId', 'deviceId', 'accessToken', 'refreshToken');
+      expect(result).toEqual({ message: 'Song added to queue successfully' });
+    });
+  });
+
+  describe('getTrackDetailsByName', () => {
+    it('should return track details by name', async () => {
+      const mockSearchResponse = {
+        data: {
+          tracks: { items: [{ id: 'track1', name: 'Test Track' }] },
+        },
+      };
+      const mockTrackResponse = {
+        data: {
+          id: 'track1',
+          name: 'Test Track',
+          album: { name: 'Test Album', images: [{ url: 'test-image-url' }] },
+          artists: [{ name: 'Test Artist' }],
+          preview_url: 'test-preview-url',
+          external_urls: { spotify: 'test-spotify-url' },
+        },
+      };
+      jest.spyOn(httpService, 'get').mockReturnValueOnce(of(mockSearchResponse) as any);
+      jest.spyOn(httpService, 'get').mockReturnValueOnce(of(mockTrackResponse) as any);
+
+      const result = await service.getTrackDetailsByName('Test Artist', 'Test Track', 'accessToken', 'refreshToken');
+      expect(result).toEqual({
+        id: 'track1',
+        name: 'Test Track',
+        albumName: 'Test Album',
+        albumImageUrl: 'test-image-url',
+        artistName: 'Test Artist',
+        previewUrl: 'test-preview-url',
+        spotifyUrl: 'test-spotify-url',
+      });
+    });
+  });
+
+  describe('getTrackAnalysis', () => {
+    it('should return track analysis data', async () => {
+      const mockResponse = {
+        data: {
+          valence: 0.5,
+          energy: 0.8,
+          danceability: 0.7,
+          tempo: 120,
+        },
+      };
+      jest.spyOn(httpService, 'get').mockReturnValue(of(mockResponse) as any);
+
+      const result = await service.getTrackAnalysis('trackId', 'accessToken', 'refreshToken');
+      expect(result).toEqual({
+        valence: 0.5,
+        energy: 0.8,
+        danceability: 0.7,
+        tempo: 120,
+      });
+    });
+  });
 });
+
