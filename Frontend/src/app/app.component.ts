@@ -46,11 +46,50 @@ export class AppComponent implements OnInit
   {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
-    ).subscribe((event: RouterEvent) =>
-    {
-      if (event instanceof NavigationEnd)
-      {
-        this.handleRouteChange(event.urlAfterRedirects);
+    ).subscribe((event: RouterEvent) => {
+
+      if (event instanceof NavigationEnd) {
+        this.displaySideBar = ['/home', '/profile', '/mood', '/home#','home#search', '/home#search','home#home', '/home#home', 'home#library', '/home#library'].includes(event.urlAfterRedirects);
+        this.displayPlayer = ['/settings'].includes(event.urlAfterRedirects);
+        this.showPlayer = ['/home', '/profile',  '/mood', 'artist-profile',"/search", '/home#','home#home', '/home#home','home#search', 'home#library', '/home#library','/home#insight'].includes(event.urlAfterRedirects);
+        switch (event.urlAfterRedirects) {
+          case '/home':
+            this.currentPage = 'Home';
+            this.displayPageName = true;
+            break;
+          case '/home#search':
+            this.currentPage = 'Search';
+            this.displayPageName = true;
+            break;
+          case '/home#library':
+            this.currentPage = 'Library';
+            this.displayPageName = true;
+            break;
+          case '/home#insight':
+            this.currentPage = 'Insight';
+            this.displayPageName = true;
+            break;
+          case "/home#home":
+            this.currentPage = 'Home';
+            this.displayPageName = true;
+            break;
+          case '/profile':
+            this.currentPage = 'Profile';
+            this.displayPageName = false;
+            break;
+
+          case '/settings':
+            this.currentPage = 'Settings';
+            this.displayPageName = true;
+            break;
+          case '/search':
+            this.currentPage = 'Search';
+            this.displayPageName = true;
+            break;
+          default:
+            this.currentPage = '';
+            this.displayPageName = false;
+        }
       }
     });
 
