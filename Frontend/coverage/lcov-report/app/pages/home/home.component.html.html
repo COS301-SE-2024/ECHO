@@ -98,7 +98,49 @@
 <a name='L33'></a><a href='#L33'>33</a>
 <a name='L34'></a><a href='#L34'>34</a>
 <a name='L35'></a><a href='#L35'>35</a>
-<a name='L36'></a><a href='#L36'>36</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -134,12 +176,32 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&lt;div [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]" class="min-h-screen grid grid-cols-5 grid-rows-6 gap-4 px-6 py-3 lg:px-8" style="overflow: auto;"&gt;
-  &lt;div class="col-start-1 col-span-5 row-start-1"&gt;
+  &lt;div class="col-start-1 col-span-5 row-start-1" style="padding-top: 50px;"&gt; &lt;!-- Adjust padding-top as needed --&gt;
     &lt;div class="fixed navbar-container pt-[1vh] pl-5"&gt;
         &lt;app-navbar (selectedNavChange)="onNavChange($event)"&gt;&lt;/app-navbar&gt;
     &lt;/div&gt;
-    &lt;app-search-bar *ngIf="screenSize === 'desktop'" (searchDown)="onSearchdown($event)" class="col-start-2 row-start-1"&gt;&lt;/app-search-bar&gt;
-    &lt;div class="fixed top-5 right-8 flex flex-row items-center space-x-4"&gt;
+    &lt;app-search-bar 
+      *ngIf="screenSize === 'desktop'" 
+      (searchDown)="onSearchdown($event)" 
+      class="mb-4 col-start-2 row-start-1"&gt;
+    &lt;/app-search-bar&gt;
+&nbsp;
+    &lt;div class="flex space-x-2 mb-10 col-start-2 row-start-2"&gt;
+      &lt;!-- Button for Mood --&gt;
+      &lt;button
+        *ngFor="let mood of moods; let i = index"
+        (click)="selectMood(i)"
+        [class.bg-pink]="selectedMood === null &amp;&amp; i === 0 || selectedMood === i"
+        [class.text-white]="selectedMood === null &amp;&amp; i === 0 || selectedMood === i"
+        [class.bg-gray-component]="!(selectedMood === null &amp;&amp; i === 0) &amp;&amp; selectedMood !== i"
+        [class.text-gray-verylight]="!(selectedMood === null &amp;&amp; i === 0) &amp;&amp; selectedMood !== i"
+        class="ml-108 my-5 px-5 py-2 rounded-full focus:outline-none focus:cursor-pointer transition-colors duration-300"&gt;
+        {{ mood }}
+      &lt;/button&gt; 
+    &lt;/div&gt;
+&nbsp;
+    
+    &lt;div class="fixed top-5 right-8 flex flex-row items-center space-x-4 mr-8"&gt;
       &lt;!-- Moved Mood Drop Down Here, Directly to the Left of Profile --&gt;
       &lt;app-mood-drop-down class="mt-2"&gt;&lt;/app-mood-drop-down&gt;
       &lt;img (click)="profile()" [src]="'../../../../assets/icons/profile-light.png'" alt="profile" class="w-12 h-12 hover:cursor-pointer"&gt;
@@ -153,7 +215,7 @@
         &lt;app-moods&gt;&lt;/app-moods&gt;
       &lt;/div&gt;
     &lt;/ng-container&gt;
-  
+    
     &lt;!-- Mobile Layout --&gt;
     &lt;ng-container *ngSwitchCase="'mobile'"&gt;
       &lt;app-moods class="col-start-1 col-span-12 row-start-1 row-span-10 pt-[8.5vh]"&gt;&lt;/app-moods&gt;
@@ -161,21 +223,22 @@
     &lt;/ng-container&gt;
   &lt;/ng-container&gt;
   
-  &lt;!-- Common Components Across Screen Sizes --&gt;
+  &lt;!-- Search and Insight Components --&gt;
   &lt;div *ngIf="title === 'Search'" class="col-start-2 col-span-4 row-start-1 row-span-5 pl-16 pt-16 mr-5"&gt;
     &lt;app-search [searchQuery]="searchQuery"&gt;&lt;/app-search&gt;
   &lt;/div&gt;
-&lt;/div&gt;
-&nbsp;
-&nbsp;
-&nbsp;</pre></td></tr></table></pre>
+  &lt;!-- Insight Component --&gt;
+  &lt;div *ngIf="title === 'Insight'" class="col-start-2 col-span-4 row-start-1 row-span-5 pl-16 pt-16 mr-5"&gt;
+    &lt;app-insights [percentageData]="getMoodPercentageData()"&gt;&lt;/app-insights&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-08-11T09:54:09.926Z
+                at 2024-08-12T08:57:09.854Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
