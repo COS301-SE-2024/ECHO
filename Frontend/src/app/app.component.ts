@@ -49,9 +49,9 @@ export class AppComponent implements OnInit
     ).subscribe((event: RouterEvent) => {
 
       if (event instanceof NavigationEnd) {
-        this.displaySideBar = ['/home', '/profile', '/mood', '/home#','/home#search','/home#home', '/home#library'].includes(event.urlAfterRedirects);
+        this.displaySideBar = ['/home', '/profile', '/mood', '/home#','home#search', '/home#search','home#home', '/home#home', 'home#library', '/home#library'].includes(event.urlAfterRedirects);
         this.displayPlayer = ['/settings'].includes(event.urlAfterRedirects);
-        this.showPlayer = ['/home', '/profile', '/mood', 'artist-profile',"/search", '/home#','/home#home','/home#search', '/home#library','/home#insight'].includes(event.urlAfterRedirects);
+        this.showPlayer = ['/home', '/profile',  '/mood', 'artist-profile',"/search", '/home#','home#home', '/home#home','home#search', 'home#library', '/home#library','/home#insight'].includes(event.urlAfterRedirects);
         switch (event.urlAfterRedirects) {
           case '/home':
             this.currentPage = 'Home';
@@ -77,7 +77,6 @@ export class AppComponent implements OnInit
             this.currentPage = 'Profile';
             this.displayPageName = false;
             break;
-          
           case '/settings':
             this.currentPage = 'Settings';
             this.displayPageName = true;
