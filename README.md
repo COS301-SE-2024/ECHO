@@ -24,6 +24,7 @@
 - [Team Demo](https://drive.google.com/drive/folders/1N45LLK_arHo1bb5tK4rToxmTRzPBBNeg?usp=drive_link)
 - [Functional Requirements (SRS)](Documentation\RequirementSpecification.md)
 - [Github Project Board](https://github.com/orgs/COS301-SE-2024/projects/67)
+- [Previous Requirements Specification](https://github.com/COS301-SE-2024/ECHO/blob/0ebd3fd14beeb6de24fe5d11366a4dae2eec1b18/Documentation/RequirementSpecification.md)
 
 # Technology Stack:
 
