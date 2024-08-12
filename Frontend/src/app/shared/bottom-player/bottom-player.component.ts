@@ -48,9 +48,9 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
               public moodService: MoodService,
               private cdr: ChangeDetectorRef
   ) {
-    this.moodComponentClasses = this.moodService.getComponentMoodClasses();
-    this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
-    this.moodClassesDark = this.moodService.getComponentMoodClassesDark();
+        this.moodComponentClasses = this.moodService.getComponentMoodClasses();
+        this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
+        this.moodClassesDark = this.moodService.getComponentMoodClassesDark();
   }
 
 
