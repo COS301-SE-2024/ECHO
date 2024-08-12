@@ -1,11 +1,5 @@
 # Echo Music Recommendation App - Installation Manual
 
-## Table of Contents
-- [Echo Music Recommendation App - Installation Manual](#echo-music-recommendation-app---installation-manual)
-  - [Table of Contents](#table-of-contents)
-  - [Prerequisites](#prerequisites)
-- [Contribution Guidelines](#contribution-guidelines)
-
 ## Prerequisites
 
 Before you begin, ensure you have met the following requirements:
