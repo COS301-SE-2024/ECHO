@@ -18,10 +18,10 @@
     - [Searching and Discovering Music](#searching-and-discovering-music)
     - [Playing Music](#playing-music)
     - [Changing from dark to light mode](#changing-from-dark-to-light-mode)
-  - [Suggestions](#suggestions)
-  - [Insights](#insights)
-  - [Library](#library)
-  - [Editing your profile](#editing-your-profile)
+    - [Suggestions](#suggestions)
+    - [Insights](#insights)
+    - [Settings](#settings)
+    - [Editing your profile](#editing-your-profile)
   - [Support](#support)
     - [Frequently Asked Questions](#frequently-asked-questions)
     - [Contact Support](#contact-support)
@@ -106,18 +106,18 @@ Alternatively, you can click the 'Login with Spotify' Button. This will automate
 ### Changing from dark to light mode
 1. Click the switch on the top right hand corner of the window.
 
-## Suggestions
+### Suggestions
 This tab is located beneath the Home tab, and is based off your most recent listening. To play any of the suggested songs, click on the album cover and it should begin to play through Echo shortly.
 
 ![alt text](images/recomendations.png)
 
-## Insights
-This is the bar icon between the house and the music folder.
+### Insights
+To view your listening insights, click on the bar icon between the Home and Library buttons on the left navigation bar. This will bring up various charts and statistics related to your listening habits. In a future app release, these charts and statistics will be displayed in a dashboard format, where clicking on a tile will bring up detailed information about the clicked option. 
 
-## Library
-This is the music file icon to the right of the bar and house.
+### Settings
+To view the Settings page, navigate to the Profile section on the top right corner of the screen. On this page, click on the Settings button at the top right of the Profile page. This will bring up a list of customisations. 
 
-## Editing your profile
+### Editing your profile
 To view your profile, click on the icon on the top right side of the page. This should appear either as an individual's silhouette or your profile picture.
 
 A menu similar to this should appear:
