@@ -119,9 +119,9 @@ export class AppComponent implements OnInit
   {
     const [path, fragment] = url.split("#");
 
-    this.displaySideBar = ["/home", "/profile", "/mood"].includes(path);
+    this.displaySideBar = ["/home", "home", "insight", "library", "/profile", "/mood"].includes(path);
     this.displayPlayer = ["/settings"].includes(path);
-    this.showPlayer = ["/home", "/profile", "/mood"].includes(path);
+    this.showPlayer = ["/home", "/profile", "home", "insight", "library", "/mood"].includes(path);
 
     switch (path)
     {
