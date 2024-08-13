@@ -1,4 +1,3 @@
-<div [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]" class="min-h-screen grid grid-cols-5 grid-rows-6 gap-4 px-6 py-3 lg:px-8" style="overflow: auto;">
   <div class="col-start-1 col-span-5 row-start-1" style="padding-top: 50px;"> <!-- Adjust padding-top as needed -->
     <div class="fixed navbar-container pt-[1vh] pl-5">
         <app-navbar (selectedNavChange)="onNavChange($event)"></app-navbar>
@@ -21,9 +20,7 @@
         class="ml-108 my-5 px-5 py-2 rounded-full focus:outline-none focus:cursor-pointer transition-colors duration-300">
         {{ mood }}
       </button> 
-    </div>
-
-    
+    </div>    
     <div class="fixed top-5 right-8 flex flex-row items-center space-x-4 mr-8">
       <!-- Moved Mood Drop Down Here, Directly to the Left of Profile -->
       <img class="h-8 w-8 hover:cursor-pointer" src="../assets/icons/info-pink.png" (click)="openHelpMenu()">
@@ -82,4 +79,3 @@
   </ng-container>
   
 
-</div>

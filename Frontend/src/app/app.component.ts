@@ -9,6 +9,7 @@ import { NgIf, NgClass } from "@angular/common";
 import { SideBarComponent } from "./shared/side-bar/side-bar.component";
 import { ProviderService } from "./services/provider.service";
 import { PageHeaderComponent } from "./shared/page-header/page-header.component";
+import {MoodService} from "./services/mood-service.service";
 
 @Component({
   selector: "app-root",
@@ -35,15 +36,23 @@ export class AppComponent implements OnInit
   displaySideBar = false;
   currentPage: string = "";
   displayPageName: boolean = false;
+   //Mood Service Variables
+   currentMood!: string;
+   moodComponentClasses!:{ [key: string]: string };
+   backgroundMoodClasses!:{ [key: string]: string };
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private screenSizeService: ScreenSizeService,
     private providerService: ProviderService,
-    private updates: SwUpdate
+    private updates: SwUpdate,
+    public moodService: MoodService
   )
   {
+    this.currentMood = this.moodService.getCurrentMood();
+    this.moodComponentClasses = this.moodService.getComponentMoodClasses();
+    this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: RouterEvent) => {
