@@ -125,7 +125,10 @@ export class AppComponent implements OnInit
       this.screenSize = screenSize;
     });
   }
-
+  isAuthRoute(): boolean {
+    const authRoutes = ['/login', '/register'];
+    return authRoutes.includes(this.router.url);
+  }
   handleRouteChange(url: string)
   {
     const [path, fragment] = url.split("#");

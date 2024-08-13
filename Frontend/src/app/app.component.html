@@ -1,10 +1,14 @@
 <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-
-<div class="grid grid-cols-5 grid-rows-6 px-1 py-1 min-h-screen" [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]">
-    <app-navbar class="col-start-1 col-span-1 row-start-1 pl-16" (selectedNavChange)="onNavChange($event)"></app-navbar>
-    <app-side-bar *ngIf="displaySideBar && screenSize === 'desktop'" class="col-start-1 col-span-1 row-start-1 row-span-6"></app-side-bar>
-    <app-page-header *ngIf="displayPageName" class="page-header" [pageTitle]=currentPage></app-page-header>
-    <router-outlet></router-outlet>
-    <app-bottom-nav *ngIf="screenSize === 'mobile'"></app-bottom-nav>
-    <app-bottom-player *ngIf="showPlayer || displayPlayer"></app-bottom-player>
+<div *ngIf="isAuthRoute()">
+  <router-outlet></router-outlet>
+</div>
+<div *ngIf="!isAuthRoute()" class="grid grid-cols-5 grid-rows-6 px-1 py-1 min-h-screen" [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]">
+    <ng-container>
+        <app-navbar class="col-start-1 col-span-1 row-start-1 pl-16" (selectedNavChange)="onNavChange($event)"></app-navbar>
+        <app-side-bar class="col-start-1 col-span-1 row-start-2 row-span-6" *ngIf="displaySideBar && screenSize === 'desktop'" ></app-side-bar>
+        <app-page-header class="col-start-1 col-span-1 row-start-3 row-span-1" *ngIf="displayPageName" class="page-header" [pageTitle]="currentPage"></app-page-header>
+        <app-bottom-nav *ngIf="screenSize === 'mobile'"></app-bottom-nav>
+        <app-bottom-player *ngIf="showPlayer || displayPlayer"></app-bottom-player>
+    </ng-container>
+    <router-outlet class="col-start-2 col-span-4 row-start-2 row-span-6 pl-16" ></router-outlet>
 </div>
