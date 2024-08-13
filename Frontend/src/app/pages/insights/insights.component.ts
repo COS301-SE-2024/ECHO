@@ -14,7 +14,6 @@ import { NgClass, NgIf } from '@angular/common';
 export class InsightsComponent implements AfterViewInit, AfterViewChecked {
   @Input() percentageData: number[] = [];
   public chart: any;
-  private colorCache: { [key: string]: string } = {};
   // Chart Variables
   public chartTypes: ChartType[] = ["pie", "bar", "line", "doughnut", "radar", "polarArea"];
   public currentChartIndex: number = 0;
@@ -48,22 +47,6 @@ export class InsightsComponent implements AfterViewInit, AfterViewChecked {
     }
   }
 
-  getTailwindColor(className: string): string {
-    if (this.colorCache[className]) {
-      return this.colorCache[className];
-    }
-
-    const tempDiv = document.createElement('div');
-    tempDiv.className = className;
-    document.body.appendChild(tempDiv);
-
-    const color = getComputedStyle(tempDiv).backgroundColor;
-
-    document.body.removeChild(tempDiv);
-    this.colorCache[className] = color;
-    return color;
-  }
-
   createChart(): Promise<void> {
     return new Promise((resolve, reject) => {
       try {
@@ -87,32 +70,32 @@ export class InsightsComponent implements AfterViewInit, AfterViewChecked {
                 label: "Percentage of recent Moods",
                 data: this.percentageData,
                 backgroundColor: [
-                  this.getTailwindColor('bg-anger'), // Anger
-                  this.getTailwindColor('bg-annoyance'), // Annoyance
-                  this.getTailwindColor('bg-fear'), // Fear
-                  this.getTailwindColor('bg-excitement'), // Excitement
-                  this.getTailwindColor('bg-amusement'), // Amusement
-                  this.getTailwindColor('bg-admiration'), // Admiration
-                  this.getTailwindColor('bg-approval'), // Approval
-                  this.getTailwindColor('bg-caring'), // Caring
-                  this.getTailwindColor('bg-joy'), // Joy
-                  this.getTailwindColor('bg-desire'), // Desire
-                  this.getTailwindColor('bg-curiosity'), // Curiosity
-                  this.getTailwindColor('bg-confusion'), // Confusion
-                  this.getTailwindColor('bg-gratitude'), // Gratitude
-                  this.getTailwindColor('bg-surprise'), // Surprise
-                  this.getTailwindColor('bg-disappointment'), // Disappointment
-                  this.getTailwindColor('bg-disapproval'), // Disapproval
-                  this.getTailwindColor('bg-disgust'), // Disgust
-                  this.getTailwindColor('bg-embarrassment'), // Embarrassment
-                  this.getTailwindColor('bg-sadness'), // Sadness
-                  this.getTailwindColor('bg-grief'), // Grief
-                  this.getTailwindColor('bg-love'), // Love
-                  this.getTailwindColor('bg-nervousness'), // Nervousness
-                  this.getTailwindColor('bg-optimism'), // Optimism
-                  this.getTailwindColor('bg-pride'), // Pride
-                  this.getTailwindColor('bg-realisation'), // Realisation
-                  this.getTailwindColor('bg-relief'), // Relief
+                  this.moodService.getTailwindColorRBG('anger'), // Anger
+                  this.moodService.getTailwindColorRBG('annoyance'), // Annoyance
+                  this.moodService.getTailwindColorRBG('fear'), // Fear
+                  this.moodService.getTailwindColorRBG('excitement'), // Excitement
+                  this.moodService.getTailwindColorRBG('amusement'), // Amusement
+                  this.moodService.getTailwindColorRBG('admiration'), // Admiration
+                  this.moodService.getTailwindColorRBG('approval'), // Approval
+                  this.moodService.getTailwindColorRBG('caring'), // Caring
+                  this.moodService.getTailwindColorRBG('joy'), // Joy
+                  this.moodService.getTailwindColorRBG('desire'), // Desire
+                  this.moodService.getTailwindColorRBG('curiosity'), // Curiosity
+                  this.moodService.getTailwindColorRBG('confusion'), // Confusion
+                  this.moodService.getTailwindColorRBG('gratitude'), // Gratitude
+                  this.moodService.getTailwindColorRBG('surprise'), // Surprise
+                  this.moodService.getTailwindColorRBG('disappointment'), // Disappointment
+                  this.moodService.getTailwindColorRBG('disapproval'), // Disapproval
+                  this.moodService.getTailwindColorRBG('disgust'), // Disgust
+                  this.moodService.getTailwindColorRBG('embarrassment'), // Embarrassment
+                  this.moodService.getTailwindColorRBG('sadness'), // Sadness
+                  this.moodService.getTailwindColorRBG('grief'), // Grief
+                  this.moodService.getTailwindColorRBG('love'), // Love
+                  this.moodService.getTailwindColorRBG('nervousness'), // Nervousness
+                  this.moodService.getTailwindColorRBG('optimism'), // Optimism
+                  this.moodService.getTailwindColorRBG('pride'), // Pride
+                  this.moodService.getTailwindColorRBG('realisation'), // Realisation
+                  this.moodService.getTailwindColorRBG('relief'), // Relief
                 ],
                 hoverOffset: 4
               }]

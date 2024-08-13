@@ -5,6 +5,8 @@ import { Injectable } from '@angular/core';
 })
 export class MoodService {
   private _currentMood!: string;
+  private colorCache: { [key: string]: string } = {};
+
      private _componentMoodClassesHover = {
       Neutral:     'bg-default text-default-text hover:bg-default-dark focus:ring-default-dark fill-default font-semibold shadow-sm',
       Anger:       'bg-anger text-anger-text dark:hover:bg-anger-dark focus:ring-anger-dark fill-anger-dark',
@@ -130,12 +132,32 @@ private _backgroundMoodClasses = {
 
   constructor() {
     this.initMood();
+    console.log('colorCache initialized:', this.colorCache);
   }
-
+  
   private initMood(): void {
     if (typeof window !== 'undefined') {
       this._currentMood = this.getLocalStorageItem('currentMood') || 'Neutral';
     } 
+  }
+
+  getTailwindColorRBG(mood: string): string {
+    const className = `bg-${mood}`;
+    if (this.colorCache[className]) {
+      return this.colorCache[className];
+      console.log(this.colorCache[className]);
+    }
+
+    const tempDiv = document.createElement('div');
+    tempDiv.className = className;
+    document.body.appendChild(tempDiv);
+  
+    const color = getComputedStyle(tempDiv).backgroundColor;
+  
+    document.body.removeChild(tempDiv);
+    this.colorCache[className] = color;
+
+    return color;
   }
 
   private getLocalStorageItem(key: string): string | null {
