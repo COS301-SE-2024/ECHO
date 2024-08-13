@@ -9,7 +9,7 @@ import { NgIf, NgClass } from "@angular/common";
 import { SideBarComponent } from "./shared/side-bar/side-bar.component";
 import { ProviderService } from "./services/provider.service";
 import { PageHeaderComponent } from "./shared/page-header/page-header.component";
-import {MoodService} from "./services/mood-service.service";
+import { MoodService} from "./services/mood-service.service";
 import { NavbarComponent } from './shared/navbar/navbar.component';
 
 @Component({

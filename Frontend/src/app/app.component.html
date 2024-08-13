@@ -1,11 +1,10 @@
 <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 
-<div class="font-app" [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]" class="min-h-screen grid grid-cols-5 grid-rows-6 gap-4 px-6 py-3 lg:px-8">
-  <div  style="overflow: auto;">
-    <router-outlet></router-outlet>
-    <app-navbar (selectedNavChange)="onNavChange($event)"></app-navbar>
+<div class="grid grid-cols-5 grid-rows-6 px-1 py-1 min-h-screen" [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]">
+    <app-navbar class="col-start-1 col-span-1 row-start-1 pl-16" (selectedNavChange)="onNavChange($event)"></app-navbar>
     <app-side-bar *ngIf="displaySideBar && screenSize === 'desktop'" class="col-start-1 col-span-1 row-start-1 row-span-6"></app-side-bar>
     <app-page-header *ngIf="displayPageName" class="page-header" [pageTitle]=currentPage></app-page-header>
+    <router-outlet></router-outlet>
     <app-bottom-nav *ngIf="screenSize === 'mobile'"></app-bottom-nav>
     <app-bottom-player *ngIf="showPlayer || displayPlayer"></app-bottom-player>
 </div>
