@@ -2,13 +2,18 @@
 <div *ngIf="isAuthRoute()">
   <router-outlet></router-outlet>
 </div>
-<div *ngIf="!isAuthRoute()" class="grid grid-cols-5 grid-rows-6 px-1 py-1 min-h-screen" [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]">
+
+<div *ngIf="!isAuthRoute()" class="grid grid-cols-5 grid-rows-[auto,1fr,auto] min-h-screen" [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]">
+  <div class="header-container col-start-3 col-span-1 row-start-1 row-span-1">
+      <app-page-header class="header-content" *ngIf="displayPageName" [pageTitle]="currentPage"></app-page-header>
+    </div>
     <ng-container>
         <app-navbar class="col-start-1 col-span-1 row-start-1 pl-16" (selectedNavChange)="onNavChange($event)"></app-navbar>
-        <app-side-bar class="col-start-1 col-span-1 row-start-2 row-span-6" *ngIf="displaySideBar && screenSize === 'desktop'" ></app-side-bar>
-        <app-page-header class="col-start-1 col-span-1 row-start-3 row-span-1" *ngIf="displayPageName" class="page-header" [pageTitle]="currentPage"></app-page-header>
+        <app-side-bar class="col-start-1 col-span-1 row-start-2 row-span-4" *ngIf="displaySideBar && screenSize === 'desktop'"></app-side-bar>
+        <div class="col-start-2 col-span-4 row-start-2 row-span-3">
+          <router-outlet></router-outlet>
+        </div>
         <app-bottom-nav *ngIf="screenSize === 'mobile'"></app-bottom-nav>
         <app-bottom-player *ngIf="showPlayer || displayPlayer"></app-bottom-player>
     </ng-container>
-    <router-outlet class="col-start-2 col-span-4 row-start-2 row-span-6 pl-16" ></router-outlet>
 </div>

@@ -18,12 +18,8 @@ import {LoginComponentview} from "./views/login/login.component";
 export const routes: Routes = [
   { path: "landing", component: LandingPageComponent },
   { path: "login", component: LoginComponent },
+  {path: "home", component: HomeComponent},
   { path: "register", component: RegisterComponent },
-  {
-    path: "home", component: HomeComponent, children: [
-      { path: "search", component: SearchComponent },
-      { path: "library", component: UserLibraryComponent }]
-  },
   { path: "profile", component: ProfileComponent },
   { path: "mood", component: MoodComponent },
   { path: "auth/callback", component: AuthCallbackComponent },

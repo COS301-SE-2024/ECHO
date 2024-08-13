@@ -3,7 +3,6 @@ import { isPlatformBrowser } from "@angular/common";
 import Chart, { ChartType } from "chart.js/auto";
 import { MoodService } from '../../services/mood-service.service';
 import { NgClass, NgIf } from '@angular/common';
-import { ScreenSizeService } from '../../services/screen-size-service.service';
 
 @Component({
   selector: "app-insights",
@@ -27,19 +26,15 @@ export class InsightsComponent implements AfterViewInit, AfterViewChecked {
   // Page Variables
   private chartInitialized: boolean = false;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object, public moodService: MoodService, private screenSizeService: ScreenSizeService) {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, public moodService: MoodService) {
     this.moodComponentClasses = this.moodService.getComponentMoodClasses();
     this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
   }
 
   ngAfterViewInit() {
-    this.screenSizeService.screenSize$.subscribe(screenSize => {
-      this.screenSize = screenSize;
-      if (isPlatformBrowser(this.platformId)) {
-        this.chartInitialized = false; // Reset chart initialization flag
-      }
-    });
-  }
+    this.chartInitialized = false; // Reset chart initialization flag
+  };
+  
 
   ngAfterViewChecked() {
     if (isPlatformBrowser(this.platformId) && !this.chartInitialized) {
