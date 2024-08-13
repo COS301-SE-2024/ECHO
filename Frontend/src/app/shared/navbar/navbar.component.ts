@@ -2,7 +2,7 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { ThemeService } from './../../services/theme.service';
 import { CommonModule } from '@angular/common';
-import { SvgIconComponent } from '../svg-icon/svg-icon.component';
+import { SvgIconComponent } from '../../components/atoms/svg-icon/svg-icon.component';
 import { Router } from '@angular/router';
 import { ScreenSizeService } from '../../services/screen-size-service.service';
 import { MoodService } from '../../services/mood-service.service';
@@ -90,5 +90,9 @@ export class NavbarComponent {
     getFillColor(svg: string): string {
         const isDarkMode = this.themeService.isDarkModeActive();
         return isDarkMode ? '#D9D9D9' : '#323232';
+    }
+    getMiddleColor(svg: string): string {
+        const isDarkMode = this.themeService.isDarkModeActive();
+        return isDarkMode ? '#191716' : '#323232';
     }
 }

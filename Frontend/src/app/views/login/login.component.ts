@@ -4,8 +4,8 @@ import {CommonModule} from '@angular/common';
 //services
 import {ScreenSizeService} from './../../services/screen-size-service.service';
 //Component Template imports 
-import {DeskLoginComponent} from './../../components/templates/desktop/desk-login/desk-login.component';
-import {MobileloginComponent} from './../../components/templates/mobile/mobilelogin/mobilelogin.component';
+import {DeskLoginComponent} from './../../components/templates/desktop/deskLogin/desk-login.component';
+import {MobileloginComponent} from './../../components/templates/mobile/mobileLogin/mobilelogin.component';
 @Component({
   selector: 'app-login',
   standalone: true,

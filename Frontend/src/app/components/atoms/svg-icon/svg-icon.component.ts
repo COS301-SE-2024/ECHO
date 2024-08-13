@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ThemeService } from './../../services/theme.service';
-import { MoodService } from '../../services/mood-service.service';
+import { ThemeService } from '../../../services/theme.service';
+import { MoodService } from '../../../services/mood-service.service';
 
 @Component({
     selector: 'app-svg-icon',
@@ -17,6 +17,7 @@ export class SvgIconComponent {
     @Input() svgPath?: string;
     @Input() fillColor?: string;
     @Input() selected?: boolean;
+    @Input() middleColor?: string;
     @Output() svgClick = new EventEmitter<void>();
     constructor(private themeService: ThemeService, public moodService: MoodService) {}
 

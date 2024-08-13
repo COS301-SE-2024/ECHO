@@ -12,8 +12,8 @@
 
   <div *ngIf="screenSize === 'desktop'" class="desktop-layout">
     <div class="flex justify-between">
-        <app-svg-icon class="icon mr-4" [selected]="selectedSvg === homeSvg" (svgClick)="select(homeSvg)" [svgPath]="homeSvg" [fillColor]="getFillColor(homeSvg)"></app-svg-icon>
-        <app-svg-icon class="icon mr-4" [selected]="selectedSvg === insightSvg" (svgClick)="select(insightSvg)" [svgPath]="insightSvg" [fillColor]="getFillColor(insightSvg)"></app-svg-icon>
-        <app-svg-icon class="icon mr-4" [selected]="selectedSvg === otherSvg2" (svgClick)="select(otherSvg2)" [svgPath]="otherSvg2" [fillColor]="getFillColor(otherSvg2)"></app-svg-icon>
+        <app-svg-icon class="icon mr-4" [selected]="selectedSvg === homeSvg" (svgClick)="select(homeSvg)" [svgPath]="homeSvg" [fillColor]="getFillColor(homeSvg)" [middleColor]="getMiddleColor(homeSvg)"></app-svg-icon>  
+        <app-svg-icon class="icon mr-4" [selected]="selectedSvg === insightSvg" (svgClick)="select(insightSvg)" [svgPath]="insightSvg" [fillColor]="getFillColor(insightSvg)" [middleColor]="getMiddleColor(homeSvg)"></app-svg-icon>
+        <app-svg-icon class="icon mr-4" [selected]="selectedSvg === otherSvg2" (svgClick)="select(otherSvg2)" [svgPath]="otherSvg2" [fillColor]="getFillColor(otherSvg2)" [middleColor]="getMiddleColor(homeSvg)"></app-svg-icon>
     </div>
   </div>

@@ -1,6 +1,5 @@
 import { Component,OnInit } from '@angular/core';
 import { SongRecommendationComponent } from '../../shared/song-recommendation/song-recommendation.component';
-import { NavbarComponent } from '../../shared/navbar/navbar.component';
 import { ThemeService } from './../../services/theme.service';
 import { NgClass, NgForOf, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
 import { SideBarComponent } from '../../shared/side-bar/side-bar.component';
@@ -21,7 +20,6 @@ import {TopArtistCardComponent} from "../../shared/top-artist-card/top-artist-ca
     standalone: true,
     imports: [
         SongRecommendationComponent,
-        NavbarComponent,
         NgClass,
         NgForOf,
         NgIf,

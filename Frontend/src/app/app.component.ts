@@ -10,6 +10,7 @@ import { SideBarComponent } from "./shared/side-bar/side-bar.component";
 import { ProviderService } from "./services/provider.service";
 import { PageHeaderComponent } from "./shared/page-header/page-header.component";
 import {MoodService} from "./services/mood-service.service";
+import { NavbarComponent } from './shared/navbar/navbar.component';
 
 @Component({
   selector: "app-root",
@@ -21,7 +22,8 @@ import {MoodService} from "./services/mood-service.service";
     NgClass,
     SideBarComponent,
     BottomNavComponent,
-    PageHeaderComponent
+    PageHeaderComponent,
+    NavbarComponent
   ],
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"]
@@ -48,15 +50,13 @@ export class AppComponent implements OnInit
     private providerService: ProviderService,
     private updates: SwUpdate,
     public moodService: MoodService
-  )
-  {
+  ){
     this.currentMood = this.moodService.getCurrentMood();
     this.moodComponentClasses = this.moodService.getComponentMoodClasses();
     this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: RouterEvent) => {
-
       if (event instanceof NavigationEnd) {
         this.displaySideBar = ['/home', '/profile', '/mood', '/home#','home#search', '/home#search','home#home', '/home#home', 'home#library', '/home#library'].includes(event.urlAfterRedirects);
         this.displayPlayer = ['/settings'].includes(event.urlAfterRedirects);
@@ -100,7 +100,7 @@ export class AppComponent implements OnInit
         }
       }
     });
-
+    
     updates.versionUpdates.subscribe(event =>
     {
       if (event.type === "VERSION_READY")
@@ -114,7 +114,10 @@ export class AppComponent implements OnInit
       }
     });
   }
-
+  onNavChange(newNav: string) {
+    this.title = newNav;
+    this.router.navigate(['/home'], { fragment: newNav.toLowerCase() });
+}
   async ngOnInit()
   {
     this.screenSizeService.screenSize$.subscribe(screenSize =>
