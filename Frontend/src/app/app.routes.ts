@@ -28,10 +28,9 @@ export const routes: Routes = [
   { path: "artist-profile", component: ArtistProfileComponent },
   { path: "help", component: HelpMenuComponent },
   {path: "insights", component: InsightsComponent},
-  {path: "insights", component: InsightsComponent},
   {path: "search", component: SearchComponent},
-  {path: "newlogin", component: LoginComponentview}
-  //{ path: "**", redirectTo: "/login", pathMatch: "full" },
+  {path: "newlogin", component: LoginComponentview},
+  {path: "library", component: UserLibraryComponent}
 ];
 
 @NgModule({

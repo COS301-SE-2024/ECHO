@@ -10,10 +10,10 @@ import { NgClass } from "@angular/common";
   styleUrl: './page-header.component.css'
 })
 export class PageHeaderComponent {
-  @Input() pageTitle: string = 'Default Page Title';
-    //Mood Service Variables
+    @Input() pageTitle?: string;
     moodComponentClasses!:{ [key: string]: string };
     constructor (public moodService: MoodService ) {
+        this.pageTitle = "Home";
         this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
     }
 }

@@ -1,4 +1,3 @@
-
 import { Component, Output, EventEmitter } from '@angular/core';
 import { ThemeService } from './../../services/theme.service';
 import { CommonModule } from '@angular/common';
@@ -57,22 +56,20 @@ export class NavbarComponent {
     }   
     select(svgPath: string): void {
         this.selectedSvg = svgPath;
-        let fragment: string = '';
         switch (svgPath) {
             case this.homeSvg:
-                fragment = 'home';
                 this.selectedNavChange.emit('Home');
+                this.router.navigate(['/home']);
                 break;
             case this.insightSvg:
-                fragment = 'insight';
                 this.selectedNavChange.emit('Insight');
+                this.router.navigate(['/insights']);
                 break;
             case this.otherSvg2:
-                fragment = 'library';
                 this.selectedNavChange.emit('Library');
+                this.router.navigate(['/library']);
                 break;
         }
-        this.router.navigate(['/home'], { fragment: fragment });
     }
 
     switchTheme(): void {
