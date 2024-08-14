@@ -11,6 +11,7 @@ import { ProviderService } from "./services/provider.service";
 import { PageHeaderComponent } from "./shared/page-header/page-header.component";
 import { MoodService } from "./services/mood-service.service";
 import { NavbarComponent } from './shared/navbar/navbar.component';
+import { MoodDropDownComponent } from './shared/mood-drop-down/mood-drop-down.component';
 
 @Component({
   selector: "app-root",
@@ -23,7 +24,8 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
     SideBarComponent,
     BottomNavComponent,
     PageHeaderComponent,
-    NavbarComponent
+    NavbarComponent,
+    MoodDropDownComponent
   ],
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"]

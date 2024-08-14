@@ -1,0 +1,8 @@
+<div class="ml-[6vw] p-1">
+    <app-button-component 
+    *ngFor="let mood of moods; let i = index"
+    [label]="mood"
+    [isSelected]="selectedMood === null && i === 0 || selectedMood === i"
+    (click)="selectMood(i)">
+    </app-button-component>
+</div>

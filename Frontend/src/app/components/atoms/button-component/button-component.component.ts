@@ -1,8 +1,7 @@
-//angular imports
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-//services
 import { MoodService } from '../../../services/mood-service.service';
+
 @Component({
   selector: 'app-button-component',
   standalone: true,
@@ -13,13 +12,14 @@ import { MoodService } from '../../../services/mood-service.service';
 export class ButtonComponentComponent {
   @Input() label: string = '';
   @Input() disabled: boolean = false;
+  @Input() isSelected: boolean = false;
   @Output() click = new EventEmitter<Event>();
-  moodComponentClasses!: { [key: string]: string };
+  moodComponentClassesDark!: { [key: string]: string };
+  moodComponentClassesHover!: { [key: string]: string };
 
-  constructor(
-    public moodService: MoodService
-  ) {
-    this.moodComponentClasses = this.moodService.getComponentMoodClassesHover(); 
+  constructor(public moodService: MoodService) {
+    this.moodComponentClassesDark = this.moodService.getComponentMoodClassesDark();
+    this.moodComponentClassesHover = this.moodService.getComponentMoodClassesHover();
   }
 
   handleClick(event: Event): void {

@@ -1,4 +1,4 @@
-<div class="dropdown relative w-full max-w-xs">
+<div class="dropdown relative w-full max-w-xs p-1">
   <button [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]" class="w-full focus:ring-2 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center justify-between" type="button" id="dropdownMenuButton1" (click)="toggleDropdown()" aria-expanded="false">
     {{ this.moodService.getCurrentMood() || 'Choose Mood' }}
     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>

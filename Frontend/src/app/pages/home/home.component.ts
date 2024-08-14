@@ -10,11 +10,12 @@ import { SpotifyService } from "../../services/spotify.service";
 import { ScreenSizeService } from '../../services/screen-size-service.service';
 import { SearchBarComponent } from '../../components/molecules/search-bar/search-bar.component';
 import { SearchComponent } from '../../pages/search/search.component';
-import { MoodDropDownComponent } from './../../shared/mood-drop-down/mood-drop-down.component';
 import { MoodService } from '../../services/mood-service.service';
 import { InsightsComponent } from "../insights/insights.component";
 import {TopCardComponent} from '../../shared/top-card/top-card.component';
 import {TopArtistCardComponent} from "../../shared/top-artist-card/top-artist-card.component";
+import {MoodListComponent} from '../../components/molecules/mood-list/mood-list.component';
+
 @Component({
     selector: 'app-home',
     standalone: true,
@@ -29,10 +30,10 @@ import {TopArtistCardComponent} from "../../shared/top-artist-card/top-artist-ca
         SearchComponent,
         NgSwitchCase,
         NgSwitch,
-        MoodDropDownComponent,
         InsightsComponent,
         TopCardComponent,
-        TopArtistCardComponent
+        TopArtistCardComponent,
+        MoodListComponent
     ],
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',
