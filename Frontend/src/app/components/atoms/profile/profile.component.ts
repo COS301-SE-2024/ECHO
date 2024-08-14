@@ -6,13 +6,13 @@ import { Router } from '@angular/router';
 import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
-  selector: 'app-profile',
+  selector: 'app-profile-atomic',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileAtomicComponent implements OnInit {
   username!: string;
   imgpath: string = "assets/images/back.jpg";
   
@@ -27,7 +27,6 @@ export class ProfileComponent implements OnInit {
     if (this.providerService.getProviderName() === "spotify") {
       this.authService.currentUser().subscribe((res) => {
         this.imgpath = res.user.user_metadata.picture;
-        this.cdr.detectChanges(); // Manually trigger change detection
       });
     }
   }

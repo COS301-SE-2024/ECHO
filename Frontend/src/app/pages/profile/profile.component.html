@@ -62,8 +62,9 @@
             <div [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]"
                  class="rounded-lg overflow-hidden h-full relative">
               <div class="absolute top-2 left-1/2 transform -translate-x-1/2 text-center">
-                <img src="{{imgpath}}" alt="Profile Image"
-                     class="w-24 h-24 rounded-full border-2 border-white dark:border-gray-700 mx-auto">
+                <div class="flex justify-center">
+                  <app-profile-atomic></app-profile-atomic>
+                </div>
                 <h2 class="mt-2 text-gray-900 dark:text-white font-bold">&#64;{{ username }}</h2>
                 <div class="flex justify-center mt-2 space-x-4">
                   <p class="text-gray-900 dark:text-white">11 Followers</p>

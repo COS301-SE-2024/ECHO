@@ -17,6 +17,7 @@ import { TopCardComponent } from "../../shared/top-card/top-card.component";
 import { MoodService } from "../../services/mood-service.service";
 import { SongViewComponent } from "../../shared/song-view/song-view.component";
 import { TopArtistCardComponent } from "../../shared/top-artist-card/top-artist-card.component";
+import {ProfileAtomicComponent} from './../../components/atoms/profile/profile.component';
 
 @Component({
   selector: "app-profile",
@@ -35,7 +36,8 @@ import { TopArtistCardComponent } from "../../shared/top-artist-card/top-artist-
     BottomNavComponent,
     TopCardComponent,
     SongViewComponent,
-    TopArtistCardComponent
+    TopArtistCardComponent,
+    ProfileAtomicComponent
   ],
   templateUrl: "./profile.component.html",
   styleUrl: "./profile.component.css"
