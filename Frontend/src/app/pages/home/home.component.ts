@@ -15,7 +15,6 @@ import { InsightsComponent } from "../insights/insights.component";
 import {TopCardComponent} from '../../shared/top-card/top-card.component';
 import {TopArtistCardComponent} from "../../shared/top-artist-card/top-artist-card.component";
 import {MoodListComponent} from '../../components/molecules/mood-list/mood-list.component';
-
 @Component({
     selector: 'app-home',
     standalone: true,
@@ -33,7 +32,7 @@ import {MoodListComponent} from '../../components/molecules/mood-list/mood-list.
         InsightsComponent,
         TopCardComponent,
         TopArtistCardComponent,
-        MoodListComponent
+        MoodListComponent,
     ],
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',

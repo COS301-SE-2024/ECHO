@@ -12,6 +12,7 @@ import { PageHeaderComponent } from "./shared/page-header/page-header.component"
 import { MoodService } from "./services/mood-service.service";
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { MoodDropDownComponent } from './shared/mood-drop-down/mood-drop-down.component';
+import {ProfileComponent} from './components/atoms/profile/profile.component';
 
 @Component({
   selector: "app-root",
@@ -25,7 +26,8 @@ import { MoodDropDownComponent } from './shared/mood-drop-down/mood-drop-down.co
     BottomNavComponent,
     PageHeaderComponent,
     NavbarComponent,
-    MoodDropDownComponent
+    MoodDropDownComponent,
+    ProfileComponent
   ],
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"]
