@@ -14,6 +14,7 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { MoodDropDownComponent } from './shared/mood-drop-down/mood-drop-down.component';
 import { ProfileAtomicComponent} from './components/atoms/profile/profile.component';
 
+
 @Component({
   selector: "app-root",
   standalone: true,
@@ -27,7 +28,7 @@ import { ProfileAtomicComponent} from './components/atoms/profile/profile.compon
     PageHeaderComponent,
     NavbarComponent,
     MoodDropDownComponent,
-    ProfileAtomicComponent
+    ProfileAtomicComponent,
   ],
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"]

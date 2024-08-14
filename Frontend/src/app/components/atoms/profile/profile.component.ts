@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from './../../../services/auth.service';
 import { ProviderService } from './../../../services/provider.service';
@@ -12,7 +12,7 @@ import { ChangeDetectorRef } from '@angular/core';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileAtomicComponent implements OnInit {
+export class ProfileAtomicComponent implements AfterViewInit {
   username!: string;
   imgpath: string = "assets/images/back.jpg";
   
@@ -23,7 +23,7 @@ export class ProfileAtomicComponent implements OnInit {
     private cdr: ChangeDetectorRef // Inject ChangeDetectorRef
   ) {}
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     if (this.providerService.getProviderName() === "spotify") {
       this.authService.currentUser().subscribe((res) => {
         this.imgpath = res.user.user_metadata.picture;

@@ -12,7 +12,7 @@ import { NgClass, NgIf } from '@angular/common';
   styleUrls: ["./insights.component.css"]
 })
 export class InsightsComponent implements AfterViewInit, AfterViewChecked {
-  @Input() percentageData: number[] = [];
+  @Input() percentageData: number[] = [25, 5, 30, 40, 10, 15, 20, 25, 30, 10, 15, 5, 20, 5, 5, 15, 10, 10, 25, 10, 20, 15, 10, 5, 20, 15, 10];
   public chart: any;
   // Chart Variables
   public chartTypes: ChartType[] = ["pie", "bar", "line", "doughnut", "radar", "polarArea"];
@@ -70,32 +70,7 @@ export class InsightsComponent implements AfterViewInit, AfterViewChecked {
                 label: "Percentage of recent Moods",
                 data: this.percentageData,
                 backgroundColor: [
-                  this.moodService.getTailwindColorRBG('anger'), // Anger
-                  this.moodService.getTailwindColorRBG('annoyance'), // Annoyance
-                  this.moodService.getTailwindColorRBG('fear'), // Fear
-                  this.moodService.getTailwindColorRBG('excitement'), // Excitement
-                  this.moodService.getTailwindColorRBG('amusement'), // Amusement
-                  this.moodService.getTailwindColorRBG('admiration'), // Admiration
-                  this.moodService.getTailwindColorRBG('approval'), // Approval
-                  this.moodService.getTailwindColorRBG('caring'), // Caring
-                  this.moodService.getTailwindColorRBG('joy'), // Joy
-                  this.moodService.getTailwindColorRBG('desire'), // Desire
-                  this.moodService.getTailwindColorRBG('curiosity'), // Curiosity
-                  this.moodService.getTailwindColorRBG('confusion'), // Confusion
-                  this.moodService.getTailwindColorRBG('gratitude'), // Gratitude
-                  this.moodService.getTailwindColorRBG('surprise'), // Surprise
-                  this.moodService.getTailwindColorRBG('disappointment'), // Disappointment
-                  this.moodService.getTailwindColorRBG('disapproval'), // Disapproval
-                  this.moodService.getTailwindColorRBG('disgust'), // Disgust
-                  this.moodService.getTailwindColorRBG('embarrassment'), // Embarrassment
-                  this.moodService.getTailwindColorRBG('sadness'), // Sadness
-                  this.moodService.getTailwindColorRBG('grief'), // Grief
-                  this.moodService.getTailwindColorRBG('love'), // Love
-                  this.moodService.getTailwindColorRBG('nervousness'), // Nervousness
-                  this.moodService.getTailwindColorRBG('optimism'), // Optimism
-                  this.moodService.getTailwindColorRBG('pride'), // Pride
-                  this.moodService.getTailwindColorRBG('realisation'), // Realisation
-                  this.moodService.getTailwindColorRBG('relief'), // Relief
+                  
                 ],
                 hoverOffset: 4
               }]

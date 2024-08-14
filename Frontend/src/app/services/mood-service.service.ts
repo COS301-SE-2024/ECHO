@@ -139,26 +139,6 @@ private _backgroundMoodClasses = {
       this._currentMood = this.getLocalStorageItem('currentMood') || 'Neutral';
     } 
   }
-
-  getTailwindColorRBG(mood: string): string {
-    const className = `bg-${mood}`;
-    if (this.colorCache[className]) {
-      return this.colorCache[className];
-      console.log(this.colorCache[className]);
-    }
-
-    const tempDiv = document.createElement('div');
-    tempDiv.className = className;
-    document.body.appendChild(tempDiv);
-  
-    const color = getComputedStyle(tempDiv).backgroundColor;
-  
-    document.body.removeChild(tempDiv);
-    this.colorCache[className] = color;
-
-    return color;
-  }
-
   private getLocalStorageItem(key: string): string | null {
     if (typeof localStorage === 'undefined') {
       console.error('localStorage is not available in this environment.');

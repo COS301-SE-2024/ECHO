@@ -82,7 +82,7 @@ export class NavbarComponent {
     getCurrentButtonClass(option: string): string {
         const isDarkMode = this.themeService.isDarkModeActive();
         const isSelected = this.currentSelection === option;
-        return isSelected ? (isDarkMode ? this.moodComponentClasses[this.moodService.getCurrentMood()] : 'bg-pink-light') : (isDarkMode ? 'bg-gray-component' : 'bg-zinc-700');
+        return isSelected ? (isDarkMode ? 'bg-pink': 'bg-pink-light') : (isDarkMode ? 'bg-gray-component' : 'bg-zinc-700');
     }
     getFillColor(svg: string): string {
         const isDarkMode = this.themeService.isDarkModeActive();
