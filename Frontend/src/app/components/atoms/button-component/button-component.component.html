@@ -1,6 +1,6 @@
 <button
   (click)="handleClick($event)"
   [ngClass]="isSelected ? moodComponentClassesDark[this.moodService.getCurrentMood()] : moodComponentClassesHover[this.moodService.getCurrentMood()]"
-  class="ml-1 px-5 py-2 rounded-full focus:cursor-pointer">
+  class="ml-1 mb-1 px-5 py-2 rounded-full focus:cursor-pointer">
   {{ label }}
 </button>
