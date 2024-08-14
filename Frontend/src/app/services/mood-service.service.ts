@@ -132,7 +132,6 @@ private _backgroundMoodClasses = {
 
   constructor() {
     this.initMood();
-    console.log('colorCache initialized:', this.colorCache);
   }
   
   private initMood(): void {

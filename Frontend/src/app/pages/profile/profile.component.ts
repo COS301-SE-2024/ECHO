@@ -1,7 +1,5 @@
 import { AfterViewInit, Component } from "@angular/core";
-import { NavbarComponent } from "../../shared/navbar/navbar.component";
 import { CommonModule, NgClass, NgForOf, NgIf } from "@angular/common";
-import { SideBarComponent } from "../../shared/side-bar/side-bar.component";
 import { ThemeService } from "../../services/theme.service";
 import { AuthService } from "../../services/auth.service";
 import { Router } from "@angular/router";
@@ -24,10 +22,8 @@ import { TopArtistCardComponent } from "../../shared/top-artist-card/top-artist-
   selector: "app-profile",
   standalone: true,
   imports: [
-    NavbarComponent,
     NgIf,
     NgClass,
-    SideBarComponent,
     MatCard,
     MatCardContent,
     MatButtonModule,
@@ -38,7 +34,6 @@ import { TopArtistCardComponent } from "../../shared/top-artist-card/top-artist-
     CommonModule,
     BottomNavComponent,
     TopCardComponent,
-    SideBarComponent,
     SongViewComponent,
     TopArtistCardComponent
   ],

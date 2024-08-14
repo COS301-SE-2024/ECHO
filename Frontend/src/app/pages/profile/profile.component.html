@@ -53,12 +53,6 @@
        class="min-h-screen  flex flex-col justify-center px-6 py-12 lg:px-8">
     <div class="flex justify-center items-center">
       <div class="fixed top-1 right-12 flex flex-col items-center">
-        <button *ngIf="screenSize === 'desktop'" class="p-2" (click)="switchTheme()">
-          <img *ngIf="!themeService.isDarkModeActive()" src="../../../assets/icons/light-mode.png" alt="Light Mode"
-               class="w-10 h-10">
-          <img *ngIf="themeService.isDarkModeActive()" src="../../../assets/icons/dark-mode.png" alt="Dark Mode"
-               class="w-10 h-10">
-        </button>
       </div>
 
 
