@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import { MoodsComponent } from '../../shared/moods/moods.component';
 import { SpotifyService } from "../../services/spotify.service";
 import { ScreenSizeService } from '../../services/screen-size-service.service';
-import { SearchBarComponent } from '../../shared/search-bar/search-bar.component';
+import { SearchBarComponent } from '../../components/molecules/search-bar/search-bar.component';
 import { SearchComponent } from '../../pages/search/search.component';
 import { MoodDropDownComponent } from './../../shared/mood-drop-down/mood-drop-down.component';
 import { MoodService } from '../../services/mood-service.service';
@@ -154,7 +154,7 @@ export class HomeComponent implements OnInit {
     onSearchdown(subject:string) {
         this.searchQuery = subject;
         this.title = 'Search';
-        this.router.navigate(['/home'], { fragment: 'search' });
+        this.router.navigate(['/search']);
     }
 
     async ngOnInit() {
@@ -163,7 +163,7 @@ export class HomeComponent implements OnInit {
       });
       if (typeof window !== 'undefined') {
         await this.spotifyService.init();
-      }
+      } 
     }
 
     openHelpMenu() {

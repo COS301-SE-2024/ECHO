@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SearchBarComponent } from './search-bar.component';
-import { SearchService } from '../../services/search.service';
-import { ScreenSizeService } from '../../services/screen-size-service.service';
+import { SearchService } from '../../../services/search.service';
+import { ScreenSizeService } from '../../../services/screen-size-service.service';
 import { of } from 'rxjs';
 
 describe('SearchBarComponent', () => {

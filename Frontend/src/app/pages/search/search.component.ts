@@ -4,9 +4,9 @@ import { SearchService, Track } from "../../services/search.service";
 import { Observable } from 'rxjs';
 import { ScreenSizeService } from '../../services/screen-size-service.service';
 import { ThemeService } from './../../services/theme.service';
-import { Router } from '@angular/router';
-import {NavbarComponent} from "./../../shared/navbar/navbar.component";
-import { SearchBarComponent } from '../../shared/search-bar/search-bar.component';
+import { Router, ActivatedRoute } from '@angular/router';
+import { NavbarComponent } from "./../../shared/navbar/navbar.component";
+import { SearchBarComponent } from '../../components/molecules/search-bar/search-bar.component';
 import { TopResultComponent } from '../../shared/top-result/top-result.component';
 import { MoodService } from '../../services/mood-service.service';
 import { SpotifyService } from "../../services/spotify.service";
@@ -19,10 +19,10 @@ import { ProviderService } from "../../services/provider.service";
   styleUrl: './search.component.css'
 })
 export class SearchComponent implements OnInit {
-  //Mood Service Variables
+  // Mood Service Variables
   currentMood!: string;
-  moodComponentClasses!:{ [key: string]: string };
-  backgroundMoodClasses!:{ [key: string]: string };
+  moodComponentClasses!: { [key: string]: string };
+  backgroundMoodClasses!: { [key: string]: string };
 
   @Input() searchQuery!: string;
   songs$: Observable<Track[]>;
@@ -31,8 +31,15 @@ export class SearchComponent implements OnInit {
   screenSize?: string;
   title?: string;
 
-  constructor(private screenSizeService: ScreenSizeService,protected themeService: ThemeService,private router: Router,
-    public moodService: MoodService,private searchService: SearchService, private spotifyService: SpotifyService, private providerService: ProviderService
+  constructor(
+    private screenSizeService: ScreenSizeService,
+    protected themeService: ThemeService,
+    private router: Router,
+    private route: ActivatedRoute,
+    public moodService: MoodService,
+    private searchService: SearchService,
+    private spotifyService: SpotifyService,
+    private providerService: ProviderService
   ) {
     this.currentMood = this.moodService.getCurrentMood();
     this.moodComponentClasses = this.moodService.getComponentMoodClasses();
@@ -41,33 +48,54 @@ export class SearchComponent implements OnInit {
     this.albums$ = this.searchService.getAlbumSearch();
     this.topResult$ = this.searchService.getTopResult();
   }
+
   async ngOnInit() {
     this.screenSizeService.screenSize$.subscribe(screenSize => {
       this.screenSize = screenSize;
     });
+
+    // Retrieve the query parameter from the URL
+    this.route.queryParams.subscribe(params => {
+      this.searchQuery = params['query'] || '';
+      if (this.searchQuery) {
+        this.performSearch(this.searchQuery);
+      }
+    });
   }
+
   onNavChange(newNav: string) {
     this.title = newNav;
   }
-  onSearchdown(seaarch:string) {
-    this.searchQuery = seaarch;
+
+  onSearchdown(search: string) {
+    this.searchQuery = search;
   }
+
   switchTheme(): void {
     this.themeService.switchTheme();
   }
+
   profile() {
     this.router.navigate(['/profile']);
   }
 
-  playTrack(name: string, artistName: string)
-  {
-    if (this.providerService.getProviderName() === 'spotify')
-    {
-      this.spotifyService.getTrackDetailsByName(name, artistName).then(async (track) =>
-      {
+  playTrack(name: string, artistName: string) {
+    if (this.providerService.getProviderName() === 'spotify') {
+      this.spotifyService.getTrackDetailsByName(name, artistName).then(async (track) => {
         console.log(track);
         await this.spotifyService.playTrackById(track.id);
       });
     }
+  }
+
+  private performSearch(query: string) {
+    this.searchService.storeSearch(query).subscribe(
+      () => {},
+      error => console.error('Error performing search:', error)
+    );
+    this.searchService.storeAlbumSearch(query).subscribe(
+      () => {},
+      error => console.error('Error performing search:', error)
+    );
   }
 }

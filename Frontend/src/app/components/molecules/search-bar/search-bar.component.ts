@@ -1,8 +1,9 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { ScreenSizeService } from '../../services/screen-size-service.service';
+import { ScreenSizeService } from '../../../services/screen-size-service.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { SearchService } from "../../services/search.service";
+import { SearchService } from "../../../services/search.service";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-bar',
@@ -15,11 +16,10 @@ export class SearchBarComponent {
   screenSize?: string;
   searchQuery: string = '';
 
-  @Output() searchDown = new EventEmitter<string>();
-
   constructor(
     private screenSizeService: ScreenSizeService,
-    private searchService: SearchService
+    private searchService: SearchService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -29,8 +29,6 @@ export class SearchBarComponent {
   }
 
   onSearchSubmit() {
-    console.log('Searching...' + this.searchQuery);
-    this.searchDown.emit(this.searchQuery);
     this.searchService.storeSearch(this.searchQuery).subscribe(
       () => {},
       error => console.error('Error performing search:', error)
@@ -39,5 +37,8 @@ export class SearchBarComponent {
       () => {},
       error => console.error('Error performing search:', error)
     );
+
+    // Navigate to the search results page with the search query as a parameter
+    this.router.navigate(['/search'], { queryParams: { query: this.searchQuery } });
   }
 }

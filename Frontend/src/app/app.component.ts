@@ -9,7 +9,7 @@ import { NgIf, NgClass } from "@angular/common";
 import { SideBarComponent } from "./shared/side-bar/side-bar.component";
 import { ProviderService } from "./services/provider.service";
 import { PageHeaderComponent } from "./shared/page-header/page-header.component";
-import { MoodService} from "./services/mood-service.service";
+import { MoodService } from "./services/mood-service.service";
 import { NavbarComponent } from './shared/navbar/navbar.component';
 
 @Component({
@@ -28,16 +28,15 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"]
 })
-export class AppComponent implements OnInit
-{
+export class AppComponent implements OnInit {
   title!: string;
   update: boolean = false;
   screenSize?: string;
   displayPageName: boolean = false;
-   //Mood Service Variables
-   currentMood!: string;
-   moodComponentClasses!:{ [key: string]: string };
-   backgroundMoodClasses!:{ [key: string]: string };
+  // Mood Service Variables
+  currentMood!: string;
+  moodComponentClasses!: { [key: string]: string };
+  backgroundMoodClasses!: { [key: string]: string };
 
   constructor(
     private router: Router,
@@ -46,36 +45,49 @@ export class AppComponent implements OnInit
     private providerService: ProviderService,
     private updates: SwUpdate,
     public moodService: MoodService
-  ){
+  ) {
     this.title = "Home";
     this.currentMood = this.moodService.getCurrentMood();
     this.moodComponentClasses = this.moodService.getComponentMoodClasses();
     this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
-    updates.versionUpdates.subscribe(event =>
-    {
-      if (event.type === "VERSION_READY")
-      {
+    updates.versionUpdates.subscribe(event => {
+      if (event.type === "VERSION_READY") {
         console.log("Version ready to install:");
-        updates.activateUpdate().then(() =>
-        {
+        updates.activateUpdate().then(() => {
           this.update = true;
           document.location.reload();
         });
       }
     });
+
+    this.router.events.pipe(
+      filter((event: RouterEvent) => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.updateTitle();
+    });
   }
+
   onNavChange(newNav: string) {
     this.title = newNav;
   }
-  async ngOnInit()
-  {
-    this.screenSizeService.screenSize$.subscribe(screenSize =>
-    {
+
+  async ngOnInit() {
+    this.screenSizeService.screenSize$.subscribe(screenSize => {
       this.screenSize = screenSize;
     });
   }
+
   isAuthRoute(): boolean {
     const authRoutes = ['/login', '/register'];
     return authRoutes.includes(this.router.url);
+  }
+
+  private updateTitle() {
+    const currentRoute = this.route.root.firstChild?.snapshot.routeConfig?.path || '';
+    this.title = this.capitalizeFirstLetter(currentRoute);
+  }
+
+  private capitalizeFirstLetter(string: string): string {
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 }

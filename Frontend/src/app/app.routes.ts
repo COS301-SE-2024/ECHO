@@ -30,7 +30,8 @@ export const routes: Routes = [
   {path: "insights", component: InsightsComponent},
   {path: "search", component: SearchComponent},
   {path: "newlogin", component: LoginComponentview},
-  {path: "library", component: UserLibraryComponent}
+  {path: "library", component: UserLibraryComponent},
+  {path: "search", component: SearchComponent}
 ];
 
 @NgModule({

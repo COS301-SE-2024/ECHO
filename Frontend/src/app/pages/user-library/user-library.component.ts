@@ -5,7 +5,7 @@ import { NgClass, NgForOf, NgIf } from '@angular/common';
 import { SideBarComponent } from '../../shared/side-bar/side-bar.component';
 import { MoodsComponent } from '../../shared/moods/moods.component';
 import { BottomNavComponent } from '../../shared/bottom-nav/bottom-nav.component';
-import { SearchBarComponent } from '../../shared/search-bar/search-bar.component';
+import { SearchBarComponent } from '../../components/molecules/search-bar/search-bar.component';
 import { SongRecommendationComponent } from '../../shared/song-recommendation/song-recommendation.component';
 import { ThemeService } from './../../services/theme.service';
 import { AuthService } from '../../services/auth.service';

@@ -3,7 +3,7 @@
         <div class="fixed navbar-container pt-4 pl-24">
             <app-navbar (selectedNavChange)="onNavChange($event)"></app-navbar>
         </div>
-        <app-search-bar *ngIf="screenSize === 'desktop'" (searchDown)="onSearchdown($event)" class="col-start-2 row-start-1"></app-search-bar>
+        <!-- <app-search-bar *ngIf="screenSize === 'desktop'" (searchDown)="onSearchdown($event)" class="col-start-2 row-start-1"></app-search-bar> -->
         <div class="fixed top-5 right-8 flex flex-col items-center">
             <app-mood-drop-down class="mb-4"></app-mood-drop-down>
             <img (click)="profile()" [src]="'../../../../assets/icons/profile-light.png'" alt="profile" class="w-12 h-12 hover:cursor-pointer">
