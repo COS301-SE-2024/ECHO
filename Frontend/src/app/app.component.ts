@@ -11,8 +11,10 @@ import { ProviderService } from "./services/provider.service";
 import { PageHeaderComponent } from "./components/molecules/page-header/page-header.component";
 import { MoodService } from "./services/mood-service.service";
 import { NavbarComponent } from './components/organisms/navbar/navbar.component';
+//template imports
 import {HeaderComponent} from "./components/templates/desktop/header/header.component";
 import {OtherNavComponent} from "./components/templates/desktop/other-nav/other-nav.component";
+import {ExploreBarComponent} from "./components/templates/desktop/explore-bar/explore-bar.component";
 
 @Component({
   selector: "app-root",
@@ -27,7 +29,8 @@ import {OtherNavComponent} from "./components/templates/desktop/other-nav/other-
     PageHeaderComponent,
     NavbarComponent,
     HeaderComponent,
-    OtherNavComponent
+    OtherNavComponent,
+    ExploreBarComponent
   ],
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"]
