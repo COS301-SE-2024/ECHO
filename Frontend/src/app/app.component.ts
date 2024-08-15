@@ -5,7 +5,7 @@ import { BottomNavComponent } from "./shared/bottom-nav/bottom-nav.component";
 import { ScreenSizeService } from "./services/screen-size-service.service";
 import { SwUpdate } from "@angular/service-worker";
 import { filter } from "rxjs/operators";
-import { NgIf, NgClass } from "@angular/common";
+import { CommonModule } from "@angular/common";
 import { SideBarComponent } from "./shared/side-bar/side-bar.component";
 import { ProviderService } from "./services/provider.service";
 import { PageHeaderComponent } from "./components/molecules/page-header/page-header.component";
@@ -22,8 +22,7 @@ import {ExploreBarComponent} from "./components/templates/desktop/explore-bar/ex
   imports: [
     RouterOutlet,
     BottomPlayerComponent,
-    NgIf,
-    NgClass,
+    CommonModule,
     SideBarComponent,
     BottomNavComponent,
     PageHeaderComponent,
