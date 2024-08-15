@@ -12,7 +12,7 @@ import { NgClass, NgIf } from '@angular/common';
   styleUrls: ["./insights.component.css"]
 })
 export class InsightsComponent implements AfterViewInit, AfterViewChecked {
-  @Input() percentageData: number[] = [25, 5, 30, 40, 10, 15, 20, 25, 30, 10, 15, 5, 20, 5, 5, 15, 10, 10, 25, 10, 20, 15, 10, 5, 20, 15, 10];
+  @Input() percentageData: number[] = [25, 5, 30, 40, 10, 15, 20, 25, 30, 10, 15, 5, 20, 5, 5, 15, 10, 10, 25, 10, 20, 15, 10, 5, 20, 15];
   public chart: any;
   // Chart Variables
   public chartTypes: ChartType[] = ["pie", "bar", "line", "doughnut", "radar", "polarArea"];
@@ -70,7 +70,32 @@ export class InsightsComponent implements AfterViewInit, AfterViewChecked {
                 label: "Percentage of recent Moods",
                 data: this.percentageData,
                 backgroundColor: [
-                  
+                  this.moodService.getRBGAColor("Anger"),
+                  this.moodService.getRBGAColor("Annoyance"),
+                  this.moodService.getRBGAColor("Fear"),
+                  this.moodService.getRBGAColor("Excitement"),
+                  this.moodService.getRBGAColor("Amusement"),
+                  this.moodService.getRBGAColor("Admiration"),
+                  this.moodService.getRBGAColor("Approval"),
+                  this.moodService.getRBGAColor("Caring"),
+                  this.moodService.getRBGAColor("Joy"),
+                  this.moodService.getRBGAColor("Desire"),
+                  this.moodService.getRBGAColor("Curiosity"),
+                  this.moodService.getRBGAColor("Confusion"),
+                  this.moodService.getRBGAColor("Gratitude"),
+                  this.moodService.getRBGAColor("Surprise"),
+                  this.moodService.getRBGAColor("Disappointment"),
+                  this.moodService.getRBGAColor("Disapproval"),
+                  this.moodService.getRBGAColor("Disgust"),
+                  this.moodService.getRBGAColor("Embarrassment"),
+                  this.moodService.getRBGAColor("Sadness"),
+                  this.moodService.getRBGAColor("Grief"),
+                  this.moodService.getRBGAColor("Love"),
+                  this.moodService.getRBGAColor("Nervousness"),
+                  this.moodService.getRBGAColor("Optimism"),
+                  this.moodService.getRBGAColor("Pride"),
+                  this.moodService.getRBGAColor("Realisation"),
+                  this.moodService.getRBGAColor("Relief"),
                 ],
                 hoverOffset: 4
               }]
