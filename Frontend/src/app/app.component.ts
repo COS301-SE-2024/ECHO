@@ -13,7 +13,7 @@ import { MoodService } from "./services/mood-service.service";
 import { NavbarComponent } from './components/organisms/navbar/navbar.component';
 import { MoodDropDownComponent } from './shared/mood-drop-down/mood-drop-down.component';
 import { ProfileAtomicComponent} from './components/organisms/profile/profile.component';
-
+import {InfoIconComponent} from './components/organisms/info-icon/info-icon.component';
 
 @Component({
   selector: "app-root",
@@ -29,6 +29,7 @@ import { ProfileAtomicComponent} from './components/organisms/profile/profile.co
     NavbarComponent,
     MoodDropDownComponent,
     ProfileAtomicComponent,
+    InfoIconComponent
   ],
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"]
