@@ -12,8 +12,6 @@ import { SearchComponent } from '../../pages/search/search.component';
 import { MoodService } from '../../services/mood-service.service';
 import { InsightsComponent } from "../insights/insights.component";
 import {TopCardComponent} from '../../shared/top-card/top-card.component';
-import {TopArtistCardComponent} from "../../shared/top-artist-card/top-artist-card.component";
-import {ExploreBarComponent} from "./../../components/templates/desktop/explore-bar/explore-bar.component";
 
 @Component({
     selector: 'app-home',
@@ -30,8 +28,6 @@ import {ExploreBarComponent} from "./../../components/templates/desktop/explore-
         NgSwitch,
         InsightsComponent,
         TopCardComponent,
-        TopArtistCardComponent,
-        ExploreBarComponent
     ],
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',
@@ -50,80 +46,7 @@ export class HomeComponent implements OnInit {
 
     selectedMood: number | null = null;
 
-    artists = [
-        {
-            imageUrl: '../../../assets/images/ken.jpg',
-            text: 'Kendrick Lamar',
-        },
-        {
-            imageUrl: '../../../assets/images/malone.jpg',
-            text: 'Post Malone',
-        },
-        {
-            imageUrl: '../../../assets/images/thekill.jpg',
-            text: 'The Killers',
-        },
-        {
-            imageUrl: '../../../assets/images/rhcp.jpg',
-            text: 'Red Hot Chilli Peppers',
-        },
-        {
-            imageUrl: '../../../assets/images/bob.jpg',
-            text: 'Bob Marley',
-        },
-        {
-            imageUrl: '../../../assets/images/miller.jpg',
-            text: 'Mac Miller',
-        },
-        {
-            imageUrl: '../../../assets/images/cinemaclub.jpg',
-            text: 'Two Door Cinema Club',
-        },
-    ];
-    recentListeningCardData = [
-        {
-            imageUrl: '../../../assets/images/red.jpg',
-            text: 'Californication',
-            secondaryText: 'Red Hot Chilli Peppers',
-            explicit: false,
-        },
-        {
-            imageUrl: '../../../assets/images/post.jpg',
-            text: 'Too Cool To Die',
-            secondaryText: 'Post Malone',
-            explicit: true,
-        },
-        {
-            imageUrl: '../../../assets/images/killers.png',
-            text: 'Mr. Brightside',
-            secondaryText: 'The Killers',
-            explicit: false,
-        },
-        {
-            imageUrl: '../../../assets/images/glass.jpg',
-            text: 'Youth',
-            secondaryText: 'Glass Animals',
-            explicit: false,
-        },
-        {
-            imageUrl: '../../../assets/images/wheatus.jpg',
-            text: 'Teenage Dirtbag',
-            secondaryText: 'Wheatus',
-            explicit: true,
-        },
-        {
-            imageUrl: '../../../assets/images/bastille.jpg',
-            text: 'Pompeii',
-            secondaryText: 'Bastille',
-            explicit: false,
-        },
-        {
-            imageUrl: '../../../assets/images/c.png',
-            text: 'Prayer in C',
-            secondaryText: 'Lilly Wood & The Prick',
-            explicit: false,
-        },
-    ];
+    
     constructor(
         protected themeService: ThemeService,
         private authService: AuthService,

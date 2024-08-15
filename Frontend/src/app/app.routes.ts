@@ -18,7 +18,7 @@ import {LoginComponentview} from "./views/login/login.component";
 export const routes: Routes = [
   { path: "landing", component: LandingPageComponent },
   { path: "login", component: LoginComponent },
-  {path: "home", component: HomeComponent},
+  { path: "home", component: HomeComponent},
   { path: "register", component: RegisterComponent },
   { path: "profile", component: ProfileComponent },
   { path: "mood", component: MoodComponent },
@@ -27,11 +27,11 @@ export const routes: Routes = [
   { path: "settings", component: SettingsComponent },
   { path: "artist-profile", component: ArtistProfileComponent },
   { path: "help", component: HelpMenuComponent },
-  {path: "insights", component: InsightsComponent},
-  {path: "search", component: SearchComponent},
-  {path: "newlogin", component: LoginComponentview},
-  {path: "library", component: UserLibraryComponent},
-  {path: "search", component: SearchComponent}
+  { path: "insights", component: InsightsComponent},
+  { path: "search", component: SearchComponent},
+  { path: "newlogin", component: LoginComponentview},
+  { path: "library", component: UserLibraryComponent},
+  { path: "search", component: SearchComponent}
 ];
 
 @NgModule({
