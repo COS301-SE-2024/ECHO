@@ -1,9 +1,9 @@
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { NavbarComponent } from './navbar.component';
-import { ThemeService } from './../../services/theme.service';
+import { ThemeService } from '../../../services/theme.service';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ScreenSizeService } from '../../services/screen-size-service.service';
+import { ScreenSizeService } from '../../../services/screen-size-service.service';
 import { of } from 'rxjs';
 
 describe('NavbarComponent', () => {

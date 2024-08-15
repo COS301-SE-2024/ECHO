@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { BottomPlayerComponent } from '../../shared/bottom-player/bottom-player.component';
-import { NavbarComponent } from '../../shared/navbar/navbar.component';
+import { NavbarComponent } from '../../components/organisms/navbar/navbar.component';
 import { NgClass, NgForOf, NgIf } from '@angular/common';
 import { SideBarComponent } from '../../shared/side-bar/side-bar.component';
 import { MoodsComponent } from '../../shared/moods/moods.component';

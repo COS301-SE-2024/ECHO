@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavbarComponent } from '../../shared/navbar/navbar.component';
+import { NavbarComponent } from '../../components/organisms/navbar/navbar.component';
 import { NgForOf, NgIf, NgClass } from '@angular/common';
 import { SideBarComponent } from '../../shared/side-bar/side-bar.component';
 import { ThemeService } from '../../services/theme.service';

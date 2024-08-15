@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InfoAtomComponent } from './info-atom.component';
+import { InfoIconComponent } from './info-icon.component';
 
-describe('InfoAtomComponent', () => {
-  let component: InfoAtomComponent;
-  let fixture: ComponentFixture<InfoAtomComponent>;
+describe('InfoIconComponent', () => {
+  let component: InfoIconComponent;
+  let fixture: ComponentFixture<InfoIconComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [InfoAtomComponent]
+      imports: [InfoIconComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(InfoAtomComponent);
+    fixture = TestBed.createComponent(InfoIconComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { ScreenSizeService } from '../../services/screen-size-service.service';
 import { ThemeService } from './../../services/theme.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { NavbarComponent } from "./../../shared/navbar/navbar.component";
+import { NavbarComponent } from "../../components/organisms/navbar/navbar.component";
 import { SearchBarComponent } from '../../components/molecules/search-bar/search-bar.component';
 import { TopResultComponent } from '../../shared/top-result/top-result.component';
 import { MoodService } from '../../services/mood-service.service';

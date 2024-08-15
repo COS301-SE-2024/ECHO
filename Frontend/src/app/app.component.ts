@@ -10,10 +10,9 @@ import { SideBarComponent } from "./shared/side-bar/side-bar.component";
 import { ProviderService } from "./services/provider.service";
 import { PageHeaderComponent } from "./shared/page-header/page-header.component";
 import { MoodService } from "./services/mood-service.service";
-import { NavbarComponent } from './shared/navbar/navbar.component';
+import { NavbarComponent } from './components/organisms/navbar/navbar.component';
 import { MoodDropDownComponent } from './shared/mood-drop-down/mood-drop-down.component';
 import { ProfileAtomicComponent} from './components/atoms/profile/profile.component';
-import { InfoAtomComponent} from './components/molecules/info-atom/info-atom.component';
 
 
 @Component({
@@ -30,7 +29,6 @@ import { InfoAtomComponent} from './components/molecules/info-atom/info-atom.com
     NavbarComponent,
     MoodDropDownComponent,
     ProfileAtomicComponent,
-    InfoAtomComponent
   ],
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"]

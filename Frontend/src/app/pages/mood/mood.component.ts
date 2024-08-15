@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForOf, NgIf, NgClass, NgSwitch, NgSwitchCase } from '@angular/common';
 import { ScreenSizeService } from '../../services/screen-size-service.service';
 import { MoodService } from "../../services/mood-service.service";
-import { NavbarComponent } from '../../shared/navbar/navbar.component';
+import { NavbarComponent } from '../../components/organisms/navbar/navbar.component';
 import { Router } from '@angular/router';
 import { SearchBarComponent } from '../../components/molecules/search-bar/search-bar.component';
 import { ProfileComponent } from '../profile/profile.component';
