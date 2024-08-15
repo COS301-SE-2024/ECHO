@@ -12,7 +12,7 @@ import { PageHeaderComponent } from "./shared/page-header/page-header.component"
 import { MoodService } from "./services/mood-service.service";
 import { NavbarComponent } from './components/organisms/navbar/navbar.component';
 import { MoodDropDownComponent } from './shared/mood-drop-down/mood-drop-down.component';
-import { ProfileAtomicComponent} from './components/atoms/profile/profile.component';
+import { ProfileAtomicComponent} from './components/organisms/profile/profile.component';
 
 
 @Component({
