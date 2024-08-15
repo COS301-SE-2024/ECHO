@@ -11,8 +11,9 @@ import { ProviderService } from "./services/provider.service";
 import { PageHeaderComponent } from "./components/molecules/page-header/page-header.component";
 import { MoodService } from "./services/mood-service.service";
 import { NavbarComponent } from './components/organisms/navbar/navbar.component';
-import { MoodDropDownComponent } from './shared/mood-drop-down/mood-drop-down.component';
 import {HeaderComponent} from "./components/templates/desktop/header/header.component";
+import {OtherNavComponent} from "./components/templates/desktop/other-nav/other-nav.component";
+
 @Component({
   selector: "app-root",
   standalone: true,
@@ -25,8 +26,8 @@ import {HeaderComponent} from "./components/templates/desktop/header/header.comp
     BottomNavComponent,
     PageHeaderComponent,
     NavbarComponent,
-    MoodDropDownComponent,
-    HeaderComponent
+    HeaderComponent,
+    OtherNavComponent
   ],
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"]

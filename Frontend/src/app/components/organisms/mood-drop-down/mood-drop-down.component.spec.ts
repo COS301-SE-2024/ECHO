@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MoodDropDownComponent } from './mood-drop-down.component';
-import { MoodService } from './../../services/mood-service.service';
+import { MoodService } from '../../../services/mood-service.service';
 import { of } from 'rxjs';
 
 // Mock MoodService

@@ -8,7 +8,7 @@ import { NavbarComponent } from '../../components/organisms/navbar/navbar.compon
 import { Router } from '@angular/router';
 import { SearchBarComponent } from '../../components/molecules/search-bar/search-bar.component';
 import { ProfileComponent } from '../profile/profile.component';
-import { MoodDropDownComponent } from '../../shared/mood-drop-down/mood-drop-down.component';
+import { MoodDropDownComponent } from '../../components/organisms/mood-drop-down/mood-drop-down.component';
 
 // Define the type for album objects
 interface Album {

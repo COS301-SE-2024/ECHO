@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NgIf, NgFor, NgClass } from '@angular/common';
-import { MoodService } from './../../services/mood-service.service';
+import { MoodService } from '../../../services/mood-service.service';
 
 @Component({
   selector: 'app-mood-drop-down',
