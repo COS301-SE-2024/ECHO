@@ -8,13 +8,11 @@ import { filter } from "rxjs/operators";
 import { NgIf, NgClass } from "@angular/common";
 import { SideBarComponent } from "./shared/side-bar/side-bar.component";
 import { ProviderService } from "./services/provider.service";
-import { PageHeaderComponent } from "./shared/page-header/page-header.component";
+import { PageHeaderComponent } from "./components/molecules/page-header/page-header.component";
 import { MoodService } from "./services/mood-service.service";
 import { NavbarComponent } from './components/organisms/navbar/navbar.component';
 import { MoodDropDownComponent } from './shared/mood-drop-down/mood-drop-down.component';
-import { ProfileAtomicComponent} from './components/organisms/profile/profile.component';
-import {InfoIconComponent} from './components/organisms/info-icon/info-icon.component';
-
+import {HeaderComponent} from "./components/templates/desktop/header/header.component";
 @Component({
   selector: "app-root",
   standalone: true,
@@ -28,14 +26,12 @@ import {InfoIconComponent} from './components/organisms/info-icon/info-icon.comp
     PageHeaderComponent,
     NavbarComponent,
     MoodDropDownComponent,
-    ProfileAtomicComponent,
-    InfoIconComponent
+    HeaderComponent
   ],
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"]
 })
 export class AppComponent implements OnInit {
-  title!: string;
   update: boolean = false;
   screenSize?: string;
   displayPageName: boolean = false;
@@ -52,7 +48,6 @@ export class AppComponent implements OnInit {
     private updates: SwUpdate,
     public moodService: MoodService
   ) {
-    this.title = "Home";
     this.currentMood = this.moodService.getCurrentMood();
     this.moodComponentClasses = this.moodService.getComponentMoodClasses();
     this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
@@ -69,12 +64,7 @@ export class AppComponent implements OnInit {
     this.router.events.pipe(
       filter((event: RouterEvent) => event instanceof NavigationEnd)
     ).subscribe(() => {
-      this.updateTitle();
     });
-  }
-
-  onNavChange(newNav: string) {
-    this.title = newNav;
   }
 
   async ngOnInit() {
@@ -88,12 +78,6 @@ export class AppComponent implements OnInit {
     return authRoutes.includes(this.router.url);
   }
 
-  private updateTitle() {
-    const currentRoute = this.route.root.firstChild?.snapshot.routeConfig?.path || '';
-    this.title = this.capitalizeFirstLetter(currentRoute);
-  }
 
-  private capitalizeFirstLetter(string: string): string {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
+  
 }

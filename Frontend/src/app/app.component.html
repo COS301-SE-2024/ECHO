@@ -5,20 +5,16 @@
 
 <div *ngIf="!isAuthRoute()" class="grid grid-cols-5 grid-rows-[auto,1fr,auto] min-h-screen" [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]">
   <div class="header-container col-start-3 col-span-1 row-start-1 row-span-1">
-      <app-page-header [pageTitle]="this.title" class="header-content"></app-page-header>
-    </div>
-    <app-mood-drop-down class="col-start-4 col-span-1 row-start-1 row-span-1"></app-mood-drop-down>
-    <div  class="col-start-5 col-span-1 row-start-1 row-span-1" > 
-      <app-info-icon></app-info-icon>
-      <app-profile-atomic></app-profile-atomic>
-    </div>
-    <ng-container>
-        <app-navbar class="col-start-1 col-span-1 row-start-1 pl-16" (selectedNavChange)="onNavChange($event)"></app-navbar>
+    <app-header></app-header>
+  </div>
+  <div class="header-container col-start-5 col-span-1 row-start-1 row-span-1">
+    <app-header></app-header>
+  </div>
+        <app-navbar class="col-start-1 col-span-1 row-start-1 pl-16"></app-navbar>
         <app-side-bar class="col-start-1 col-span-1 row-start-2 row-span-4" *ngIf="screenSize === 'desktop'"></app-side-bar>
         <div class="col-start-2 col-span-4 row-start-2 row-span-3">
           <router-outlet></router-outlet>
         </div>
         <app-bottom-nav *ngIf="screenSize === 'mobile'"></app-bottom-nav>
         <app-bottom-player></app-bottom-player>
-    </ng-container>
 </div>

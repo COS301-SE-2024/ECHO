@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { MoodService } from './../../services/mood-service.service';
+import { MoodService } from '../../../services/mood-service.service';
 import { NgClass } from "@angular/common";
 
 @Component({
