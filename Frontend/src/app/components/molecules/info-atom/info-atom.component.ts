@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SvgIconComponent } from '../svg-icon/svg-icon.component';
-import { MoodService } from './../../../services/mood-service.service';
+import { SvgIconComponent } from '../../atoms/svg-icon/svg-icon.component';
+import { MoodService } from '../../../services/mood-service.service';
 import { NgClass } from '@angular/common';
 
 const SVG_PATHS = {
@@ -31,6 +31,6 @@ export class InfoAtomComponent implements OnInit {
   }
 
   getFillColor(): any {
-    console.log(this.moodService.getCurrentMood());
+    return this.moodService.getRBGAColor(this.moodService.getCurrentMood());
   }
 }

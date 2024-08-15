@@ -15,7 +15,6 @@ import { InsightsComponent } from "../insights/insights.component";
 import {TopCardComponent} from '../../shared/top-card/top-card.component';
 import {TopArtistCardComponent} from "../../shared/top-artist-card/top-artist-card.component";
 import {MoodListComponent} from '../../components/molecules/mood-list/mood-list.component';
-import { InfoAtomComponent} from '../../components/atoms/info-atom/info-atom.component';
 
 @Component({
     selector: 'app-home',
@@ -35,7 +34,6 @@ import { InfoAtomComponent} from '../../components/atoms/info-atom/info-atom.com
         TopCardComponent,
         TopArtistCardComponent,
         MoodListComponent,
-        InfoAtomComponent
     ],
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',

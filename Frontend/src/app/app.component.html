@@ -8,7 +8,10 @@
       <app-page-header [pageTitle]="this.title" class="header-content"></app-page-header>
     </div>
     <app-mood-drop-down class="col-start-4 col-span-1 row-start-1 row-span-1"></app-mood-drop-down>
-    <app-profile-atomic class="col-start-5 col-span-1 row-start-1 row-span-1"></app-profile-atomic>
+    <div  class="col-start-5 col-span-1 row-start-1 row-span-1" > 
+      <app-info-atom></app-info-atom>
+      <app-profile-atomic></app-profile-atomic>
+    </div>
     <ng-container>
         <app-navbar class="col-start-1 col-span-1 row-start-1 pl-16" (selectedNavChange)="onNavChange($event)"></app-navbar>
         <app-side-bar class="col-start-1 col-span-1 row-start-2 row-span-4" *ngIf="screenSize === 'desktop'"></app-side-bar>
