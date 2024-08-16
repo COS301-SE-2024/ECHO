@@ -49,13 +49,9 @@
 </div>
 
 <div *ngIf="screenSize === 'desktop'" class="desktop-layout">
-  <div [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]"
-       class="min-h-screen  flex flex-col justify-center px-6 py-12 lg:px-8">
     <div class="flex justify-center items-center">
       <div class="fixed top-1 right-12 flex flex-col items-center">
       </div>
-
-
       <div class="profile-container">
         <div id="profile" class="profile fixed right-4 top-4 mt-2 mr-5 ml-6 h-5/6">
           <div class="ml-24 p-4 pr-4 rounded-md h-full relative">
@@ -107,7 +103,6 @@
             </div>
           </div>
         </div>
-      </div>
     </div>
   </div>
 </div>
