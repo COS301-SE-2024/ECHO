@@ -2,16 +2,16 @@ import { Component,OnInit } from '@angular/core';
 import { SongRecommendationComponent } from '../../shared/song-recommendation/song-recommendation.component';
 import { ThemeService } from './../../services/theme.service';
 import { NgClass, NgForOf, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
-import { SideBarComponent } from '../../shared/side-bar/side-bar.component';
+import { SideBarComponent } from '../../components/organisms/side-bar/side-bar.component';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-import { MoodsComponent } from '../../shared/moods/moods.component';
+import { MoodsComponent } from '../../components/organisms/moods/moods.component';
 import { SpotifyService } from "../../services/spotify.service";
 import { ScreenSizeService } from '../../services/screen-size-service.service';
 import { SearchComponent } from '../../pages/search/search.component';
 import { MoodService } from '../../services/mood-service.service';
 import { InsightsComponent } from "../insights/insights.component";
-import {TopCardComponent} from '../../shared/top-card/top-card.component';
+import {TopCardComponent} from '../../components/molecules/top-card/top-card.component';
 
 @Component({
     selector: 'app-home',

@@ -13,10 +13,10 @@ import { ScreenSizeService } from "../../services/screen-size-service.service";
 import { BottomNavComponent } from "../../shared/bottom-nav/bottom-nav.component";
 import { SpotifyService } from "../../services/spotify.service";
 import { ProviderService } from "../../services/provider.service";
-import { TopCardComponent } from "../../shared/top-card/top-card.component";
+import { TopCardComponent } from "../../components/molecules/top-card/top-card.component";
 import { MoodService } from "../../services/mood-service.service";
 import { SongViewComponent } from "../../shared/song-view/song-view.component";
-import { TopArtistCardComponent } from "../../shared/top-artist-card/top-artist-card.component";
+import { TopArtistCardComponent } from "../../components/molecules/top-artist-card/top-artist-card.component";
 import {ProfileAtomicComponent} from '../../components/organisms/profile/profile.component';
 
 @Component({

@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import { BottomPlayerComponent } from '../../shared/bottom-player/bottom-player.component';
 import { NavbarComponent } from '../../components/organisms/navbar/navbar.component';
 import { NgClass, NgForOf, NgIf } from '@angular/common';
-import { SideBarComponent } from '../../shared/side-bar/side-bar.component';
-import { MoodsComponent } from '../../shared/moods/moods.component';
 import { BottomNavComponent } from '../../shared/bottom-nav/bottom-nav.component';
 import { SearchBarComponent } from '../../components/molecules/search-bar/search-bar.component';
 import { SongRecommendationComponent } from '../../shared/song-recommendation/song-recommendation.component';
@@ -13,8 +11,8 @@ import { Router } from '@angular/router';
 import { SpotifyService } from "../../services/spotify.service";
 import { ScreenSizeService } from '../../services/screen-size-service.service';
 import { OnInit } from '@angular/core';
-import {TopCardComponent} from '../../shared/top-card/top-card.component';
-import {TopArtistCardComponent} from "../../shared/top-artist-card/top-artist-card.component";
+import {TopCardComponent} from '../../components/molecules/top-card/top-card.component';
+import {TopArtistCardComponent} from "../../components/molecules/top-artist-card/top-artist-card.component";
 @Component({
   selector: 'app-user-library',
   standalone: true,
@@ -24,10 +22,7 @@ import {TopArtistCardComponent} from "../../shared/top-artist-card/top-artist-ca
         NgClass,
         NgForOf,
         NgIf,
-        SideBarComponent,
-        MoodsComponent,
         BottomPlayerComponent,
-        MoodsComponent,
         BottomNavComponent,
         SearchBarComponent,
         TopArtistCardComponent,

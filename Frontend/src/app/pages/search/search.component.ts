@@ -7,7 +7,7 @@ import { ThemeService } from './../../services/theme.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NavbarComponent } from "../../components/organisms/navbar/navbar.component";
 import { SearchBarComponent } from '../../components/molecules/search-bar/search-bar.component';
-import { TopResultComponent } from '../../shared/top-result/top-result.component';
+import { TopResultComponent } from '../../components/molecules/top-result/top-result.component';
 import { MoodService } from '../../services/mood-service.service';
 import { SpotifyService } from "../../services/spotify.service";
 import { ProviderService } from "../../services/provider.service";

@@ -6,9 +6,7 @@
 <div *ngIf="!isAuthRoute()" class="grid grid-cols-5 grid-rows-[0.01fr,0.01fr,0.67fr] min-h-screen" [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]">
   <app-header class="col-start-3 col-span-1 row-start-1 row-span-1"></app-header>
   <app-other-nav class="col-start-5 col-span-1 row-start-1 row-span-1"></app-other-nav>
-
-  <app-navbar class="col-start-1 col-span-1 row-start-1 pl-16"></app-navbar>
-  <app-side-bar class="col-start-1 col-span-1 row-start-2 row-span-4" *ngIf="screenSize === 'desktop'"></app-side-bar>
+  <app-left class="col-start-1 col-span-1 row-start-1 row-span-3"></app-left>
   <app-explore-bar class="col-start-2 col-span-5 row-start-2 row-span-1"></app-explore-bar>
 
   <div class="no-scrollbar col-span-4 row-start-3 row-span-2 overflow-y-scroll ">

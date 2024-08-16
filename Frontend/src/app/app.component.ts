@@ -6,15 +6,15 @@ import { ScreenSizeService } from "./services/screen-size-service.service";
 import { SwUpdate } from "@angular/service-worker";
 import { filter } from "rxjs/operators";
 import { CommonModule } from "@angular/common";
-import { SideBarComponent } from "./shared/side-bar/side-bar.component";
+import { SideBarComponent } from "./components/organisms/side-bar/side-bar.component";
 import { ProviderService } from "./services/provider.service";
 import { PageHeaderComponent } from "./components/molecules/page-header/page-header.component";
 import { MoodService } from "./services/mood-service.service";
-import { NavbarComponent } from './components/organisms/navbar/navbar.component';
 //template imports
 import {HeaderComponent} from "./components/templates/desktop/header/header.component";
 import {OtherNavComponent} from "./components/templates/desktop/other-nav/other-nav.component";
 import {ExploreBarComponent} from "./components/templates/desktop/explore-bar/explore-bar.component";
+import {LeftComponent} from "./components/templates/desktop/left/left.component";
 
 @Component({
   selector: "app-root",
@@ -26,10 +26,10 @@ import {ExploreBarComponent} from "./components/templates/desktop/explore-bar/ex
     SideBarComponent,
     BottomNavComponent,
     PageHeaderComponent,
-    NavbarComponent,
     HeaderComponent,
     OtherNavComponent,
-    ExploreBarComponent
+    ExploreBarComponent,
+    LeftComponent
   ],
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"]

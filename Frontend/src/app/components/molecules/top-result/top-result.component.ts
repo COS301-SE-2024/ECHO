@@ -1,6 +1,6 @@
 // In top-result.component.ts
 import { Component, Input } from '@angular/core';
-import {MoodService} from '../../services/mood-service.service';
+import {MoodService} from '../../../services/mood-service.service';
 import { NgClass } from '@angular/common';  
 @Component({
   selector: 'app-top-result',
@@ -19,6 +19,5 @@ export class TopResultComponent {
     constructor(  public moodService: MoodService ) {
       this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
       this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
-      
     }
 }

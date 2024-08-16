@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { MatCard, MatCardContent } from '@angular/material/card';
 import { NgClass, NgForOf, NgIf } from '@angular/common';
-import { ThemeService } from '../../services/theme.service';
-import { SpotifyService } from '../../services/spotify.service';
-import { ScreenSizeService } from '../../services/screen-size-service.service';
-import { AuthService } from "../../services/auth.service";
+import { ThemeService } from '../../../services/theme.service';
+import { SpotifyService } from '../../../services/spotify.service';
+import { ScreenSizeService } from '../../../services/screen-size-service.service';
+import { AuthService } from "../../../services/auth.service";
 import { firstValueFrom } from "rxjs";
-import { ProviderService } from "../../services/provider.service";
-import { SearchService } from "../../services/search.service";
-import { MoodService } from '../../services/mood-service.service';
-import {EchoButtonComponent} from '../echo-button/echo-button.component';
+import { ProviderService } from "../../../services/provider.service";
+import { SearchService } from "../../../services/search.service";
+import { MoodService } from '../../../services/mood-service.service';
+import {EchoButtonComponent} from '../../atoms/echo-button/echo-button.component';
 
 @Component({
   selector: 'app-side-bar',

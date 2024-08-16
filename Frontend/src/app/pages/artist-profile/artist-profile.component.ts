@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavbarComponent } from '../../components/organisms/navbar/navbar.component';
 import { NgForOf, NgIf, NgClass } from '@angular/common';
-import { SideBarComponent } from '../../shared/side-bar/side-bar.component';
+import { SideBarComponent } from '../../components/organisms/side-bar/side-bar.component';
 import { ThemeService } from '../../services/theme.service';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';

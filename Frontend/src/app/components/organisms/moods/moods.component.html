@@ -1,10 +1,10 @@
 
 <div *ngIf="screenSize === 'desktop'" class="flex flex-col pl-1 ml-[2vw]">
-    <div class="card w-full bg-stone text-black dark:text-white overflow-hidden rounded-lg">
+    <div class="card w-full bg-stone text-black dark:text-white rounded-lg">
         <div class="card-body">
             <h5 class="card-title text-xl font-bold mb-1">Favourite Moods</h5>
             <div class="flex overflow-x-auto">
-                <div *ngFor="let mood of favouriteMoods" class="rounded-lg overflow-hidden transition-all duration-300 hover:rounded-lg hover:scale-110 hover:cursor-pointer" (click)="redirectToMoodPage(mood)" style="flex: 0 0 auto; width: 30vh; margin-right: 1vw;">
+                <div *ngFor="let mood of favouriteMoods" class="rounded-lg transition-all duration-300 hover:rounded-lg hover:scale-110 hover:cursor-pointer" (click)="redirectToMoodPage(mood)" style="flex: 0 0 auto; width: 30vh; margin-right: 1vw;">
                     <div class="card w-full h-full relative overflow-hidden aspect-w-16 aspect-h-9 shadow-xl">
                       <img src="{{ mood.image }}" alt="{{ mood.name }}" class="w-full h-full object-cover">
                       <div class="card-body absolute bottom-2 right-3 text-white text-lg font-bold">

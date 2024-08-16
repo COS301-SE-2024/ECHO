@@ -3,9 +3,9 @@ import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { SongViewComponent } from '../song-view/song-view.component';
-import { ScreenSizeService } from '../../services/screen-size-service.service';
-import { MoodService } from '../../services/mood-service.service';
+import { SongViewComponent } from '../../../shared/song-view/song-view.component';
+import { ScreenSizeService } from '../../../services/screen-size-service.service';
+import { MoodService } from '../../../services/mood-service.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 

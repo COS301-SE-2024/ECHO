@@ -1,17 +1,18 @@
 import { Component,Input } from '@angular/core';
-import { MoodService } from '../../services/mood-service.service';
+import { MoodService } from '../../../services/mood-service.service';
 import { NgClass} from '@angular/common';
-import { Router } from '@angular/router';
+import { SongViewComponent } from '../../../shared/song-view/song-view.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-top-artist-card',
+  selector: 'app-top-card',
   standalone: true,
   imports: [NgClass],
-  templateUrl: './top-artist-card.component.html',
-  styleUrl: './top-artist-card.component.css'
+  templateUrl: './top-card.component.html',
+  styleUrl: './top-card.component.css'
 })
 
-export class TopArtistCardComponent {
+export class TopCardComponent {
 
   @Input() imageUrl!: string;
   @Input() text!: string;
@@ -23,15 +24,20 @@ export class TopArtistCardComponent {
 
   constructor(
     public moodService: MoodService,
-    private router: Router,
+    protected dialog: MatDialog,
   ) {
     this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
     this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
     this.MoodClassesDark = this.moodService.getComponentMoodClassesDark();
   }
 
-  openArtistProfile(): void {
-    this.router.navigate(['/artist-profile']);
-  } 
+  openModal(): void {
+    const dialogRef = this.dialog.open(SongViewComponent, {
+        
+    });
 
+    dialogRef.afterClosed().subscribe((result) => {
+        console.log('The dialog was closed');
+    });
+  }
 }
