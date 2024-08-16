@@ -1,6 +1,6 @@
 import { Component} from "@angular/core";
-import { ProviderService } from "../../services/provider.service";
-import { AuthService } from "../../services/auth.service";
+import { ProviderService } from "../../../services/provider.service";
+import { AuthService } from "../../../services/auth.service";
 
 
 @Component({

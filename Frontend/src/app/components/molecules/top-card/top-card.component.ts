@@ -1,7 +1,7 @@
 import { Component,Input } from '@angular/core';
 import { MoodService } from '../../../services/mood-service.service';
 import { NgClass} from '@angular/common';
-import { SongViewComponent } from '../../../shared/song-view/song-view.component';
+import { SongViewComponent } from '../../../components/molecules/song-view/song-view.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({

@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
-import { MoodService } from '../../../services/mood-service.service';
 import { NgClass } from '@angular/common';
+import { MoodService } from '../../../../services/mood-service.service';
 
 @Component({
-  selector: 'app-account',
+  selector: 'app-privacy',
   standalone: true,
   imports: [NgClass],
-  templateUrl: './account.component.html',
-  styleUrl: './account.component.css'
+  templateUrl: './privacy.component.html',
+  styleUrl: './privacy.component.css'
 })
-export class AccountComponent {
+export class PrivacyComponent {
   currentMood!: string;
   moodComponentClasses!:{ [key: string]: string };
   backgroundMoodClasses!:{ [key: string]: string };

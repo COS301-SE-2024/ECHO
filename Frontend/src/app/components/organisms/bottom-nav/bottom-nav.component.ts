@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {CommonModule} from '@angular/common';
-import { MoodService } from "../../services/mood-service.service";
+import { MoodService } from "../../../services/mood-service.service";
 
 @Component({
   selector: 'app-bottom-nav',

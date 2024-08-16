@@ -1,12 +1,12 @@
 import { Component, AfterViewInit, OnDestroy, ViewChild, ElementRef, ChangeDetectorRef } from "@angular/core";
 import { MatCard, MatCardContent } from "@angular/material/card";
 import { NgIf, NgClass } from "@angular/common";
-import { ThemeService } from "../../services/theme.service";
-import { SpotifyService } from "../../services/spotify.service";
-import { ScreenSizeService } from "../../services/screen-size-service.service";
+import { ThemeService } from "../../../services/theme.service";
+import { SpotifyService } from "../../../services/spotify.service";
+import { ScreenSizeService } from "../../../services/screen-size-service.service";
 import { Subscription, interval } from "rxjs";
-import { ProviderService } from "../../services/provider.service";
-import { MoodService } from "../../services/mood-service.service";
+import { ProviderService } from "../../../services/provider.service";
+import { MoodService } from "../../../services/mood-service.service";
 
 @Component({
   selector: "app-bottom-player",

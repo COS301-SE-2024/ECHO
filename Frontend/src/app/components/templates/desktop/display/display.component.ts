@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { ThemeService } from '../../../services/theme.service';
+import { ThemeService } from '../../../../services/theme.service';
 import { NgIf, NgClass } from '@angular/common';
-import { MoodDropDownComponent } from '../../../components/organisms/mood-drop-down/mood-drop-down.component';
-import { MoodService } from '../../../services/mood-service.service';
+import { MoodDropDownComponent } from '../../../organisms/mood-drop-down/mood-drop-down.component';
+import { MoodService } from '../../../../services/mood-service.service';
 
 @Component({
   selector: 'app-display',

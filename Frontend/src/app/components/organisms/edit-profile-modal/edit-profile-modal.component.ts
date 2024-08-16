@@ -8,11 +8,11 @@ import {
   MatDialogModule,
   MatDialogTitle
 } from "@angular/material/dialog";
-import { ThemeService } from "../../services/theme.service";
+import { ThemeService } from "../../../services/theme.service";
 import { MatDialogRef } from "@angular/material/dialog";
 import { MatButton } from "@angular/material/button";
 import { MatInput } from "@angular/material/input";
-import { AuthService } from "../../services/auth.service";
+import { AuthService } from "../../../services/auth.service";
 import { FormsModule } from "@angular/forms";
 import { OnInit, AfterViewInit } from "@angular/core";
 

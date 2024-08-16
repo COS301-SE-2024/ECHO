@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { RouterOutlet, Router, NavigationEnd, Event as RouterEvent, ActivatedRoute } from "@angular/router";
-import { BottomPlayerComponent } from "./shared/bottom-player/bottom-player.component";
-import { BottomNavComponent } from "./shared/bottom-nav/bottom-nav.component";
+import { BottomPlayerComponent } from "./components/organisms/bottom-player/bottom-player.component";
+import { BottomNavComponent } from "./components/organisms/bottom-nav/bottom-nav.component";
 import { ScreenSizeService } from "./services/screen-size-service.service";
 import { SwUpdate } from "@angular/service-worker";
 import { filter } from "rxjs/operators";

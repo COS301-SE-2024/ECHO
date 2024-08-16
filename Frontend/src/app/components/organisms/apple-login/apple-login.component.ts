@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { ProviderService } from "../../services/provider.service";
+import { ProviderService } from "../../../services/provider.service";
 
 @Component({
   selector: "app-apple-login",

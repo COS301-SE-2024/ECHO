@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-import { BottomPlayerComponent } from '../../shared/bottom-player/bottom-player.component';
+import { BottomPlayerComponent } from '../../components/organisms/bottom-player/bottom-player.component';
 import { NavbarComponent } from '../../components/organisms/navbar/navbar.component';
 import { NgClass, NgForOf, NgIf } from '@angular/common';
-import { BottomNavComponent } from '../../shared/bottom-nav/bottom-nav.component';
 import { SearchBarComponent } from '../../components/molecules/search-bar/search-bar.component';
-import { SongRecommendationComponent } from '../../shared/song-recommendation/song-recommendation.component';
 import { ThemeService } from './../../services/theme.service';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
@@ -17,13 +15,10 @@ import {TopArtistCardComponent} from "../../components/molecules/top-artist-card
   selector: 'app-user-library',
   standalone: true,
   imports: [ 
-        SongRecommendationComponent,
         NavbarComponent,
         NgClass,
         NgForOf,
         NgIf,
-        BottomPlayerComponent,
-        BottomNavComponent,
         SearchBarComponent,
         TopArtistCardComponent,
         TopCardComponent
