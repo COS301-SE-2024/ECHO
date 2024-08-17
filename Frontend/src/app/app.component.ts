@@ -15,6 +15,7 @@ import {HeaderComponent} from "./components/templates/desktop/header/header.comp
 import {OtherNavComponent} from "./components/templates/desktop/other-nav/other-nav.component";
 import {ExploreBarComponent} from "./components/templates/desktop/explore-bar/explore-bar.component";
 import {LeftComponent} from "./components/templates/desktop/left/left.component";
+import { AuthService } from "./services/auth.service";
 
 @Component({
   selector: "app-root",
@@ -49,7 +50,7 @@ export class AppComponent implements OnInit {
     private screenSizeService: ScreenSizeService,
     private providerService: ProviderService,
     private updates: SwUpdate,
-    public moodService: MoodService
+    public moodService: MoodService,
   ) {
     this.currentMood = this.moodService.getCurrentMood();
     this.moodComponentClasses = this.moodService.getComponentMoodClasses();
@@ -77,10 +78,10 @@ export class AppComponent implements OnInit {
   }
 
   isAuthRoute(): boolean {
-    const authRoutes = ['/login', '/register'];
+    const authRoutes = ['/login', '/register', '/auth/callback', 'auth/callback', 'callback'];
     return authRoutes.includes(this.router.url);
   }
 
 
-  
+
 }
