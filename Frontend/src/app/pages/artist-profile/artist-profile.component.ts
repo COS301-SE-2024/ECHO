@@ -1,24 +1,22 @@
 import { Component } from '@angular/core';
-import { NavbarComponent } from '../../shared/navbar/navbar.component';
+import { NavbarComponent } from '../../components/organisms/navbar/navbar.component';
 import { NgForOf, NgIf, NgClass } from '@angular/common';
-import { SideBarComponent } from '../../shared/side-bar/side-bar.component';
+import { SideBarComponent } from '../../components/organisms/side-bar/side-bar.component';
 import { ThemeService } from '../../services/theme.service';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { MatCard, MatCardContent } from '@angular/material/card';
-import { BottomPlayerComponent } from '../../shared/bottom-player/bottom-player.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { EditProfileModalComponent } from '../../shared/edit-profile-modal/edit-profile-modal.component';
+import { EditProfileModalComponent } from '../../components/organisms/edit-profile-modal/edit-profile-modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { AfterViewInit } from '@angular/core';
 import { ScreenSizeService } from '../../services/screen-size-service.service';
 import { CommonModule } from '@angular/common';
-import { BottomNavComponent } from '../../shared/bottom-nav/bottom-nav.component';
 import { SpotifyService } from "../../services/spotify.service";
-import { InfoBarComponent } from '../../shared/info-bar/info-bar.component';
+import { InfoBarComponent } from '../../components/organisms/info-bar/info-bar.component';
 import { MoodService } from '../../services/mood-service.service';
-import { BackButtonComponent } from '../../shared/back-button/back-button.component';
+import { BackButtonComponent } from '../../components/atoms/back-button/back-button.component';
 
 @Component({
     selector: 'app-artist-profile',
@@ -32,10 +30,8 @@ import { BackButtonComponent } from '../../shared/back-button/back-button.compon
         MatButtonModule,
         MatIconModule,
         NgForOf,
-        BottomPlayerComponent,
         EditProfileModalComponent,
         CommonModule,
-        BottomNavComponent,
         InfoBarComponent,
         NgClass,
         BackButtonComponent,

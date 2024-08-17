@@ -1,16 +1,15 @@
 import { Component } from '@angular/core';
 import { ThemeService } from '../../services/theme.service';
 import { NgClass, NgForOf, NgIf } from '@angular/common';
-import { BottomPlayerComponent } from '../../shared/bottom-player/bottom-player.component';
 import { SpotifyService } from '../../services/spotify.service';
 import { ScreenSizeService } from '../../services/screen-size-service.service';
-import { AccountComponent } from '../../shared/setting-pages/account/account.component';
-import { AudioComponent } from '../../shared/setting-pages/audio/audio.component';
-import { DisplayComponent } from '../../shared/setting-pages/display/display.component';
-import { LanguageComponent } from '../../shared/setting-pages/language/language.component';
-import { PrivacyComponent } from '../../shared/setting-pages/privacy/privacy.component';
+import { AccountComponent } from '../../components/templates/desktop/account/account.component';
+import { AudioComponent } from '../../components/templates/desktop/audio/audio.component';
+import { DisplayComponent } from '../../components/templates/desktop/display/display.component';
+import { LanguageComponent } from '../../components/templates/desktop/language/language.component';
+import { PrivacyComponent } from '../../components/templates/desktop/privacy/privacy.component';
 import { MoodService } from '../../services/mood-service.service';
-import { BackButtonComponent } from '../../shared/back-button/back-button.component';
+import { BackButtonComponent } from '../../components/atoms/back-button/back-button.component';
 
 
 @Component({
@@ -19,7 +18,6 @@ import { BackButtonComponent } from '../../shared/back-button/back-button.compon
   imports: [
     NgIf,
     NgClass,
-    BottomPlayerComponent,
     AccountComponent,
     AudioComponent,
     DisplayComponent,

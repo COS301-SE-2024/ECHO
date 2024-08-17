@@ -3,7 +3,6 @@ import { isPlatformBrowser } from "@angular/common";
 import Chart, { ChartType } from "chart.js/auto";
 import { MoodService } from '../../services/mood-service.service';
 import { NgClass, NgIf } from '@angular/common';
-import { ScreenSizeService } from '../../services/screen-size-service.service';
 
 @Component({
   selector: "app-insights",
@@ -13,9 +12,8 @@ import { ScreenSizeService } from '../../services/screen-size-service.service';
   styleUrls: ["./insights.component.css"]
 })
 export class InsightsComponent implements AfterViewInit, AfterViewChecked {
-  @Input() percentageData: number[] = [];
+  @Input() percentageData: number[] = [25, 5, 30, 40, 10, 15, 20, 25, 30, 10, 15, 5, 20, 5, 5, 15, 10, 10, 25, 10, 20, 15, 10, 5, 20, 15];
   public chart: any;
-  private colorCache: { [key: string]: string } = {};
   // Chart Variables
   public chartTypes: ChartType[] = ["pie", "bar", "line", "doughnut", "radar", "polarArea"];
   public currentChartIndex: number = 0;
@@ -27,19 +25,15 @@ export class InsightsComponent implements AfterViewInit, AfterViewChecked {
   // Page Variables
   private chartInitialized: boolean = false;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object, public moodService: MoodService, private screenSizeService: ScreenSizeService) {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, public moodService: MoodService) {
     this.moodComponentClasses = this.moodService.getComponentMoodClasses();
     this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
   }
 
   ngAfterViewInit() {
-    this.screenSizeService.screenSize$.subscribe(screenSize => {
-      this.screenSize = screenSize;
-      if (isPlatformBrowser(this.platformId)) {
-        this.chartInitialized = false; // Reset chart initialization flag
-      }
-    });
-  }
+    this.chartInitialized = false; // Reset chart initialization flag
+  };
+  
 
   ngAfterViewChecked() {
     if (isPlatformBrowser(this.platformId) && !this.chartInitialized) {
@@ -51,22 +45,6 @@ export class InsightsComponent implements AfterViewInit, AfterViewChecked {
         });
       }
     }
-  }
-
-  getTailwindColor(className: string): string {
-    if (this.colorCache[className]) {
-      return this.colorCache[className];
-    }
-
-    const tempDiv = document.createElement('div');
-    tempDiv.className = className;
-    document.body.appendChild(tempDiv);
-
-    const color = getComputedStyle(tempDiv).backgroundColor;
-
-    document.body.removeChild(tempDiv);
-    this.colorCache[className] = color;
-    return color;
   }
 
   createChart(): Promise<void> {
@@ -92,32 +70,32 @@ export class InsightsComponent implements AfterViewInit, AfterViewChecked {
                 label: "Percentage of recent Moods",
                 data: this.percentageData,
                 backgroundColor: [
-                  this.getTailwindColor('bg-anger'), // Anger
-                  this.getTailwindColor('bg-annoyance'), // Annoyance
-                  this.getTailwindColor('bg-fear'), // Fear
-                  this.getTailwindColor('bg-excitement'), // Excitement
-                  this.getTailwindColor('bg-amusement'), // Amusement
-                  this.getTailwindColor('bg-admiration'), // Admiration
-                  this.getTailwindColor('bg-approval'), // Approval
-                  this.getTailwindColor('bg-caring'), // Caring
-                  this.getTailwindColor('bg-joy'), // Joy
-                  this.getTailwindColor('bg-desire'), // Desire
-                  this.getTailwindColor('bg-curiosity'), // Curiosity
-                  this.getTailwindColor('bg-confusion'), // Confusion
-                  this.getTailwindColor('bg-gratitude'), // Gratitude
-                  this.getTailwindColor('bg-surprise'), // Surprise
-                  this.getTailwindColor('bg-disappointment'), // Disappointment
-                  this.getTailwindColor('bg-disapproval'), // Disapproval
-                  this.getTailwindColor('bg-disgust'), // Disgust
-                  this.getTailwindColor('bg-embarrassment'), // Embarrassment
-                  this.getTailwindColor('bg-sadness'), // Sadness
-                  this.getTailwindColor('bg-grief'), // Grief
-                  this.getTailwindColor('bg-love'), // Love
-                  this.getTailwindColor('bg-nervousness'), // Nervousness
-                  this.getTailwindColor('bg-optimism'), // Optimism
-                  this.getTailwindColor('bg-pride'), // Pride
-                  this.getTailwindColor('bg-realisation'), // Realisation
-                  this.getTailwindColor('bg-relief'), // Relief
+                  this.moodService.getRBGAColor("Anger"),
+                  this.moodService.getRBGAColor("Annoyance"),
+                  this.moodService.getRBGAColor("Fear"),
+                  this.moodService.getRBGAColor("Excitement"),
+                  this.moodService.getRBGAColor("Amusement"),
+                  this.moodService.getRBGAColor("Admiration"),
+                  this.moodService.getRBGAColor("Approval"),
+                  this.moodService.getRBGAColor("Caring"),
+                  this.moodService.getRBGAColor("Joy"),
+                  this.moodService.getRBGAColor("Desire"),
+                  this.moodService.getRBGAColor("Curiosity"),
+                  this.moodService.getRBGAColor("Confusion"),
+                  this.moodService.getRBGAColor("Gratitude"),
+                  this.moodService.getRBGAColor("Surprise"),
+                  this.moodService.getRBGAColor("Disappointment"),
+                  this.moodService.getRBGAColor("Disapproval"),
+                  this.moodService.getRBGAColor("Disgust"),
+                  this.moodService.getRBGAColor("Embarrassment"),
+                  this.moodService.getRBGAColor("Sadness"),
+                  this.moodService.getRBGAColor("Grief"),
+                  this.moodService.getRBGAColor("Love"),
+                  this.moodService.getRBGAColor("Nervousness"),
+                  this.moodService.getRBGAColor("Optimism"),
+                  this.moodService.getRBGAColor("Pride"),
+                  this.moodService.getRBGAColor("Realisation"),
+                  this.moodService.getRBGAColor("Relief"),
                 ],
                 hoverOffset: 4
               }]

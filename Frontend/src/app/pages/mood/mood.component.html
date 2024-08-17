@@ -1,17 +1,3 @@
-<div [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]" class="min-h-screen grid grid-cols-5 grid-rows-6 gap-4 px-6 py-3 lg:px-8" style="overflow: auto;">
-    <div class="col-start-1 col-span-5 row-start-1">
-        <div class="fixed navbar-container pt-4 pl-24">
-            <app-navbar (selectedNavChange)="onNavChange($event)"></app-navbar>
-        </div>
-        <app-search-bar *ngIf="screenSize === 'desktop'" (searchDown)="onSearchdown($event)" class="col-start-2 row-start-1"></app-search-bar>
-        <div class="fixed top-5 right-8 flex flex-col items-center">
-            <app-mood-drop-down class="mb-4"></app-mood-drop-down>
-            <img (click)="profile()" [src]="'../../../../assets/icons/profile-light.png'" alt="profile" class="w-12 h-12 hover:cursor-pointer">
-        </div>
-    </div>
-  
-    <ng-container [ngSwitch]="screenSize">  
-        <ng-container *ngSwitchCase="'desktop'">
             <div *ngIf="title === 'Mood'" class="col-start-1 col-span-5 row-start-2 row-span-4 pl-2">
                 <div [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]" class="rounded-lg overflow-hidden h-full relative p-8">
                     <h1 class="text-4xl font-bold text-center mb-6">{{ moodService.getCurrentMood() }}</h1>
@@ -24,6 +10,3 @@
                     </div>
                 </div>
             </div>
-        </ng-container>
-    </ng-container>
-</div>

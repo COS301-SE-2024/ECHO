@@ -1,13 +1,13 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
-import { SpotifyLoginComponent } from '../../shared/spotify-login/spotify-login.component';
+import { SpotifyLoginComponent } from '../../components/organisms/spotify-login/spotify-login.component';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ThemeService } from '../../services/theme.service';
-import { ToastComponent } from '../../shared/toast/toast.component';
+import { ToastComponent } from '../../components/organisms/toast/toast.component';
 import { CommonModule } from '@angular/common';
-import { AppleLoginComponent } from "../../shared/apple-login/apple-login.component";
-import { GoogleLoginComponent } from "../../shared/google-login/google-login.component";
+import { AppleLoginComponent } from "../../components/organisms/apple-login/apple-login.component";
+import { GoogleLoginComponent } from "../../components/organisms/google-login/google-login.component";
 @Component({
     selector: 'app-register',
     standalone: true,
