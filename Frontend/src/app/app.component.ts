@@ -39,6 +39,7 @@ export class AppComponent implements OnInit {
   update: boolean = false;
   screenSize?: string;
   displayPageName: boolean = false;
+  private isReady: boolean = false;
   // Mood Service Variables
   currentMood!: string;
   moodComponentClasses!: { [key: string]: string };
@@ -51,6 +52,7 @@ export class AppComponent implements OnInit {
     private providerService: ProviderService,
     private updates: SwUpdate,
     public moodService: MoodService,
+    private authService: AuthService
   ) {
     this.currentMood = this.moodService.getCurrentMood();
     this.moodComponentClasses = this.moodService.getComponentMoodClasses();
@@ -78,7 +80,7 @@ export class AppComponent implements OnInit {
   }
 
   isAuthRoute(): boolean {
-    const authRoutes = ['/login', '/register', '/auth/callback', 'auth/callback', 'callback'];
+    const authRoutes = ['/login', '/register'];
     return authRoutes.includes(this.router.url);
   }
 
