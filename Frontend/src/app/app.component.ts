@@ -1,11 +1,11 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Inject, OnInit, PLATFORM_ID } from "@angular/core";
 import { RouterOutlet, Router, NavigationEnd, Event as RouterEvent, ActivatedRoute } from "@angular/router";
 import { BottomPlayerComponent } from "./components/organisms/bottom-player/bottom-player.component";
 import { BottomNavComponent } from "./components/organisms/bottom-nav/bottom-nav.component";
 import { ScreenSizeService } from "./services/screen-size-service.service";
 import { SwUpdate } from "@angular/service-worker";
 import { filter } from "rxjs/operators";
-import { CommonModule } from "@angular/common";
+import { CommonModule, isPlatformBrowser } from "@angular/common";
 import { SideBarComponent } from "./components/organisms/side-bar/side-bar.component";
 import { ProviderService } from "./services/provider.service";
 import { PageHeaderComponent } from "./components/molecules/page-header/page-header.component";
@@ -16,6 +16,7 @@ import {OtherNavComponent} from "./components/templates/desktop/other-nav/other-
 import {ExploreBarComponent} from "./components/templates/desktop/explore-bar/explore-bar.component";
 import {LeftComponent} from "./components/templates/desktop/left/left.component";
 import { AuthService } from "./services/auth.service";
+import { PlayerStateService } from "./services/player-state.service";
 
 @Component({
   selector: "app-root",
@@ -39,7 +40,9 @@ export class AppComponent implements OnInit {
   update: boolean = false;
   screenSize?: string;
   displayPageName: boolean = false;
-  private isReady: boolean = false;
+  protected displaySideBar: boolean = false;
+  protected isAuthRoute: boolean = false;
+  protected isCallbackRoute: boolean = false;
   // Mood Service Variables
   currentMood!: string;
   moodComponentClasses!: { [key: string]: string };
@@ -52,7 +55,9 @@ export class AppComponent implements OnInit {
     private providerService: ProviderService,
     private updates: SwUpdate,
     public moodService: MoodService,
-    private authService: AuthService
+    private authService: AuthService,
+    private playerStateService: PlayerStateService,
+    @Inject(PLATFORM_ID) private platformId: Object,
   ) {
     this.currentMood = this.moodService.getCurrentMood();
     this.moodComponentClasses = this.moodService.getComponentMoodClasses();
@@ -68,8 +73,11 @@ export class AppComponent implements OnInit {
     });
 
     this.router.events.pipe(
-      filter((event: RouterEvent) => event instanceof NavigationEnd)
-    ).subscribe(() => {
+      filter((event): event is NavigationEnd => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+      console.log('Navigation ended:', event.urlAfterRedirects);
+      this.isAuthRoute = ['/login', '/register'].includes(event.urlAfterRedirects);
+      this.isCallbackRoute = ['/auth/callback'].includes(event.urlAfterRedirects);
     });
   }
 
@@ -79,11 +87,14 @@ export class AppComponent implements OnInit {
     });
   }
 
-  isAuthRoute(): boolean {
-    const authRoutes = ['/login', '/register'];
-    return authRoutes.includes(this.router.url);
+  isCurrentRouteAuth(): boolean {
+    return ['/login', '/register'].includes(this.router.url);
   }
 
 
-
+  isReady(): boolean {
+    if (isPlatformBrowser(this.platformId))
+      return this.playerStateService.isReady();
+    return false;
+  }
 }

@@ -1,9 +1,10 @@
 <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-<div *ngIf="isAuthRoute()">
+<div *ngIf="isAuthRoute">
   <router-outlet></router-outlet>
 </div>
 
-<div *ngIf="!isAuthRoute()" class="grid grid-cols-5 grid-rows-[0.01fr,0.01fr,0.67fr] min-h-screen" [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]">
+
+<div *ngIf="!isAuthRoute" class="grid grid-cols-5 grid-rows-[0.01fr,0.01fr,0.67fr] min-h-screen" [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]">
   <app-header class="col-start-3 col-span-1 row-start-1 row-span-1"></app-header>
   <app-other-nav class="col-start-5 col-span-1 row-start-1 row-span-1"></app-other-nav>
   <app-left class="col-start-1 col-span-1 row-start-1 row-span-3"></app-left>
@@ -13,7 +14,7 @@
     <router-outlet></router-outlet>
   </div>
 
-  
+
   <app-bottom-nav *ngIf="screenSize === 'mobile'"></app-bottom-nav>
-  <app-bottom-player></app-bottom-player>
+  <app-bottom-player *ngIf="isReady()"></app-bottom-player>
 </div>
