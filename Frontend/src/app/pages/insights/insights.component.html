@@ -1,13 +1,11 @@
-<div *ngIf="screenSize === 'desktop'" class="desktop-layout">
-  <div class="chart-container">
-    <canvas class="left-1/2 top-1/2 pt-12" id="MyChart"></canvas>
-  </div>
+<div class="w-full h-full">
+  <canvas class="w-full h-full" id="MyChart"></canvas>
   <button [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]" class="font-medium rounded-lg text-sm px-4 py-2.5 text-center" (click)="nextChartType()">Next</button>
 </div>
 
-<div *ngIf="screenSize === 'mobile'" class="mobile-layout">
+<!-- <div *ngIf="screenSize === 'mobile'" class="mobile-layout">
   <div [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]" class="min-h-screen grid grid-cols-5 grid-rows-6 gap-4 px-6 py-3 lg:px-8" style="overflow: auto;">
       <canvas class="left-1/2 top-1/2 pt-12" id="MyChart" ></canvas>
   </div>
   <button [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]" class="font-medium rounded-lg text-sm px-4 py-2.5 text-center" (click)="nextChartType()">Next</button>
-</div>
+</div> -->

@@ -80,7 +80,7 @@
 
 
 <div *ngIf="screenSize === 'mobile'" class="mobile-layout">
-  <div class="min-h-screen dark:bg-desktop-bg bg-gray-verylight" style="overflow: auto;">
+  <div [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]" class="min-h-screen" style="overflow: auto;">
     <!-- Flex container for top elements -->
     <div class="flex justify-between items-start p-5 fixed top-0 left-0 right-0">
       <!-- Navbar on the left -->
@@ -96,16 +96,17 @@
     </div>
     <!-- Search bar below the top elements -->
     <div class="mt-[calc(1vh+5rem)] pl-5">
-      <app-search-bar (searchDown)="onSearchdown($event)" class="col-start-2"></app-search-bar>
+      <app-search-bar class="col-start-2"></app-search-bar>
     </div>
-
+    <div *ngIf="searchQuery">
+        
     <h1 *ngIf="searchQuery !== ''" class="text-2xl font-bold text-gray-800 dark:text-gray-200">Search Results
       for
       "{{ searchQuery }}"</h1>
 
     <div class="top-result dark:text-gray-200" style="float: left; width: 50%;">
       <h1 class="" style="font-weight: bold; font-size: larger;">Top Result</h1>
-      <div class="big-card dark:text-gray-200 bg-gray-component my-[1vw] hover:cursor-pointer"
+      <div [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]" class="big-card  my-[1vw] hover:cursor-pointer"
            style="width: 90%; padding: 2vw; border-radius: 15px;">
         <ng-container *ngIf="topResult$ | async as topResult">
           <div (click)="playTrack(topResult.name, topResult.artistName)">
@@ -117,7 +118,6 @@
       </div>
     </div>
 
-
     <div class="songs dark:text-gray-200" style="float: left; width: 50%; position: relative;">
       <a
         style="position: absolute; top: 0; right: 0; margin: 10px; padding: 5px 10px; border-radius: 5px;cursor: pointer;">
@@ -125,21 +125,22 @@
       </a>
       <h1 class="py-2" style="font-weight: bold; font-size: larger;">Songs</h1>
       <div class="songs-container"
-           style="display: flex; flex-direction: column; overflow-y: auto; height:25vw;">
-        <div [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]"
-             class="song-card hover:cursor-pointer"
-             *ngFor="let song of songs$ | async"
-             style="flex: 0 0 auto; width: 100%; margin-bottom: 20px; display: flex; padding: 5px; border-radius: 10px; box-sizing: border-box; height:6vw; padding: .5vw;" (click)="playTrack(song.name, song.artistName)">
-          <img [src]="song.albumImageUrl" alt="Song Image"
-               style="width: 25%; border-radius: 10px; margin-right: 10px;">
-          <div>
-            <h2 style="font-weight: bold;" class="py-2">{{ song.name }}</h2>
-            <p class="py-1">{{ song.artistName }}</p>
-          </div>
-        </div>
-      </div>
+      style="display: flex; flex-direction: column; overflow-y: auto; height:25vw;">
+   <div [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]" 
+        class="song-card hover:cursor-pointer" 
+        *ngFor="let song of songs$ | async"
+        style="flex: 0 0 auto; width: 100%; margin-bottom: 20px; display: flex; padding: 5px; border-radius: 10px; box-sizing: border-box; height:15vw; padding: .5vw;" 
+        (click)="playTrack(song.name, song.artistName)">
+     <img [src]="song.albumImageUrl" alt="Song Image"
+          style="width: 25%; border-radius: 10px; margin-right: 10px;">
+     <div>
+       <h2 style="font-weight: bold;" class="py-2">{{ song.name }}</h2>
+       <p class="py-1">{{ song.artistName }}</p>
+     </div>
+   </div>
+ </div>
+ 
     </div>
-
     <div class="songs dark:text-gray-200" style="float: left; width: 50%; position: relative;">
       <a
         style="position: absolute; top: 0; right: 0; margin: 10px; padding: 5px 10px; border-radius: 5px;cursor: pointer;">
@@ -151,7 +152,7 @@
         <div [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]"
              class="song-card hover:cursor-pointer"
              *ngFor="let album of albums$ | async"
-             style="flex: 0 0 auto; width: 100%; margin-bottom: 20px; display: flex; padding: 5px; border-radius: 10px; box-sizing: border-box; height:6vw; padding: .5vw;">
+             style="flex: 0 0 auto; width: 100%; margin-bottom: 20px; display: flex; padding: 5px; border-radius: 10px; box-sizing: border-box; height:15vw; ; padding: .5vw;">
           <img [src]="album.albumImageUrl" alt="Song Image"
                style="width: 25%; border-radius: 10px; margin-right: 10px;">
           <div>
@@ -178,6 +179,9 @@
           </div>
         </div>
       </div>
+    </div>
+
+
     </div>
   </div>
 </div>

@@ -5,35 +5,69 @@ import { Injectable } from '@angular/core';
 })
 export class MoodService {
   private _currentMood!: string;
+  private colorCache: { [key: string]: string } = {};
+
+  private _moodColors: { [key: string]: string } = {
+    Neutral: 'rgb(238, 2, 88)', // #EE0258
+    Anger: 'rgb(164, 0, 20)', // #A40014
+    Admiration: 'rgb(255, 83, 8)', // #FF5308
+    Fear: 'rgb(154, 68, 206)', // #9A44CE
+    Joy: 'rgb(255, 215, 0)', // #FFD700
+    Amusement: 'rgb(255, 99, 71)', // #FF6347
+    Annoyance: 'rgb(255, 69, 0)', // #FF4500
+    Approval: 'rgb(50, 205, 50)', // #32CD32
+    Caring: 'rgb(255, 105, 180)', // #FF69B4
+    Confusion: 'rgb(139, 0, 139)', // #8B008B
+    Curiosity: 'rgb(255, 140, 0)', // #FF8C00
+    Desire: 'rgb(255, 105, 180)', // #FF69B4
+    Disappointment: 'rgb(112, 128, 144)', // #708090
+    Disapproval: 'rgb(255, 0, 0)', // #FF0000
+    Disgust: 'rgb(85, 107, 47)', // #556B2F
+    Embarrassment: 'rgb(255, 182, 193)', // #FFB6C1
+    Excitement: 'rgb(255, 69, 0)', // #FF4500
+    Gratitude: 'rgb(255, 215, 0)', // #FFD700
+    Grief: 'rgb(47, 79, 79)', // #2F4F4F
+    Love: 'rgb(255, 20, 147)', // #FF1493
+    Nervousness: 'rgb(255, 69, 0)', // #FF4500
+    Optimism: 'rgb(255, 215, 0)', // #FFD700
+    Pride: 'rgb(138, 43, 226)', // #8A2BE2
+    Realisation: 'rgb(0, 206, 209)', // #00CED1
+    Relief: 'rgb(0, 255, 127)', // #00FF7F
+    Remorse: 'rgb(139, 0, 0)', // #8B0000
+    Sadness: 'rgb(70, 130, 180)', // #4682B4
+    Surprise: 'rgb(255, 69, 0)' // #FF4500
+};
+
+
      private _componentMoodClassesHover = {
-      Neutral:     'bg-default-component text-default-text dark:hover:bg-default-dark focus:ring-default-dark fill-default',
-      Anger:       'bg-anger text-anger-text dark:hover:bg-anger-dark focus:ring-anger-dark fill-anger-dark',
-      Admiration:  'bg-admiration text-admiration-text dark:hover:bg-admiration-dark focus:ring-admiration-dark hover:text-admiration fill-admiration-dark',
-      Fear:        'bg-fear text-fear-text dark:hover:bg-fear-dark focus:ring-fear-dark fill-fear-dark',
-      Joy:         'bg-joy text-joy-text dark:hover:bg-joy-dark focus:ring-joy-dark hover:text-joy fill-joy-dark',
-      Amusement:   'bg-amusement text-amusement-text dark:hover:bg-amusement-dark focus:ring-amusement-dark fill-amusement-dark',
-      Annoyance:   'bg-annoyance text-annoyance-text dark:hover:bg-annoyance-dark focus:ring-annoyance-dark fill-annoyance-dark',
-      Approval:    'bg-approval text-approval-text dark:hover:bg-approval-dark focus:ring-approval-dark fill-approval-dark',
-      Caring:      'bg-caring text-caring-text dark:hover:bg-caring-dark focus:ring-caring-dark fill-caring-dark',
-      Confusion:   'bg-confusion text-confusion-text dark:hover:bg-confusion-dark focus:ring-confusion-dark fill-confusion-dark',
-      Curiosity:   'bg-curiosity text-curiosity-text dark:hover:bg-curiosity-dark focus:ring-curiosity-dark fill-curiosity-dark',
-      Desire:      'bg-desire text-desire-text dark:hover:bg-desire-dark focus:ring-desire-dark fill-desire-dark',
-      Disappointment: 'bg-disappointment text-disappointment-text dark:hover:bg-disappointment-dark focus:ring-disappointment-dark fill-disappointment-dark',
-      Disapproval: 'bg-disapproval text-disapproval-text dark:hover:bg-disapproval-dark focus:ring-disapproval-dark fill-disapproval-dark',
-      Disgust:     'bg-disgust text-disgust-text dark:hover:bg-disgust-dark focus:ring-disgust-dark fill-disgust-dark',
-      Embarrassment: 'bg-embarrassment text-embarrassment-text dark:hover:bg-embarrassment-dark focus:ring-embarrassment-dark fill-embarrassment-dark',
-      Excitement:  'bg-excitement text-excitement-text dark:hover:bg-excitement-dark focus:ring-excitement-dark fill-excitement-dark',
-      Gratitude:   'bg-gratitude text-gratitude-text dark:hover:bg-gratitude-dark focus:ring-gratitude-dark fill-gratitude-dark',
-      Grief:       'bg-grief text-grief-text dark:hover:bg-grief-dark focus:ring-grief-dark fill-grief-dark',
-      Love:        'bg-love text-love-text dark:hover:bg-love-dark focus:ring-love-dark fill-love-dark',
-      Nervousness: 'bg-nervousness text-nervousness-text dark:hover:bg-nervousness-dark focus:ring-nervousness-dark fill-nervousness-dark',
-      Optimism:    'bg-optimism text-optimism-text dark:hover:bg-optimism-dark focus:ring-optimism-dark fill-optimism-dark',
-      Pride:       'bg-pride text-pride-text dark:hover:bg-pride-dark focus:ring-pride-dark fill-pride-dark',
-      Realisation: 'bg-realisation text-realisation-text dark:hover:bg-realisation-dark focus:ring-realisation-dark fill-realisation-dark',
-      Relief:      'bg-relief text-relief-text dark:hover:bg-relief-dark focus:ring-relief-dark fill-relief-dark',
-      Remorse:     'bg-remorse text-remorse-text dark:hover:bg-remorse-dark focus:ring-remorse-dark fill-remorse-dark',
-      Sadness:     'bg-sadness text-sadness-text dark:hover:bg-sadness-dark focus:ring-sadness-dark fill-sadness-dark',
-      Surprise:    'bg-surprise text-surprise-text dark:hover:bg-surprise-dark focus:ring-surprise-dark fill-surprise-dark',
+      Neutral:     'bg-default text-default-text hover:bg-default-dark focus:ring-default-dark fill-default font-semibold shadow-sm transition-colors duration-mood ease-in-out',
+      Anger:       'bg-anger text-anger-text dark:hover:bg-anger-dark focus:ring-anger-dark fill-anger-dark transition-colors duration-mood ease-in-out',
+      Admiration:  'bg-admiration text-admiration-text dark:hover:bg-admiration-dark focus:ring-admiration-dark hover:text-admiration fill-admiration-dark transition-colors duration-mood ease-in-out',
+      Fear:        'bg-fear text-fear-text dark:hover:bg-fear-dark focus:ring-fear-dark fill-fear-dark transition-colors duration-mood ease-in-out',
+      Joy:         'bg-joy text-joy-text dark:hover:bg-joy-dark focus:ring-joy-dark hover:text-joy fill-joy-dark transition-colors duration-mood ease-in-out',
+      Amusement:   'bg-amusement text-amusement-text dark:hover:bg-amusement-dark focus:ring-amusement-dark fill-amusement-dark transition-colors duration-mood ease-in-out',
+      Annoyance:   'bg-annoyance text-annoyance-text dark:hover:bg-annoyance-dark focus:ring-annoyance-dark fill-annoyance-dark transition-colors duration-mood ease-in-out',
+      Approval:    'bg-approval text-approval-text dark:hover:bg-approval-dark focus:ring-approval-dark fill-approval-dark transition-colors duration-mood ease-in-out',
+      Caring:      'bg-caring text-caring-text dark:hover:bg-caring-dark focus:ring-caring-dark fill-caring-dark transition-colors duration-mood ease-in-out',
+      Confusion:   'bg-confusion text-confusion-text dark:hover:bg-confusion-dark focus:ring-confusion-dark fill-confusion-dark transition-colors duration-mood ease-in-out',
+      Curiosity:   'bg-curiosity text-curiosity-text dark:hover:bg-curiosity-dark focus:ring-curiosity-dark fill-curiosity-dark transition-colors duration-mood ease-in-out',
+      Desire:      'bg-desire text-desire-text dark:hover:bg-desire-dark focus:ring-desire-dark fill-desire-dark transition-colors duration-mood ease-in-out',
+      Disappointment: 'bg-disappointment text-disappointment-text dark:hover:bg-disappointment-dark focus:ring-disappointment-dark fill-disappointment-dark transition-colors duration-mood ease-in-out',
+      Disapproval: 'bg-disapproval text-disapproval-text dark:hover:bg-disapproval-dark focus:ring-disapproval-dark fill-disapproval-dark transition-colors duration-mood ease-in-out',
+      Disgust:     'bg-disgust text-disgust-text dark:hover:bg-disgust-dark focus:ring-disgust-dark fill-disgust-dark transition-colors duration-mood ease-in-out',
+      Embarrassment: 'bg-embarrassment text-embarrassment-text dark:hover:bg-embarrassment-dark focus:ring-embarrassment-dark fill-embarrassment-dark transition-colors duration-mood ease-in-out',
+      Excitement:  'bg-excitement text-excitement-text dark:hover:bg-excitement-dark focus:ring-excitement-dark fill-excitement-dark transition-colors duration-mood ease-in-out',
+      Gratitude:   'bg-gratitude text-gratitude-text dark:hover:bg-gratitude-dark focus:ring-gratitude-dark fill-gratitude-dark transition-colors duration-mood ease-in-out',
+      Grief:       'bg-grief text-grief-text dark:hover:bg-grief-dark focus:ring-grief-dark fill-grief-dark transition-colors duration-mood ease-in-out',
+      Love:        'bg-love text-love-text dark:hover:bg-love-dark focus:ring-love-dark fill-love-dark transition-colors duration-mood ease-in-out',
+      Nervousness: 'bg-nervousness text-nervousness-text dark:hover:bg-nervousness-dark focus:ring-nervousness-dark fill-nervousness-dark transition-colors duration-mood ease-in-out',
+      Optimism:    'bg-optimism text-optimism-text dark:hover:bg-optimism-dark focus:ring-optimism-dark fill-optimism-dark transition-colors duration-mood ease-in-out',
+      Pride:       'bg-pride text-pride-text dark:hover:bg-pride-dark focus:ring-pride-dark fill-pride-dark transition-colors duration-mood ease-in-out',
+      Realisation: 'bg-realisation text-realisation-text dark:hover:bg-realisation-dark focus:ring-realisation-dark fill-realisation-dark transition-colors duration-mood ease-in-out',
+      Relief:      'bg-relief text-relief-text dark:hover:bg-relief-dark focus:ring-relief-dark fill-relief-dark transition-colors duration-mood ease-in-out',
+      Remorse:     'bg-remorse text-remorse-text dark:hover:bg-remorse-dark focus:ring-remorse-dark fill-remorse-dark transition-colors duration-mood ease-in-out',
+      Sadness:     'bg-sadness text-sadness-text dark:hover:bg-sadness-dark focus:ring-sadness-dark fill-sadness-dark transition-colors duration-mood ease-in-out',
+      Surprise:    'bg-surprise text-surprise-text dark:hover:bg-surprise-dark focus:ring-surprise-dark fill-surprise-dark transition-colors duration-mood ease-in-out',
   };
 
     private _componentMoodClasses = {
@@ -131,13 +165,12 @@ private _backgroundMoodClasses = {
   constructor() {
     this.initMood();
   }
-
+  
   private initMood(): void {
     if (typeof window !== 'undefined') {
       this._currentMood = this.getLocalStorageItem('currentMood') || 'Neutral';
     } 
   }
-
   private getLocalStorageItem(key: string): string | null {
     if (typeof localStorage === 'undefined') {
       console.error('localStorage is not available in this environment.');
@@ -177,12 +210,18 @@ private _backgroundMoodClasses = {
   getCurrentMood(): string {
     return this._currentMood;
   }
-
   setCurrentMood(mood: string): void {
     this._currentMood = mood;
     this.setLocalStorageItem('currentMood', mood);
   }
   getAllMoods(): string[] {
     return Object.keys(this._componentMoodClasses);
+  }
+  
+  getMoodColors(): { [key: string]: string } {
+    return this._moodColors;
+  }
+  getRBGAColor(mood: string): string {
+    return this._moodColors[mood];
   }
 }

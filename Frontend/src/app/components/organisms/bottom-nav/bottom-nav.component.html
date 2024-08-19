@@ -1,0 +1,54 @@
+<div [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]" class="fixed bottom-0 left-0 z-50 w-full h-16 ">
+    <div class="grid h-full max-w-lg grid-cols-4 mx-auto font-medium">
+        <button (click)="selectedIndexChanged('home')" type="button" class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group" (click)="goHome()">
+            <svg *ngIf="selectedIndex !== 'home'" class="w-8 h-7 mb-2 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" >
+                <path d="M4.52704 16.473L4.50004 16.5H7.50004V30C7.50004 30.3978 7.65808 30.7794 7.93938 31.0607C8.22069 31.342 8.60222 31.5 9.00004 31.5H27C27.3979 31.5 27.7794 31.342 28.0607 31.0607C28.342 30.7794 28.5 30.3978 28.5 30V16.5H31.5L31.473 16.473C31.7223 16.4824 31.97 16.4287 32.1929 16.3167C32.4158 16.2047 32.6068 16.0381 32.748 15.8325C32.8573 15.6685 32.9332 15.4846 32.9714 15.2913C33.0096 15.098 33.0093 14.8991 32.9706 14.7059C32.9319 14.5127 32.8554 14.329 32.7457 14.1653C32.636 14.0016 32.4951 13.8612 32.331 13.752L18.831 4.75201C18.5845 4.58755 18.2949 4.49979 17.9985 4.49979C17.7022 4.49979 17.4125 4.58755 17.166 4.75201L12 8.19751V6.00001C12 5.60219 11.842 5.22066 11.5607 4.93935C11.2794 4.65805 10.8979 4.50001 10.5 4.50001C10.1022 4.50001 9.72069 4.65805 9.43938 4.93935C9.15808 5.22066 9.00004 5.60219 9.00004 6.00001V10.2L3.66904 13.752C3.50501 13.8612 3.36411 14.0016 3.25437 14.1653C3.14463 14.329 3.06822 14.5127 3.0295 14.7059C2.99077 14.8991 2.99049 15.098 3.02868 15.2913C3.06686 15.4846 3.14276 15.6685 3.25204 15.8325C3.393 16.0384 3.58391 16.2052 3.80691 16.3173C4.0299 16.4293 4.27768 16.4829 4.52704 16.473ZM21 28.5H15V24C15 23.6022 15.1581 23.2207 15.4394 22.9394C15.7207 22.658 16.1022 22.5 16.5 22.5H19.5C19.8979 22.5 20.2794 22.658 20.5607 22.9394C20.842 23.2207 21 23.6022 21 24V28.5ZM15 16.5H21C21.3979 16.5 21.7794 16.658 22.0607 16.9394C22.342 17.2207 22.5 17.6022 22.5 18C22.5 18.3978 22.342 18.7794 22.0607 19.0607C21.7794 19.342 21.3979 19.5 21 19.5H15C14.6022 19.5 14.2207 19.342 13.9394 19.0607C13.6581 18.7794 13.5 18.3978 13.5 18C13.5 17.6022 13.6581 17.2207 13.9394 16.9394C14.2207 16.658 14.6022 16.5 15 16.5Z" fill="#D9D9D9"/>
+            </svg>
+            <svg *ngIf="selectedIndex === 'home'" class="selected-svg w-8 h-7 mb-2 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" >
+                <path d="M4.52704 16.473L4.50004 16.5H7.50004V30C7.50004 30.3978 7.65808 30.7794 7.93938 31.0607C8.22069 31.342 8.60222 31.5 9.00004 31.5H27C27.3979 31.5 27.7794 31.342 28.0607 31.0607C28.342 30.7794 28.5 30.3978 28.5 30V16.5H31.5L31.473 16.473C31.7223 16.4824 31.97 16.4287 32.1929 16.3167C32.4158 16.2047 32.6068 16.0381 32.748 15.8325C32.8573 15.6685 32.9332 15.4846 32.9714 15.2913C33.0096 15.098 33.0093 14.8991 32.9706 14.7059C32.9319 14.5127 32.8554 14.329 32.7457 14.1653C32.636 14.0016 32.4951 13.8612 32.331 13.752L18.831 4.75201C18.5845 4.58755 18.2949 4.49979 17.9985 4.49979C17.7022 4.49979 17.4125 4.58755 17.166 4.75201L12 8.19751V6.00001C12 5.60219 11.842 5.22066 11.5607 4.93935C11.2794 4.65805 10.8979 4.50001 10.5 4.50001C10.1022 4.50001 9.72069 4.65805 9.43938 4.93935C9.15808 5.22066 9.00004 5.60219 9.00004 6.00001V10.2L3.66904 13.752C3.50501 13.8612 3.36411 14.0016 3.25437 14.1653C3.14463 14.329 3.06822 14.5127 3.0295 14.7059C2.99077 14.8991 2.99049 15.098 3.02868 15.2913C3.06686 15.4846 3.14276 15.6685 3.25204 15.8325C3.393 16.0384 3.58391 16.2052 3.80691 16.3173C4.0299 16.4293 4.27768 16.4829 4.52704 16.473ZM21 28.5H15V24C15 23.6022 15.1581 23.2207 15.4394 22.9394C15.7207 22.658 16.1022 22.5 16.5 22.5H19.5C19.8979 22.5 20.2794 22.658 20.5607 22.9394C20.842 23.2207 21 23.6022 21 24V28.5ZM15 16.5H21C21.3979 16.5 21.7794 16.658 22.0607 16.9394C22.342 17.2207 22.5 17.6022 22.5 18C22.5 18.3978 22.342 18.7794 22.0607 19.0607C21.7794 19.342 21.3979 19.5 21 19.5H15C14.6022 19.5 14.2207 19.342 13.9394 19.0607C13.6581 18.7794 13.5 18.3978 13.5 18C13.5 17.6022 13.6581 17.2207 13.9394 16.9394C14.2207 16.658 14.6022 16.5 15 16.5Z"/>
+            </svg>            
+            <span class="text-sm text-gray-500  dark:text-gray-400 group-hover:text-pink 600 dark:group-hover:text-pink 500">Home</span>
+        </button>
+        <button (click)="selectedIndexChanged('search')" type="button" class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group" (click)="goSearch()">
+            <svg *ngIf="selectedIndex !== 'search'"  class="w-7 h-7 mb-2 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                <g clip-path="url(#clip0_441_53)">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12.9166 2.58334C7.20964 2.58334 2.58325 7.20973 2.58325 12.9167C2.58325 18.6236 7.20964 23.25 12.9166 23.25C15.3045 23.25 17.5033 22.44 19.253 21.0799L26.2116 28.0383C26.716 28.5427 27.5339 28.5427 28.0383 28.0383C28.5427 27.534 28.5427 26.7161 28.0383 26.2117L21.0798 19.2531C22.4399 17.5034 23.2499 15.3046 23.2499 12.9167C23.2499 7.20973 18.6236 2.58334 12.9166 2.58334Z" fill="#D9D9D9"/>
+                    </g>
+                    <defs>
+                    <clipPath id="clip0_441_53">
+                    <rect width="31" height="31" fill="white"/>
+                    </clipPath>
+                    </defs>
+            </svg>
+            <svg *ngIf="selectedIndex === 'search'"  class="selected-svg w-7 h-7 mb-2 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                <g clip-path="url(#clip0_441_53)">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12.9166 2.58334C7.20964 2.58334 2.58325 7.20973 2.58325 12.9167C2.58325 18.6236 7.20964 23.25 12.9166 23.25C15.3045 23.25 17.5033 22.44 19.253 21.0799L26.2116 28.0383C26.716 28.5427 27.5339 28.5427 28.0383 28.0383C28.5427 27.534 28.5427 26.7161 28.0383 26.2117L21.0798 19.2531C22.4399 17.5034 23.2499 15.3046 23.2499 12.9167C23.2499 7.20973 18.6236 2.58334 12.9166 2.58334Z"/>
+                    </g>
+                    <defs>
+                    <clipPath id="clip0_441_53">
+                    <rect width="31" height="31"/>
+                    </clipPath>
+                    </defs>
+            </svg>
+            <span class="text-sm text-gray-500 dark:text-gray-400 group-hover:text-pink 600 dark:group-hover:text-pink 500">Search</span>
+        </button>
+        <button (click)="selectedIndexChanged('insights')" type="button" class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group" (click)="goInsights()">
+            <svg *ngIf="selectedIndex !== 'insights'"  class="w-7 h-7 mb-2 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none">
+                <path d="M23.25 2.83334H28.4167V31.1667H23.25V2.83334ZM12.9167 9.91668V31.1667H18.0834V9.91668H12.9167ZM7.75004 17H2.58337V31.1667H7.75004V17Z" fill="#D9D9D9"/>
+            </svg>
+            <svg *ngIf="selectedIndex === 'insights'"  class="selected-svg w-7 h-7 mb-2 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none">
+                <path d="M23.25 2.83334H28.4167V31.1667H23.25V2.83334ZM12.9167 9.91668V31.1667H18.0834V9.91668H12.9167ZM7.75004 17H2.58337V31.1667H7.75004V17Z"/>
+            </svg>
+            <span class="text-sm text-gray-500 dark:text-gray-400 group-hover:text-pink 600 dark:group-hover:text-pink 500">Insights</span>
+        </button>
+        <button (click)="selectedIndexChanged('library')"  type="button" class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group" (click)="goLibrary()">
+            <svg *ngIf="selectedIndex !== 'library'" class="w-7 h-7 mb-2 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" >
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M6.66464 0H20.3331C21.0936 0 21.7144 0.617432 21.7144 1.3689V2.79053H5.28338V1.3689C5.28338 0.615234 5.90417 0 6.66464 0ZM2.48982 8.43311H24.5102C25.8804 8.43311 27 9.54272 27 10.9006V24.5325C27 25.8904 25.8804 27 24.5102 27H2.48982C1.11964 27 0 25.8904 0 24.5325V10.9006C0 9.54272 1.11964 8.43311 2.48982 8.43311ZM11.9968 12.8276L18.0473 17.009C18.1471 17.0728 18.238 17.1562 18.3089 17.2573C18.5927 17.6638 18.4885 18.2219 18.0783 18.5032L12.0544 22.6318C11.8992 22.7593 11.6997 22.834 11.4802 22.834C10.9791 22.834 10.5734 22.4319 10.5734 21.9353V13.5615H10.5778C10.5778 13.3835 10.6311 13.2056 10.7397 13.0496C11.0257 12.6431 11.5888 12.5442 11.9968 12.8276ZM4.02184 4.13306H22.9759C23.7364 4.13306 24.3572 4.75049 24.3572 5.50195V6.97852H2.64058V5.50195C2.64058 4.74829 3.26137 4.13306 4.02184 4.13306Z" fill="#D9D9D9"/>
+            </svg>
+            <svg *ngIf="selectedIndex === 'library'" class="selected-svg w-7 h-7 mb-2 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" >
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M6.66464 0H20.3331C21.0936 0 21.7144 0.617432 21.7144 1.3689V2.79053H5.28338V1.3689C5.28338 0.615234 5.90417 0 6.66464 0ZM2.48982 8.43311H24.5102C25.8804 8.43311 27 9.54272 27 10.9006V24.5325C27 25.8904 25.8804 27 24.5102 27H2.48982C1.11964 27 0 25.8904 0 24.5325V10.9006C0 9.54272 1.11964 8.43311 2.48982 8.43311ZM11.9968 12.8276L18.0473 17.009C18.1471 17.0728 18.238 17.1562 18.3089 17.2573C18.5927 17.6638 18.4885 18.2219 18.0783 18.5032L12.0544 22.6318C11.8992 22.7593 11.6997 22.834 11.4802 22.834C10.9791 22.834 10.5734 22.4319 10.5734 21.9353V13.5615H10.5778C10.5778 13.3835 10.6311 13.2056 10.7397 13.0496C11.0257 12.6431 11.5888 12.5442 11.9968 12.8276ZM4.02184 4.13306H22.9759C23.7364 4.13306 24.3572 4.75049 24.3572 5.50195V6.97852H2.64058V5.50195C2.64058 4.74829 3.26137 4.13306 4.02184 4.13306Z"/>
+            </svg>
+            <span class="text-sm text-gray-500 dark:text-gray-400 group-hover:text-pink 600 dark:group-hover:text-pink 500">Library</span>
+        </button>
+    </div>
+</div>

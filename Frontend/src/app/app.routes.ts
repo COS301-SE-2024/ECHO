@@ -12,24 +12,26 @@ import { SettingsComponent } from "./pages/settings/settings.component";
 import { MoodComponent } from "./pages/mood/mood.component";
 import { NgModule } from "@angular/core";
 import { InsightsComponent } from "./pages/insights/insights.component";
+import { HelpMenuComponent } from "./pages/help-menu/help-menu.component";
+import {LoginComponentview} from "./views/login/login.component";
 
 export const routes: Routes = [
   { path: "landing", component: LandingPageComponent },
   { path: "login", component: LoginComponent },
+  { path: "home", component: HomeComponent},
   { path: "register", component: RegisterComponent },
-  {
-    path: "home", component: HomeComponent, children: [
-      { path: "search", component: SearchComponent },
-      { path: "library", component: UserLibraryComponent }]
-  },
   { path: "profile", component: ProfileComponent },
   { path: "mood", component: MoodComponent },
   { path: "auth/callback", component: AuthCallbackComponent },
   { path: "", redirectTo: "/login", pathMatch: "full" },
   { path: "settings", component: SettingsComponent },
   { path: "artist-profile", component: ArtistProfileComponent },
-  {path: "insights", component: InsightsComponent}
-  //{ path: "**", redirectTo: "/login", pathMatch: "full" },
+  { path: "help", component: HelpMenuComponent },
+  { path: "insights", component: InsightsComponent},
+  { path: "search", component: SearchComponent},
+  { path: "newlogin", component: LoginComponentview},
+  { path: "library", component: UserLibraryComponent},
+  { path: "search", component: SearchComponent}
 ];
 
 @NgModule({

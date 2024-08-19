@@ -1,37 +1,31 @@
 import { Component,OnInit } from '@angular/core';
-import { SongRecommendationComponent } from '../../shared/song-recommendation/song-recommendation.component';
-import { NavbarComponent } from '../../shared/navbar/navbar.component';
 import { ThemeService } from './../../services/theme.service';
 import { NgClass, NgForOf, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
-import { SideBarComponent } from '../../shared/side-bar/side-bar.component';
+import { SideBarComponent } from '../../components/organisms/side-bar/side-bar.component';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-import { MoodsComponent } from '../../shared/moods/moods.component';
+import { MoodsComponent } from '../../components/organisms/moods/moods.component';
 import { SpotifyService } from "../../services/spotify.service";
 import { ScreenSizeService } from '../../services/screen-size-service.service';
-import { SearchBarComponent } from '../../shared/search-bar/search-bar.component';
 import { SearchComponent } from '../../pages/search/search.component';
-import { MoodDropDownComponent } from './../../shared/mood-drop-down/mood-drop-down.component';
 import { MoodService } from '../../services/mood-service.service';
 import { InsightsComponent } from "../insights/insights.component";
+import {TopCardComponent} from '../../components/molecules/top-card/top-card.component';
 
 @Component({
     selector: 'app-home',
     standalone: true,
     imports: [
-        SongRecommendationComponent,
-        NavbarComponent,
         NgClass,
         NgForOf,
         NgIf,
         SideBarComponent,
         MoodsComponent,
-        SearchBarComponent,
         SearchComponent,
         NgSwitchCase,
         NgSwitch,
-        MoodDropDownComponent,
-        InsightsComponent
+        InsightsComponent,
+        TopCardComponent,
     ],
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',
@@ -47,14 +41,10 @@ export class HomeComponent implements OnInit {
     screenSize?: string;
     currentSelection: string = 'All';
     searchQuery: string = '';
-    moods = [
-        'All', 'Sad', 'Relaxed', 'Energetic', 
-        'Focused', 'Calm', 'Excited', 'Chill', 
-        'Melancholic', 'Motivated', 'Joy', 'Admiration', 'Love'
-      ];
+
     selectedMood: number | null = null;
 
-
+    
     constructor(
         protected themeService: ThemeService,
         private authService: AuthService,
@@ -63,8 +53,8 @@ export class HomeComponent implements OnInit {
         private screenSizeService: ScreenSizeService,
         public moodService: MoodService
     ) {
-        this.currentMood = this.moodService.getCurrentMood(); 
-        this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
+        this.currentMood = this.moodService.getCurrentMood();
+        this.moodComponentClasses = this.moodService.getComponentMoodClasses();
         this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
     }
 
@@ -76,11 +66,11 @@ export class HomeComponent implements OnInit {
         this.title = newNav;
         this.router.navigate(['/home'], { fragment: newNav.toLowerCase() });
     }
-    
+
     onSearchdown(subject:string) {
         this.searchQuery = subject;
         this.title = 'Search';
-        this.router.navigate(['/home'], { fragment: 'search' });
+        this.router.navigate(['/search']);
     }
 
     async ngOnInit() {
@@ -89,20 +79,15 @@ export class HomeComponent implements OnInit {
       });
       if (typeof window !== 'undefined') {
         await this.spotifyService.init();
-      }
+      } 
     }
 
+   
     selectMood(index: number) {
         this.selectedMood = index;
-        // Additional logic to handle mood selection
       }
 
     getMoodPercentageData(): number[] {
-        // "Anger", "Annoyance", "Fear", "Excitement", "Amusement", "Admiration", 
-        // "Approval", "Caring", "Joy", "Desire", "Curiosity", "Confusion", 
-        // "Gratitude", "Surprise", "Disappointment", "Disapproval", "Disgust", 
-        // "Embarrassment", "Sadness", "Grief", "Love", "Nervousness", "Optimism", 
-        // "Pride", "Realisation", "Relief"
         return [25, 5, 30, 40, 10, 15, 20, 25, 30, 10, 15, 5, 20, 5, 5, 15, 10, 10, 25, 10, 20, 15, 10, 5, 20, 15, 10];
     }
     profile() {
