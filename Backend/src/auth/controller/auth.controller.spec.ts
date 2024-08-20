@@ -64,15 +64,39 @@ describe('AuthController', () => {
                 tokens.providerRefreshToken
             );
         });
+
+        it('should recieve an error', async () => {
+            const tokens = {
+                accessToken: '',
+                refreshToken: '',
+                providerToken: '',
+                providerRefreshToken: '',
+            };
+
+            const result = await controller.receiveTokens(tokens);
+
+            expect(result).toEqual({ status: 'error', error: "Invalid tokens" });
+            expect(supabaseService.handleSpotifyTokens).not.toHaveBeenCalled();
+        });
     });
 
     describe('receiveCode', () => {
         it('should process received code', async () => {
             const code = 'authcode';
 
-            await controller.receiveCode({ code });
+            const result = await controller.receiveCode({ code });
 
+            expect(result).toEqual({ message: "Code received and processed" });
             expect(supabaseService.exchangeCodeForSession).toHaveBeenCalledWith(code);
+        });
+
+        it('should return an error object', async () => {
+            const code = null;
+
+            const result = await controller.receiveCode({ code });
+
+            expect(result).toEqual({status: 'error', error: "No code provided"});
+            expect(supabaseService.exchangeCodeForSession).not.toHaveBeenCalled();
         });
     });
 
