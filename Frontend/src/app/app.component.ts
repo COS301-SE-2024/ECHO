@@ -88,7 +88,7 @@ export class AppComponent implements OnInit {
   }
 
   isCurrentRouteAuth(): boolean {
-    return ['/login', '/register'].includes(this.router.url);
+    return ['/login', '/register','/Auth/callback'].includes(this.router.url);
   }
 
 
