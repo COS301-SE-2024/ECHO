@@ -66,7 +66,7 @@ def store_song(song):
     database = get_database()
     container = get_container(database)
     
-    existing_song = check_id(song['URI'])
+    existing_song = check_id(song['uri'])
     if existing_song:
         return
     else:

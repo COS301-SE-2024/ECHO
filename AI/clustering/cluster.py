@@ -57,9 +57,7 @@ def get_centroids():
 
 def recommend_songs(music_features, n_recommendations=50):
     centroids = get_centroids()
-
     scaler = get_scaler()
-    X_scaled = get_X_Scaled()
 
     if music_features:
         uri = music_features['uri']
@@ -75,19 +73,18 @@ def recommend_songs(music_features, n_recommendations=50):
 
         if existing_song is None:
             song = {
-                "duration_ms": music_features['duration_ms'], 
-                "energy": music_features['energy'],
-                "loudness": music_features['loudness'],
-                "speechiness": music_features['speechiness'],
-                "acousticness": music_features['acousticness'],
-                "instrumentalness": music_features['instrumentalness'],
-                "liveness": music_features['liveness'],
-                "valence": music_features['valence'],
-                "tempo": music_features['tempo'],
-                "labels": music_features['labels'],
-                "uri": uri, 
-                "Cluster": closest_centroid_index,
-                "id": uri
+                "duration_ms": str(music_features['duration_ms']), 
+                "energy": str(music_features['energy']),
+                "loudness": str(music_features['loudness']),
+                "speechiness": str(music_features['speechiness']),
+                "acousticness": str(music_features['acousticness']),
+                "instrumentalness": str(music_features['instrumentalness']),
+                "liveness": str(music_features['liveness']),
+                "valence": str(music_features['valence']),
+                "tempo": str(music_features['tempo']),
+                "uri": str(uri), 
+                "Cluster": str(closest_centroid_index),
+                "id": str(uri)
             }
 
             db.store_song(song)
