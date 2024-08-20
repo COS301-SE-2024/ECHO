@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
 
     async spotify() {
       if (typeof window !== 'undefined') {
-        this.authService.signInWithOAuth();
+        await this.authService.signInWithOAuth();
       }
     }
 

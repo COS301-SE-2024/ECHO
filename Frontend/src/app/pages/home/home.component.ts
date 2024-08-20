@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from "@angular/core";
 import { ThemeService } from './../../services/theme.service';
 import { NgClass, NgForOf, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
 import { SideBarComponent } from '../../components/organisms/side-bar/side-bar.component';
@@ -11,6 +11,7 @@ import { SearchComponent } from '../../pages/search/search.component';
 import { MoodService } from '../../services/mood-service.service';
 import { InsightsComponent } from "../insights/insights.component";
 import {TopCardComponent} from '../../components/molecules/top-card/top-card.component';
+import { PlayerStateService } from "../../services/player-state.service";
 
 @Component({
     selector: 'app-home',
@@ -31,7 +32,7 @@ import {TopCardComponent} from '../../components/molecules/top-card/top-card.com
     styleUrl: './home.component.css',
 })
 
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit {
     //Mood Service Variables
     currentMood!: string;
     moodComponentClasses!:{ [key: string]: string };
@@ -44,14 +45,15 @@ export class HomeComponent implements OnInit {
 
     selectedMood: number | null = null;
 
-    
+
     constructor(
         protected themeService: ThemeService,
         private authService: AuthService,
         private router: Router,
         private spotifyService: SpotifyService,
         private screenSizeService: ScreenSizeService,
-        public moodService: MoodService
+        public moodService: MoodService,
+        private playerStateService: PlayerStateService,
     ) {
         this.currentMood = this.moodService.getCurrentMood();
         this.moodComponentClasses = this.moodService.getComponentMoodClasses();
@@ -79,10 +81,14 @@ export class HomeComponent implements OnInit {
       });
       if (typeof window !== 'undefined') {
         await this.spotifyService.init();
-      } 
+      }
     }
 
-   
+    async ngAfterViewInit() {
+      this.playerStateService.setReady();
+    }
+
+
     selectMood(index: number) {
         this.selectedMood = index;
       }
