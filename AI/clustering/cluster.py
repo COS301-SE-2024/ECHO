@@ -5,6 +5,8 @@ import numpy as np
 import pandas as pd
 import pickle
 
+import db
+
 file_path = 'clustered_music_data.csv'
 features = ['duration_ms', 'danceability', 'energy', 'loudness', 'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo']
 
@@ -54,46 +56,60 @@ def get_centroids():
 
 
 def recommend_songs(music_features, n_recommendations=50):
-    clustered_data = get_cluster_data()
     centroids = get_centroids()
 
     scaler = get_scaler()
     X_scaled = get_X_Scaled()
 
-    if clustered_data is None:
-        return None
-
     if music_features:
         uri = music_features['uri']
+
+        existing_song = db.check_id(uri)
+
         music_features = {key: music_features[key] for key in features if key in music_features}
         new_song = pd.DataFrame([music_features])
-
-        is_existing_song = (
-            (clustered_data[features] == new_song[features].iloc[0]).all(axis=1)
-        ).any()
 
         new_song_scaled = scaler.transform(new_song[features])
         distances_to_centroids = np.linalg.norm(centroids - new_song_scaled, axis=1)
         closest_centroid_index = np.argmin(distances_to_centroids)
 
-        cluster_data = clustered_data[clustered_data['Cluster'] == closest_centroid_index]
+        if existing_song is None:
+            song = {
+                "duration_ms": music_features['duration_ms'], 
+                "energy": music_features['energy'],
+                "loudness": music_features['loudness'],
+                "speechiness": music_features['speechiness'],
+                "acousticness": music_features['acousticness'],
+                "instrumentalness": music_features['instrumentalness'],
+                "liveness": music_features['liveness'],
+                "valence": music_features['valence'],
+                "tempo": music_features['tempo'],
+                "labels": music_features['labels'],
+                "uri": uri, 
+                "Cluster": closest_centroid_index,
+                "id": uri
+            }
 
-        if is_existing_song:
-            existing_song_index = (
-                (clustered_data[features] == new_song[features].iloc[0]).all(axis=1)
-            ).idxmax()
-            cluster_data = cluster_data.drop(index=existing_song_index)
+            db.store_song(song)
 
-        half_cluster_data = cluster_data.sample(frac=0.5, random_state=1)
+        cluster_data = db.read_cluster_amount(100, closest_centroid_index)
+        if cluster_data is None:
+            return None
+        
+        cluster_df = pd.DataFrame(cluster_data)
 
-        cluster_indices = half_cluster_data.index
-        cluster_features = X_scaled[cluster_indices]
+        cluster_features = cluster_df[features].astype(float).values
         distances = np.linalg.norm(cluster_features - new_song_scaled, axis=1)
 
         closest_indices = np.argsort(distances)[:n_recommendations]
-        closest_songs = clustered_data.iloc[cluster_indices[closest_indices]]
+        closest_songs = cluster_df.iloc[closest_indices]
 
-        return closest_songs['uri']
+        recommended_uris = closest_songs['uri'].tolist()
+        if uri in recommended_uris:
+            recommended_uris.remove(uri)
+
+        return recommended_uris
+    
     else:
         return None
     

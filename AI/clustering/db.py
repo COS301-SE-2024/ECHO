@@ -1,4 +1,5 @@
 import os
+import random
 
 from azure.cosmos import CosmosClient, PartitionKey
 import azure.cosmos.exceptions as exceptions
@@ -100,25 +101,25 @@ def check_id(song_id):
         return None
 
 
-def read_cluster_amount(num_songs, cluster_number):
+def read_cluster_amount(num_songs, cluster_number, batch_size=500):
     database = get_database()
     container = get_container(database)
 
-    query = f"SELECT * FROM c WHERE c.Cluster = '{cluster_number}'"
+    estimated_total_songs = 15000
+    num_batches = estimated_total_songs // batch_size
 
-    items = []
+    random_batch = random.randint(0, num_batches - 1)
+    offset = random_batch * batch_size
 
-    iterator = container.query_items(
-        query=query,
-        enable_cross_partition_query=True
-    )
-        
-    for item in iterator:
-        items.append(item)
-        if len(items) >= num_songs:
-            break
+    query = f"""
+    SELECT * FROM c WHERE c.Cluster = '{cluster_number}'
+    OFFSET {offset} LIMIT {batch_size}
+    """
+
+    items = list(container.query_items(query=query, enable_cross_partition_query=True))
+
            
     if items:    
-        return items
+        return items[:num_songs]
     else:
         return None
