@@ -4,6 +4,7 @@ import { AuthService } from '../services/auth.service';
 import { SupabaseService } from '../../supabase/services/supabase.service';
 import { createSupabaseClient } from '../../supabase/services/supabaseClient';
 import { Response } from 'express';
+import { HttpException, HttpStatus } from '@nestjs/common';
 
 jest.mock('../../supabase/services/supabaseClient');
 
@@ -11,6 +12,9 @@ describe('AuthController', () => {
     let controller: AuthController;
     let authService: AuthService;
     let supabaseService: SupabaseService;
+    let mockSupabaseClient: any;
+    let mockResponse: Partial<Response>;
+    let consoleErrorSpy: jest.SpyInstance;
 
     beforeEach(async () => {
         const mockAuthService = {
@@ -27,7 +31,17 @@ describe('AuthController', () => {
             exchangeCodeForSession: jest.fn(),
             retrieveTokens: jest.fn(),
             signInWithSpotifyOAuth: jest.fn(),
+            signinWithOAuth: jest.fn(),
         };
+
+        mockSupabaseClient = {
+            auth: {
+                setSession: jest.fn(),
+                getUser: jest.fn(),
+            },
+        };
+
+        (createSupabaseClient as jest.Mock).mockReturnValue(mockSupabaseClient);
 
         const module: TestingModule = await Test.createTestingModule({
             controllers: [AuthController],
@@ -40,7 +54,19 @@ describe('AuthController', () => {
         controller = module.get<AuthController>(AuthController);
         authService = module.get(AuthService);
         supabaseService = module.get(SupabaseService);
+
+        mockResponse = {
+            redirect: jest.fn(),
+            status: jest.fn().mockReturnThis(),
+            send: jest.fn(),
+        };
+
+        consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
     });
+
+    afterEach(() => {
+        consoleErrorSpy.mockRestore(); // Restore the original console.error after each test
+      });
 
     it('should be defined', () => {
         expect(controller).toBeDefined();
@@ -165,6 +191,34 @@ describe('AuthController', () => {
                 message: 'Failed to retrieve provider tokens',
             });
         });
+
+        it('should return an error when an acess token is not included', async () => {
+            const result = await controller.getProviderTokens({
+                accessToken: null,
+                refreshToken: 'refresh',
+            });
+
+            expect(result).toEqual({ status: 'error', error: 'No access token or refresh token found in request.' });
+        });
+
+        it('should throw a user error when one is returned by supabase.auth.getUser', async () =>{
+            const mockUserResponse = {
+                data: null,
+                error: 'mockError'
+            };
+
+            mockSupabaseClient.auth.setSession.mockResolvedValue(undefined);
+            mockSupabaseClient.auth.getUser.mockResolvedValue(mockUserResponse);
+
+            const result = await controller.getProviderTokens({
+                    accessToken: "access-token",
+                    refreshToken: 'refresh-token',
+                });
+
+            expect(result).toEqual({ status: 'error', message: 'Failed to retrieve provider tokens' });
+            expect(mockSupabaseClient.auth.setSession).toHaveBeenCalledWith('access-token', 'refresh-token');
+            expect(mockSupabaseClient.auth.getUser).toHaveBeenCalledWith('access-token');
+        });
     })
 
     describe('authCallback', () => {
@@ -190,26 +244,53 @@ describe('AuthController', () => {
             expect(mockResponse.status).toHaveBeenCalledWith(400);
             expect(mockResponse.send).toHaveBeenCalledWith('Invalid token');
         });
-    });
 
+        it('should print an error into the console and return an error 500', async () => {
+            const mockError = new Error('Session Error');
+            (authService.setSession as jest.Mock).mockRejectedValue(mockError);
 
+            await controller.authCallback('validAccessToken', 'validRefreshToken', mockResponse as Response);
 
-    /*
-    describe('signInWithSpotifyOAuth', () => {
-        it('should redirect to Spotify OAuth URL', async () => {
-            const mockResponse = {
-                redirect: jest.fn(),
-            } as unknown as Response;
+            expect(authService.setSession).toHaveBeenCalledWith('validAccessToken', 'validRefreshToken');
+            expect(mockResponse.status).toHaveBeenCalledWith(500);
+            expect(mockResponse.send).toHaveBeenCalledWith('Internal Server Error');
+            expect(console.error).toHaveBeenCalledWith('Error setting session:', mockError);
 
-            (supabaseService.signinWithOAuth('spotify') as unknown as jest.Mock).mockResolvedValue('https://spotify.oauth.url');
-
-            await controller.signInWithSpotifyOAuth(mockResponse);
-
-            expect(supabaseService.signinWithOAuth('spotify')).toHaveBeenCalled();
-            expect(mockResponse.redirect).toHaveBeenCalledWith(303, 'https://spotify.oauth.url');
         });
     });
-*/
+
+
+
+    
+    describe('signInWithSpotifyOAuth', () => {
+        it('should redirect to Spotify OAuth URL', async () => {
+            const mockUrl = 'http://oauth-url.com';
+            (supabaseService.signinWithOAuth as jest.Mock).mockResolvedValue(mockUrl);
+            const result = await controller.signInWithSpotifyOAuth({provider: 'spotify'});
+
+            expect(supabaseService.signinWithOAuth).toHaveBeenCalledWith('spotify');
+            expect(result).toEqual({url: mockUrl});
+        });
+
+        it('should return an error if no provider is provided', async () => {
+            const result = await controller.signInWithSpotifyOAuth({provider: null});
+
+            expect(result).toEqual({ status: 'error', error: 'No provider specified' });
+            expect(supabaseService.signinWithOAuth).not.toHaveBeenCalled();
+        });
+
+        it('should throw an HttpException if an error occurs during OAuth sign-in', async () => {
+            const mockError = new Error('OAuth sign-in failed');
+            (supabaseService.signinWithOAuth as jest.Mock).mockRejectedValue(mockError);
+        
+            await expect(controller.signInWithSpotifyOAuth({ provider: 'spotify' })).rejects.toThrow(
+              new HttpException(mockError.message, HttpStatus.BAD_REQUEST)
+            );
+        
+            expect(supabaseService.signinWithOAuth).toHaveBeenCalledWith('spotify');
+        });
+    });
+
     describe('signIn', () => {
         it('should sign in a user', async () => {
             const authDto = { email: 'test@example.com', password: 'password' };
