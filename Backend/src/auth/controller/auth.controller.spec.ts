@@ -5,6 +5,8 @@ import { SupabaseService } from '../../supabase/services/supabase.service';
 import { createSupabaseClient } from '../../supabase/services/supabaseClient';
 import { Response } from 'express';
 import { HttpException, HttpStatus } from '@nestjs/common';
+import exp from 'constants';
+import { ExternalExceptionFilterContext } from '@nestjs/core/exceptions/external-exception-filter-context';
 
 jest.mock('../../supabase/services/supabaseClient');
 
@@ -303,6 +305,15 @@ describe('AuthController', () => {
             expect(authService.signIn).toHaveBeenCalledWith(authDto);
             expect(result).toEqual(mockResult);
         });
+
+        it('should return an error object', async () => {
+            const authDto = { email: '', password: 'password' };
+            
+            const result = await controller.signIn(authDto);
+
+            expect(result).toEqual({ error: "Invalid email or password" });
+            expect(authService.signIn).not.toHaveBeenCalled();
+        });
     });
 
     describe('signUp', () => {
@@ -316,6 +327,15 @@ describe('AuthController', () => {
 
             expect(authService.signUp).toHaveBeenCalledWith(signUpData.email, signUpData.password, signUpData.metadata);
             expect(result).toEqual(mockResult);
+        });
+
+        it('should return an error if email or password is missing', async () => {
+            const result = await controller.signUp({ email: '', password: '', metadata: {} });
+      
+            expect(result).toEqual({
+              status: 'error',
+              error: 'Invalid email or password',
+            });
         });
     });
 
@@ -331,6 +351,15 @@ describe('AuthController', () => {
             expect(authService.signOut).toHaveBeenCalledWith(tokens.accessToken, tokens.refreshToken);
             expect(result).toEqual(mockResult);
         });
+
+        it('should return an error if accessToken or refreshToken is missing', async () => {
+            const result = await controller.signOut({ accessToken: '', refreshToken: '' });
+      
+            expect(result).toEqual({
+              status: 'error',
+              error: 'No access token or refresh token found in sign-out request.',
+            });
+        });
     });
 
     describe('getCurrentUser', () => {
@@ -345,6 +374,14 @@ describe('AuthController', () => {
             expect(authService.getCurrentUser).toHaveBeenCalledWith(tokens.accessToken, tokens.refreshToken);
             expect(result).toEqual({ user: mockUser });
         });
+
+        it('should return error object', async () => {
+            const tokens = { accessToken: '', refreshToken: '' };
+
+            const result = await controller.getCurrentUser(tokens);
+            expect(result).toEqual({ status: 'error', error: "No access token or refresh token provided when attempting to retrieve current user." });
+            expect(authService.getCurrentUser).not.toHaveBeenCalled();
+        });
     });
 
     describe('getProvider', () => {
@@ -358,6 +395,15 @@ describe('AuthController', () => {
 
             expect(authService.getProvider).toHaveBeenCalledWith(tokens.accessToken, tokens.refreshToken);
             expect(result).toEqual(mockResult);
+        });
+
+        it('should return an error if accessToken or refreshToken is missing', async () => {
+            const result = await controller.getProvider({ accessToken: '', refreshToken: '' });
+      
+            expect(result).toEqual({ 
+                provider: "none", 
+                message: "No access token or refresh token found in request." 
+            });
         });
     });
 });
