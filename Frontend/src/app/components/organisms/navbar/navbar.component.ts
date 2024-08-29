@@ -1,5 +1,4 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { ThemeService } from '../../../services/theme.service';
 import { CommonModule } from '@angular/common';
 import { SvgIconComponent } from '../../atoms/svg-icon/svg-icon.component';
 import { Router } from '@angular/router';
@@ -39,7 +38,6 @@ export class NavbarComponent {
     backgroundMoodClasses!:{ [key: string]: string };
     //Constructor
     constructor(
-        public themeService: ThemeService,
         private router: Router,
         private screenSizeService: ScreenSizeService,
         public moodService: MoodService
@@ -72,24 +70,14 @@ export class NavbarComponent {
         }
     }
 
-    switchTheme(): void {
-        this.themeService.switchTheme();
-    }
-
-    isDarkModeActive(): boolean {
-        return this.themeService.isDarkModeActive();
-    }
     getCurrentButtonClass(option: string): string {
-        const isDarkMode = this.themeService.isDarkModeActive();
         const isSelected = this.currentSelection === option;
-        return isSelected ? (isDarkMode ? 'bg-pink': 'bg-pink-light') : (isDarkMode ? 'bg-gray-component' : 'bg-zinc-700');
+        return isSelected ? (true ? 'bg-pink': 'bg-pink-light') : (true ? 'bg-gray-component' : 'bg-zinc-700');
     }
     getFillColor(svg: string): string {
-        const isDarkMode = this.themeService.isDarkModeActive();
-        return isDarkMode ? '#D9D9D9' : '#323232';
+        return true ? '#D9D9D9' : '#323232';
     }
     getMiddleColor(svg: string): string {
-        const isDarkMode = this.themeService.isDarkModeActive();
-        return isDarkMode ? '#191716' : '#323232';
+        return true ? '#191716' : '#323232';
     }
 }

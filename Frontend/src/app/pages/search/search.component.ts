@@ -3,7 +3,6 @@ import { NgClass, NgForOf, NgIf, AsyncPipe } from '@angular/common';
 import { SearchService, Track } from "../../services/search.service";
 import { Observable } from 'rxjs';
 import { ScreenSizeService } from '../../services/screen-size-service.service';
-import { ThemeService } from './../../services/theme.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NavbarComponent } from "../../components/organisms/navbar/navbar.component";
 import { SearchBarComponent } from '../../components/molecules/search-bar/search-bar.component';
@@ -33,7 +32,6 @@ export class SearchComponent implements OnInit {
 
   constructor(
     private screenSizeService: ScreenSizeService,
-    protected themeService: ThemeService,
     private router: Router,
     private route: ActivatedRoute,
     public moodService: MoodService,
@@ -69,10 +67,6 @@ export class SearchComponent implements OnInit {
 
   onSearchdown(search: string) {
     this.searchQuery = search;
-  }
-
-  switchTheme(): void {
-    this.themeService.switchTheme();
   }
 
   profile() {

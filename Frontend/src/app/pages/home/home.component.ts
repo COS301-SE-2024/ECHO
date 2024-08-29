@@ -1,5 +1,4 @@
 import { AfterViewInit, Component, OnInit } from "@angular/core";
-import { ThemeService } from './../../services/theme.service';
 import { NgClass, NgForOf, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
 import { SideBarComponent } from '../../components/organisms/side-bar/side-bar.component';
 import { AuthService } from '../../services/auth.service';
@@ -47,7 +46,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
 
     constructor(
-        protected themeService: ThemeService,
         private authService: AuthService,
         private router: Router,
         private spotifyService: SpotifyService,
@@ -58,10 +56,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
         this.currentMood = this.moodService.getCurrentMood();
         this.moodComponentClasses = this.moodService.getComponentMoodClasses();
         this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
-    }
-
-    switchTheme(): void {
-        this.themeService.switchTheme();
     }
 
     onNavChange(newNav: string) {

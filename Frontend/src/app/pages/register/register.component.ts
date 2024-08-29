@@ -3,7 +3,6 @@ import { SpotifyLoginComponent } from '../../components/organisms/spotify-login/
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { ThemeService } from '../../services/theme.service';
 import { ToastComponent } from '../../components/organisms/toast/toast.component';
 import { CommonModule } from '@angular/common';
 import { AppleLoginComponent } from "../../components/organisms/apple-login/apple-login.component";
@@ -28,18 +27,8 @@ export class RegisterComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private themeService: ThemeService
   ) {
   }
-  ngOnInit() {
-    this.theme();
-  }
-  theme() {
-    if (!this.themeService.isDarkModeActive()) {
-      this.themeService.switchTheme();
-    }
-  }
-
     spotify() {
       if (typeof window !== 'undefined') {
         window.location.href = 'http://localhost:3000/api/auth/oauth-signin';

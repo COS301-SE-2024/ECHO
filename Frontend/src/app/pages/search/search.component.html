@@ -90,7 +90,7 @@
       <!-- Profile on the right -->
       <div class="flex flex-col items-center">
         <img (click)="profile()"
-             [src]="themeService.isDarkModeActive() ? '../../../../assets/icons/profile-light.png' : '../../../../assets/icons/profile-dark.png'"
+             [src]="true ? '../../../../assets/icons/profile-light.png' : '../../../../assets/icons/profile-dark.png'"
              alt="profile" class="w-12 h-12 hover:cursor-pointer">
       </div>
     </div>
