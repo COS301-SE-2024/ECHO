@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SettingsComponent } from './settings.component';
-import { ThemeService } from '../../services/theme.service';
 import { ScreenSizeService } from '../../services/screen-size-service.service';
 import { SpotifyService } from '../../services/spotify.service';
 import { of } from 'rxjs';

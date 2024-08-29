@@ -3,7 +3,6 @@ import { MatCardModule } from '@angular/material/card';
 import { NgForOf, NgIf, NgClass } from '@angular/common';
 import { SideBarComponent } from './side-bar.component';
 import { SpotifyService } from '../../../services/spotify.service';
-import { ThemeService } from '../../../services/theme.service';
 import { JsonpClientBackend, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { ScreenSizeService } from '../../../services/screen-size-service.service';
 import { AuthService } from '../../../services/auth.service';

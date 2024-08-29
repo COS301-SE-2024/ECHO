@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { MatCard, MatCardContent } from "@angular/material/card";
 import { NgClass, NgForOf, NgIf } from "@angular/common";
-import { ThemeService } from "../../../services/theme.service";
 import { SpotifyService } from "../../../services/spotify.service";
 import { ScreenSizeService } from "../../../services/screen-size-service.service";
 import { AuthService } from "../../../services/auth.service";
@@ -25,7 +24,6 @@ export class SideBarComponent implements OnInit
   backgroundMoodClasses!: { [key: string]: string };
 
   constructor(
-    protected themeService: ThemeService,
     private spotifyService: SpotifyService,
     private providerService: ProviderService,
     private screenSizeService: ScreenSizeService,

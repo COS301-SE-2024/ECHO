@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ThemeService } from '../../services/theme.service';
 import { NgClass, NgForOf, NgIf } from '@angular/common';
 import { SpotifyService } from '../../services/spotify.service';
 import { ScreenSizeService } from '../../services/screen-size-service.service';
@@ -10,7 +9,6 @@ import { LanguageComponent } from '../../components/templates/desktop/language/l
 import { PrivacyComponent } from '../../components/templates/desktop/privacy/privacy.component';
 import { MoodService } from '../../services/mood-service.service';
 import { BackButtonComponent } from '../../components/atoms/back-button/back-button.component';
-
 
 @Component({
   selector: 'app-settings',
@@ -38,7 +36,6 @@ export class SettingsComponent {
   backgroundMoodClasses!:{ [key: string]: string };
 
   constructor(
-    protected themeService: ThemeService,
     private spotifyService: SpotifyService,
     private screenSizeService: ScreenSizeService,
     public moodService: MoodService,
@@ -48,9 +45,6 @@ export class SettingsComponent {
     this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
   }
 
-  switchTheme(): void {
-    this.themeService.switchTheme();
-  }
 
   showSettings(buttonLabel: string)
   {

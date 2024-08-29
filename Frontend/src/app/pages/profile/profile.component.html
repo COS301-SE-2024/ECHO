@@ -11,12 +11,10 @@
             <p class="text-gray-900 dark:text-white">11 Followers</p>
             <p class="text-gray-900 dark:text-white">3 Following</p>
           </div>
-          <button *ngIf="themeService.isDarkModeActive()" class="btn btn-dark py-4" (click)="openDialog()">Edit
+          <button  class="btn btn-dark py-4" (click)="openDialog()">Edit
             Profile
           </button>
-          <button *ngIf="!themeService.isDarkModeActive()" class="btn btn-light py-4" (click)="openDialog()">Edit
-            Profile
-          </button>
+
         </div>
       </div>
     </div>
@@ -69,10 +67,7 @@
               </div>
               <p class="absolute text-gray-900 top-8 left-20 dark:text-white font-bold">ECHO Rank: #1</p>
               <!-- Use Flowbite for modal/dialog if needed, otherwise just Tailwind for buttons -->
-              <button *ngIf="themeService.isDarkModeActive()" class="absolute btn btn-dark top-5 right-10"
-                      (click)="openDialog()">Edit Profile
-              </button>
-              <button *ngIf="!themeService.isDarkModeActive()" class="absolute btn btn-light top-5 right-10"
+              <button  class="absolute btn btn-dark top-5 right-10"
                       (click)="openDialog()">Edit Profile
               </button>
               <button class="absolute btn btn-dark top-5 right-52" (click)="settings()">

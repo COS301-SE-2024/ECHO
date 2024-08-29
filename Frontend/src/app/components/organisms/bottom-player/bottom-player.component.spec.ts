@@ -7,22 +7,16 @@ import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { of, Subscription } from 'rxjs';
 import { ProviderService } from '../../../services/provider.service';
 import { ScreenSizeService } from '../../../services/screen-size-service.service';
-import { ThemeService } from '../../../services/theme.service';
 
 describe('BottomPlayerComponent', () => {
     let component: BottomPlayerComponent;
     let fixture: ComponentFixture<BottomPlayerComponent>;
-    let themeServiceMock: jest.Mocked<ThemeService>;
     let spotifyServiceMock: jest.Mocked<SpotifyService>;
     let screenSizeServiceMock: jest.Mocked<ScreenSizeService>;
     let providerServiceMock: jest.Mocked<ProviderService>;
     
     beforeEach(async () => {
 
-      themeServiceMock = {
-        isDarkModeActive: jest.fn().mockReturnValue(false),
-      } as unknown as jest.Mocked<ThemeService>;
-  
       spotifyServiceMock = {
         currentlyPlayingTrack$: of(null),
         playingState$: of(false),
@@ -48,7 +42,6 @@ describe('BottomPlayerComponent', () => {
         await TestBed.configureTestingModule({
             imports: [BottomPlayerComponent,HttpClientTestingModule],
           providers: [
-            { provide: ThemeService, useValue: themeServiceMock },
             { provide: SpotifyService, useValue: spotifyServiceMock },
             { provide: ScreenSizeService, useValue: screenSizeServiceMock },
             { provide: ProviderService, useValue: providerServiceMock },
