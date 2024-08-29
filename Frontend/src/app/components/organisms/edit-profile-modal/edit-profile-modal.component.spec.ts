@@ -3,8 +3,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { EditProfileModalComponent } from './edit-profile-modal.component';
-import { ThemeService } from '../../services/theme.service';
-import { AuthService } from '../../services/auth.service';
+import { ThemeService } from '../../../services/theme.service';
+import { AuthService } from '../../../services/auth.service';
 import { of } from 'rxjs';
 
 describe('EditProfileModalComponent', () => {
