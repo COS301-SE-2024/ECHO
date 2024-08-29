@@ -22,6 +22,7 @@ export class SideBarComponent implements OnInit
   // Mood Service Variables
   moodComponentClasses!: { [key: string]: string };
   backgroundMoodClasses!: { [key: string]: string };
+  underline!: { [key: string]: string };
 
   constructor(
     private spotifyService: SpotifyService,
@@ -34,6 +35,7 @@ export class SideBarComponent implements OnInit
   {
     this.moodComponentClasses = this.moodService.getComponentMoodClasses();
     this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
+    this.underline = this.moodService.getUnerlineMoodClasses();
   }
 
   title: string = "Home";
@@ -53,7 +55,13 @@ export class SideBarComponent implements OnInit
   {
     this.isDropdownVisible = !this.isDropdownVisible;
   }
-
+  getButtonClasses(option: string): { [key: string]: boolean } {
+    const moodClass = this.underline[this.moodService.getCurrentMood()];
+    return {
+      [moodClass]: this.selectedOption === option,
+      'border-transparent': this.selectedOption !== option
+    };
+  }
   selectedOptionChange(option: string)
   {
     this.selected = option;
