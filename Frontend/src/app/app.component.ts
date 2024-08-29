@@ -11,10 +11,10 @@ import { ProviderService } from "./services/provider.service";
 import { PageHeaderComponent } from "./components/molecules/page-header/page-header.component";
 import { MoodService } from "./services/mood-service.service";
 //template imports
-import {HeaderComponent} from "./components/templates/desktop/header/header.component";
-import {OtherNavComponent} from "./components/templates/desktop/other-nav/other-nav.component";
-import {ExploreBarComponent} from "./components/templates/desktop/explore-bar/explore-bar.component";
-import {LeftComponent} from "./components/templates/desktop/left/left.component";
+import { HeaderComponent } from "./components/templates/desktop/header/header.component";
+import { OtherNavComponent } from "./components/templates/desktop/other-nav/other-nav.component";
+import { ExploreBarComponent } from "./components/templates/desktop/explore-bar/explore-bar.component";
+import { LeftComponent } from "./components/templates/desktop/left/left.component";
 import { AuthService } from "./services/auth.service";
 import { PlayerStateService } from "./services/player-state.service";
 
