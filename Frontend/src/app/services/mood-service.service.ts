@@ -132,7 +132,7 @@ export class MoodService {
 };
 
 private _backgroundMoodClasses = {
-  Anger: 'bg-anger-backgrounddark bg-anger-background transition-colors duration-mood ease-in-out',
+  Anger: 'bg-anger-backgrounddark bg-anger-background transition-colors duration-mood ease-in-out ',
   Admiration: 'bg-admiration-backgrounddark bg-admiration-background transition-colors duration-mood ease-in-out',
   Fear: 'bg-fear-backgrounddark bg-fear-background transition-colors duration-mood ease-in-out',
   Joy: 'bg-joy-backgrounddark bg-joy-background transition-colors duration-mood ease-in-out',
@@ -161,7 +161,18 @@ private _backgroundMoodClasses = {
   Sadness: 'bg-sadness-backgrounddark bg-sadness-background transition-colors duration-mood ease-in-out',
   Surprise: 'bg-surprise-backgrounddark bg-surprise-background transition-colors duration-mood ease-in-out',
 };
-
+private _underlineMoodClasses = {
+  Anger: 'bg-anger  transition-colors duration-mood ease-in-out border-b-2 border-anger-dark',
+  Admiration: 'bg-admiration  transition-colors duration-mood ease-in-out border-b-2 border-admiration-dark',
+  Fear: 'bg-fear  transition-colors duration-mood ease-in-out border-b-2 border-fear-dark',
+  Joy: 'bg-joy transition-colors duration-mood ease-in-out border-b-2 border-joy-dark',
+  Neutral: ' bg-component transition-colors duration-mood ease-in-out border-b-2 border-pink',
+  Amusement: 'bg-amusement  transition-colors duration-mood ease-in-out border-b-2 border-amusement-dark',
+  Annoyance: 'bg-annoyance transition-colors duration-mood ease-in-out border-b-2 border-annoyance-dark',
+  Approval: 'bg-approval  transition-colors duration-mood ease-in-out border-b-2 border-approval-dark',
+  Caring: 'bg-caring  transition-colors duration-mood ease-in-out border-b-2 border-caring-dark',
+  Confusion: 'bg-confusion  transition-colors duration-mood ease-in-out border-b-2 border-confusion-dark',
+}
   constructor() {
     this.initMood();
   }
@@ -194,7 +205,9 @@ private _backgroundMoodClasses = {
       console.error('Error setting local storage item:', error);
     }
   }
-
+  getUnerlineMoodClasses(): { [key: string]: string } {
+    return this._underlineMoodClasses;
+  }
   getComponentMoodClasses(): { [key: string]: string } {
     return this._componentMoodClasses;
   }
