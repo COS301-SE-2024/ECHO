@@ -1,13 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BottomPlayerComponent } from './bottom-player.component';
-import { SpotifyService } from "../../services/spotify.service";
-import { AuthService } from "../../services/auth.service";
+import { SpotifyService } from "../../../services/spotify.service";
+import { AuthService } from "../../../services/auth.service";
 import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { of, Subscription } from 'rxjs';
-import { ProviderService } from '../../services/provider.service';
-import { ScreenSizeService } from '../../services/screen-size-service.service';
-import { ThemeService } from '../../services/theme.service';
+import { ProviderService } from '../../../services/provider.service';
+import { ScreenSizeService } from '../../../services/screen-size-service.service';
+import { ThemeService } from '../../../services/theme.service';
 
 describe('BottomPlayerComponent', () => {
     let component: BottomPlayerComponent;

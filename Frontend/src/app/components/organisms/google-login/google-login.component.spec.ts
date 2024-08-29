@@ -4,8 +4,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GoogleLoginComponent } from './google-login.component';
 import { IterableDiffers } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
-import { ProviderService } from '../../services/provider.service';
+import { AuthService } from '../../../services/auth.service';
+import { ProviderService } from '../../../services/provider.service';
 
 describe('GoogleLoginComponent', () => {
   let component: GoogleLoginComponent;

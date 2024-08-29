@@ -38,7 +38,7 @@ import { PlayerStateService } from "./services/player-state.service";
 })
 export class AppComponent implements OnInit {
   update: boolean = false;
-  screenSize?: string;
+  screenSize!: string;
   displayPageName: boolean = false;
   protected displaySideBar: boolean = false;
   protected isAuthRoute: boolean = false;
@@ -88,7 +88,7 @@ export class AppComponent implements OnInit {
   }
 
   isCurrentRouteAuth(): boolean {
-    return ['/login', '/register'].includes(this.router.url);
+    return ['/login', '/register','/Auth/callback'].includes(this.router.url);
   }
 
 
