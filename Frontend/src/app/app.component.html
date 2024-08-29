@@ -4,7 +4,8 @@
 </div>
 
 
-<div *ngIf="!isAuthRoute" class="grid grid-cols-[1fr,1fr,1fr,1fr,200px] grid-rows-[0.01fr,0.01fr,0.67fr] min-h-screen" [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]">  <app-header class="col-start-3 col-span-1 row-start-1 row-span-1"></app-header>
+<div *ngIf="!isAuthRoute" class="grid grid-cols-[1fr,1fr,1fr,1fr,200px] grid-rows-[0.01fr,0.01fr,0.67fr] min-h-screen pl-2 pr-2" [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]"> 
+  <app-header class="col-start-3 col-span-1 row-start-1 row-span-1"></app-header>
   <app-other-nav class="col-start-5 col-span-1 row-start-1 row-span-1 justify-self-end"></app-other-nav>
   <app-left class="col-start-1 col-span-1 row-start-1 row-span-3"></app-left>
   <app-explore-bar class="col-start-2 col-span-5 row-start-2 row-span-1"></app-explore-bar>
