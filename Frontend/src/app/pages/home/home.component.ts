@@ -9,9 +9,8 @@ import { ScreenSizeService } from '../../services/screen-size-service.service';
 import { SearchComponent } from '../../pages/search/search.component';
 import { MoodService } from '../../services/mood-service.service';
 import { InsightsComponent } from "../insights/insights.component";
-import {TopCardComponent} from '../../components/molecules/top-card/top-card.component';
+import { TopCardComponent} from '../../components/molecules/top-card/top-card.component';
 import { PlayerStateService } from "../../services/player-state.service";
-
 @Component({
     selector: 'app-home',
     standalone: true,
