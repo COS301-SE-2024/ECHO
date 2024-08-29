@@ -28,8 +28,6 @@ export class SvgIconComponent {
     }
 
     circleColor(): string {
-        return true
-            ? this.moodComponentClasses[this.moodService.getCurrentMood()]
-            : 'rgba(238, 2, 88, 0.5)';
+        return this.moodComponentClasses[this.moodService.getCurrentMood()];
     }
 }

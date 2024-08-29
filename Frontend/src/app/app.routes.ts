@@ -13,7 +13,7 @@ import { MoodComponent } from "./pages/mood/mood.component";
 import { NgModule } from "@angular/core";
 import { InsightsComponent } from "./pages/insights/insights.component";
 import { HelpMenuComponent } from "./pages/help-menu/help-menu.component";
-import {LoginComponentview} from "./views/login/login.component";
+import { LoginComponentview} from "./views/login/login.component";
 
 export const routes: Routes = [
   { path: "landing", component: LandingPageComponent },
