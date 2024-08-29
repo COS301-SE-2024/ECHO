@@ -9,7 +9,6 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./moods-list.component.css']
 })
 export class MoodsListComponent {
-  @Input() title?: string;
   @Input() moods?: any[];
   @Output() redirectToMoodPage = new EventEmitter<any>();
 
