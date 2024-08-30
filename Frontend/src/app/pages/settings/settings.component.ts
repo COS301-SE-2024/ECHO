@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { NgClass, NgForOf, NgIf } from '@angular/common';
 import { SpotifyService } from '../../services/spotify.service';
 import { ScreenSizeService } from '../../services/screen-size-service.service';
-import { AccountComponent } from '../../components/templates/desktop/account/account.component';
-import { AudioComponent } from '../../components/templates/desktop/audio/audio.component';
-import { DisplayComponent } from '../../components/templates/desktop/display/display.component';
-import { LanguageComponent } from '../../components/templates/desktop/language/language.component';
-import { PrivacyComponent } from '../../components/templates/desktop/privacy/privacy.component';
+import { AccountComponent } from '../..//components/templates/desktop/settings/account/account.component';
+import { AudioComponent } from '../../components/templates/desktop/settings/audio/audio.component';
+import { DisplayComponent } from '../../components/templates/desktop/settings/display/display.component';
+import { LanguageComponent } from '../../components/templates/desktop/settings/language/language.component';
+import { PrivacyComponent } from '../../components/templates/desktop/settings/privacy/privacy.component';
 import { MoodService } from '../../services/mood-service.service';
 import { BackButtonComponent } from '../../components/atoms/back-button/back-button.component';
 
