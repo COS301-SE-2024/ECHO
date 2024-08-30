@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import {MoodListComponent} from '../../../molecules/mood-list/mood-list.component';
-import { SearchBarComponent } from '../../..//molecules/search-bar/search-bar.component';
+import {MoodListComponent} from '../../molecules/mood-list/mood-list.component';
+import { SearchBarComponent } from '../../molecules/search-bar/search-bar.component';
 
 
 @Component({

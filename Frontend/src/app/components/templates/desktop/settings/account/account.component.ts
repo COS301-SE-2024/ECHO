@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
-import { MoodService } from '../../../../services/mood-service.service';
+import { MoodService } from '../../../../../services/mood-service.service';
 import { NgClass } from '@angular/common';
 
 @Component({
-  selector: 'app-audio',
+  selector: 'app-account',
   standalone: true,
   imports: [NgClass],
-  templateUrl: './audio.component.html',
-  styleUrl: './audio.component.css'
+  templateUrl: './account.component.html',
+  styleUrl: './account.component.css'
 })
-export class AudioComponent {
+export class AccountComponent {
   currentMood!: string;
   moodComponentClasses!:{ [key: string]: string };
   backgroundMoodClasses!:{ [key: string]: string };
