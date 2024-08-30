@@ -1,0 +1,8 @@
+<div class="rounded-lg transition-transform duration-300 hover:scale-110 cursor-pointer flex-none w-[27.5vh] mr-[1vw]" (click)="onMoodClick()">
+    <div class="card w-full h-full relative overflow-hidden aspect-w-16 aspect-h-9 shadow-xl rounded-lg">
+        <img [src]="mood.image" [alt]="mood.name" class="w-full h-full object-cover rounded-lg">
+        <div class="card-body absolute bottom-2 right-3 text-white text-lg font-bold">
+            {{ mood.name }}
+        </div>
+    </div>
+</div>

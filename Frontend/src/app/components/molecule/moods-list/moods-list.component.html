@@ -1,13 +1,5 @@
-<!-- moods-list.component.html -->
 <div class="flex flex-col">
     <div class="flex overflow-x-auto" style="overflow: visible;">
-        <div *ngFor="let mood of moods" class="rounded-lg transition-all duration-300 hover:scale-110 hover:cursor-pointer" (click)="onMoodClick(mood)" style="flex: 0 0 auto; width: 27.5vh; margin-right: 1vw;">
-            <div class="card w-full h-full relative overflow-hidden aspect-w-16 aspect-h-9 shadow-xl">
-                <img src="{{ mood.image }}" alt="{{ mood.name }}" class="w-full h-full object-cover">
-                <div class="card-body absolute bottom-2 right-3 text-white text-lg font-bold">
-                    {{ mood.name }}
-                </div>
-            </div>
-        </div>
+        <app-big-rounded-square-card *ngFor="let mood of moods" [mood]="mood" (click)="onMoodClick($event)"></app-big-rounded-square-card>
     </div>
 </div>
