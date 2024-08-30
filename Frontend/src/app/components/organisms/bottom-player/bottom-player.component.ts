@@ -200,21 +200,12 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  private updatePlayPauseIcon(): void {
+    private updatePlayPauseIcon(): void {
     if (this.playing) {
-      true
-        ? "../../../assets/images/pause-dark.png"
-        : "../../../assets/images/pause.png";
+      this.imgsrc = "../../../assets/images/pause.png";
     } else {
-      true
-        ? "../../../assets/images/play-dark.png"
-        : "../../../assets/images/play.png";
+      this.imgsrc = "../../../assets/images/play.png";
     }
-  }
-
-
-  playingNowDark(): boolean {
-    return this.playing;
   }
 
   playingNow(): boolean {
@@ -222,12 +213,10 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
   }
 
   pausedNow(): boolean {
-    return (this.playing);
+    return !(this.playing);
   }
 
-  pausedNowDark(): boolean {
-    return this.playing;
-  }
+
 
   formatTime(seconds: number): string {
     const minutes = Math.floor(seconds / 60);

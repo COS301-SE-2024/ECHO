@@ -10,6 +10,7 @@ import { SideBarComponent } from "./components/organisms/side-bar/side-bar.compo
 import { ProviderService } from "./services/provider.service";
 import { PageHeaderComponent } from "./components/molecules/page-header/page-header.component";
 import { MoodService } from "./services/mood-service.service";
+
 //template imports
 import { HeaderComponent } from "./components/organisms/header/header.component";
 import { OtherNavComponent } from "./components/templates/desktop/other-nav/other-nav.component";
@@ -83,6 +84,9 @@ export class AppComponent implements OnInit {
     this.screenSizeService.screenSize$.subscribe(screenSize => {
       this.screenSize = screenSize;
     });
+  }
+  async ngAfterViewInit() {
+    this.playerStateService.setReady();
   }
 
   isCurrentRouteAuth(): boolean {
