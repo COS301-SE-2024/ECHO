@@ -1,9 +1,10 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SvgIconComponent } from '../../atoms/svg-icon/svg-icon.component';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { ScreenSizeService } from '../../../services/screen-size-service.service';
 import { MoodService } from '../../../services/mood-service.service';
+import { filter } from 'rxjs/operators';
 
 const SVG_PATHS = {
     HOME: 'M48.62,19.21l-23-18c-0.37-0.28-0.87-0.28-1.24,0l-23,18c-0.43,0.34-0.51,0.97-0.17,1.41c0.34,0.43,0.97,0.51,1.41,0.17 L4,19.71V46c0,0.55,0.45,1,1,1h23V31h10v16h7c0.55,0,1-0.45,1-1V19.71l1.38,1.08C47.57,20.93,47.78,21,48,21 c0.3,0,0.59-0.13,0.79-0.38C49.13,20.18,49.05,19.55,48.62,19.21z M22,30h-8v-8h8V30z',
@@ -19,24 +20,19 @@ const SVG_PATHS = {
     styleUrl: './navbar.component.css',
 })
 
-export class NavbarComponent {
-    //Event Emitter
+export class NavbarComponent implements OnInit {
     @Output() selectedNavChange = new EventEmitter<string>();
-    //Options
     options = ['All', 'Moods', 'More'];
-    //SVG Paths
     selectedSvg: string;
     homeSvg: string = SVG_PATHS.HOME;
     insightSvg: string = SVG_PATHS.INSIGHT;
     otherSvg2: string = SVG_PATHS.OTHER;
-    //Screen Size
     screenSize?: string;
     currentSelection: string = 'All';
-     //Mood Service Variables
     currentMood!: string;
     moodComponentClasses!:{ [key: string]: string };
     backgroundMoodClasses!:{ [key: string]: string };
-    //Constructor
+
     constructor(
         private router: Router,
         private screenSizeService: ScreenSizeService,
@@ -47,11 +43,21 @@ export class NavbarComponent {
         this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
         this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
     }
+
     ngOnInit() {
         this.screenSizeService.screenSize$.subscribe(screenSize => {
             this.screenSize = screenSize;
         });
-    }   
+
+        this.router.events.pipe(
+            filter(event => event instanceof NavigationEnd)
+        ).subscribe(event => {
+            if (event instanceof NavigationEnd) {
+                this.updateSelectedIcon(event.urlAfterRedirects);
+            }
+        });
+    }
+
     select(svgPath: string): void {
         this.selectedSvg = svgPath;
         switch (svgPath) {
@@ -70,13 +76,27 @@ export class NavbarComponent {
         }
     }
 
+    updateSelectedIcon(url: string): void {
+        if (url.includes('/home')) {
+            this.selectedSvg = this.homeSvg;
+        } else if (url.includes('/insights')) {
+            this.selectedSvg = this.insightSvg;
+        } else if (url.includes('/library')) {
+            this.selectedSvg = this.otherSvg2;
+        } else {
+            this.selectedSvg = ''; // Default or handle unknown routes
+        }
+    }
+
     getCurrentButtonClass(option: string): string {
         const isSelected = this.currentSelection === option;
         return isSelected ? (true ? 'bg-pink': 'bg-pink-light') : (true ? 'bg-gray-component' : 'bg-zinc-700');
     }
+
     getFillColor(svg: string): string {
         return true ? '#D9D9D9' : '#323232';
     }
+
     getMiddleColor(svg: string): string {
         return true ? '#191716' : '#323232';
     }
