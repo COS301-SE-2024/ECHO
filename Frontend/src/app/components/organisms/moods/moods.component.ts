@@ -5,7 +5,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDialog} from '@angular/material/dialog';
 import { ScreenSizeService } from '../../../services/screen-size-service.service';
 import { MoodService } from '../../../services/mood-service.service';
-import { MoodsListComponent } from '../../../components/molecule/moods-list/moods-list.component';
+import { MoodsListComponent } from '../../molecules/moods-list/moods-list.component';
 
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';

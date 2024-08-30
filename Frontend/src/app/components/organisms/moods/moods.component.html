@@ -1,6 +1,5 @@
 <!-- moods.component.html -->
 <div *ngIf="screenSize === 'desktop'" class="flex flex-col pl-1 ml-[2vw]">
-    <div class="card w-full bg-stone text-black dark:text-white rounded-lg">
         <div class="card-body">
              <h5 class="text-lg font-bold">Favourite Moods</h5>
             <app-moods-list  [moods]="favouriteMoods" (redirectToMoodPage)="redirectToMoodPage($event)"></app-moods-list>
@@ -8,7 +7,6 @@
             <h5 class="text-lg font-bold">Recommended Moods</h5>
             <app-moods-list [moods]="RecommendedMoods" (redirectToMoodPage)="redirectToMoodPage($event)"></app-moods-list>
         </div>
-    </div>
 </div>
 <div *ngIf="screenSize === 'mobile'" class="flex flex-col">
     <div class="overflow-x-auto flex space-x-4 py-4">
