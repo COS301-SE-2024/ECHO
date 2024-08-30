@@ -7,6 +7,7 @@
         <app-moods-list [moods]="RecommendedMoods" (redirectToMoodPage)="redirectToMoodPage($event)"></app-moods-list>
     </div>
 </div>
+
 <div *ngIf="screenSize === 'mobile'" class="flex flex-col">
     <div class="overflow-x-auto flex space-x-4 py-4">
         <div *ngFor="let mood of favouriteMoods" [ngClass]="this.moodComponentClasses[this.moodService.getCurrentMood()]" class="min-w-[60vw] max-w-[60vw] bg-stone text-black dark:text-white rounded-lg shadow-lg">
