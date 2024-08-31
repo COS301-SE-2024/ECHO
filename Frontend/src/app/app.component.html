@@ -2,7 +2,6 @@
 <div *ngIf="isCurrentRouteAuth()">
   <router-outlet></router-outlet>
 </div>
-
 <div *ngIf="!isCurrentRouteAuth()"  [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]">
   <div *ngIf="screenSize === 'desktop'" class="grid grid-cols-[1fr,1fr,1fr,1fr,200px] grid-rows-[0.01fr,0.01fr,0.67fr] min-h-screen pl-2 pr-2">
     <app-header class="col-start-3 col-span-1 row-start-1 row-span-1"></app-header>
@@ -23,6 +22,5 @@
   </div>
   <app-bottom-player *ngIf="isReady()"></app-bottom-player>
 </div>
-
 
 

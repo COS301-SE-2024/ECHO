@@ -1,9 +1,10 @@
 <div *ngIf="screenSize === 'desktop'" class="desktop-layout">
+  <app-search-bar></app-search-bar>
   <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-200">Search Results for "{{ searchQuery }}"</h1>
   <div class="top-result dark:text-gray-200" style="float: left; width: 33%;">
     <h1 class="py-3" style="font-weight: bold; font-size: larger;">Top Result</h1>
     <div [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]" class="big-card hover:cursor-pointer"
-         style="width: 15vw; padding: 1vw; border-radius: 15px;">
+      style="width: 15vw; padding: 1vw; border-radius: 15px;">
       <ng-container *ngIf="topResult$ | async as topResult">
         <div (click)="playTrack(topResult.name, topResult.artistName)">
           <img [src]="topResult.albumImageUrl" alt="Big Image" style="border-radius: 15px;">
@@ -34,7 +35,6 @@
       </div>
     </div>
   </div>
-
 
 
 <div class="songs dark:text-gray-200" style="float: left; width: 33%; position: relative;">

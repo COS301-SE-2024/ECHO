@@ -7,7 +7,7 @@ import { ProfileComponent } from "./pages/profile/profile.component";
 import { AuthCallbackComponent } from "./authcallback/authcallback.component";
 import { UserLibraryComponent } from "./pages/user-library/user-library.component";
 import { ArtistProfileComponent } from "./pages/artist-profile/artist-profile.component";
-import { SearchComponent } from "./pages/search/search.component";
+import { SearchComponent } from "./components/templates/desktop/search/search.component";
 import { SettingsComponent } from "./pages/settings/settings.component";
 import { MoodComponent } from "./pages/mood/mood.component";
 import { NgModule } from "@angular/core";

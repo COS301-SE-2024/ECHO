@@ -1,15 +1,15 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { NgClass, NgForOf, NgIf, AsyncPipe } from '@angular/common';
-import { SearchService, Track } from "../../services/search.service";
+import { SearchService, Track } from "../../../../services/search.service";
 import { Observable } from 'rxjs';
-import { ScreenSizeService } from '../../services/screen-size-service.service';
+import { ScreenSizeService } from '../../../../services/screen-size-service.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { NavbarComponent } from "../../components/organisms/navbar/navbar.component";
-import { SearchBarComponent } from '../../components/molecules/search-bar/search-bar.component';
-import { TopResultComponent } from '../../components/molecules/top-result/top-result.component';
-import { MoodService } from '../../services/mood-service.service';
-import { SpotifyService } from "../../services/spotify.service";
-import { ProviderService } from "../../services/provider.service";
+import { NavbarComponent } from "../../../../components/organisms/navbar/navbar.component";
+import { SearchBarComponent } from '../../../../components/molecules/search-bar/search-bar.component';
+import { TopResultComponent } from '../../../../components/molecules/top-result/top-result.component';
+import { MoodService } from '../../../../services/mood-service.service';
+import { SpotifyService } from "../../../../services/spotify.service";
+import { ProviderService } from "../../../../services/provider.service";
 @Component({
   selector: 'app-search',
   standalone: true,
