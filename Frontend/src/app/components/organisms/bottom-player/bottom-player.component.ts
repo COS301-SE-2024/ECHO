@@ -7,6 +7,7 @@ import { ScreenSizeService } from "../../../services/screen-size-service.service
 import { Subscription, interval } from "rxjs";
 import { ProviderService } from "../../../services/provider.service";
 import { MoodService } from "../../../services/mood-service.service";
+import { YouTubeService } from "../../../services/youtube.service";
 
 @Component({
   selector: "app-bottom-player",
@@ -46,7 +47,8 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
               private screenSizeService: ScreenSizeService,
               private providerService: ProviderService,
               public moodService: MoodService,
-              private cdr: ChangeDetectorRef
+              private cdr: ChangeDetectorRef,
+              private youtubeService: YouTubeService
   ) {
         this.moodComponentClasses = this.moodService.getComponentMoodClasses();
         this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
@@ -88,15 +90,26 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
       this.screenSize = screenSize;
     });
     if (typeof window !== "undefined") {
-      await this.spotifyService.init();
+      if (this.providerService.getProviderName() === "spotify")
+      {
+        await this.spotifyService.init();
+      }
+      else
+      {
+        await this.youtubeService.loadYouTubeAPI();
+      }
     }
   }
 
   ngOnDestroy(): void {
     if (this.providerService.getProviderName() === "spotify") {
       this.spotifyService.disconnectPlayer();
-      this.unsubscribeAll();
     }
+    else
+    {
+      this.youtubeService.disconnectPlayer();
+    }
+    this.unsubscribeAll();
     this.providerService.clear();
   }
 
@@ -114,6 +127,10 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
     if (this.providerService.getProviderName() === "spotify") {
       await this.spotifyService.mute();
     }
+    else
+    {
+      await this.youtubeService.mute();
+    }
   }
 
   async unmute(): Promise<void>
@@ -122,6 +139,10 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
     if (this.providerService.getProviderName() === "spotify")
     {
       await this.spotifyService.unmute();
+    }
+    else
+    {
+      await this.youtubeService.unmute();
     }
   }
 
@@ -139,23 +160,36 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
     const containerWidth = progressContainer.offsetWidth;
     const newProgress = (clickX / containerWidth) * 100;
 
-    // Update the local progress
     this.trackProgress = newProgress;
-    this.cdr.detectChanges(); // Trigger change detection
+    this.cdr.detectChanges();
 
-    // Update the progress in your Spotify service
-    this.spotifyService.seekToPosition(newProgress);
+    if (this.providerService.getProviderName() === "spotify")
+    {
+      this.spotifyService.seekToPosition(newProgress);
+    }
+    else
+    {
+      this.youtubeService.seekTo(newProgress);
+    }
   }
 
   playMusic(): void {
     if (this.providerService.getProviderName() === "spotify") {
       this.spotifyService.play();
     }
+    else
+    {
+      this.youtubeService.play();
+    }
   }
 
   pauseMusic(): void {
     if (this.providerService.getProviderName() === "spotify") {
       this.spotifyService.pause();
+    }
+    else
+    {
+      this.youtubeService.pause();
     }
   }
 
