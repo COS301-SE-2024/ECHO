@@ -1,4 +1,4 @@
-import { Controller, Get, Query, Param, Body, Post, HttpException, HttpStatus } from "@nestjs/common";
+import { Body, Controller, HttpException, HttpStatus, Post } from "@nestjs/common";
 import { YouTubeService } from "../services/youtube.service";
 
 @Controller("youtube")
@@ -38,5 +38,16 @@ export class YouTubeController
         }
         const result = await this.youtubeService.getVideoDetails(body.id);
         return result;
+    }
+
+    // This endpoint will be used to retrieve a YouTube API key.
+    @Post("key")
+    async getKey(@Body() body: { accessToken: string; refreshToken: string})
+    {
+        if (!body.accessToken || !body.refreshToken)
+        {
+            throw new HttpException("Access token or refresh token is missing while attempting to retrieve a YouTube API key.", HttpStatus.UNAUTHORIZED);
+        }
+        return await this.youtubeService.getAPIKey();
     }
 }

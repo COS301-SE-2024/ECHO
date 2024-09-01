@@ -55,4 +55,10 @@ export class YouTubeService
 
         return this.mapYouTubeResponseToTrackInfo(item);
     }
+
+    // This function will be used to retrieve a YouTube API key.
+    async getAPIKey()
+    {
+        return this.API_KEY;
+    }
 }
