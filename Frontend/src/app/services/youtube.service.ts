@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject, ReplaySubject } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { map } from "rxjs/operators";
+import { TokenService } from "./token.service";
 
 declare global
 {
@@ -28,12 +29,11 @@ export class YouTubeService
   private apiKey = "YOUR_YOUTUBE_API_KEY";
   private apiUrl = "https://www.googleapis.com/youtube/v3/videos";
 
-  constructor(private http: HttpClient)
+  constructor(private http: HttpClient, private tokenService: TokenService)
   {
-    this.loadYouTubeAPI();
   }
 
-  private loadYouTubeAPI(): void
+  public async loadYouTubeAPI(): Promise<void>
   {
     if (typeof window !== "undefined" && !window["YT"])
     {
@@ -137,7 +137,7 @@ export class YouTubeService
     });
   }
 
-  mute(): void
+  async mute(): Promise<void>
   {
     this.isReady.subscribe(isReady =>
     {
@@ -148,7 +148,7 @@ export class YouTubeService
     });
   }
 
-  unmute(): void
+  async unmute(): Promise<void>
   {
     this.isReady.subscribe(isReady =>
     {
@@ -159,9 +159,17 @@ export class YouTubeService
     });
   }
 
-  private updateCurrentTrackInfo(videoId: string): void
+  private async updateCurrentTrackInfo(videoId: string): Promise<void>
   {
-    this.http.get<any>(`${this.apiUrl}?part=snippet&id=${videoId}&key=${this.apiKey}`)
+    const laccessToken = this.tokenService.getAccessToken();
+    const lrefreshToken = this.tokenService.getRefreshToken();
+
+    const key = await this.http.post<any>("http://localhost:3000/api/spotify/track-details", {
+      accessToken: laccessToken,
+      refreshToken: lrefreshToken
+    }).toPromise();
+
+    this.http.get<any>(`${this.apiUrl}?part=snippet&id=${videoId}&key=${key}`)
       .pipe(
         map(response =>
         {
@@ -178,5 +186,10 @@ export class YouTubeService
     {
       this.currentTrackInfoSubject.next(trackInfo);
     });
+  }
+
+  disconnectPlayer()
+  {
+    this.player.destroy();
   }
 }

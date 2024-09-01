@@ -10,6 +10,7 @@ import { ProviderService } from "../../../services/provider.service";
 import { SearchService } from "../../../services/search.service";
 import { MoodService } from "../../../services/mood-service.service";
 import { EchoButtonComponent } from "../../atoms/echo-button/echo-button.component";
+import { YouTubeService } from "../../../services/youtube.service";
 
 @Component({
   selector: "app-side-bar",
@@ -31,7 +32,8 @@ export class SideBarComponent implements OnInit
     private screenSizeService: ScreenSizeService,
     private authService: AuthService,
     private searchService: SearchService,
-    public moodService: MoodService
+    public moodService: MoodService,
+    private youtubeService: YouTubeService
   )
   {
     this.moodComponentClasses = this.moodService.getComponentMoodClasses();
@@ -154,6 +156,10 @@ export class SideBarComponent implements OnInit
     if (this.providerService.getProviderName() === "spotify")
     {
       await this.spotifyService.playTrackById(trackId);
+    }
+    else
+    {
+      await this.youtubeService.playTrackById(trackId);
     }
   }
 
