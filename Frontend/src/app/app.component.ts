@@ -10,11 +10,11 @@ import { SideBarComponent } from "./components/organisms/side-bar/side-bar.compo
 import { ProviderService } from "./services/provider.service";
 import { PageHeaderComponent } from "./components/molecules/page-header/page-header.component";
 import { MoodService } from "./services/mood-service.service";
+
 //template imports
-import {HeaderComponent} from "./components/templates/desktop/header/header.component";
-import {OtherNavComponent} from "./components/templates/desktop/other-nav/other-nav.component";
-import {ExploreBarComponent} from "./components/templates/desktop/explore-bar/explore-bar.component";
-import {LeftComponent} from "./components/templates/desktop/left/left.component";
+import { HeaderComponent } from "./components/organisms/header/header.component";
+import { OtherNavComponent } from "./components/templates/desktop/other-nav/other-nav.component";
+import { LeftComponent } from "./components/templates/desktop/left/left.component";
 import { AuthService } from "./services/auth.service";
 import { PlayerStateService } from "./services/player-state.service";
 
@@ -30,7 +30,6 @@ import { PlayerStateService } from "./services/player-state.service";
     PageHeaderComponent,
     HeaderComponent,
     OtherNavComponent,
-    ExploreBarComponent,
     LeftComponent
   ],
   templateUrl: "./app.component.html",
@@ -85,6 +84,9 @@ export class AppComponent implements OnInit {
     this.screenSizeService.screenSize$.subscribe(screenSize => {
       this.screenSize = screenSize;
     });
+  }
+  async ngAfterViewInit() {
+    this.playerStateService.setReady();
   }
 
   isCurrentRouteAuth(): boolean {

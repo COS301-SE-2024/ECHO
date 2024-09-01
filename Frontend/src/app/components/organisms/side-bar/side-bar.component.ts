@@ -1,20 +1,19 @@
 import { Component, OnInit } from "@angular/core";
 import { MatCard, MatCardContent } from "@angular/material/card";
 import { NgClass, NgForOf, NgIf } from "@angular/common";
-import { ThemeService } from "../../../services/theme.service";
 import { SpotifyService } from "../../../services/spotify.service";
 import { ScreenSizeService } from "../../../services/screen-size-service.service";
 import { AuthService } from "../../../services/auth.service";
 import { firstValueFrom } from "rxjs";
 import { ProviderService } from "../../../services/provider.service";
-import { SearchService } from "../../../services/search.service";
 import { MoodService } from "../../../services/mood-service.service";
 import { EchoButtonComponent } from "../../atoms/echo-button/echo-button.component";
+import { SongCardsComponent } from "..//song-cards/song-cards.component";
 
 @Component({
   selector: "app-side-bar",
   standalone: true,
-  imports: [MatCard, MatCardContent, NgForOf, NgIf, NgClass, EchoButtonComponent],
+  imports: [MatCard, MatCardContent, NgForOf, NgIf, NgClass, EchoButtonComponent,SongCardsComponent],
   templateUrl: "./side-bar.component.html",
   styleUrls: ["./side-bar.component.css"]
 })
@@ -23,19 +22,19 @@ export class SideBarComponent implements OnInit
   // Mood Service Variables
   moodComponentClasses!: { [key: string]: string };
   backgroundMoodClasses!: { [key: string]: string };
+  underline!: { [key: string]: string };
 
   constructor(
-    protected themeService: ThemeService,
     private spotifyService: SpotifyService,
     private providerService: ProviderService,
     private screenSizeService: ScreenSizeService,
     private authService: AuthService,
-    private searchService: SearchService,
     public moodService: MoodService
   )
   {
     this.moodComponentClasses = this.moodService.getComponentMoodClasses();
     this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
+    this.underline = this.moodService.getUnerlineMoodClasses();
   }
 
   title: string = "Home";
@@ -55,7 +54,13 @@ export class SideBarComponent implements OnInit
   {
     this.isDropdownVisible = !this.isDropdownVisible;
   }
-
+  getButtonClasses(option: string): { [key: string]: boolean } {
+    const moodClass = this.underline[this.moodService.getCurrentMood()];
+    return {
+      [moodClass]: this.selectedOption === option,
+      'border-transparent': this.selectedOption !== option
+    };
+  }
   selectedOptionChange(option: string)
   {
     this.selected = option;
@@ -106,6 +111,7 @@ export class SideBarComponent implements OnInit
     {
       this.spotifyService.getRecentlyPlayedTracks(this.provider).then(data =>
       {
+        console.log("Recently Played Tracks Data:", data);
         data.items.forEach((item: any) =>
         {
           const trackId = item.track.id;
@@ -147,27 +153,6 @@ export class SideBarComponent implements OnInit
   selectOption(option: string)
   {
     this.selectedOption = option;
-  }
-
-  async playTrack(trackId: string): Promise<void>
-  {
-    if (this.providerService.getProviderName() === "spotify")
-    {
-      await this.spotifyService.playTrackById(trackId);
-    }
-  }
-
-  async echoTrack(trackName: string, artistName: string, event: MouseEvent): Promise<void>
-  {
-    event.stopPropagation();
-    this.searchService.echo(trackName, artistName).then(tracks =>
-    {
-      this.echoTracks = tracks;
-      this.isEchoModalVisible = true;
-    }).catch(error =>
-    {
-      console.error("Error echoing track: ", error);
-    });
   }
 
   private truncateText(text: string, maxLength: number): string

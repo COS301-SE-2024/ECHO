@@ -1,7 +1,6 @@
 import { Component, AfterViewInit, OnDestroy, ViewChild, ElementRef, ChangeDetectorRef } from "@angular/core";
 import { MatCard, MatCardContent } from "@angular/material/card";
 import { NgIf, NgClass } from "@angular/common";
-import { ThemeService } from "../../../services/theme.service";
 import { SpotifyService } from "../../../services/spotify.service";
 import { ScreenSizeService } from "../../../services/screen-size-service.service";
 import { Subscription, interval } from "rxjs";
@@ -41,7 +40,7 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
   public muted: boolean = false;
 
 
-  constructor(protected themeService: ThemeService,
+  constructor(
               private spotifyService: SpotifyService,
               private screenSizeService: ScreenSizeService,
               private providerService: ProviderService,
@@ -201,34 +200,23 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  private updatePlayPauseIcon(): void {
+    private updatePlayPauseIcon(): void {
     if (this.playing) {
-      this.imgsrc = this.themeService.isDarkModeActive()
-        ? "../../../assets/images/pause-dark.png"
-        : "../../../assets/images/pause.png";
+      this.imgsrc = "../../../assets/images/pause.png";
     } else {
-      this.imgsrc = this.themeService.isDarkModeActive()
-        ? "../../../assets/images/play-dark.png"
-        : "../../../assets/images/play.png";
+      this.imgsrc = "../../../assets/images/play.png";
     }
   }
 
-
-  playingNowDark(): boolean {
-    return (this.playing && this.themeService.isDarkModeActive());
-  }
-
   playingNow(): boolean {
-    return (this.playing && (!this.themeService.isDarkModeActive()));
+    return this.playing;
   }
 
   pausedNow(): boolean {
-    return ((!this.playing) && (!this.themeService.isDarkModeActive()));
+    return !(this.playing);
   }
 
-  pausedNowDark(): boolean {
-    return ((!this.playing) && (this.themeService.isDarkModeActive()));
-  }
+
 
   formatTime(seconds: number): string {
     const minutes = Math.floor(seconds / 60);

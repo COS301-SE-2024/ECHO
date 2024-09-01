@@ -3,7 +3,6 @@ import { SpotifyLoginComponent } from '../../components/organisms/spotify-login/
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { ThemeService } from '../../services/theme.service';
 import { ToastComponent } from '../../components/organisms/toast/toast.component';
 import { CommonModule } from '@angular/common';
 import { GoogleLoginComponent } from "../../components/organisms/google-login/google-login.component";
@@ -31,20 +30,11 @@ export class LoginComponent implements OnInit {
     constructor(
         private authService: AuthService,
         private router: Router,
-        private themeService: ThemeService,
         private providerService: ProviderService
     ) {}
-
-    ngOnInit() {
-        this.theme();
+    ngOnInit(): void {
+        
     }
-
-    theme() {
-        if (!this.themeService.isDarkModeActive()) {
-            this.themeService.switchTheme();
-        }
-    }
-
     async spotify() {
       if (typeof window !== 'undefined') {
         await this.authService.signInWithOAuth();
