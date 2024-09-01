@@ -1,17 +1,6 @@
 declare namespace YT {
-
-    class Player {
-      constructor(elementId: string, options: PlayerOptions);
-      loadVideoById(videoId: string): void;
-      getCurrentTime(): number;
-      getDuration(): number;
-      pauseVideo(): void;
-      playVideo(): void;
-      setVolume(volume: number): void;
-      getVideoData(): any;
-      destroy(): void;
-    }
-  interface Player {
+  class Player {
+    constructor(elementId: string, options: PlayerOptions);
     loadVideoById(videoId: string): void;
     getCurrentTime(): number;
     getDuration(): number;
@@ -20,6 +9,10 @@ declare namespace YT {
     setVolume(volume: number): void;
     getVideoData(): any;
     destroy(): void;
+    mute(): void;
+    unMute(): void;
+    seekTo(seconds: number, b: boolean): void;
+    stopVideo(): void;
   }
 
   interface PlayerEvent {
