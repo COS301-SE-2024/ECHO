@@ -9,13 +9,16 @@ describe('SpotifyController', () => {
 
   const mockSpotifyService = {
     getCurrentlyPlayingTrack: jest.fn(),
-    getRecentlyPlayedTracks: jest.fn(),
-    getQueue: jest.fn(),
-    playTrackById: jest.fn(),
-    pause: jest.fn(),
-    play: jest.fn(),
-    setVolume: jest.fn(),
-    getTrackDetails: jest.fn(),
+    getRecentlyPlayedTracks:  jest.fn(),
+    getQueue:                 jest.fn(),
+    playTrackById:            jest.fn(),
+    pause:                    jest.fn(),
+    play:                     jest.fn(),
+    setVolume:                jest.fn(),
+    getTrackDetails:          jest.fn(),
+    getTopArtists:            jest.fn(),
+    getTrackAnalysis:         jest.fn(),
+    getTopTracks:             jest.fn(),
   };
 
   beforeEach(async () => {
@@ -149,6 +152,113 @@ describe('SpotifyController', () => {
     });
   });
 
-  
-  
+  describe('getTrackAnalysis', () => {
+    it('should get track analysis', async () => {
+      const body = {
+        trackId:      'mockID',
+        accessToken:  'mockToken',
+        refreshToken: 'mockToken'
+      };
+
+      mockSpotifyService.getTrackAnalysis.mockResolvedValue('response');
+
+      const result = await controller.getTrackAnalysis(body);
+
+      expect(result).toEqual('response');
+      expect(service.getTrackAnalysis).toHaveBeenCalled();
+    });
+
+    it('should reject with accessToken excluded', async () => {
+      const body = {
+        trackId:      'mockID',
+        accessToken:  '',
+        refreshToken: 'mockToken'
+      };
+
+      await expect(controller.getTrackAnalysis(body)).rejects.toThrow(new UnauthorizedException(
+				"TrackId, access token, or refresh token is missing while attempting to retrieve track analysis from Spotify."
+			));
+      expect(service.getTrackAnalysis).not.toHaveBeenCalled();
+    });
+
+    it('should reject with refreshToken excluded', async () => {
+      const body = {
+        trackId:      'mockID',
+        accessToken:  'mockToken',
+        refreshToken: ''
+      };
+
+      await expect(controller.getTrackAnalysis(body)).rejects.toThrow(new UnauthorizedException(
+				"TrackId, access token, or refresh token is missing while attempting to retrieve track analysis from Spotify."
+			));
+      expect(service.getTrackAnalysis).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('getTopTracks', () => {
+    it('should return top tracks', async () => {
+      const body = {
+        accessToken:  'token',
+        refreshToken: 'token'
+      }
+
+      mockSpotifyService.getTopTracks.mockResolvedValue('result')
+
+      await expect(controller.getTopTracks(body)).resolves.toEqual('result');
+      expect(service.getTopTracks).toHaveBeenCalled();
+    });
+
+    it('should reject with error when accesstoken excluded', async () => {
+      const body = {
+        accessToken:  '',
+        refreshToken: 'token'
+      }
+
+      mockSpotifyService.getTopTracks.mockResolvedValue('result')
+
+      await expect(controller.getTopTracks(body)).rejects.toThrow(new UnauthorizedException("Access token, or refresh token is missing while attempting to retrieve track analysis from Spotify."));
+      expect(service.getTopTracks).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('getTopArtists', () => {
+    it('should return top artists', async () => {
+      const body = { 
+        accessToken: 'mockToken',
+        refreshToken: 'mockToken'
+       };
+
+       mockSpotifyService.getTopArtists.mockResolvedValue('thing')
+       const result = await controller.getTopArtists(body);
+
+       expect(result).toEqual('thing');
+       expect(service.getTopArtists).toHaveBeenCalled();
+    });
+
+    it('should return an error when access token is excluded', async () => {
+      const body = { 
+        accessToken: '',
+        refreshToken: 'mocktoken'
+       };
+
+      await expect(controller.getTopArtists(body)).rejects.toThrow(new UnauthorizedException(
+				"Access token, or refresh token is missing while attempting to retrieve top artists from Spotify."
+			));
+
+       expect(service.getTopArtists).not.toHaveBeenCalled();
+    });
+
+    it('should return an error when refresh token is excluded', async () => {
+      const body = { 
+        accessToken: 'mocktoken',
+        refreshToken: ''
+       };
+
+      await expect(controller.getTopArtists(body)).rejects.toThrow(new UnauthorizedException(
+				"Access token, or refresh token is missing while attempting to retrieve top artists from Spotify."
+			));
+
+       expect(service.getTopArtists).not.toHaveBeenCalled();
+    });
+  });
 });
