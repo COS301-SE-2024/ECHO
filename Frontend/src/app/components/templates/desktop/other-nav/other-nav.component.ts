@@ -3,6 +3,9 @@ import { NavbarComponent } from './../../../organisms/navbar/navbar.component';
 import { InfoIconComponent } from './../../../organisms/info-icon/info-icon.component';
 import { ProfileAtomicComponent } from './../../../organisms/profile/profile.component';
 import { MoodDropDownComponent } from './../../../organisms/mood-drop-down/mood-drop-down.component';
+import { SpotifyService } from '../../../../services/spotify.service';
+import { ProviderService } from '../../../../services/provider.service';
+import { AuthService } from '../../../../services/auth.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -20,7 +23,28 @@ import { CommonModule } from '@angular/common';
 })
 
 export class OtherNavComponent {
+  username: string = "";
   isDropdownOpen = false;
+
+  constructor(
+    private authService: AuthService,
+    private spotifyService: SpotifyService,
+    private providerService: ProviderService,
+  )
+  {
+  }
+
+  ngAfterViewInit(): void
+  {
+    if (this.providerService.getProviderName() === "spotify")
+    {
+      let currUser = this.authService.currentUser().subscribe((res) =>
+      {
+        this.username = res.user.user_metadata.name;
+      });
+    }
+  }
+
 
   toggleDropdown(): void {
     console.log('Profile picture clicked. Toggling dropdown...');
