@@ -1,4 +1,25 @@
 <div class="flex items-center">
   <app-info-icon></app-info-icon>
-  <app-profile-atomic class="h-16 w-16"></app-profile-atomic>
+  <app-profile-atomic (click)="toggleDropdown()" id="dropdownInformationButton" class="h-20 w-20 cursor-pointer"></app-profile-atomic>
+</div>
+
+<div id="dropdownInformation" *ngIf="isDropdownOpen" class="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+  <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
+    <div>Bonnie Green</div>
+    <div class="font-medium truncate">nameflowbite.com</div>
+  </div>
+  <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformationButton">
+    <li>
+      <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
+    </li>
+    <li>
+      <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
+    </li>
+    <li>
+      <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
+    </li>
+  </ul>
+  <div class="py-2">
+    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
+  </div>
 </div>
