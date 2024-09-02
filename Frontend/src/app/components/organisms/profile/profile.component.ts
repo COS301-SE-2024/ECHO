@@ -33,8 +33,4 @@ export class ProfileAtomicComponent implements AfterViewInit {
       });
     }
   }
-
-  navigateToProfile(): void {
-    this.router.navigate(['/profile']);
-  }
 }
