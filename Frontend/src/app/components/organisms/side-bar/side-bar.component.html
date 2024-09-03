@@ -1,4 +1,4 @@
-<div *ngIf="screenSize === 'desktop'" class="z-10" [ngClass]="{'w-[42vh]': screenSize === 'desktop'}" style="--tw-h: 75vh; left: 1vw; top: 10.2vh; min-height: 75vh; min-width: 42vh;">
+<div class="z-10" [ngClass]="{'w-[42vh]': screenSize === 'desktop', 'w-[20vh]': screenSize === 'mobile'}" style="--tw-h: 75vh; left: 1vw; top: 10.2vh;">
   <div class="container pl-5 rounded-md h-full">
     <div [ngClass]="moodComponentClasses[moodService.getCurrentMood()]" class="rounded-lg overflow-auto h-full flex flex-col justify-between scrollbar-hidden">
       <div class="flex justify-between items-center mb-2 mt-3">
@@ -10,16 +10,21 @@
         </div>
       </div>
       <div class="mt-7 mx-3 flex-grow overflow-auto scrollbar-hidden">
-        <div *ngFor="let card of getSelectedCardData(); let i = index">
-          <app-song-cards [card]="card" (echoTrackEvent)="handleEchoTrack($event)"></app-song-cards>
-        </div>
+        <ng-container *ngIf="!isLoading; else loading">
+          <div *ngFor="let card of getSelectedCardData(); let i = index">
+            <app-song-cards [card]="card" (echoTrackEvent)="handleEchoTrack($event)"></app-song-cards>
+          </div>
+        </ng-container>
+        <ng-template #loading>
+          <app-skeleton-song-card *ngFor="let _ of skeletonArray"></app-skeleton-song-card>
+        </ng-template>
       </div>
     </div>
   </div>
 </div>
 
 <div *ngIf="isEchoModalVisible" id="echo-songs" tabindex="-1" aria-hidden="true" class="fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full bg-black bg-opacity-50">
-  <div class="relative p-4 w-full max-w-2xl max-h-full" style="min-height: 50vh; min-width: 30vw;">
+  <div class="relative p-4 w-full max-w-2xl max-h-full">
     <!-- Modal content -->
     <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
       <!-- Modal header -->

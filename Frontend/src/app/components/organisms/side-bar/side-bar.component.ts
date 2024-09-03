@@ -9,18 +9,18 @@ import { ProviderService } from "../../../services/provider.service";
 import { MoodService } from "../../../services/mood-service.service";
 import { EchoButtonComponent } from "../../atoms/echo-button/echo-button.component";
 import { YouTubeService } from "../../../services/youtube.service";
-import { SongCardsComponent } from "..//song-cards/song-cards.component";
+import { SongCardsComponent } from "../song-cards/song-cards.component";
 import { SearchService } from "../../../services/search.service";
+import { SkeletonSongCardComponent } from "../../atoms/skeleton-song-card/skeleton-song-card.component";
 
 @Component({
   selector: "app-side-bar",
   standalone: true,
-  imports: [MatCard, MatCardContent, NgForOf, NgIf, NgClass, EchoButtonComponent,SongCardsComponent],
+  imports: [MatCard, MatCardContent, NgForOf, NgIf, NgClass, EchoButtonComponent, SongCardsComponent, SkeletonSongCardComponent],
   templateUrl: "./side-bar.component.html",
   styleUrls: ["./side-bar.component.css"]
 })
-export class SideBarComponent implements OnInit
-{
+export class SideBarComponent implements OnInit {
   // Mood Service Variables
   moodComponentClasses!: { [key: string]: string };
   backgroundMoodClasses!: { [key: string]: string };
@@ -53,11 +53,14 @@ export class SideBarComponent implements OnInit
   selected: string = "Up Next...";
   options = ["Recent Listening...", "Up Next..."];
   isEchoModalVisible: boolean = false;
+  isLoading: boolean = true;
+  skeletonArray = Array(10); 
 
-  toggleDropdown(): void
-  {
+
+  toggleDropdown(): void {
     this.isDropdownVisible = !this.isDropdownVisible;
   }
+
   getButtonClasses(option: string): { [key: string]: boolean } {
     const moodClass = this.underline[this.moodService.getCurrentMood()];
     return {
@@ -65,24 +68,19 @@ export class SideBarComponent implements OnInit
       'border-transparent': this.selectedOption !== option
     };
   }
-  selectedOptionChange(option: string)
-  {
+
+  selectedOptionChange(option: string) {
     this.selected = option;
-    if (this.selected === "Recent Listening...")
-    {
+    if (this.selected === "Recent Listening...") {
       this.selectedOption = "recentListening";
-    }
-    else
-    {
+    } else {
       this.selectedOption = "upNext";
     }
     this.toggleDropdown();
   }
 
-  async ngOnInit()
-  {
-    if (this.providerService.getProviderName() === "spotify")
-    {
+  async ngOnInit() {
+    if (this.providerService.getProviderName() === "spotify") {
       await this.loadUpNextData();
       await this.fetchRecentlyPlayedTracks();
       this.provider = await firstValueFrom(this.authService.getProvider());
@@ -99,34 +97,26 @@ export class SideBarComponent implements OnInit
     });
   }
 
-  async loadUpNextData()
-  {
-    if (this.providerService.getProviderName() === "spotify")
-    {
-      try
-      {
+  async loadUpNextData() {
+    if (this.providerService.getProviderName() === "spotify") {
+      try {
         this.upNextCardData = await this.spotifyService.getQueue(this.provider);
         await this.upNextCardData.unshift(this.getEchoedCardData()[0]);
-      }
-      catch (error)
-      {
+        this.isLoading = false;
+      } catch (error) {
         console.error("Error loading up next data:", error);
       }
     }
   }
 
-  private fetchRecentlyPlayedTracks(): void
-  {
-    if (this.providerService.getProviderName() === "spotify")
-    {
-      this.spotifyService.getRecentlyPlayedTracks(this.provider).then(data =>
-      {
+  private async fetchRecentlyPlayedTracks() {
+    if (this.providerService.getProviderName() === "spotify") {
+      try {
+        const data = await this.spotifyService.getRecentlyPlayedTracks(this.provider);
         console.log("Recently Played Tracks Data:", data);
-        data.items.forEach((item: any) =>
-        {
+        data.items.forEach((item: any) => {
           const trackId = item.track.id;
-          if (!this.recentListeningCardData.find(track => track.id === trackId))
-          {
+          if (!this.recentListeningCardData.find(track => track.id === trackId)) {
             this.recentListeningCardData.push({
               id: trackId,
               imageUrl: item.track.album.images[0].url,
@@ -136,58 +126,29 @@ export class SideBarComponent implements OnInit
             });
           }
         });
-      }).catch(error =>
-      {
+        this.isLoading = false;
+      } catch (error) {
         console.error("Error fetching recently played tracks:", error);
-      });
+      }
     }
   }
 
-  getSelectedCardData(): any[]
-  {
+  getSelectedCardData(): any[] {
     return this.selectedOption === "upNext"
       ? this.upNextCardData
       : this.recentListeningCardData;
   }
 
-  getRecentListeningCardData(): any[]
-  {
+  getRecentListeningCardData(): any[] {
     return this.recentListeningCardData.slice(0, 15);
   }
 
-  getEchoedCardData(): any[]
-  {
+  getEchoedCardData(): any[] {
     return this.recentListeningCardData.slice(0, 1);
   }
 
-  selectOption(option: string)
-  {
+  selectOption(option: string) {
     this.selectedOption = option;
-  }
-
-  async playTrack(trackId: string): Promise<void>
-  {
-    if (this.providerService.getProviderName() === "spotify")
-    {
-      await this.spotifyService.playTrackById(trackId);
-    }
-    else
-    {
-      await this.youtubeService.playTrackById(trackId);
-    }
-  }
-
-  async echoTrack(trackName: string, artistName: string, event: MouseEvent): Promise<void>
-  {
-    event.stopPropagation();
-    this.searchService.echo(trackName, artistName).then(tracks =>
-    {
-      this.echoTracks = tracks;
-      this.isEchoModalVisible = true;
-    }).catch(error =>
-    {
-      console.error("Error echoing track: ", error);
-    });
   }
 
   private truncateText(text: string, maxLength: number): string
@@ -198,10 +159,22 @@ export class SideBarComponent implements OnInit
     }
     return text;
   }
-  closeModal()
-  {
+
+  closeModal() {
     this.isEchoModalVisible = false;
   }
+
+  async echoTrack(trackName: string, artistName: string, event: MouseEvent): Promise<void> {
+    this.isEchoModalVisible = true;
+    event.stopPropagation();
+    try {
+      this.echoTracks = await this.searchService.echo(trackName, artistName);
+      this.isEchoModalVisible = true;
+    } catch (error) {
+      console.error("Error echoing track: ", error);
+    }
+  }
+
   handleEchoTrack(eventData: { trackName: string, artistName: string, event: MouseEvent }) {
     this.echoTrack(eventData.trackName, eventData.artistName, eventData.event);
   }
