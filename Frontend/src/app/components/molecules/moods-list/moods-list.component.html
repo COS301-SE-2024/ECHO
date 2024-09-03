@@ -1,0 +1,5 @@
+<div class="flex flex-col">
+    <div class="flex overflow-x-auto py-y" style="overflow-x: visible; overflow-y: hidden; white-space: nowrap; width: 100%; scroll-behavior: smooth;scrollbar-width: none;">
+        <app-big-rounded-square-card *ngFor="let mood of moods" [mood]="mood" (click)="onMoodClick($event)" style="display: inline-block; margin-right: 10px;"></app-big-rounded-square-card>
+    </div>
+</div>

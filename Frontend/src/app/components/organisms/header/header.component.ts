@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router, NavigationEnd, Event as RouterEvent, ActivatedRoute } from "@angular/router";
 import { filter } from "rxjs/operators";
 
-import {PageHeaderComponent} from "./../../../molecules/page-header/page-header.component";
+import {PageHeaderComponent} from "../../molecules/page-header/page-header.component";
 @Component({
   selector: 'app-header',
   standalone: true,

@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SvgIconComponent } from './svg-icon.component';
-import { ThemeService } from '../../../services/theme.service';
 import { By } from '@angular/platform-browser';
 
 describe('SvgIconComponent', () => {

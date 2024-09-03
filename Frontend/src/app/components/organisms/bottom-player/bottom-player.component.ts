@@ -1,12 +1,12 @@
 import { Component, AfterViewInit, OnDestroy, ViewChild, ElementRef, ChangeDetectorRef } from "@angular/core";
 import { MatCard, MatCardContent } from "@angular/material/card";
 import { NgIf, NgClass } from "@angular/common";
-import { ThemeService } from "../../../services/theme.service";
 import { SpotifyService } from "../../../services/spotify.service";
 import { ScreenSizeService } from "../../../services/screen-size-service.service";
 import { Subscription, interval } from "rxjs";
 import { ProviderService } from "../../../services/provider.service";
 import { MoodService } from "../../../services/mood-service.service";
+import { YouTubeService } from "../../../services/youtube.service";
 
 @Component({
   selector: "app-bottom-player",
@@ -41,12 +41,13 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
   public muted: boolean = false;
 
 
-  constructor(protected themeService: ThemeService,
+  constructor(
               private spotifyService: SpotifyService,
               private screenSizeService: ScreenSizeService,
               private providerService: ProviderService,
               public moodService: MoodService,
-              private cdr: ChangeDetectorRef
+              private cdr: ChangeDetectorRef,
+              private youtubeService: YouTubeService
   ) {
         this.moodComponentClasses = this.moodService.getComponentMoodClasses();
         this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
@@ -88,15 +89,26 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
       this.screenSize = screenSize;
     });
     if (typeof window !== "undefined") {
-      await this.spotifyService.init();
+      if (this.providerService.getProviderName() === "spotify")
+      {
+        await this.spotifyService.init();
+      }
+      else
+      {
+        await this.youtubeService.loadYouTubeAPI();
+      }
     }
   }
 
   ngOnDestroy(): void {
     if (this.providerService.getProviderName() === "spotify") {
       this.spotifyService.disconnectPlayer();
-      this.unsubscribeAll();
     }
+    else
+    {
+      this.youtubeService.disconnectPlayer();
+    }
+    this.unsubscribeAll();
     this.providerService.clear();
   }
 
@@ -114,6 +126,10 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
     if (this.providerService.getProviderName() === "spotify") {
       await this.spotifyService.mute();
     }
+    else
+    {
+      await this.youtubeService.mute();
+    }
   }
 
   async unmute(): Promise<void>
@@ -122,6 +138,10 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
     if (this.providerService.getProviderName() === "spotify")
     {
       await this.spotifyService.unmute();
+    }
+    else
+    {
+      await this.youtubeService.unmute();
     }
   }
 
@@ -139,23 +159,36 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
     const containerWidth = progressContainer.offsetWidth;
     const newProgress = (clickX / containerWidth) * 100;
 
-    // Update the local progress
     this.trackProgress = newProgress;
-    this.cdr.detectChanges(); // Trigger change detection
+    this.cdr.detectChanges();
 
-    // Update the progress in your Spotify service
-    this.spotifyService.seekToPosition(newProgress);
+    if (this.providerService.getProviderName() === "spotify")
+    {
+      this.spotifyService.seekToPosition(newProgress);
+    }
+    else
+    {
+      this.youtubeService.seekTo(newProgress);
+    }
   }
 
   playMusic(): void {
     if (this.providerService.getProviderName() === "spotify") {
       this.spotifyService.play();
     }
+    else
+    {
+      this.youtubeService.play();
+    }
   }
 
   pauseMusic(): void {
     if (this.providerService.getProviderName() === "spotify") {
       this.spotifyService.pause();
+    }
+    else
+    {
+      this.youtubeService.pause();
     }
   }
 
@@ -201,34 +234,23 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  private updatePlayPauseIcon(): void {
+    private updatePlayPauseIcon(): void {
     if (this.playing) {
-      this.imgsrc = this.themeService.isDarkModeActive()
-        ? "../../../assets/images/pause-dark.png"
-        : "../../../assets/images/pause.png";
+      this.imgsrc = "../../../assets/images/pause.png";
     } else {
-      this.imgsrc = this.themeService.isDarkModeActive()
-        ? "../../../assets/images/play-dark.png"
-        : "../../../assets/images/play.png";
+      this.imgsrc = "../../../assets/images/play.png";
     }
   }
 
-
-  playingNowDark(): boolean {
-    return (this.playing && this.themeService.isDarkModeActive());
-  }
-
   playingNow(): boolean {
-    return (this.playing && (!this.themeService.isDarkModeActive()));
+    return this.playing;
   }
 
   pausedNow(): boolean {
-    return ((!this.playing) && (!this.themeService.isDarkModeActive()));
+    return !(this.playing);
   }
 
-  pausedNowDark(): boolean {
-    return ((!this.playing) && (this.themeService.isDarkModeActive()));
-  }
+
 
   formatTime(seconds: number): string {
     const minutes = Math.floor(seconds / 60);

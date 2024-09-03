@@ -1,5 +1,5 @@
-<svg fill-rule="evenodd" clip-rule="evenodd" (click)="onClick()" width="5vw"  viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle [ngClass]="circleColor()"  *ngIf="selected" cx="50" cy="50" r="45"  />
+<svg fill-rule="evenodd" clip-rule="evenodd" (click)="onClick()" width="10vh"  viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle [ngClass]="circleColor()"  *ngIf="selected" cx="50" cy="50" r="40"/>
     <path  [attr.d]="svgPath" [attr.fill]="selected ? middleColor : fillColor" transform="translate(25, 25)"/>
 </svg>
 

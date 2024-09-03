@@ -132,7 +132,7 @@ export class SpotifyService
   }
 
   // Initialize the Spotify Web Playback player
-  public initializePlayer(providerToken: string): void
+  public async initializePlayer(providerToken: string): Promise<void>
   {
     this.player = new Spotify.Player({
       name: "ECHO",
@@ -163,6 +163,7 @@ export class SpotifyService
     });
 
     this.player.connect();
+    await this.authService.setReady();
   }
 
   // Method to get the progress of the currently playing track

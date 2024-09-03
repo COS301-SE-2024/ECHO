@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NavbarComponent } from '../../components/organisms/navbar/navbar.component';
 import { NgForOf, NgIf, NgClass } from '@angular/common';
 import { SideBarComponent } from '../../components/organisms/side-bar/side-bar.component';
-import { ThemeService } from '../../services/theme.service';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { MatCard, MatCardContent } from '@angular/material/card';
@@ -60,7 +59,6 @@ export class ArtistProfileComponent implements AfterViewInit {
     username: string = '';
 
     constructor(
-        protected themeService: ThemeService,
         private authService: AuthService,
         private router: Router,
         protected dialog: MatDialog,
@@ -86,9 +84,6 @@ export class ArtistProfileComponent implements AfterViewInit {
       if (typeof window !== 'undefined') {
         await this.spotifyService.init();
       }
-    }
-    switchTheme() {
-        this.themeService.switchTheme();
     }
 
     onNavChange($event: string) {}

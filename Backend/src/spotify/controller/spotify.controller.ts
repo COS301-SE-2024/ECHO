@@ -64,7 +64,7 @@ export class SpotifyController
 	{
 		if (!body.trackId || !body.deviceId || !body.accessToken || !body.refreshToken)
 		{
-
+			throw new UnauthorizedException("Track ID, device ID, access token, or refresh token is missing while attempting to play a song from Spotify.");
 		}
 		const { trackId, deviceId, accessToken, refreshToken } = body;
 		return await this.spotifyService.playTrackById(trackId, deviceId, accessToken, refreshToken);

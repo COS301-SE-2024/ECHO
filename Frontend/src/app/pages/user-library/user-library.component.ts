@@ -3,7 +3,6 @@ import { BottomPlayerComponent } from '../../components/organisms/bottom-player/
 import { NavbarComponent } from '../../components/organisms/navbar/navbar.component';
 import { NgClass, NgForOf, NgIf } from '@angular/common';
 import { SearchBarComponent } from '../../components/molecules/search-bar/search-bar.component';
-import { ThemeService } from './../../services/theme.service';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { SpotifyService } from "../../services/spotify.service";
@@ -32,7 +31,6 @@ export class UserLibraryComponent implements OnInit {
   currentSelection: string = 'All';
   
   constructor(
-      protected themeService: ThemeService,
       private authService: AuthService,
       private router: Router,
       private spotifyService: SpotifyService,
@@ -113,9 +111,6 @@ recentListeningCardData = [
     },
 ];
   
-switchTheme(): void {
-    this.themeService.switchTheme();
-}
 
 onNavChange(newNav: string) {
     this.title = newNav;

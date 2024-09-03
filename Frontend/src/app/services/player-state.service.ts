@@ -11,4 +11,19 @@ export class PlayerStateService {
   setCurrentTrack(track: any) {
     this.currentTrackSource.next(track);
   }
+
+  public isReady(): boolean {
+    if (typeof localStorage === 'undefined') {
+      return false;
+    }
+    return localStorage.getItem('readyToPlay') === 'true';
+  }
+
+  public setReady() {
+    if (typeof localStorage === 'undefined') {
+      return;
+    }
+    localStorage.setItem('readyToPlay', 'true');
+  }
 }
+

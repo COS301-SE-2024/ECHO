@@ -15,7 +15,7 @@ import { ChangeDetectorRef } from '@angular/core';
 export class ProfileAtomicComponent implements AfterViewInit {
   username!: string;
   imgpath: string = "assets/images/back.jpg";
-  
+
   constructor(
     private authService: AuthService,
     private providerService: ProviderService,
@@ -23,9 +23,12 @@ export class ProfileAtomicComponent implements AfterViewInit {
     private cdr: ChangeDetectorRef // Inject ChangeDetectorRef
   ) {}
 
-  ngAfterViewInit(): void {
-    if (this.providerService.getProviderName() === "spotify") {
-      this.authService.currentUser().subscribe((res) => {
+  async ngAfterViewInit(): Promise<void>
+  {
+    if (this.providerService.getProviderName() === "spotify")
+    {
+      (await this.authService.currentUser()).subscribe((res) =>
+      {
         this.imgpath = res.user.user_metadata.picture;
       });
     }

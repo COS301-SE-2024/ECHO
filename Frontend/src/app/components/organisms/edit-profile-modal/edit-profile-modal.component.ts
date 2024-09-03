@@ -8,7 +8,6 @@ import {
   MatDialogModule,
   MatDialogTitle
 } from "@angular/material/dialog";
-import { ThemeService } from "../../../services/theme.service";
 import { MatDialogRef } from "@angular/material/dialog";
 import { MatButton } from "@angular/material/button";
 import { MatInput } from "@angular/material/input";
@@ -38,7 +37,6 @@ export class EditProfileModalComponent implements OnInit, AfterViewInit {
 
   constructor(
     public dialogRef: MatDialogRef<EditProfileModalComponent>,
-    protected themeService: ThemeService,
     private authService: AuthService
   ) {
   }

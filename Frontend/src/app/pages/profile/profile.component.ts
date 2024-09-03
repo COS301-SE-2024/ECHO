@@ -1,6 +1,5 @@
 import { AfterViewInit, Component } from "@angular/core";
 import { CommonModule, NgClass, NgForOf, NgIf } from "@angular/common";
-import { ThemeService } from "../../services/theme.service";
 import { AuthService } from "../../services/auth.service";
 import { Router } from "@angular/router";
 import { MatCard, MatCardContent } from "@angular/material/card";
@@ -53,7 +52,6 @@ export class ProfileComponent implements AfterViewInit
   username: string = "";
 
   constructor(
-    protected themeService: ThemeService,
     private authService: AuthService,
     private router: Router,
     protected dialog: MatDialog,
@@ -88,11 +86,6 @@ export class ProfileComponent implements AfterViewInit
     {
       this.screenSize = screenSize;
     });
-  }
-
-  switchTheme()
-  {
-    this.themeService.switchTheme();
   }
 
   onNavChange($event: string)
