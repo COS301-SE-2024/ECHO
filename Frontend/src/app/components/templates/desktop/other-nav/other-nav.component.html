@@ -1,6 +1,6 @@
 <div class="relative flex items-center">
   <app-info-icon></app-info-icon>
-  <app-profile-atomic (click)="toggleDropdown()" id="dropdownInformationButton" class="h-20 w-20 cursor-pointer"></app-profile-atomic>
+  <app-profile-atomic (click)="toggleDropdown()" id="dropdownInformationButton" class="cursor-pointer"></app-profile-atomic>
 </div>
 
 <div
@@ -13,13 +13,13 @@
   </div>
   <ul class="py-2 text-sm text-white" aria-labelledby="dropdownInformationButton">
     <li>
-      <a href="/profile" class="block px-4 py-2 hover:bg-gray-100 hover:text-gray-component">Profile</a>
+      <a routerLink="/profile" class="block px-4 py-2 hover:bg-gray-100 hover:text-gray-component">Profile</a>
     </li>
     <li>
-      <a href="/settings" class="block px-4 py-2 hover:bg-gray-100 hover:text-gray-component">Settings</a>
+      <a routerLink="/settings" class="block px-4 py-2 hover:bg-gray-100 hover:text-gray-component">Settings</a>
     </li>
   </ul>
   <div class="py-2">
-    <a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-100 hover:text-gray-component">Sign out</a>
+    <a (click)="signOut()" class="block px-4 py-2 text-sm text-white hover:bg-gray-100 hover:text-gray-component">Sign out</a>
   </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, AfterViewInit } from '@angular/core';
 import { NavbarComponent } from './../../../organisms/navbar/navbar.component';
 import { InfoIconComponent } from './../../../organisms/info-icon/info-icon.component';
 import { ProfileAtomicComponent } from './../../../organisms/profile/profile.component';
@@ -7,6 +7,7 @@ import { SpotifyService } from '../../../../services/spotify.service';
 import { ProviderService } from '../../../../services/provider.service';
 import { AuthService } from '../../../../services/auth.service';
 import { CommonModule } from '@angular/common';
+import { RouterModule, Router } from '@angular/router';
 
 @Component({
   selector: 'app-other-nav',
@@ -16,13 +17,13 @@ import { CommonModule } from '@angular/common';
     InfoIconComponent,
     ProfileAtomicComponent,
     MoodDropDownComponent,
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
   templateUrl: './other-nav.component.html',
-  styleUrl: './other-nav.component.css'
+  styleUrls: ['./other-nav.component.css']
 })
-
-export class OtherNavComponent {
+export class OtherNavComponent implements AfterViewInit {
   username: string = "";
   isDropdownOpen = false;
 
@@ -30,21 +31,16 @@ export class OtherNavComponent {
     private authService: AuthService,
     private spotifyService: SpotifyService,
     private providerService: ProviderService,
-  )
-  {
-  }
+    private router: Router
+  ) {}
 
-  ngAfterViewInit(): void
-  {
-    if (this.providerService.getProviderName() === "spotify")
-    {
-      let currUser = this.authService.currentUser().subscribe((res) =>
-      {
+  ngAfterViewInit(): void {
+    if (this.providerService.getProviderName() === "spotify") {
+      this.authService.currentUser().subscribe((res) => {
         this.username = res.user.user_metadata.name;
       });
     }
   }
-
 
   toggleDropdown(): void {
     console.log('Profile picture clicked. Toggling dropdown...');
@@ -60,5 +56,16 @@ export class OtherNavComponent {
     if (dropdownButton && !dropdownButton.contains(targetElement)) {
       this.isDropdownOpen = false;
     }
+  }
+
+  signOut(): void {
+    this.authService.signOut().subscribe({
+      next: () => {
+        this.router.navigate(['/login']);
+      },
+      error: (error) => {
+        console.error('Error signing out:', error);
+      }
+    });
   }
 }
