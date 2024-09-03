@@ -19,6 +19,8 @@ describe('SpotifyController', () => {
     getTopArtists:            jest.fn(),
     getTrackAnalysis:         jest.fn(),
     getTopTracks:             jest.fn(),
+    getTrackDetailsByName:    jest.fn(),
+    addToQueue:               jest.fn(),
   };
 
   beforeEach(async () => {
@@ -141,6 +143,62 @@ describe('SpotifyController', () => {
       const body = { trackID: 'testTrackID', accessToken: 'testAccessToken', refreshToken: 'testRefreshToken' };
       await controller.getTrackDetails(body);
       expect(service.getTrackDetails).toHaveBeenCalledWith(body.trackID, body.accessToken, body.refreshToken);
+    });
+  });
+
+  describe('addToQueue', () => {
+    it('should call addToQueue', async () => {
+      const body = { 
+        uri: 'das',
+		    device_id: 'fuggin',
+		    accessToken: 'bo',
+		    refreshToken: 'shitt'
+      };
+      mockSpotifyService.addToQueue.mockReturnValue('dolphins');
+      await controller.addToQueue(body);
+      expect(service.addToQueue).toHaveBeenCalledWith(body.uri, body.device_id, body.accessToken, body.refreshToken);
+    });
+
+    it('should throw an error', async () => {
+      const body = { 
+        uri: '',
+		    device_id: 'fuggin',
+		    accessToken: 'bo',
+		    refreshToken: 'shitt'
+      };
+      await expect(controller.addToQueue(body)).resolves.toEqual(
+        {
+          status: "error",
+          error: "Artist, song name, access token or refresh token is missing while attempting to retrieve suggested songs from the ECHO API."
+        }
+      )
+      expect(service.addToQueue).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('getTrackDetailsByName', () => {
+    it('should call getTrackDetailsByName method of SpotifyService with correct parameters', async () => {
+      const body = { 
+        artistName: 'ThatcherJoe', 
+        trackName: 'JoeSugg', 
+        accessToken: 'testAccessToken', 
+        refreshToken: 'testRefreshToken' 
+      };
+      mockSpotifyService.getTrackDetailsByName.mockReturnValue('dolphins');
+      await controller.getTrackDetailsByName(body);
+      expect(service.getTrackDetailsByName).toHaveBeenCalledWith(body.artistName, body.trackName, body.accessToken, body.refreshToken);
+    });
+
+    it('should throw an error', async () => {
+      const body = { 
+        artistName: '', 
+        trackName: 'JoeSugg', 
+        accessToken: 'testAccessToken', 
+        refreshToken: 'testRefreshToken' 
+      };
+      await expect(controller.getTrackDetailsByName(body)).rejects.toThrow(new UnauthorizedException(
+				"Artist name, track name, access token, or refresh token is missing while attempting to retrieve track details from Spotify."));
+      expect(service.getTrackDetailsByName).not.toHaveBeenCalled();
     });
   });
 
