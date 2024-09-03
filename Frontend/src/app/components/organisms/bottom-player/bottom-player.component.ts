@@ -187,7 +187,7 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy
     }
     else
     {
-      this.youtubeService.seekTo(newProgress);
+      this.youtubeService.seekToPosition(newProgress);
     }
   }
 
@@ -244,6 +244,33 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy
         }
       }
     }
+    else
+    {
+      if (!this.started && !this.playing)
+      {
+        this.youtubeService.playTrackById("5mVfq3wn79JVdHQ7ZuLSCB");
+        this.started = true;
+        this.playing = true;
+        this.updatePlayPauseIcon();
+      }
+      else
+      {
+        if (this.playing)
+        {
+          if (!this.started)
+            this.started = true;
+          this.pauseMusic();
+          this.playing = false;
+          this.updatePlayPauseIcon();
+        }
+        else
+        {
+          this.playMusic();
+          this.playing = true;
+          this.updatePlayPauseIcon();
+        }
+      }
+    }
   }
 
   playNext()
@@ -252,6 +279,10 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy
     {
       this.spotifyService.playNextTrack();
     }
+    else
+    {
+      this.youtubeService.nextTrack();
+    }
   }
 
   playPrevious()
@@ -259,6 +290,10 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy
     if (this.providerService.getProviderName() === "spotify")
     {
       this.spotifyService.playPreviousTrack();
+    }
+    else
+    {
+      this.youtubeService.previousTrack();
     }
   }
 

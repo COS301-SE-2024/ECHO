@@ -87,6 +87,12 @@ export class SideBarComponent implements OnInit
       await this.fetchRecentlyPlayedTracks();
       this.provider = await firstValueFrom(this.authService.getProvider());
     }
+    else
+    {
+      await this.loadUpNextData();
+      await this.fetchRecentlyPlayedTracks();
+      this.provider = "youtube";
+    }
     this.screenSizeService.screenSize$.subscribe(screenSize =>
     {
       this.screenSize = screenSize;
