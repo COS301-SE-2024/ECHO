@@ -13,6 +13,8 @@ declare namespace YT {
     unMute(): void;
     seekTo(seconds: number, b: boolean): void;
     stopVideo(): void;
+    nextVideo(): void;
+    previousVideo(): void;
   }
 
   interface PlayerEvent {
