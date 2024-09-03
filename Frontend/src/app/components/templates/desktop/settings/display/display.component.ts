@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { ThemeService } from '../../../../services/theme.service';
 import { NgIf, NgClass } from '@angular/common';
-import { MoodDropDownComponent } from '../../../organisms/mood-drop-down/mood-drop-down.component';
-import { MoodService } from '../../../../services/mood-service.service';
+import { MoodDropDownComponent } from '../../../../organisms/mood-drop-down/mood-drop-down.component';
+import { MoodService } from '../../../../../services/mood-service.service';
 
 @Component({
   selector: 'app-display',
@@ -17,15 +16,10 @@ export class DisplayComponent {
   backgroundMoodClasses!:{ [key: string]: string };
 
   constructor(
-    protected themeService: ThemeService,
     public moodService: MoodService,
   ) {
     this.currentMood = this.moodService.getCurrentMood(); 
     this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
     this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
-  }
-
-  switchTheme(): void {
-    this.themeService.switchTheme();
   }
 }

@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AppleLoginComponent } from './apple-login.component';
-import { ProviderService } from '../../services/provider.service';
-import { AuthService } from '../../services/auth.service';
+import { ProviderService } from '../../../services/provider.service';
+import { AuthService } from '../../../services/auth.service';
 
 describe('AppleLoginComponent', () => {
   let component: AppleLoginComponent;

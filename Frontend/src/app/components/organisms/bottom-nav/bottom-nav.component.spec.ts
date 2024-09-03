@@ -1,5 +1,5 @@
 import { BottomNavComponent } from './bottom-nav.component';
-import { MoodService } from "./../../services/mood-service.service";
+import { MoodService } from "./../../../services/mood-service.service";
 import { Router } from '@angular/router';
 
 describe('BottomNavComponent', () => {

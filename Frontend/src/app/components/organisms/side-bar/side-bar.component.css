@@ -13,13 +13,6 @@
   transition: background-color 0.3s ease;
 }
 
-.underline-blue::after {
-  background-color: #ff69b4; /* Replace with a valid CSS color value */
-}
-
-.underline-none::after {
-  background-color: transparent;
-}
 
 .button {
   padding-left: 1.25rem;
