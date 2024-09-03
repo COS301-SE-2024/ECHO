@@ -21,6 +21,10 @@ describe('SpotifyController', () => {
     getTopTracks:             jest.fn(),
     getTrackDetailsByName:    jest.fn(),
     addToQueue:               jest.fn(),
+    seekToPosition:           jest.fn(),
+    getTrackDuration:         jest.fn(),
+    playPreviousTrack:        jest.fn(),
+    playNextTrack:            jest.fn(),
   };
 
   beforeEach(async () => {
@@ -104,6 +108,14 @@ describe('SpotifyController', () => {
       await controller.getQueue(body);
       expect(service.getQueue).toHaveBeenCalledWith(body.artist, body.song_name, body.accessToken, body.refreshToken);
     });
+    it('should return an error', async () => {
+      const body = { artist: '', song_name: 'testSong', accessToken: 'testAccessToken', refreshToken: 'testRefreshToken' };
+      await expect(controller.getQueue(body)).resolves.toEqual({
+				status: "error",
+				error: "Artist, song name, access token or refresh token is missing while attempting to retrieve suggested songs from the ECHO API."
+			});
+      expect(service.getQueue).not.toHaveBeenCalled();
+    });
   });
 
   describe('playTrackById', () => {
@@ -120,6 +132,11 @@ describe('SpotifyController', () => {
       await controller.pause(body);
       expect(service.pause).toHaveBeenCalledWith(body.accessToken, body.refreshToken);
     });
+    it('should reject and throw an error', async () => {
+      const body = { accessToken: '', refreshToken: 'testRefreshToken' };
+      await expect(controller.pause(body)).rejects.toThrow(new UnauthorizedException("Access token or refresh token is missing while attempting to pause the currently playing song from Spotify."));
+      expect(service.pause).not.toHaveBeenCalled();
+    });
   });
 
   describe('play', () => {
@@ -127,6 +144,12 @@ describe('SpotifyController', () => {
       const body = { accessToken: 'testAccessToken', refreshToken: 'testRefreshToken' };
       await controller.play(body);
       expect(service.play).toHaveBeenCalledWith(body.accessToken, body.refreshToken);
+    });
+
+    it('should reject and throw an error', async () => {
+      const body = { accessToken: '', refreshToken: 'testRefreshToken' };
+      await expect(controller.play(body)).rejects.toThrow(new UnauthorizedException("Access token or refresh token is missing while attempting to resume the currently paused song from Spotify."));
+      expect(service.play).not.toHaveBeenCalled();
     });
   });
 
@@ -136,6 +159,12 @@ describe('SpotifyController', () => {
       await controller.setVolume(body);
       expect(service.setVolume).toHaveBeenCalledWith(body.volume, body.accessToken, body.refreshToken);
     });
+
+    it('should reject and throw an error', async () => {
+      const body = { volume: null, accessToken: 'testAccessToken', refreshToken: 'testRefreshToken' };
+      await expect(controller.setVolume(body)).rejects.toThrow(new UnauthorizedException("Volume, access token, or refresh token is missing while attempting to set the volume of a device from Spotify."));
+      expect(service.setVolume).not.toHaveBeenCalledWith(body.volume, body.accessToken, body.refreshToken);
+    });
   });
 
   describe('getTrackDetails', () => {
@@ -143,6 +172,83 @@ describe('SpotifyController', () => {
       const body = { trackID: 'testTrackID', accessToken: 'testAccessToken', refreshToken: 'testRefreshToken' };
       await controller.getTrackDetails(body);
       expect(service.getTrackDetails).toHaveBeenCalledWith(body.trackID, body.accessToken, body.refreshToken);
+    });
+
+    it('should reject and throw an error', async () => {
+      const body = { trackID: '', accessToken: 'testAccessToken', refreshToken: 'testRefreshToken' };
+      await expect(controller.getTrackDetails(body)).rejects.toThrow(new UnauthorizedException("Track ID, access token, or refresh token is missing while attempting to retrieve the details of a track from Spotify."));
+      expect(service.getTrackDetails).not.toHaveBeenCalledWith(body.trackID, body.accessToken, body.refreshToken);
+    });
+  });
+
+  describe('playNextTrack', () => {
+    it('should call playNextTrack', async () => {
+      const body = { 
+        accessToken: 'string', refreshToken: 'string', deviceId: 'string'
+      };
+      mockSpotifyService.playNextTrack.mockReturnValue('dolphins');
+      await controller.playNextTrack(body);
+      expect(service.playNextTrack).toHaveBeenCalled();
+    });
+
+    it('should throw an error', async () => {
+      const body = { 
+        accessToken: '', refreshToken: 'string', deviceId: 'string'
+      };
+      await expect(controller.playNextTrack(body)).rejects.toThrow(
+        new UnauthorizedException("Access token, refresh token, or device ID is missing while attempting to play the next song from Spotify.")
+      )
+      expect(service.playNextTrack).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('playPreviousTrack', () => {
+    it('should call playPreviousTrack', async () => {
+      const body = { 
+        accessToken: 'string', refreshToken: 'string', deviceId: 'string'
+      };
+      mockSpotifyService.playPreviousTrack.mockReturnValue('dolphins');
+      await controller.playPreviousTrack(body);
+      expect(service.playPreviousTrack).toHaveBeenCalled();
+    });
+
+    it('should throw an error', async () => {
+      const body = { 
+        accessToken: '', refreshToken: 'string', deviceId: 'string'
+      };
+      await expect(controller.playPreviousTrack(body)).rejects.toThrow(
+        new UnauthorizedException("Access token, refresh token, or device ID is missing while attempting to play the next song from Spotify.")
+      )
+      expect(service.playPreviousTrack).not.toHaveBeenCalled();
+    });
+  });
+
+  //technically an integration test since we are using multiple functions in one call
+  describe('seekToPosition', () => {
+    mockSpotifyService.seekToPosition.mockReturnValue('seekPos');
+    mockSpotifyService.getTrackDuration.mockReturnValue(20);
+    it('should call seekToPosition Successfully', async () => {
+      const body = {
+        deviceId: 'string',
+		    progress: 6,
+		    accessToken: 'string',
+		    refreshToken: 'string'
+      };
+      await expect(controller.seekToPosition(body)).resolves.toEqual('seekPos');
+      expect(service.seekToPosition).toHaveBeenCalled();
+    });
+
+    it('should throw an error', async () => {
+      const body = {
+        deviceId: '',
+		    progress: 6,
+		    accessToken: 'string',
+		    refreshToken: 'string'
+      };
+      mockSpotifyService.seekToPosition.mockReturnValue('seekPos');
+
+      await expect(controller.seekToPosition(body)).rejects.toThrow(new UnauthorizedException("Access token, refresh token, or device ID is missing while attempting to seek to a position with Spotify."));
+      expect(service.seekToPosition).not.toHaveBeenCalled();
     });
   });
 
