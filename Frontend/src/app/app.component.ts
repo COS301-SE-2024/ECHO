@@ -10,6 +10,7 @@ import { SideBarComponent } from "./components/organisms/side-bar/side-bar.compo
 import { ProviderService } from "./services/provider.service";
 import { PageHeaderComponent } from "./components/molecules/page-header/page-header.component";
 import { MoodService } from "./services/mood-service.service";
+import { BackgroundAnimationComponent } from "./components/organisms/background-animation/background-animation.component";
 
 //template imports
 import { HeaderComponent } from "./components/organisms/header/header.component";
@@ -17,7 +18,7 @@ import { OtherNavComponent } from "./components/templates/desktop/other-nav/othe
 import { LeftComponent } from "./components/templates/desktop/left/left.component";
 import { AuthService } from "./services/auth.service";
 import { PlayerStateService } from "./services/player-state.service";
-
+  
 @Component({
   selector: "app-root",
   standalone: true,
@@ -29,7 +30,8 @@ import { PlayerStateService } from "./services/player-state.service";
     PageHeaderComponent,
     HeaderComponent,
     OtherNavComponent,
-    LeftComponent
+    LeftComponent,
+    BackgroundAnimationComponent
   ],
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"]

@@ -15,6 +15,7 @@ import { InsightsComponent } from "./pages/insights/insights.component";
 import { HelpMenuComponent } from "./pages/help-menu/help-menu.component";
 import { LoginComponentview} from "./views/login/login.component";
 
+
 export const routes: Routes = [
   { path: "landing", component: LandingPageComponent },
   { path: "login", component: LoginComponent },
@@ -31,7 +32,7 @@ export const routes: Routes = [
   { path: "search", component: SearchComponent},
   { path: "newlogin", component: LoginComponentview},
   { path: "library", component: UserLibraryComponent},
-  { path: "search", component: SearchComponent}
+  { path: "search", component: SearchComponent},
 ];
 
 @NgModule({
