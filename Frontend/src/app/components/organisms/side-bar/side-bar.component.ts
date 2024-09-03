@@ -42,7 +42,7 @@ export class SideBarComponent implements OnInit
   }
 
   title: string = "Home";
-  selectedOption: string = "upNext";
+  selectedOption: string = "recentListening";
 
   upNextCardData: any[] = [];
   recentListeningCardData: any[] = [];
@@ -198,9 +198,11 @@ export class SideBarComponent implements OnInit
     }
     return text;
   }
-
   closeModal()
   {
     this.isEchoModalVisible = false;
+  }
+  handleEchoTrack(eventData: { trackName: string, artistName: string, event: MouseEvent }) {
+    this.echoTrack(eventData.trackName, eventData.artistName, eventData.event);
   }
 }

@@ -1,7 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input,EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProviderService } from "../../../services/provider.service";
-import { SearchService } from "../../../services/search.service";
 import { SpotifyService } from "../../../services/spotify.service";
 
 @Component({
@@ -13,14 +12,19 @@ import { SpotifyService } from "../../../services/spotify.service";
 })
 export class SongCardsComponent {
   @Input() card: any;
+  @Output() echoTrackEvent = new EventEmitter<{ trackName: string, artistName: string, event: MouseEvent }>();
+
   echoTracks: any[] = [];
   isEchoModalVisible: boolean = false;
 
 constructor(
-  private providerService: ProviderService , 
-  private searchService: SearchService  ,
-  private spotifyService: SpotifyService
-) {}
+  private providerService: ProviderService ,
+  private spotifyService: SpotifyService) {}
+
+  onEchoButtonClick(event: MouseEvent) {
+    event.stopPropagation();
+    this.echoTrackEvent.emit({ trackName: this.card.text, artistName: this.card.secondaryText, event });
+  }
   async playTrack(trackId: string): Promise<void>
   {
     if (this.providerService.getProviderName() === "spotify")
@@ -29,16 +33,5 @@ constructor(
     }
   }
 
-  async echoTrack(trackName: string, artistName: string, event: MouseEvent): Promise<void>
-  {
-    event.stopPropagation();
-    this.searchService.echo(trackName, artistName).then(tracks =>
-    {
-      this.echoTracks = tracks;
-      this.isEchoModalVisible = true;
-    }).catch(error =>
-    {
-      console.error("Error echoing track: ", error);
-    });
-  }
+
 }
