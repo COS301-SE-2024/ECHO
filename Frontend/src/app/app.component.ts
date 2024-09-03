@@ -25,7 +25,6 @@ import { PlayerStateService } from "./services/player-state.service";
     RouterOutlet,
     BottomPlayerComponent,
     CommonModule,
-    SideBarComponent,
     BottomNavComponent,
     PageHeaderComponent,
     HeaderComponent,

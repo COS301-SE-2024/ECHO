@@ -10,6 +10,7 @@ import { MoodService } from "../../../services/mood-service.service";
 import { EchoButtonComponent } from "../../atoms/echo-button/echo-button.component";
 import { YouTubeService } from "../../../services/youtube.service";
 import { SongCardsComponent } from "..//song-cards/song-cards.component";
+import { SearchService } from "../../../services/search.service";
 
 @Component({
   selector: "app-side-bar",
