@@ -192,4 +192,10 @@ export class YouTubeService
   {
     this.player.destroy();
   }
+
+  adjustVolume(newVolume: number)
+  {
+    this.player.setVolume(newVolume);
+  }
+
 }

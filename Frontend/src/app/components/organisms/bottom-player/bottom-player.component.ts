@@ -15,7 +15,8 @@ import { YouTubeService } from "../../../services/youtube.service";
   templateUrl: "./bottom-player.component.html",
   styleUrls: ["./bottom-player.component.css"]
 })
-export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
+export class BottomPlayerComponent implements AfterViewInit, OnDestroy
+{
   @ViewChild("progressContainer") private progressContainer!: ElementRef;
   protected imgsrc: string = "../../../assets/images/play.png";
   playing: boolean = false;
@@ -42,23 +43,28 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
 
 
   constructor(
-              private spotifyService: SpotifyService,
-              private screenSizeService: ScreenSizeService,
-              private providerService: ProviderService,
-              public moodService: MoodService,
-              private cdr: ChangeDetectorRef,
-              private youtubeService: YouTubeService
-  ) {
-        this.moodComponentClasses = this.moodService.getComponentMoodClasses();
-        this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
-        this.moodClassesDark = this.moodService.getComponentMoodClassesDark();
+    private spotifyService: SpotifyService,
+    private screenSizeService: ScreenSizeService,
+    private providerService: ProviderService,
+    public moodService: MoodService,
+    private cdr: ChangeDetectorRef,
+    private youtubeService: YouTubeService
+  )
+  {
+    this.moodComponentClasses = this.moodService.getComponentMoodClasses();
+    this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
+    this.moodClassesDark = this.moodService.getComponentMoodClassesDark();
   }
 
 
-  ngAfterViewInit(): void {
-    if (this.providerService.getProviderName() === "spotify") {
-      this.trackSubscription = this.spotifyService.currentlyPlayingTrack$.subscribe(track => {
-        if (track) {
+  ngAfterViewInit(): void
+  {
+    if (this.providerService.getProviderName() === "spotify")
+    {
+      this.trackSubscription = this.spotifyService.currentlyPlayingTrack$.subscribe(track =>
+      {
+        if (track)
+        {
           this.currentTrack = {
             name: track.name,
             artist: track.artists.map((artist: any) => artist.name).join(", "),
@@ -69,26 +75,32 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
         }
       });
 
-      this.playingStateSubscription = this.spotifyService.playingState$.subscribe(isPlaying => {
+      this.playingStateSubscription = this.spotifyService.playingState$.subscribe(isPlaying =>
+      {
         this.playing = isPlaying;
         this.updatePlayPauseIcon();
       });
 
-      this.progressSubscription = this.spotifyService.playbackProgress$.subscribe(progress => {
+      this.progressSubscription = this.spotifyService.playbackProgress$.subscribe(progress =>
+      {
         this.trackProgress = progress;
       });
 
-      this.progressUpdateSubscription = interval(1000).subscribe(() => {
+      this.progressUpdateSubscription = interval(1000).subscribe(() =>
+      {
         this.spotifyService.getCurrentPlaybackState();
       });
     }
   }
 
-  async ngOnInit() {
-    this.screenSizeService.screenSize$.subscribe(screenSize => {
+  async ngOnInit()
+  {
+    this.screenSizeService.screenSize$.subscribe(screenSize =>
+    {
       this.screenSize = screenSize;
     });
-    if (typeof window !== "undefined") {
+    if (typeof window !== "undefined")
+    {
       if (this.providerService.getProviderName() === "spotify")
       {
         await this.spotifyService.init();
@@ -100,8 +112,10 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  ngOnDestroy(): void {
-    if (this.providerService.getProviderName() === "spotify") {
+  ngOnDestroy(): void
+  {
+    if (this.providerService.getProviderName() === "spotify")
+    {
       this.spotifyService.disconnectPlayer();
     }
     else
@@ -112,18 +126,23 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
     this.providerService.clear();
   }
 
-  private unsubscribeAll(): void {
+  private unsubscribeAll(): void
+  {
     [this.trackSubscription, this.playingStateSubscription,
-      this.progressSubscription, this.progressUpdateSubscription].forEach(sub => {
-      if (sub) {
+      this.progressSubscription, this.progressUpdateSubscription].forEach(sub =>
+    {
+      if (sub)
+      {
         sub.unsubscribe();
       }
     });
   }
 
-  async mute(): Promise<void> {
+  async mute(): Promise<void>
+  {
     this.muted = !this.muted;
-    if (this.providerService.getProviderName() === "spotify") {
+    if (this.providerService.getProviderName() === "spotify")
+    {
       await this.spotifyService.mute();
     }
     else
@@ -172,8 +191,10 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  playMusic(): void {
-    if (this.providerService.getProviderName() === "spotify") {
+  playMusic(): void
+  {
+    if (this.providerService.getProviderName() === "spotify")
+    {
       this.spotifyService.play();
     }
     else
@@ -182,8 +203,10 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  pauseMusic(): void {
-    if (this.providerService.getProviderName() === "spotify") {
+  pauseMusic(): void
+  {
+    if (this.providerService.getProviderName() === "spotify")
+    {
       this.spotifyService.pause();
     }
     else
@@ -192,21 +215,29 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  play() {
-    if (this.providerService.getProviderName() === "spotify") {
-      if (!this.started && !this.playing) {
+  play()
+  {
+    if (this.providerService.getProviderName() === "spotify")
+    {
+      if (!this.started && !this.playing)
+      {
         this.spotifyService.playTrackById("5mVfq3wn79JVdHQ7ZuLSCB");
         this.started = true;
         this.playing = true;
         this.updatePlayPauseIcon();
-      } else {
-        if (this.playing) {
+      }
+      else
+      {
+        if (this.playing)
+        {
           if (!this.started)
             this.started = true;
           this.pauseMusic();
           this.playing = false;
           this.updatePlayPauseIcon();
-        } else {
+        }
+        else
+        {
           this.playMusic();
           this.playing = true;
           this.updatePlayPauseIcon();
@@ -215,44 +246,61 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  playNext() {
-    if (this.providerService.getProviderName() === "spotify") {
+  playNext()
+  {
+    if (this.providerService.getProviderName() === "spotify")
+    {
       this.spotifyService.playNextTrack();
     }
   }
 
-  playPrevious() {
-    if (this.providerService.getProviderName() === "spotify") {
+  playPrevious()
+  {
+    if (this.providerService.getProviderName() === "spotify")
+    {
       this.spotifyService.playPreviousTrack();
     }
   }
 
-  onVolumeChange(event: any): void {
-    if (this.providerService.getProviderName() === "spotify") {
+  onVolumeChange(event: any): void
+  {
+    if (this.providerService.getProviderName() === "spotify")
+    {
       const volume = event.target.value / 100;
       this.spotifyService.setVolume(volume);
     }
+    else
+    {
+      const volume = event.target.value;
+      this.youtubeService.adjustVolume(volume);
+    }
   }
 
-    private updatePlayPauseIcon(): void {
-    if (this.playing) {
+  private updatePlayPauseIcon(): void
+  {
+    if (this.playing)
+    {
       this.imgsrc = "../../../assets/images/pause.png";
-    } else {
+    }
+    else
+    {
       this.imgsrc = "../../../assets/images/play.png";
     }
   }
 
-  playingNow(): boolean {
+  playingNow(): boolean
+  {
     return this.playing;
   }
 
-  pausedNow(): boolean {
+  pausedNow(): boolean
+  {
     return !(this.playing);
   }
 
 
-
-  formatTime(seconds: number): string {
+  formatTime(seconds: number): string
+  {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = Math.floor(seconds % 60);
     return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
