@@ -59,8 +59,6 @@ export class AppComponent implements OnInit {
     private playerStateService: PlayerStateService,
     @Inject(PLATFORM_ID) private platformId: Object,
   ) {
-    this.currentMood = this.moodService.getCurrentMood();
-    this.moodComponentClasses = this.moodService.getComponentMoodClasses();
     this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
     updates.versionUpdates.subscribe(event => {
       if (event.type === "VERSION_READY") {
