@@ -1,201 +1,195 @@
-import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { Injectable } from "@angular/core";
+import { BehaviorSubject, ReplaySubject } from "rxjs";
 import { HttpClient } from "@angular/common/http";
-import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from "rxjs/operators";
 import { TokenService } from "./token.service";
-declare global {
-  interface Window {
+
+declare global
+{
+  interface Window
+  {
     onYouTubeIframeAPIReady: () => void;
     YT: typeof YT;
   }
 }
 
-export interface YouTubeTrackInfo {
-  id: string;
-  title: string;
-  thumbnailUrl: string;
-  channelTitle: string;
-  videoUrl: string;
-}
-
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root"
 })
-export class YouTubeService {
-  private player: any;
-  private deviceId: string | null = null;
-  private currentlyPlayingTrackSubject = new BehaviorSubject<YouTubeTrackInfo | null>(null);
-  private playingStateSubject = new BehaviorSubject<boolean>(false);
-  private playbackProgressSubject = new BehaviorSubject<number>(0);
+export class YouTubeService
+{
+  private player!: YT.Player;
+  private isReady = new ReplaySubject<boolean>(1);
+  private isPlayingSubject = new BehaviorSubject<boolean>(false);
+  private currentTrackInfoSubject = new BehaviorSubject<any>(null);
 
-  currentlyPlayingTrack$: Observable<YouTubeTrackInfo | null> = this.currentlyPlayingTrackSubject.asObservable();
-  playingState$: Observable<boolean> = this.playingStateSubject.asObservable();
-  playbackProgress$: Observable<number> = this.playbackProgressSubject.asObservable();
+  isPlaying$ = this.isPlayingSubject.asObservable();
+  currentTrackInfo$ = this.currentTrackInfoSubject.asObservable();
 
-  private hasBeenInitialized = false;
-  private readonly apiURL = 'http://localhost:3000/api/youtube';
+  private apiKey = "YOUR_YOUTUBE_API_KEY";
+  private apiUrl = "https://www.googleapis.com/youtube/v3/videos";
 
-  constructor(
-    private platformId: Object,
-    private http: HttpClient,
-    private tokenService: TokenService
-  ) {
-    this.platformId = PLATFORM_ID;
+  constructor(private http: HttpClient, private tokenService: TokenService)
+  {
   }
 
-  public async init(): Promise<void> {
-    if (isPlatformBrowser(this.platformId) && !this.hasBeenInitialized) {
-      await this.initializeYouTube();
-      this.hasBeenInitialized = true;
+  public async loadYouTubeAPI(): Promise<void>
+  {
+    if (typeof window !== "undefined" && !window["YT"])
+    {
+      const tag = document.createElement("script");
+      tag.src = "https://www.youtube.com/iframe_api";
+      const firstScriptTag = document.getElementsByTagName("script")[0];
+      firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
+
+      window["onYouTubeIframeAPIReady"] = () =>
+      {
+        this.initPlayer();
+      };
+    }
+    else
+    {
+      this.initPlayer();
     }
   }
 
-  private async initializeYouTube(): Promise<void> {
-    await this.loadYouTubeIframeAPI();
-  }
-
-  private loadYouTubeIframeAPI(): Promise<void> {
-    return new Promise((resolve) => {
-      const tag = document.createElement('script');
-      tag.src = 'https://www.youtube.com/iframe_api';
-      const firstScriptTag = document.getElementsByTagName('script')[0];
-      firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
-
-      window['onYouTubeIframeAPIReady'] = () => {
-        this.initializePlayer();
-        resolve();
-      };
-    });
-  }
-
-  private initializePlayer(): void {
-    this.player = new YT.Player('youtube-player', {
-      height: '0',
-      width: '0',
-      videoId: '',
+  private initPlayer(): void
+  {
+    this.player = new YT.Player("youtube-iframe", {
+      height: "0",
+      width: "0",
       events: {
-        'onReady': this.onPlayerReady.bind(this),
-        'onStateChange': this.onPlayerStateChange.bind(this)
+        "onReady": () => this.isReady.next(true),
+        "onStateChange": (event: YT.OnStateChangeEvent) => this.onPlayerStateChange(event)
       }
     });
   }
 
-  private onPlayerReady(event: YT.PlayerEvent): void {
-    console.log('YouTube player is ready');
-    this.deviceId = 'youtube-player';
-  }
-
-  private onPlayerStateChange(event: YT.OnStateChangeEvent): void {
-    switch (event.data) {
+  private onPlayerStateChange(event: YT.OnStateChangeEvent): void
+  {
+    switch (event.data)
+    {
       case YT.PlayerState.PLAYING:
-        this.playingStateSubject.next(true);
+        this.isPlayingSubject.next(true);
         break;
       case YT.PlayerState.PAUSED:
-        this.playingStateSubject.next(false);
-        break;
       case YT.PlayerState.ENDED:
-        this.playingStateSubject.next(false);
+        this.isPlayingSubject.next(false);
+        break;
+      default:
         break;
     }
-
-    this.updatePlaybackProgress();
   }
 
-  private updatePlaybackProgress(): void {
-    if (this.player && this.player.getCurrentTime && this.player.getDuration) {
-      const progress = (this.player.getCurrentTime() / this.player.getDuration()) * 100;
-      this.playbackProgressSubject.next(progress);
-    }
+  playTrackById(videoId: string): void
+  {
+    this.isReady.subscribe(isReady =>
+    {
+      if (isReady)
+      {
+        this.player.loadVideoById(videoId);
+        this.updateCurrentTrackInfo(videoId);
+      }
+    });
   }
 
-  public async playTrackById(trackId: string): Promise<void> {
-    if (!this.deviceId) {
-      console.error('Device ID is undefined. Ensure the player is ready before playing.');
-      return;
-    }
-
-    await this.player.loadVideoById(trackId);
-    await this.setCurrentlyPlayingTrack(trackId);
-    this.playingStateSubject.next(true);
+  pause(): void
+  {
+    this.isReady.subscribe(isReady =>
+    {
+      if (isReady)
+      {
+        this.player.pauseVideo();
+      }
+    });
   }
 
-  public pause(): void {
-    if (this.player && this.player.pauseVideo) {
-      this.player.pauseVideo();
-      this.playingStateSubject.next(false);
-    }
+  play(): void
+  {
+    this.isReady.subscribe(isReady =>
+    {
+      if (isReady)
+      {
+        this.player.playVideo();
+      }
+    });
   }
 
-  public play(): void {
-    if (this.player && this.player.playVideo) {
-      this.player.playVideo();
-      this.playingStateSubject.next(true);
-    }
+  stop(): void
+  {
+    this.isReady.subscribe(isReady =>
+    {
+      if (isReady)
+      {
+        this.player.stopVideo();
+      }
+    });
   }
 
-  public setVolume(volume: number): void {
-    if (this.player && this.player.setVolume) {
-      this.player.setVolume(volume * 100);
-    }
+  seekTo(seconds: number): void
+  {
+    this.isReady.subscribe(isReady =>
+    {
+      if (isReady)
+      {
+        this.player.seekTo(seconds, true);
+      }
+    });
   }
 
-  public async getRecentlyPlayedTracks(): Promise<any> {
-    return [];
+  async mute(): Promise<void>
+  {
+    this.isReady.subscribe(isReady =>
+    {
+      if (isReady)
+      {
+        this.player.mute();
+      }
+    });
   }
 
-  public async getQueue(artist: string, songName: string): Promise<YouTubeTrackInfo[]> {
-    const query = `${artist} ${songName}`;
-    const response = await this.http.post<any>(`${this.apiURL}/queue`, { query }).toPromise();
-
-    return response.tracks.map((track: any) => ({
-      id: track.id,
-      title: track.snippet.title,
-      thumbnailUrl: track.snippet.thumbnails.default.url,
-      channelTitle: track.snippet.channelTitle,
-      videoUrl: `https://www.youtube.com/watch?v=${track.id}`
-    }));
+  async unmute(): Promise<void>
+  {
+    this.isReady.subscribe(isReady =>
+    {
+      if (isReady)
+      {
+        this.player.unMute();
+      }
+    });
   }
 
-  public async getCurrentlyPlayingTrack(): Promise<YouTubeTrackInfo | null> {
-    if (this.player && this.player.getVideoData) {
-      const videoData = this.player.getVideoData();
-      return {
-        id: videoData.video_id,
-        title: videoData.title,
-        thumbnailUrl: `https://img.youtube.com/vi/${videoData.video_id}/default.jpg`,
-        channelTitle: videoData.author,
-        videoUrl: `https://www.youtube.com/watch?v=${videoData.video_id}`
-      };
-    }
-    return null;
+  private async updateCurrentTrackInfo(videoId: string): Promise<void>
+  {
+    const laccessToken = this.tokenService.getAccessToken();
+    const lrefreshToken = this.tokenService.getRefreshToken();
+
+    const key = await this.http.post<any>("http://localhost:3000/api/spotify/track-details", {
+      accessToken: laccessToken,
+      refreshToken: lrefreshToken
+    }).toPromise();
+
+    this.http.get<any>(`${this.apiUrl}?part=snippet&id=${videoId}&key=${key}`)
+      .pipe(
+        map(response =>
+        {
+          const snippet = response.items[0].snippet;
+          return {
+            id: videoId,
+            name: snippet.title,
+            artist: snippet.channelTitle,
+            album: "",
+            imageUrl: snippet.thumbnails.high.url
+          };
+        })
+      ).subscribe(trackInfo =>
+    {
+      this.currentTrackInfoSubject.next(trackInfo);
+    });
   }
 
-  private async setCurrentlyPlayingTrack(videoId: string): Promise<void> {
-    const videoDetails = await this.getTrackDetails(videoId);
-    this.currentlyPlayingTrackSubject.next(videoDetails);
-  }
-
-  private async getTrackDetails(videoId: string): Promise<YouTubeTrackInfo> {
-    const response = await this.http.post<any>(`${this.apiURL}/track-details`, { videoId }).toPromise();
-    return {
-      id: response.id,
-      title: response.snippet.title,
-      thumbnailUrl: response.snippet.thumbnails.default.url,
-      channelTitle: response.snippet.channelTitle,
-      videoUrl: `https://www.youtube.com/watch?v=${response.id}`
-    };
-  }
-
-  public disconnectPlayer(): void {
-    if (this.player && this.player.destroy) {
-      this.player.destroy();
-    }
-  }
-
-  public getCurrentPlaybackState(): void {
-    if (this.player && this.player.getCurrentTime && this.player.getDuration) {
-      const progress = (this.player.getCurrentTime() / this.player.getDuration()) * 100;
-      this.playbackProgressSubject.next(progress);
-    }
+  disconnectPlayer()
+  {
+    this.player.destroy();
   }
 }

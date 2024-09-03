@@ -8,6 +8,7 @@ import { firstValueFrom } from "rxjs";
 import { ProviderService } from "../../../services/provider.service";
 import { MoodService } from "../../../services/mood-service.service";
 import { EchoButtonComponent } from "../../atoms/echo-button/echo-button.component";
+import { YouTubeService } from "../../../services/youtube.service";
 import { SongCardsComponent } from "..//song-cards/song-cards.component";
 
 @Component({
@@ -29,7 +30,9 @@ export class SideBarComponent implements OnInit
     private providerService: ProviderService,
     private screenSizeService: ScreenSizeService,
     private authService: AuthService,
-    public moodService: MoodService
+    private searchService: SearchService,
+    public moodService: MoodService,
+    private youtubeService: YouTubeService
   )
   {
     this.moodComponentClasses = this.moodService.getComponentMoodClasses();
@@ -153,6 +156,31 @@ export class SideBarComponent implements OnInit
   selectOption(option: string)
   {
     this.selectedOption = option;
+  }
+
+  async playTrack(trackId: string): Promise<void>
+  {
+    if (this.providerService.getProviderName() === "spotify")
+    {
+      await this.spotifyService.playTrackById(trackId);
+    }
+    else
+    {
+      await this.youtubeService.playTrackById(trackId);
+    }
+  }
+
+  async echoTrack(trackName: string, artistName: string, event: MouseEvent): Promise<void>
+  {
+    event.stopPropagation();
+    this.searchService.echo(trackName, artistName).then(tracks =>
+    {
+      this.echoTracks = tracks;
+      this.isEchoModalVisible = true;
+    }).catch(error =>
+    {
+      console.error("Error echoing track: ", error);
+    });
   }
 
   private truncateText(text: string, maxLength: number): string
