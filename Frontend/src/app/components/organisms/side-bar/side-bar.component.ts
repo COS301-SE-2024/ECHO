@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { MatCard, MatCardContent } from "@angular/material/card";
 import { NgClass, NgForOf, NgIf } from "@angular/common";
 import { SpotifyService } from "../../../services/spotify.service";
@@ -12,15 +12,20 @@ import { YouTubeService } from "../../../services/youtube.service";
 import { SongCardsComponent } from "../song-cards/song-cards.component";
 import { SearchService } from "../../../services/search.service";
 import { SkeletonSongCardComponent } from "../../atoms/skeleton-song-card/skeleton-song-card.component";
+import { ToastComponent } from '../../../components/organisms/toast/toast.component';
+
+type SelectedOption = 'upNext' | 'recentListening';
 
 @Component({
   selector: "app-side-bar",
   standalone: true,
-  imports: [MatCard, MatCardContent, NgForOf, NgIf, NgClass, EchoButtonComponent, SongCardsComponent, SkeletonSongCardComponent],
+  imports: [MatCard, MatCardContent, NgForOf, NgIf, NgClass, EchoButtonComponent, SongCardsComponent, SkeletonSongCardComponent, ToastComponent],
   templateUrl: "./side-bar.component.html",
   styleUrls: ["./side-bar.component.css"]
 })
 export class SideBarComponent implements OnInit {
+  @ViewChild(ToastComponent) toastComponent!: ToastComponent; // Declare ToastComponent
+
   // Mood Service Variables
   moodComponentClasses!: { [key: string]: string };
   backgroundMoodClasses!: { [key: string]: string };
@@ -42,7 +47,7 @@ export class SideBarComponent implements OnInit {
   }
 
   title: string = "Home";
-  selectedOption: string = "recentListening";
+  selectedOption: SelectedOption = "recentListening";
 
   upNextCardData: any[] = [];
   recentListeningCardData: any[] = [];
@@ -80,6 +85,9 @@ export class SideBarComponent implements OnInit {
   }
 
   async ngOnInit() {
+    this.screenSizeService.screenSize$.subscribe(screenSize => {
+      this.screenSize = screenSize;
+    });
     if (this.providerService.getProviderName() === "spotify") {
       await this.loadUpNextData();
       await this.fetchRecentlyPlayedTracks();
@@ -100,11 +108,13 @@ export class SideBarComponent implements OnInit {
   async loadUpNextData() {
     if (this.providerService.getProviderName() === "spotify") {
       try {
+        this.isLoading = true;
         this.upNextCardData = await this.spotifyService.getQueue(this.provider);
         await this.upNextCardData.unshift(this.getEchoedCardData()[0]);
         this.isLoading = false;
       } catch (error) {
-        console.error("Error loading up next data:", error);
+        this.isLoading = false;
+        this.toastComponent.showToast("Error loading Songs", "error");
       }
     }
   }
@@ -112,6 +122,7 @@ export class SideBarComponent implements OnInit {
   private async fetchRecentlyPlayedTracks() {
     if (this.providerService.getProviderName() === "spotify") {
       try {
+        this.isLoading = true;
         const data = await this.spotifyService.getRecentlyPlayedTracks(this.provider);
         console.log("Recently Played Tracks Data:", data);
         data.items.forEach((item: any) => {
@@ -129,6 +140,8 @@ export class SideBarComponent implements OnInit {
         this.isLoading = false;
       } catch (error) {
         console.error("Error fetching recently played tracks:", error);
+        this.isLoading = false;
+        this.toastComponent.showToast("Error fetching recently played tracks", "error"); // Show error toast
       }
     }
   }
@@ -147,8 +160,16 @@ export class SideBarComponent implements OnInit {
     return this.recentListeningCardData.slice(0, 1);
   }
 
-  selectOption(option: string) {
+  selectOption(option: SelectedOption) {
     this.selectedOption = option;
+    this.isLoading = true;
+    if (option === 'upNext') {
+      this.toastComponent.hideToast();
+      this.loadUpNextData();
+    } else {
+      this.toastComponent.hideToast();
+      this.fetchRecentlyPlayedTracks();
+    }
   }
 
   private truncateText(text: string, maxLength: number): string
@@ -172,6 +193,7 @@ export class SideBarComponent implements OnInit {
       this.isEchoModalVisible = true;
     } catch (error) {
       console.error("Error echoing track: ", error);
+      this.toastComponent.showToast("Error echoing track", "error"); // Show error toast
     }
   }
 
