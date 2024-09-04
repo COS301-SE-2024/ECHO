@@ -1,26 +1,56 @@
-import { Component } from '@angular/core';
+import { Component, OnInit,ViewChild} from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 import { SongCardsComponent } from "../song-cards/song-cards.component";
 import { SearchService } from "../../../services/search.service";
+import { PageTitleComponent } from '../../atoms/page-title/page-title.component';
+import { SkeletonSongCardComponent } from '../../atoms/skeleton-song-card/skeleton-song-card.component';
+import { ToastComponent } from '../toast/toast.component';
 
 @Component({
   selector: 'app-echo',
   standalone: true,
-  imports: [CommonModule,SongCardsComponent],
+  imports: [CommonModule, SongCardsComponent, PageTitleComponent, SkeletonSongCardComponent,ToastComponent],
   templateUrl: './echo.component.html',
-  styleUrl: './echo.component.css'
+  styleUrls: ['./echo.component.css']
 })
-export class EchoComponent {
-  constructor(private searchService: SearchService) { }
+export class EchoComponent implements OnInit {
+  @ViewChild(ToastComponent) toastComponent!: ToastComponent; // Declare ToastComponent
   echoTracks: any[] = [];
+  echoedName: string = "";
+  echoedArtist: string = "";
+  skeletonArray = Array(10);
+  isLoading: boolean = true;
 
-  async echoTrack(trackName: string, artistName: string, event: MouseEvent): Promise<void> {
-    event.stopPropagation();
+  constructor(
+    private searchService: SearchService,
+    private route: ActivatedRoute
+  ) { }
+
+  ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      this.echoedName = params["trackName"];
+      this.echoedArtist = params["artistName"];
+      if (this.echoedName && this.echoedArtist) {
+        this.echoTrack(this.echoedName, this.echoedArtist);
+      } else {
+        this.isLoading = false; // Stop loading if no track or artist name is provided
+      }
+    });
+  }
+
+  async echoTrack(trackName: string, artistName: string, event?: MouseEvent): Promise<void> {
+    if (event) {
+      event.stopPropagation();
+    }
+    this.isLoading = true; // Start loading
     try {
       this.echoTracks = await this.searchService.echo(trackName, artistName);
     } catch (error) {
       console.error("Error echoing track: ", error);
-      // this.toastComponent.showToast("Error echoing track", "error"); // Show error toast
+      this.toastComponent.showToast("Error echoing track", "error"); // Show error toast
+    } finally {
+      this.isLoading = false; // Stop loading
     }
   }
 }

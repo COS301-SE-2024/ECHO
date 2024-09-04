@@ -14,6 +14,7 @@ import { NgModule } from "@angular/core";
 import { InsightsComponent } from "./pages/insights/insights.component";
 import { HelpMenuComponent } from "./pages/help-menu/help-menu.component";
 import { LoginComponentview} from "./views/login/login.component";
+import { EchoComponent } from "./components/organisms/echo/echo.component";
 
 
 export const routes: Routes = [
@@ -33,6 +34,7 @@ export const routes: Routes = [
   { path: "newlogin", component: LoginComponentview},
   { path: "library", component: UserLibraryComponent},
   { path: "search", component: SearchComponent},
+  { path: "echo Song", component: EchoComponent}
 ];
 
 @NgModule({

@@ -12,7 +12,7 @@
       <div class="mt-7 mx-3 flex-grow overflow-auto scrollbar-hidden">
         <ng-container *ngIf="!isLoading; else loading">
           <div *ngFor="let card of getSelectedCardData(); let i = index">
-            <app-song-cards [card]="card" (echoTrackEvent)="handleEchoTrack($event)"></app-song-cards>
+            <app-song-cards [imgSize]="'5vw'" [card]="card"></app-song-cards>
           </div>
         </ng-container>
         <ng-template #loading>

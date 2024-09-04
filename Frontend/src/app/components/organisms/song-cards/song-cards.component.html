@@ -1,7 +1,7 @@
-<div class="flex items-center mb-5 hover:cursor-pointer" (click)="playTrack(card.id)">
+<div class="flex items-center mb-5 hover:cursor-pointer bg-default-backgrounddark rounded-lg p-1" (click)="playTrack(card.id)">
   <!-- Image on the left -->
-  <div class="mr-4 flex-shrink-0" style="width: 25%;">
-    <img [src]="card?.imageUrl || 'path/to/default-image.jpg'" alt="Card image" class="w-full h-auto rounded">
+  <div class="mr-4 flex-shrink-0" [style.width]="imgSize">
+    <img [src]="card?.imageUrl || 'path/to/default-image.jpg'" alt="Card image" class="w-full h-auto rounded" [style.width]="imgSize" [style.height]="imgSize">
   </div>
   <!-- Text on the right -->
   <div class="flex-grow">

@@ -1,7 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MoodService } from '../../../services/mood-service.service';
-
 @Component({
     selector: 'app-svg-icon',
     standalone: true,
@@ -17,7 +16,7 @@ export class SvgIconComponent {
     @Input() fillColor?: string;
     @Input() selected?: boolean;
     @Input() middleColor?: string;
-    @Output() svgClick = new EventEmitter<void>();
+    @Output() svgClick = new EventEmitter<MouseEvent>();
     constructor(public moodService: MoodService) {}
 
     ngOnInit() {

@@ -142,7 +142,7 @@ export class SideBarComponent implements OnInit {
         this.isLoading = false;
       } catch (error) {
         this.isLoading = false;
-        if(this.selectedOption === "suggestions") {
+        if(this.selectedOption === "recentListening") {
         this.toastComponent.showToast("Error fetching recently played tracks", "error"); // Show error toast
         }
       }
@@ -201,6 +201,6 @@ export class SideBarComponent implements OnInit {
   }
 
   handleEchoTrack(eventData: { trackName: string, artistName: string, event: MouseEvent }) {
-    this.echoTrack(eventData.trackName, eventData.artistName, eventData.event);
+    // this.echoTrack(eventData.trackName, eventData.artistName, eventData.event);
   }
 }
