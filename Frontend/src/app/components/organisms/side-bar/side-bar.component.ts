@@ -14,7 +14,7 @@ import { SearchService } from "../../../services/search.service";
 import { SkeletonSongCardComponent } from "../../atoms/skeleton-song-card/skeleton-song-card.component";
 import { ToastComponent } from '../../../components/organisms/toast/toast.component';
 
-type SelectedOption = 'upNext' | 'recentListening';
+type SelectedOption = 'suggestions' | 'recentListening';
 
 @Component({
   selector: "app-side-bar",
@@ -49,7 +49,7 @@ export class SideBarComponent implements OnInit {
   title: string = "Home";
   selectedOption: SelectedOption = "recentListening";
 
-  upNextCardData: any[] = [];
+  suggestionsCardData: any[] = [];
   recentListeningCardData: any[] = [];
   echoTracks: any[] = [];
   screenSize?: string;
@@ -79,7 +79,7 @@ export class SideBarComponent implements OnInit {
     if (this.selected === "Recent Listening...") {
       this.selectedOption = "recentListening";
     } else {
-      this.selectedOption = "upNext";
+      this.selectedOption = "suggestions";
     }
     this.toggleDropdown();
   }
@@ -89,7 +89,7 @@ export class SideBarComponent implements OnInit {
       this.screenSize = screenSize;
     });
     if (this.providerService.getProviderName() === "spotify") {
-      await this.loadUpNextData();
+      await this.loadSuggestionsData();
       await this.fetchRecentlyPlayedTracks();
       this.provider = await firstValueFrom(this.authService.getProvider());
     }
@@ -105,16 +105,18 @@ export class SideBarComponent implements OnInit {
     });
   }
 
-  async loadUpNextData() {
+  async loadSuggestionsData() {
     if (this.providerService.getProviderName() === "spotify") {
       try {
         this.isLoading = true;
-        this.upNextCardData = await this.spotifyService.getQueue(this.provider);
-        await this.upNextCardData.unshift(this.getEchoedCardData()[0]);
+        this.suggestionsCardData = await this.spotifyService.getQueue(this.provider);
+        await this.suggestionsCardData.unshift(this.getEchoedCardData()[0]);
         this.isLoading = false;
       } catch (error) {
         this.isLoading = false;
-        this.toastComponent.showToast("Error loading Songs", "error");
+        if(this.selectedOption === "suggestions") {
+          this.toastComponent.showToast("Error fetching suggestions data", "error"); // Show error toast
+        }
       }
     }
   }
@@ -139,16 +141,17 @@ export class SideBarComponent implements OnInit {
         });
         this.isLoading = false;
       } catch (error) {
-        console.error("Error fetching recently played tracks:", error);
         this.isLoading = false;
+        if(this.selectedOption === "suggestions") {
         this.toastComponent.showToast("Error fetching recently played tracks", "error"); // Show error toast
+        }
       }
     }
   }
 
   getSelectedCardData(): any[] {
-    return this.selectedOption === "upNext"
-      ? this.upNextCardData
+    return this.selectedOption === "suggestions"
+      ? this.suggestionsCardData
       : this.recentListeningCardData;
   }
 
@@ -163,9 +166,9 @@ export class SideBarComponent implements OnInit {
   selectOption(option: SelectedOption) {
     this.selectedOption = option;
     this.isLoading = true;
-    if (option === 'upNext') {
+    if (option === 'suggestions') {
       this.toastComponent.hideToast();
-      this.loadUpNextData();
+      this.loadSuggestionsData();
     } else {
       this.toastComponent.hideToast();
       this.fetchRecentlyPlayedTracks();

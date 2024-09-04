@@ -2,8 +2,8 @@
   <div class="container pl-5 rounded-md h-full">
     <div [ngClass]="moodComponentClasses[moodService.getCurrentMood()]" class="rounded-lg overflow-auto h-full flex flex-col justify-between scrollbar-hidden">
       <div class="flex justify-between items-center mb-2 mt-3">
-        <div class="button-container" [ngClass]="getButtonClasses('upNext')">
-          <button class="px-10 text-sm font-bold text-white focus:outline-none truncate" (click)="selectOption('upNext')">Suggestions</button>
+        <div class="button-container" [ngClass]="getButtonClasses('suggestions')">
+          <button class="px-10 text-sm font-bold text-white focus:outline-none truncate" (click)="selectOption('suggestions')">Suggestions</button>
         </div>
         <div class="button-container" [ngClass]="getButtonClasses('recentListening')">
           <button class="px-10 text-sm text-white focus:outline-none truncate" (click)="selectOption('recentListening')">Recent listening</button>
