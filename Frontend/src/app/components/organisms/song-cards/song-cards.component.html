@@ -1,4 +1,4 @@
-<div class="flex items-center mb-5 hover:cursor-pointer bg-default-backgrounddark rounded-lg p-1 group" 
+<div [ngClass]="this.moodComponentClasses[this.moodService.getCurrentMood()]" class="flex items-center mb-5 hover:cursor-pointer bg-default-backgrounddark rounded-lg p-1 group" 
      (click)="playTrack(card.id)">
   <!-- Image on the left -->
   <div class="mr-4 flex-shrink-0" [style.width]="imgSize">
@@ -13,7 +13,7 @@
     <!-- First text with icon -->
     <div class="flex items-center">
       <img *ngIf="card.explicit" src="../../../../assets/images/explicit-dark.png" alt="Explicit Icon" class="w-6 h-6 mr-2">
-      <p class="font-weight: bold;">{{ card.text }}</p>
+      <h1 class="font-weight: bold;">{{ card.text }}</h1>
     </div>
     <!-- Second text (underneath the first text) -->
     <p class="font-weight: bold;">{{ card.secondaryText }}</p>

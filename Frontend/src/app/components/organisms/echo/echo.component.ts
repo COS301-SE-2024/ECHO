@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewChild} from '@angular/core';
+import { Component, OnInit,ViewChild,Input} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { SongCardsComponent } from "../song-cards/song-cards.component";
@@ -15,12 +15,13 @@ import { ToastComponent } from '../toast/toast.component';
   styleUrls: ['./echo.component.css']
 })
 export class EchoComponent implements OnInit {
+  @Input() echoedName?: string;
+  @Input() echoedArtist?: string;
+  @Input() imgSize: string = '100px'; 
   @ViewChild(ToastComponent) toastComponent!: ToastComponent; // Declare ToastComponent
   echoTracks: any[] = [];
-  echoedName: string = "";
-  echoedArtist: string = "";
-  skeletonArray = Array(10);
-  isLoading: boolean = true;
+  skeletonArray = Array(20);
+  isLoading: boolean = false;
 
   constructor(
     private searchService: SearchService,

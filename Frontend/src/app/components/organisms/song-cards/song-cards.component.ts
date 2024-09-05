@@ -5,6 +5,7 @@ import { SpotifyService } from "../../../services/spotify.service";
 import { SvgIconComponent } from '../../atoms/svg-icon/svg-icon.component';
 import { EchoButtonComponent } from '../../atoms/echo-button/echo-button.component';
 import { Router } from '@angular/router';
+import { MoodService } from '../../../services/mood-service.service';
 
 @Component({
   selector: 'app-song-cards',
@@ -18,15 +19,18 @@ export class SongCardsComponent {
   @Input() imgSize: string = '100px'; // Default image size
   @Input() svgSize: string = '100px'; // Default image size
   @Output() echoTrackEvent = new EventEmitter<{ trackName: string, artistName: string, event: MouseEvent }>();
-
+  moodComponentClasses!: { [key: string]: string };
   echoTracks: any[] = [];
   isEchoModalVisible: boolean = false;
 
   constructor(
     private providerService: ProviderService,
     private spotifyService: SpotifyService,
-    private router: Router
-  ) {}
+    private router: Router,
+    public moodService: MoodService
+  ) {
+    this.moodComponentClasses = this.moodService.getComponentMoodClasses();
+  }
 
   onEchoButtonClick(event: MouseEvent) {
     event.stopPropagation();

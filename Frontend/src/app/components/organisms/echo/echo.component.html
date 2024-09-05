@@ -1,24 +1,14 @@
-<div class="overflow-hidden min-h-screen flex flex-col">
-  <div class="text-center mt-5 sticky top-0 z-10">
-    <app-page-title class="text-2xl font-bold mb-2 text-gray-800">{{ this.echoedName }}</app-page-title>
-    <app-page-title class="text-xl text-gray-600">From: {{ this.echoedArtist }}</app-page-title>
-  </div>
   <div class="flex justify-center items-center">
     <app-toast></app-toast>
   </div>
-  <!-- Scrollable content -->
-  <div class="flex-grow overflow-auto mb-[10vh] ">
+  
+  <div class="flex-grow overflow-y-auto max-h-screen mb-[10vh] no-scrollbar">
     <ng-container *ngIf="!isLoading; else loading">
       <div *ngFor="let track of echoTracks" class="space-y-4">
         <app-song-cards [imgSize]="'10vw'" [card]="track"></app-song-cards>
       </div>
     </ng-container>
-
     <ng-template #loading>
-      <app-skeleton-song-card *ngFor="let _ of skeletonArray"></app-skeleton-song-card>
+      <app-skeleton-song-card [imageSize]="'10vw'" *ngFor="let _ of skeletonArray"></app-skeleton-song-card>
     </ng-template>
   </div>
-
-  <!-- Footer -->
-
-</div>
