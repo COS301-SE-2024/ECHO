@@ -2,19 +2,23 @@
      (click)="playTrack(card.id)">
   <!-- Image on the left -->
   <div class="mr-4 flex-shrink-0" [style.width]="imgSize">
-    <img [src]="card?.imageUrl || 'path/to/default-image.jpg'" alt="Card image" class="w-full h-auto rounded" [style.width]="imgSize" [style.height]="imgSize">
+    <img [src]="card?.imageUrl || 'path/to/default-image.jpg'" 
+         alt="Card image" 
+         class="w-1/4 rounded-lg mr-2.5 w-full h-auto" 
+         [style.width]="imgSize" 
+         [style.height]="imgSize">
   </div>
   <!-- Text on the right -->
   <div class="flex-grow">
     <!-- First text with icon -->
     <div class="flex items-center">
-      <img *ngIf="card.explicit" src="../../../assets/images/explicit-dark.png" alt="Explicit Icon" class="w-6 h-6 mr-2">
-      <p class="text-gray-900 text-sm dark:text-white font-bold">{{ card.text }}</p>
+      <img *ngIf="card.explicit" src="../../../../assets/images/explicit-dark.png" alt="Explicit Icon" class="w-6 h-6 mr-2">
+      <p class="font-weight: bold;">{{ card.text }}</p>
     </div>
     <!-- Second text (underneath the first text) -->
-    <p class="text-xs text-gray-400">{{ card.secondaryText }}</p>
+    <p class="font-weight: bold;">{{ card.secondaryText }}</p>
   </div>
-   <app-echo-button
+  <app-echo-button
     [width]="svgSize" 
     [height]="svgSize" 
     (buttonClick)="onEchoButtonClick($event)"

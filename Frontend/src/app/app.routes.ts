@@ -33,7 +33,6 @@ export const routes: Routes = [
   { path: "search", component: SearchComponent},
   { path: "newlogin", component: LoginComponentview},
   { path: "library", component: UserLibraryComponent},
-  { path: "search", component: SearchComponent},
   { path: "echo Song", component: EchoComponent}
 ];
 
