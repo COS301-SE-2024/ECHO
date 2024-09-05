@@ -22,9 +22,11 @@ export class YouTubeService
   private isReady = new ReplaySubject<boolean>(1);
   private isPlayingSubject = new BehaviorSubject<boolean>(false);
   private currentTrackInfoSubject = new BehaviorSubject<any>(null);
+  private playbackProgressSubject = new BehaviorSubject<number>(0);
 
   isPlaying$ = this.isPlayingSubject.asObservable();
   currentTrackInfo$ = this.currentTrackInfoSubject.asObservable();
+  playbackProgress$ = this.playbackProgressSubject.asObservable();
 
   private apiKey = "YOUR_YOUTUBE_API_KEY";
   private apiUrl = "https://www.googleapis.com/youtube/v3/videos";
@@ -193,7 +195,7 @@ export class YouTubeService
     this.player.destroy();
   }
 
-  adjustVolume(newVolume: number)
+  setVolume(newVolume: number)
   {
     this.player.setVolume(newVolume);
   }
@@ -207,5 +209,18 @@ export class YouTubeService
   {
     this.player.previousVideo();
   }
+
+  // Method to get the progress of the currently playing track
+  public getCurrentPlaybackState(): void
+  {
+    if (this.player)
+    {
+      const duration = this.player.getDuration();
+      const currTime = this.player.getCurrentTime();
+      this.playbackProgressSubject.next((currTime / duration) * 100);
+    }
+  }
+
+
 
 }

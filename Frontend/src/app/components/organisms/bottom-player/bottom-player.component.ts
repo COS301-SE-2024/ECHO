@@ -307,7 +307,7 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy
     else
     {
       const volume = event.target.value;
-      this.youtubeService.adjustVolume(volume);
+      this.youtubeService.setVolume(volume);
     }
   }
 
