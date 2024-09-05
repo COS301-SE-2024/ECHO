@@ -46,11 +46,11 @@
   }
   .group:hover .rect-1 {
     animation: growHeightAndMoveUpSmall 2s infinite;
-    animation-delay: 0.8s; /* Adjusted delay to create wave effect */
+    animation-delay: 0.6s; /* Adjusted delay to create wave effect */
     animation-fill-mode: forwards;
   }
   .group:hover .rect-5 {
     animation: growHeightAndMoveUpSmall 2s infinite;
-    animation-delay: 0.8s; /* Adjusted delay to create wave effect */
+    animation-delay: 0.6s; /* Adjusted delay to create wave effect */
     animation-fill-mode: forwards;
   }

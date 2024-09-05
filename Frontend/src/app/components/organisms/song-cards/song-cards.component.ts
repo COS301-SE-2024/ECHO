@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 export class SongCardsComponent {
   @Input() card: any;
   @Input() imgSize: string = '100px'; // Default image size
+  @Input() svgSize: string = '100px'; // Default image size
   @Output() echoTrackEvent = new EventEmitter<{ trackName: string, artistName: string, event: MouseEvent }>();
 
   echoTracks: any[] = [];
