@@ -44,6 +44,7 @@ export class EchoComponent implements OnInit {
       event.stopPropagation();
     }
     this.isLoading = true; // Start loading
+    this.echoTracks= [];
     try {
       this.echoTracks = await this.searchService.echo(trackName, artistName);
     } catch (error) {

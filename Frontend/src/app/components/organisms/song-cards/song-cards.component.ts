@@ -3,12 +3,13 @@ import { CommonModule } from '@angular/common';
 import { ProviderService } from "../../../services/provider.service";
 import { SpotifyService } from "../../../services/spotify.service";
 import { SvgIconComponent } from '../../atoms/svg-icon/svg-icon.component';
+import { EchoButtonComponent } from '../../atoms/echo-button/echo-button.component';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-song-cards',
   standalone: true,
-  imports: [CommonModule, SvgIconComponent],
+  imports: [CommonModule, SvgIconComponent, EchoButtonComponent],
   templateUrl: './song-cards.component.html',
   styleUrls: ['./song-cards.component.css']
 })

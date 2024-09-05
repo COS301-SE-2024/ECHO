@@ -1,10 +1,11 @@
-<div class="overflow-hidden h-screen flex flex-col">
-  <!-- Sticky header -->
+<div class="overflow-hidden min-h-screen flex flex-col">
   <div class="text-center mt-5 sticky top-0 z-10">
     <app-page-title class="text-2xl font-bold mb-2 text-gray-800">{{ this.echoedName }}</app-page-title>
     <app-page-title class="text-xl text-gray-600">From: {{ this.echoedArtist }}</app-page-title>
   </div>
-
+  <div class="flex justify-center items-center">
+    <app-toast></app-toast>
+  </div>
   <!-- Scrollable content -->
   <div class="flex-grow overflow-auto mb-[10vh] ">
     <ng-container *ngIf="!isLoading; else loading">
@@ -19,7 +20,5 @@
   </div>
 
   <!-- Footer -->
-  <div class="flex justify-center items-center">
-    <app-toast></app-toast>
-  </div>
+
 </div>
