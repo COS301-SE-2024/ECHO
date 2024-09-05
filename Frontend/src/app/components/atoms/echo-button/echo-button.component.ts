@@ -13,13 +13,11 @@ export class EchoButtonComponent {
   @Input() width: string = "1vw";
   @Input() height: string = "vw";
   @Output() buttonClick = new EventEmitter<MouseEvent>();
-   // Mood Service Variables
    moodComponentClasses!: { [key: string]: string };
-   backgroundMoodClasses!: { [key: string]: string };
    constructor(    public moodService: MoodService
     ) {
-      this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
-      this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
+      this.moodComponentClasses = this.moodService.getMoodColors(); 
+  
     } 
   onButtonClick(event: MouseEvent): void {
     this.buttonClick.emit(event);

@@ -1,4 +1,5 @@
-<div class="flex items-center mb-5 hover:cursor-pointer bg-default-backgrounddark rounded-lg p-1" (click)="playTrack(card.id)">
+<div class="flex items-center mb-5 hover:cursor-pointer bg-default-backgrounddark rounded-lg p-1 group" 
+     (click)="playTrack(card.id)">
   <!-- Image on the left -->
   <div class="mr-4 flex-shrink-0" [style.width]="imgSize">
     <img [src]="card?.imageUrl || 'path/to/default-image.jpg'" alt="Card image" class="w-full h-auto rounded" [style.width]="imgSize" [style.height]="imgSize">
@@ -13,10 +14,10 @@
     <!-- Second text (underneath the first text) -->
     <p class="text-xs text-gray-400">{{ card.secondaryText }}</p>
   </div>
-  <app-echo-button
-  [color]="'#EE0258'" 
-  [width]="'2.5vw'" 
-  [height]="'2.5vw'" 
-  (buttonClick)="onEchoButtonClick($event)">
-</app-echo-button>
+   <app-echo-button
+    [width]="'2.5vw'" 
+    [height]="'2.5vw'" 
+    (buttonClick)="onEchoButtonClick($event)"
+    class="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+  </app-echo-button>
 </div>
