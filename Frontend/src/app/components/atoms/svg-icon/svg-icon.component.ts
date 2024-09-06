@@ -15,11 +15,14 @@ export class SvgIconComponent {
     @Input() svgPath: string = '';
     @Input() fillColor: string = '#000000';
     @Input() selected: boolean = false;
+    @Input() isAnimating: boolean = false;
     @Input() middleColor: string = '#FFFFFF';
     @Input() pathHeight: string = '1'; // Default path height as a string
     @Output() svgClick = new EventEmitter<MouseEvent>();
     @Input() mood?: any;
-
+    toggleAnimation() {
+        this.isAnimating = !this.isAnimating;
+      }
     hovered: boolean = false;
 
     constructor(public moodService: MoodService) {}
@@ -34,10 +37,16 @@ export class SvgIconComponent {
 
     circleColor(): string {
         if(this.hovered){
-            return this.moodComponentClasses[this.mood];
+            //first check if mood is defined
+            if(this.mood){
+                return this.moodComponentClasses[this.mood];
+            }else
+            {
+                return this.moodComponentClasses[this.moodService.getCurrentMood()];
+            }
         }else
         {
-           return this.moodComponentClasses[this.moodService.getCurrentMood()];
+            return this.moodComponentClasses[this.moodService.getCurrentMood()];
         }
     }
 
