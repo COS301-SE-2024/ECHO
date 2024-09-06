@@ -20,9 +20,6 @@ export class SvgIconComponent {
     @Input() pathHeight: string = '1'; // Default path height as a string
     @Output() svgClick = new EventEmitter<MouseEvent>();
     @Input() mood?: any;
-    toggleAnimation() {
-        this.isAnimating = !this.isAnimating;
-      }
     hovered: boolean = false;
 
     constructor(public moodService: MoodService) {}
@@ -36,28 +33,38 @@ export class SvgIconComponent {
     }
 
     circleColor(): string {
-        if(this.hovered){
-            //first check if mood is defined
-            if(this.mood){
+        if (this.hovered) {
+            if (this.mood) {
                 return this.moodComponentClasses[this.mood];
-            }else
-            {
+            } else {
                 return this.moodComponentClasses[this.moodService.getCurrentMood()];
             }
-        }else
-        {
+        } else {
             return this.moodComponentClasses[this.moodService.getCurrentMood()];
         }
     }
 
     onMouseEnter() {
         this.hovered = true;
-      }
-    
-      onMouseLeave() {
+        this.isAnimating = true;
+    }
+
+    onMouseLeave() {
         this.hovered = false;
-      }
- 
+        this.isAnimating = false;
+    }
+
+    onMouseEnterPath() {
+        this.hovered = true;
+        this.isAnimating = true;
+    }
+
+    onMouseLeavePath() {
+        this.hovered = false;
+        this.isAnimating = false;
+
+    }
+
     getNumericPathHeight(): number {
         return parseFloat(this.pathHeight);
     }

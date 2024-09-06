@@ -3,6 +3,7 @@ import { Component, Input, Output, EventEmitter,OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BigRoundedSquareCardComponent } from '../../atoms/big-rounded-square-card/big-rounded-square-card.component';
 import { PlayIconComponent } from '../../organisms/play-icon/play-icon.component';
+import { MoodService } from '../../../services/mood-service.service';
 @Component({
   selector: 'app-moods-list',
   standalone: true,
@@ -13,8 +14,7 @@ import { PlayIconComponent } from '../../organisms/play-icon/play-icon.component
 export class MoodsListComponent implements OnInit {
   @Input() moods!: any[];
   @Output() redirectToMoodPage = new EventEmitter<any>();
-  constructor(){
-  }
+  constructor(public moodService: MoodService) {}
   onMoodClick(mood: any) {
     this.redirectToMoodPage.emit(mood);
   }

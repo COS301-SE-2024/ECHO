@@ -5,9 +5,10 @@
     (mouseenter)="onMouseEnter()" 
     (mouseleave)="onMouseLeave()"
     *ngIf="selected" cx="50" cy="50" r="40" />
-    <path (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()" [attr.d]="svgPath" [attr.fill]="selected ? middleColor : fillColor" [attr.transform]="'scale(' + pathHeight + ',' + pathHeight + ') translate(25, 25)'"/>
+    <path class="bounce-path"
+    (mouseenter)="onMouseEnterPath()" 
+    (mouseleave)="onMouseLeavePath()" [attr.d]="svgPath" [attr.fill]="selected ? middleColor : fillColor" [attr.transform]="'scale(' + pathHeight + ',' + pathHeight + ') translate(25, 25)'"/>
 </svg>
-
 
 <style>
 @keyframes bounce {
@@ -19,7 +20,7 @@
     }
 }
 
-.bounce-circle.animate:hover {
+.bounce-circle.animate {
     animation: bounce 0.5s infinite;
 }
 </style>
