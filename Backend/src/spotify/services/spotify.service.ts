@@ -39,7 +39,7 @@ export class SpotifyService
     }
 
     // This function retrieves the access key (for the Clustering recommendations) from the config file
-    private async getAccessKey(): Promise<string>
+    protected async getAccessKey(): Promise<string>
     {
         try
         {
@@ -114,7 +114,7 @@ export class SpotifyService
     }
 
     // This function fetches the tracks from the Spotify API based on the given trackIDs (a string of comma-delimited track IDs)
-    private async fetchSpotifyTracks(trackIds: string, accessToken: string, refreshToken: string): Promise<any>
+    protected async fetchSpotifyTracks(trackIds: string, accessToken: string, refreshToken: string): Promise<any>
     {
         const providerToken = await this.getAccessToken(accessToken, refreshToken);
         const response = await lastValueFrom(
