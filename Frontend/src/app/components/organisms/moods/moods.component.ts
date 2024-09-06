@@ -7,9 +7,9 @@ import { ScreenSizeService } from '../../../services/screen-size-service.service
 import { MoodService } from '../../../services/mood-service.service';
 import { PageTitleComponent } from '../../atoms/page-title/page-title.component';
 import { MoodsListComponent } from '../../molecules/moods-list/moods-list.component';
-
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+
 
 
 @Component({
@@ -20,7 +20,6 @@ import { Router } from '@angular/router';
     styleUrls: ['./moods.component.css'], // Corrected property name and expected value type
 })
 export class MoodsComponent implements OnDestroy {
-    
     favouriteMoods: any[] = []; // Corrected initialization
     RecommendedMoods: any[] = []; // Added type and initialization
 
