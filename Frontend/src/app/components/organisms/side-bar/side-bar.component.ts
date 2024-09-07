@@ -52,7 +52,6 @@ export class SideBarComponent implements OnInit {
   suggestionsCardData: any[] = [];
   recentListeningCardData: any[] = [];
   echoTracks: any[] = [];
-  screenSize?: string;
   provider: string | null = null;
   isDropdownVisible: boolean = false;
   selected: string = "Up Next...";
@@ -85,9 +84,6 @@ export class SideBarComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.screenSizeService.screenSize$.subscribe(screenSize => {
-      this.screenSize = screenSize;
-    });
     if (this.providerService.getProviderName() === "spotify") {
       await this.loadSuggestionsData();
       await this.fetchRecentlyPlayedTracks();
