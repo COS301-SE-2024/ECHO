@@ -31,26 +31,25 @@
   
   .group:hover .rect-3 {
     animation: growHeightAndMoveUpLarge 1s infinite;
-    animation-delay: 0.2s; /* Adjusted delay to create wave effect */
     animation-fill-mode: forwards;
   }
   .group:hover .rect-2 {
     animation: growHeightAndMoveUpMedium 1s infinite;
-    animation-delay: 0.4s; /* Adjusted delay to create wave effect */
+    animation-delay: 0.2s; /* Adjusted delay to create wave effect */
     animation-fill-mode: forwards;
   }
   .group:hover .rect-4 {
     animation: growHeightAndMoveUpMedium 1s infinite;
-    animation-delay: 0.4s; /* Adjusted delay to create wave effect */
+    animation-delay: 0.2s; /* Adjusted delay to create wave effect */
     animation-fill-mode: forwards;
   }
   .group:hover .rect-1 {
     animation: growHeightAndMoveUpSmall 1s infinite;
-    animation-delay: 0.6s; /* Adjusted delay to create wave effect */
+    animation-delay: 0.4s; /* Adjusted delay to create wave effect */
     animation-fill-mode: forwards;
   }
   .group:hover .rect-5 {
     animation: growHeightAndMoveUpSmall 1s infinite;
-    animation-delay: 0.6s; /* Adjusted delay to create wave effect */
+    animation-delay: 0.4s; /* Adjusted delay to create wave effect */
     animation-fill-mode: forwards;
   }
