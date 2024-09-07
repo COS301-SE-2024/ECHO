@@ -18,6 +18,7 @@ export class SvgIconComponent {
     @Input() isAnimating: boolean = false;
     @Input() middleColor: string = '#FFFFFF';
     @Input() pathHeight: string = '1'; // Default path height as a string
+    @Input() circleAnimation: boolean = false;
     @Output() svgClick = new EventEmitter<MouseEvent>();
     @Input() mood?: any;
     hovered: boolean = false;
@@ -46,22 +47,22 @@ export class SvgIconComponent {
 
     onMouseEnter() {
         this.hovered = true;
-        this.isAnimating = true;
+        if (this.circleAnimation) this.isAnimating = true;
     }
 
     onMouseLeave() {
         this.hovered = false;
-        this.isAnimating = false;
+        if (this.circleAnimation) this.isAnimating = false;
     }
 
     onMouseEnterPath() {
         this.hovered = true;
-        this.isAnimating = true;
+        if (this.circleAnimation) this.isAnimating = true;
     }
 
     onMouseLeavePath() {
         this.hovered = false;
-        this.isAnimating = false;
+        if (this.circleAnimation) this.isAnimating = false;
 
     }
 
