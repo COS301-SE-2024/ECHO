@@ -17,7 +17,7 @@
           </div>
           <div class="mt-7 mx-3 flex-grow overflow-auto scrollbar-hidden">
             <div *ngFor="let card of getSelectedCardData(); let i = index">
-              <app-song-cards [card]="card"></app-song-cards>
+              <app-song-cards [card]="card" (click)="playTrack(card.id)"></app-song-cards>
             </div>
           </div>
         </div>
@@ -25,6 +25,10 @@
     </div>
   </div>
 </div>
+
+<!-- Hidden YouTube player, used to play videos in the background -->
+<div id="youtube-player" style="display: none;"></div>
+
 
 
 
