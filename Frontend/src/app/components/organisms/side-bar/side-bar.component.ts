@@ -8,7 +8,6 @@ import { firstValueFrom } from "rxjs";
 import { ProviderService } from "../../../services/provider.service";
 import { MoodService } from "../../../services/mood-service.service";
 import { EchoButtonComponent } from "../../atoms/echo-button/echo-button.component";
-import { YouTubeService } from "../../../services/youtube.service";
 import { SongCardsComponent } from "../song-cards/song-cards.component";
 import { SearchService } from "../../../services/search.service";
 import { SkeletonSongCardComponent } from "../../atoms/skeleton-song-card/skeleton-song-card.component";
@@ -38,7 +37,6 @@ export class SideBarComponent implements OnInit {
     private authService: AuthService,
     private searchService: SearchService,
     public moodService: MoodService,
-    private youtubeService: YouTubeService
   )
   {
     this.moodComponentClasses = this.moodService.getComponentMoodClasses();
@@ -95,10 +93,21 @@ export class SideBarComponent implements OnInit {
       await this.fetchRecentlyPlayedTracks();
       this.provider = "youtube";
     }
-    this.screenSizeService.screenSize$.subscribe(screenSize =>
+  }
+  async loadUpNextData()
+  {
+    if (this.providerService.getProviderName() === "spotify")
     {
-      this.screenSize = screenSize;
-    });
+      try
+      {
+        this.suggestionsCardData = await this.spotifyService.getQueue(this.provider);
+        await this.suggestionsCardData.unshift(this.getEchoedCardData()[0]);
+      }
+      catch (error)
+      {
+        console.error("Error loading up next data:", error);
+      }
+    }
   }
 
   async loadSuggestionsData() {

@@ -6,6 +6,7 @@ import { SvgIconComponent } from '../../atoms/svg-icon/svg-icon.component';
 import { EchoButtonComponent } from '../../atoms/echo-button/echo-button.component';
 import { Router } from '@angular/router';
 import { MoodService } from '../../../services/mood-service.service';
+import { YouTubeService } from "../../../services/youtube.service";
 
 @Component({
   selector: 'app-song-cards',
@@ -26,20 +27,27 @@ export class SongCardsComponent {
   constructor(
     private providerService: ProviderService,
     private spotifyService: SpotifyService,
+    private youtubeService: YouTubeService,
     private router: Router,
     public moodService: MoodService
   ) {
     this.moodComponentClasses = this.moodService.getComponentMoodClasses();
+    
   }
 
   onEchoButtonClick(event: MouseEvent) {
     event.stopPropagation();
     this.router.navigate(['/echo Song'], { queryParams: { trackName: this.card.text, artistName: this.card.secondaryText } });
   }
-
-  async playTrack(trackId: string): Promise<void> {
-    if (this.providerService.getProviderName() === "spotify") {
+  async playTrack(trackId: string): Promise<void>
+  {
+    if (this.providerService.getProviderName() === "spotify")
+    {
       await this.spotifyService.playTrackById(trackId);
+    }
+    else
+    {
+      await this.youtubeService.playTrackById(trackId);
     }
   }
 }
