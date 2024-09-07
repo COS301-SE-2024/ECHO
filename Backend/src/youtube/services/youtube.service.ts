@@ -8,7 +8,7 @@ export interface TrackInfo
     albumName: string;
     albumImageUrl: string;
     artistName: string;
-    previewUrl: string;
+    previewUrl: string | null;
     youtubeId: string;
 }
 
@@ -60,5 +60,43 @@ export class YouTubeService
     async getAPIKey()
     {
         return this.API_KEY;
+    }
+
+    async getTrackDetailsByName(trackName: string, artistName: string)
+    {
+        const query = `${artistName} ${trackName}`;
+        const url = `${this.API_URL}/search?part=snippet&type=video&q=${encodeURIComponent(query)}&key=${this.API_KEY}`;
+        const response = await this.httpService.get(url).toPromise();
+        const items = response.data.items;
+
+        return items.map((item: any) => this.mapYouTubeResponseToTrackInfo(item));
+    }
+
+    // Method to fetch top YouTube music tracks
+    async getTopYouTubeTracks(): Promise<TrackInfo[]> {
+        const url = `${this.API_URL}/videos?part=snippet&chart=mostPopular&videoCategoryId=10&regionCode=US&type=video&key=${this.API_KEY}`;
+
+        try {
+            const response = await this.httpService.get(url).toPromise();
+            const items = response.data.items;
+
+            if (!items || items.length === 0) {
+                throw new Error('No tracks found in the YouTube API response');
+            }
+
+            return items.map((item: any) => ({
+                id: item.id,
+                name: item.snippet.title,
+                albumName: "Top Charts",
+                albumImageUrl: item.snippet.thumbnails.high.url,
+                artistName: item.snippet.channelTitle,
+                previewUrl: null,
+                spotifyUrl: null,
+                youtubeUrl: `https://www.youtube.com/watch?v=${item.id}`,
+            }));
+        } catch (error) {
+            console.error('Error fetching top YouTube tracks:', error.response?.data || error.message);
+            throw new Error('Failed to fetch top YouTube tracks');
+        }
     }
 }
