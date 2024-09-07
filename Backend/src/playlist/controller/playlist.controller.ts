@@ -7,4 +7,10 @@ export class SpotifyController
     constructor(private readonly playlistService: PlaylistService)
     {
     }
+
+    @Post("create")
+    async createPlaylist(@Body() body: {playlistTracks: any; playlistName: string; accessToken: string; refreshToken: string;}): Promise<any>
+    {
+        return await this.playlistService.createPlaylist(body.playlistTracks, body.playlistName, body.accessToken, body.refreshToken);
+    }
 }

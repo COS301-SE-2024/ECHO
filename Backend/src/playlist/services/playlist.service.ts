@@ -13,6 +13,10 @@ export class PlaylistService
     }
 
 
+    async createPlaylist(playlistTracks: any, playlistName: string, accessToken: string, refreshToken: string)
+    {
+        
+    }
 }
 
 interface PlaylistTrack
