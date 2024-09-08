@@ -1,6 +1,6 @@
 import { inject, Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { TokenService } from "./token.service";
 import { ProviderService } from "./provider.service";
 import { Router } from "@angular/router";
@@ -10,6 +10,8 @@ import { Router } from "@angular/router";
 })
 export class AuthService
 {
+  private loggedInSubject = new BehaviorSubject<boolean>(false);
+  public isLoggedIn$: Observable<boolean> = this.loggedInSubject.asObservable();
   private apiUrl = "http://localhost:3000/api/auth";
 
   constructor(private http: HttpClient, private tokenService: TokenService, private providerService: ProviderService, private router: Router)
@@ -22,10 +24,12 @@ export class AuthService
     if (localStorage.getItem("loggedIn") === "true")
     {
       this.router.navigate(["/home"]);
+      this.loggedInSubject.next(true);
     }
     else
     {
       localStorage.setItem("loggedIn", "true");
+      this.loggedInSubject.next(true);
     }
     return this.http.post(`${this.apiUrl}/signin`, { email, password });
   }
@@ -110,6 +114,7 @@ export class AuthService
   // This function is used to sign out the user
   signOut(): Observable<any>
   {
+    this.loggedInSubject.next(false);
     return this.http.post(`${this.apiUrl}/signout`, {});
   }
 
