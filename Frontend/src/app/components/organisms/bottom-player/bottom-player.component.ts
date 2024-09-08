@@ -57,43 +57,41 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy
   }
 
 
-  async ngOnInit() {
-    this.screenSizeService.screenSize$.subscribe(screenSize => {
+  async ngOnInit()
+  {
+    this.screenSizeService.screenSize$.subscribe(screenSize =>
+    {
       this.screenSize = screenSize;
     });
 
-    // Ensure window is available before interacting with it
-    if (typeof window !== "undefined") {
+    if (typeof window !== "undefined")
+    {
       const providerName = this.providerService.getProviderName();
-
-      // Check if Spotify is the selected provider
-      if (providerName === "spotify") {
-        try {
+      if (providerName === "spotify")
+      {
+        try
+        {
           await this.spotifyService.init();
           console.log("Spotify service initialized.");
-        } catch (error) {
-          console.error("Error initializing Spotify service:", error);
         }
-      }
-      // Otherwise, assume YouTube is the selected provider
-      else if (providerName === "youtube") {
-        try {
-          await this.youtubeService.init(); // Ensure YouTube is initialized
-          console.log("YouTube service initialized.");
-        } catch (error) {
-          console.error("Error initializing YouTube service:", error);
+        catch (error)
+        {
+          console.error("Error initializing Spotify service:", error);
         }
       }
     }
   }
 
-  ngAfterViewInit(): void {
+  ngAfterViewInit(): void
+  {
     const providerName = this.providerService.getProviderName();
 
-    // Subscribe to Spotify events
-    if (providerName === "spotify") {
-      this.trackSubscription = this.spotifyService.currentlyPlayingTrack$.subscribe(track => {
-        if (track) {
+    if (providerName === "spotify")
+    {
+      this.trackSubscription = this.spotifyService.currentlyPlayingTrack$.subscribe(track =>
+      {
+        if (track)
+        {
           this.currentTrack = {
             name: track.name,
             artist: track.artists.map((artist: any) => artist.name).join(", "),
@@ -104,44 +102,51 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy
         }
       });
 
-      this.playingStateSubscription = this.spotifyService.playingState$.subscribe(isPlaying => {
+      this.playingStateSubscription = this.spotifyService.playingState$.subscribe(isPlaying =>
+      {
         this.playing = isPlaying;
         this.updatePlayPauseIcon();
       });
 
-      this.progressSubscription = this.spotifyService.playbackProgress$.subscribe(progress => {
+      this.progressSubscription = this.spotifyService.playbackProgress$.subscribe(progress =>
+      {
         this.trackProgress = progress;
       });
 
-      this.progressUpdateSubscription = interval(1000).subscribe(() => {
+      this.progressUpdateSubscription = interval(1000).subscribe(() =>
+      {
         this.spotifyService.getCurrentPlaybackState();
       });
     }
-
-    // Subscribe to YouTube events only after ensuring YouTube is initialized
-    else if (providerName === "youtube") {
-      this.youtubeService.currentlyPlayingTrack$.subscribe(track => {
-        if (track) {
+    else
+    {
+      this.youtubeService.currentlyPlayingTrack$.subscribe(track =>
+      {
+        if (track)
+        {
           this.currentTrack = {
             name: track.name,
             artist: track.artist,
             imageUrl: track.imageUrl,
             explicit: false,
-            duration_ms: track.duration_ms // You might want to adjust this depending on the YouTube API response
+            duration_ms: track.duration_ms
           };
         }
       });
 
-      this.playingStateSubscription = this.youtubeService.playingState$.subscribe(isPlaying => {
+      this.playingStateSubscription = this.youtubeService.playingState$.subscribe(isPlaying =>
+      {
         this.playing = isPlaying;
         this.updatePlayPauseIcon();
       });
 
-      this.progressSubscription = this.youtubeService.playbackProgress$.subscribe(progress => {
+      this.progressSubscription = this.youtubeService.playbackProgress$.subscribe(progress =>
+      {
         this.trackProgress = progress;
       });
 
-      this.progressUpdateSubscription = interval(1000).subscribe(() => {
+      this.progressUpdateSubscription = interval(1000).subscribe(() =>
+      {
         this.youtubeService.getCurrentPlaybackState();
       });
     }
@@ -342,7 +347,7 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy
     }
     else
     {
-      const volume = event.target.value;
+      const volume = event.target.value / 100;
       this.youtubeService.setVolume(volume);
     }
   }
