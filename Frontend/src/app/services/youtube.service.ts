@@ -56,17 +56,20 @@ export class YouTubeService implements OnDestroy {
     if (isPlatformBrowser(this.platformId)) {
       console.log("Initializing YouTube Service");
 
-      // Initialize YouTube API only once and return the promise
       if (!this.playerInitPromise) {
         this.playerInitPromise = new Promise<void>((resolve) => {
-          this.loadYouTubeAPI().then(() => {
+          if (!window.YT) {
+            this.loadYouTubeAPI().then(() => {
+              this.initPlayer();
+              resolve();
+            });
+          } else {
             this.initPlayer();
             resolve();
-          });
+          }
         });
       }
 
-      // Wait until the player is fully initialized
       await this.playerInitPromise;
       console.log("YouTube Player is initialized.");
     }
@@ -81,10 +84,10 @@ export class YouTubeService implements OnDestroy {
         tag.id = "youtube-api";
         tag.onload = () => {
           console.log("YouTube API script loaded successfully.");
-          window["onYouTubeIframeAPIReady"] = () => {
-            console.log("YouTube API Ready callback invoked.");
-            resolve();
-          };
+        };
+        window["onYouTubeIframeAPIReady"] = () => {
+          console.log("YouTube API Ready callback invoked.");
+          resolve();
         };
         document.head.appendChild(tag);
       } else {
@@ -94,8 +97,8 @@ export class YouTubeService implements OnDestroy {
   }
 
   private initPlayer(): void {
-    if (!this.playerInitialized) {
-      this.player = new YT.Player("youtube-player", {
+    if (!this.playerInitialized && window.YT) {
+      this.player = new window.YT.Player("youtube-player", {
         height: "0",
         width: "0",
         videoId: "",
@@ -106,6 +109,8 @@ export class YouTubeService implements OnDestroy {
       });
       this.playerInitialized = true;
       console.log("YouTube player initialized.");
+    } else {
+      console.error("YT library not available.");
     }
   }
 
@@ -134,7 +139,6 @@ export class YouTubeService implements OnDestroy {
   public async playTrackById(trackId: string): Promise<void> {
     await this.init(); // Ensure player is initialized
 
-    // Wait until the player is actually ready before using it
     if (!this.playerReady || typeof this.player.loadVideoById !== "function") {
       console.error("YouTube player is not initialized or loadVideoById is not a function.");
       return;
