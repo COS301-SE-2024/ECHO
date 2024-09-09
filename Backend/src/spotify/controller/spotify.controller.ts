@@ -33,6 +33,7 @@ export class SpotifyController
 		return await this.spotifyService.getRecentlyPlayedTracks(accessToken, refreshToken);
 	}
 
+	// TODO DOUBLE CHECK issues when called multiple times
 	// This endpoint is used to get suggested tracks from the ECHO API (Clustering recommendations).
 	@Post("queue")
 	async getQueue(@Body() body: {

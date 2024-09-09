@@ -22,9 +22,7 @@
     <app-bottom-nav></app-bottom-nav>
   </div>
   <div *ngIf="isLoggedIn$ | async">
-    <div *ngIf="!isCurrentRouteAuth()">
       <app-bottom-player *ngIf="isReady()"></app-bottom-player>
-    </div>
   </div>
 </div>
 

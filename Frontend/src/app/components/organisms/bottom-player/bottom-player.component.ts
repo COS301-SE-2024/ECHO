@@ -71,7 +71,6 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy
       {
         try
         {
-          await this.spotifyService.init();
           console.log("Spotify service initialized.");
         }
         catch (error)
