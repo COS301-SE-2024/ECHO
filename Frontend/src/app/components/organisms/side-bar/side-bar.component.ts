@@ -154,9 +154,8 @@ export class SideBarComponent implements OnInit
       {
         this.isLoading = true;
         const data = await this.spotifyService.getRecentlyPlayedTracks(this.provider);
-        console.log("Recently Played Tracks Data:", data);
-        data.items.forEach((item: any) =>
-        {
+        console.log("First track: ", data.items[0]);
+        data.items.forEach((item: any) => {
           const trackId = item.track.id;
           if (!this.recentListeningCardData.find(track => track.id === trackId))
           {

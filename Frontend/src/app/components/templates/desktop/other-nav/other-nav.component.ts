@@ -43,9 +43,7 @@ export class OtherNavComponent implements AfterViewInit {
   }
 
   toggleDropdown(): void {
-    console.log('Profile picture clicked. Toggling dropdown...');
     this.isDropdownOpen = !this.isDropdownOpen;
-    console.log('Dropdown open:', this.isDropdownOpen);
   }
 
   @HostListener('document:click', ['$event'])
