@@ -1,0 +1,7 @@
+<div clas="overflow-y-hidden min-h-screen">
+    <div class="text-center sticky top-0 z-10">
+        <app-page-title class="text-2xl font-bold mb-2">{{ this.echoedSongName }}</app-page-title>
+        <app-page-title class="text-xl">From: {{ this.echoedSongArtist }}</app-page-title>
+    </div>
+    <app-echo [echoedName]="echoedSongName" [echoedArtist]="echoedSongArtist"></app-echo>    
+</div>  

@@ -1,27 +1,25 @@
 <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+<app-background-animation class="absolute inset-0" style="z-index: -1;"></app-background-animation>
 <div *ngIf="isCurrentRouteAuth()">
   <router-outlet></router-outlet>
 </div>
-<div *ngIf="!isCurrentRouteAuth()" [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]">
-  <div *ngIf="screenSize === 'desktop'"
-       class="grid grid-cols-[1fr,1fr,1fr,1fr,200px] grid-rows-[0.01fr,0.01fr,0.67fr] min-h-screen pl-2 pr-2">
+<div *ngIf="!isCurrentRouteAuth()">
+  <div *ngIf="screenSize === 'desktop'" class="grid grid-cols-[1fr,1fr,1fr,1fr,200px] grid-rows-[0.01fr,0.01fr,0.67fr] min-h-screen pl-2 pr-2 relative">
     <app-header class="col-start-2 col-span-1 row-start-2 row-span-1"></app-header>
     <app-other-nav class="col-start-5 col-span-1 row-start-1 row-span-1 justify-self-end"></app-other-nav>
     <app-left class="col-start-1 col-span-1 row-start-1 row-span-3"></app-left>
-    <div class="no-scrollbar col-span-4 row-start-3 row-span-2 overflow-y-scroll ">
+    <div id="center" class="no-scrollbar col-span-4 row-start-3 row-span-2 overflow-y-scroll overflow-hidden">
       <router-outlet></router-outlet>
     </div>
   </div>
   <div *ngIf="screenSize === 'mobile'">
-    <div class="grid grid-cols-3 grid-rows-[0.1fr,1fr,1fr] min-h-screen"
-         [ngClass]="backgroundMoodClasses[moodService.getCurrentMood()]">
+    <div class="grid grid-cols-3 grid-rows-[0.1fr,1fr,1fr] min-h-screen relative">
       <app-header class="col-start-2 col-span-1 row-start-1 row-span-1"></app-header>
       <div class="col-start-1 col-span-3 row-start-2 row-span-2">
         <router-outlet></router-outlet>
       </div>
     </div>
     <app-bottom-nav></app-bottom-nav>
-
   </div>
   <div *ngIf="isLoggedIn$ | async">
     <div *ngIf="!isCurrentRouteAuth()">
@@ -32,5 +30,3 @@
 
 <!-- Hidden YouTube player, used to play videos in the background -->
 <div id="youtube-player" style="display: none;"></div>
-
-

@@ -40,7 +40,7 @@ export class MoodService {
 
 
      private _componentMoodClassesHover = {
-      Neutral:     'bg-default text-default-text hover:bg-default-dark focus:ring-default-dark fill-default font-semibold shadow-sm transition-colors duration-mood ease-in-out',
+      Neutral:     'bg-default text-default-text hover:bg-default-dark focus:ring-default-dark fill-default font-semibold shadow-sm transition-colors',
       Anger:       'bg-anger text-anger-text hover:bg-anger-dark focus:ring-anger-dark fill-anger-dark transition-colors duration-mood ease-in-out',
       Admiration:  'bg-admiration text-admiration-text hover:bg-admiration-dark focus:ring-admiration-dark hover:text-admiration fill-admiration-dark transition-colors duration-mood ease-in-out',
       Fear:        'bg-fear text-fear-text hover:bg-fear-dark focus:ring-fear-dark fill-fear-dark transition-colors duration-mood ease-in-out',
@@ -71,7 +71,7 @@ export class MoodService {
   };
 
     private _componentMoodClasses = {
-      Neutral:     'bg-default-component text-default-text focus:ring-default-dark fill-default transition-colors duration-mood ease-in-out',
+      Neutral:     'bg-default-component text-default-text focus:ring-default-dark fill-default transition-colors',
       Anger:       'bg-anger text-anger-text  focus:ring-anger-dark fill-anger-dark transition-colors duration-mood ease-in-out',
       Admiration:  'bg-admiration text-admiration-text  focus:ring-admiration-dark fill-admiration-dark transition-colors duration-mood ease-in-out',
       Fear:        'bg-fear text-fear-text  focus:ring-fear-dark fill-fear-dark transition-colors duration-mood ease-in-out',
@@ -105,7 +105,7 @@ export class MoodService {
     Admiration:  'bg-admiration-dark transition-colors duration-mood ease-in-out',
     Fear:        'bg-fear-dark transition-colors duration-mood ease-in-out',
     Joy:         'bg-joy-dark transition-colors duration-mood ease-in-out',
-    Neutral:     'bg-default-dark transition-colors duration-mood ease-in-out',
+    Neutral:     'bg-default-dark transition-colors ',
     Amusement:   'bg-amusement-dark transition-colors duration-mood ease-in-out',
     Annoyance:   'bg-annoyance-dark transition-colors duration-mood ease-in-out',
     Approval:    'bg-approval-dark transition-colors duration-mood ease-in-out',

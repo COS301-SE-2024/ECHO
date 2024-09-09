@@ -10,6 +10,7 @@ import { SideBarComponent } from "./components/organisms/side-bar/side-bar.compo
 import { ProviderService } from "./services/provider.service";
 import { PageHeaderComponent } from "./components/molecules/page-header/page-header.component";
 import { MoodService } from "./services/mood-service.service";
+import { BackgroundAnimationComponent } from "./components/organisms/background-animation/background-animation.component";
 
 //template imports
 import { HeaderComponent } from "./components/organisms/header/header.component";
@@ -30,7 +31,8 @@ import { Observable } from "rxjs";
     PageHeaderComponent,
     HeaderComponent,
     OtherNavComponent,
-    LeftComponent
+    LeftComponent,
+    BackgroundAnimationComponent
   ],
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"]
@@ -59,8 +61,6 @@ export class AppComponent implements OnInit, OnDestroy {
     private playerStateService: PlayerStateService,
     @Inject(PLATFORM_ID) private platformId: Object,
   ) {
-    this.currentMood = this.moodService.getCurrentMood();
-    this.moodComponentClasses = this.moodService.getComponentMoodClasses();
     this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
     this.isLoggedIn$ = this.authService.isLoggedIn$;
     updates.versionUpdates.subscribe(event => {
