@@ -7,7 +7,6 @@ import pickle
 
 import db
 
-file_path = 'clustered_music_data.csv'
 features = ['duration_ms', 'danceability', 'energy', 'loudness', 'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo']
 
 from azure.storage.blob import BlobServiceClient
@@ -35,17 +34,6 @@ def get_X_Scaled():
     return X_scaled
 
 
-def get_cluster_data():
-    csv_file_path = "clustered_music_data.csv"
-
-    try:
-        df = pd.read_csv(csv_file_path)
-        return df
-    except Exception as e:
-        print(e)
-        return None
-
-
 def get_centroids():
     FILE_NAME = "cluster_centroids.json"
     BLOB_CLIENT = BLOB_SERVICE_CLIENT.get_blob_client(container=CONTAINER_NAME, blob=FILE_NAME)
@@ -66,6 +54,7 @@ def recommend_songs(music_features, n_recommendations=50):
 
         music_features = {key: music_features[key] for key in features if key in music_features}
         new_song = pd.DataFrame([music_features])
+        new_song = new_song.astype(float)
 
         new_song_scaled = scaler.transform(new_song[features])
         distances_to_centroids = np.linalg.norm(centroids - new_song_scaled, axis=1)
@@ -89,8 +78,9 @@ def recommend_songs(music_features, n_recommendations=50):
 
             db.store_song(song)
 
-        cluster_data = db.read_cluster_amount(100, closest_centroid_index)
-        if cluster_data is None:
+        cluster_data = db.read_from_cluster(closest_centroid_index)
+
+        if cluster_data is None or cluster_data == []:
             return None
         
         cluster_df = pd.DataFrame(cluster_data)

@@ -73,16 +73,19 @@ def store_song(song):
         container.create_item(body=song)
 
 
-def read_all(container):
-    item_list = list(container.read_all_items(max_item_count=10))
+def read_all():
+    database = get_database()
+    container = get_container(database)
+
+    item_list = list(container.read_all_items())
     return item_list
 
 
 def read_from_cluster(cluster_number):
-    database = create_database()
+    database = get_database()
     container = get_container(database)
 
-    query = f"SELECT * FROM c WHERE c['ClusterNumber'] = {cluster_number}"
+    query = f"SELECT * FROM c WHERE c['Cluster'] = '{cluster_number}'"
     item_list = list(container.query_items(query=query, enable_cross_partition_query=True))
 
     return item_list
