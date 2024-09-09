@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { MoodService } from '../../../services/mood-service.service';
 import { NgClass } from '@angular/common';
 @Component({
@@ -10,15 +10,16 @@ import { NgClass } from '@angular/common';
 })
 export class EchoButtonComponent {
   @Input() color: string = '#EE0258';
-  @Input() width: number = 29;
-  @Input() height: number = 28;
-   // Mood Service Variables
+  @Input() width: string = "1vw";
+  @Input() height: string = "vw";
+  @Output() buttonClick = new EventEmitter<MouseEvent>();
    moodComponentClasses!: { [key: string]: string };
-   backgroundMoodClasses!: { [key: string]: string };
    constructor(    public moodService: MoodService
     ) {
-      this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
-      this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
+      this.moodComponentClasses = this.moodService.getMoodColors(); 
+  
     } 
-
+  onButtonClick(event: MouseEvent): void {
+    this.buttonClick.emit(event);
+  }
 }

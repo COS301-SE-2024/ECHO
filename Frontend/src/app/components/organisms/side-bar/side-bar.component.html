@@ -1,35 +1,33 @@
-<div *ngIf="screenSize === 'desktop'" class="z-10" style="--tw-w: 42vh; --tw-h: 75vh; left: 1vw; top: 10.2vh;">
-  <div class="container">
-    <div class="pl-5 rounded-md h-full">
-      <div [ngClass]="moodComponentClasses[moodService.getCurrentMood()]" class="rounded-lg overflow-auto h-full flex flex-col justify-between scrollbar-hidden">
-        <div class="flex flex-col h-full">
-          <div class="flex justify-between items-center mb-2 mt-3">
-            <div class="button-container" [ngClass]="getButtonClasses('upNext')">
-              <button class="px-10 text-sm font-bold text-white focus:outline-none" (click)="selectOption('upNext')">
-                Suggestions
-              </button>
-            </div>
-            <div class="button-container" [ngClass]="getButtonClasses('recentListening')">
-              <button class="px-10 text-sm text-white focus:outline-none" (click)="selectOption('recentListening')">
-                Recent listening
-              </button>
-            </div>
+<div class="z-10 w-[42vh]" style="--tw-h: 75vh; left: 1vw; top: 10.2vh;">
+  <div class="container pl-5 rounded-md h-full">
+    <div [ngClass]="moodComponentClasses[moodService.getCurrentMood()]" class="rounded-lg overflow-auto h-full flex flex-col justify-between scrollbar-hidden">
+      <div class="flex justify-between items-center mb-2 mt-3">
+        <div class="button-container" [ngClass]="getButtonClasses('suggestions')">
+          <button class="px-10 text-sm font-bold text-white focus:outline-none truncate" (click)="selectOption('suggestions')">Suggestions</button>
+        </div>
+        <div class="button-container" [ngClass]="getButtonClasses('recentListening')">
+          <button class="px-10 text-sm text-white focus:outline-none truncate" (click)="selectOption('recentListening')">Recent listening</button>
+        </div>
+      </div>
+      <div class="mt-7 mx-3 flex-grow overflow-auto scrollbar-hidden">
+        <ng-container *ngIf="!isLoading; else loading">
+          <div *ngFor="let card of getSelectedCardData(); let i = index">
+            <app-song-cards [svgSize]="'2.5vw'" [imgSize]="'5vw'" [card]="card"></app-song-cards>
           </div>
-          <div class="mt-7 mx-3 flex-grow overflow-auto scrollbar-hidden">
-            <div *ngFor="let card of getSelectedCardData(); let i = index">
-              <app-song-cards [card]="card"></app-song-cards>
-            </div>
-          </div>
+        </ng-container>
+        <ng-template #loading>
+          <app-skeleton-song-card *ngFor="let _ of skeletonArray"></app-skeleton-song-card>
+        </ng-template>
+        <div class="flex justify-center items-center">
+          <app-toast></app-toast>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-
-
 <div *ngIf="isEchoModalVisible" id="echo-songs" tabindex="-1" aria-hidden="true" class="fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full bg-black bg-opacity-50">
-<div class="relative p-4 w-full max-w-2xl max-h-full">
+  <div class="relative p-4 w-full max-w-2xl max-h-full">
     <!-- Modal content -->
     <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
       <!-- Modal header -->
@@ -47,13 +45,13 @@
       <!-- Modal body -->
       <div *ngFor="let track of echoTracks" class="p-4 md:p-5 space-y-4">
         <div>
-        <img class="object-center w24 h-24" src="{{track.imageUrl}}" alt="Album Art">
-        <p class="text-lg text-center text-gray-500 dark:text-gray-400">
-          {{track.text}}
-        </p>
-        <p class="text-md text-center text-gray-500 dark:text-gray-400">
-          {{track.secondaryText}}
-        </p>
+          <img class="object-center w24 h-24" src="{{track.imageUrl}}" alt="Album Art">
+          <p class="text-lg text-center text-gray-500 dark:text-gray-400">
+            {{track.text}}
+          </p>
+          <p class="text-md text-center text-gray-500 dark:text-gray-400">
+            {{track.secondaryText}}
+          </p>
         </div>
       </div>
     </div>
