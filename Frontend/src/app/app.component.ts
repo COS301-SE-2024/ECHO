@@ -73,7 +73,6 @@ export class AppComponent implements OnInit {
     this.router.events.pipe(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
-      console.log('Navigation ended:', event.urlAfterRedirects);
       this.isAuthRoute = ['/login', '/register'].includes(event.urlAfterRedirects);
       this.isCallbackRoute = ['/auth/callback'].includes(event.urlAfterRedirects);
     });
