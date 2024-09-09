@@ -81,7 +81,7 @@ export class YouTubeService
     }
   }
 
-  playTrackById(videoId: string): void
+  async playTrackById(videoId: string): Promise<void>
   {
     this.isReady.subscribe(isReady =>
     {
@@ -126,7 +126,7 @@ export class YouTubeService
     });
   }
 
-  seekTo(seconds: number): void
+  seekToPosition(seconds: number): void
   {
     this.isReady.subscribe(isReady =>
     {
@@ -192,4 +192,20 @@ export class YouTubeService
   {
     this.player.destroy();
   }
+
+  adjustVolume(newVolume: number)
+  {
+    this.player.setVolume(newVolume);
+  }
+
+  nextTrack()
+  {
+    this.player.nextVideo();
+  }
+
+  previousTrack()
+  {
+    this.player.previousVideo();
+  }
+
 }

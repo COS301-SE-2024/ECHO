@@ -10,6 +10,7 @@ import { MoodService } from "../../../services/mood-service.service";
 import { EchoButtonComponent } from "../../atoms/echo-button/echo-button.component";
 import { YouTubeService } from "../../../services/youtube.service";
 import { SongCardsComponent } from "..//song-cards/song-cards.component";
+import { SearchService } from "../../../services/search.service";
 
 @Component({
   selector: "app-side-bar",
@@ -85,6 +86,12 @@ export class SideBarComponent implements OnInit
       await this.loadUpNextData();
       await this.fetchRecentlyPlayedTracks();
       this.provider = await firstValueFrom(this.authService.getProvider());
+    }
+    else
+    {
+      await this.loadUpNextData();
+      await this.fetchRecentlyPlayedTracks();
+      this.provider = "youtube";
     }
     this.screenSizeService.screenSize$.subscribe(screenSize =>
     {
