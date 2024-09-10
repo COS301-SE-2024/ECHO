@@ -1,2 +1,10 @@
 <app-navbar></app-navbar>
+<!-- left.component.html -->
+  <app-svg-icon 
+    [svgPath]="svgString" 
+    [selected]="true"
+    [fillColor]="'#000000'"
+    (svgClick)="handleSvgClick($event)">
+  </app-svg-icon>
+
 <app-side-bar></app-side-bar>

@@ -16,7 +16,7 @@ export class SvgIconComponent {
     @Input() fillColor: string = '#000000';
     @Input() selected: boolean = false;
     @Input() isAnimating: boolean = false;
-    @Input() middleColor: string = '#FFFFFF';
+    @Input() middleColor: string = '#191716';
     @Input() pathHeight: string = '1'; // Default path height as a string
     @Input() circleAnimation: boolean = false;
     @Output() svgClick = new EventEmitter<MouseEvent>();
