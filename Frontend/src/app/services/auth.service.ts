@@ -79,6 +79,13 @@ export class AuthService
         async (response) =>
         {
           this.loggedInSubject.next(true);
+          if (this.providerService.getProviderName() === "spotify")
+          {
+            if (typeof localStorage !== "undefined")
+            {
+              localStorage.setItem("spotifyReady", "true");
+            }
+          }
           await this.playerStateService
           if (response && response.url)
           {
@@ -150,5 +157,14 @@ export class AuthService
   getProvider(): Observable<any>
   {
     return this.http.get(`${this.apiUrl}/provider`);
+  }
+
+  spotifyReady()
+  {
+    if (typeof localStorage !== "undefined")
+    {
+      return localStorage.getItem("spotifyReady") === "true";
+    }
+    return false;
   }
 }

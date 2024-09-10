@@ -6,6 +6,7 @@ import { HttpClient } from "@angular/common/http";
 import { TokenService } from "./token.service";
 import { ProviderService } from "./provider.service";
 import { MoodService } from "./mood-service.service";
+import { PlayerStateService } from "./player-state.service";
 
 export interface TrackInfo
 {
@@ -62,7 +63,8 @@ export class SpotifyService
     private http: HttpClient,
     private tokenService: TokenService,
     private providerService: ProviderService,
-    private moodService: MoodService
+    private moodService: MoodService,
+    private playerStateService: PlayerStateService
   )
   {
   }
@@ -164,6 +166,7 @@ export class SpotifyService
 
     this.player.connect();
     await this.authService.setReady();
+    await this.playerStateService.setReady();
   }
 
   // Method to get the progress of the currently playing track

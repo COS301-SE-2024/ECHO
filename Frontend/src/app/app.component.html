@@ -21,9 +21,7 @@
     </div>
     <app-bottom-nav></app-bottom-nav>
   </div>
-  <div *ngIf="isLoggedIn$ | async">
-      <app-bottom-player *ngIf="isReady()"></app-bottom-player>
-  </div>
+      <app-bottom-player *ngIf="isReady()"></app-bottom-player> <!-- Use playerReady here -->
 </div>
 
 <!-- Hidden YouTube player, used to play videos in the background -->

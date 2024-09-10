@@ -4,6 +4,7 @@ import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject } from "rxjs";
 import { TokenService } from "./token.service";
 import { MoodService } from "./mood-service.service";
+import { PlayerStateService } from "./player-state.service";
 
 export interface TrackInfo
 {
@@ -49,7 +50,8 @@ export class YouTubeService implements OnDestroy
     @Inject(PLATFORM_ID) private platformId: Object,
     private http: HttpClient,
     private tokenService: TokenService,
-    private moodService: MoodService
+    private moodService: MoodService,
+    private playerStateService: PlayerStateService
   )
   {
   }
@@ -142,6 +144,7 @@ export class YouTubeService implements OnDestroy
 
   private onPlayerReady(event: YT.PlayerEvent): void
   {
+    this.playerStateService.setReady();
     console.log("YouTube player is ready");
     this.playerReady = true;
   }
