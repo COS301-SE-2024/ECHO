@@ -4,7 +4,6 @@ import { SideBarComponent } from './../../../organisms/side-bar/side-bar.compone
 import { CommonModule } from "@angular/common";
 import { SvgIconComponent } from '../../../atoms/svg-icon/svg-icon.component';
 import { MoodService } from "../../../../services/mood-service.service";
-import { ExpandableIconComponent } from '../../../organisms/expandable-icon/expandable-icon.component';
 
 const SVG_PATHS = {
   PLUS: 'M20 0 H30 V20 H50 V30 H30 V50 H20 V30 H0 V20 H20 Z',
@@ -14,7 +13,7 @@ const SVG_PATHS = {
 @Component({
   selector: 'app-left',
   standalone: true,
-  imports: [NavbarComponent, SideBarComponent, CommonModule, SvgIconComponent,ExpandableIconComponent],
+  imports: [NavbarComponent, SideBarComponent, CommonModule, SvgIconComponent],
   templateUrl: './left.component.html',
   styleUrls: ['./left.component.css']
 })
