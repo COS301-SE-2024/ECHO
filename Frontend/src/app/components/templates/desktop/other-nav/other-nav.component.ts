@@ -3,6 +3,7 @@ import { NavbarComponent } from './../../../organisms/navbar/navbar.component';
 import { InfoIconComponent } from './../../../organisms/info-icon/info-icon.component';
 import { ProfileAtomicComponent } from './../../../organisms/profile/profile.component';
 import { MoodDropDownComponent } from './../../../organisms/mood-drop-down/mood-drop-down.component';
+import { SearchBarComponent } from '../../../molecules/search-bar/search-bar.component';
 import { SpotifyService } from '../../../../services/spotify.service';
 import { ProviderService } from '../../../../services/provider.service';
 import { AuthService } from '../../../../services/auth.service';
@@ -18,7 +19,8 @@ import { RouterModule, Router } from '@angular/router';
     ProfileAtomicComponent,
     MoodDropDownComponent,
     CommonModule,
-    RouterModule
+    RouterModule,
+    SearchBarComponent
   ],
   templateUrl: './other-nav.component.html',
   styleUrls: ['./other-nav.component.css']
