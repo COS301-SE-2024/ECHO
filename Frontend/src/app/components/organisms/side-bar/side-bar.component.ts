@@ -13,13 +13,14 @@ import { SearchService } from "../../../services/search.service";
 import { SkeletonSongCardComponent } from "../../atoms/skeleton-song-card/skeleton-song-card.component";
 import { ToastComponent } from "../../../components/organisms/toast/toast.component";
 import { YouTubeService } from "../../../services/youtube.service";
+import { ExpandableIconComponent } from '../../organisms/expandable-icon/expandable-icon.component';
 
 type SelectedOption = "suggestions" | "recentListening";
 
 @Component({
   selector: "app-side-bar",
   standalone: true,
-  imports: [MatCard, MatCardContent, NgForOf, NgIf, NgClass, EchoButtonComponent, SongCardsComponent, SkeletonSongCardComponent, ToastComponent],
+  imports: [MatCard, MatCardContent, NgForOf, NgIf, NgClass, EchoButtonComponent, SongCardsComponent, SkeletonSongCardComponent, ToastComponent,ExpandableIconComponent],
   templateUrl: "./side-bar.component.html",
   styleUrls: ["./side-bar.component.css"]
 })
