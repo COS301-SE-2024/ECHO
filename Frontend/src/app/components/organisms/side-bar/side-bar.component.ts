@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from "@angular/core";
 import { MatCard, MatCardContent } from "@angular/material/card";
 import { NgClass, NgForOf, NgIf } from "@angular/common";
 import { SpotifyService } from "../../../services/spotify.service";
@@ -11,9 +11,10 @@ import { EchoButtonComponent } from "../../atoms/echo-button/echo-button.compone
 import { SongCardsComponent } from "../song-cards/song-cards.component";
 import { SearchService } from "../../../services/search.service";
 import { SkeletonSongCardComponent } from "../../atoms/skeleton-song-card/skeleton-song-card.component";
-import { ToastComponent } from '../../../components/organisms/toast/toast.component';
+import { ToastComponent } from "../../../components/organisms/toast/toast.component";
+import { YouTubeService } from "../../../services/youtube.service";
 
-type SelectedOption = 'suggestions' | 'recentListening';
+type SelectedOption = "suggestions" | "recentListening";
 
 @Component({
   selector: "app-side-bar",
@@ -22,7 +23,8 @@ type SelectedOption = 'suggestions' | 'recentListening';
   templateUrl: "./side-bar.component.html",
   styleUrls: ["./side-bar.component.css"]
 })
-export class SideBarComponent implements OnInit {
+export class SideBarComponent implements OnInit
+{
   @ViewChild(ToastComponent) toastComponent!: ToastComponent; // Declare ToastComponent
 
   // Mood Service Variables
@@ -37,6 +39,8 @@ export class SideBarComponent implements OnInit {
     private authService: AuthService,
     private searchService: SearchService,
     public moodService: MoodService,
+    private youtubeService: YouTubeService,
+    private cdRef: ChangeDetectorRef
   )
   {
     this.moodComponentClasses = this.moodService.getComponentMoodClasses();
@@ -56,18 +60,24 @@ export class SideBarComponent implements OnInit {
   options = ["Recent Listening...", "Up Next..."];
   isEchoModalVisible: boolean = false;
   isLoading: boolean = true;
-  skeletonArray = Array(10); 
+  skeletonArray = Array(10);
 
+  async ngAfterViewInit()
+  {
+    this.cdRef.detectChanges();
+  }
 
-  toggleDropdown(): void {
+  toggleDropdown(): void
+  {
     this.isDropdownVisible = !this.isDropdownVisible;
   }
 
-  getButtonClasses(option: string): { [key: string]: boolean } {
+  getButtonClasses(option: string): { [key: string]: boolean }
+  {
     const moodClass = this.underline[this.moodService.getCurrentMood()];
     return {
       [moodClass]: this.selectedOption === option,
-      'border-transparent': this.selectedOption !== option
+      "border-transparent": this.selectedOption !== option
     };
   }
 
@@ -81,19 +91,23 @@ export class SideBarComponent implements OnInit {
     this.toggleDropdown();
   }
 
-  async ngOnInit() {
-    if (this.providerService.getProviderName() === "spotify") {
+  async ngOnInit()
+  {
+    if (this.providerService.getProviderName() === "spotify")
+    {
       await this.loadSuggestionsData();
       await this.fetchRecentlyPlayedTracks();
       this.provider = await firstValueFrom(this.authService.getProvider());
     }
     else
     {
+      this.provider = "youtube";
       await this.loadUpNextData();
       await this.fetchRecentlyPlayedTracks();
-      this.provider = "youtube";
+      await this.youtubeService.init();
     }
   }
+
   async loadUpNextData()
   {
     if (this.providerService.getProviderName() === "spotify")
@@ -110,31 +124,42 @@ export class SideBarComponent implements OnInit {
     }
   }
 
-  async loadSuggestionsData() {
-    if (this.providerService.getProviderName() === "spotify") {
-      try {
+  async loadSuggestionsData()
+  {
+    if (this.providerService.getProviderName() === "spotify")
+    {
+      try
+      {
         this.isLoading = true;
         this.suggestionsCardData = await this.spotifyService.getQueue(this.provider);
         await this.suggestionsCardData.unshift(this.getEchoedCardData()[0]);
         this.isLoading = false;
-      } catch (error) {
+      }
+      catch (error)
+      {
         this.isLoading = false;
-        if(this.selectedOption === "suggestions") {
+        if (this.selectedOption === "suggestions")
+        {
           this.toastComponent.showToast("Error fetching suggestions data", "error"); // Show error toast
         }
       }
     }
   }
 
-  private async fetchRecentlyPlayedTracks() {
-    if (this.providerService.getProviderName() === "spotify") {
-      try {
+  private async fetchRecentlyPlayedTracks()
+  {
+    if (this.providerService.getProviderName() === "spotify")
+    {
+      try
+      {
         this.isLoading = true;
         const data = await this.spotifyService.getRecentlyPlayedTracks(this.provider);
         console.log("Recently Played Tracks Data:", data);
-        data.items.forEach((item: any) => {
+        data.items.forEach((item: any) =>
+        {
           const trackId = item.track.id;
-          if (!this.recentListeningCardData.find(track => track.id === trackId)) {
+          if (!this.recentListeningCardData.find(track => track.id === trackId))
+          {
             this.recentListeningCardData.push({
               id: trackId,
               imageUrl: item.track.album.images[0].url,
@@ -145,26 +170,64 @@ export class SideBarComponent implements OnInit {
           }
         });
         this.isLoading = false;
-      } catch (error) {
+      }
+      catch (error)
+      {
         this.isLoading = false;
-        if(this.selectedOption === "recentListening") {
-        this.toastComponent.showToast("Error fetching recently played tracks", "error"); // Show error toast
+        if (this.selectedOption === "recentListening")
+        {
+          this.toastComponent.showToast("Error fetching recently played tracks", "error"); // Show error toast
         }
       }
     }
+    else
+    {
+      this.youtubeService.getTopYouTubeTracks().then(tracks =>
+      {
+        if (tracks)
+        {
+          tracks.forEach(track =>
+          {
+            const trackId = track.id;
+            if (!this.recentListeningCardData.find(t => t.id === trackId))
+            {
+              this.recentListeningCardData.push({
+                id: trackId,
+                imageUrl: track.imageUrl,
+                text: this.truncateText(track.text, 33),
+                secondaryText: track.secondaryText,
+                explicit: false
+              });
+              this.isLoading = false;
+            }
+          });
+        }
+        else
+        {
+          console.error("No tracks found in YouTube top tracks.");
+        }
+      }).catch(error =>
+      {
+        this.isLoading = false;
+        console.error("Error fetching top YouTube tracks:", error);
+      });
+    }
   }
 
-  getSelectedCardData(): any[] {
+  getSelectedCardData(): any[]
+  {
     return this.selectedOption === "suggestions"
       ? this.suggestionsCardData
       : this.recentListeningCardData;
   }
 
-  getRecentListeningCardData(): any[] {
+  getRecentListeningCardData(): any[]
+  {
     return this.recentListeningCardData.slice(0, 15);
   }
 
-  getEchoedCardData(): any[] {
+  getEchoedCardData(): any[]
+  {
     return this.recentListeningCardData.slice(0, 1);
   }
 
@@ -180,8 +243,42 @@ export class SideBarComponent implements OnInit {
     }
   }
 
+  async playTrack(trackId: string): Promise<void>
+  {
+    console.log(`Attempting to play track with ID: ${trackId}`);
+    if (this.providerService.getProviderName() === "spotify")
+    {
+      await this.spotifyService.playTrackById(trackId);
+    }
+    else
+    {
+      console.log("Invoking YouTube playTrackById");
+      await this.youtubeService.playTrackById(trackId);
+    }
+  }
+
+  async echoTrack(trackName: string, artistName: string, event: MouseEvent): Promise<void>
+  {
+    this.isEchoModalVisible = true;
+    event.stopPropagation();
+    try
+    {
+      this.echoTracks = await this.searchService.echo(trackName, artistName);
+      this.isEchoModalVisible = true;
+    }
+    catch (error)
+    {
+      console.error("Error echoing track: ", error);
+      this.toastComponent.showToast("Error echoing track", "error"); // Show error toast
+    }
+  }
+
   private truncateText(text: string, maxLength: number): string
   {
+    if (!text)
+    {
+      return "";
+    }
     if (text.length > maxLength)
     {
       return text.substring(0, maxLength) + "...";
@@ -189,23 +286,13 @@ export class SideBarComponent implements OnInit {
     return text;
   }
 
-  closeModal() {
+  closeModal()
+  {
     this.isEchoModalVisible = false;
   }
 
-  async echoTrack(trackName: string, artistName: string, event: MouseEvent): Promise<void> {
-    this.isEchoModalVisible = true;
-    event.stopPropagation();
-    try {
-      this.echoTracks = await this.searchService.echo(trackName, artistName);
-      this.isEchoModalVisible = true;
-    } catch (error) {
-      console.error("Error echoing track: ", error);
-      this.toastComponent.showToast("Error echoing track", "error"); // Show error toast
-    }
-  }
-
-  handleEchoTrack(eventData: { trackName: string, artistName: string, event: MouseEvent }) {
+  handleEchoTrack(eventData: { trackName: string, artistName: string, event: MouseEvent })
+  {
     // this.echoTrack(eventData.trackName, eventData.artistName, eventData.event);
   }
 }

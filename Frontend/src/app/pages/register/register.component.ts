@@ -48,7 +48,7 @@ export class RegisterComponent {
 
       this.authService.signUp(this.email, this.password, metadata).subscribe(
         () => this.router.navigate(["/home"]),
-        (error) => console.error("Error signing up:", error)
+        (error) => this.toastComponent.showToast("Ensure password contains at least one lower case letter, one capital letter, one number, and one symbol.", 'error')
       );
     }
 

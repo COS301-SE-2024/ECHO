@@ -21,5 +21,8 @@
     </div>
     <app-bottom-nav></app-bottom-nav>
   </div>
-  <app-bottom-player *ngIf="isReady()"></app-bottom-player>
+      <app-bottom-player *ngIf="isReady()"></app-bottom-player> <!-- Use playerReady here -->
 </div>
+
+<!-- Hidden YouTube player, used to play videos in the background -->
+<div id="youtube-player" style="display: none;"></div>

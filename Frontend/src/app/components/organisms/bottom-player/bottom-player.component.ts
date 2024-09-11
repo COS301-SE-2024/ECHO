@@ -7,6 +7,7 @@ import { Subscription, interval } from "rxjs";
 import { ProviderService } from "../../../services/provider.service";
 import { MoodService } from "../../../services/mood-service.service";
 import { YouTubeService } from "../../../services/youtube.service";
+import { AuthService } from "../../../services/auth.service";
 
 @Component({
   selector: "app-bottom-player",
@@ -23,7 +24,7 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy
   started: boolean = false;
   screenSize?: string;
 
-  //Mood Service Variables
+  // Mood Service Variables
   moodComponentClasses!: { [key: string]: string };
   backgroundMoodClasses!: { [key: string]: string };
   moodClassesDark!: { [key: string]: string };
@@ -41,14 +42,14 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy
   private progressUpdateSubscription!: Subscription;
   public muted: boolean = false;
 
-
   constructor(
     private spotifyService: SpotifyService,
     private screenSizeService: ScreenSizeService,
     private providerService: ProviderService,
     public moodService: MoodService,
     private cdr: ChangeDetectorRef,
-    private youtubeService: YouTubeService
+    private youtubeService: YouTubeService,
+    private authService: AuthService
   )
   {
     this.moodComponentClasses = this.moodService.getComponentMoodClasses();
@@ -56,10 +57,36 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy
     this.moodClassesDark = this.moodService.getComponentMoodClassesDark();
   }
 
+  async ngOnInit()
+  {
+    this.screenSizeService.screenSize$.subscribe(screenSize =>
+    {
+      this.screenSize = screenSize;
+    });
+
+    if (typeof window !== "undefined")
+    {
+      const providerName = this.providerService.getProviderName();
+      if (providerName === "spotify")
+      {
+        try
+        {
+          console.log("Spotify service initialized.");
+        }
+        catch (error)
+        {
+          console.error("Error initializing Spotify service:", error);
+        }
+        this.cdr.detectChanges();
+      }
+    }
+  }
 
   ngAfterViewInit(): void
   {
-    if (this.providerService.getProviderName() === "spotify")
+    const providerName = this.providerService.getProviderName();
+
+    if (providerName === "spotify")
     {
       this.trackSubscription = this.spotifyService.currentlyPlayingTrack$.subscribe(track =>
       {
@@ -73,17 +100,20 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy
             duration_ms: track.duration_ms
           };
         }
+        this.cdr.detectChanges();
       });
 
       this.playingStateSubscription = this.spotifyService.playingState$.subscribe(isPlaying =>
       {
         this.playing = isPlaying;
         this.updatePlayPauseIcon();
+        this.cdr.detectChanges();
       });
 
       this.progressSubscription = this.spotifyService.playbackProgress$.subscribe(progress =>
       {
         this.trackProgress = progress;
+        this.cdr.detectChanges();
       });
 
       this.progressUpdateSubscription = interval(1000).subscribe(() =>
@@ -91,24 +121,40 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy
         this.spotifyService.getCurrentPlaybackState();
       });
     }
-  }
+    else
+    {
+      this.youtubeService.currentlyPlayingTrack$.subscribe(track =>
+      {
+        if (track)
+        {
+          this.currentTrack = {
+            name: track.name,
+            artist: track.artist,
+            imageUrl: track.imageUrl,
+            explicit: false,
+            duration_ms: track.duration_ms
+          };
+        }
+        this.cdr.detectChanges();
+      });
 
-  async ngOnInit()
-  {
-    this.screenSizeService.screenSize$.subscribe(screenSize =>
-    {
-      this.screenSize = screenSize;
-    });
-    if (typeof window !== "undefined")
-    {
-      if (this.providerService.getProviderName() === "spotify")
+      this.playingStateSubscription = this.youtubeService.playingState$.subscribe(isPlaying =>
       {
-        await this.spotifyService.init();
-      }
-      else
+        this.playing = isPlaying;
+        this.updatePlayPauseIcon();
+        this.cdr.detectChanges();
+      });
+
+      this.progressSubscription = this.youtubeService.playbackProgress$.subscribe(progress =>
       {
-        await this.youtubeService.loadYouTubeAPI();
-      }
+        this.trackProgress = progress;
+        this.cdr.detectChanges();
+      });
+
+      this.progressUpdateSubscription = interval(1000).subscribe(() =>
+      {
+        this.youtubeService.getCurrentPlaybackState();
+      });
     }
   }
 
@@ -124,12 +170,12 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy
     }
     this.unsubscribeAll();
     this.providerService.clear();
+    this.authService.signOut();
   }
 
   private unsubscribeAll(): void
   {
-    [this.trackSubscription, this.playingStateSubscription,
-      this.progressSubscription, this.progressUpdateSubscription].forEach(sub =>
+    [this.trackSubscription, this.playingStateSubscription, this.progressSubscription, this.progressUpdateSubscription].forEach(sub =>
     {
       if (sub)
       {
@@ -164,7 +210,6 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy
     }
   }
 
-
   updateProgress(event: MouseEvent): void
   {
     if (!this.progressContainer)
@@ -187,9 +232,10 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy
     }
     else
     {
-      this.youtubeService.seekToPosition(newProgress);
+      this.youtubeService.seekToPosition(newProgress * 2);
     }
   }
+
 
   playMusic(): void
   {
@@ -215,7 +261,7 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy
     }
   }
 
-  play()
+  play(): void
   {
     if (this.providerService.getProviderName() === "spotify")
     {
@@ -228,52 +274,40 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy
       }
       else
       {
-        if (this.playing)
-        {
-          if (!this.started)
-            this.started = true;
-          this.pauseMusic();
-          this.playing = false;
-          this.updatePlayPauseIcon();
-        }
-        else
-        {
-          this.playMusic();
-          this.playing = true;
-          this.updatePlayPauseIcon();
-        }
+        this.togglePlayPause();
       }
     }
     else
     {
       if (!this.started && !this.playing)
       {
-        this.youtubeService.playTrackById("5mVfq3wn79JVdHQ7ZuLSCB");
         this.started = true;
         this.playing = true;
         this.updatePlayPauseIcon();
       }
       else
       {
-        if (this.playing)
-        {
-          if (!this.started)
-            this.started = true;
-          this.pauseMusic();
-          this.playing = false;
-          this.updatePlayPauseIcon();
-        }
-        else
-        {
-          this.playMusic();
-          this.playing = true;
-          this.updatePlayPauseIcon();
-        }
+        this.togglePlayPause();
       }
     }
   }
 
-  playNext()
+  private togglePlayPause(): void
+  {
+    if (this.playing)
+    {
+      this.pauseMusic();
+      this.playing = false;
+    }
+    else
+    {
+      this.playMusic();
+      this.playing = true;
+    }
+    this.updatePlayPauseIcon();
+  }
+
+  playNext(): void
   {
     if (this.providerService.getProviderName() === "spotify")
     {
@@ -285,7 +319,7 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy
     }
   }
 
-  playPrevious()
+  playPrevious(): void
   {
     if (this.providerService.getProviderName() === "spotify")
     {
@@ -299,28 +333,21 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy
 
   onVolumeChange(event: any): void
   {
+    const volume = event.target.value / 100;
     if (this.providerService.getProviderName() === "spotify")
     {
-      const volume = event.target.value / 100;
       this.spotifyService.setVolume(volume);
     }
     else
     {
-      const volume = event.target.value;
-      this.youtubeService.adjustVolume(volume);
+      this.youtubeService.setVolume(volume*2);
     }
   }
 
   private updatePlayPauseIcon(): void
   {
-    if (this.playing)
-    {
-      this.imgsrc = "../../../assets/images/pause.png";
-    }
-    else
-    {
-      this.imgsrc = "../../../assets/images/play.png";
-    }
+    this.imgsrc = this.playing ? "../../../assets/images/pause.png" : "../../../assets/images/play.png";
+    this.cdr.detectChanges();
   }
 
   playingNow(): boolean
@@ -330,9 +357,8 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy
 
   pausedNow(): boolean
   {
-    return !(this.playing);
+    return !this.playing;
   }
-
 
   formatTime(seconds: number): string
   {
@@ -340,5 +366,4 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy
     const remainingSeconds = Math.floor(seconds % 60);
     return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
   }
-
 }

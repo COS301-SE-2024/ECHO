@@ -1,18 +1,21 @@
 import { inject, Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { TokenService } from "./token.service";
 import { ProviderService } from "./provider.service";
 import { Router } from "@angular/router";
+import { PlayerStateService } from "./player-state.service";
 
 @Injectable({
   providedIn: "root"
 })
 export class AuthService
 {
+  private loggedInSubject = new BehaviorSubject<boolean>(false);
+  public isLoggedIn$: Observable<boolean> = this.loggedInSubject.asObservable();
   private apiUrl = "http://localhost:3000/api/auth";
 
-  constructor(private http: HttpClient, private tokenService: TokenService, private providerService: ProviderService, private router: Router)
+  constructor(private http: HttpClient, private tokenService: TokenService, private playerStateService: PlayerStateService, private providerService: ProviderService, private router: Router)
   {
   }
 
@@ -22,10 +25,12 @@ export class AuthService
     if (localStorage.getItem("loggedIn") === "true")
     {
       this.router.navigate(["/home"]);
+      this.loggedInSubject.next(true);
     }
     else
     {
       localStorage.setItem("loggedIn", "true");
+      this.loggedInSubject.next(true);
     }
     return this.http.post(`${this.apiUrl}/signin`, { email, password });
   }
@@ -59,6 +64,7 @@ export class AuthService
   // This function is used to sign in the user with Spotify OAuth
   async signInWithOAuth(): Promise<void>
   {
+    this.loggedInSubject.next(true);
     if (localStorage.getItem("loggedIn") === "true")
     {
       this.router.navigate(["/home"]);
@@ -70,8 +76,17 @@ export class AuthService
     const providerName = this.providerService.getProviderName();
     this.http.post<{ url: string }>(`${this.apiUrl}/oauth-signin`, { provider: providerName })
       .subscribe(
-        (response) =>
+        async (response) =>
         {
+          this.loggedInSubject.next(true);
+          if (this.providerService.getProviderName() === "spotify")
+          {
+            if (typeof localStorage !== "undefined")
+            {
+              localStorage.setItem("spotifyReady", "true");
+            }
+          }
+          await this.playerStateService
           if (response && response.url)
           {
             localStorage.setItem("loggedIn", "true");
@@ -110,6 +125,7 @@ export class AuthService
   // This function is used to sign out the user
   signOut(): Observable<any>
   {
+    this.loggedInSubject.next(false);
     return this.http.post(`${this.apiUrl}/signout`, {});
   }
 
@@ -141,5 +157,14 @@ export class AuthService
   getProvider(): Observable<any>
   {
     return this.http.get(`${this.apiUrl}/provider`);
+  }
+
+  spotifyReady()
+  {
+    if (typeof localStorage !== "undefined")
+    {
+      return localStorage.getItem("spotifyReady") === "true";
+    }
+    return false;
   }
 }
