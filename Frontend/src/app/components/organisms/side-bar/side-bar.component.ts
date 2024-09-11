@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild, EventEmitter, Output } from "@angular/core";
 import { MatCard, MatCardContent } from "@angular/material/card";
 import { NgClass, NgForOf, NgIf } from "@angular/common";
 import { SpotifyService } from "../../../services/spotify.service";
@@ -13,18 +13,18 @@ import { SearchService } from "../../../services/search.service";
 import { SkeletonSongCardComponent } from "../../atoms/skeleton-song-card/skeleton-song-card.component";
 import { ToastComponent } from '../../../components/organisms/toast/toast.component';
 import { ExpandableIconComponent } from '../../organisms/expandable-icon/expandable-icon.component';
-
 type SelectedOption = 'suggestions' | 'recentListening';
 
 @Component({
   selector: "app-side-bar",
   standalone: true,
-  imports: [MatCard, MatCardContent, NgForOf, NgIf, NgClass, EchoButtonComponent, SongCardsComponent, SkeletonSongCardComponent, ToastComponent,ExpandableIconComponent],
+  imports: [MatCard, MatCardContent, NgForOf, NgIf, NgClass, EchoButtonComponent, SongCardsComponent, SkeletonSongCardComponent, ToastComponent, ExpandableIconComponent],
   templateUrl: "./side-bar.component.html",
-  styleUrls: ["./side-bar.component.css"]
+  styleUrls: ["./side-bar.component.css"],
 })
 export class SideBarComponent implements OnInit {
   @ViewChild(ToastComponent) toastComponent!: ToastComponent; // Declare ToastComponent
+  @Output() sidebarToggled = new EventEmitter<boolean>(); // Declare EventEmitter
 
   // Mood Service Variables
   moodComponentClasses!: { [key: string]: string };
@@ -38,8 +38,7 @@ export class SideBarComponent implements OnInit {
     private authService: AuthService,
     private searchService: SearchService,
     public moodService: MoodService,
-  )
-  {
+  ) {
     this.moodComponentClasses = this.moodService.getComponentMoodClasses();
     this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
     this.underline = this.moodService.getUnerlineMoodClasses();
@@ -57,8 +56,13 @@ export class SideBarComponent implements OnInit {
   options = ["Recent Listening...", "Up Next..."];
   isEchoModalVisible: boolean = false;
   isLoading: boolean = true;
-  skeletonArray = Array(10); 
+  skeletonArray = Array(10);
+  isSideBarHidden = false;
 
+  toggleSideBar() {
+    this.isSideBarHidden = !this.isSideBarHidden;
+    this.sidebarToggled.emit(this.isSideBarHidden); // Emit event
+  }
 
   toggleDropdown(): void {
     this.isDropdownVisible = !this.isDropdownVisible;
@@ -87,25 +91,19 @@ export class SideBarComponent implements OnInit {
       await this.loadSuggestionsData();
       await this.fetchRecentlyPlayedTracks();
       this.provider = await firstValueFrom(this.authService.getProvider());
-    }
-    else
-    {
+    } else {
       await this.loadUpNextData();
       await this.fetchRecentlyPlayedTracks();
       this.provider = "youtube";
     }
   }
-  async loadUpNextData()
-  {
-    if (this.providerService.getProviderName() === "spotify")
-    {
-      try
-      {
+
+  async loadUpNextData() {
+    if (this.providerService.getProviderName() === "spotify") {
+      try {
         this.suggestionsCardData = await this.spotifyService.getQueue(this.provider);
         await this.suggestionsCardData.unshift(this.getEchoedCardData()[0]);
-      }
-      catch (error)
-      {
+      } catch (error) {
         console.error("Error loading up next data:", error);
       }
     }
@@ -120,7 +118,7 @@ export class SideBarComponent implements OnInit {
         this.isLoading = false;
       } catch (error) {
         this.isLoading = false;
-        if(this.selectedOption === "suggestions") {
+        if (this.selectedOption === "suggestions") {
           this.toastComponent.showToast("Error fetching suggestions data", "error"); // Show error toast
         }
       }
@@ -148,8 +146,8 @@ export class SideBarComponent implements OnInit {
         this.isLoading = false;
       } catch (error) {
         this.isLoading = false;
-        if(this.selectedOption === "recentListening") {
-        this.toastComponent.showToast("Error fetching recently played tracks", "error"); // Show error toast
+        if (this.selectedOption === "recentListening") {
+          this.toastComponent.showToast("Error fetching recently played tracks", "error"); // Show error toast
         }
       }
     }
@@ -181,10 +179,8 @@ export class SideBarComponent implements OnInit {
     }
   }
 
-  private truncateText(text: string, maxLength: number): string
-  {
-    if (text.length > maxLength)
-    {
+  private truncateText(text: string, maxLength: number): string {
+    if (text.length > maxLength) {
       return text.substring(0, maxLength) + "...";
     }
     return text;
