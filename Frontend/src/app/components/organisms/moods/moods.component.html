@@ -1,5 +1,5 @@
 <div *ngIf="screenSize === 'desktop'" class="flex flex-col pl-1 ml-[2vw]">
-    <div class="card-body">
+    <div class="card-body relative">
         <app-page-title>Favourite Moods</app-page-title>
         <app-moods-list [moods]="favouriteMoods" (redirectToMoodPage)="redirectToMoodPage($event)"></app-moods-list>
         <br/>

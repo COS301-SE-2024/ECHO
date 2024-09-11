@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { MatCard, MatCardContent } from '@angular/material/card';
 import { NgClass, NgForOf, NgIf } from '@angular/common';
-
+import { MoodService } from '../../../services/mood-service.service';
 @Component({
   selector: 'app-info-bar',
   standalone: true,
@@ -11,7 +11,10 @@ import { NgClass, NgForOf, NgIf } from '@angular/common';
 })
 export class InfoBarComponent {
   selectedOption: string = 'Info';
-
+  moodComponentClasses!: { [key: string]: string };
+  constructor(public moodService: MoodService) {
+    this.moodComponentClasses = this.moodService.getComponentMoodClasses();
+  }
   artist = {
     name: 'Kendrick Lamar',
     image: '../assets/images/kendrick.jpg',
