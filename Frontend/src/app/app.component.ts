@@ -46,7 +46,8 @@ export class AppComponent implements OnInit, OnDestroy {
   displayPageName: boolean = false;
   columnStart: number = 3; 
   columnStartNav: number = 1; 
-
+  colSpan: number = 4; 
+  isSidebarOpen: boolean = false;
   protected displaySideBar: boolean = false;
   protected isAuthRoute: boolean = false;
   protected isCallbackRoute: boolean = false;
@@ -101,7 +102,9 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   layout(isSidebarOpen: boolean) {
+    this.isSidebarOpen = isSidebarOpen;
     this.columnStart = isSidebarOpen ? 1 : 3;    
+    this.colSpan = isSidebarOpen ? 5 : 4;
   }
 
   isReady(): boolean {
