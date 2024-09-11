@@ -293,7 +293,7 @@ export class SpotifyService
     }
   }
 
-  // Seek to a specific position in the currently playing track
+  // This function seeks to a specific position in the current track
   public async seekToPosition(progress: number): Promise<void>
   {
     if (!this.deviceId)
@@ -302,23 +302,28 @@ export class SpotifyService
       return;
     }
 
-    const laccessToken = this.tokenService.getAccessToken();
-    const lrefreshToken = this.tokenService.getRefreshToken();
-
     try
     {
-      await this.http.put(`http://localhost:3000/api/spotify/seek`, {
-        deviceId: this.deviceId,
-        progress: progress,
-        accessToken: laccessToken,
-        refreshToken: lrefreshToken
-      }).toPromise();
+      const state = await this.player.getCurrentState();
+
+      if (!state) {
+        console.error("No track is currently playing.");
+        return;
+      }
+
+      const trackDuration = state.track_window.current_track.duration_ms;
+      const seekPosition = (progress / 100) * trackDuration;
+
+      this.player.seek(seekPosition).then(() => {
+        console.log(`Seeked to position ${seekPosition} ms`);
+      });
     }
     catch (error)
     {
       console.error("Error seeking to position:", error);
     }
   }
+
 
   // Resume playback
   public play(): void

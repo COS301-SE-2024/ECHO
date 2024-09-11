@@ -236,6 +236,7 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy
     }
   }
 
+
   playMusic(): void
   {
     if (this.providerService.getProviderName() === "spotify")
