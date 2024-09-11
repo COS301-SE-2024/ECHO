@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, EventEmitter, Output } from "@angular/core";
+import { Component, OnInit, ViewChild, EventEmitter, Output,Input } from "@angular/core";
 import { MatCard, MatCardContent } from "@angular/material/card";
 import { NgClass, NgForOf, NgIf } from "@angular/common";
 import { SpotifyService } from "../../../services/spotify.service";
@@ -25,7 +25,7 @@ type SelectedOption = 'suggestions' | 'recentListening';
 export class SideBarComponent implements OnInit {
   @ViewChild(ToastComponent) toastComponent!: ToastComponent; // Declare ToastComponent
   @Output() sidebarToggled = new EventEmitter<boolean>(); // Declare EventEmitter
-
+  @Input() isSideBarHidden!: boolean; // Declare Input
   // Mood Service Variables
   moodComponentClasses!: { [key: string]: string };
   backgroundMoodClasses!: { [key: string]: string };
@@ -57,7 +57,7 @@ export class SideBarComponent implements OnInit {
   isEchoModalVisible: boolean = false;
   isLoading: boolean = true;
   skeletonArray = Array(10);
-  isSideBarHidden = false;
+
 
   toggleSideBar() {
     this.isSideBarHidden = !this.isSideBarHidden;
