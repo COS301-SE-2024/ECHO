@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef } from "@angular/core";
+import { Component, OnInit, ViewChild, EventEmitter, Output, ChangeDetectorRef } from "@angular/core";
 import { MatCard, MatCardContent } from "@angular/material/card";
 import { NgClass, NgForOf, NgIf } from "@angular/common";
 import { SpotifyService } from "../../../services/spotify.service";
@@ -20,13 +20,14 @@ type SelectedOption = "suggestions" | "recentListening";
 @Component({
   selector: "app-side-bar",
   standalone: true,
-  imports: [MatCard, MatCardContent, NgForOf, NgIf, NgClass, EchoButtonComponent, SongCardsComponent, SkeletonSongCardComponent, ToastComponent,ExpandableIconComponent],
+  imports: [MatCard, MatCardContent, NgForOf, NgIf, NgClass, EchoButtonComponent, SongCardsComponent, SkeletonSongCardComponent, ToastComponent, ExpandableIconComponent],
   templateUrl: "./side-bar.component.html",
-  styleUrls: ["./side-bar.component.css"]
+  styleUrls: ["./side-bar.component.css"],
 })
 export class SideBarComponent implements OnInit
 {
   @ViewChild(ToastComponent) toastComponent!: ToastComponent; // Declare ToastComponent
+  @Output() sidebarToggled = new EventEmitter<boolean>(); // Declare EventEmitter
 
   // Mood Service Variables
   moodComponentClasses!: { [key: string]: string };
@@ -62,10 +63,15 @@ export class SideBarComponent implements OnInit
   isEchoModalVisible: boolean = false;
   isLoading: boolean = true;
   skeletonArray = Array(10);
+  isSideBarHidden = false;
 
   async ngAfterViewInit()
   {
     this.cdRef.detectChanges();
+  }
+  toggleSideBar() {
+    this.isSideBarHidden = !this.isSideBarHidden;
+    this.sidebarToggled.emit(this.isSideBarHidden); // Emit event
   }
 
   toggleDropdown(): void
@@ -117,9 +123,7 @@ export class SideBarComponent implements OnInit
       {
         this.suggestionsCardData = await this.spotifyService.getQueue(this.provider);
         await this.suggestionsCardData.unshift(this.getEchoedCardData()[0]);
-      }
-      catch (error)
-      {
+      } catch (error) {
         console.error("Error loading up next data:", error);
       }
     }

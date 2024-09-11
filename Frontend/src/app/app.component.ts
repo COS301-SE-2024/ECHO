@@ -6,12 +6,13 @@ import { ScreenSizeService } from "./services/screen-size-service.service";
 import { SwUpdate } from "@angular/service-worker";
 import { filter } from "rxjs/operators";
 import { CommonModule, isPlatformBrowser } from "@angular/common";
-import { SideBarComponent } from "./components/organisms/side-bar/side-bar.component";
 import { ProviderService } from "./services/provider.service";
 import { PageHeaderComponent } from "./components/molecules/page-header/page-header.component";
 import { MoodService } from "./services/mood-service.service";
 import { BackgroundAnimationComponent } from "./components/organisms/background-animation/background-animation.component";
 
+import { NavbarComponent } from "./components/organisms/navbar/navbar.component";
+import { SideBarComponent } from './components/organisms/side-bar/side-bar.component';
 //template imports
 import { HeaderComponent } from "./components/organisms/header/header.component";
 import { OtherNavComponent } from "./components/templates/desktop/other-nav/other-nav.component";
@@ -32,7 +33,9 @@ import { Observable } from "rxjs";
     HeaderComponent,
     OtherNavComponent,
     LeftComponent,
-    BackgroundAnimationComponent
+    BackgroundAnimationComponent,
+    NavbarComponent,
+    SideBarComponent
   ],
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"]
@@ -41,6 +44,9 @@ export class AppComponent implements OnInit, OnDestroy {
   update: boolean = false;
   screenSize!: string;
   displayPageName: boolean = false;
+  columnStart: number = 3; 
+  columnStartNav: number = 1; 
+
   protected displaySideBar: boolean = false;
   protected isAuthRoute: boolean = false;
   protected isCallbackRoute: boolean = false;
@@ -80,7 +86,7 @@ export class AppComponent implements OnInit, OnDestroy {
       this.isCallbackRoute = ['/auth/callback'].includes(event.urlAfterRedirects);
     });
   }
-
+  
   async ngOnInit() {
     this.screenSizeService.screenSize$.subscribe(screenSize => {
       this.screenSize = screenSize;
@@ -94,6 +100,9 @@ export class AppComponent implements OnInit, OnDestroy {
     return ['/login', '/register','/Auth/callback'].includes(this.router.url);
   }
 
+  layout(isSidebarOpen: boolean) {
+    this.columnStart = isSidebarOpen ? 1 : 3;    
+  }
 
   isReady(): boolean {
     if (isPlatformBrowser(this.platformId))
