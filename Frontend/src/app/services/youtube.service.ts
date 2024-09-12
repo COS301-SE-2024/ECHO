@@ -65,7 +65,6 @@ export class YouTubeService implements OnDestroy
   {
     if (isPlatformBrowser(this.platformId))
     {
-      console.log("Initializing YouTube Service");
 
       if (!this.playerInitPromise)
       {
@@ -88,7 +87,6 @@ export class YouTubeService implements OnDestroy
       }
 
       await this.playerInitPromise;
-      console.log("YouTube Player is initialized.");
     }
   }
 
@@ -108,7 +106,6 @@ export class YouTubeService implements OnDestroy
         };
         window["onYouTubeIframeAPIReady"] = () =>
         {
-          console.log("YouTube API Ready callback invoked.");
           resolve();
         };
         document.head.appendChild(tag);
@@ -134,7 +131,6 @@ export class YouTubeService implements OnDestroy
         }
       });
       this.playerInitialized = true;
-      console.log("YouTube player initialized.");
     }
     else
     {
@@ -145,7 +141,6 @@ export class YouTubeService implements OnDestroy
   private onPlayerReady(event: YT.PlayerEvent): void
   {
     this.playerStateService.setReady();
-    console.log("YouTube player is ready");
     this.playerReady = true;
   }
 
@@ -154,16 +149,13 @@ export class YouTubeService implements OnDestroy
     switch (event.data)
     {
       case YT.PlayerState.PLAYING:
-        console.log("YouTube video is playing");
         this.playingStateSubject.next(true);
         this.updateCurrentlyPlayingTrack();
         break;
       case YT.PlayerState.PAUSED:
-        console.log("YouTube video is paused");
         this.playingStateSubject.next(false);
         break;
       case YT.PlayerState.ENDED:
-        console.log("YouTube video ended");
         this.playingStateSubject.next(false);
         break;
     }
@@ -181,7 +173,6 @@ export class YouTubeService implements OnDestroy
 
     try
     {
-      console.log(`Loading video with ID: ${trackId}`);
       this.player.loadVideoById(trackId);
       this.updateCurrentlyPlayingTrack();
     }
@@ -225,9 +216,11 @@ export class YouTubeService implements OnDestroy
 
   public async seekToPosition(seconds: number): Promise<void>
   {
-    if (this.player)
-    {
-      this.player.seekTo(seconds, true);
+    if (this.player) {
+      const trackDuration = this.player.getDuration();
+
+      const positionInSeconds = (seconds / 100) * trackDuration;
+      await this.seekToPosition(positionInSeconds);
     }
   }
 
@@ -268,7 +261,6 @@ export class YouTubeService implements OnDestroy
       this.player.destroy();
       this.playerInitialized = false;
       this.playerReady = false;
-      console.log("YouTube player destroyed.");
     }
   }
 
@@ -303,7 +295,6 @@ export class YouTubeService implements OnDestroy
     try
     {
       const response = await this.http.get<TrackInfo[]>(`http://localhost:3000/api/youtube/top-tracks`).toPromise();
-      console.log("Top tracks response:", JSON.stringify(response, null, 2));
 
       if (Array.isArray(response))
       {
@@ -339,4 +330,30 @@ export class YouTubeService implements OnDestroy
       this.player.nextVideo();
     }
   }
+
+  public async getTrackByName(artist: string, trackName: string)
+  {
+    const accessToken = this.tokenService.getAccessToken();
+    const refreshToken = this.tokenService.getRefreshToken();
+
+    const response = await this.http.post<any>(`http://localhost:3000/api/youtube/track-details-by-name`, {
+      accessToken: accessToken,
+      refreshToken: refreshToken,
+      artistName: artist,
+      trackName: trackName
+    }).toPromise();
+
+    const track = response[0];
+
+    return {
+      id: track.id,
+      text: track.name,
+      albumName: track.albumName,
+      imageUrl: track.albumImageUrl,
+      secondaryText: track.artistName,
+      previewUrl: "",
+      youtubeUrl: `https://www.youtube.com/watch?v=${track.id}`
+    };
+  }
+
 }

@@ -232,7 +232,7 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy
     }
     else
     {
-      this.youtubeService.seekToPosition(newProgress * 2);
+      this.youtubeService.seekToPosition(newProgress);
     }
   }
 
@@ -340,7 +340,7 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy
     }
     else
     {
-      this.youtubeService.setVolume(volume*2);
+      this.youtubeService.setVolume(volume * 2);
     }
   }
 
