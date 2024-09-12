@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, PLATFORM_ID } from "@angular/core";
+import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from "@angular/core";
 import { RouterOutlet, Router, NavigationEnd, Event as RouterEvent, ActivatedRoute } from "@angular/router";
 import { BottomPlayerComponent } from "./components/organisms/bottom-player/bottom-player.component";
 import { BottomNavComponent } from "./components/organisms/bottom-nav/bottom-nav.component";
@@ -10,6 +10,7 @@ import { SideBarComponent } from "./components/organisms/side-bar/side-bar.compo
 import { ProviderService } from "./services/provider.service";
 import { PageHeaderComponent } from "./components/molecules/page-header/page-header.component";
 import { MoodService } from "./services/mood-service.service";
+import { BackgroundAnimationComponent } from "./components/organisms/background-animation/background-animation.component";
 
 //template imports
 import { HeaderComponent } from "./components/organisms/header/header.component";
@@ -17,6 +18,7 @@ import { OtherNavComponent } from "./components/templates/desktop/other-nav/othe
 import { LeftComponent } from "./components/templates/desktop/left/left.component";
 import { AuthService } from "./services/auth.service";
 import { PlayerStateService } from "./services/player-state.service";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "app-root",
@@ -29,12 +31,13 @@ import { PlayerStateService } from "./services/player-state.service";
     PageHeaderComponent,
     HeaderComponent,
     OtherNavComponent,
-    LeftComponent
+    LeftComponent,
+    BackgroundAnimationComponent
   ],
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"]
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   update: boolean = false;
   screenSize!: string;
   displayPageName: boolean = false;
@@ -45,6 +48,7 @@ export class AppComponent implements OnInit {
   currentMood!: string;
   moodComponentClasses!: { [key: string]: string };
   backgroundMoodClasses!: { [key: string]: string };
+  isLoggedIn$!: Observable<boolean>;
 
   constructor(
     private router: Router,
@@ -57,9 +61,8 @@ export class AppComponent implements OnInit {
     private playerStateService: PlayerStateService,
     @Inject(PLATFORM_ID) private platformId: Object,
   ) {
-    this.currentMood = this.moodService.getCurrentMood();
-    this.moodComponentClasses = this.moodService.getComponentMoodClasses();
     this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
+    this.isLoggedIn$ = this.authService.isLoggedIn$;
     updates.versionUpdates.subscribe(event => {
       if (event.type === "VERSION_READY") {
         console.log("Version ready to install:");
@@ -97,5 +100,10 @@ export class AppComponent implements OnInit {
     if (isPlatformBrowser(this.platformId))
       return this.playerStateService.isReady();
     return false;
+  }
+
+  ngOnDestroy()
+  {
+    this.authService.signOut();
   }
 }

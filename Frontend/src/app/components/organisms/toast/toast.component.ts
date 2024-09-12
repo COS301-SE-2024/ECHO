@@ -25,8 +25,8 @@ export class ToastComponent {
     this.isVisible = true;
     setTimeout(() => {
       this.isVisible = false;
-      this.close.emit(); // Emit close event after 3 seconds
-    }, 3000);
+      this.close.emit(); // Emit close event after 5 seconds
+    }, 5000);
   }
 
   hideToast() {

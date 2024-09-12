@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { GoogleLoginComponent } from "../../components/organisms/google-login/google-login.component";
 import { AppleLoginComponent } from "../../components/organisms/apple-login/apple-login.component";
 import { ProviderService } from "../../services/provider.service";
+import { YouTubeService } from "../../services/youtube.service";
 
 @Component({
     selector: 'app-login',
@@ -30,10 +31,11 @@ export class LoginComponent implements OnInit {
     constructor(
         private authService: AuthService,
         private router: Router,
-        private providerService: ProviderService
+        private providerService: ProviderService,
+        private youtubeService: YouTubeService
     ) {}
     ngOnInit(): void {
-        
+
     }
     async spotify() {
       if (typeof window !== 'undefined') {
@@ -49,8 +51,10 @@ export class LoginComponent implements OnInit {
                     localStorage.setItem('username', this.email);
                     console.log('User logged in successfully', response);
                     this.toastComponent.showToast('User logged in successfully', 'success');
-                    setTimeout(() => {
-                        this.router.navigate(['/home']);
+                    setTimeout(async () =>
+                    {
+                      await this.youtubeService.init();
+                      await this.router.navigate(['/home']);
                     }, 1000);
                 } else {
                     console.error('Error logging in user', response);
@@ -87,7 +91,9 @@ export class LoginComponent implements OnInit {
         this.showPrivacyModal = false;
       }
 
-  google() {
+  async google()
+  {
+    await this.youtubeService.init();
     this.providerService.setProviderName('google');
   }
 }

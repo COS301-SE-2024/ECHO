@@ -66,7 +66,7 @@ export class SpotifyService
     async getRecentlyPlayedTracks(accessToken: string, refreshToken: string): Promise<any>
     {
         const providerToken = await this.getAccessToken(accessToken, refreshToken);
-        const response = this.httpService.get("https://api.spotify.com/v1/me/player/recently-played?limit=15", {
+        const response = this.httpService.get("https://api.spotify.com/v1/me/player/recently-played?limit=20", {
             headers: { "Authorization": `Bearer ${providerToken}` }
         });
         return lastValueFrom(response).then(res => res.data);
