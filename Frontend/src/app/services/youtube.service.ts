@@ -216,13 +216,14 @@ export class YouTubeService implements OnDestroy
 
   public async seekToPosition(seconds: number): Promise<void>
   {
-    if (this.player) {
+    if (this.player)
+    {
       const trackDuration = this.player.getDuration();
-
       const positionInSeconds = (seconds / 100) * trackDuration;
-      await this.seekToPosition(positionInSeconds);
+      this.player.seekTo(positionInSeconds, true);
     }
   }
+
 
   public setVolume(volume: number): void
   {
