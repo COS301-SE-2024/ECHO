@@ -9,7 +9,7 @@
     "test": "jest",
     "serve:ssr:Frontend": "node dist/frontend/server/server.mjs",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "cross-env NODE_OPTIONS=--max-old-space-size=4096 jest || jest --coverage --maxWorkers 3"
   },
   "private": true,
   "dependencies": {

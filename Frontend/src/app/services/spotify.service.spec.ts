@@ -34,6 +34,7 @@ describe('SpotifyService', () => {
 
     authServiceMock = {
       getTokens: jest.fn(),
+      setReady: jest.fn(),
     }
 
     tokenServiceMock = {

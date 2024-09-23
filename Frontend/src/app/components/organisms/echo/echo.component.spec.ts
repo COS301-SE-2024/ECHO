@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EchoComponent } from './echo.component';
+import { provideHttpClient } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
 
 describe('EchoComponent', () => {
   let component: EchoComponent;
@@ -8,7 +10,10 @@ describe('EchoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EchoComponent]
+      imports: [EchoComponent],
+      providers: [provideHttpClient(),
+        ActivatedRoute
+      ]
     })
     .compileComponents();
 

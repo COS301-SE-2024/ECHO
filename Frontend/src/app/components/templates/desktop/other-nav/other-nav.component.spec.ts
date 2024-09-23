@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { OtherNavComponent } from './other-nav.component';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('OtherNavComponent', () => {
   let component: OtherNavComponent;
@@ -8,7 +9,8 @@ describe('OtherNavComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [OtherNavComponent]
+      imports: [OtherNavComponent],
+      providers: [provideHttpClient()]
     })
     .compileComponents();
 
