@@ -29,6 +29,7 @@ export class SideBarComponent implements OnInit
   @ViewChild(ToastComponent) toastComponent!: ToastComponent; // Declare ToastComponent
   @Output() sidebarToggled = new EventEmitter<boolean>(); // Declare EventEmitter
   @Input() isSideBarHidden!: boolean; // Declare Input
+
   // Mood Service Variables
   moodComponentClasses!: { [key: string]: string };
   backgroundMoodClasses!: { [key: string]: string };
@@ -65,17 +66,12 @@ export class SideBarComponent implements OnInit
   skeletonArray = Array(10);
 
 
-  async ngAfterViewInit()
-  {
-    this.cdRef.detectChanges();
-  }
   toggleSideBar() {
     this.isSideBarHidden = !this.isSideBarHidden;
     this.sidebarToggled.emit(this.isSideBarHidden); // Emit event
   }
 
-  toggleDropdown(): void
-  {
+  toggleDropdown(): void {
     this.isDropdownVisible = !this.isDropdownVisible;
   }
 
@@ -159,6 +155,7 @@ export class SideBarComponent implements OnInit
       {
         this.isLoading = true;
         const data = await this.spotifyService.getRecentlyPlayedTracks(this.provider);
+        console.log("First track: ", data.items[0]);
         console.log("First track: ", data.items[0]);
         data.items.forEach((item: any) => {
           const trackId = item.track.id;
