@@ -99,7 +99,7 @@
       <app-search-bar class="col-start-2"></app-search-bar>
     </div>
     <div *ngIf="searchQuery">
-        
+
     <h1 *ngIf="searchQuery !== ''" class="text-2xl font-bold text-gray-800 dark:text-gray-200">Search Results
       for
       "{{ searchQuery }}"</h1>
@@ -126,10 +126,10 @@
       <h1 class="py-2" style="font-weight: bold; font-size: larger;">Songs</h1>
       <div class="songs-container"
       style="display: flex; flex-direction: column; overflow-y: auto; height:25vw;">
-   <div [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]" 
-        class="song-card hover:cursor-pointer" 
+   <div [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]"
+        class="song-card hover:cursor-pointer"
         *ngFor="let song of songs$ | async"
-        style="flex: 0 0 auto; width: 100%; margin-bottom: 20px; display: flex; padding: 5px; border-radius: 10px; box-sizing: border-box; height:15vw; padding: .5vw;" 
+        style="flex: 0 0 auto; width: 100%; margin-bottom: 20px; display: flex; padding: 5px; border-radius: 10px; box-sizing: border-box; height:15vw; padding: .5vw;"
         (click)="playTrack(song.name, song.artistName)">
      <img [src]="song.albumImageUrl" alt="Song Image"
           style="width: 25%; border-radius: 10px; margin-right: 10px;">
@@ -139,7 +139,7 @@
      </div>
    </div>
  </div>
- 
+
     </div>
     <div class="songs dark:text-gray-200" style="float: left; width: 50%; position: relative;">
       <a

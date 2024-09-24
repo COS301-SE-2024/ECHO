@@ -8,7 +8,8 @@
 
 # Project Description:
 
-### *ECHO* - A Progressive Web App `(PWA)`  that recommends `songs` and shows visualise `statistics` based on analysis of songs you already `like` on `Spotify`. Using a `sentiment analysis AI` to generate data on abstract song characteristics, like `theme`,`mood`,`bpm`,`key` and `time signature`.
+###
+*ECHO* - A Progressive Web App `(PWA)`  that recommends `songs` and shows visualise `statistics` based on analysis of songs you already `like` on `Spotify`. Using a `sentiment analysis AI` to generate data on abstract song characteristics, like `theme`,`mood`,`bpm`,`key` and `time signature`.
 
 # Badges
 
@@ -29,24 +30,29 @@
 # Technology Stack:
 
 ## Frontend:
+
 ![Angular](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white)
 ![Tailwind](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![Ionic](https://img.shields.io/badge/Ionic-3880FF?style=for-the-badge&logo=ionic&logoColor=white)
 
 ## Backend:
+
 ![Python](https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue)
 ![Nodejs](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
 ![ExpressJs](https://img.shields.io/badge/Express%20js-000000?style=for-the-badge&logo=express&logoColor=white)
 ![NestJs](https://img.shields.io/badge/nestjs-E0234E?style=for-the-badge&logo=nestjs&logoColor=white)
 
 ## DataBase:
+
 ![Mongo DB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
 ![Supabase](https://img.shields.io/badge/Supabase-003B57?style=for-the-badge&logo=supabase)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+
 ## Hosting
+
 ![Azure](https://img.shields.io/badge/microsoft%20azure-0089D6?style=for-the-badge&logo=microsoft-azure&logoColor=white)
 
-## 
+##  
 
 ## Branching strategy `GitFlow`
 
@@ -80,7 +86,7 @@
     <tr>
       <td><img src="./readme/images/marie.jpg" width="80" height="80" alt="Marie Pretorius"></td>
       <td>Marie Pretorius</td>
-      <td>Technical Lead</td>
+      <td>AI Engineer</td>
       <td>
         <a href="https://github.com/MariePretorius">
           <img src="https://img.shields.io/badge/GitHub-Profile-blue?style=flat-square&logo=github" alt="GitHub">
@@ -94,25 +100,9 @@
       </td>
     </tr>
     <tr>
-      <td><img src="./readme/images/tristan.jpg" width="80" height="80" alt="Tristan Potgieter"></td>
-      <td>Tristan Potgieter</td>
-      <td>Integration Engineer</td>
-      <td>
-        <a href="https://github.com/Divergent-Caesar">
-          <img src="https://img.shields.io/badge/GitHub-Profile-blue?style=flat-square&logo=github" alt="GitHub">
-        </a><br>
-        <a href="https://www.linkedin.com/in/tristan-potgieter-703911259/">
-          <img src="https://img.shields.io/badge/LinkedIn-Profile-blue?style=flat-square&logo=linkedin" alt="LinkedIn">
-        </a><br>
-        <a href="readme/Tristan.md">
-          <img src="https://img.shields.io/badge/About-Me-blue?style=flat-square" alt="About Me">
-        </a>
-      </td>
-    </tr>
-    <tr>
       <td><img src="./readme/images/douglas.jpg" width="80" height="80" alt="Douglas Porter"></td>
       <td>Douglas Porter</td>
-      <td>Backend Engineer</td>
+      <td>Technical Lead & Fullstack Engineer</td>
       <td>
         <a href="https://github.com/Douglasj02">
           <img src="https://img.shields.io/badge/GitHub-Profile-blue?style=flat-square&logo=github" alt="GitHub">
@@ -137,6 +127,22 @@
           <img src="https://img.shields.io/badge/LinkedIn-Profile-blue?style=flat-square&logo=linkedin" alt="LinkedIn">
         </a><br>
         <a href="readme/Rueben.md">
+          <img src="https://img.shields.io/badge/About-Me-blue?style=flat-square" alt="About Me">
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <td><img src="./readme/images/tristan.jpg" width="80" height="80" alt="Tristan Potgieter"></td>
+      <td>Tristan Potgieter</td>
+      <td>Testing Engineer</td>
+      <td>
+        <a href="https://github.com/Divergent-Caesar">
+          <img src="https://img.shields.io/badge/GitHub-Profile-blue?style=flat-square&logo=github" alt="GitHub">
+        </a><br>
+        <a href="https://www.linkedin.com/in/tristan-potgieter-703911259/">
+          <img src="https://img.shields.io/badge/LinkedIn-Profile-blue?style=flat-square&logo=linkedin" alt="LinkedIn">
+        </a><br>
+        <a href="readme/Tristan.md">
           <img src="https://img.shields.io/badge/About-Me-blue?style=flat-square" alt="About Me">
         </a>
       </td>

@@ -176,7 +176,7 @@ export class SideBarComponent implements OnInit
         this.isLoading = false;
         if (this.selectedOption === "recentListening")
         {
-          this.toastComponent.showToast("Error fetching recently played tracks", "error"); // Show error toast
+          this.toastComponent.showToast("Error fetching recently played tracks", "error");
         }
       }
     }
@@ -198,7 +198,6 @@ export class SideBarComponent implements OnInit
                 secondaryText: track.secondaryText,
                 explicit: false
               });
-              this.isLoading = false;
             }
           });
         }
@@ -206,10 +205,14 @@ export class SideBarComponent implements OnInit
         {
           console.error("No tracks found in YouTube top tracks.");
         }
+        this.isLoading = false;
       }).catch(error =>
       {
         this.isLoading = false;
-        console.error("Error fetching top YouTube tracks:", error);
+        if (this.selectedOption === "recentListening")
+        {
+          this.toastComponent.showToast("Error fetching recently played tracks", "error");
+        }
       });
     }
   }
