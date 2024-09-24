@@ -9,7 +9,7 @@ describe('SongCardsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SongCardsComponent]
+      imports: [SongCardsComponent],
       providers: [provideHttpClient()]
     })
     .compileComponents();
