@@ -22,7 +22,7 @@ export class SupabaseService {
         const { data, error } = await supabase.auth.signInWithOAuth({
             provider: providerName,
             options: {
-                redirectTo: "http://localhost:4200/auth/callback",
+                redirectTo: "https://echo-bm8z.onrender.com/auth/callback",
                 scopes: scope
             }
         });
