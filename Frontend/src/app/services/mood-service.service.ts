@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+//"Neutral","Joy", "Surprise", "Sadness", "Anger", "Disgust", "Contempt", "Shame", "Fear", "Guilt", "Excitement", "Love"
 
 @Injectable({
   providedIn: 'root'
@@ -10,33 +11,19 @@ export class MoodService {
   private _moodColors: { [key: string]: string } = {
     Neutral: 'rgb(238, 2, 88)', // #EE0258
     Anger: 'rgb(164, 0, 20)', // #A40014
-    Admiration: 'rgb(255, 83, 8)', // #FF5308
     Fear: 'rgb(154, 68, 206)', // #9A44CE
     Joy: 'rgb(255, 215, 0)', // #FFD700
-    Amusement: 'rgb(255, 99, 71)', // #FF6347
-    Annoyance: 'rgb(255, 69, 0)', // #FF4500
-    Approval: 'rgb(50, 205, 50)', // #32CD32
-    Caring: 'rgb(255, 105, 180)', // #FF69B4
-    Confusion: 'rgb(139, 0, 139)', // #8B008B
-    Curiosity: 'rgb(255, 140, 0)', // #FF8C00
-    Desire: 'rgb(255, 105, 180)', // #FF69B4
-    Disappointment: 'rgb(112, 128, 144)', // #708090
-    Disapproval: 'rgb(255, 0, 0)', // #FF0000
     Disgust: 'rgb(85, 107, 47)', // #556B2F
-    Embarrassment: 'rgb(255, 182, 193)', // #FFB6C1
-    Excitement: 'rgb(255, 69, 0)', // #FF4500
-    Gratitude: 'rgb(255, 215, 0)', // #FFD700
-    Grief: 'rgb(47, 79, 79)', // #2F4F4F
+    Excitement: 'rgb(255, 83, 8)', // #FF5308
     Love: 'rgb(255, 20, 147)', // #FF1493
-    Nervousness: 'rgb(255, 69, 0)', // #FF4500
     Optimism: 'rgb(255, 215, 0)', // #FFD700
-    Pride: 'rgb(138, 43, 226)', // #8A2BE2
-    Realisation: 'rgb(0, 206, 209)', // #00CED1
-    Relief: 'rgb(0, 255, 127)', // #00FF7F
-    Remorse: 'rgb(139, 0, 0)', // #8B0000
     Sadness: 'rgb(70, 130, 180)', // #4682B4
-    Surprise: 'rgb(255, 69, 0)' // #FF4500
+    Surprise: 'rgb(255, 69, 0)', // #FF4500
+    Contempt: 'rgb(255, 105, 97)', // #FF6961 (new color for Contempt)
+    Shame: 'rgb(255, 87, 51)', // #FF5733 (new color for Shame)
+    Guilt: 'rgb(255, 165, 0)', // #FFA500 (new color for Guilt)
 };
+
 
 
      private _componentMoodClassesHover = {
