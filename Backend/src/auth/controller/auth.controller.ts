@@ -78,7 +78,7 @@ export class AuthController {
         if (accessToken && refreshToken) {
             try {
                 await this.authService.setSession(accessToken, refreshToken);
-                res.redirect(303, "http://localhost:4200/home");
+                res.redirect(303, "/home");
             } catch (error) {
                 console.error("Error setting session:", error);
                 res.status(500).send("Internal Server Error");
