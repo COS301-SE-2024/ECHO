@@ -26,6 +26,7 @@ export const routes: Routes = [
   { path: "mood", component: MoodComponent },
   { path: "auth/callback", component: AuthCallbackComponent },
   { path: "", redirectTo: "/login", pathMatch: "full" },
+  { path: '**', redirectTo: '/login' },
   { path: "settings", component: SettingsComponent },
   { path: "artist-profile", component: ArtistProfileComponent },
   { path: "help", component: HelpMenuComponent },
