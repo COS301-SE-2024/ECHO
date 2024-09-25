@@ -9,8 +9,7 @@
   },
   "dependencies": {
     "axios": "^1.7.7",
-    "chart.js": "^4.4.3",
-    "concurrently": "^8.2.2",
+    "chart.js": "^4.4.4",
     "ng2-charts": "^6.0.1"
   },
   "devDependencies": {
