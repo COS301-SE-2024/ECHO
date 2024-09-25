@@ -227,10 +227,10 @@ def process_existing_song(db_song, original_emotion, original_genre):
             similar_emotion = True
 
     if genre and original_genre:
-        if genre in utils.genre_similarity and original_genre in utils.genre_similarity:
-            distance = utils.genre_similarity[original_genre][genre]
-            if distance >= 8:
-                similar_genre = True
+        # Replace manual mapping with LLM-based similarity score
+        similarity_score = utils.get_genre_similarity_from_llm(genre, original_genre)
+        if similarity_score >= 8:  # Threshold for "similar" genres
+            similar_genre = True
 
     print("Genre: ", genre, " Emotion: ", emotion)
 

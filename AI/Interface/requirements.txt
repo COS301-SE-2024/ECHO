@@ -7,3 +7,5 @@ azure-cosmos
 azure-identity
 python-dotenv
 requests
+spotipy
+openai
