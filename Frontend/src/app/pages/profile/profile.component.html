@@ -45,60 +45,52 @@
     </div>
   </div>
 </div>
-
-<div *ngIf="screenSize === 'desktop'" class="desktop-layout">
-    <div class="flex justify-center items-center">
-      <div class="fixed flex flex-col items-center">
+<div *ngIf="screenSize === 'desktop'" class="desktop-layout flex flex-col items-center p-4">
+  <div id="profile" class="profile bg-cover bg-center w-full relative rounded-t-lg"
+     [style.background-image]="'url(' + imgpath + ')'"
+     style="background-size: cover; height: 33vh;">
+    
+      <div class="absolute inset-0 flex flex-col justify-center items-center bg-gray-700 bg-opacity-50 rounded-t-lg">
+        <h2 class="text-white text-3xl font-bold py-2">{{ username }}</h2>
+        <div class="flex justify-center space-x-3 pb-4">
+          <p class="text-white">11 Followers</p>
+          <p class="text-white">9 Following</p>
+        </div>
+        <!-- Need to change this onlcick from the modal to the settings page-->
+        <button class="bg-white text-gray-component py-2 px-4 rounded-full z-10" (click)="openDialog()">
+          Edit Profile
+        </button>
       </div>
-      <div class="profile-container">
-        <div id="profile" class="profile fixed right-4 ml-6 h-5/6">
-          <div class="ml-24 p-4 pr-4 rounded-md h-full relative">
-            <div [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]"
-                class="rounded-lg overflow-hidden h-full relative">
-              <div class="absolute top-2 left-1/2 transform -translate-x-1/2 text-center">
-                <div class="flex justify-center">
-                  <app-profile-atomic class="h-24 w-24 rounded-full"></app-profile-atomic>
-                </div>
-                <h2 class="mt-2 text-gray-900 dark:text-white font-bold">&#64;{{ username }}</h2>
-                <div class="flex justify-center mt-2 space-x-4">
-                  <p class="text-gray-900 dark:text-white">11 Followers</p>
-                  <p class="text-gray-900 dark:text-white">3 Following</p>
-                </div>
+  </div>
+
+  <div class="bg-gray-component w-full py-4 rounded-b-lg ">
+    <div class="overflow-hidden px-3">
+      <div class="flex justify-between space-x-8">
+        <!-- Top Songs Section -->
+        <div class="w-1/2">
+          <h2 class="text-white text-2xl font-bold mb-2 mt-5">Top Songs</h2>
+          <div class="flex space-x-4 overflow-x-auto scrollable-cards overflow-hidden px-3">
+            <ng-container *ngFor="let item of topTracks">
+              <div (click)="playTrack(item.id)">
+                <app-top-card [imageUrl]="item.imageUrl" [text]="item.text"
+                              [secondaryText]="item.secondaryText"></app-top-card>
+                <div class="card-style"></div>
               </div>
-              <p class="absolute text-gray-900 top-8 left-20 dark:text-white font-bold">ECHO Rank: #1</p>
-              <!-- Use Flowbite for modal/dialog if needed, otherwise just Tailwind for buttons -->
-              <button  class="absolute btn btn-dark top-5 right-10"
-                      (click)="openDialog()">Edit Profile
-              </button>
-              <button class="absolute btn btn-dark top-5 right-52" (click)="settings()">
-                <svg class="w-6 h-6 text-gray-800 dark:text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                     width="24" height="24" fill="none" viewBox="0 0 24 24">
-                  <path stroke="currentColor" stroke-linecap="square" stroke-linejoin="round" stroke-width="2"
-                        d="M10 19H5a1 1 0 0 1-1-1v-1a3 3 0 0 1 3-3h2m10 1a3 3 0 0 1-3 3m3-3a3 3 0 0 0-3-3m3 3h1m-4 3a3 3 0 0 1-3-3m3 3v1m-3-4a3 3 0 0 1 3-3m-3 3h-1m4-3v-1m-2.121 1.879-.707-.707m5.656 5.656-.707-.707m-4.242 0-.707.707m5.656-5.656-.707.707M12 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                </svg>
-              </button>
-              <div class="absolute bottom-8 left-16 w-full pr-10 overflow-hidden">
-                <h2 class="text-white text-2xl font-bold mb-2 mt-5">Top Songs</h2>
-                <div class="flex space-x-4 overflow-x-auto scrollable-cards">
-                  <ng-container *ngFor="let item of topTracks">
-                    <div (click)="playTrack(item.id)">
-                      <app-top-card [imageUrl]="item.imageUrl" [text]="item.text"
-                                    [secondaryText]="item.secondaryText"></app-top-card>
-                      <div class="card-style"></div>
-                    </div>
-                  </ng-container>
-                </div>
-                <h2 class="text-white text-2xl font-bold mb-2 mt-5">Top Artists</h2>
-                <div class="flex space-x-4 overflow-x-auto scrollable-cards">
-                  <ng-container *ngFor="let artist of topArtists">
-                    <app-top-artist-card [imageUrl]="artist.imageUrl" [text]="artist.name"></app-top-artist-card>
-                  </ng-container>
-                </div>
-              </div>
-            </div>
+            </ng-container>
+          </div>
+        </div>
+  
+        <!-- Top Artists Section -->
+        <div class="w-1/2">
+          <h2 class="text-white text-2xl font-bold mb-2 mt-5">Top Artists</h2>
+          <div class="flex space-x-4 overflow-x-auto scrollable-cards overflow-hidden px-3">
+            <ng-container *ngFor="let artist of topArtists">
+              <app-top-artist-card [imageUrl]="artist.imageUrl" [text]="artist.name"></app-top-artist-card>
+            </ng-container>
           </div>
         </div>
     </div>
   </div>
+
 </div>
 

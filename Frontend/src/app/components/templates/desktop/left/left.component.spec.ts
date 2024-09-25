@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LeftComponent } from './left.component';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('LeftComponent', () => {
   let component: LeftComponent;
@@ -8,7 +9,8 @@ describe('LeftComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LeftComponent]
+      imports: [LeftComponent],
+      providers: [provideHttpClient()]
     })
     .compileComponents();
 

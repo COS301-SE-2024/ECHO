@@ -36,6 +36,20 @@ export class YouTubeService
         };
     }
 
+    mapSearchResponseToTrackInfo(youtubeResponse: any): TrackInfo
+    {
+        return {
+            id: youtubeResponse.id.videoId,
+            name: youtubeResponse.snippet.title,
+            albumName: youtubeResponse.snippet.album || "Unknown Album",
+            albumImageUrl: youtubeResponse.snippet.thumbnails.high.url,
+            artistName: youtubeResponse.snippet.channelTitle,
+            previewUrl: "",
+            youtubeId: youtubeResponse.id.videoId
+        };
+
+    }
+
     // This function will be used to search for videos/songs on YouTube.
     async searchVideos(query: string): Promise<TrackInfo[]>
     {
@@ -69,19 +83,22 @@ export class YouTubeService
         const response = await this.httpService.get(url).toPromise();
         const items = response.data.items;
 
-        return items.map((item: any) => this.mapYouTubeResponseToTrackInfo(item));
+        return items.map((item: any) => this.mapSearchResponseToTrackInfo(item));
     }
 
     // Method to fetch top YouTube music tracks
-    async getTopYouTubeTracks(): Promise<TrackInfo[]> {
+    async getTopYouTubeTracks(): Promise<TrackInfo[]>
+    {
         const url = `${this.API_URL}/videos?part=snippet&chart=mostPopular&videoCategoryId=10&regionCode=US&type=video&key=${this.API_KEY}`;
 
-        try {
+        try
+        {
             const response = await this.httpService.get(url).toPromise();
             const items = response.data.items;
 
-            if (!items || items.length === 0) {
-                throw new Error('No tracks found in the YouTube API response');
+            if (!items || items.length === 0)
+            {
+                throw new Error("No tracks found in the YouTube API response");
             }
 
             return items.map((item: any) => ({
@@ -92,11 +109,13 @@ export class YouTubeService
                 artistName: item.snippet.channelTitle,
                 previewUrl: null,
                 spotifyUrl: null,
-                youtubeUrl: `https://www.youtube.com/watch?v=${item.id}`,
+                youtubeUrl: `https://www.youtube.com/watch?v=${item.id}`
             }));
-        } catch (error) {
-            console.error('Error fetching top YouTube tracks:', error.response?.data || error.message);
-            throw new Error('Failed to fetch top YouTube tracks');
+        }
+        catch (error)
+        {
+            console.error("Error fetching top YouTube tracks:", error.response?.data || error.message);
+            throw new Error("Failed to fetch top YouTube tracks");
         }
     }
 }

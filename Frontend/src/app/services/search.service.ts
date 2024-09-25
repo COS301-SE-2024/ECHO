@@ -68,7 +68,6 @@ export class SearchService
         tap(results =>
         {
           this.searchResultSubject.next(results);
-          console.log("search results: ", results);
           if (results.length > 0)
           {
             this.topResultSubject.next(results[0]);  // Update topResultSubject
@@ -85,7 +84,6 @@ export class SearchService
         tap(results =>
         {
           this.albumResultSubject.next(results);
-          console.log("search results: ", results);
         })
       );
   }

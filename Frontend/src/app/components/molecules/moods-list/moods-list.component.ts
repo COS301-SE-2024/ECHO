@@ -19,7 +19,6 @@ export class MoodsListComponent implements OnInit {
     this.redirectToMoodPage.emit(mood);
   }
   ngOnInit(): void {
- 
   }
-  
+
 }

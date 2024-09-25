@@ -1,162 +1,183 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { HttpService, HttpModule } from '@nestjs/axios';
-import { of, throwError } from 'rxjs';
-import { YoutubeService, YouTubeTrackInfo } from './youtube.service';
-import { HttpException, HttpStatus } from '@nestjs/common';
-import { AxiosResponse } from 'axios';
+import { YouTubeService, TrackInfo } from './youtube.service';
+import { HttpService } from '@nestjs/axios';
+import { of } from 'rxjs';
 
-describe('YoutubeService', () => {
-  let service: YoutubeService;
+describe('YouTubeService', () => {
+  let service: YouTubeService;
   let httpService: HttpService;
+
+  const mockHttpService = {
+    get: jest.fn(),
+  };
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [HttpModule],
-      providers: [YoutubeService],
+      providers: [
+        YouTubeService,
+        {
+          provide: HttpService,
+          useValue: mockHttpService,
+        },
+      ],
     }).compile();
 
-    service = module.get<YoutubeService>(YoutubeService);
+    service = module.get<YouTubeService>(YouTubeService);
     httpService = module.get<HttpService>(HttpService);
   });
 
-  it('should be defined', () => {
-    expect(service).toBeDefined();
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
-  describe('getQueue', () => {
-    
-    it('should return YouTubeTrackInfo array on successful fetch', async () => {
-      const artist = 'Artist';
-      const songName = 'SongName';
-      const mockEchoResponse: AxiosResponse<any> = {
-        data: {
-          recommended_tracks: [
-            { track_details: ['Track1', 'Artist1'] },
-            { track_details: ['Track2', 'Artist2'] },
-          ],
-        },
-        status: 200,
-        statusText: 'OK',
-        headers: {},
-        config: {
-            headers: undefined
+  describe('mapYouTubeResponseToTrackInfo', () => {
+    it('should map YouTube API response to TrackInfo', () => {
+      const youtubeResponse = {
+        id: { videoId: '123' },
+        snippet: {
+          title: 'Test Video',
+          album: 'Test Album',
+          thumbnails: { high: { url: 'https://example.com/image.jpg' } },
+          channelTitle: 'Test Artist',
         },
       };
-      const mockYoutubeResponse: AxiosResponse<any> = {
+
+      const expected: TrackInfo = {
+        id: '123',
+        name: 'Test Video',
+        albumName: 'Test Album',
+        albumImageUrl: 'https://example.com/image.jpg',
+        artistName: 'Test Artist',
+        previewUrl: '',
+        youtubeId: '123',
+      };
+
+      const result = service.mapYouTubeResponseToTrackInfo(youtubeResponse);
+      expect(result).toEqual(expected);
+    });
+
+    it('should default albumName to "Unknown Album" if not provided', () => {
+      const youtubeResponse = {
+        id: { videoId: '456' },
+        snippet: {
+          title: 'No Album Video',
+          thumbnails: { high: { url: 'https://example.com/noalbum.jpg' } },
+          channelTitle: 'Unknown Artist',
+        },
+      };
+
+      const expected: TrackInfo = {
+        id: '456',
+        name: 'No Album Video',
+        albumName: 'Unknown Album',
+        albumImageUrl: 'https://example.com/noalbum.jpg',
+        artistName: 'Unknown Artist',
+        previewUrl: '',
+        youtubeId: '456',
+      };
+
+      const result = service.mapYouTubeResponseToTrackInfo(youtubeResponse);
+      expect(result).toEqual(expected);
+    });
+  });
+
+  describe('searchVideos', () => {
+    it('should search for videos and return mapped results', async () => {
+      const youtubeResponse = {
         data: {
           items: [
             {
-              id: 'videoId1',
+              id: { videoId: '123' },
               snippet: {
-                title: 'Track1',
-                thumbnails: { default: { url: 'url1' } },
-                channelTitle: 'Channel1',
+                title: 'Video 1',
+                thumbnails: { high: { url: 'https://example.com/vid1.jpg' } },
+                channelTitle: 'Artist 1',
               },
             },
             {
-              id: 'videoId2',
+              id: { videoId: '456' },
               snippet: {
-                title: 'Track2',
-                thumbnails: { default: { url: 'url2' } },
-                channelTitle: 'Channel2',
+                title: 'Video 2',
+                thumbnails: { high: { url: 'https://example.com/vid2.jpg' } },
+                channelTitle: 'Artist 2',
               },
             },
           ],
         },
-        status: 200,
-        statusText: 'OK',
-        headers: {},
-        config: {
-            headers: undefined
-        },
       };
 
-      jest.spyOn(httpService, 'post').mockReturnValueOnce(of(mockEchoResponse));
-      jest.spyOn(httpService, 'get').mockReturnValue(of(mockYoutubeResponse));
+      mockHttpService.get.mockReturnValue(of(youtubeResponse));
 
-      const result = await service.getQueue(artist, songName);
+      const result = await service.searchVideos('test query');
+      expect(mockHttpService.get).toHaveBeenCalledWith(
+        expect.stringContaining(
+          `${service['API_URL']}/search?part=snippet&q=test%20query&key=${service['API_KEY']}`
+        )
+      );
       expect(result).toEqual([
         {
-          id: 'videoId1',
-          title: 'Track1',
-          thumbnailUrl: 'url1',
-          channelTitle: 'Channel1',
-          videoUrl: 'https://www.youtube.com/watch?v=videoId1',
+          id: '123',
+          name: 'Video 1',
+          albumName: 'Unknown Album',
+          albumImageUrl: 'https://example.com/vid1.jpg',
+          artistName: 'Artist 1',
+          previewUrl: '',
+          youtubeId: '123',
         },
         {
-          id: 'videoId2',
-          title: 'Track2',
-          thumbnailUrl: 'url2',
-          channelTitle: 'Channel2',
-          videoUrl: 'https://www.youtube.com/watch?v=videoId2',
+          id: '456',
+          name: 'Video 2',
+          albumName: 'Unknown Album',
+          albumImageUrl: 'https://example.com/vid2.jpg',
+          artistName: 'Artist 2',
+          previewUrl: '',
+          youtubeId: '456',
         },
       ]);
     });
-
-/*
-    it('should throw an exception on error', async () => {
-      const artist = 'Artist';
-      const songName = 'SongName';
-
-      jest.spyOn(httpService, 'post').mockReturnValueOnce(throwError(new Error('Echo API error')));
-
-      await expect(service.getQueue(artist, songName)).rejects.toThrow(
-        new HttpException('Failed to fetch queue', HttpStatus.INTERNAL_SERVER_ERROR),
-      );
-      
-    });
-    */
   });
 
-  
-  describe('fetchSingleTrackDetails', () => {
-    
-    it('should return YouTubeTrackInfo on successful fetch', async () => {
-      const videoId = 'videoId1';
-      const mockYoutubeResponse: AxiosResponse<any> = {
+  describe('getVideoDetails', () => {
+    it('should retrieve video details and map the response', async () => {
+      const youtubeResponse = {
         data: {
           items: [
             {
-              id: 'videoId1',
+              id: { videoId: '789' },
               snippet: {
-                title: 'Track1',
-                thumbnails: { default: { url: 'url1' } },
-                channelTitle: 'Channel1',
+                title: 'Detailed Video',
+                thumbnails: { high: { url: 'https://example.com/detail.jpg' } },
+                channelTitle: 'Detail Artist',
               },
             },
           ],
         },
-        status: 200,
-        statusText: 'OK',
-        headers: {},
-        config: {
-            headers: undefined
-        },
       };
-      
-      jest.spyOn(httpService, 'get').mockReturnValueOnce(of(mockYoutubeResponse));
 
-      const result = await service.fetchSingleTrackDetails(videoId);
+      mockHttpService.get.mockReturnValue(of(youtubeResponse));
+
+      const result = await service.getVideoDetails('789');
+      expect(mockHttpService.get).toHaveBeenCalledWith(
+        expect.stringContaining(
+          `${service['API_URL']}/videos?part=snippet,contentDetails,statistics&id=789&key=${service['API_KEY']}`
+        )
+      );
       expect(result).toEqual({
-        id: 'videoId1',
-        title: 'Track1',
-        thumbnailUrl: 'url1',
-        channelTitle: 'Channel1',
-        videoUrl: 'https://www.youtube.com/watch?v=videoId1',
+        id: '789',
+        name: 'Detailed Video',
+        albumName: 'Unknown Album',
+        albumImageUrl: 'https://example.com/detail.jpg',
+        artistName: 'Detail Artist',
+        previewUrl: '',
+        youtubeId: '789',
       });
     });
-    
+  });
 
-    /*
-    it('should throw an exception on error', async () => {
-      const videoId = 'videoId1';
-
-      jest.spyOn(httpService, 'get').mockReturnValueOnce(throwError(new Error('YouTube API error')));
-
-      await expect(service.fetchSingleTrackDetails(videoId)).rejects.toThrow(
-        new HttpException('Failed to fetch YouTube track details', HttpStatus.INTERNAL_SERVER_ERROR),
-      );
+  describe('getAPIKey', () => {
+    it('should return the API key', async () => {
+      const result = await service.getAPIKey();
+      expect(result).toBe(process.env.YOUTUBE_KEY);
     });
-    */
   });
 });

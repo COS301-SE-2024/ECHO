@@ -6,7 +6,7 @@ import * as crypto from "crypto";
 
 @Injectable()
 export class SupabaseService {
-    private encryptionKey: Buffer;
+    protected encryptionKey: Buffer;
 
     constructor() {
         this.encryptionKey = Buffer.from(encryptionKey, "base64");
