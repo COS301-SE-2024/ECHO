@@ -26,7 +26,6 @@ export const routes: Routes = [
   { path: "mood", component: MoodComponent },
   { path: "auth/callback", component: AuthCallbackComponent },
   { path: "", redirectTo: "/login", pathMatch: "full" },
-  { path: '**', redirectTo: '/login' },
   { path: "settings", component: SettingsComponent },
   { path: "artist-profile", component: ArtistProfileComponent },
   { path: "help", component: HelpMenuComponent },
@@ -34,7 +33,8 @@ export const routes: Routes = [
   { path: "search", component: SearchComponent},
   { path: "newlogin", component: LoginComponentview},
   { path: "library", component: UserLibraryComponent},
-  { path: "echo Song", component: EchoSongComponent}
+  { path: "echo Song", component: EchoSongComponent},
+  { path: '**', redirectTo: '/login' } //DO NOT MOVE - MUST ALWAYS BE LAST
 ];
 
 @NgModule({

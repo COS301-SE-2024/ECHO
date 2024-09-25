@@ -6,7 +6,6 @@ import { ScreenSizeService } from "./services/screen-size-service.service";
 import { SwUpdate } from "@angular/service-worker";
 import { filter } from "rxjs/operators";
 import { CommonModule, isPlatformBrowser } from "@angular/common";
-import { SideBarComponent } from "./components/organisms/side-bar/side-bar.component";
 import { ProviderService } from "./services/provider.service";
 import { PageHeaderComponent } from "./components/molecules/page-header/page-header.component";
 import { MoodService } from "./services/mood-service.service";
@@ -14,6 +13,8 @@ import {
   BackgroundAnimationComponent
 } from "./components/organisms/background-animation/background-animation.component";
 
+import { NavbarComponent } from "./components/organisms/navbar/navbar.component";
+import { SideBarComponent } from './components/organisms/side-bar/side-bar.component';
 //template imports
 import { HeaderComponent } from "./components/organisms/header/header.component";
 import { OtherNavComponent } from "./components/templates/desktop/other-nav/other-nav.component";
@@ -34,7 +35,9 @@ import { Observable } from "rxjs";
     HeaderComponent,
     OtherNavComponent,
     LeftComponent,
-    BackgroundAnimationComponent
+    BackgroundAnimationComponent,
+    NavbarComponent,
+    SideBarComponent
   ],
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"]
@@ -44,6 +47,10 @@ export class AppComponent implements OnInit, OnDestroy
   update: boolean = false;
   screenSize!: string;
   displayPageName: boolean = false;
+  columnStart: number = 3; 
+  columnStartNav: number = 1; 
+  colSpan: number = 4; 
+  isSidebarOpen: boolean = false;
   protected displaySideBar: boolean = false;
   protected isAuthRoute: boolean = false;
   protected isCallbackRoute: boolean = false;
@@ -106,6 +113,11 @@ export class AppComponent implements OnInit, OnDestroy
     return ["/login", "/register", "/Auth/callback"].includes(this.router.url);
   }
 
+  layout(isSidebarOpen: boolean) {
+    this.isSidebarOpen = isSidebarOpen;
+    this.columnStart = isSidebarOpen ? 1 : 3;    
+    this.colSpan = isSidebarOpen ? 5 : 4;
+  }
 
   isReady(): boolean
   {

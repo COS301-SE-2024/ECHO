@@ -34,10 +34,7 @@
 .scrollbar-hidden::-webkit-scrollbar {
   display: none; /* Safari and Chrome */
 }
-.container {
-  width: var(--tw-w);
-  height: var(--tw-h);
-}
+
 .view-more-container {
   /* Adjust the padding value based on your needs */
   margin-bottom: calc(50vh - 50px); /* Assuming the button's height is around 100px */
@@ -47,5 +44,3 @@
   color: inherit !important; /* Neutralizes text color change */
   /* Add any other properties that change on hover to be neutralized */
 }
-
-
