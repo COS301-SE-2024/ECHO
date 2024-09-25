@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SpotifyLoginComponent } from './spotify-login.component';
-import { ProviderService } from '../../services/provider.service';
+import { ProviderService } from '../../../services/provider.service';
 import { AriaDescriber } from '@angular/cdk/a11y';
 
 const providerServiceMock = {

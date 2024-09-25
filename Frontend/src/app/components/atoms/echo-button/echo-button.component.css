@@ -1,0 +1,55 @@
+@keyframes growHeightAndMoveUpSmall {
+    0%, 100% {
+      height: 20%; /* Smaller height */
+      transform: translateY(37.5%); /* Moved down */
+    }
+    50% {
+      height: 100%; /* Original height */
+      transform: translateY(0); /* Original position */
+    }
+  }
+  @keyframes growHeightAndMoveUpMedium {
+    0%, 100% {
+      height: 60%; /* Smaller height */
+      transform: translateY(20%); /* Moved down */
+    }
+    50% {
+      height: 100%; /* Original height */
+      transform: translateY(0); /* Original position */
+    }
+  }
+  @keyframes growHeightAndMoveUpLarge {
+    0%, 100% {
+      height: 85%; /* Smaller height */
+      transform: translateY(9.5%); /* Moved down */
+    }
+    50% {
+      height: 100%; /* Original height */
+      transform: translateY(0); /* Original position */
+    }
+  }
+  
+  .group:hover .rect-3 {
+    animation: growHeightAndMoveUpLarge 1s infinite;
+    animation-fill-mode: forwards;
+  }
+  .group:hover .rect-2 {
+    animation: growHeightAndMoveUpMedium 1s infinite;
+    animation-delay: 0.2s; /* Adjusted delay to create wave effect */
+    animation-fill-mode: forwards;
+  }
+  .group:hover .rect-4 {
+    animation: growHeightAndMoveUpMedium 1s infinite;
+    animation-delay: 0.2s; /* Adjusted delay to create wave effect */
+    animation-fill-mode: forwards;
+  }
+  .group:hover .rect-1 {
+    animation: growHeightAndMoveUpSmall 1s infinite;
+    animation-delay: 0.4s; /* Adjusted delay to create wave effect */
+    animation-fill-mode: forwards;
+  }
+  .group:hover .rect-5 {
+    animation: growHeightAndMoveUpSmall 1s infinite;
+    animation-delay: 0.4s; /* Adjusted delay to create wave effect */
+    animation-fill-mode: forwards;
+  }

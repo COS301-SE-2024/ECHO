@@ -2,22 +2,24 @@ import { Component, OnDestroy } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { SongViewComponent } from '../../../components/molecules/song-view/song-view.component';
+import { MatDialog} from '@angular/material/dialog';
 import { ScreenSizeService } from '../../../services/screen-size-service.service';
 import { MoodService } from '../../../services/mood-service.service';
+import { PageTitleComponent } from '../../atoms/page-title/page-title.component';
+import { MoodsListComponent } from '../../molecules/moods-list/moods-list.component';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+
+
 
 @Component({
     selector: 'app-moods',
     standalone: true,
-    imports: [MatGridListModule, MatCardModule, CommonModule],
+    imports: [MatGridListModule, MatCardModule, CommonModule,MoodsListComponent,PageTitleComponent],
     templateUrl: './moods.component.html',
     styleUrls: ['./moods.component.css'], // Corrected property name and expected value type
 })
 export class MoodsComponent implements OnDestroy {
-    
     favouriteMoods: any[] = []; // Corrected initialization
     RecommendedMoods: any[] = []; // Added type and initialization
 

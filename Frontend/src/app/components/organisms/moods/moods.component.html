@@ -1,31 +1,10 @@
-
-<div *ngIf="screenSize === 'desktop'" class="flex flex-col pl-1 ml-[2vw]">
-    <div class="card w-full bg-stone text-black dark:text-white rounded-lg">
-        <div class="card-body">
-            <h5 class="card-title text-xl font-bold mb-1">Favourite Moods</h5>
-            <div class="flex overflow-x-auto">
-                <div *ngFor="let mood of favouriteMoods" class="rounded-lg transition-all duration-300 hover:rounded-lg hover:scale-110 hover:cursor-pointer" (click)="redirectToMoodPage(mood)" style="flex: 0 0 auto; width: 30vh; margin-right: 1vw;">
-                    <div class="card w-full h-full relative overflow-hidden aspect-w-16 aspect-h-9 shadow-xl">
-                      <img src="{{ mood.image }}" alt="{{ mood.name }}" class="w-full h-full object-cover">
-                      <div class="card-body absolute bottom-2 right-3 text-white text-lg font-bold">
-                        {{ mood.name }}
-                      </div>
-                    </div>
-                </div>
-            </div>
-            <br/>
-            <h5 class="card-title text-xl font-bold mb-1">Recommended Moods</h5>
-            <div class="flex overflow-x-auto">
-                <div *ngFor="let mood of RecommendedMoods" class="rounded-lg" style="flex: 0 0 auto; width: 30vh; margin-right: 1vw;" (click)="redirectToMoodPage(mood)" style="flex: 0 0 auto; width: 30vh; margin-right: 1vw;">
-                    <div class="card w-full h-full relative overflow-hidden transition-all duration-300 hover:rounded-lg hover:scale-110 hover:cursor-pointer">
-                        <img src="{{ mood.image }}" alt="{{ mood.name }}" class="rounded-lg w-full h-full object-cover">
-                        <div class="card-body absolute bottom-2 left-2 text-white text-lg font-bold">
-                            {{ mood.name }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div *ngIf="screenSize === 'desktop'" class="flex flex-col">
+    <div class="card-body relative">
+        <app-page-title>Favourite Moods</app-page-title>
+        <app-moods-list [moods]="favouriteMoods" (redirectToMoodPage)="redirectToMoodPage($event)"></app-moods-list>
+        <br/>
+        <app-page-title>Recommended Moods</app-page-title>
+        <app-moods-list [moods]="RecommendedMoods" (redirectToMoodPage)="redirectToMoodPage($event)"></app-moods-list>
     </div>
 </div>
 
@@ -34,7 +13,7 @@
         <div *ngFor="let mood of favouriteMoods" [ngClass]="this.moodComponentClasses[this.moodService.getCurrentMood()]" class="min-w-[60vw] max-w-[60vw] bg-stone text-black dark:text-white rounded-lg shadow-lg">
             <img src="{{ mood.image }}" alt="{{ mood.name }}" class="rounded-t-lg w-full h-40 object-cover">
             <div class="p-4">
-                <h5 class="text-lg font-bold">{{ mood.name }}</h5>
+                <app-page-title>{{ mood.name }}</app-page-title>
             </div>
         </div>
     </div>

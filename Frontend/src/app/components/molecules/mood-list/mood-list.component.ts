@@ -12,9 +12,9 @@ import { ButtonComponentComponent } from './../../atoms/button-component/button-
 })
 export class MoodListComponent {
   @Input() moods!: string[];
-  @Input() selectedMood!: number | null;
+  @Input() selectedMood = 0;
   @Input() screenSize!: string;
-
+  
   constructor(public moodService: MoodService) {
     
   }

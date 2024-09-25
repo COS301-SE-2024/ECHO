@@ -3,7 +3,6 @@ import { SpotifyLoginComponent } from '../../components/organisms/spotify-login/
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { ThemeService } from '../../services/theme.service';
 import { ToastComponent } from '../../components/organisms/toast/toast.component';
 import { CommonModule } from '@angular/common';
 import { AppleLoginComponent } from "../../components/organisms/apple-login/apple-login.component";
@@ -28,18 +27,8 @@ export class RegisterComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private themeService: ThemeService
   ) {
   }
-  ngOnInit() {
-    this.theme();
-  }
-  theme() {
-    if (!this.themeService.isDarkModeActive()) {
-      this.themeService.switchTheme();
-    }
-  }
-
     spotify() {
       if (typeof window !== 'undefined') {
         window.location.href = 'http://localhost:3000/api/auth/oauth-signin';
@@ -59,7 +48,7 @@ export class RegisterComponent {
 
       this.authService.signUp(this.email, this.password, metadata).subscribe(
         () => this.router.navigate(["/home"]),
-        (error) => console.error("Error signing up:", error)
+        (error) => this.toastComponent.showToast("Ensure password contains at least one lower case letter, one capital letter, one number, and one symbol.", 'error')
       );
     }
 

@@ -33,6 +33,7 @@ export class SpotifyController
 		return await this.spotifyService.getRecentlyPlayedTracks(accessToken, refreshToken);
 	}
 
+	// TODO DOUBLE CHECK issues when called multiple times
 	// This endpoint is used to get suggested tracks from the ECHO API (Clustering recommendations).
 	@Post("queue")
 	async getQueue(@Body() body: {
@@ -64,7 +65,7 @@ export class SpotifyController
 	{
 		if (!body.trackId || !body.deviceId || !body.accessToken || !body.refreshToken)
 		{
-
+			throw new UnauthorizedException("Track ID, device ID, access token, or refresh token is missing while attempting to play a song from Spotify.");
 		}
 		const { trackId, deviceId, accessToken, refreshToken } = body;
 		return await this.spotifyService.playTrackById(trackId, deviceId, accessToken, refreshToken);

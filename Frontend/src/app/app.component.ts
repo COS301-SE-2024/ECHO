@@ -1,20 +1,27 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from "@angular/core";
 import { RouterOutlet, Router, NavigationEnd, Event as RouterEvent, ActivatedRoute } from "@angular/router";
 import { BottomPlayerComponent } from "./components/organisms/bottom-player/bottom-player.component";
 import { BottomNavComponent } from "./components/organisms/bottom-nav/bottom-nav.component";
 import { ScreenSizeService } from "./services/screen-size-service.service";
 import { SwUpdate } from "@angular/service-worker";
 import { filter } from "rxjs/operators";
-import { CommonModule } from "@angular/common";
-import { SideBarComponent } from "./components/organisms/side-bar/side-bar.component";
+import { CommonModule, isPlatformBrowser } from "@angular/common";
 import { ProviderService } from "./services/provider.service";
 import { PageHeaderComponent } from "./components/molecules/page-header/page-header.component";
 import { MoodService } from "./services/mood-service.service";
+import {
+  BackgroundAnimationComponent
+} from "./components/organisms/background-animation/background-animation.component";
+
+import { NavbarComponent } from "./components/organisms/navbar/navbar.component";
+import { SideBarComponent } from './components/organisms/side-bar/side-bar.component';
 //template imports
-import {HeaderComponent} from "./components/templates/desktop/header/header.component";
-import {OtherNavComponent} from "./components/templates/desktop/other-nav/other-nav.component";
-import {ExploreBarComponent} from "./components/templates/desktop/explore-bar/explore-bar.component";
-import {LeftComponent} from "./components/templates/desktop/left/left.component";
+import { HeaderComponent } from "./components/organisms/header/header.component";
+import { OtherNavComponent } from "./components/templates/desktop/other-nav/other-nav.component";
+import { LeftComponent } from "./components/templates/desktop/left/left.component";
+import { AuthService } from "./services/auth.service";
+import { PlayerStateService } from "./services/player-state.service";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "app-root",
@@ -23,25 +30,35 @@ import {LeftComponent} from "./components/templates/desktop/left/left.component"
     RouterOutlet,
     BottomPlayerComponent,
     CommonModule,
-    SideBarComponent,
     BottomNavComponent,
     PageHeaderComponent,
     HeaderComponent,
     OtherNavComponent,
-    ExploreBarComponent,
-    LeftComponent
+    LeftComponent,
+    BackgroundAnimationComponent,
+    NavbarComponent,
+    SideBarComponent
   ],
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"]
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy
+{
   update: boolean = false;
-  screenSize?: string;
+  screenSize!: string;
   displayPageName: boolean = false;
+  columnStart: number = 3; 
+  columnStartNav: number = 1; 
+  colSpan: number = 4; 
+  isSidebarOpen: boolean = false;
+  protected displaySideBar: boolean = false;
+  protected isAuthRoute: boolean = false;
+  protected isCallbackRoute: boolean = false;
   // Mood Service Variables
   currentMood!: string;
   moodComponentClasses!: { [key: string]: string };
   backgroundMoodClasses!: { [key: string]: string };
+  isLoggedIn$!: Observable<boolean>;
 
   constructor(
     private router: Router,
@@ -49,15 +66,20 @@ export class AppComponent implements OnInit {
     private screenSizeService: ScreenSizeService,
     private providerService: ProviderService,
     private updates: SwUpdate,
-    public moodService: MoodService
-  ) {
-    this.currentMood = this.moodService.getCurrentMood();
-    this.moodComponentClasses = this.moodService.getComponentMoodClasses();
+    public moodService: MoodService,
+    private authService: AuthService,
+    private playerStateService: PlayerStateService,
+    @Inject(PLATFORM_ID) private platformId: Object
+  )
+  {
     this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
-    updates.versionUpdates.subscribe(event => {
-      if (event.type === "VERSION_READY") {
-        console.log("Version ready to install:");
-        updates.activateUpdate().then(() => {
+    this.isLoggedIn$ = this.authService.isLoggedIn$;
+    updates.versionUpdates.subscribe(event =>
+    {
+      if (event.type === "VERSION_READY")
+      {
+        updates.activateUpdate().then(() =>
+        {
           this.update = true;
           document.location.reload();
         });
@@ -65,22 +87,47 @@ export class AppComponent implements OnInit {
     });
 
     this.router.events.pipe(
-      filter((event: RouterEvent) => event instanceof NavigationEnd)
-    ).subscribe(() => {
+      filter((event): event is NavigationEnd => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) =>
+    {
+      this.isAuthRoute = ["/login", "/register"].includes(event.urlAfterRedirects);
+      this.isCallbackRoute = ["/auth/callback"].includes(event.urlAfterRedirects);
     });
   }
 
-  async ngOnInit() {
-    this.screenSizeService.screenSize$.subscribe(screenSize => {
+  async ngOnInit()
+  {
+    this.screenSizeService.screenSize$.subscribe(screenSize =>
+    {
       this.screenSize = screenSize;
     });
   }
 
-  isAuthRoute(): boolean {
-    const authRoutes = ['/login', '/register'];
-    return authRoutes.includes(this.router.url);
+  async ngAfterViewInit()
+  {
+    this.playerStateService.setReady();
   }
 
+  isCurrentRouteAuth(): boolean
+  {
+    return ["/login", "/register", "/Auth/callback"].includes(this.router.url);
+  }
 
-  
+  layout(isSidebarOpen: boolean) {
+    this.isSidebarOpen = isSidebarOpen;
+    this.columnStart = isSidebarOpen ? 1 : 3;    
+    this.colSpan = isSidebarOpen ? 5 : 4;
+  }
+
+  isReady(): boolean
+  {
+    if (isPlatformBrowser(this.platformId))
+      return this.playerStateService.isReady();
+    return false;
+  }
+
+  ngOnDestroy()
+  {
+    this.authService.signOut();
+  }
 }

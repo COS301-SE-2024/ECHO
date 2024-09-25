@@ -13,13 +13,6 @@
   transition: background-color 0.3s ease;
 }
 
-.underline-blue::after {
-  background-color: #ff69b4; /* Replace with a valid CSS color value */
-}
-
-.underline-none::after {
-  background-color: transparent;
-}
 
 .button {
   padding-left: 1.25rem;
@@ -41,10 +34,7 @@
 .scrollbar-hidden::-webkit-scrollbar {
   display: none; /* Safari and Chrome */
 }
-.container {
-  width: var(--tw-w);
-  height: var(--tw-h);
-}
+
 .view-more-container {
   /* Adjust the padding value based on your needs */
   margin-bottom: calc(50vh - 50px); /* Assuming the button's height is around 100px */

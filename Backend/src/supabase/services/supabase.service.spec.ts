@@ -3,208 +3,161 @@ import { createSupabaseClient } from './supabaseClient';
 import * as crypto from 'crypto';
 
 jest.mock('./supabaseClient', () => ({
-    createSupabaseClient: jest.fn(),
+  createSupabaseClient: jest.fn(),
+}));
+
+jest.mock("../../config", () => ({
+    encryptionKey: "dGVzdGVuY3J5cHRpb25rZXk=", // Example base64-encoded string
+  }));
+
+jest.mock('crypto', () => ({
+  randomBytes: jest.fn().mockReturnValue(Buffer.from('randombytes', 'utf-8')),
+  createCipheriv: jest.fn(() => ({
+    update: jest.fn().mockReturnValue('encrypted_part'),
+    final: jest.fn().mockReturnValue('encrypted_final'),
+  })),
+  createDecipheriv: jest.fn(() => ({
+    update: jest.fn().mockReturnValue('decrypted_part'),
+    final: jest.fn().mockReturnValue('decrypted_final'),
+  })),
 }));
 
 describe('SupabaseService', () => {
-    let supabaseService: SupabaseService;
+  let service: SupabaseService;
+  let supabaseMock: any;
 
-    beforeEach(() => {
-        process.env.SECRET_ENCRYPTION_KEY = Buffer.from('test-key').toString('base64');
-        supabaseService = new SupabaseService();
+  beforeEach(() => {
+    service = new SupabaseService();
+    supabaseMock = {
+      auth: {
+        signInWithOAuth: jest.fn(),
+        exchangeCodeForSession: jest.fn(),
+        setSession: jest.fn(),
+        getUser: jest.fn(),
+      },
+      from: jest.fn().mockReturnThis(),
+      upsert: jest.fn(),
+      select: jest.fn(),
+      eq: jest.fn().mockReturnThis(),
+      single: jest.fn(),
+    };
+    (createSupabaseClient as jest.Mock).mockReturnValue(supabaseMock);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  describe('signinWithOAuth', () => {
+    it('should sign in with OAuth using the given provider', async () => {
+      supabaseMock.auth.signInWithOAuth.mockResolvedValue({ data: { url: 'http://test-url' }, error: null });
+      const url = await service.signinWithOAuth('spotify');
+      expect(supabaseMock.auth.signInWithOAuth).toHaveBeenCalledWith({
+        provider: 'spotify',
+        options: {
+          redirectTo: 'http://localhost:4200/auth/callback',
+          scopes: expect.any(String),
+        },
+      });
+      expect(url).toBe('http://test-url');
     });
 
-    afterEach(() => {
-        jest.clearAllMocks();
+    it('should throw an error if signInWithOAuth fails', async () => {
+      supabaseMock.auth.signInWithOAuth.mockResolvedValue({ data: null, error: { message: 'OAuth error' } });
+      await expect(service.signinWithOAuth('spotify')).rejects.toThrow('OAuth error');
+    });
+  });
+
+  describe('exchangeCodeForSession', () => {
+    it('should exchange the code for a session', async () => {
+      supabaseMock.auth.exchangeCodeForSession.mockResolvedValue({ error: null });
+      await expect(service.exchangeCodeForSession('test_code')).resolves.not.toThrow();
+      expect(supabaseMock.auth.exchangeCodeForSession).toHaveBeenCalledWith('test_code');
     });
 
-    describe('signInWithSpotifyOAuth', () => {
-        it('should call supabase.auth.signInWithOAuth and return the URL', async () => {
-            const mockSupabase = {
-                auth: {
-                    signInWithOAuth: jest.fn().mockResolvedValue({ data: { url: 'http://localhost' }, error: null }),
-                },
-            };
-            (createSupabaseClient as jest.Mock).mockReturnValue(mockSupabase);
+    it('should throw an error if exchangeCodeForSession fails', async () => {
+      supabaseMock.auth.exchangeCodeForSession.mockResolvedValue({ error: { message: 'Session error' } });
+      await expect(service.exchangeCodeForSession('test_code')).rejects.toThrow('Session error');
+    });
+  });
 
-            const result = await supabaseService.signinWithOAuth("Spotify");
-            expect(mockSupabase.auth.signInWithOAuth).toHaveBeenCalledWith({
-                provider: 'Spotify',
-                options: {
-                    redirectTo: 'http://localhost:4200/auth/callback',
-                    scopes: '',
-                },
-            });
-            expect(result).toBe('http://localhost');
-        });
+  describe('handleSpotifyTokens', () => {
+    it('should handle tokens and insert them into user_tokens table', async () => {
+      supabaseMock.auth.setSession.mockResolvedValue({ error: null });
+      supabaseMock.auth.getUser.mockResolvedValue({ data: { user: { id: 'user_id' } }, error: null });
+      const insertTokensSpy = jest.spyOn(service, 'insertTokens').mockResolvedValue();
 
-        it('should throw an error if signInWithOAuth fails', async () => {
-            const mockSupabase = {
-                auth: {
-                    signInWithOAuth: jest.fn().mockResolvedValue({ data: null, error: { message: 'OAuth error' } }),
-                },
-            };
-            (createSupabaseClient as jest.Mock).mockReturnValue(mockSupabase);
+      await service.handleSpotifyTokens('access', 'refresh', 'providerToken', 'providerRefreshToken');
 
-            await expect(supabaseService.signinWithOAuth("Spotify")).rejects.toThrow('OAuth error');
-        });
+      expect(supabaseMock.auth.setSession).toHaveBeenCalledWith({
+        access_token: 'access',
+        refresh_token: 'refresh',
+      });
+      expect(insertTokensSpy).toHaveBeenCalledWith('user_id', expect.any(String), expect.any(String));
     });
 
-    describe('exchangeCodeForSession', () => {
-        it('should call supabase.auth.exchangeCodeForSession and handle success', async () => {
-            const mockSupabase = {
-                auth: {
-                    exchangeCodeForSession: jest.fn().mockResolvedValue({ error: null }),
-                },
-            };
-            (createSupabaseClient as jest.Mock).mockReturnValue(mockSupabase);
+    it('should return error message if tokens are missing', async () => {
+      const response = await service.handleSpotifyTokens('', '', '', '');
+      expect(response).toEqual({
+        message: 'Error occurred during OAuth Sign In while processing tokens - please try again.',
+      });
+    });
+  });
 
-            await supabaseService.exchangeCodeForSession('test-code');
-            expect(mockSupabase.auth.exchangeCodeForSession).toHaveBeenCalledWith('test-code');
-        });
-
-        it('should throw an error if exchangeCodeForSession fails', async () => {
-            const mockSupabase = {
-                auth: {
-                    exchangeCodeForSession: jest.fn().mockResolvedValue({ error: { message: 'Session error' } }),
-                },
-            };
-            (createSupabaseClient as jest.Mock).mockReturnValue(mockSupabase);
-
-            await expect(supabaseService.exchangeCodeForSession('test-code')).rejects.toThrow('Session error');
-        });
+  describe('insertTokens', () => {
+    it('should upsert tokens into user_tokens table', async () => {
+      supabaseMock.upsert.mockResolvedValue({ data: 'inserted_data', error: null });
+      await service.insertTokens('user_id', 'encrypted_provider_token', 'encrypted_provider_refresh_token');
+      expect(supabaseMock.upsert).toHaveBeenCalledWith(
+        [
+          {
+            user_id: 'user_id',
+            encrypted_provider_token: 'encrypted_provider_token',
+            encrypted_provider_refresh_token: 'encrypted_provider_refresh_token',
+          },
+        ],
+        { onConflict: 'user_id' },
+      );
     });
 
-    describe('handleSpotifyTokens', () => {
-        /*
-        it('should set session and insert tokens on success', async () => {
-            const mockSupabase = {
-                auth: {
-                    setSession: jest.fn().mockResolvedValue({ error: null }),
-                    getUser: jest.fn().mockResolvedValue({ data: { user: { id: 'test-user' } }, error: null }),
-                },
-            };
-            (createSupabaseClient as jest.Mock).mockReturnValue(mockSupabase);
+    it('should throw an error if upsert fails', async () => {
+      supabaseMock.upsert.mockResolvedValue({ data: null, error: { message: 'Insert error' } });
+      await expect(
+        service.insertTokens('user_id', 'encrypted_provider_token', 'encrypted_provider_refresh_token'),
+      ).rejects.toThrow('Failed to update or insert tokens');
+    });
+  });
 
-            const insertTokensSpy = jest.spyOn(supabaseService, 'insertTokens').mockResolvedValue();
+  describe('encryptToken', () => {
+    it('should encrypt a token', () => {
+      const encrypted = service.encryptToken('test_token');
+      expect(crypto.createCipheriv).toHaveBeenCalled();
+      expect(encrypted).toContain(':');
+    });
+  });
 
-            await supabaseService.handleSpotifyTokens('access', 'refresh', 'provider', 'providerRefresh');
-            expect(mockSupabase.auth.setSession).toHaveBeenCalledWith({ access_token: 'access', refresh_token: 'refresh' });
-            expect(insertTokensSpy).toHaveBeenCalledWith('test-user', expect.any(String), expect.any(String));
-        });
+  describe('decryptToken', () => {
+    it('should decrypt an encrypted token', () => {
+      const decrypted = service.decryptToken('iv:encrypted');
+      expect(crypto.createDecipheriv).toHaveBeenCalled();
+      expect(decrypted).toBe('decrypted_partdecrypted_final');
+    });
+  });
 
-        */
-        it('should log error if setSession fails', async () => {
-            const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
-            const mockSupabase = {
-                auth: {
-                    setSession: jest.fn().mockResolvedValue({ error: 'Session error' }),
-                },
-            };
-            (createSupabaseClient as jest.Mock).mockReturnValue(mockSupabase);
-
-            await supabaseService.handleSpotifyTokens('access', 'refresh', 'provider', 'providerRefresh');
-            expect(consoleSpy).toHaveBeenCalledWith('Error setting session:', 'Session error');
-        });
-
-        it('should log error if getUser fails', async () => {
-            const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
-            const mockSupabase = {
-                auth: {
-                    setSession: jest.fn().mockResolvedValue({ error: null }),
-                    getUser: jest.fn().mockResolvedValue({ data: null, error: 'User error' }),
-                },
-            };
-            (createSupabaseClient as jest.Mock).mockReturnValue(mockSupabase);
-
-            await supabaseService.handleSpotifyTokens('access', 'refresh', 'provider', 'providerRefresh');
-            expect(consoleSpy).toHaveBeenCalledWith('Error retrieving user:', 'User error');
-        });
+  describe('retrieveTokens', () => {
+    it('should retrieve and decrypt tokens from user_tokens table', async () => {
+      supabaseMock.single.mockResolvedValue({
+        data: { encrypted_provider_token: 'encrypted', encrypted_provider_refresh_token: 'encrypted' },
+        error: null,
+      });
+      const tokens = await service.retrieveTokens('user_id');
+      expect(supabaseMock.select).toHaveBeenCalledWith('encrypted_provider_token, encrypted_provider_refresh_token');
+      expect(tokens).toEqual({ providerToken: 'decrypted_partdecrypted_final', providerRefreshToken: 'decrypted_partdecrypted_final' });
     });
 
-    describe('insertTokens', () => {
-        it('should insert tokens into the database', async () => {
-            const mockSupabase = {
-                from: jest.fn().mockReturnThis(),
-                upsert: jest.fn().mockResolvedValue({ data: {}, error: null }),
-            };
-            (createSupabaseClient as jest.Mock).mockReturnValue(mockSupabase);
-
-            await supabaseService.insertTokens('test-user', 'encryptedToken', 'encryptedRefreshToken');
-            expect(mockSupabase.from).toHaveBeenCalledWith('user_tokens');
-            expect(mockSupabase.upsert).toHaveBeenCalledWith([
-                {
-                    user_id: 'test-user',
-                    encrypted_provider_token: 'encryptedToken',
-                    encrypted_provider_refresh_token: 'encryptedRefreshToken',
-                },
-            ], {
-                onConflict: 'user_id',
-            });
-        });
-
-        it('should throw an error if upsert fails', async () => {
-            const mockSupabase = {
-                from: jest.fn().mockReturnThis(),
-                upsert: jest.fn().mockResolvedValue({ data: null, error: 'Insert error' }),
-            };
-            (createSupabaseClient as jest.Mock).mockReturnValue(mockSupabase);
-
-            await expect(supabaseService.insertTokens('test-user', 'encryptedToken', 'encryptedRefreshToken')).rejects.toThrow('Failed to update or insert tokens');
-        });
+    it('should throw an error if retrieval fails', async () => {
+      supabaseMock.single.mockResolvedValue({ data: null, error: { message: 'Retrieval error' } });
+      await expect(service.retrieveTokens('user_id')).rejects.toThrow('Failed to retrieve tokens');
     });
-
-    describe('encryptToken', () => {
-        /*
-        it('should encrypt a token', () => {
-            const token = 'test-token';
-            const encryptedToken = supabaseService.encryptToken(token);
-
-            expect(encryptedToken).toContain(':'); // Check if the result contains the IV and encrypted token parts
-        });
-        */
-    });
-
-    describe('decryptToken', () => {
-        /*
-        it('should decrypt a token', () => {
-            const token = 'test-token';
-            const encryptedToken = supabaseService.encryptToken(token);
-            const decryptedToken = supabaseService.decryptToken(encryptedToken);
-
-            expect(decryptedToken).toBe(token);
-        });
-        */
-    });
-
-    describe('retrieveTokens', () => {
-        it('should retrieve and decrypt tokens from the database', async () => {
-            const mockSupabase = {
-                from: jest.fn().mockReturnThis(),
-                select: jest.fn().mockReturnThis(),
-                eq: jest.fn().mockReturnThis(),
-                single: jest.fn().mockResolvedValue({ data: { encrypted_provider_token: 'encryptedToken', encrypted_provider_refresh_token: 'encryptedRefreshToken' }, error: null }),
-            };
-            (createSupabaseClient as jest.Mock).mockReturnValue(mockSupabase);
-
-            const decryptTokenSpy = jest.spyOn(supabaseService, 'decryptToken').mockReturnValueOnce('providerToken').mockReturnValueOnce('providerRefreshToken');
-
-            const tokens = await supabaseService.retrieveTokens('test-user');
-            expect(tokens).toEqual({ providerToken: 'providerToken', providerRefreshToken: 'providerRefreshToken' });
-            expect(decryptTokenSpy).toHaveBeenCalledWith('encryptedToken');
-            expect(decryptTokenSpy).toHaveBeenCalledWith('encryptedRefreshToken');
-        });
-
-        it('should throw an error if retrieval fails', async () => {
-            const mockSupabase = {
-                from: jest.fn().mockReturnThis(),
-                select: jest.fn().mockReturnThis(),
-                eq: jest.fn().mockReturnThis(),
-                single: jest.fn().mockResolvedValue({ data: null, error: 'Retrieve error' }),
-            };
-            (createSupabaseClient as jest.Mock).mockReturnValue(mockSupabase);
-
-            await expect(supabaseService.retrieveTokens('test-user')).rejects.toThrow('Failed to retrieve tokens');
-        });
-    });
+  });
 });

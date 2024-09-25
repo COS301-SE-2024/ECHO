@@ -1,6 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ThemeService } from '../../../services/theme.service';
 import { MoodService } from '../../../services/mood-service.service';
 
 @Component({
@@ -11,26 +10,64 @@ import { MoodService } from '../../../services/mood-service.service';
     styleUrls: ['./svg-icon.component.css'],
 })
 export class SvgIconComponent {
-      //Mood Service Variables
-      moodComponentClasses!:{ [key: string]: string };
-    
-    @Input() svgPath?: string;
-    @Input() fillColor?: string;
-    @Input() selected?: boolean;
-    @Input() middleColor?: string;
-    @Output() svgClick = new EventEmitter<void>();
-    constructor(private themeService: ThemeService, public moodService: MoodService) {}
+    // Mood Service Variables
+    moodComponentClasses!: { [key: string]: string };
+    @Input() svgPath: string = '';
+    @Input() fillColor: string = '#000000';
+    @Input() width: string = '10vh';
+    @Input() selected: boolean = false;
+    @Input() isAnimating: boolean = false;
+    @Input() middleColor: string = '#191716';
+    @Input() pathHeight: string = '1'; // Default path height as a string
+    @Input() circleAnimation: boolean = false;
+    @Output() svgClick = new EventEmitter<MouseEvent>();
+    @Input() mood?: any;
+    hovered: boolean = false;
+
+    constructor(public moodService: MoodService) {}
 
     ngOnInit() {
-        this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
+        this.moodComponentClasses = this.moodService.getComponentMoodClasses();
     }
+
     onClick() {
         this.svgClick.emit();
     }
 
     circleColor(): string {
-        return this.themeService.isDarkModeActive()
-            ? this.moodComponentClasses[this.moodService.getCurrentMood()]
-            : 'rgba(238, 2, 88, 0.5)';
+        if (this.hovered) {
+            if (this.mood) {
+                return this.moodComponentClasses[this.mood];
+            } else {
+                return this.moodComponentClasses[this.moodService.getCurrentMood()];
+            }
+        } else {
+            return this.moodComponentClasses[this.moodService.getCurrentMood()];
+        }
+    }
+
+    onMouseEnter() {
+        this.hovered = true;
+        if (this.circleAnimation) this.isAnimating = true;
+    }
+
+    onMouseLeave() {
+        this.hovered = false;
+        if (this.circleAnimation) this.isAnimating = false;
+    }
+
+    onMouseEnterPath() {
+        this.hovered = true;
+        if (this.circleAnimation) this.isAnimating = true;
+    }
+
+    onMouseLeavePath() {
+        this.hovered = false;
+        if (this.circleAnimation) this.isAnimating = false;
+
+    }
+
+    getNumericPathHeight(): number {
+        return parseFloat(this.pathHeight);
     }
 }

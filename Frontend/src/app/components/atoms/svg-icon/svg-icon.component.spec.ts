@@ -1,24 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SvgIconComponent } from './svg-icon.component';
-import { ThemeService } from '../../../services/theme.service';
 import { By } from '@angular/platform-browser';
 
 describe('SvgIconComponent', () => {
   let component: SvgIconComponent;
   let fixture: ComponentFixture<SvgIconComponent>;
-  let mockThemeService: Partial<ThemeService>;
-
   beforeEach(async () => {
     // Mock ThemeService or any other dependencies
-    mockThemeService = {
-      isDarkModeActive: jest.fn().mockReturnValue(true) // Example mock implementation
-    };
 
     await TestBed.configureTestingModule({
       imports: [SvgIconComponent],
-      providers: [
-        { provide: ThemeService, useValue: mockThemeService }
-      ]
+      providers: []
     }).compileComponents();
 
     fixture = TestBed.createComponent(SvgIconComponent);
