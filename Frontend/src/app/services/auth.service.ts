@@ -68,8 +68,9 @@ export class AuthService
     return this.http.post(`${this.apiUrl}/providertokens`, { accessToken: laccessToken, refreshToken: lrefreshToken });
   }
 
-  async setProviderTokens(): void
+  async setProviderTokens(laccessToken: string, lrefreshToken: string): Promise<void>
   {
+
     await this.http.post(`${this.apiUrl}/providertokens`, { accessToken: laccessToken, refreshToken: lrefreshToken });
   }
 
