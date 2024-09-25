@@ -1,0 +1,14 @@
+  <div class="flex justify-center items-center">
+    <app-toast></app-toast>
+  </div>
+  
+  <div class="flex-grow overflow-y-auto max-h-screen mb-[10vh] no-scrollbar">
+    <ng-container *ngIf="!isLoading; else loading">
+      <div *ngFor="let track of echoTracks" class="space-y-4">
+        <app-song-cards [imgSize]="'10vw'" [card]="track"></app-song-cards>
+      </div>
+    </ng-container>
+    <ng-template #loading>
+      <app-skeleton-song-card [imageSize]="'10vw'" *ngFor="let _ of skeletonArray"></app-skeleton-song-card>
+    </ng-template>
+  </div>

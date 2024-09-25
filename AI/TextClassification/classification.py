@@ -1,12 +1,7 @@
-import re
 import requests
-from bs4 import BeautifulSoup
 
 from openai import OpenAI
-import openai
 import os
-import logging
-import azapi
 
 client = OpenAI()
 
@@ -65,6 +60,7 @@ def get_lyrics_by_id(song_name, artist):
 def get_lyrics_ovh(song_name, artist_name):
     url = f"https://api.lyrics.ovh/v1/{artist_name}/{song_name}"
     response = requests.get(url)
+    print("response")
 
     if response.status_code == 200:
         lyrics = response.json().get("lyrics", "Lyrics not found.")
@@ -74,13 +70,18 @@ def get_lyrics_ovh(song_name, artist_name):
 
 
 def run_lyric_analysis(song_name, artist):
+    sentiment = get_emotion_from_llm(song_name, artist)
+    return sentiment
+
     lyrics = get_lyrics_ovh(song_name, artist)
+    print("got lyrics")
     
     if lyrics is None:
         sentiment = get_emotion_from_llm(song_name, artist)
         return sentiment
 
     sentiment = get_sentiment(lyrics)
+    print("got sentiment")
     return sentiment
     
 
@@ -88,14 +89,15 @@ def get_sentiment(lyrics):
     completion = client.chat.completions.create(
         model="gpt-4o-mini",
         messages=[
-            {"role": "system", "content": "I am going to give you song lyrics. Please respond with one and only one of the following categories that the lyrics best fit into: Admiration, Amusement, Anger, Annoyance, Approval, Caring, Confusion, Curiosity, Desire, Disappointment, Disapproval, Disgust, Embarrassment, Excitement, Fear, Gratitude, Grief, Joy, Love, Nervousness, Optimism, Pride, Realisation, Relief, Remorse, Sadness, Surprise. Please only respond with the ONE word."},
+            {"role": "system", "content": "I am going to give you song lyrics. Please respond with one and only one of the following categories that the lyrics best fit into: Joy, Surprise, Sadness, Anger, Disgust, Contempt, Shame, Fear, Guilt, Excitement, Love. Please only respond with the ONE word."},
             {"role": "user", "content": lyrics}
         ]
     )
 
     if completion.choices and completion.choices[0].message:
         sentiment = completion.choices[0].message.content.strip()
-        valid_emotions = {"Admiration", "Amusement", "Anger", "Annoyance", "Approval", "Caring", "Confusion", "Curiosity", "Desire", "Disappointment", "Disapproval", "Disgust", "Embarrassment", "Excitement", "Fear", "Gratitude", "Grief", "Joy", "Love", "Nervousness", "Optimism", "Pride", "Realisation", "Relief", "Remorse", "Sadness", "Surprise"}
+        print("Sentiment: " + sentiment)
+        valid_emotions = {"Joy", "Surprise", "Sadness", "Anger", "Disgust", "Contempt", "Shame", "Fear", "Guilt", "Excitement", "Love"}
         if sentiment in valid_emotions:
             return sentiment
         else:
@@ -105,7 +107,7 @@ def get_sentiment(lyrics):
 
 
 def get_emotion_from_llm(song_name, artist_name):
-    prompt = f"The song '{song_name}' by '{artist_name}' doesn't have lyrics available. Based on what you know about this song, please predict the emotion it conveys. Respond with one and only one of the following emotions: Admiration, Amusement, Anger, Annoyance, Approval, Caring, Confusion, Curiosity, Desire, Disappointment, Disapproval, Disgust, Embarrassment, Excitement, Fear, Gratitude, Grief, Joy, Love, Nervousness, Optimism, Pride, Realisation, Relief, Remorse, Sadness, Surprise. If you do not know the song, respond with an empty string."
+    prompt = f"The song '{song_name}' by '{artist_name}' doesn't have lyrics available. Based on what you know about this song, please predict the emotion it conveys. Respond with one and only one of the following emotions: Joy, Surprise, Sadness, Anger, Disgust, Contempt, Shame, Fear, Guilt, Excitement, Love. If you do not know the song, respond with an empty string."
 
     completion = client.chat.completions.create(
         model="gpt-4o-mini",
@@ -117,7 +119,8 @@ def get_emotion_from_llm(song_name, artist_name):
 
     if completion.choices and completion.choices[0].message:
         emotion = completion.choices[0].message.content.strip()
-        valid_emotions = {"Admiration", "Amusement", "Anger", "Annoyance", "Approval", "Caring", "Confusion", "Curiosity", "Desire", "Disappointment", "Disapproval", "Disgust", "Embarrassment", "Excitement", "Fear", "Gratitude", "Grief", "Joy", "Love", "Nervousness", "Optimism", "Pride", "Realisation", "Relief", "Remorse", "Sadness", "Surprise"}
+        print("Emotion: " + emotion)
+        valid_emotions = {"Joy", "Surprise", "Sadness", "Anger", "Disgust", "Contempt", "Shame", "Fear", "Guilt", "Excitement", "Love"}
         if emotion in valid_emotions:
             return emotion
         else:

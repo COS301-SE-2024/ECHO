@@ -1,9 +1,10 @@
 import { Component, OnInit } from "@angular/core";
-import { Router } from '@angular/router';
+import { NavigationEnd, Router, RouterEvent } from "@angular/router";
 import { AuthService } from '../services/auth.service';
 import { SpotifyService } from "../services/spotify.service";
 import { TokenService } from "../services/token.service";
 import { ProviderService } from "../services/provider.service";
+import { filter } from "rxjs/operators";
 
 @Component({
   selector: "app-auth-callback",
@@ -35,7 +36,7 @@ export class AuthCallbackComponent implements OnInit {
           next: async (res: any) => {
             console.log('Login successful:', res);
             await this.spotifyService.init();
-            this.router.navigate(['/home']);
+            await this.router.navigate(['/home']);
           },
           error: (err: any) => {
             console.error('Error processing login:', err);

@@ -50,6 +50,8 @@ def get_cluster_songs(song_name, artist, n_recommendations):
     song_features = get_song_features(track_id)
 
     recommended_songs = cluster.recommend_songs(song_features, n_recommendations)
+    if recommended_songs is None:
+        return None
 
     recommended_tracks = []
 

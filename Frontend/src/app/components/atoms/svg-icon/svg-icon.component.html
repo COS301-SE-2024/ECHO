@@ -1,0 +1,26 @@
+<svg class="bounce-on-hover" fill-rule="evenodd" clip-rule="evenodd" (click)="onClick()" [attr.width]="width" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle class="bounce-circle"
+    [ngClass]="{'animate': isAnimating}"
+    [class]="circleColor()"
+    (mouseenter)="onMouseEnter()" 
+    (mouseleave)="onMouseLeave()"
+    *ngIf="selected" cx="50" cy="50" r="40" />
+    <path class="bounce-path"
+    (mouseenter)="onMouseEnterPath()" 
+    (mouseleave)="onMouseLeavePath()" [attr.d]="svgPath" [attr.fill]="selected ? middleColor : fillColor" [attr.transform]="'scale(' + pathHeight + ',' + pathHeight + ') translate(25, 25)'"/>
+</svg>
+
+<style>
+@keyframes bounce {
+    0%, 100% {
+        r: 40;
+    }
+    50% {
+        r: 45;
+    }
+}
+
+.bounce-circle.animate {
+    animation: bounce 0.5s infinite;
+}
+</style>

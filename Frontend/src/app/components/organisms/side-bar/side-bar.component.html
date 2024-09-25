@@ -1,0 +1,68 @@
+<div class="z-10"  style="left: 1vw; top: 10.2vh;">
+  <div [ngClass]="{'w-[2.5vw] h-[2vw]': isSideBarHidden, 'w-[20vw] h-[75vh]': !isSideBarHidden}"  class="container  pl-5 rounded-md max-h-screen " >
+    <div [ngClass]="moodComponentClasses[moodService.getCurrentMood()]" class="rounded-lg overflow-auto h-full flex flex-col justify-between scrollbar-hidden">
+      <!-- SVG button always visible -->
+      <div class="flex justify-between items-center mb-2 mt-3">
+        <div class="button-container">
+          <app-expandable-icon class="focus:outline-none max-w-[.5vw]" (click)="toggleSideBar()"></app-expandable-icon>
+        </div>
+        <!-- Only show these buttons when the sidebar is expanded -->
+        <div *ngIf="!isSideBarHidden" class="button-container" [ngClass]="getButtonClasses('suggestions')">
+          <button class="px-10 text-sm font-bold text-white focus:outline-none truncate max-w-[9.5vw] flex-1" (click)="selectOption('suggestions')">Suggestions</button>
+        </div>
+        <div *ngIf="!isSideBarHidden" class="button-container" [ngClass]="getButtonClasses('recentListening')">
+          <button class="px-10 text-sm text-white focus:outline-none truncate max-w-[9.5vw] flex-1" (click)="selectOption('recentListening')">Recent listening</button>
+        </div>
+      </div>
+
+      <!-- Content of the sidebar -->
+      <div *ngIf="!isSideBarHidden" class="mt-7 mx-3 flex-grow overflow-auto scrollbar-hidden">
+        <ng-container *ngIf="!isLoading ; else loading">
+          <div *ngFor="let card of getSelectedCardData(); let i = index">
+            <app-song-cards [svgSize]="'2.5vw'" [imgSize]="'5vw'" [card]="card"></app-song-cards>
+          </div>
+        </ng-container>
+        <ng-template #loading>
+          <app-skeleton-song-card *ngFor="let _ of skeletonArray"></app-skeleton-song-card>
+        </ng-template>
+        <div class="flex justify-center items-center">
+          <app-toast></app-toast>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="isEchoModalVisible" id="echo-songs" tabindex="-1" aria-hidden="true" class="fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full bg-black bg-opacity-50">
+  <div class="relative p-4 w-full max-w-2xl max-h-full">
+    <!-- Modal content -->
+    <div class="relative bg-white rounded-lg shadow dark:bg-gray-950">
+      <!-- Modal header -->
+      <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+          Echo Songs
+        </h3>
+        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal" (click)="closeModal()">
+          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+          </svg>
+          <span class="sr-only">Close</span>
+        </button>
+      </div>
+      <!-- Modal body -->
+      <div *ngFor="let track of echoTracks" class="p-4 md:p-5 space-y-4">
+        <div>
+          <img class="object-center w24 h-24" src="{{track.imageUrl}}" alt="Album Art">
+          <p class="text-lg text-center text-gray-500 dark:text-gray-400">
+            {{track.text}}
+          </p>
+          <p class="text-md text-center text-gray-500 dark:text-gray-400">
+            {{track.secondaryText}}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -4,11 +4,11 @@ import { Component, OnInit } from '@angular/core';
 import { NgForOf, NgIf, NgClass, NgSwitch, NgSwitchCase } from '@angular/common';
 import { ScreenSizeService } from '../../services/screen-size-service.service';
 import { MoodService } from "../../services/mood-service.service";
-import { NavbarComponent } from '../../shared/navbar/navbar.component';
+import { NavbarComponent } from '../../components/organisms/navbar/navbar.component';
 import { Router } from '@angular/router';
-import { SearchBarComponent } from '../../shared/search-bar/search-bar.component';
+import { SearchBarComponent } from '../../components/molecules/search-bar/search-bar.component';
 import { ProfileComponent } from '../profile/profile.component';
-import { MoodDropDownComponent } from '../../shared/mood-drop-down/mood-drop-down.component';
+import { MoodDropDownComponent } from '../../components/organisms/mood-drop-down/mood-drop-down.component';
 
 // Define the type for album objects
 interface Album {

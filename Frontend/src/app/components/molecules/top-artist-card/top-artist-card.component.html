@@ -1,0 +1,15 @@
+<div [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]" class="p-2 rounded-md flex-shrink-0"
+	 style="width: 15vw; height: 20vw; max-width: 9rem; max-height: 12rem; min-width: 5rem; min-height: 7.5rem;">
+  <div class="card-content">
+	<img 
+		src="{{ imageUrl }}" 
+		alt="{{ text }}" 
+		class="rounded mx-auto overflow-hidden transition-all duration-300 hover:rounded-lg hover:scale-110 hover:cursor-pointer" 
+		style="border-radius: 50%;"
+		(click)="openArtistProfile()"
+	>
+	<div class="text-center mt-2">
+		<p class="text-white text-sm font-bold py-2">{{ text }}</p>
+	</div>
+  </div>
+</div>

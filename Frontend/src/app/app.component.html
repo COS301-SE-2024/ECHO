@@ -1,9 +1,34 @@
 <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-
-<div class="font-app">
+<app-background-animation class="absolute inset-0" style="z-index: -1;"></app-background-animation>
+<div *ngIf="isCurrentRouteAuth()">
   <router-outlet></router-outlet>
-  <app-page-header *ngIf="displayPageName" class="page-header" [pageTitle]=currentPage></app-page-header>
-  <app-bottom-nav *ngIf="screenSize === 'mobile'"></app-bottom-nav>
-  <app-bottom-player *ngIf="showPlayer || displayPlayer"></app-bottom-player>
-  <app-side-bar *ngIf="displaySideBar && screenSize === 'desktop'" class="col-start-1 col-span-1 row-start-1 row-span-6"></app-side-bar>
 </div>
+<div *ngIf="!isCurrentRouteAuth()">
+  <div *ngIf="screenSize === 'desktop'" class="grid grid-cols-5 grid-rows-[0.01fr,0.01fr,0.67fr] min-h-screen pl-2 pr-2 relative">
+    <app-header [ngClass]="'col-start-' + columnStart" class="col-span-1 row-start-2 row-span-1 pl-[2.5vw]"></app-header>
+    <app-other-nav class="col-start-5 col-span-1 row-start-1 row-span-1 justify-self-end"></app-other-nav>
+    <app-navbar class="col-start-1 col-span-1 row-start-1 row-span-3"></app-navbar>
+    <app-side-bar [isSideBarHidden]="isSidebarOpen" (sidebarToggled)="layout($event)" class="col-start-1 col-span-1 row-start-2 row-span-3 pr-2"></app-side-bar>
+    <!-- dont remove this div -->
+    <div class="col-span-4"></div> 
+    <div [ngClass]="'col-span-' + colSpan + ' col-start-' + columnStart"
+      id="center"
+      class="no-scrollbar row-span-2 row-start-3 overflow-y-scroll overflow-hidden p-2">
+
+      <router-outlet></router-outlet>
+    </div>
+  </div>  
+  <div *ngIf="screenSize === 'mobile'">
+    <div class="grid grid-cols-3 grid-rows-[0.1fr,1fr,1fr] min-h-screen relative">
+      <app-header class="col-start-2 col-span-1 row-start-1 row-span-1"></app-header>
+      <div class="col-start-1 col-span-3 row-start-2 row-span-2">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+    <app-bottom-nav></app-bottom-nav>
+  </div>
+      <app-bottom-player *ngIf="isReady()"></app-bottom-player> <!-- Use playerReady here -->
+</div>
+
+<!-- Hidden YouTube player, used to play videos in the background -->
+<div id="youtube-player" style="display: none;"></div>

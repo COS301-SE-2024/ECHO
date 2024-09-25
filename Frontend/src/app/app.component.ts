@@ -1,14 +1,27 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from "@angular/core";
 import { RouterOutlet, Router, NavigationEnd, Event as RouterEvent, ActivatedRoute } from "@angular/router";
-import { BottomPlayerComponent } from "./shared/bottom-player/bottom-player.component";
-import { BottomNavComponent } from "./shared/bottom-nav/bottom-nav.component";
+import { BottomPlayerComponent } from "./components/organisms/bottom-player/bottom-player.component";
+import { BottomNavComponent } from "./components/organisms/bottom-nav/bottom-nav.component";
 import { ScreenSizeService } from "./services/screen-size-service.service";
 import { SwUpdate } from "@angular/service-worker";
 import { filter } from "rxjs/operators";
-import { NgIf, NgClass } from "@angular/common";
-import { SideBarComponent } from "./shared/side-bar/side-bar.component";
+import { CommonModule, isPlatformBrowser } from "@angular/common";
 import { ProviderService } from "./services/provider.service";
-import { PageHeaderComponent } from "./shared/page-header/page-header.component";
+import { PageHeaderComponent } from "./components/molecules/page-header/page-header.component";
+import { MoodService } from "./services/mood-service.service";
+import {
+  BackgroundAnimationComponent
+} from "./components/organisms/background-animation/background-animation.component";
+
+import { NavbarComponent } from "./components/organisms/navbar/navbar.component";
+import { SideBarComponent } from './components/organisms/side-bar/side-bar.component';
+//template imports
+import { HeaderComponent } from "./components/organisms/header/header.component";
+import { OtherNavComponent } from "./components/templates/desktop/other-nav/other-nav.component";
+import { LeftComponent } from "./components/templates/desktop/left/left.component";
+import { AuthService } from "./services/auth.service";
+import { PlayerStateService } from "./services/player-state.service";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "app-root",
@@ -16,93 +29,69 @@ import { PageHeaderComponent } from "./shared/page-header/page-header.component"
   imports: [
     RouterOutlet,
     BottomPlayerComponent,
-    NgIf,
-    NgClass,
-    SideBarComponent,
+    CommonModule,
     BottomNavComponent,
-    PageHeaderComponent
+    PageHeaderComponent,
+    HeaderComponent,
+    OtherNavComponent,
+    LeftComponent,
+    BackgroundAnimationComponent,
+    NavbarComponent,
+    SideBarComponent
   ],
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"]
 })
-export class AppComponent implements OnInit
+export class AppComponent implements OnInit, OnDestroy
 {
-  title = "Echo";
   update: boolean = false;
-  screenSize?: string;
-  showPlayer = false;
-  displayPlayer = false;
-  displaySideBar = false;
-  currentPage: string = "";
+  screenSize!: string;
   displayPageName: boolean = false;
+  columnStart: number = 3; 
+  columnStartNav: number = 1; 
+  colSpan: number = 4; 
+  isSidebarOpen: boolean = false;
+  protected displaySideBar: boolean = false;
+  protected isAuthRoute: boolean = false;
+  protected isCallbackRoute: boolean = false;
+  // Mood Service Variables
+  currentMood!: string;
+  moodComponentClasses!: { [key: string]: string };
+  backgroundMoodClasses!: { [key: string]: string };
+  isLoggedIn$!: Observable<boolean>;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private screenSizeService: ScreenSizeService,
     private providerService: ProviderService,
-    private updates: SwUpdate
+    private updates: SwUpdate,
+    public moodService: MoodService,
+    private authService: AuthService,
+    private playerStateService: PlayerStateService,
+    @Inject(PLATFORM_ID) private platformId: Object
   )
   {
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe((event: RouterEvent) => {
-
-      if (event instanceof NavigationEnd) {
-        this.displaySideBar = ['/home', '/profile', '/mood', '/home#','home#search', '/home#search','home#home', '/home#home', 'home#library', '/home#library'].includes(event.urlAfterRedirects);
-        this.displayPlayer = ['/settings'].includes(event.urlAfterRedirects);
-        this.showPlayer = ['/home', '/profile',  '/mood', 'artist-profile',"/search", '/home#','home#home', '/home#home','home#search', 'home#library', '/home#library','/home#insight'].includes(event.urlAfterRedirects);
-        switch (event.urlAfterRedirects) {
-          case '/home':
-            this.currentPage = 'Home';
-            this.displayPageName = true;
-            break;
-          case '/home#search':
-            this.currentPage = 'Search';
-            this.displayPageName = true;
-            break;
-          case '/home#library':
-            this.currentPage = 'Library';
-            this.displayPageName = true;
-            break;
-          case '/home#insight':
-            this.currentPage = 'Insight';
-            this.displayPageName = true;
-            break;
-          case "/home#home":
-            this.currentPage = 'Home';
-            this.displayPageName = true;
-            break;
-          case '/profile':
-            this.currentPage = 'Profile';
-            this.displayPageName = false;
-            break;
-          case '/settings':
-            this.currentPage = 'Settings';
-            this.displayPageName = true;
-            break;
-          case '/search':
-            this.currentPage = 'Search';
-            this.displayPageName = true;
-            break;
-          default:
-            this.currentPage = '';
-            this.displayPageName = false;
-        }
-      }
-    });
-
+    this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
+    this.isLoggedIn$ = this.authService.isLoggedIn$;
     updates.versionUpdates.subscribe(event =>
     {
       if (event.type === "VERSION_READY")
       {
-        console.log("Version ready to install:");
         updates.activateUpdate().then(() =>
         {
           this.update = true;
           document.location.reload();
         });
       }
+    });
+
+    this.router.events.pipe(
+      filter((event): event is NavigationEnd => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) =>
+    {
+      this.isAuthRoute = ["/login", "/register"].includes(event.urlAfterRedirects);
+      this.isCallbackRoute = ["/auth/callback"].includes(event.urlAfterRedirects);
     });
   }
 
@@ -114,33 +103,31 @@ export class AppComponent implements OnInit
     });
   }
 
-  handleRouteChange(url: string)
+  async ngAfterViewInit()
   {
-    const [path, fragment] = url.split("#");
+    this.playerStateService.setReady();
+  }
 
-    this.displaySideBar = ["/home", "home", "insight", "library", "/profile", "/mood"].includes(path);
-    this.displayPlayer = ["/settings"].includes(path);
-    this.showPlayer = ["/home", "/profile", "home", "insight", "library", "/mood"].includes(path);
+  isCurrentRouteAuth(): boolean
+  {
+    return ["/login", "/register", "/Auth/callback"].includes(this.router.url);
+  }
 
-    switch (path)
-    {
-      case "/home":
-        this.currentPage = fragment === "search" ? "Search" :
-          fragment === "library" ? "Library" :
-            fragment === "insight" ? "Insight" : "Home";
-        this.displayPageName = true;
-        break;
-      case "/profile":
-        this.currentPage = "Profile";
-        this.displayPageName = false;
-        break;
-      case "/settings":
-        this.currentPage = "Settings";
-        this.displayPageName = true;
-        break;
-      default:
-        this.currentPage = "";
-        this.displayPageName = false;
-    }
+  layout(isSidebarOpen: boolean) {
+    this.isSidebarOpen = isSidebarOpen;
+    this.columnStart = isSidebarOpen ? 1 : 3;    
+    this.colSpan = isSidebarOpen ? 5 : 4;
+  }
+
+  isReady(): boolean
+  {
+    if (isPlatformBrowser(this.platformId))
+      return this.playerStateService.isReady();
+    return false;
+  }
+
+  ngOnDestroy()
+  {
+    this.authService.signOut();
   }
 }
