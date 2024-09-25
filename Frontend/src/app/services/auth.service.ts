@@ -89,15 +89,11 @@ export class AuthService
   // This function is used to sign in the user with Spotify OAuth
   async signInWithOAuth(): Promise<void>
   {
-    this.loggedInSubject.next(true);
-    if (localStorage.getItem("loggedIn") === "true")
-    {
-      this.router.navigate(["/home"]);
-    }
-    else
-    {
-      localStorage.setItem("loggedIn", "true");
-    }
+    localStorage.removeItem("loggedIn");
+    this.tokenService.clearTokens();  // Make sure to clear any tokens stored for the previous user
+
+    this.loggedInSubject.next(false);
+
     const providerName = this.providerService.getProviderName();
     this.http.post<{ url: string }>(`${this.apiUrl}/oauth-signin`, { provider: providerName })
       .subscribe(

@@ -47,9 +47,9 @@ export class AppComponent implements OnInit, OnDestroy
   update: boolean = false;
   screenSize!: string;
   displayPageName: boolean = false;
-  columnStart: number = 3; 
-  columnStartNav: number = 1; 
-  colSpan: number = 4; 
+  columnStart: number = 3;
+  columnStartNav: number = 1;
+  colSpan: number = 4;
   isSidebarOpen: boolean = false;
   protected displaySideBar: boolean = false;
   protected isAuthRoute: boolean = false;
@@ -97,11 +97,26 @@ export class AppComponent implements OnInit, OnDestroy
 
   async ngOnInit()
   {
+    window.addEventListener('beforeunload', this.handleTabClose);
     this.screenSizeService.screenSize$.subscribe(screenSize =>
     {
       this.screenSize = screenSize;
     });
   }
+
+  // Handle the browser tab close event
+  handleTabClose = (event: BeforeUnloadEvent) => {
+    // Call the signOut method before the tab is closed
+    this.authService.signOut().subscribe({
+      next: (response) => {
+        console.log('User signed out successfully on tab close');
+      },
+      error: (error) => {
+        console.error('Error during sign out on tab close:', error);
+      }
+    });
+  }
+
 
   async ngAfterViewInit()
   {
@@ -115,7 +130,7 @@ export class AppComponent implements OnInit, OnDestroy
 
   layout(isSidebarOpen: boolean) {
     this.isSidebarOpen = isSidebarOpen;
-    this.columnStart = isSidebarOpen ? 1 : 3;    
+    this.columnStart = isSidebarOpen ? 1 : 3;
     this.colSpan = isSidebarOpen ? 5 : 4;
   }
 
@@ -129,5 +144,6 @@ export class AppComponent implements OnInit, OnDestroy
   ngOnDestroy()
   {
     this.authService.signOut();
+    window.removeEventListener('beforeunload', this.handleTabClose);
   }
 }
