@@ -5,6 +5,10 @@ import { TokenService } from "./token.service";
 import { ProviderService } from "./provider.service";
 import { Router } from "@angular/router";
 import { PlayerStateService } from "./player-state.service";
+import { environment } from '../../environments/environment';
+
+
+
 
 export interface AuthResponse
 {
@@ -19,7 +23,7 @@ export class AuthService
 {
   private loggedInSubject = new BehaviorSubject<boolean>(false);
   public isLoggedIn$: Observable<boolean> = this.loggedInSubject.asObservable();
-  private apiUrl = "http://localhost:3000/api/auth";
+  private apiUrl = `${environment.apiUrl}/auth`;
 
   constructor(private http: HttpClient, private tokenService: TokenService, private playerStateService: PlayerStateService, private providerService: ProviderService, private router: Router)
   {

@@ -7,15 +7,25 @@ async function bootstrap() {
     const app = await NestFactory.create(AppModule);
     const configService = app.get(ConfigService);
 
-    // Configure allowed origins for CORS from environment variable or default values
-    const allowedOrigins = configService.get<string | string[]>('CORS_ORIGIN', [
+    // Define allowed origins as an array
+    const allowedOrigins = [
         'https://echo-bm8z.onrender.com',
         'http://localhost:4200'
-    ]);
+    ];
 
-    // Enable CORS with the allowed origins
+    // Enable CORS with dynamic origin checking
     app.enableCors({
-        origin: allowedOrigins,
+        origin: (origin, callback) => {
+            // Allow requests with no origin, e.g., mobile apps or curl requests
+            if (!origin) return callback(null, true);
+
+            // Check if the origin is allowed
+            if (allowedOrigins.includes(origin)) {
+                callback(null, true);
+            } else {
+                callback(new Error('Not allowed by CORS'));
+            }
+        },
         methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
         credentials: true,
     });
