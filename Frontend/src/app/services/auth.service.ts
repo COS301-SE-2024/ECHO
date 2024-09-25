@@ -68,6 +68,12 @@ export class AuthService
     return this.http.post(`${this.apiUrl}/providertokens`, { accessToken: laccessToken, refreshToken: lrefreshToken });
   }
 
+  async setProviderTokens(): void
+  {
+    await this.http.post(`${this.apiUrl}/providertokens`, { accessToken: laccessToken, refreshToken: lrefreshToken });
+  }
+
+
   verifyOfflineSession(): Promise<boolean>
   {
     if (localStorage.getItem("loggedIn") === "true")

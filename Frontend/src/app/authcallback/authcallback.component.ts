@@ -24,33 +24,49 @@ export class AuthCallbackComponent implements OnInit {
     private providerService: ProviderService
   ) {}
 
-  ngOnInit() {
-    if (typeof window !== 'undefined') {
+  async ngOnInit()
+  {
+    if (typeof window !== 'undefined')
+    {
       const hash = window.location.hash;
-      const tokens = this.parseHashParams(hash);  // Extract tokens from the URL hash
+      const tokens = this.parseHashParams(hash);
+      alert("Auth processing");// Extract tokens from the URL hash
 
-      if (tokens.accessToken && tokens.refreshToken) {
-        this.tokenService.setTokens(tokens.accessToken, tokens.refreshToken);  // Save the tokens
-        this.authService.sendTokensToServer(tokens).subscribe({
-          next: async (res: any) => {
-            alert('Login successful:');
-            await this.spotifyService.init();  // Initialize Spotify Service
-            await this.router.navigate(['/home']);  // Redirect to home page
-          },
-          error: (err: any) => {
-            alert('Error processing login:');
-            this.router.navigate(['/login']);  // Redirect to login if there's an error
-          }
-        });
-      } else {
+      if (tokens.accessToken)
+      {
+        if (tokens.refreshToken)
+        {
+          await this.tokenService.setTokens(tokens.accessToken, tokens.refreshToken);
+          this.authService.sendTokensToServer(tokens).subscribe({
+            next: async (res: any) =>
+            {
+              alert("Login successful:");
+              await this.spotifyService.init();
+              await this.router.navigate(["/home"]);
+            },
+            error: (err: any) =>
+            {
+              alert("Error processing login:");
+              this.router.navigate(["/login"]);
+            }
+          });
+        }
+        else
+        {
+          alert("No tokens found in URL hash");
+          this.router.navigate(["/login"]);
+        }
+      }
+      else
+      {
         alert("No tokens found in URL hash");
-        this.router.navigate(['/login']);  // Redirect to login if no tokens are found
+        this.router.navigate(["/login"]);
       }
     }
   }
 
   parseHashParams(hash: string) {
-    const params = new URLSearchParams(hash.substring(1));  // Remove '#' from the hash
+    const params = new URLSearchParams(hash.substring(1));
     return {
       accessToken: params.get('access_token'),
       refreshToken: params.get('refresh_token'),
