@@ -5,9 +5,6 @@ import azure.functions as func
 
 import utils
 
-MIN_RECOMMENDATIONS = 10
-INITIAL_SONGS_REQUESTED = 50
-
 app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
 
 @app.route(route="get_songs")
@@ -26,6 +23,7 @@ def get_songs(req: func.HttpRequest) -> func.HttpResponse:
     try:
         song_name = req_body.get("song_name")
         artist = req_body.get("artist")
+        num_songs = req_body.get("num_songs")
 
         if not song_name or not artist:
             return func.HttpResponse(
@@ -39,7 +37,7 @@ def get_songs(req: func.HttpRequest) -> func.HttpResponse:
 
         cluster_number = utils.get_cluster(track_name, artist_name)
         cluster_number = int(cluster_number)
-        original_song_id, cluster_songs = utils.get_cluster_songs(track_name, artist_name, INITIAL_SONGS_REQUESTED)
+        original_song_id, cluster_songs = utils.get_cluster_songs(track_name, artist_name, num_songs)
 
         if cluster_songs is None:
             return func.HttpResponse(
@@ -54,9 +52,9 @@ def get_songs(req: func.HttpRequest) -> func.HttpResponse:
                 "original_id": original_song_id, 
                 "recommended_tracks": cluster_songs
             }),
-        mimetype="application/json",
-        status_code=200
-    )
+            mimetype="application/json",
+            status_code=200
+        )
     
     except Exception as e:
         return func.HttpResponse(

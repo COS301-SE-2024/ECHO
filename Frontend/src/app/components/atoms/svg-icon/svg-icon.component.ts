@@ -14,9 +14,10 @@ export class SvgIconComponent {
     moodComponentClasses!: { [key: string]: string };
     @Input() svgPath: string = '';
     @Input() fillColor: string = '#000000';
+    @Input() width: string = '10vh';
     @Input() selected: boolean = false;
     @Input() isAnimating: boolean = false;
-    @Input() middleColor: string = '#FFFFFF';
+    @Input() middleColor: string = '#191716';
     @Input() pathHeight: string = '1'; // Default path height as a string
     @Input() circleAnimation: boolean = false;
     @Output() svgClick = new EventEmitter<MouseEvent>();

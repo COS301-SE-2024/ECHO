@@ -64,3 +64,4 @@ def get_track_details(uri):
     track_name = track_info['name']
     artist_name = track_info['album']['artists'][0]['name'] if track_info['album']['artists'] else 'Unknown Artist'
     return track_name, artist_name
+
