@@ -18,7 +18,6 @@ export class BottomNavComponent {
   selectedIndex:string = 'home';
   constructor(private router: Router,public moodService: MoodService) {
     this.moodComponentClasses = this.moodService.getComponentMoodClasses();
-    this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
     this.moodClassesDark = this.moodService.getComponentMoodClassesDark();
   }
   selectedIndexChanged(index: string){

@@ -47,7 +47,6 @@ export class SideBarComponent implements OnInit
   )
   {
     this.moodComponentClasses = this.moodService.getComponentMoodClasses();
-    this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
     this.underline = this.moodService.getUnerlineMoodClasses();
   }
 

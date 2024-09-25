@@ -50,7 +50,6 @@ export class MoodComponent implements OnInit {
       private router: Router,
     ){
         this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
-        this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
     }
 
     ngOnInit() {

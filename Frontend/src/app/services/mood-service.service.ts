@@ -64,23 +64,6 @@ export class MoodService {
     Shame:       'bg-shame-dark text-gray-light transition-colors duration-mood ease-in-out',
     Guilt:       'bg-guilt-dark text-gray-light transition-colors duration-mood ease-in-out',
   };
-  
-  private _backgroundMoodClasses = {
-    Anger: 'bg-anger-backgrounddark bg-anger-background transition-colors duration-mood ease-in-out',
-    Fear: 'bg-fear-backgrounddark bg-fear-background transition-colors duration-mood ease-in-out',
-    Joy: 'bg-joy-backgrounddark bg-joy-background transition-colors duration-mood ease-in-out',
-    Neutral: 'bg-default-backgrounddark bg-default-background transition-colors duration-mood ease-in-out',
-    Disgust: 'bg-disgust-backgrounddark bg-disgust-background transition-colors duration-mood ease-in-out',
-    Excitement: 'bg-excitement-backgrounddark bg-excitement-background transition-colors duration-mood ease-in-out',
-    Love: 'bg-love-backgrounddark bg-love-background transition-colors duration-mood ease-in-out',
-    Optimism: 'bg-optimism-backgrounddark bg-optimism-background transition-colors duration-mood ease-in-out',
-    Sadness: 'bg-sadness-backgrounddark bg-sadness-background transition-colors duration-mood ease-in-out',
-    Surprise: 'bg-surprise-backgrounddark bg-surprise-background transition-colors duration-mood ease-in-out',
-    Contempt: 'bg-contempt-backgrounddark bg-contempt-background transition-colors duration-mood ease-in-out',
-    Shame: 'bg-shame-backgrounddark bg-shame-background transition-colors duration-mood ease-in-out',
-    Guilt: 'bg-guilt-backgrounddark bg-guilt-background transition-colors duration-mood ease-in-out',
-  };
-  
   private _underlineMoodClasses = {
     Anger: 'bg-anger transition-colors duration-mood ease-in-out border-b-2 border-anger-dark',
     Fear: 'bg-fear transition-colors duration-mood ease-in-out border-b-2 border-fear-dark',
@@ -140,9 +123,6 @@ export class MoodService {
   }
   getComponentMoodClassesDark(): { [key: string]: string } {
     return this._MoodClassesDark
-  }
-  getBackgroundMoodClasses(): { [key: string]: string } {
-    return this._backgroundMoodClasses;
   }
   getCurrentMood(): string {
     return this._currentMood;

@@ -26,18 +26,6 @@ module.exports = {
                 'mood': '1000ms', // Adjust the duration as needed
               },
             colors: {
-                'dark-bg': '#191716',
-                'light-bg': '#ffffff',
-                'dark-text': '#EE0258',
-                'light-text': '#EE0258',
-                'desktop-bg': '#323232',
-                pink: {
-                    "white": '#E8D5DA',
-                    "verylight": '#FFABC2',
-                    "light": '#F6668F',
-                    DEFAULT: '#EE0258',
-                    "dark": '#C40047'
-                },
                 gray: {
                     "background": '#191716',
                     "component": '#252525',

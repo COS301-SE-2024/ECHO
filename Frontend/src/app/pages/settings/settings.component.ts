@@ -42,7 +42,6 @@ export class SettingsComponent {
   ) {
     this.currentMood = this.moodService.getCurrentMood(); 
     this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
-    this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
   }
 
 

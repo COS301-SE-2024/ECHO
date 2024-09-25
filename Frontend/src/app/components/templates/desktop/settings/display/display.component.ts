@@ -20,6 +20,5 @@ export class DisplayComponent {
   ) {
     this.currentMood = this.moodService.getCurrentMood(); 
     this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
-    this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
   }
 }

@@ -27,7 +27,6 @@ export class TopCardComponent {
     protected dialog: MatDialog,
   ) {
     this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
-    this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
     this.MoodClassesDark = this.moodService.getComponentMoodClassesDark();
   }
 

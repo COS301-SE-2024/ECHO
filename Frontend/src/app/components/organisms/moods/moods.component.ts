@@ -39,7 +39,6 @@ export class MoodsComponent implements OnDestroy {
     ) {
         this.allMoods = this.moodService.getAllMoods();
         this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
-        this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
     }
     async ngOnInit() {
         this.screenSizeSubscription = this.screenSizeService.screenSize$.subscribe(screenSize => {
