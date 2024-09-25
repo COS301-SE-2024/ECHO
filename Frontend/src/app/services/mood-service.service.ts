@@ -14,13 +14,14 @@ export class MoodService {
     Excitement: 'rgb(255, 83, 8)', // #FF5308
     Love: 'rgb(255, 20, 147)', // #FF1493
     Sadness: 'rgb(70, 130, 180)', // #4682B4
-    Surprise: 'rgb(255, 69, 0)', // #FF4500
-    Contempt: 'rgb(255, 105, 97)', // #FF6961 (new color for Contempt)
-    Shame: 'rgb(255, 87, 51)', // #FF5733 (new color for Shame)
-    Guilt: 'rgb(255, 165, 0)', // #FFA500 (new color for Guilt)
+    Surprise: 'rgb(0, 191, 255)', // #FF4500
+    Contempt: 'rgb(112, 128, 144)', // #FF6961 
+    Shame: 'rgb(255, 182, 193)', // #FFF0F5
+    Guilt: 'rgb(92, 45, 145)', // #5C2D91 
   };
+
   private _componentMoodClasses = {
-    Neutral:     'bg-default-component text-default-text focus:ring-default-dark fill-default transition-colors',
+    Neutral:     'bg-default text-default-text focus:ring-default-dark fill-default transition-colors',
     Anger:       'bg-anger text-anger-text focus:ring-anger-dark fill-anger-dark transition-colors duration-mood ease-in-out',
     Fear:        'bg-fear text-fear-text focus:ring-fear-dark fill-fear-dark transition-colors duration-mood ease-in-out',
     Joy:         'bg-joy text-joy-text focus:ring-joy-dark fill-joy-dark transition-colors duration-mood ease-in-out',
@@ -65,19 +66,19 @@ export class MoodService {
     Guilt:       'bg-guilt-dark text-gray-light transition-colors duration-mood ease-in-out',
   };
   private _underlineMoodClasses = {
-    Anger: 'bg-anger transition-colors duration-mood ease-in-out border-b-2 border-anger-dark',
-    Fear: 'bg-fear transition-colors duration-mood ease-in-out border-b-2 border-fear-dark',
-    Joy: 'bg-joy transition-colors duration-mood ease-in-out border-b-2 border-joy-dark',
-    Neutral: 'bg-component transition-colors duration-mood ease-in-out border-b-2 border-pink',
-    Disgust: 'bg-disgust transition-colors duration-mood ease-in-out border-b-2 border-disgust-dark',
-    Excitement: 'bg-excitement transition-colors duration-mood ease-in-out border-b-2 border-excitement-dark',
-    Love: 'bg-love transition-colors duration-mood ease-in-out border-b-2 border-love-dark',
-    Optimism: 'bg-optimism transition-colors duration-mood ease-in-out border-b-2 border-optimism-dark',
-    Sadness: 'bg-sadness transition-colors duration-mood ease-in-out border-b-2 border-sadness-dark',
-    Surprise: 'bg-surprise transition-colors duration-mood ease-in-out border-b-2 border-surprise-dark',
-    Contempt: 'bg-contempt transition-colors duration-mood ease-in-out border-b-2 border-contempt-dark',
-    Shame: 'bg-shame transition-colors duration-mood ease-in-out border-b-2 border-shame-dark',
-    Guilt: 'bg-guilt transition-colors duration-mood ease-in-out border-b-2 border-guilt-dark',
+    Anger: 'bg-default-background  transition-colors duration-mood ease-in-out border-b-2 border-anger-dark opacity-99',
+    Fear: 'bg-default-background transition-colors duration-mood ease-in-out border-b-2 border-fear-dark opacity-99',
+    Joy: 'bg-default-background transition-colors duration-mood ease-in-out border-b-2 border-joy-dark opacity-99',
+    Neutral: 'bg-default-background transition-colors duration-mood ease-in-out border-b-2 border-default-dark opacity-99',
+    Disgust: 'bg-default-background  transition-colors duration-mood ease-in-out border-b-2 border-disgust-dark opacity-99',
+    Excitement: 'bg-default-background  transition-colors duration-mood ease-in-out border-b-2 border-excitement-dark opacity-99',
+    Love: 'bg-default-background transition-colors duration-mood ease-in-out border-b-2 border-love-dark opacity-99',
+    Optimism: 'bg-default-background transition-colors duration-mood ease-in-out border-b-2 border-optimism-dark opacity-99',
+    Sadness: 'bg-default-background  transition-colors duration-mood ease-in-out border-b-2 border-sadness-dark opacity-99',
+    Surprise: 'bg-default-background  transition-colors duration-mood ease-in-out border-b-2 border-surprise-dark opacity-99',
+    Contempt: 'bg-default-background  transition-colors duration-mood ease-in-out border-b-2 border-contempt-dark opacity-99',
+    Shame: 'bg-default-background transition-colors duration-mood ease-in-out border-b-2 border-shame-dark opacity-99',
+    Guilt: 'bg-default-background transition-colors duration-mood ease-in-out border-b-2 border-guilt-dark ',
   };
   
   constructor() {

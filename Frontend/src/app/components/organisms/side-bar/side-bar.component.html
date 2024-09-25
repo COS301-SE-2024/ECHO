@@ -1,6 +1,6 @@
 <div class="z-10"  style="left: 1vw; top: 10.2vh;">
   <div [ngClass]="{'w-[2.5vw] h-[2vw]': isSideBarHidden, 'w-[20vw] h-[75vh]': !isSideBarHidden}"  class="container  pl-5 rounded-md max-h-screen " >
-    <div [ngClass]="moodComponentClasses[moodService.getCurrentMood()]" class="rounded-lg overflow-auto h-full flex flex-col justify-between scrollbar-hidden">
+    <div class="bg-black opacity-70 rounded-lg overflow-auto h-full flex flex-col justify-between scrollbar-hidden">
       <!-- SVG button always visible -->
       <div class="flex justify-between items-center mb-2 mt-3">
         <div class="button-container">
