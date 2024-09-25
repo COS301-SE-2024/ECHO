@@ -63,8 +63,7 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true,
-              "serviceWorker": true,
-              "ngswConfigPath": "ngsw-config.json"
+              "serviceWorker": false
             }
           },
           "defaultConfiguration": "production"
