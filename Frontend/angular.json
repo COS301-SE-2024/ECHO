@@ -50,7 +50,6 @@
                 }
               ],
               "outputHashing": "all",
-              "serviceWorker": true,
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -61,8 +60,7 @@
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true,
-              "serviceWorker": false
+              "sourceMap": true
             }
           },
           "defaultConfiguration": "production"
