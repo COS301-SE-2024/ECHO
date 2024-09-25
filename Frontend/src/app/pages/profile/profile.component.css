@@ -1,111 +1,72 @@
-.navbar-container {
-  position: fixed;
-  top: .1%;
-  left: 4%;
+#profile {
+  background-size: cover;
+  height: 30vh;
+  position: relative;
+  border-top-left-radius: 0.75rem; /* Rounded top corners */
+  border-top-right-radius: 0.75rem;
 }
+
+.absolute {
+  position: absolute;
+}
+
+.inset-0 {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+/* Gradient effect */
+.profile::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(to bottom, transparent, #252525); /* Transition from transparent to gray */
+  border-radius: inherit;
+}
+
+.bg-gray-component {
+  background-color: #252525; /* Ensure it matches the Tailwind color */
+  color: white;
+  border-bottom-left-radius: 0.75rem; /* Rounded bottom corners */
+  border-bottom-right-radius: 0.75rem;
+}
+
 
 .btn {
-  @apply font-bold py-2 px-4 rounded-3xl border-2;
-}
-.btn-dark {
-  @apply bg-gray-200 text-stone-900 border-stone-900;
+  background-color: #fff;
+  color: #4a4a4a;
 }
 
-.btn-light {
-  @apply bg-stone-900 text-white border-stone-900;
+.btn:hover {
+  background-color: #e2e2e2;
 }
 
+.scrollable-cards::-webkit-scrollbar {
+  height: 6px; /* Adjusts the height of the scrollbar for horizontal scroll */
+}
+
+.scrollable-cards::-webkit-scrollbar-thumb {
+  background-color: #b0b0b0; /* Gray color for the scrollbar */
+  border-radius: 10px; /* Rounded corners for the scrollbar thumb */
+}
+
+.scrollable-cards::-webkit-scrollbar-track {
+  background: transparent; /* Transparent background for the scrollbar track */
+}
+
+/* Scrollbar styles for Firefox */
+.scrollable-cards {
+  scrollbar-width: thin; /* Thin scrollbar for Firefox */
+  scrollbar-color: #b0b0b0 transparent; /* Gray scrollbar thumb and transparent track */
+}
+
+/* Other existing styles */
 .scrollable-cards {
   overflow-x: auto;
-  scrollbar-width: none; /* For Firefox */
-  overflow-y: hidden;
-  min-height: 15vh;
-
+  white-space: nowrap;
 }
-  
-.scrollable-cards::-webkit-scrollbar {
-  display: none; /* For Chrome, Safari, and Opera */
-}
-
-.dark .scrollable-cards {
-  --scrollbar-thumb: white;
-}
-
-.light .scrollable-cards {
-  --scrollbar-thumb: black;
-}
-
-.card-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.card-image {
-  width: 10vw;
-  height: 10vw;
-  max-width: 100px;
-  max-height: 100px;
-  min-width: 50px;
-  min-height: 50px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 0.5rem;
-}
-
-.profile-container {
-  display: flex;
-  height: 80%;
-  justify-content: center;
-  width: 100%;
-}
-
-.profile {
-  width: 79%;
-  max-width: 79%;
-  min-width: 79%;
-  height: 82%;
-}
-
-:root {
-  --card-width: 20vw;
-  --card-height: 30vh;
-}
-
-
-@media (max-width: 600px) {
-  :root {
-    --card-width: 80vw;  /* Adjusted for small screens */
-    --card-height: 40vh;  /* Adjusted for small screens */
-  }
-
-  .profile-container {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .profile {
-    width: 100%;
-    max-width: 100%;
-    min-width: 100%;
-  }
-
-  .profile img {
-    width: 50%;
-    height: auto;
-    margin: 0 auto;
-  }
-
-  .profile .card-content {
-    align-items: flex-start;
-    text-align: left;
-  }
-
-  .scrollable-cards {
-    overflow-x: auto;
-    scrollbar-width: none; /* For Firefox */
-    overflow-y: hidden;
-    min-height: 15vh;
-  }
-}
-

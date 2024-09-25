@@ -10,7 +10,9 @@ import { SideBarComponent } from "./components/organisms/side-bar/side-bar.compo
 import { ProviderService } from "./services/provider.service";
 import { PageHeaderComponent } from "./components/molecules/page-header/page-header.component";
 import { MoodService } from "./services/mood-service.service";
-import { BackgroundAnimationComponent } from "./components/organisms/background-animation/background-animation.component";
+import {
+  BackgroundAnimationComponent
+} from "./components/organisms/background-animation/background-animation.component";
 
 //template imports
 import { HeaderComponent } from "./components/organisms/header/header.component";
@@ -37,7 +39,8 @@ import { Observable } from "rxjs";
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"]
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit, OnDestroy
+{
   update: boolean = false;
   screenSize!: string;
   displayPageName: boolean = false;
@@ -59,14 +62,17 @@ export class AppComponent implements OnInit, OnDestroy {
     public moodService: MoodService,
     private authService: AuthService,
     private playerStateService: PlayerStateService,
-    @Inject(PLATFORM_ID) private platformId: Object,
-  ) {
+    @Inject(PLATFORM_ID) private platformId: Object
+  )
+  {
     this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
     this.isLoggedIn$ = this.authService.isLoggedIn$;
-    updates.versionUpdates.subscribe(event => {
-      if (event.type === "VERSION_READY") {
-        console.log("Version ready to install:");
-        updates.activateUpdate().then(() => {
+    updates.versionUpdates.subscribe(event =>
+    {
+      if (event.type === "VERSION_READY")
+      {
+        updates.activateUpdate().then(() =>
+        {
           this.update = true;
           document.location.reload();
         });
@@ -75,28 +81,34 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.router.events.pipe(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd)
-    ).subscribe((event: NavigationEnd) => {
-      console.log('Navigation ended:', event.urlAfterRedirects);
-      this.isAuthRoute = ['/login', '/register'].includes(event.urlAfterRedirects);
-      this.isCallbackRoute = ['/auth/callback'].includes(event.urlAfterRedirects);
+    ).subscribe((event: NavigationEnd) =>
+    {
+      this.isAuthRoute = ["/login", "/register"].includes(event.urlAfterRedirects);
+      this.isCallbackRoute = ["/auth/callback"].includes(event.urlAfterRedirects);
     });
   }
 
-  async ngOnInit() {
-    this.screenSizeService.screenSize$.subscribe(screenSize => {
+  async ngOnInit()
+  {
+    this.screenSizeService.screenSize$.subscribe(screenSize =>
+    {
       this.screenSize = screenSize;
     });
   }
-  async ngAfterViewInit() {
+
+  async ngAfterViewInit()
+  {
     this.playerStateService.setReady();
   }
 
-  isCurrentRouteAuth(): boolean {
-    return ['/login', '/register','/Auth/callback'].includes(this.router.url);
+  isCurrentRouteAuth(): boolean
+  {
+    return ["/login", "/register", "/Auth/callback"].includes(this.router.url);
   }
 
 
-  isReady(): boolean {
+  isReady(): boolean
+  {
     if (isPlatformBrowser(this.platformId))
       return this.playerStateService.isReady();
     return false;

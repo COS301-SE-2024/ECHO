@@ -1,12 +1,12 @@
-<div class="z-10 w-[42vh]" style="--tw-h: 75vh; left: 1vw; top: 10.2vh;">
-  <div class="container pl-5 rounded-md h-full">
-    <div [ngClass]="moodComponentClasses[moodService.getCurrentMood()]" class="rounded-lg overflow-auto h-full flex flex-col justify-between scrollbar-hidden">
+<div class="z-10 w-[45vh] opacity-90" style="--tw-h: 73.8vh; top: 10.2vh;">
+  <div class="container pl-3 rounded-md h-full">
+    <div [ngClass]="moodComponentClasses[moodService.getCurrentMood()]" class=" bg-stone-950 rounded-lg overflow-auto h-full flex flex-col justify-between scrollbar-hidden">
       <div class="flex justify-between items-center mb-2 mt-3">
         <div class="button-container" [ngClass]="getButtonClasses('suggestions')">
-          <button class="px-10 text-sm font-bold text-white focus:outline-none truncate" (click)="selectOption('suggestions')">Suggestions</button>
+          <button class="px-10 text-md font-bold text-white focus:outline-none truncate" (click)="selectOption('suggestions')">Suggestions</button>
         </div>
         <div class="button-container" [ngClass]="getButtonClasses('recentListening')">
-          <button class="px-10 text-sm text-white focus:outline-none truncate" (click)="selectOption('recentListening')">Recent listening</button>
+          <button class="px-10 text-md text-white focus:outline-none truncate" (click)="selectOption('recentListening')">Recent listening</button>
         </div>
       </div>
       <div class="mt-7 mx-3 flex-grow overflow-auto scrollbar-hidden">
@@ -28,7 +28,7 @@
 <div *ngIf="isEchoModalVisible" id="echo-songs" tabindex="-1" aria-hidden="true" class="fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full bg-black bg-opacity-50">
   <div class="relative p-4 w-full max-w-2xl max-h-full">
     <!-- Modal content -->
-    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+    <div class="relative bg-white rounded-lg shadow dark:bg-gray-950">
       <!-- Modal header -->
       <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
         <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
