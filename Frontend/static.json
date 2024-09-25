@@ -2,6 +2,6 @@
   "root": "dist/frontend",
   "cleanUrls": false,
   "routes": {
-    "/**": "index.html"
+    "/**": "/index.html"
   }
 }
