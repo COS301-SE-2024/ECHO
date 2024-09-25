@@ -58,7 +58,7 @@ export class SpotifyService
   private RecentListeningObject: any = null;
   private QueueObject: any = null;
 
-  private apiUrl = `${environment.apiUrl}`;
+  private apiUrl = environment.apiUrl;
 
   constructor(
     private authService: AuthService,
@@ -396,7 +396,7 @@ export class SpotifyService
     {
       const laccessToken = this.tokenService.getAccessToken();
       const lrefreshToken = this.tokenService.getRefreshToken();
-      const response = await this.http.post<any>("${this.apiUrl}/spotify/recently-played", {
+      const response = await this.http.post<any>(`${this.apiUrl}/spotify/recently-played`, {
         accessToken: laccessToken,
         refreshToken: lrefreshToken
       }).toPromise();
@@ -513,7 +513,7 @@ export class SpotifyService
     {
       const laccessToken = this.tokenService.getAccessToken();
       const lrefreshToken = this.tokenService.getRefreshToken();
-      const response = await this.http.post<any>("${this.apiUrl}/spotify/currently-playing", {
+      const response = await this.http.post<any>(`${this.apiUrl}/spotify/currently-playing`, {
         accessToken: laccessToken,
         refreshToken: lrefreshToken
       }).toPromise();
@@ -548,7 +548,7 @@ export class SpotifyService
     {
       const laccessToken = this.tokenService.getAccessToken();
       const lrefreshToken = this.tokenService.getRefreshToken();
-      const response = await this.http.post<any>("${this.apiUrl}/spotify/track-details", {
+      const response = await this.http.post<any>(`${this.apiUrl}/spotify/track-details`, {
         trackID: trackId,
         accessToken: laccessToken,
         refreshToken: lrefreshToken
@@ -602,7 +602,7 @@ export class SpotifyService
     {
       const laccessToken = this.tokenService.getAccessToken();
       const lrefreshToken = this.tokenService.getRefreshToken();
-      const response = await this.http.post<any>("${this.apiUrl}/spotify/add-to-queue", {
+      const response = await this.http.post<any>(`${this.apiUrl}/spotify/add-to-queue`, {
         uri: fullTrackId,
         device_id: this.deviceId,
         accessToken: laccessToken,
@@ -648,7 +648,7 @@ export class SpotifyService
     {
       const laccessToken = this.tokenService.getAccessToken();
       const lrefreshToken = this.tokenService.getRefreshToken();
-      const response = await this.http.post<any>("${this.apiUrl}/spotify/track-details-by-name", {
+      const response = await this.http.post<any>(`${this.apiUrl}/spotify/track-details-by-name`, {
         trackName: trackName,
         artistName: artistName,
         accessToken: laccessToken,
@@ -673,7 +673,7 @@ export class SpotifyService
     {
       const laccessToken = this.tokenService.getAccessToken();
       const lrefreshToken = this.tokenService.getRefreshToken();
-      const response = await this.http.post<TrackAnalysis>("${this.apiUrl}/spotify/track-analysis", {
+      const response = await this.http.post<TrackAnalysis>(`${this.apiUrl}/spotify/track-analysis`, {
         trackId: trackId,
         accessToken: laccessToken,
         refreshToken: lrefreshToken
@@ -736,7 +736,7 @@ export class SpotifyService
     {
       const laccessToken = this.tokenService.getAccessToken();
       const lrefreshToken = this.tokenService.getRefreshToken();
-      const response = await this.http.post<any>("${this.apiUrl}/spotify/top-artists", {
+      const response = await this.http.post<any>(`${this.apiUrl}/spotify/top-artists`, {
         accessToken: laccessToken,
         refreshToken: lrefreshToken
       }).toPromise();
@@ -770,7 +770,7 @@ export class SpotifyService
     {
       const laccessToken = this.tokenService.getAccessToken();
       const lrefreshToken = this.tokenService.getRefreshToken();
-      const response = await this.http.post<any>("${this.apiUrl}/spotify/top-tracks", {
+      const response = await this.http.post<any>(`${this.apiUrl}/spotify/top-tracks`, {
         accessToken: laccessToken,
         refreshToken: lrefreshToken
       }).toPromise();
