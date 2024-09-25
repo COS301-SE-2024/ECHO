@@ -9,8 +9,8 @@ async function bootstrap() {
 
     // Configure allowed origins for CORS from environment variable or default values
     const allowedOrigins = configService.get<string | string[]>('CORS_ORIGIN', [
-        'http://localhost:4200',
-        'https://echo-bm8z.onrender.com'
+        'https://echo-bm8z.onrender.com',
+        'http://localhost:4200'
     ]);
 
     // Enable CORS with the allowed origins
