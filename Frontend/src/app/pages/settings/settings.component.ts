@@ -49,7 +49,9 @@ export class SettingsComponent {
   {
     this.activeSetting = buttonLabel;
   }
-
+  getButtonClass(setting: string): boolean {
+    return this.activeSetting === setting ? true : false;
+  }
   async ngOnInit() {
     this.screenSizeService.screenSize$.subscribe(screenSize => {
       this.screenSize = screenSize;
