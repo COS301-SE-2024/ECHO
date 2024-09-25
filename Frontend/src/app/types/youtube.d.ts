@@ -34,6 +34,7 @@ declare namespace YT {
     getAvailablePlaybackRates(): number[];
     getPlaybackQuality(): string;
     setPlaybackQuality(suggestedQuality: string): void;
+    getVolume(): number;
   }
 
   interface PlayerEvent {

@@ -6,6 +6,12 @@ import { ProviderService } from "./provider.service";
 import { Router } from "@angular/router";
 import { PlayerStateService } from "./player-state.service";
 
+export interface AuthResponse
+{
+  user: any,
+  session: any
+}
+
 @Injectable({
   providedIn: "root"
 })
@@ -32,7 +38,22 @@ export class AuthService
       localStorage.setItem("loggedIn", "true");
       this.loggedInSubject.next(true);
     }
-    return this.http.post(`${this.apiUrl}/signin`, { email, password });
+    this.http.post(`${this.apiUrl}/signin`, { email, password })
+      .subscribe(
+(response: any) =>
+        {
+          this.loggedInSubject.next(true);
+          localStorage.setItem("loggedIn", "true");
+          this.tokenService.setTokens(response.session.access_token, response.session.refresh_token);
+          return this.router.navigate(["/home"]);
+        },
+        (error) =>
+        {
+          console.error("Sign in error:", error);
+          return this.router.navigate(["/login"]);
+        }
+      );
+    return new Observable();
   }
 
   // This function is used to get the tokens from the server
