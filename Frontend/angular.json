@@ -5,6 +5,7 @@
   "projects": {
     "Frontend": {
       "projectType": "application",
+      "schematics": {},
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -31,36 +32,37 @@
           },
           "configurations": {
             "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "50mb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "50kb",
+                  "maximumError": "50kb"
+                }
+              ],
+              "outputHashing": "all",
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-              "outputHashing": "all",
-              "serviceWorker": true,
-              "ngswConfigPath": "ngsw-config.json",
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "50kb",
-                  "maximumError": "100kb"
-                }
-              ]
+              "optimization": true,
+              "extractLicenses": true,
+              "sourceMap": false,
+              "namedChunks": false,
+              "serviceWorker": true  // Only for production build, no SSR or Prerendering
             },
             "development": {
               "optimization": false,
-              "outputHashing": "none",
-              "sourceMap": true,
               "extractLicenses": false,
-              "vendorChunk": true,
-              "serviceWorker": false,
-              "buildOptimizer": false
+              "sourceMap": true,
+              "namedChunks": true,
+              "serviceWorker": false  // Disable service workers for development
             }
           },
           "defaultConfiguration": "production"
@@ -72,10 +74,10 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "Frontend:build:production"
+              "buildTarget": "Frontend:build:production"
             },
             "development": {
-              "browserTarget": "Frontend:build:development"
+              "buildTarget": "Frontend:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -83,19 +85,17 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Frontend:build"
+            "buildTarget": "Frontend:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "src/test.ts",
             "polyfills": [
               "zone.js",
               "zone.js/testing"
             ],
             "tsConfig": "tsconfig.spec.json",
-            "karmaConfig": "karma.conf.js",
             "assets": [
               "src/favicon.ico",
               "src/assets",
