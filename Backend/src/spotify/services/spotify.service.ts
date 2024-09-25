@@ -78,7 +78,7 @@ export class SpotifyService
         const accessKey = await this.getAccessKey();
         const response = await lastValueFrom(
             this.httpService.post(
-                "https://echo-ai-interface.azurewebsites.net/api/get_recommendations",
+                "https://echo-interface.azurewebsites.net/api/get_recommendations",
                 {
                     access_key: accessKey,
                     artist: artist,
