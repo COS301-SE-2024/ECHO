@@ -1,4 +1,4 @@
-<svg class="bounce-on-hover" fill-rule="evenodd" clip-rule="evenodd" (click)="onClick()" width="8vh" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg class="bounce-on-hover" fill-rule="evenodd" clip-rule="evenodd" (click)="onClick()" [attr.width]="width" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
     <circle class="bounce-circle"
     [ngClass]="{'animate': isAnimating}"
     [class]="circleColor()"

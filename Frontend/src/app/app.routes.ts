@@ -33,7 +33,8 @@ export const routes: Routes = [
   { path: "search", component: SearchComponent},
   { path: "newlogin", component: LoginComponentview},
   { path: "library", component: UserLibraryComponent},
-  { path: "echo Song", component: EchoSongComponent}
+  { path: "echo Song", component: EchoSongComponent},
+  { path: '**', redirectTo: '/login' } //DO NOT MOVE - MUST ALWAYS BE LAST
 ];
 
 @NgModule({

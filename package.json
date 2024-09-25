@@ -8,7 +8,9 @@
     "install": "cd Backend && npm install && cd ../Frontend && npm install"
   },
   "dependencies": {
-    "chart.js": "^4.4.4",
+    "axios": "^1.7.7",
+    "chart.js": "^4.4.3",
+    "concurrently": "^8.2.2",
     "ng2-charts": "^6.0.1"
   },
   "devDependencies": {

@@ -210,6 +210,7 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy
     }
   }
 
+  // This function is used to update the progress of the track
   updateProgress(event: MouseEvent): void
   {
     if (!this.progressContainer)
@@ -217,7 +218,6 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy
       console.error("Progress container not initialized");
       return;
     }
-
     const progressContainer = this.progressContainer.nativeElement;
     const clickX = event.clientX - progressContainer.getBoundingClientRect().left;
     const containerWidth = progressContainer.offsetWidth;
@@ -232,7 +232,7 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy
     }
     else
     {
-      this.youtubeService.seekToPosition(newProgress * 2);
+      this.youtubeService.seekToPosition(newProgress);
     }
   }
 
@@ -340,7 +340,7 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy
     }
     else
     {
-      this.youtubeService.setVolume(volume*2);
+      this.youtubeService.setVolume(volume);
     }
   }
 

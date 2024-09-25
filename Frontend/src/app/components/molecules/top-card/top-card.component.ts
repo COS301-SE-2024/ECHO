@@ -37,7 +37,6 @@ export class TopCardComponent {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-        console.log('The dialog was closed');
     });
   }
 }

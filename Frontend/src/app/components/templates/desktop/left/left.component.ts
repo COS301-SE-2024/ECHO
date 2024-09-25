@@ -1,27 +1,17 @@
 import { Component } from '@angular/core';
 import { NavbarComponent } from './../../../organisms/navbar/navbar.component';
 import { SideBarComponent } from './../../../organisms/side-bar/side-bar.component';
-import { CommonModule} from "@angular/common";
-import { AuthService } from "../../../../services/auth.service";
-import { ProviderService } from "../../../../services/provider.service";
+import { CommonModule } from "@angular/common";
+import { SvgIconComponent } from '../../../atoms/svg-icon/svg-icon.component';
+import { MoodService } from "../../../../services/mood-service.service";
 
 @Component({
   selector: 'app-left',
   standalone: true,
-  imports: [NavbarComponent, SideBarComponent, CommonModule],
+  imports: [NavbarComponent, SideBarComponent, CommonModule, SvgIconComponent],
   templateUrl: './left.component.html',
-  styleUrl: './left.component.css'
+  styleUrls: ['./left.component.css']
 })
 export class LeftComponent {
-  constructor(private authService: AuthService, private providerService: ProviderService){}
-  //Check whether the app is ready to load data from Spotify
-  async ready()
-  {
-    if (this.providerService.getProviderName() === 'spotify')
-    {
-      return await this.authService.isReady();
-    }
-    return false;
-  }
-
+  constructor(private moodService: MoodService) {}
 }

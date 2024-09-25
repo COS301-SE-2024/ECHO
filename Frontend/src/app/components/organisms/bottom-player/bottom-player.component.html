@@ -1,11 +1,11 @@
 <div  class="fixed mb-3 bottom-player" style="width: 98vw; height: 12vh; left:1vw ">
   <div class="rounded-md h-full">
     <div class="absolute top-0 w-full z-20">
-      <div #progressContainer [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]" class="w-full  rounded-t-full h-1 hover:cursor-pointer" (click)="updateProgress($event)">
+      <div #progressContainer class=" bg-gray-300 w-full  rounded-t-full h-1 hover:cursor-pointer" (click)="updateProgress($event)">
         <div [ngClass]="moodClassesDark[this.moodService.getCurrentMood()]"    id="progressBar" class=" h-1 rounded-full" [style.width.%]="trackProgress"></div>
       </div>
     </div>
-    <div [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]"  class=" opacity-80 rounded-lg overflow-hidden h-full flex items-center p-4">
+    <div  class="bg-stone-950 opacity-80 rounded-lg overflow-hidden h-full flex items-center p-4">
       <div class="flex items-center h-full w-full justify-between">
 
         <div class="flex items-center space-x-5">
