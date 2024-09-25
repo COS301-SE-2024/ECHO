@@ -4,10 +4,10 @@
   <router-outlet></router-outlet>
 </div>
 <div *ngIf="!isCurrentRouteAuth()">
-  <div *ngIf="screenSize === 'desktop'" class="grid grid-cols-5 grid-rows-[0.01fr,0.01fr,0.67fr] min-h-screen pl-2 pr-2 relative">
-    <app-header [ngClass]="'col-start-' + columnStart" class="col-span-1 row-start-2 row-span-1 pl-[2.5vw]"></app-header>
-    <app-other-nav class="col-start-5 col-span-1 row-start-1 row-span-1 justify-self-end"></app-other-nav>
+  <div *ngIf="screenSize === 'desktop'" class="grid grid-cols-[37.5vh,1fr,1fr,1fr,1fr] grid-rows-[0.01fr,0.01fr,0.67fr] min-h-screen pl-2 pr-2 relative">
     <app-navbar class="col-start-1 col-span-1 row-start-1 row-span-3"></app-navbar>
+    <app-header [ngClass]="'col-start-' + columnStart" class="col-span-1 row-start-2 row-span-1 pl-[3.30vw]"></app-header>
+    <app-other-nav class="col-start-5 col-span-1 row-start-1 row-span-1 justify-self-end"></app-other-nav>
     <app-side-bar [isSideBarHidden]="isSidebarOpen" (sidebarToggled)="layout($event)" class="col-start-1 col-span-1 row-start-2 row-span-3 pr-2"></app-side-bar>
     <!-- dont remove this div -->
     <div class="col-span-4"></div> 
