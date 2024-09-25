@@ -1,111 +1,121 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Router, NavigationEnd, ActivatedRoute, RouterEvent } from '@angular/router';
+import { SwUpdate } from '@angular/service-worker';
+import { Observable, of, Subject } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { AppComponent } from './app.component';
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { ScreenSizeService } from './services/screen-size-service.service';
 import { ProviderService } from './services/provider.service';
-import { SwUpdate } from '@angular/service-worker';
-import { of, Subject } from 'rxjs';
-import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
+import { MoodService } from './services/mood-service.service';
+import { AuthService } from './services/auth.service';
+import { PlayerStateService } from './services/player-state.service';
+import { isPlatformBrowser } from '@angular/common';
 
 describe('AppComponent', () => {
   let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
-  let router: Router;
-  let activatedRoute: ActivatedRoute;
-  let screenSizeService: ScreenSizeService;
-  let providerService: ProviderService;
-  let swUpdate: SwUpdate;
-  let routerEventsSubject: Subject<any>;
-  let screenSizeSubject: Subject<string>;
+
+  // Mock services and router
+  let routerMock: any;
+  let screenSizeServiceMock: any;
+  let providerServiceMock: any;
+  let updatesMock: any;
+  let moodServiceMock: any;
+  let authServiceMock: any;
+  let playerStateServiceMock: any;
+  let activatedRouteMock: any;
 
   beforeEach(async () => {
-    routerEventsSubject = new Subject<any>();
-    screenSizeSubject = new Subject<string>();
+    // Define mocks for dependencies
+    routerMock = {
+      events: new Subject<RouterEvent>(),
+      url: '/login'
+    };
+    screenSizeServiceMock = {
+      screenSize$: of('desktop')
+    };
+    providerServiceMock = {};
+    updatesMock = {
+      versionUpdates: new Subject(),
+      activateUpdate: jest.fn().mockResolvedValue(true)
+    };
+    moodServiceMock = {
+      getBackgroundMoodClasses: jest.fn().mockReturnValue({}),
+      getMoodColors: jest.fn().mockReturnValue({}),
+      getCurrentMood: jest.fn()
+    };
+    authServiceMock = {
+      isLoggedIn$: of(true),
+      signOut: jest.fn()
+    };
+    playerStateServiceMock = {
+      setReady: jest.fn(),
+      isReady: jest.fn().mockReturnValue(true)
+    };
+    activatedRouteMock = {};
 
     await TestBed.configureTestingModule({
       imports: [AppComponent],
       providers: [
-        provideHttpClient(withInterceptorsFromDi()),
-        {
-          provide: Router,
-          useValue: {
-            events: routerEventsSubject.asObservable(),
-            navigate: jest.fn()
-          }
-        },
-        {
-          provide: ActivatedRoute,
-          useValue: {
-            snapshot: {
-              paramMap: {
-                get: jest.fn().mockReturnValue('mockValue')
-              },
-              queryParamMap: {
-                get: jest.fn().mockReturnValue('mockValue')
-              }
-            }
-          }
-        },
-        {
-          provide: ScreenSizeService,
-          useValue: { screenSize$: screenSizeSubject.asObservable() }
-        },
-        {
-          provide: ProviderService,
-          useValue: {}
-        },
-        {
-          provide: SwUpdate,
-          useValue: {
-            versionUpdates: of({
-              type: 'VERSION_READY'
-            }),
-            activateUpdate: jest.fn().mockReturnValue(Promise.resolve())
-          }
-        },
-      ],
+        { provide: Router, useValue: routerMock },
+        { provide: ScreenSizeService, useValue: screenSizeServiceMock },
+        { provide: ProviderService, useValue: providerServiceMock },
+        { provide: SwUpdate, useValue: updatesMock },
+        { provide: MoodService, useValue: moodServiceMock },
+        { provide: AuthService, useValue: authServiceMock },
+        { provide: PlayerStateService, useValue: playerStateServiceMock },
+        { provide: ActivatedRoute, useValue: activatedRouteMock },
+        { provide: 'PLATFORM_ID', useValue: 'browser' } // Simulate browser platform
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
-
-    router = TestBed.inject(Router);
-    activatedRoute = TestBed.inject(ActivatedRoute);
-    screenSizeService = TestBed.inject(ScreenSizeService);
-    providerService = TestBed.inject(ProviderService);
-    swUpdate = TestBed.inject(SwUpdate);
-
-    fixture.detectChanges();
+    fixture.detectChanges(); // trigger initial data binding
   });
 
-  it('should create the app', () => {
+  it('should create the app component', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should initialize title to Echo', () => {
-    expect(component.title).toBe('Echo');
-  });
-
-  it('should update showPlayer based on navigation end events', () => {
-    routerEventsSubject.next(new NavigationEnd(1, '/home#search', '/home#search'));
-    //fixture.detectChanges();
-    expect(component.showPlayer).toBe(true);
-  });
-
-  it('should update displayPlayer based on navigation end events', () => {
-    routerEventsSubject.next(new NavigationEnd(1, '/settings', '/settings'));
-    //fixture.detectChanges();
-    expect(component.displayPlayer).toBe(true);
-  });
-
-  it('should handle version updates', async () => {
-    await fixture.whenStable();
-    expect(swUpdate.activateUpdate).toHaveBeenCalled();
-  });
-
   it('should subscribe to screen size changes on init', () => {
-    screenSizeSubject.next('large');
-    fixture.detectChanges();
-    expect(component.screenSize).toBe('large');
+    component.ngOnInit();
+    expect(screenSizeServiceMock.screenSize$).toBeDefined();
+    expect(component.screenSize).toBe('desktop');
+  });
+
+  it('should set player ready after view init', () => {
+    component.ngAfterViewInit();
+    expect(playerStateServiceMock.setReady).toHaveBeenCalled();
+  });
+
+  it('should detect auth and callback routes correctly', () => {
+    routerMock.events.next(new NavigationEnd(0, '/login', '/login'));
+    expect((component as any).isAuthRoute).toBe(true);
+
+    routerMock.events.next(new NavigationEnd(0, '/auth/callback', '/auth/callback'));
+    expect((component as any).isCallbackRoute).toBe(true);
+  });
+
+  it('should check if the current route is auth route', () => {
+    routerMock.url = '/login';
+    expect(component.isCurrentRouteAuth()).toBe(true);
+
+    routerMock.url = '/some-other-route';
+    expect(component.isCurrentRouteAuth()).toBe(false);
+  });
+
+  it('should return player state readiness correctly', () => {
+    expect(component.isReady()).toBe(true);
+  });
+
+  it('should handle sw update events and reload page on version ready', async () => {
+    updatesMock.versionUpdates.next({ type: 'VERSION_READY' });
+    expect(updatesMock.activateUpdate).toHaveBeenCalled();
+  });
+
+  it('should call signOut on destroy', () => {
+    component.ngOnDestroy();
+    expect(authServiceMock.signOut).toHaveBeenCalled();
   });
 });

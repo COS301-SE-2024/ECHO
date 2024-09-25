@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ExploreBarComponent } from './explore-bar.component';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('ExploreBarComponent', () => {
   let component: ExploreBarComponent;
@@ -8,7 +9,8 @@ describe('ExploreBarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ExploreBarComponent]
+      imports: [ExploreBarComponent],
+      providers: [provideHttpClient()]
     })
     .compileComponents();
 
