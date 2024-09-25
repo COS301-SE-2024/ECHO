@@ -9,7 +9,7 @@ async function bootstrap() {
 
     // Enable CORS and configure origin from environment variable or default to localhost
     app.enableCors({
-        origin: configService.get<string>('CORS_ORIGIN', 'http://localhost:4200'),
+        origin: configService.get<string>('CORS_ORIGIN', 'http://localhost:4200','https://echo-bm8z.onrender.com'),
         methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
         credentials: true,
     });
