@@ -30,7 +30,7 @@ export class SearchService
     // This function converts the API response to a Track object.
     async convertApiResponseToSong(apiResponse: any): Promise<Track[]>
     {
-        return apiResponse.data.map(item => ({
+        return apiResponse.data.slice(0, 10).map((item) => ({
             name: item.title,
             albumName: item.album.title,
             albumImageUrl: item.album.cover_big,
@@ -129,37 +129,37 @@ export class SearchService
     async getPlaylistSongsByMood(mood: string): Promise<Track[]>
     {
         const moodMapping = {
-            Neutral: "chill relaxing",
-            Anger: "hard rock aggressive",
-            Admiration: "motivational inspiring",
-            Fear: "dark eerie",
-            Joy: "happy upbeat",
-            Amusement: "party fun",
-            Annoyance: "punk rebellious",
-            Approval: "pop feel good",
-            Caring: "romantic soothing",
-            Confusion: "experimental abstract",
-            Curiosity: "indie alternative",
-            Desire: "love passion",
-            Disappointment: "sad mellow",
-            Disapproval: "metal heavy",
-            Disgust: "grunge raw",
-            Embarrassment: "soft rock mellow",
-            Excitement: "dance high energy",
-            Gratitude: "thankful uplifting",
-            Grief: "melancholic somber",
+            Neutral: "chill",
+            Anger: "hard rock",
+            Admiration: "motivational",
+            Fear: "dark",
+            Joy: "happy",
+            Amusement: "party",
+            Annoyance: "punk",
+            Approval: "pop",
+            Caring: "romantic",
+            Confusion: "experimental",
+            Curiosity: "indie",
+            Desire: "love",
+            Disappointment: "sad",
+            Disapproval: "metal",
+            Disgust: "grunge",
+            Embarrassment: "soft rock",
+            Excitement: "dance",
+            Gratitude: "thankful",
+            Grief: "melancholic",
             Love: "love songs",
-            Nervousness: "electronic tense",
-            Optimism: "upbeat positive",
-            Pride: "anthemic victorious",
-            Realisation: "ambient contemplative",
-            Relief: "relaxing calming",
-            Remorse: "acoustic emotional",
-            Sadness: "sad emotional",
-            Surprise: "surprising eclectic"
+            Nervousness: "electronic",
+            Optimism: "upbeat",
+            Pride: "anthemic",
+            Realisation: "ambient",
+            Relief: "relaxing",
+            Remorse: "acoustic",
+            Sadness: "sad",
+            Surprise: "surprising"
         };
 
-        const searchQuery = moodMapping[mood] || "pop upbeat";
+        const searchQuery = moodMapping[mood] || "pop";
         const response = this.httpService.get(`${this.deezerApiUrl}/search/playlist?q=${searchQuery}`);
         const result = await lastValueFrom(response);
 
@@ -172,7 +172,7 @@ export class SearchService
         const playlistResponse = this.httpService.get(`${this.deezerApiUrl}/playlist/${playlistId}`);
         const playlistData = await lastValueFrom(playlistResponse);
 
-        return this.convertApiResponseToSong(playlistData.data.tracks.data.slice(0, 10));
+        return this.convertApiResponseToSong(playlistData.data.tracks);
     }
 
     // This function fetches recommended moods and their respective songs
