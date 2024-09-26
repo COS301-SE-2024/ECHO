@@ -74,13 +74,8 @@ export class SpotifyService
   {
     if (isPlatformBrowser(this.platformId) && !this.hasBeenInitialized)
     {
-      console.log("Initializing Spotify SDK in the browser...");
       await this.initializeSpotify();
       this.hasBeenInitialized = true;
-    }
-    else
-    {
-      console.log("Spotify SDK initialization skipped on the server.");
     }
   }
 
@@ -147,7 +142,6 @@ export class SpotifyService
 
     this.player.addListener("ready", ({ device_id }: { device_id: string }) =>
     {
-      console.log("Ready with Device ID", device_id);
       this.deviceId = device_id;
     });
 
@@ -220,7 +214,6 @@ export class SpotifyService
 
     this.player.pause().then(() =>
     {
-      console.log("Playback paused");
       this.playingStateSubject.next(false);
     });
   }
@@ -314,9 +307,7 @@ export class SpotifyService
       const trackDuration = state.track_window.current_track.duration_ms;
       const seekPosition = (progress / 100) * trackDuration;
 
-      this.player.seek(seekPosition).then(() => {
-        console.log(`Seeked to position ${seekPosition} ms`);
-      });
+      this.player.seek(seekPosition);
     }
     catch (error)
     {
@@ -346,16 +337,11 @@ export class SpotifyService
       {
         this.player.resume().then(() =>
         {
-          console.log("Playback resumed");
           this.playingStateSubject.next(true);
         }).catch((error: any) =>
         {
           console.error("Failed to resume playback", error);
         });
-      }
-      else
-      {
-        console.log("Playback is already ongoing");
       }
     }).catch((error: any) =>
     {
@@ -368,7 +354,7 @@ export class SpotifyService
   {
     if (this.player)
     {
-      this.player.setVolume(volume).then(() => console.log(`Volume set to ${volume * 100}%`));
+      this.player.setVolume(volume);
     }
   }
 
@@ -571,9 +557,7 @@ export class SpotifyService
     if (this.player)
     {
       this.player.disconnect().then(() =>
-      {
-        console.log("Player disconnected");
-      }).catch((error: any) =>
+      {}).catch((error: any) =>
       {
         console.error("Failed to disconnect player", error);
       });
@@ -625,7 +609,7 @@ export class SpotifyService
   {
     if (this.player)
     {
-      this.player.setVolume(0).then(() => console.log(`Muted player`));
+      this.player.setVolume(0);
     }
   }
 
@@ -634,7 +618,7 @@ export class SpotifyService
   {
     if (this.player)
     {
-      this.player.setVolume(0.5).then(() => console.log(`Unmuted player`));
+      this.player.setVolume(0.5);
     }
   }
 
