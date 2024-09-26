@@ -1,17 +1,18 @@
+<div class="button-container">
+  <app-expandable-icon class="focus:outline-none max-w-[.5vw]" (click)="toggleSideBar()"></app-expandable-icon>
+</div>
 <div class="z-10"  style="left: 1vw; top: 10.2vh;">
-  <div [ngClass]="{'w-[2.5vw] h-[2vw]': isSideBarHidden, 'w-[20vw] h-[75vh]': !isSideBarHidden}"  class="container  pl-5 rounded-md max-h-screen " >
-    <div [ngClass]="moodComponentClasses[moodService.getCurrentMood()]" class="rounded-lg overflow-auto h-full flex flex-col justify-between scrollbar-hidden">
+  <div [ngClass]="{'w-[5.vh] h-[2vw]': isSideBarHidden, 'w-[37.5vh] h-[75vh]': !isSideBarHidden}"  class="container  pl-5 rounded-md max-h-screen " >
+    <div *ngIf="!isSideBarHidden"  [ngClass]="moodComponentClasses[moodService.getCurrentMood()]" class="rounded-lg overflow-auto h-full flex flex-col justify-between scrollbar-hidden">
       <!-- SVG button always visible -->
-      <div class="flex justify-between items-center mb-2 mt-3">
-        <div class="button-container">
-          <app-expandable-icon class="focus:outline-none max-w-[.5vw]" (click)="toggleSideBar()"></app-expandable-icon>
-        </div>
+      <div  class="flex justify-between items-center mb-2 mt-3">
+       
         <!-- Only show these buttons when the sidebar is expanded -->
-        <div *ngIf="!isSideBarHidden" class="button-container" [ngClass]="getButtonClasses('suggestions')">
-          <button class="px-10 text-sm font-bold text-white focus:outline-none truncate max-w-[9.5vw] flex-1" (click)="selectOption('suggestions')">Suggestions</button>
+        <div class="button-container" [ngClass]="getButtonClasses('suggestions')">
+          <button class="px-10 text-sm font-bold text-white focus:outline-none truncate max-w-[19vh] flex-1" (click)="selectOption('suggestions')">Suggestions</button>
         </div>
         <div *ngIf="!isSideBarHidden" class="button-container" [ngClass]="getButtonClasses('recentListening')">
-          <button class="px-10 text-sm text-white focus:outline-none truncate max-w-[9.5vw] flex-1" (click)="selectOption('recentListening')">Recent listening</button>
+          <button class="px-10 text-sm text-white focus:outline-none truncate max-w-[19vh] flex-1" (click)="selectOption('recentListening')">Recent listening</button>
         </div>
       </div>
 
