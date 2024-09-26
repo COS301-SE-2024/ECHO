@@ -9,7 +9,8 @@ import { Router } from '@angular/router';
 import { SearchBarComponent } from '../../components/molecules/search-bar/search-bar.component';
 import { ProfileComponent } from '../profile/profile.component';
 import { MoodDropDownComponent } from '../../components/organisms/mood-drop-down/mood-drop-down.component';
-
+import { BackButtonComponent } from '../../components/atoms/back-button/back-button.component';
+import { PageTitleComponent } from '../../components/atoms/page-title/page-title.component';
 // Define the type for album objects
 interface Album {
   title: string;
@@ -20,7 +21,7 @@ interface Album {
 @Component({
   selector: 'app-mood',
   standalone: true,
-  imports: [ NgForOf, NgIf, NgClass, NgSwitch, NgSwitchCase, NavbarComponent, SearchBarComponent, ProfileComponent, MoodDropDownComponent ],
+  imports: [ NgForOf, NgIf, NgClass, NgSwitch, NgSwitchCase, NavbarComponent, SearchBarComponent, ProfileComponent, MoodDropDownComponent,BackButtonComponent,PageTitleComponent],
   templateUrl: './mood.component.html',
   styleUrls: ['./mood.component.css']
 })
