@@ -1,10 +1,10 @@
-<div class="col-start-1 col-span-5 row-start-2 row-span-4 pl-2">
+<div class="col-start-1 col-span-5 row-start-2 row-span-4 pl-2 pr-2" style="height: 72vh;">
     <div style="background-color: rgba(0, 0, 0, 0.7);" class="rounded-lg overflow-hidden h-full relative p-8">
         <app-back-button></app-back-button>
         <app-page-title class="text-5xl font-bold text-center mb-6">{{moodService.getCurrentMood()}}</app-page-title>
 
         <div class="grid grid-cols-5 gap-3">
-            <div *ngFor="let album of albums" class="album-art flex flex-col items-center">
+            <div *ngFor="let album of albums" class="album-art flex flex-col items-center hover:cursor-pointer" (click)="playTrack(album.title,album.artist)">
                 <img [src]="album.imageUrl" alt="{{ album.title }}" class="w-32 h-32 object-cover rounded-md">
                 <p class="text-center text-white text-lg font-semibold">{{ album.title }}</p>
                 <p class="text-center text-sm text-white text-gray-500">{{ album.artist }}</p>
