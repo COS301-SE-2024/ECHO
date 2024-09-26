@@ -16,13 +16,13 @@
     </div>
   </div>
 
-  <div class="songs dark:text-gray-200" style="float: left; width: 33%; position: relative;">
+  <div class="songs dark:text-gray-200 p-4" style="float: left; width: 33%; position: relative;">
     <a
       style="position: absolute; top: 0; right: 0; margin: 10px; padding: 5px 10px; border-radius: 5px;cursor: pointer;" class="text-white">
       View More
     </a>
     <h1 class="py-2 text-white" style="font-weight: bold; font-size: larger;">Songs</h1>
-    <div class="songs-container" style="display: flex; flex-direction: column; overflow-y: auto; height:20vw;">
+    <div class="songs-container no-scrollbar" style="display: flex; flex-direction: column; overflow-y: auto; height:20vw;">
       <div [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]" class="bg-stone-950 opacity-85 song-card hover:cursor-pointer"
            *ngFor="let song of songs$ | async"
            style="flex: 0 0 auto; width: 100%; margin-bottom: 20px; display: flex; padding: 5px; border-radius: 10px; box-sizing: border-box; height:6vw; padding: .5vw;"
@@ -37,16 +37,16 @@
   </div>
 
 
-<div class="songs dark:text-gray-200" style="float: left; width: 33%; position: relative;">
+<div class="songs dark:text-gray-200 p-4" style="float: left; width: 33%; position: relative;">
   <a class="text-white"
     style="position: absolute; top: 0; right: 0; margin: 10px; padding: 5px 10px; border-radius: 5px;cursor: pointer;">
     View More
   </a>
   <h1 class="py-2 text-white" style="font-weight: bold; font-size: larger;">Albums</h1>
-  <div class="songs-container"
+  <div class="songs-container no-scrollbar"
        style="display: flex; flex-direction: column; overflow-y: auto; height:20vw;">
     <div [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]"
-         class="song-card hover:cursor-pointer bg-stone-950 opacity-85"
+         class="song-card  hover:cursor-pointer bg-stone-950 opacity-85"
          *ngFor="let album of albums$ | async"
          style="flex: 0 0 auto; width: 100%; margin-bottom: 20px; display: flex; padding: 5px; border-radius: 10px; box-sizing: border-box; height:6vw; padding: .5vw;">
       <img [src]="album.albumImageUrl" alt="Song Image"
