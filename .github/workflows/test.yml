@@ -1,4 +1,4 @@
-name: Test Coveralls
+name: Test
 
 on:
   push:
@@ -38,16 +38,10 @@ jobs:
           npm install --save-dev babel-plugin-istanbul
           npm install -g coveralls
 
-      - name: Run backend tests with coverage
+      - name: Run backend tests
         run: |
           cd Backend
-          npm run test:cov || true
-
-      - name: Upload backend coverage to Coveralls
-        uses: coverallsapp/github-action@v2
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: Backend/coverage/lcov.info
+          npm run test
 
   build_frontend:
     name: Build Frontend
@@ -67,16 +61,10 @@ jobs:
           npm install --save-dev babel-plugin-istanbul
           npm install -g coveralls
 
-      - name: Run frontend tests with coverage
+      - name: Run frontend tests
         run: |
           cd Frontend
-          npm run test:coverage || true
-
-      - name: Upload frontend coverage to Coveralls
-        uses: coverallsapp/github-action@v2
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: Frontend/coverage/lcov.info
+          npm run test
 
   debug:
     name: Debug Workspace

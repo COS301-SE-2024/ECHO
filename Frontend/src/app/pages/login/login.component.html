@@ -1,18 +1,18 @@
-<div class="h-screen bg-dark-bg flex flex-row">
-  <div class="flex flex-1 items-center justify-center">
+<div class="h-screen flex flex-row">
+  <div class="flex flex-1 items-center justify-center rounded-l-xl" style="background-color: rgba(0, 0, 0, 0.3);">
     <div class="text-center">
-      <div class="text-gray-verylight font-semibold text-3xl">
+      <div class="text-white font-semibold text-5xl">
         Welcome to 
       </div>
       <img src="./assets/images/logo-dark-bg.png" alt="logo" class="h-72">
     </div>
   </div>
 
-  <div class="flex flex-1 items-center justify-center">
-    <div class="w-full max-w-sm">
+  <div class="flex flex-1 items-center justify-center rounded-l-xl" style="background-color: rgba(0, 0, 0, 0.3);">
+    <div class="w-full max-w-sm  p-6 rounded-lg">
       <form class="space-y-6" action="#" method="POST">
         <div>
-          <label for="email" class="dark:text-gray-verylight block text-sm font-medium leading-6"></label>
+          <label for="email" class="text-default-backgroundDark block text-sm font-medium leading-6"></label>
           <div class="mt-2">
             <input id="email" [(ngModel)]="email" name="email" autocomplete="email" placeholder=" Email" required class="block w-full rounded-full border-0 py-2 bg-gray-verylight text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-light focus:ring-2 focus:ring-inset focus:ring-pink-dark sm:text-sm sm:leading-6">
           </div>
@@ -20,9 +20,9 @@
 
         <div>
           <div class="flex items-center justify-between">
-            <label for="password" class="dark:text-gray-verylight block text-sm font-medium leading-6"></label>
+            <label for="password" class="text-default-backgroundDark block text-sm font-medium leading-6"></label>
             <div class="text-xs">
-              <a href="#" class="dark:text-pink font-semibold hover:text-pink-dark">Forgot password?</a>
+              <a href="#" class="text-white font-semibold hover:text-red">Forgot password?</a>
             </div>
           </div>
           <div class="mt-2">
@@ -31,7 +31,7 @@
         </div>
 
         <div class="mt-5 flex justify-center">
-          <button type="submit" (click)="login()" class="w-30 rounded-full bg-pink px-10 py-2.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-pink-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-dark">Sign in</button>
+          <button type="submit" (click)="login()" class="w-30 rounded-full bg-default px-10 py-2.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-default-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-dark">Sign in</button>
         </div>
 
         <div class="relative flex py-3 items-center">
@@ -46,11 +46,11 @@
           <app-apple-login></app-apple-login>
         </div>
       </form>
-      <p class="mt-10 text-center text-sm text-gray-500">
+      <p class="mt-10 text-center text-sm text-black font-semibold">
         Don't have an ECHO account?
-        <a href="/register" class="font-semibold leading-6 text-pink hover:text-pink-dark">Sign up now</a>
+        <button (click)="navigateToRegister()" class="font-bold text-lg leading-6 text-default hover:text-pink-dark">Sign up now</button>
       </p>
-     <div class="toast-container">
+      <div class="toast-container">
         <app-toast></app-toast>
       </div>
     </div>
@@ -61,7 +61,7 @@
         Close<!-- Need to add icon -->
       </button>
       <div class="p-5 text-center">
-        <h3 class="mb-5 text-lg font-bold text-pink">Frequently Asked Questions</h3>
+        <h3 class="mb-5 text-lg font-bold text-black">Frequently Asked Questions</h3>
 
         <p class="question">What is the ECHO Progressive Web App (PWA)?</p>
         <p class="text">ECHO is a Progressive Web App designed to enhance your music experience by providing personalized song recommendations, sentiment analysis of lyrics, and insightful listening habits. It integrates seamlessly with Spotify to offer a comprehensive music platform.</p>
@@ -81,7 +81,7 @@
         Close<!-- Need to add icon -->
       </button>
       <div>
-        <h3 class="mb-5 text-lg font-bold text-pink">About Us</h3>
+        <h3 class="mb-5 text-lg font-bold text-black">About Us</h3>
         <p class="text">ECHO is a team of passionate music lovers dedicated to enhancing your music listening experience. Learn more about our team, mission, and the technology behind ECHO.</p>
       </div>
     </div>
@@ -118,25 +118,23 @@
       <div class="w-full lg:w-auto text-center lg:text-left">
         <ul class="flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-4">
           <li>
-            <button (click)="toggleModal()" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">FAQ</button>
+            <button (click)="toggleModal()" class=" text-default  hover:text-white">FAQ</button>
           </li>
           <li>
-            <button (click)="toggleAboutModal()" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">About Us</button>
+            <button (click)="toggleAboutModal()" class="text-default  hover:text-white">About Us</button>
           </li>
           <li>
-            <button (click)="toggleContactModal()" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Contact</button>
+            <button (click)="toggleContactModal()" class="text-default hover:text-white">Contact</button>
           </li>
           <li>
-            <button (click)="togglePrivacyModal()" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Privacy Policy</button>
+            <button (click)="togglePrivacyModal()" class=" text-default hover:text-white">Privacy Policy</button>
           </li>
         </ul>
       </div>
       <div class="w-full lg:w-auto text-center lg:text-right mt-4 lg:mt-0">
-        <p class="text-gray-600 dark:text-gray-300">© 2024 ECHO. All rights reserved.</p>
+        <p class=" text-default">© 2024 ECHO. All rights reserved.</p>
       </div>
     </div>
   </div>
 </footer>
 </div>
-
-

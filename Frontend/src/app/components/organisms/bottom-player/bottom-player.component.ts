@@ -53,8 +53,7 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy
   )
   {
     this.moodComponentClasses = this.moodService.getComponentMoodClasses();
-    this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
-    this.moodClassesDark = this.moodService.getComponentMoodClassesDark();
+    this.moodClassesDark = this.moodService.getComponentMoodClassesHover();
   }
 
   async ngOnInit()

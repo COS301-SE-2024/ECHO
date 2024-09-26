@@ -41,7 +41,6 @@ export class NavbarComponent implements OnInit {
         this.selectedSvg = this.homeSvg; 
         this.currentMood = this.moodService.getCurrentMood(); 
         this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
-        this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
     }
 
     ngOnInit() {
