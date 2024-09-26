@@ -689,40 +689,21 @@ export class SpotifyService
     }
   }
 
-  public classifyMood(analysis: TrackAnalysis): string
-  // Classify the mood of a track based on its audio features
-  {
+  public classifyMood(analysis: TrackAnalysis): string {
     const { valence, energy, danceability, tempo } = analysis;
-
+  
     if (0.4 <= valence && valence <= 0.6 && 0.4 <= energy && energy <= 0.6) return "Neutral";
     if (valence < 0.4 && energy > 0.7) return "Anger";
-    if (valence > 0.6 && energy > 0.5) return "Admiration";
     if (valence < 0.3 && energy > 0.6) return "Fear";
     if (valence > 0.7 && energy > 0.7) return "Joy";
-    if (valence > 0.6 && energy > 0.6 && danceability > 0.6) return "Amusement";
-    if (valence < 0.4 && 0.4 < energy && energy < 0.7) return "Annoyance";
-    if (valence > 0.6 && 0.4 < energy && energy < 0.7) return "Approval";
-    if (valence > 0.5 && energy < 0.5) return "Caring";
-    if (0.4 <= valence && valence <= 0.6 && 0.3 <= energy && energy <= 0.5) return "Confusion";
-    if (0.5 < valence && valence < 0.7 && 0.5 < energy && energy < 0.7) return "Curiosity";
-    if (valence > 0.6 && energy > 0.6) return "Desire";
-    if (valence < 0.4 && energy < 0.4) return "Disappointment";
-    if (valence < 0.3 && 0.3 < energy && energy < 0.6) return "Disapproval";
     if (valence < 0.3 && energy > 0.5) return "Disgust";
-    if (valence < 0.4 && energy < 0.5) return "Embarrassment";
     if (valence > 0.7 && energy > 0.8) return "Excitement";
-    if (valence > 0.6 && energy < 0.5) return "Gratitude";
-    if (valence < 0.3 && energy < 0.4) return "Grief";
     if (valence > 0.7 && energy < 0.7) return "Love";
-    if (0.3 < valence && valence < 0.5 && energy > 0.6) return "Nervousness";
-    if (valence > 0.6 && energy > 0.5) return "Optimism";
-    if (valence > 0.7 && energy > 0.6) return "Pride";
-    if (0.4 < valence && valence < 0.6 && 0.4 < energy && energy < 0.6) return "Realisation";
-    if (valence > 0.5 && energy < 0.4) return "Relief";
-    if (valence < 0.4 && energy < 0.4) return "Remorse";
     if (valence < 0.3 && energy < 0.5) return "Sadness";
     if (valence > 0.5 && energy > 0.7 && tempo > 120) return "Surprise";
-
+    if (valence < 0.4 && energy < 0.4) return "Contempt";
+    if (valence < 0.4 && 0.4 < energy && energy < 0.7) return "Shame";
+    if (valence < 0.3 && energy < 0.4) return "Guilt";
     return "Neutral";
   }
 
