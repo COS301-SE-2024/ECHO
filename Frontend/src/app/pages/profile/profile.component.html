@@ -27,6 +27,7 @@
               [imageUrl]="item.imageUrl"
               [text]="item.text"
               [secondaryText]="item.secondaryText"
+              class="bg-stone-950"
             >
             </app-top-card>
           </div>
@@ -37,7 +38,7 @@
         <ng-container *ngFor="let artist of topArtists">
           <app-top-artist-card
             [imageUrl]="artist.imageUrl"
-            [text]="artist.name"
+            [text]="artist.name" class="bg-stone-950"
           >
           </app-top-artist-card>
         </ng-container>
@@ -45,11 +46,11 @@
     </div>
   </div>
 </div>
-<div *ngIf="screenSize === 'desktop'" class="desktop-layout flex flex-col items-center p-4">
+<div *ngIf="screenSize === 'desktop'" class="desktop-layout flex flex-col items-center p-4 h-max">
   <div id="profile" class="profile bg-cover bg-center w-full relative rounded-t-lg"
      [style.background-image]="'url(' + imgpath + ')'"
      style="background-size: cover; height: 33vh;">
-    
+
       <div class="absolute inset-0 flex flex-col justify-center items-center bg-gray-700 bg-opacity-50 rounded-t-lg">
         <h2 class="text-white text-3xl font-bold py-2">{{ username }}</h2>
         <div class="flex justify-center space-x-3 pb-4">
@@ -70,16 +71,16 @@
         <div class="w-1/2">
           <h2 class="text-white text-2xl font-bold mb-2 mt-5">Top Songs</h2>
           <div class="flex space-x-4 overflow-x-auto scrollable-cards overflow-hidden px-3">
-            <ng-container *ngFor="let item of topTracks">
+            <ng-container *ngFor="let item of topTracks" class="bg-stone-950">
               <div (click)="playTrack(item.id)">
                 <app-top-card [imageUrl]="item.imageUrl" [text]="item.text"
                               [secondaryText]="item.secondaryText"></app-top-card>
-                <div class="card-style"></div>
+                <div class="card-style bg-stone-950"></div>
               </div>
             </ng-container>
           </div>
         </div>
-  
+
         <!-- Top Artists Section -->
         <div class="w-1/2">
           <h2 class="text-white text-2xl font-bold mb-2 mt-5">Top Artists</h2>
