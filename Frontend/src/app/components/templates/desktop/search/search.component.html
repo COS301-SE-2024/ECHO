@@ -1,7 +1,8 @@
-<div *ngIf="screenSize === 'desktop'"  class="rounded-xl border-black h-full no-scrollbar border overflow-y-scroll p-4" style="background-color: rgba(0, 0, 0, 0.7);">
+<div *ngIf="screenSize === 'desktop'">
+  <app-back-button></app-back-button>
+  <h1 class="text-3xl font-bold text-white text-center mb-6">Search Results for "{{ searchQuery }}</h1>
   <app-search-bar></app-search-bar>
   <div class="pl-4">
-  <h1 class="text-2xl font-bold text-gray-400 dark:text-gray-200 pt-8">Search Results for "{{ searchQuery }}"</h1>
   <div class="top-result dark:text-gray-200" style="float: left; width: 33%;">
     <h1 class="py-3 text-white" style="font-weight: bold; font-size: larger;">Top Result</h1>
     <div [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]" class="opacity-85 bg-stone-950 big-card hover:cursor-pointer"
@@ -25,8 +26,8 @@
     <div class="songs-container no-scrollbar" style="display: flex; flex-direction: column; overflow-y: auto; height:20vw;">
       <div [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]" class="bg-stone-950 opacity-85 song-card hover:cursor-pointer"
            *ngFor="let song of songs$ | async"
-           style="flex: 0 0 auto; width: 100%; margin-bottom: 20px; display: flex; padding: 5px; border-radius: 10px; box-sizing: border-box; height:6vw; padding: .5vw;"
-           (click)="playTrack(song.name, song.artistName)">
+            style="flex: 0 0 auto; width: 100%; margin-bottom: 20px; display: flex; padding: 5px; border-radius: 10px; box-sizing: border-box; height:6vw; padding: .5vw;"
+            (click)="playTrack(song.name, song.artistName)">
         <img [src]="song.albumImageUrl" alt="Song Image" style="width: 25%; border-radius: 10px; margin-right: 10px;">
         <div>
           <h2 style="font-weight: bold;" class="py-2">{{ song.name }}</h2>
