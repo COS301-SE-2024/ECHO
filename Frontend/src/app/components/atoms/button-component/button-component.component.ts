@@ -18,8 +18,7 @@ export class ButtonComponentComponent {
   moodComponentClassesHover!: { [key: string]: string };
 
   constructor(public moodService: MoodService) {
-    this.moodComponentClassesDark = this.moodService.getComponentMoodClassesDark();
-    this.moodComponentClassesHover = this.moodService.getComponentMoodClassesHover();
+    this.moodComponentClassesHover = this.moodService.getComponentMoodClasses();
   }
 
   handleClick(event: Event): void {
