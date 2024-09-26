@@ -1,4 +1,4 @@
-<div *ngIf="screenSize === 'desktop'" class="desktop-layout">
+<div *ngIf="screenSize === 'desktop'"  class="rounded-xl border-black h-full no-scrollbar border overflow-y-scroll p-4" style="background-color: rgba(0, 0, 0, 0.7);">
   <app-search-bar></app-search-bar>
   <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-200">Search Results for "{{ searchQuery }}"</h1>
   <div class="top-result dark:text-gray-200" style="float: left; width: 33%;">
@@ -14,7 +14,6 @@
       </ng-container>
     </div>
   </div>
-
 
   <div class="songs dark:text-gray-200" style="float: left; width: 33%; position: relative;">
     <a
@@ -59,7 +58,7 @@
 
   </div>
 </div>
-<h1 class="dark:text-gray-200" style="padding-left: 20px; font-weight: bold; font-size: larger ;">From Your
+<!-- <h1 class="dark:text-gray-200" style="padding-left: 20px; font-weight: bold; font-size: larger ;">From Your
   Library</h1>
 
 <div class="library-container songs-container dark:text-gray-200"
@@ -75,7 +74,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 </div>
 
 
@@ -163,7 +162,7 @@
       </div>
     </div>
 
-    <div class="library-container songs-container dark:text-gray-200 "
+    <!-- <div class="library-container songs-container dark:text-gray-200 "
          style="width: 100%; overflow-x: auto; margin-bottom: 40vw; padding: 20px 0;">
       <h1 class="dark:text-gray-200" style="padding-left: 20px; font-weight: bold; font-size: larger ;">From
         Your
@@ -179,7 +178,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
 
     </div>
