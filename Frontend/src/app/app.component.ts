@@ -72,7 +72,6 @@ export class AppComponent implements OnInit, OnDestroy
     @Inject(PLATFORM_ID) private platformId: Object
   )
   {
-    this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
     this.isLoggedIn$ = this.authService.isLoggedIn$;
     updates.versionUpdates.subscribe(event =>
     {

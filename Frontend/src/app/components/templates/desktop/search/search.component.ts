@@ -46,7 +46,6 @@ export class SearchComponent implements OnInit
   {
     this.currentMood = this.moodService.getCurrentMood();
     this.moodComponentClasses = this.moodService.getComponentMoodClasses();
-    this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
     this.songs$ = this.searchService.getSearch();
     this.albums$ = this.searchService.getAlbumSearch();
     this.topResult$ = this.searchService.getTopResult();
