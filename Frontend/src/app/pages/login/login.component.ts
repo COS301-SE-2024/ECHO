@@ -42,7 +42,9 @@ export class LoginComponent implements OnInit {
         await this.authService.signInWithOAuth();
       }
     }
-
+    navigateToRegister(){
+      this.router.navigate(['/register']);
+    }
     login() {
       this.providerService.setProviderName('email');
         this.authService.signIn(this.email, this.password).subscribe(
