@@ -14,11 +14,12 @@ export class ButtonComponentComponent {
   @Input() disabled: boolean = false;
   @Input() isSelected: boolean = false;
   @Output() click = new EventEmitter<Event>();
-  moodComponentClassesDark!: { [key: string]: string };
+  moodComponentClassesline!: { [key: string]: string };
   moodComponentClassesHover!: { [key: string]: string };
 
   constructor(public moodService: MoodService) {
     this.moodComponentClassesHover = this.moodService.getComponentMoodClasses();
+    this.moodComponentClassesline = this.moodService.getUnerlineMoodClasses();
   }
 
   handleClick(event: Event): void {
