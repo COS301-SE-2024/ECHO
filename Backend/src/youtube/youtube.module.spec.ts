@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { YoutubeModule } from './youtube.module';
-import { YoutubeService } from './services/youtube.service';
-import { YoutubeController } from './controller/youtube.controller';
+import { YouTubeService } from './services/youtube.service';
+import { YouTubeController } from './controller/youtube.controller';
 import { HttpModule } from '@nestjs/axios';
 import { SupabaseModule } from '../supabase/supabase.module';
 
@@ -20,12 +20,12 @@ describe('YoutubeModule', () => {
   });
 
   it('should have YoutubeService as a provider', () => {
-    const youtubeService = testingModule.get<YoutubeService>(YoutubeService);
+    const youtubeService = testingModule.get<YouTubeService>(YouTubeService);
     expect(youtubeService).toBeDefined();
   });
 
   it('should have YoutubeController as a controller', () => {
-    const youtubeController = testingModule.get<YoutubeController>(YoutubeController);
+    const youtubeController = testingModule.get<YouTubeController>(YouTubeController);
     expect(youtubeController).toBeDefined();
   });
 
