@@ -10,7 +10,10 @@ import { ProfileComponent } from '../profile/profile.component';
 import { MoodDropDownComponent } from '../../components/organisms/mood-drop-down/mood-drop-down.component';
 import { BackButtonComponent } from '../../components/atoms/back-button/back-button.component';
 import { PageTitleComponent } from '../../components/atoms/page-title/page-title.component';
-import { Track } from '../../services/search.service';  // <-- Use Track interface
+import { Track } from '../../services/search.service';
+import { ProviderService } from "../../services/provider.service";
+import { YouTubeService } from "../../services/youtube.service";
+import { SpotifyService } from "../../services/spotify.service";  // <-- Use Track interface
 
 @Component({
   selector: 'app-mood',
@@ -32,6 +35,10 @@ export class MoodComponent implements OnInit {
     public moodService: MoodService,
     private searchService: SearchService,  // <-- Inject SearchService
     private router: Router,
+    private providerService: ProviderService,
+    private youtubeService: YouTubeService,
+    private spotifyService: SpotifyService
+
   ) {
     this.moodComponentClasses = this.moodService.getComponentMoodClasses();
   }
@@ -75,5 +82,24 @@ export class MoodComponent implements OnInit {
 
   profile() {
     this.router.navigate(['/profile']);
+  }
+
+  playTrack(title: string, artist: string)
+  {
+    if (this.providerService.getProviderName() === "spotify")
+    {
+      this.spotifyService.getTrackDetailsByName(title, artist).then(async (track) =>
+      {
+        console.log(track);
+        await this.spotifyService.playTrackById(track.id);
+      });
+    }
+    else
+    {
+      this.youtubeService.getTrackByName(title, artist).then(async (track) =>
+      {
+        await this.youtubeService.playTrackById(track.id);
+      });
+    }
   }
 }
