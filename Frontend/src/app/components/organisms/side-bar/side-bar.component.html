@@ -1,18 +1,17 @@
 <div class="button-container">
   <app-expandable-icon class="focus:outline-none max-w-[.5vw]" (click)="toggleSideBar()"></app-expandable-icon>
 </div>
-<div class="z-10"  style="left: 1vw; top: 10.2vh;">
-  <div [ngClass]="{'w-[2.5vw] h-[2vw]': isSideBarHidden, 'w-[20vw] h-[75vh]': !isSideBarHidden}"  class="container  pl-5 rounded-md max-h-screen " >
-    <div class="bg-black opacity-70 rounded-lg overflow-auto h-full flex flex-col justify-between scrollbar-hidden">
+<div class="z-10" style="left: 1vw; top: 10.2vh;">
+  <div [ngClass]="{'w-[2.5vw] h-[2vw]': isSideBarHidden, 'w-[20vw] h-[75vh]': !isSideBarHidden}" class="container pl-5 rounded-md max-h-screen">
+    <div *ngIf="!isSideBarHidden" class="bg-black opacity-70 rounded-lg overflow-auto h-full flex flex-col justify-between scrollbar-hidden">
       <!-- SVG button always visible -->
-      <div  class="flex justify-between items-center mb-2 mt-3">
-       
+      <div class="flex justify-between items-center mb-2 mt-3">
         <!-- Only show these buttons when the sidebar is expanded -->
-        <div class="button-container" [ngClass]="getButtonClasses('suggestions')">
-          <button class="px-10 text-sm font-bold text-white focus:outline-none truncate max-w-[19vh] flex-1" (click)="selectOption('suggestions')">Suggestions</button>
+        <div class="button-container w-full" [ngClass]="getButtonClasses('suggestions')">
+          <button class="w-full px-10 text-sm font-bold text-white focus:outline-none truncate flex-1" (click)="selectOption('suggestions')">Suggestions</button>
         </div>
-        <div *ngIf="!isSideBarHidden" class="button-container" [ngClass]="getButtonClasses('recentListening')">
-          <button class="px-10 text-sm text-white focus:outline-none truncate max-w-[19vh] flex-1" (click)="selectOption('recentListening')">Recent listening</button>
+        <div *ngIf="!isSideBarHidden" class="button-container w-full" [ngClass]="getButtonClasses('recentListening')">
+          <button class="w-full px-10 text-sm text-white focus:outline-none truncate flex-1" (click)="selectOption('recentListening')">Recent listening</button>
         </div>
       </div>
 
@@ -30,12 +29,9 @@
           <app-toast></app-toast>
         </div>
       </div>
-
     </div>
   </div>
 </div>
-
-
 <div *ngIf="isEchoModalVisible" id="echo-songs" tabindex="-1" aria-hidden="true" class="fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full bg-black bg-opacity-50">
   <div class="relative p-4 w-full max-w-2xl max-h-full">
     <!-- Modal content -->
