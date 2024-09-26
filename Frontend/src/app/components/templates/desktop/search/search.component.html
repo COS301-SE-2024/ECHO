@@ -1,4 +1,4 @@
-<div *ngIf="screenSize === 'desktop'" class="desktop-layout">
+<div *ngIf="screenSize === 'desktop'"  class="rounded-xl border-black h-full no-scrollbar border overflow-y-scroll p-4" style="background-color: rgba(0, 0, 0, 0.7);">
   <app-search-bar></app-search-bar>
   <div class="pl-4">
   <h1 class="text-2xl font-bold text-gray-400 dark:text-gray-200 pt-8">Search Results for "{{ searchQuery }}"</h1>
@@ -15,7 +15,6 @@
       </ng-container>
     </div>
   </div>
-
 
   <div class="songs dark:text-gray-200" style="float: left; width: 33%; position: relative;">
     <a
@@ -147,8 +146,6 @@
         </div>
       </div>
     </div>
-
-
     </div>
   </div>
 </div>
