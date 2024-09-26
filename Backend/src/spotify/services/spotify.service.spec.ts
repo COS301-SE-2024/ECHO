@@ -5,8 +5,6 @@ import { SupabaseService } from '../../supabase/services/supabase.service';
 import { SpotifyService } from './spotify.service';
 import { HttpException, HttpStatus } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
-import { subscribe } from 'diagnostics_channel';
-import { callback } from 'chart.js/dist/helpers/helpers.core';
 
 jest.mock('../../supabase/services/supabaseClient', () => ({
   createSupabaseClient: jest.fn(() => ({
