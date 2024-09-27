@@ -105,6 +105,7 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy
       this.playingStateSubscription = this.spotifyService.playingState$.subscribe(isPlaying =>
       {
         this.playing = isPlaying;
+        this.started = true;
         this.updatePlayPauseIcon();
         this.cdr.detectChanges();
       });
@@ -133,6 +134,7 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy
             explicit: false,
             duration_ms: track.duration_ms
           };
+          this.started = true;
         }
         this.cdr.detectChanges();
       });
