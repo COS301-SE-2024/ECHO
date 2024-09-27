@@ -16,10 +16,8 @@ async function bootstrap() {
     // Enable CORS with dynamic origin checking
     app.enableCors({
         origin: (origin, callback) => {
-            // Allow requests with no origin, e.g., mobile apps or curl requests
             if (!origin) return callback(null, true);
 
-            // Check if the origin is allowed
             if (allowedOrigins.includes(origin)) {
                 callback(null, true);
             } else {
@@ -30,18 +28,11 @@ async function bootstrap() {
         credentials: true,
     });
 
-    // Set global prefix for API
     app.setGlobalPrefix('api');
-
-    // Use Render's assigned PORT environment variable, fallback to 3000 if not set
     const port = configService.get<number>('PORT', 3000);
-
-    // Start the NestJS app
     await app.listen(port);
 
-    // Log the application URL
     console.log(`Application is running on: ${await app.getUrl()}`);
 }
 
-// Bootstrap the application
 bootstrap();

@@ -114,7 +114,7 @@ export class AuthService
               localStorage.setItem("spotifyReady", "true");
             }
           }
-          await this.playerStateService
+          await this.playerStateService.setSpotifyReady();
           if (response && response.url)
           {
             localStorage.setItem("loggedIn", "true");
