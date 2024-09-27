@@ -49,7 +49,6 @@ describe('SideBarComponent', () => {
       ],
       providers: [
         provideHttpClient(withInterceptorsFromDi()),
-        { provide: ThemeService, useValue: themeServiceMock },
         { provide: SpotifyService, useValue: spotifyServiceMock },
         { provide: ScreenSizeService, useValue: screenSizeServiceMock },
         { provide: AuthService, useValue: authServiceMock },

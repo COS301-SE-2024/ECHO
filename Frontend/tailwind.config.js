@@ -56,7 +56,7 @@ module.exports = {
                 },
                 admiration: {
                     DEFAULT: '#FF5308',
-                    "text": '#FFD700',
+                    "text": '#FFFFFF',
                     "component": '#252525',
                     "dark": '#D44000',
                     "backgrounddark": '#5F3625',
@@ -64,7 +64,7 @@ module.exports = {
                 },
                 anger:{
                     DEFAULT: '#A40014',
-                    "text": '#FFB9B9',
+                    "text": '#FFFFFF',
                     "component": '#221113',
                     "dark": '#890817',
                     "backgrounddark": '#471C21',
@@ -72,7 +72,7 @@ module.exports = {
                 },
                 fear:{
                     DEFAULT: '#9A44CE',
-                    "text": '#1dff3c',
+                    "text": '#FFFFFF',
                     "component": '#C639A2',
                     "dark": '#ff00d8',
                     "backgrounddark": '#462E5E',
@@ -80,7 +80,7 @@ module.exports = {
                 },
                 joy:{
                     DEFAULT: '#FFD700',
-                    text: '#FFF8DC',
+                    text: '#FFFFFF',
                     component: '#FFA500',
                     dark: '#FF8C00',
                     backgrounddark: '#FFFFE0',
@@ -88,7 +88,7 @@ module.exports = {
                 },
                 amusement: {
                     DEFAULT: '#FF6347',
-                    text: '#FFF5EE',
+                    text: '#FFFFFF',
                     component: '#FF7F50',
                     dark: '#CD5C5C',
                     backgrounddark: '#FFE4E1',
@@ -96,7 +96,7 @@ module.exports = {
                 },
                 annoyance: {
                     DEFAULT: '#FF4500',
-                    text: '#FFDAB9',
+                    text: '#FFFFFF',
                     component: '#FF6347',
                     dark: '#CD3700',
                     backgrounddark: '#FFFAF0',
@@ -104,7 +104,7 @@ module.exports = {
                 },
                 approval: {
                     DEFAULT: '#32CD32',
-                    text: '#F0FFF0',
+                    text: '#FFFFFF',
                     component: '#3CB371',
                     dark: '#228B22',
                     backgrounddark: '#E0FFE0',
@@ -112,7 +112,7 @@ module.exports = {
                 },
                 caring: {
                     DEFAULT: '#FF69B4',
-                    text: '#FFF0F5',
+                    text: '#FFFFFF',
                     component: '#FF1493',
                     dark: '#C71585',
                     backgrounddark: '#FFD1DC',
@@ -120,7 +120,7 @@ module.exports = {
                 },
                 confusion: {
                     DEFAULT: '#8B008B',
-                    text: '#E6E6FA',
+                    text: '#FFFFFF',
                     component: '#9932CC',
                     dark: '#4B0082',
                     backgrounddark: '#DDA0DD',
@@ -128,7 +128,7 @@ module.exports = {
                 },
                 curiosity: {
                     DEFAULT: '#FF8C00',
-                    text: '#FFF5EE',
+                    text: '#FFFFFF',
                     component: '#FFA500',
                     dark: '#FF7F50',
                     backgrounddark: '#FFD700',
@@ -136,7 +136,7 @@ module.exports = {
                 },
                 desire: {
                     DEFAULT: '#FF69B4',
-                    text: '#FFF0F5',
+                    text: '#FFFFFF',
                     component: '#FF1493',
                     dark: '#C71585',
                     backgrounddark: '#FFE4E1',
@@ -144,7 +144,7 @@ module.exports = {
                 },
                 disappointment: {
                     DEFAULT: '#708090',
-                    text: '#F5F5F5',
+                    text: '#FFFFFF',
                     component: '#778899',
                     dark: '#2F4F4F',
                     backgrounddark: '#DCDCDC',
@@ -152,7 +152,7 @@ module.exports = {
                 },
                 disapproval: {
                     DEFAULT: '#FF0000',
-                    text: '#FFE4E1',
+                    text: '#FFFFFF',
                     component: '#FF6347',
                     dark: '#B22222',
                     backgrounddark: '#FFC0CB',
@@ -160,7 +160,7 @@ module.exports = {
                 },
                 disgust: {
                     DEFAULT: '#556B2F',
-                    text: '#F5FFFA',
+                    text: '#FFFFFF',
                     component: '#6B8E23',
                     dark: '#4B5320',
                     backgrounddark: '#8FBC8F',
@@ -168,7 +168,7 @@ module.exports = {
                 },
                 embarrassment: {
                     DEFAULT: '#FFB6C1',
-                    text: '#FFF0F5',
+                    text: '#FFFFFF',
                     component: '#FF69B4',
                     dark: '#DB7093',
                     backgrounddark: '#FFDAB9',
@@ -176,7 +176,7 @@ module.exports = {
                 },
                 excitement: {
                     DEFAULT: '#FF4500',
-                    text: '#FFD700',
+                    text: '#FFFFFF',
                     component: '#FF6347',
                     dark: '#DC143C',
                     backgrounddark: '#FFA07A',
@@ -184,7 +184,7 @@ module.exports = {
                 },
                 gratitude: {
                     DEFAULT: '#FFD700',
-                    text: '#FFF8DC',
+                    text: '#FFFFFF',
                     component: '#FFA500',
                     dark: '#FF8C00',
                     backgrounddark: '#FFE4B5',
@@ -192,7 +192,7 @@ module.exports = {
                 },
                 grief: {
                     DEFAULT: '#2F4F4F',
-                    text: '#F5F5F5',
+                    text: '#FFFFFF',
                     component: '#696969',
                     dark: '#1C1C1C',
                     backgrounddark: '#A9A9A9',
@@ -200,7 +200,7 @@ module.exports = {
                 },
                 love: {
                     DEFAULT: '#FF1493',
-                    text: '#FFE4E1',
+                    text: '#FFFFFF',
                     component: '#FF69B4',
                     dark: '#C71585',
                     backgrounddark: '#FFD1DC',
@@ -208,7 +208,7 @@ module.exports = {
                 },
                 nervousness: {
                     DEFAULT: '#FF4500',
-                    text: '#FFF5EE',
+                    text: '#FFFFFF',
                     component: '#FF6347',
                     dark: '#B22222',
                     backgrounddark: '#FFE4E1',
@@ -216,7 +216,7 @@ module.exports = {
                 },
                 optimism: {
                     DEFAULT: '#FFD700',
-                    text: '#FFF8DC',
+                    text: '#FFFFFF',
                     component: '#FFA500',
                     dark: '#FF8C00',
                     backgrounddark: '#FFFFE0',
@@ -224,7 +224,7 @@ module.exports = {
                 },
                 pride: {
                     DEFAULT: '#8A2BE2',
-                    text: '#E6E6FA',
+                    text: '#FFFFFF',
                     component: '#9370DB',
                     dark: '#4B0082',
                     backgrounddark: '#D8BFD8',
@@ -232,7 +232,7 @@ module.exports = {
                 },
                 realisation: {
                     DEFAULT: '#00CED1',
-                    text: '#E0FFFF',
+                    text: '#FFFFFF',
                     component: '#20B2AA',
                     dark: '#008B8B',
                     backgrounddark: '#AFEEEE',
@@ -240,7 +240,7 @@ module.exports = {
                 },
                 relief: {
                     DEFAULT: '#00FF7F',
-                    text: '#F0FFF0',
+                    text: '#FFFFFF',
                     component: '#32CD32',
                     dark: '#228B22',
                     backgrounddark: '#98FB98',
@@ -248,7 +248,7 @@ module.exports = {
                 },
                 remorse: {
                     DEFAULT: '#8B0000',
-                    text: '#FFE4E1',
+                    text: '#FFFFFF',
                     component: '#B22222',
                     dark: '#800000',
                     backgrounddark: '#FA8072',
@@ -256,7 +256,7 @@ module.exports = {
                 },
                 sadness: {
                     DEFAULT: '#4682B4',
-                    text: '#F0F8FF',
+                    text: '#FFFFFF',
                     component: '#87CEEB',
                     dark: '#4169E1',
                     backgrounddark: '#B0E0E6',
@@ -264,7 +264,7 @@ module.exports = {
                 },
                 surprise: {
                     DEFAULT: '#FF4500',
-                    text: '#FFD700',
+                    text: '#FFFFFF',
                     component: '#FF6347',
                     dark: '#FF0000',
                     backgrounddark: '#FFDAB9',
