@@ -18,7 +18,6 @@ import { SideBarComponent } from './components/organisms/side-bar/side-bar.compo
 //template imports
 import { HeaderComponent } from "./components/organisms/header/header.component";
 import { OtherNavComponent } from "./components/templates/desktop/other-nav/other-nav.component";
-import { LeftComponent } from "./components/templates/desktop/left/left.component";
 import { AuthService } from "./services/auth.service";
 import { PlayerStateService } from "./services/player-state.service";
 import { Observable } from "rxjs";
@@ -34,7 +33,6 @@ import { Observable } from "rxjs";
     PageHeaderComponent,
     HeaderComponent,
     OtherNavComponent,
-    LeftComponent,
     BackgroundAnimationComponent,
     NavbarComponent,
     SideBarComponent

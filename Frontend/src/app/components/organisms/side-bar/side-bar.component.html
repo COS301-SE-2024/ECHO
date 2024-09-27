@@ -3,14 +3,14 @@
 </div>
 <div class="z-10" style="left: 1vw; top: 10.2vh;">
   <div [ngClass]="{'w-[2.5vw] h-[2vw]': isSideBarHidden, 'w-[39vh] h-[75vh]': !isSideBarHidden}" class="container pl-5 rounded-md max-h-screen">
-    <div *ngIf="!isSideBarHidden" class="bg-black opacity-70 rounded-lg overflow-auto h-full flex flex-col justify-between scrollbar-hidden">
+    <div *ngIf="!isSideBarHidden" style="background-color: rgba(0, 0, 0, 0.7);" class="rounded-lg overflow-auto h-full flex flex-col justify-between scrollbar-hidden">
       <!-- SVG button always visible -->
       <div class="flex justify-between items-center mb-2 mt-3">
         <!-- Only show these buttons when the sidebar is expanded -->
-        <div class="button-container w-full" [ngClass]="getButtonClasses('suggestions')">
-          <button class="w-full px-10 text-sm font-bold text-white focus:outline-none truncate flex-1" (click)="selectOption('suggestions')">Suggestions</button>
+        <div class="button-container w-full bg-opacity-0" [ngClass]="getButtonClasses('suggestions')">
+          <button class="w-full px-10 font-bold text-white focus:outline-none truncate flex-1" (click)="selectOption('suggestions')">Suggestions</button>
         </div>
-        <div *ngIf="!isSideBarHidden" class="button-container w-full" [ngClass]="getButtonClasses('recentListening')">
+        <div *ngIf="!isSideBarHidden" class="button-container w-full bg-opacity-0" [ngClass]="getButtonClasses('recentListening')">
           <button class="w-full px-10 text-sm text-white focus:outline-none truncate flex-1" (click)="selectOption('recentListening')">Recent listening</button>
         </div>
       </div>
