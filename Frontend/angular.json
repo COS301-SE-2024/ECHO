@@ -55,14 +55,14 @@
               "extractLicenses": true,
               "sourceMap": false,
               "namedChunks": false,
-              "serviceWorker": true  // Only for production build, no SSR or Prerendering
+              "serviceWorker": false
             },
             "development": {
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true,
-              "serviceWorker": false  // Disable service workers for development
+              "serviceWorker": false
             }
           },
           "defaultConfiguration": "production"
