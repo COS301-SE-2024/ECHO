@@ -90,17 +90,6 @@ export class ProfileComponent implements AfterViewInit
   {
   }
 
-  openDialog(): void
-  {
-    const dialogRef = this.dialog.open(EditProfileModalComponent, {
-      width: "250px"
-    });
-
-    dialogRef.afterClosed().subscribe((result) =>
-    {
-    });
-  }
-
   save()
   {
     if (localStorage.getItem("path") !== null)

@@ -33,6 +33,7 @@ module.exports = {
                     "light": '#454549',
                     "verylight": '#D9D9D9',
                     "lightcomponent": '#9A9A9E',
+                    "newDark": '#0F0F0F'
                 },
                 default: {
                     DEFAULT: '#EE0258',
