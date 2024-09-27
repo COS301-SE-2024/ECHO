@@ -6,18 +6,18 @@ import { Injectable } from '@angular/core';
 export class MoodService {
   private _currentMood!: string;
   private _moodColors: { [key: string]: string } = {
-    Neutral: 'rgb(238, 2, 88)', // #EE0258
-    Anger: 'rgb(164, 0, 20)', // #A40014
-    Fear: 'rgb(154, 68, 206)', // #9A44CE
-    Joy: 'rgb(255, 215, 0)', // #FFD700
-    Disgust: 'rgb(85, 107, 47)', // #556B2F
+    Neutral: 'rgb(238, 2, 88)',   // #EE0258
+    Anger: 'rgb(164, 0, 20)',     // #A40014
+    Fear: 'rgb(142, 113, 195)',   // #8E71C3
+    Joy: 'rgb(244, 189, 1)',      // #F4BD01
+    Disgust: 'rgb(85, 107, 47)',  // #556B2F
     Excitement: 'rgb(255, 83, 8)', // #FF5308
-    Love: 'rgb(255, 20, 147)', // #FF1493
-    Sadness: 'rgb(70, 130, 180)', // #4682B4
-    Surprise: 'rgb(0, 191, 255)', // #FF4500
-    Contempt: 'rgb(112, 128, 144)', // #FF6961 
-    Shame: 'rgb(255, 182, 193)', // #FFF0F5
-    Guilt: 'rgb(92, 45, 145)', // #5C2D91 
+    Love: 'rgb(238, 59, 133)',    // #EE3B85
+    Sadness: 'rgb(76, 142, 197)', // #4C8EC5
+    Surprise: 'rgb(26, 173, 184)', // #1AADB8
+    Contempt: 'rgb(112, 128, 144)', // #708090
+    Shame: 'rgb(255, 160, 174)',  // #FFA0AE
+    Guilt: 'rgb(112, 63, 158)'    // #703F9E    
   };
 
   private _componentMoodClasses = {

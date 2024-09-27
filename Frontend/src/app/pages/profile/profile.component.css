@@ -25,12 +25,12 @@
   left: 0;
   right: 0;
   height: 50%;
-  background: linear-gradient(to bottom, transparent, #252525); /* Transition from transparent to gray */
+  background: linear-gradient(to bottom, transparent, #000000); /* Transition from transparent to gray */
   border-radius: inherit;
 }
 
 .bg-gray-component {
-  background-color: #252525; /* Ensure it matches the Tailwind color */
+  background-color: #000000; /* Ensure it matches the Tailwind color */
   color: white;
   border-bottom-left-radius: 0.75rem; /* Rounded bottom corners */
   border-bottom-right-radius: 0.75rem;
