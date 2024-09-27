@@ -3,6 +3,7 @@ import { MoodsComponent } from './moods.component';
 import { MatCardModule } from '@angular/material/card';
 import { NgClass, NgForOf, NgIf } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('MoodsComponent', () => {
   let component: MoodsComponent;
@@ -11,6 +12,7 @@ describe('MoodsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [MatCardModule, NgForOf, NgIf, NgClass, MatGridListModule, MoodsComponent], // Include standalone component in imports
+      providers: [provideHttpClient()]
     }).compileComponents();
 
     fixture = TestBed.createComponent(MoodsComponent);

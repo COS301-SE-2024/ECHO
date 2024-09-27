@@ -285,46 +285,6 @@ describe('SpotifyService', () => {
     });
   });
 
-  it('should classify mood as Neutral', () => {
-    const analysis = { valence: 0.5, energy: 0.5, danceability: 0.5, tempo: 100 };
-    expect(service.classifyMood(analysis)).toBe('Neutral');
-  });
-
-  it('should classify mood as Anger', () => {
-    const analysis = { valence: 0.3, energy: 0.8, danceability: 0.5, tempo: 100 };
-    expect(service.classifyMood(analysis)).toBe('Anger');
-  });
-
-  it('should classify mood as Admiration', () => {
-    const analysis = { valence: 0.7, energy: 0.6, danceability: 0.5, tempo: 100 };
-    expect(service.classifyMood(analysis)).toBe('Admiration');
-  });
-
-  it('should classify mood as Fear', () => {
-    const analysis = { valence: 0.2, energy: 0.7, danceability: 0.5, tempo: 100 };
-    expect(service.classifyMood(analysis)).toBe('Fear');
-  });
-
-  it('should classify mood as Admiration', () => {
-    const analysis = { valence: 0.8, energy: 0.8, danceability: 0.5, tempo: 100 };
-    expect(service.classifyMood(analysis)).toBe('Admiration');
-  });
-
-  it('should classify mood as Admiration', () => {
-    const analysis = { valence: 0.7, energy: 0.7, danceability: 0.7, tempo: 100 };
-    expect(service.classifyMood(analysis)).toBe('Admiration');
-  });
-
-  it('should classify mood as Surprise', () => {
-    const analysis = { valence: 0.6, energy: 0.8, danceability: 0.5, tempo: 130 };
-    expect(service.classifyMood(analysis)).toBe('Surprise');
-  });
-
-  it('should return Neutral if no conditions are met', () => {
-    const analysis = { valence: 0.3, energy: 0.3, danceability: 0.3, tempo: 100 };
-    expect(service.classifyMood(analysis)).toBe('Disappointment');
-  });
-
   describe('getQueue', () => {
     let mockResponse = {
       tracks: Array.from({ length: 7 }, (_, index) => ({

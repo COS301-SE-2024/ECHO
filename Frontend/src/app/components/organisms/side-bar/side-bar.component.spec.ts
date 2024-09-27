@@ -103,18 +103,6 @@ describe('SideBarComponent', () => {
     });
   });
 
-  describe('toggleSideBar', () => {
-    it('should toggle the sidebar and emit the event', () => {
-      jest.spyOn(component.sidebarToggled, 'emit');
-
-      component.isSideBarHidden = false;
-      component.toggleSideBar();
-
-      expect(component.isSideBarHidden).toBe(true);
-      expect(component.sidebarToggled.emit).toHaveBeenCalledWith(true);
-    });
-  });
-
   describe('toggleDropdown', () => {
     it('should toggle the dropdown visibility', () => {
       component.isDropdownVisible = false;

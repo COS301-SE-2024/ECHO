@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MoodComponent } from './mood.component';
 import { ScreenSizeService } from '../../services/screen-size-service.service';
@@ -14,7 +14,7 @@ describe('MoodComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [MoodComponent, HttpClientModule, RouterTestingModule],
-            providers: [ScreenSizeService, MoodService]
+            providers: [ScreenSizeService, MoodService, provideHttpClient()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(MoodComponent);
