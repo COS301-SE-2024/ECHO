@@ -14,11 +14,19 @@ import { MoodService } from '../../../services/mood-service.service';
 export class MoodsListComponent implements OnInit {
   @Input() moods!: any[];
   @Output() redirectToMoodPage = new EventEmitter<any>();
+  isDropdownOpen = false;
+
   constructor(public moodService: MoodService) {}
+
   onMoodClick(mood: any) {
     this.redirectToMoodPage.emit(mood);
   }
+
   ngOnInit(): void {
+  }
+
+  toggleDropdown(): void {
+    this.isDropdownOpen = !this.isDropdownOpen;
   }
 
 }
