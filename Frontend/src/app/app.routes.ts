@@ -18,7 +18,7 @@ import { EchoSongComponent } from "./components/templates/desktop/echo-song/echo
 
 export const routes: Routes = [
   { path: "landing", component: LandingPageComponent },
-  { path: "login", component: LoginComponent },
+  { path: "login", component: LoginComponentview},
   { path: "home", component: HomeComponent},
   { path: "register", component: RegisterComponent },
   { path: "profile", component: ProfileComponent },
@@ -30,7 +30,6 @@ export const routes: Routes = [
   { path: "help", component: HelpMenuComponent },
   { path: "insights", component: InsightsComponent},
   { path: "search", component: SearchComponent},
-  { path: "newlogin", component: LoginComponentview},
   { path: "library", component: UserLibraryComponent},
   { path: "echo Song", component: EchoSongComponent},
   { path: '**', redirectTo: '/login' } //DO NOT MOVE - MUST ALWAYS BE LAST
