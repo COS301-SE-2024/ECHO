@@ -5,12 +5,12 @@ import {CommonModule} from '@angular/common';
 import {ScreenSizeService} from './../../services/screen-size-service.service';
 //Component Template imports 
 import {DeskRegisterComponent} from './../../components/templates/desktop/desk-register/desk-register.component';
-// import {MobileRegisterComponent} from './../../components/templates/mobile/mobilelogin/mobileregister.component';
+import {MobileregisterComponent} from './../../components/templates/mobile/mobileregister/mobileregister.component';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, DeskRegisterComponent],
+  imports: [CommonModule, DeskRegisterComponent,MobileregisterComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
