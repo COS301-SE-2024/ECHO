@@ -7,11 +7,12 @@ import { EchoButtonComponent } from '../../atoms/echo-button/echo-button.compone
 import { Router } from '@angular/router';
 import { MoodService } from '../../../services/mood-service.service';
 import { YouTubeService } from "../../../services/youtube.service";
+import { PlayIconComponent } from '../../organisms/play-icon/play-icon.component';
 
 @Component({
   selector: 'app-song-cards',
   standalone: true,
-  imports: [CommonModule, SvgIconComponent, EchoButtonComponent],
+  imports: [CommonModule, SvgIconComponent, EchoButtonComponent,PlayIconComponent],
   templateUrl: './song-cards.component.html',
   styleUrls: ['./song-cards.component.css']
 })
