@@ -127,7 +127,7 @@ export class SideBarComponent implements OnInit
         this.isLoading = true;
         this.suggestionsCardData = await this.spotifyService.getQueue(this.provider);
         console.log(this.suggestionsCardData);
-        console.log("I should not see this twice");
+        
         await this.suggestionsCardData.unshift(this.getEchoedCardData()[0]);
         this.isLoading = false;
       }

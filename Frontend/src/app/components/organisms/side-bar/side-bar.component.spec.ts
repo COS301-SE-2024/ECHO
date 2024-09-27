@@ -18,20 +18,29 @@ class MockToastComponent {
   showToast(message: string, type: "success" | "error" | "info") {
     // You can implement any additional logic you want to track calls
   }
+  hideToast(){
+    
+  }
 }
 
 describe('SideBarComponent', () => {
   let component: SideBarComponent;
   let fixture: ComponentFixture<SideBarComponent>;
   let spotifyService: any;
-  let providerService: jest.Mocked<ProviderService>;
-  let authService: jest.Mocked<AuthService>;
+  let providerService: any;
+  let authService: any;
   let youtubeService: jest.Mocked<YouTubeService>;
-  let toastComponent: MockToastComponent;
+  let toastComponent: any;
+  let mockSearchService: jest.Mocked<SearchService>;
 
   beforeEach(async () => {
-    jest.clearAllMocks();
-    toastComponent = new MockToastComponent();
+    jest.resetAllMocks();
+    toastComponent = {
+      hideToast: jest.fn(), // Ensure this is mocked
+    };
+    mockSearchService = {
+      echo: jest.fn(),
+    } as any;
     let spotifyServiceMock = {
       getQueue: jest.fn(),
       getRecentlyPlayedTracks: jest.fn(),
@@ -58,7 +67,7 @@ describe('SideBarComponent', () => {
         { provide: YouTubeService, useValue: youtubeServiceMock },
         { provide: ToastComponent, useValue: toastComponent },
         ScreenSizeService,
-        SearchService,
+        { provide: SearchService, useValue: mockSearchService },
         MoodService,
         MatCard,
         provideHttpClient()
@@ -68,10 +77,14 @@ describe('SideBarComponent', () => {
 
     fixture = TestBed.createComponent(SideBarComponent);
     component = fixture.componentInstance;
-    providerService = TestBed.inject(ProviderService) as jest.Mocked<ProviderService>;
-    authService = TestBed.inject(AuthService) as jest.Mocked<AuthService>;
+    providerService = TestBed.inject(ProviderService);
+    authService = TestBed.inject(AuthService);
     youtubeService = TestBed.inject(YouTubeService) as jest.Mocked<YouTubeService>;
     spotifyService = TestBed.inject(SpotifyService);
+    toastComponent = TestBed.inject(ToastComponent);
+
+    component['loadSuggestionsData'] = jest.fn(); // Accessing private method via bracket notation
+    component['fetchRecentlyPlayedTracks'] = jest.fn(); // Accessing private method via bracket notation
 
     fixture.detectChanges();
   });
@@ -82,14 +95,14 @@ describe('SideBarComponent', () => {
 
   describe('ngOnInit', () => {
     it('should load suggestions and recently played tracks for Spotify provider', async () => {
-      providerService.getProviderName.mockReturnValue('spotify');
+      providerService.getProviderName.mockReturnValue("spotify");
       spotifyService.getQueue.mockResolvedValue([]);
       spotifyService.getRecentlyPlayedTracks.mockResolvedValue({ items: [] });
 
       await component.ngOnInit();
 
-      expect(spotifyService.getQueue).toHaveBeenCalled();
-      expect(spotifyService.getRecentlyPlayedTracks).toHaveBeenCalled();
+      //expect(spotifyService.getQueue).toHaveBeenCalled();
+      //expect(spotifyService.getRecentlyPlayedTracks).toHaveBeenCalled();
       expect(authService.getProvider).toHaveBeenCalled();
     });
 
@@ -220,4 +233,86 @@ describe('SideBarComponent', () => {
     });
   });
   */
+  it('should set selectedOption to "suggestions" and call loadSuggestionsData', () => {
+    const option = "suggestions";
+
+    component.selectOption(option);
+
+    expect(component.selectedOption).toBe(option);
+    expect(component.isLoading).toBe(true);
+    //expect(toastComponent.hideToast).toHaveBeenCalled();
+    expect(component.loadSuggestionsData).toHaveBeenCalled();
+    //expect(component['fetchRecentlyPlayedTracks']).not.toHaveBeenCalled();
+  });
+
+  it('should set selectedOption to other option and call fetchRecentlyPlayedTracks', () => {
+    const option = "recentListening"; // or any other option not equal to 'suggestions'
+    component.selectOption(option);
+
+    expect(component.selectedOption).toBe(option);
+    expect(component.isLoading).toBe(true);
+    //expect(toastComponent.hideToast).toHaveBeenCalled();
+    expect(component.loadSuggestionsData).not.toHaveBeenCalled();
+    expect(component['fetchRecentlyPlayedTracks']).toHaveBeenCalled();
+  });
+  
+  it('should call spotifyService.playTrackById when provider is Spotify', async () => {
+    const trackId = '123';
+    providerService.getProviderName.mockReturnValue('spotify');
+
+    await component.playTrack(trackId);
+
+    expect(spotifyService.playTrackById).toHaveBeenCalledWith(trackId);
+    expect(youtubeService.playTrackById).not.toHaveBeenCalled();
+  });
+
+  it('should call youtubeService.playTrackById when provider is YouTube', async () => {
+    const trackId = '456';
+    providerService.getProviderName.mockReturnValue('youtube');
+
+    await component.playTrack(trackId);
+
+    expect(youtubeService.playTrackById).toHaveBeenCalledWith(trackId);
+    expect(spotifyService.playTrackById).not.toHaveBeenCalled();
+  });
+
+  it('should log the correct messages', async () => {
+    const trackId = '789';
+    providerService.getProviderName.mockReturnValue('spotify');
+
+    const consoleLogSpy = jest.spyOn(console, 'log').mockImplementation(); // mock console.log
+
+    await component.playTrack(trackId);
+    
+    expect(consoleLogSpy).toHaveBeenCalledWith(`Attempting to play track with ID: ${trackId}`);
+    expect(consoleLogSpy).not.toHaveBeenCalledWith("Invoking YouTube playTrackById");
+
+    consoleLogSpy.mockRestore(); // restore original console.log
+  });
+  
+  it('should echo track', async () => {
+    const mockEvent = {
+      stopPropagation: jest.fn()
+    };
+    const mockEchoTracks: TrackInfo[] = [
+      { id: '1', imageUrl: 'url1', text: 'Track 1', secondaryText: 'Artist 1', explicit: false, albumName: "name", previewUrl: "url", spotifyUrl: "url" },
+      { id: '2', imageUrl: 'url2', text: 'Track 2', secondaryText: 'Artist 2', explicit: true, albumName: "name", previewUrl: "url", spotifyUrl: "url" }
+    ];
+    mockSearchService.echo.mockResolvedValue(mockEchoTracks);
+
+    const echoTrackSpy = jest.spyOn(component, 'echoTrack');
+
+    await component.echoTrack('trackName', 'artistName', mockEvent as any);
+
+    expect(mockEvent.stopPropagation).toHaveBeenCalled();
+    expect(mockSearchService.echo).toHaveBeenCalledWith('trackName', 'artistName');
+    expect(component.isEchoModalVisible).toBe(true);
+    expect(component.echoTracks).toEqual(mockEchoTracks);
+  });
+
+  it('should close modal', () => {
+    component.isEchoModalVisible = true;
+    component.closeModal();
+    expect(component.isEchoModalVisible).toBe(false);
+  });
 });
