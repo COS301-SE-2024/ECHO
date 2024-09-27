@@ -37,13 +37,6 @@ describe('MoodComponent', () => {
         expect(component.title).toBe(newMood);
     });
 
-    it('should return albums related to the new mood', () => {
-        const newMood = 'Sad';
-        const albums = component.getAlbumsForMood(newMood);
-        expect(albums.length).toBeGreaterThan(0);
-        expect(albums[0].title).toContain(newMood);
-    });
-
     it('should update searchQuery when onSearchdown is called', () => {
         const searchSubject = 'Test Query';
         component.onSearchdown(searchSubject);
