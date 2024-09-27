@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { BigRoundedSquareCardComponent } from '../../atoms/big-rounded-square-card/big-rounded-square-card.component';
 import { PlayIconComponent } from '../../organisms/play-icon/play-icon.component';
 import { MoodService } from '../../../services/mood-service.service';
+import { SearchService } from '../../../services/search.service';
+
 @Component({
   selector: 'app-moods-list',
   standalone: true,
@@ -27,6 +29,10 @@ export class MoodsListComponent implements OnInit {
 
   toggleDropdown(): void {
     this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
+  playSongs(): void {
+    
   }
 
 }
