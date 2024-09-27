@@ -131,32 +131,16 @@ export class SearchService
         const moodMapping = {
             Neutral: "chill",
             Anger: "hard rock",
-            Admiration: "motivational",
             Fear: "dark",
             Joy: "happy",
-            Amusement: "party",
-            Annoyance: "punk",
-            Approval: "pop",
-            Caring: "romantic",
-            Confusion: "experimental",
-            Curiosity: "indie",
-            Desire: "love",
-            Disappointment: "sad",
-            Disapproval: "metal",
             Disgust: "grunge",
-            Embarrassment: "soft rock",
             Excitement: "dance",
-            Gratitude: "thankful",
-            Grief: "melancholic",
             Love: "love songs",
-            Nervousness: "electronic",
-            Optimism: "upbeat",
-            Pride: "anthemic",
-            Realisation: "ambient",
-            Relief: "relaxing",
-            Remorse: "acoustic",
             Sadness: "sad",
-            Surprise: "surprising"
+            Surprise: "surprising",
+            Contempt: "metal",
+            Shame: "soft rock",
+            Guilt: "melancholic"
         };
 
         const searchQuery = moodMapping[mood] || "pop";
@@ -175,15 +159,13 @@ export class SearchService
         return this.convertApiResponseToSong(playlistData.data.tracks);
     }
 
+
     // This function fetches recommended moods and their respective songs
     async getSuggestedMoods(): Promise<{ mood: string, tracks: Track[] }[]>
     {
         const allMoods = [
-            "Neutral", "Anger", "Admiration", "Fear", "Joy", "Amusement", "Annoyance",
-            "Approval", "Caring", "Confusion", "Curiosity", "Desire", "Disappointment",
-            "Disapproval", "Disgust", "Embarrassment", "Excitement", "Gratitude", "Grief",
-            "Love", "Nervousness", "Optimism", "Pride", "Realisation", "Relief", "Remorse",
-            "Sadness", "Surprise"
+            "Neutral", "Anger", "Fear", "Joy", "Disgust", "Excitement",
+            "Love", "Sadness", "Surprise", "Contempt", "Shame", "Guilt"
         ];
 
         const suggestedMoods = allMoods.sort(() => 0.5 - Math.random()).slice(0, 5);
