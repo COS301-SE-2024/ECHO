@@ -133,15 +133,19 @@ export class SideBarComponent implements OnInit
       {
         this.isLoading = true;
         this.suggestionsCardData = await this.spotifyService.getQueue(this.provider);
+        console.log(this.suggestionsCardData);
+        console.log("I should not see this twice");
         await this.suggestionsCardData.unshift(this.getEchoedCardData()[0]);
         this.isLoading = false;
       }
       catch (error)
       {
         this.isLoading = false;
-        if (this.selectedOption === "suggestions")
-        {
-          this.toastComponent.showToast("Error fetching suggestions data", "error"); // Show error toast
+        console.error("Error fetching suggestions:", error); // Log the error
+        console.log(this.selectedOption);
+        if (this.selectedOption === "suggestions") {
+            console.log("In error");
+            this.toastComponent.showToast("Error fetching suggestions data", "error"); // Show error toast
         }
       }
     }

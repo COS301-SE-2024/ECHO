@@ -33,7 +33,7 @@ describe('ToastComponent', () => {
     expect(component.message).toBe('Test Message');
     expect(component.type).toBe('error');
     expect(component.isVisible).toBe(true);
-    tick(3000);
+    tick(5001);
     expect(component.isVisible).toBe(false);
     expect(component.close.emit).toHaveBeenCalled();
   }));
@@ -44,7 +44,7 @@ describe('ToastComponent', () => {
     expect(component.message).toBe('Test Message');
     expect(component.type).toBe('error');
     expect(component.isVisible).toBe(true);
-    tick(3000);
+    tick(5001);
     expect(component.isVisible).toBe(false);
     expect(component.close.emit).toHaveBeenCalled();
     }));

@@ -15,12 +15,24 @@ describe('EchoComponent', () => {
       providers: [provideHttpClient(),
         {
           provide: ActivatedRoute,
-          params: of({ id: '123' }), // Replace '123' with any relevant ID or parameters
-          queryParams: of({ someQueryParam: 'value' }), // Mock queryParams if required
-          snapshot: {
-            data: {}
+          useValue: {
+            root: {
+              firstChild: {
+                snapshot: {
+                  routeConfig: {
+                    path: 'test-path', // Example path for testing
+                  }
+                }
+              }
+            },
+            queryParams: of({ trackName: 'Test Track', artistName: 'Test Artist' }), // Mocking the observable
+            // Provide necessary properties or methods here
+            params: of({}), // You can customize this as needed
+            snapshot: {
+              params: {}
+            }
           }
-        }
+        },
       ]
     })
     .compileComponents();

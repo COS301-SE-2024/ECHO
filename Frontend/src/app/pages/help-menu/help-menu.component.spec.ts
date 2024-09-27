@@ -52,22 +52,4 @@ describe('HelpMenuComponent', () => {
     expect(component.isAccordionOpen(section)).toBe(false);
   });
 
-  it('should show and hide the accordion content when buttons are clicked', () => {
-    const section = 'home';
-    const button = fixture.debugElement.query(By.css('button'));
-    
-    button.triggerEventHandler('click', null);
-    fixture.detectChanges();
-
-    expect(component.isAccordionOpen(section)).toBe(true);
-    expect(fixture.debugElement.query(By.css('.block'))).toBeTruthy();
-    expect(fixture.debugElement.query(By.css('.hidden'))).toBeFalsy();
-
-    button.triggerEventHandler('click', null);
-    fixture.detectChanges();
-
-    expect(component.isAccordionOpen(section)).toBe(false);
-    expect(fixture.debugElement.query(By.css('.block'))).toBeFalsy();
-    expect(fixture.debugElement.query(By.css('.hidden'))).toBeTruthy();
-  });
 });

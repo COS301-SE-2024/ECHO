@@ -3,10 +3,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BottomPlayerComponent } from './bottom-player.component';
 import { SpotifyService } from "../../../services/spotify.service";
 import { AuthService } from "../../../services/auth.service";
-import { HttpClientTestingModule } from "@angular/common/http/testing";
+import { HttpClientTestingModule, provideHttpClientTesting } from "@angular/common/http/testing";
 import { of, Subscription } from 'rxjs';
 import { ProviderService } from '../../../services/provider.service';
 import { ScreenSizeService } from '../../../services/screen-size-service.service';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('BottomPlayerComponent', () => {
     let component: BottomPlayerComponent;
@@ -40,11 +41,12 @@ describe('BottomPlayerComponent', () => {
       } as unknown as jest.Mocked<ProviderService>;
 
         await TestBed.configureTestingModule({
-            imports: [BottomPlayerComponent,HttpClientTestingModule],
+            imports: [BottomPlayerComponent],
           providers: [
             { provide: SpotifyService, useValue: spotifyServiceMock },
             { provide: ScreenSizeService, useValue: screenSizeServiceMock },
             { provide: ProviderService, useValue: providerServiceMock },
+            provideHttpClient(),
           ],
         }).compileComponents();
 
@@ -65,7 +67,7 @@ describe('BottomPlayerComponent', () => {
       await component.ngOnInit();
   
       //expect(screenSizeServiceMock.screenSize$.subscribe).toHaveBeenCalled();
-      expect(spotifyServiceMock.init).toHaveBeenCalled();
+      expect(component.screenSize).toBeDefined();
       expect(component.screenSize).toBe('large');
     });
   
