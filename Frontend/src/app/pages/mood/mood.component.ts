@@ -36,6 +36,10 @@ export class MoodComponent implements OnInit {
     public moodService: MoodService,
     private searchService: SearchService,  // <-- Inject SearchService
     private router: Router,
+    private providerService: ProviderService,
+    private youtubeService: YouTubeService,
+    private spotifyService: SpotifyService
+
   ) {
     this.moodComponentClasses = this.moodService.getComponentMoodClasses();
   }
@@ -79,5 +83,24 @@ export class MoodComponent implements OnInit {
 
   profile() {
     this.router.navigate(['/profile']);
+  }
+
+  playTrack(title: string, artist: string)
+  {
+    if (this.providerService.getProviderName() === "spotify")
+    {
+      this.spotifyService.getTrackDetailsByName(title, artist).then(async (track) =>
+      {
+        console.log(track);
+        await this.spotifyService.playTrackById(track.id);
+      });
+    }
+    else
+    {
+      this.youtubeService.getTrackByName(title, artist).then(async (track) =>
+      {
+        await this.youtubeService.playTrackById(track.id);
+      });
+    }
   }
 }
