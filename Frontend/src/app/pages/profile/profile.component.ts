@@ -15,7 +15,6 @@ import { MoodService } from "../../services/mood-service.service";
 import { SongViewComponent } from "../../components/molecules/song-view/song-view.component";
 import { TopArtistCardComponent } from "../../components/molecules/top-artist-card/top-artist-card.component";
 import {ProfileAtomicComponent} from '../../components/organisms/profile/profile.component';
-
 @Component({
   selector: "app-profile",
   standalone: true,
@@ -32,7 +31,7 @@ import {ProfileAtomicComponent} from '../../components/organisms/profile/profile
     TopCardComponent,
     SongViewComponent,
     TopArtistCardComponent,
-    ProfileAtomicComponent
+    ProfileAtomicComponent,
   ],
   templateUrl: "./profile.component.html",
   styleUrl: "./profile.component.css"
@@ -63,7 +62,6 @@ export class ProfileComponent implements AfterViewInit
   {
     this.currentMood = this.moodService.getCurrentMood();
     this.moodComponentClasses = this.moodService.getComponentMoodClasses();
-    this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
   }
 
   ngAfterViewInit(): void

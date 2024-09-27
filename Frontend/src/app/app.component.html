@@ -4,24 +4,26 @@
   <router-outlet></router-outlet>
 </div>
 <div *ngIf="!isCurrentRouteAuth()">
-  <div *ngIf="screenSize === 'desktop'" class="grid grid-cols-5 grid-rows-[0.01fr,0.01fr,0.67fr] min-h-screen pl-2 pr-2 relative">
-    <app-header [ngClass]="'col-start-' + columnStart" class="col-span-1 row-start-2 row-span-1 pl-[2.5vw]"></app-header>
-    <app-other-nav class="col-start-5 col-span-1 row-start-1 row-span-1 justify-self-end"></app-other-nav>
+  <div *ngIf="screenSize === 'desktop'" class="grid grid-cols-[37.5vh,1fr,1fr,1fr,1fr] grid-rows-[0.01fr,0.033fr,0.67fr] gap-x-7 min-h-screen pl-2 pr-2 relative">
     <app-navbar class="col-start-1 col-span-1 row-start-1 row-span-3"></app-navbar>
-    <app-side-bar [isSideBarHidden]="isSidebarOpen" (sidebarToggled)="layout($event)" class="col-start-1 col-span-1 row-start-2 row-span-3 pr-2"></app-side-bar>
+    <app-other-nav class="col-start-5 col-span-1 row-start-1 row-span-1 justify-self-end"></app-other-nav>
+    <div class="col-start-1 col-span-1 row-start-2 row-span-1 ">
+      <app-expandable-icon (click)="toggleSideBar()"></app-expandable-icon>
+    </div>
+    <app-side-bar *ngIf="!isSideBarHidden" (sidebarToggled)="layout($event)" class="col-start-1 col-span-1 row-start-3 row-span-3 pr-2"></app-side-bar>
     <!-- dont remove this div -->
     <div class="col-span-4"></div> 
     <div [ngClass]="'col-span-' + colSpan + ' col-start-' + columnStart"
-      id="center"
-      class="no-scrollbar row-span-2 row-start-3 overflow-y-scroll overflow-hidden p-2">
-
+      id="center" style="background-color: rgba(0, 0, 0, 0.7); height: 72.5vh;" 
+      class="no-scrollbar row-span-2 row-start-3 overflow-y-scroll overflow-hidden p-4 rounded-xl border-black h-full no-scrollbar border overflow-y-scroll">
       <router-outlet></router-outlet>
     </div>
   </div>  
+  
   <div *ngIf="screenSize === 'mobile'">
-    <div class="grid grid-cols-3 grid-rows-[0.1fr,1fr,1fr] min-h-screen relative">
+    <div class="grid grid-cols-3 grid-rows-[0.1fr,1fr,1fr]  gap-x-4 min-h-screen relative">
       <app-header class="col-start-2 col-span-1 row-start-1 row-span-1"></app-header>
-      <div class="col-start-1 col-span-3 row-start-2 row-span-2">
+      <div class="col-start-1 col-span-3 row-start-2 row-span-2" style="background-color: rgba(0, 0, 0, 0.7);">
         <router-outlet></router-outlet>
       </div>
     </div>

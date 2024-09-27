@@ -160,7 +160,7 @@ describe('SpotifyService', () => {
       // Assert
       expect(service.getAccessKey).toHaveBeenCalled();
       expect(httpService.post).toHaveBeenCalledWith(
-        "https://echo-ai-interface.azurewebsites.net/api/get_recommendations",
+        "https://echo-interface.azurewebsites.net/api/get_recommendations",
         {
           access_key: mockAccessKey,
           artist: artist,

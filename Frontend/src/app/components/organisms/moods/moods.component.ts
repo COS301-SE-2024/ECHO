@@ -9,6 +9,7 @@ import { PageTitleComponent } from '../../atoms/page-title/page-title.component'
 import { MoodsListComponent } from '../../molecules/moods-list/moods-list.component';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { SearchService, Track } from "../../../services/search.service";
 
 
 
@@ -32,14 +33,14 @@ export class MoodsComponent implements OnDestroy {
     private screenSizeSubscription?: Subscription; // For unsubscribing
 
     constructor(
-        private screenSizeService: ScreenSizeService, 
+        private screenSizeService: ScreenSizeService,
         public moodService: MoodService,
         private dialog: MatDialog,
-        private router: Router
+        private router: Router,
+        private searchService: SearchService
     ) {
         this.allMoods = this.moodService.getAllMoods();
-        this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
-        this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
+        this.moodComponentClasses = this.moodService.getComponentMoodClasses();
     }
     async ngOnInit() {
         this.screenSizeSubscription = this.screenSizeService.screenSize$.subscribe(screenSize => {
@@ -55,40 +56,78 @@ export class MoodsComponent implements OnDestroy {
             '/assets/moods/taylor.jpeg',
             '/assets/moods/impala.jpeg',
         ];
-    
-        allMoodNames.forEach((moodName, index) => {
-            const moodWithDefaultImage = {
-                name: moodName,
-                image: defaultImagePaths[index % defaultImagePaths.length],
-            };
-            this.favouriteMoods.push(moodWithDefaultImage);
-            this.RecommendedMoods.push(moodWithDefaultImage);
-        });
+
+      this.loadMoods(defaultImagePaths);
+      this.loadRecommendedMoods(defaultImagePaths);
     }
 
     ngOnDestroy() {
         this.screenSizeSubscription?.unsubscribe(); // Proper cleanup
     }
 
+  // Load moods and randomly assign default images from the array
+  loadMoods(defaultImagePaths: string[]): void {
+    const moodNames = ['Joy', 'Anger', 'Sadness', 'Excitement']; // Example moods
+
+    moodNames.forEach(moodName => {
+      this.searchService.getSongsByMood(moodName).subscribe(
+        (tracks: Track[]) => {
+          // Select a random image from the defaultImagePaths
+          const randomImage = defaultImagePaths[Math.floor(Math.random() * defaultImagePaths.length)];
+          const moodWithTracks = {
+            name: moodName,
+            tracks: tracks, // Assign the tracks fetched by the API
+            image: randomImage, // Assign a random image from the array
+          };
+          this.favouriteMoods.push(moodWithTracks);
+        },
+        error => {
+          console.error(`Failed to load tracks for mood ${moodName}:`, error);
+        }
+      );
+    });
+  }
+
+  // Load recommended moods and randomly assign default images from the array
+  loadRecommendedMoods(defaultImagePaths: string[]): void {
+    this.searchService.getSuggestedMoods().subscribe(
+      (moodPlaylists) => {
+        moodPlaylists.forEach(moodPlaylist => {
+          // Select a random image from the defaultImagePaths
+          const randomImage = defaultImagePaths[Math.floor(Math.random() * defaultImagePaths.length)];
+          const moodWithTracks = {
+            name: moodPlaylist.mood,
+            tracks: moodPlaylist.tracks,
+            image: randomImage, // Assign a random image
+          };
+          this.RecommendedMoods.push(moodWithTracks);
+        });
+      },
+      (error: any) => {
+        console.error('Failed to load recommended moods:', error);
+      }
+    );
+  }
+
     redirectToMoodPage(mood: any): void {
         this.router.navigate(['/mood'], { queryParams: { title: mood.name } });
     }
-    
+
     // openModal(mood: any): void {
     //   const dialogRef = this.dialog.open(SongViewComponent, {
     //     width: '500px'
     //   });
-  
+
     //   dialogRef.componentInstance.selectedSong = {
     //     image: mood.image,
     //     title: mood.name,
-    //     artist: 'Artist Name', 
-    //     album: 'Album Name', 
-    //     duration: 'Duration', 
-    //     genre: 'Genre', 
-    //     similarSongs: ['Song 1', 'Song 2', 'Song 3'] 
+    //     artist: 'Artist Name',
+    //     album: 'Album Name',
+    //     duration: 'Duration',
+    //     genre: 'Genre',
+    //     similarSongs: ['Song 1', 'Song 2', 'Song 3']
     //   };
-  
+
     //   dialogRef.afterClosed().subscribe(result => {
     //     console.log('The dialog was closed');
     //   });

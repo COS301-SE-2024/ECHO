@@ -11,11 +11,11 @@ import { MoodService } from "../../../../services/mood-service.service";
 import { SpotifyService } from "../../../../services/spotify.service";
 import { ProviderService } from "../../../../services/provider.service";
 import { YouTubeService } from "../../../../services/youtube.service";
-
+import { BackButtonComponent } from "../../../atoms/back-button/back-button.component";
 @Component({
   selector: "app-search",
   standalone: true,
-  imports: [NgIf, NgForOf, NgClass, AsyncPipe, TopResultComponent, NavbarComponent, SearchBarComponent],
+  imports: [NgIf, NgForOf, NgClass, AsyncPipe, TopResultComponent, NavbarComponent, SearchBarComponent,BackButtonComponent],
   templateUrl: "./search.component.html",
   styleUrl: "./search.component.css"
 })
@@ -46,7 +46,6 @@ export class SearchComponent implements OnInit
   {
     this.currentMood = this.moodService.getCurrentMood();
     this.moodComponentClasses = this.moodService.getComponentMoodClasses();
-    this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
     this.songs$ = this.searchService.getSearch();
     this.albums$ = this.searchService.getAlbumSearch();
     this.topResult$ = this.searchService.getTopResult();

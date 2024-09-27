@@ -1,20 +1,21 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
-import { SpotifyLoginComponent } from '../../components/organisms/spotify-login/spotify-login.component';
-import { AuthService } from '../../services/auth.service';
+import { SpotifyLoginComponent } from '../../../../components/organisms/spotify-login/spotify-login.component';
+import { AuthService } from '../../../../services/auth.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { ToastComponent } from '../../components/organisms/toast/toast.component';
+import { ToastComponent } from '../../../../components/organisms/toast/toast.component';
 import { CommonModule } from '@angular/common';
-import { AppleLoginComponent } from "../../components/organisms/apple-login/apple-login.component";
-import { GoogleLoginComponent } from "../../components/organisms/google-login/google-login.component";
+import { AppleLoginComponent } from "../../../../components/organisms/apple-login/apple-login.component";
+import { GoogleLoginComponent } from "../../../../components/organisms/google-login/google-login.component";
+
 @Component({
-    selector: 'app-register',
-    standalone: true,
+  selector: 'app-desk-register',
+  standalone: true,
   imports: [SpotifyLoginComponent, FormsModule, ToastComponent, CommonModule, AppleLoginComponent, GoogleLoginComponent],
-    templateUrl: './register.component.html',
-    styleUrl: './register.component.css',
+  templateUrl: './desk-register.component.html',
+  styleUrl: './desk-register.component.css'
 })
-export class RegisterComponent {
+export class DeskRegisterComponent {
     username: string = '';
     email: string = '';
     password: string = '';
@@ -51,7 +52,9 @@ export class RegisterComponent {
         (error) => this.toastComponent.showToast("Ensure password contains at least one lower case letter, one capital letter, one number, and one symbol.", 'error')
       );
     }
-
+    navigateTologin(){
+      this.router.navigate(['/login']);
+    }
     toggleModal(): void {
       this.showModal = !this.showModal;
     }
@@ -75,3 +78,4 @@ export class RegisterComponent {
       this.showPrivacyModal = false;
     }
 }
+

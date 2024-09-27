@@ -1,7 +1,6 @@
 import { RouterModule, Routes } from "@angular/router";
 import { LandingPageComponent } from "./pages/landing-page/landing-page.component";
-import { LoginComponent } from "./pages/login/login.component";
-import { RegisterComponent } from "./pages/register/register.component";
+// import { RegisterComponent } from "./pages/register/register.component";
 import { HomeComponent } from "./components/templates/desktop/home/home.component";
 import { ProfileComponent } from "./pages/profile/profile.component";
 import { AuthCallbackComponent } from "./authcallback/authcallback.component";
@@ -13,13 +12,14 @@ import { MoodComponent } from "./pages/mood/mood.component";
 import { NgModule } from "@angular/core";
 import { InsightsComponent } from "./pages/insights/insights.component";
 import { HelpMenuComponent } from "./pages/help-menu/help-menu.component";
-import { LoginComponentview} from "./views/login/login.component";
 import { EchoSongComponent } from "./components/templates/desktop/echo-song/echo-song.component";
-
+//vies 
+import { LoginComponentview} from "./views/login/login.component";
+import { RegisterComponent} from "./views/register/register.component";
 
 export const routes: Routes = [
   { path: "landing", component: LandingPageComponent },
-  { path: "login", component: LoginComponent },
+  { path: "login", component: LoginComponentview},
   { path: "home", component: HomeComponent},
   { path: "register", component: RegisterComponent },
   { path: "profile", component: ProfileComponent },
@@ -31,7 +31,6 @@ export const routes: Routes = [
   { path: "help", component: HelpMenuComponent },
   { path: "insights", component: InsightsComponent},
   { path: "search", component: SearchComponent},
-  { path: "newlogin", component: LoginComponentview},
   { path: "library", component: UserLibraryComponent},
   { path: "echo Song", component: EchoSongComponent},
   { path: '**', redirectTo: '/login' } //DO NOT MOVE - MUST ALWAYS BE LAST

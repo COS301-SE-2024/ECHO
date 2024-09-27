@@ -26,7 +26,6 @@ export class TopArtistCardComponent {
     private router: Router,
   ) {
     this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
-    this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
     this.MoodClassesDark = this.moodService.getComponentMoodClassesDark();
   }
 
