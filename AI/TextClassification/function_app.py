@@ -37,7 +37,7 @@ def get_songs(req: func.HttpRequest) -> func.HttpResponse:
                     mimetype="application/json",
                     status_code=400
                 )
-
+            print("running classification")
             emotion = classification.run_lyric_analysis(track_name, artist_name)
 
             similar_songs.append({

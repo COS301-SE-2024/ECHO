@@ -51,7 +51,6 @@ describe('ArtistProfileComponent', () => {
             imports: [ArtistProfileComponent],
             providers: [
                 { provide: AuthService, useValue: authServiceMock },
-                { provide: ThemeService, useValue: themeServiceMock },
                 { provide: ScreenSizeService, useValue: screenSizeServiceMock },
                 { provide: MatDialog, useValue: dialogMock },
                 { provide: SpotifyService, useValue: spotifyServiceMock },
@@ -72,11 +71,6 @@ describe('ArtistProfileComponent', () => {
         expect(authServiceMock.currentUser).toHaveBeenCalled();
         expect(component.username).toBe('Test User');
         expect(component.imgpath).toBe('test.jpg');
-    });
-
-    it('should call switchTheme on themeService when switchTheme is called', () => {
-        component.switchTheme();
-        expect(themeServiceMock.switchTheme).toHaveBeenCalled();
     });
 
     it('should set screenSize after ngOnInit is called', async () => {

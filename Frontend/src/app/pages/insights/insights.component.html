@@ -1,11 +1,57 @@
-<div class="w-full h-full">
-  <canvas class="w-full h-full" id="MyChart"></canvas>
-  <button [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]" class="font-medium rounded-lg text-sm px-4 py-2.5 text-center" (click)="nextChartType()">Next</button>
-</div>
-
-<!-- <div *ngIf="screenSize === 'mobile'" class="mobile-layout">
-  <div [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]" class="min-h-screen grid grid-cols-5 grid-rows-6 gap-4 px-6 py-3 lg:px-8" style="overflow: auto;">
-      <canvas class="left-1/2 top-1/2 pt-12" id="MyChart" ></canvas>
+<div id="center" style="height: 100vh; width: 100%;">
+  <h1 class="text-3xl font-bold text-white text-center mb-6">Listening Insights</h1>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
+    <div class="bg-stone-900 shadow-lg rounded-lg p-6 text-center">
+      <h2 class="text-2xl font-semibold text-white">Top Mood</h2>
+      <p class="text-xl text-gray-300">Joy</p>
+    </div>
+    <div class="bg-stone-900 shadow-lg rounded-lg p-6 text-center">
+      <h2 class="text-2xl font-semibold text-white">Total Listening Time</h2>
+      <p class="text-xl text-gray-300">42 hrs</p>
+    </div>
+    <div class="bg-stone-900 shadow-lg rounded-lg p-6 text-center">
+      <h2 class="text-2xl font-semibold text-white">Most Listened Artist</h2>
+      <p class="text-xl text-gray-300">The Weeknd</p>
+    </div>
+    <div class="bg-stone-900 shadow-lg rounded-lg p-6 text-center">
+      <h2 class="text-2xl font-semibold text-white">Most Played Track</h2>
+      <p class="text-xl text-gray-300">Blinding Lights</p>
+    </div>
+    <div class="bg-stone-900 shadow-lg rounded-lg p-6 text-center">
+      <h2 class="text-2xl font-semibold text-white">Top Genre</h2>
+      <p class="text-xl text-gray-300">Pop</p>
+    </div>
+    <div class="bg-stone-900 shadow-lg rounded-lg p-6 text-center">
+      <h2 class="text-2xl font-semibold text-white">Average Song Duration</h2>
+      <p class="text-xl text-gray-300">3 min 45 sec</p>
+    </div>
+    <div class="bg-stone-900 shadow-lg rounded-lg p-6 text-center">
+      <h2 class="text-2xl font-semibold text-white">Most Active Day</h2>
+      <p class="text-xl text-gray-300">Saturday</p>
+    </div>
+    <div class="bg-stone-900 shadow-lg rounded-lg p-6 text-center">
+      <h2 class="text-2xl font-semibold text-white">Unique Artists Listened</h2>
+      <p class="text-xl text-gray-300">28</p>
+    </div>
   </div>
-  <button [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]" class="font-medium rounded-lg text-sm px-4 py-2.5 text-center" (click)="nextChartType()">Next</button>
-</div> -->
+
+  <!-- Mood Distribution Chart -->
+  <div style="background-color: rgba(0, 0, 0, 0.3);" class="shadow-lg rounded-lg p-6 mb-8">
+    <h2 class="text-2xl font-semibold text-white mb-4">Mood Distribution</h2>
+    <canvas id="MoodChart" class="w-full h-64"></canvas>
+  </div>
+
+
+  <!-- Listening by Service (Spotify/YouTube) -->
+  <div style="background-color: rgba(0, 0, 0, 0.3);" class="shadow-lg rounded-lg p-6 mb-8">
+    <h2 class="text-2xl font-semibold text-white mb-4">Listening by Service</h2>
+    <canvas id="ServiceChart" class="w-full h-64"></canvas>
+  </div>
+
+  <!-- Top Genres Chart -->
+  <div style="background-color: rgba(0, 0, 0, 0.3);" class="shadow-lg rounded-lg p-6">
+    <h2 class="text-2xl font-semibold text-white b-4">Top Genres</h2>
+    <canvas id="GenreChart" class="w-full h-64"></canvas>
+  </div>
+
+</div>

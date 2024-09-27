@@ -42,7 +42,6 @@ export class SettingsComponent {
   ) {
     this.currentMood = this.moodService.getCurrentMood(); 
     this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
-    this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
   }
 
 
@@ -50,7 +49,9 @@ export class SettingsComponent {
   {
     this.activeSetting = buttonLabel;
   }
-
+  getButtonClass(setting: string): boolean {
+    return this.activeSetting === setting ? true : false;
+  }
   async ngOnInit() {
     this.screenSizeService.screenSize$.subscribe(screenSize => {
       this.screenSize = screenSize;

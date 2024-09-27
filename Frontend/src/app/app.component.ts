@@ -6,16 +6,18 @@ import { ScreenSizeService } from "./services/screen-size-service.service";
 import { SwUpdate } from "@angular/service-worker";
 import { filter } from "rxjs/operators";
 import { CommonModule, isPlatformBrowser } from "@angular/common";
-import { SideBarComponent } from "./components/organisms/side-bar/side-bar.component";
 import { ProviderService } from "./services/provider.service";
 import { PageHeaderComponent } from "./components/molecules/page-header/page-header.component";
 import { MoodService } from "./services/mood-service.service";
-import { BackgroundAnimationComponent } from "./components/organisms/background-animation/background-animation.component";
-
+import {
+  BackgroundAnimationComponent
+} from "./components/organisms/background-animation/background-animation.component";
+import { ExpandableIconComponent } from './components/organisms/expandable-icon/expandable-icon.component';
+import { NavbarComponent } from "./components/organisms/navbar/navbar.component";
+import { SideBarComponent } from './components/organisms/side-bar/side-bar.component';
 //template imports
 import { HeaderComponent } from "./components/organisms/header/header.component";
 import { OtherNavComponent } from "./components/templates/desktop/other-nav/other-nav.component";
-import { LeftComponent } from "./components/templates/desktop/left/left.component";
 import { AuthService } from "./services/auth.service";
 import { PlayerStateService } from "./services/player-state.service";
 import { Observable } from "rxjs";
@@ -31,16 +33,23 @@ import { Observable } from "rxjs";
     PageHeaderComponent,
     HeaderComponent,
     OtherNavComponent,
-    LeftComponent,
-    BackgroundAnimationComponent
+    BackgroundAnimationComponent,
+    NavbarComponent,
+    SideBarComponent,
+    ExpandableIconComponent
   ],
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"]
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit, OnDestroy
+{
   update: boolean = false;
   screenSize!: string;
   displayPageName: boolean = false;
+  columnStart: number = 3; 
+  columnStartNav: number = 1; 
+  colSpan: number = 4; 
+  isSidebarOpen: boolean = false;
   protected displaySideBar: boolean = false;
   protected isAuthRoute: boolean = false;
   protected isCallbackRoute: boolean = false;
@@ -49,6 +58,7 @@ export class AppComponent implements OnInit, OnDestroy {
   moodComponentClasses!: { [key: string]: string };
   backgroundMoodClasses!: { [key: string]: string };
   isLoggedIn$!: Observable<boolean>;
+  isSideBarHidden!: boolean; // Declare Input
 
   constructor(
     private router: Router,
@@ -59,14 +69,16 @@ export class AppComponent implements OnInit, OnDestroy {
     public moodService: MoodService,
     private authService: AuthService,
     private playerStateService: PlayerStateService,
-    @Inject(PLATFORM_ID) private platformId: Object,
-  ) {
-    this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
+    @Inject(PLATFORM_ID) private platformId: Object
+  )
+  {
     this.isLoggedIn$ = this.authService.isLoggedIn$;
-    updates.versionUpdates.subscribe(event => {
-      if (event.type === "VERSION_READY") {
-        console.log("Version ready to install:");
-        updates.activateUpdate().then(() => {
+    updates.versionUpdates.subscribe(event =>
+    {
+      if (event.type === "VERSION_READY")
+      {
+        updates.activateUpdate().then(() =>
+        {
           this.update = true;
           document.location.reload();
         });
@@ -75,35 +87,53 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.router.events.pipe(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd)
-    ).subscribe((event: NavigationEnd) => {
-      console.log('Navigation ended:', event.urlAfterRedirects);
-      this.isAuthRoute = ['/login', '/register'].includes(event.urlAfterRedirects);
-      this.isCallbackRoute = ['/auth/callback'].includes(event.urlAfterRedirects);
+    ).subscribe((event: NavigationEnd) =>
+    {
+      this.isAuthRoute = ["/login", "/register"].includes(event.urlAfterRedirects);
+      this.isCallbackRoute = ["/auth/callback"].includes(event.urlAfterRedirects);
     });
   }
 
-  async ngOnInit() {
-    this.screenSizeService.screenSize$.subscribe(screenSize => {
+  async ngOnInit()
+  {
+    this.screenSizeService.screenSize$.subscribe(screenSize =>
+    {
       this.screenSize = screenSize;
     });
   }
-  async ngAfterViewInit() {
+
+  async ngAfterViewInit()
+  {
     this.playerStateService.setReady();
   }
 
-  isCurrentRouteAuth(): boolean {
-    return ['/login', '/register','/Auth/callback'].includes(this.router.url);
+  isCurrentRouteAuth(): boolean
+  {
+    return ["/login", "/register", "/Auth/callback"].includes(this.router.url);
   }
 
+  layout(isSidebarOpen: boolean) {
+    this.isSidebarOpen = isSidebarOpen;
+    this.columnStart = isSidebarOpen ? 1 : 3;    
+    this.colSpan = isSidebarOpen ? 5 : 4;
+  }
 
-  isReady(): boolean {
+  isReady(): boolean
+  {
     if (isPlatformBrowser(this.platformId))
       return this.playerStateService.isReady();
     return false;
+  }
+
+  toggleSideBar() {
+    this.isSideBarHidden = !this.isSideBarHidden;
+    this.layout(this.isSideBarHidden);
   }
 
   ngOnDestroy()
   {
     this.authService.signOut();
   }
+
+
 }

@@ -35,7 +35,6 @@ describe('UserLibraryComponent', () => {
       ],
       providers: [
         provideHttpClient(withInterceptorsFromDi()),
-        { provide: ThemeService, useClass: MockThemeService },
         { provide: AuthService, useClass: MockAuthService },
         { provide: SpotifyService, useClass: MockSpotifyService },
         { provide: ScreenSizeService, useClass: MockScreenSizeService }
@@ -50,12 +49,6 @@ describe('UserLibraryComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('should switch themes when method is called', () => {
-    const themeService = fixture.debugElement.injector.get(ThemeService) as MockThemeService;  // Correct way to get service instance
-    themeService.switchTheme();
-    expect(themeService.isDarkModeActive()).toBe(true);  // Assuming you want to check something like this
   });
 
   afterEach(() => {

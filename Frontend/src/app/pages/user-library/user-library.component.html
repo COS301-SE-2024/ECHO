@@ -1,5 +1,7 @@
-<h2 class="text-gray-dark dark:text-gray-verylight font-bold mb-2 mt-4">My Artists</h2>
-        <div class="flex space-x-2 overflow-x-autono-scrollbar">
+<h1 class="text-3xl font-bold text-white text-center mb-6">User Library</h1>
+
+<h2 class="text-white font-bold mb-2 mt-4">My Artists</h2>
+        <div class="flex space-x-2 overflow-x-auto no-scrollbar">
           <ng-container *ngFor="let artist of artists">
             <app-top-artist-card 
               [imageUrl]="artist.imageUrl" 
@@ -9,7 +11,7 @@
           </ng-container>
         </div>
 
-        <h2 class="text-gray-dark dark:text-gray-verylight font-bold mb-2 mt-10">My Songs</h2>
+        <h2 class="text-white font-bold mb-2 mt-10">My Songs</h2>
           <div class="flex space-x-2 overflow-x-auto no-scrollbar">
           <ng-container *ngFor="let item of recentListeningCardData">
             <app-top-card 
@@ -19,4 +21,4 @@
             >
             </app-top-card>
           </ng-container>
-        </div>
+</div>

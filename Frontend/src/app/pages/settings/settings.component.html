@@ -1,23 +1,23 @@
-<div [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]" class="flex flex-col h-dvh dark:bg-desktop-bg bg-gray-verylight px-10 py-10 pb-36" style="overflow: hidden;">
+<div  class="rounded-xl flex flex-col h-dvh opacity-70" style="overflow: hidden;">
     <!-- Main container -->
-     <div [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]" class="h-full flex bg-gray-component rounded-xl gap-x-20 p-20">
+     <div class="h-full flex rounded-xl gap-x-20">
         <!-- Left Nav -->
-        <app-back-button [buttonClasses]="backgroundMoodClasses[this.moodService.getCurrentMood()]"></app-back-button>
+        <app-back-button></app-back-button>
         <div class="w-1/4 grid grid-cols-1 grid-rows-7 px-4 position: fixed;">
-            <h2 class="text-white mb-4 text-2xl font-bold">Settings</h2>
-            <button class="bg-gray-light hover:bg-pink text-white font-bold py-2 px-4 rounded-full  h-10 min-w-32" [ngClass]="{'bg-pink': activeSetting === 'Account'}" (click)="showSettings('Account')">
+              <h2 class="text-white mb-4 text-2xl font-bold">Settings</h2>
+            <button class="text-white font-bold py-2 px-4 rounded-full h-10 min-w-32" [ngClass]="getButtonClass('Account') ? this.moodComponentClasses[this.moodService.getCurrentMood()]: 'bg-gray-light'" (click)="showSettings('Account')">
                 Account
             </button>
-            <button class="bg-gray-light hover:bg-pink text-white font-bold py-2 px-4 rounded-full h-10 min-w-32" [ngClass]="{'bg-pink': activeSetting === 'Privacy'}" (click)="showSettings('Privacy')">
+            <button class="text-white font-bold py-2 px-4 rounded-full h-10 min-w-32" [ngClass]="getButtonClass('Privacy') ? this.moodComponentClasses[this.moodService.getCurrentMood()]: 'bg-gray-light'"  (click)="showSettings('Privacy')">
                 Privacy
             </button>
-            <button class="bg-gray-light hover:bg-pink text-white font-bold py-2 px-4 rounded-full h-10 min-w-32" [ngClass]="{'bg-pink': activeSetting === 'Display'}" (click)="showSettings('Display')">
+            <button class="text-white font-bold py-2 px-4 rounded-full h-10 min-w-32" [ngClass]="getButtonClass('Display') ? this.moodComponentClasses[this.moodService.getCurrentMood()]: 'bg-gray-light'"  (click)="showSettings('Display')">
                 Display
             </button>
-            <button class="bg-gray-light hover:bg-pink text-white font-bold py-2 px-4 rounded-full h-10 min-w-32" [ngClass]="{'bg-pink': activeSetting === 'Audio'}" (click)="showSettings('Audio')">
+            <button class="text-white font-bold py-2 px-4 rounded-full h-10 min-w-32" [ngClass]="getButtonClass('Audio') ? this.moodComponentClasses[this.moodService.getCurrentMood()]: 'bg-gray-light'"  (click)="showSettings('Audio')">
                 Audio
             </button>
-            <button class="bg-gray-light hover:bg-pink text-white font-bold py-2 px-4 rounded-full h-10 min-w-32" [ngClass]="{'bg-pink': activeSetting === 'Language'}" (click)="showSettings('Language')">
+            <button class="text-white font-bold py-2 px-4 rounded-full h-10 min-w-32" [ngClass]="getButtonClass('Language') ? this.moodComponentClasses[this.moodService.getCurrentMood()]: 'bg-gray-light'"  (click)="showSettings('Language')">
                 Language
             </button>
         </div>

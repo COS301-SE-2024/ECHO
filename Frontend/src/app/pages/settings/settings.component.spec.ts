@@ -20,7 +20,6 @@ describe('SettingsComponent', () => {
     await TestBed.configureTestingModule({
       imports: [SettingsComponent],
       providers: [
-        { provide: ThemeService, useValue: themeServiceMock },
         { provide: SpotifyService, useValue: spotifyServiceMock },
         { provide: ScreenSizeService, useValue: screenSizeServiceMock },
       ]
@@ -34,11 +33,6 @@ describe('SettingsComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('should call switchTheme on themeService when switchTheme is called', () => {
-    component.switchTheme();
-    expect(themeServiceMock.switchTheme).toHaveBeenCalled();
   });
 
   it('should update activeSetting when showSettings is called', () => {

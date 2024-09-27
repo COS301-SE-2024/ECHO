@@ -27,7 +27,6 @@ export class TopCardComponent {
     protected dialog: MatDialog,
   ) {
     this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
-    this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
     this.MoodClassesDark = this.moodService.getComponentMoodClassesDark();
   }
 
@@ -37,7 +36,6 @@ export class TopCardComponent {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-        console.log('The dialog was closed');
     });
   }
 }

@@ -26,6 +26,7 @@ dist-ssr
 *.sln
 *.sw?
 .prettierrc
-
+Frontend/coverage
 .env
 *.base64
+Frontend/coverage

@@ -1,4 +1,10 @@
 import requests
+import os
+from openai import OpenAI
+
+client = OpenAI()
+
+ACCESS_TOKEN = os.environ.get("ACCESS_TOKEN")
 
 
 def get_deezer_preview_url(song_name, artist_name):
@@ -39,5 +45,24 @@ def get_album_genre(song_name, artist_name):
                 return ""
         else:
             return ""
+    else:
+        return ""
+
+
+def get_genre_from_llm(song_name, artist):
+    prompt = f"The song '{song_name}' by '{artist}' has a genre, please use your knowledge of the song and artist to predict the genre of the song."
+
+    completion = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[
+            {"role": "system", "content": "You are an AI model trained to predict genres based on songs and artists."},
+            {"role": "user", "content": prompt}
+        ]
+    )
+
+    if completion.choices and completion.choices[0].message:
+        genre = completion.choices[0].message.content.strip()
+        print("Genre: " + genre)
+        return genre
     else:
         return ""

@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable, BehaviorSubject } from "rxjs";
 import { tap } from "rxjs/operators";
 import { TokenService } from "./token.service";
+import { environment } from "../../environments/environment";
 
 export interface Track
 {
@@ -56,6 +57,8 @@ export class SearchService
   albumResult$ = this.albumResultSubject.asObservable();
   topResult$ = this.topResultSubject.asObservable();
 
+  private apiUrl = environment.apiUrl;
+
   constructor(private httpClient: HttpClient, private tokenService: TokenService, private http: HttpClient)
   {
   }
@@ -63,12 +66,11 @@ export class SearchService
   // Store search results in searchResultSubject and set topResultSubject
   storeSearch(query: string): Observable<Track[]>
   {
-    return this.httpClient.post<Track[]>(`http://localhost:3000/api/search/search`, { "title": query })
+    return this.httpClient.post<Track[]>(`${this.apiUrl}/search/search`, { "title": query })
       .pipe(
         tap(results =>
         {
           this.searchResultSubject.next(results);
-          console.log("search results: ", results);
           if (results.length > 0)
           {
             this.topResultSubject.next(results[0]);  // Update topResultSubject
@@ -80,12 +82,11 @@ export class SearchService
   // Store album search results in albumResultSubject
   storeAlbumSearch(query: string): Observable<Track[]>
   {
-    return this.httpClient.post<Track[]>(`http://localhost:3000/api/search/album`, { "title": query })
+    return this.httpClient.post<Track[]>(`${this.apiUrl}/search/album`, { "title": query })
       .pipe(
         tap(results =>
         {
           this.albumResultSubject.next(results);
-          console.log("search results: ", results);
         })
       );
   }
@@ -116,7 +117,7 @@ export class SearchService
     const laccessToken = this.tokenService.getAccessToken();
     const lrefreshToken = this.tokenService.getRefreshToken();
 
-    const response = await this.http.post<any>(`http://localhost:3000/api/spotify/queue`, {
+    const response = await this.http.post<any>(`${this.apiUrl}/spotify/queue`, {
       artist: artistName,
       song_name: trackName,
       accessToken: laccessToken,
@@ -148,7 +149,7 @@ export class SearchService
   // Get the tracks of a specific album
   public async getAlbumInfo(albumName: string): Promise<AlbumTrack[]>
   {
-    const response = await this.http.post<any>(`http://localhost:3000/api/search/album-info`, {
+    const response = await this.http.post<any>(`${this.apiUrl}/search/album-info`, {
       title: albumName
     }).toPromise();
 
@@ -176,7 +177,7 @@ export class SearchService
   //This function gets the details of a specific artist
   public async getArtistInfo(artistName: string): Promise<Artist[]>
   {
-    const response = await this.http.post<any>(`http://localhost:3000/api/search/album-info`, {
+    const response = await this.http.post<any>(`${this.apiUrl}/search/album-info`, {
       artist: artistName
     }).toPromise();
 
@@ -202,6 +203,18 @@ export class SearchService
     {
       throw new Error("Invalid response structure when searching for an artist");
     }
+  }
+
+  // This function gets the songs for a specific mood
+  getSongsByMood(mood: string): Observable<Track[]>
+  {
+    return this.httpClient.get<Track[]>(`${this.apiUrl}/search/mood?mood=${mood}`);
+  }
+
+  // New Method: Fetch suggested moods with their tracks
+  getSuggestedMoods(): Observable<{ mood: string; tracks: Track[] }[]>
+  {
+    return this.httpClient.get<{ mood: string; tracks: Track[] }[]>(`${this.apiUrl}/search/suggested-moods`);
   }
 
 

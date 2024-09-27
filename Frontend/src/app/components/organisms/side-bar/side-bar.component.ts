@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef } from "@angular/core";
+import { Component, OnInit, ViewChild, EventEmitter, Output, ChangeDetectorRef,Input } from "@angular/core";
 import { MatCard, MatCardContent } from "@angular/material/card";
 import { NgClass, NgForOf, NgIf } from "@angular/common";
 import { SpotifyService } from "../../../services/spotify.service";
@@ -21,11 +21,12 @@ type SelectedOption = "suggestions" | "recentListening";
   standalone: true,
   imports: [MatCard, MatCardContent, NgForOf, NgIf, NgClass, EchoButtonComponent, SongCardsComponent, SkeletonSongCardComponent, ToastComponent],
   templateUrl: "./side-bar.component.html",
-  styleUrls: ["./side-bar.component.css"]
+  styleUrls: ["./side-bar.component.css"],
 })
 export class SideBarComponent implements OnInit
 {
   @ViewChild(ToastComponent) toastComponent!: ToastComponent; // Declare ToastComponent
+  @Output() sidebarToggled = new EventEmitter<boolean>(); // Declare EventEmitter
 
   // Mood Service Variables
   moodComponentClasses!: { [key: string]: string };
@@ -44,7 +45,6 @@ export class SideBarComponent implements OnInit
   )
   {
     this.moodComponentClasses = this.moodService.getComponentMoodClasses();
-    this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
     this.underline = this.moodService.getUnerlineMoodClasses();
   }
 
@@ -62,13 +62,9 @@ export class SideBarComponent implements OnInit
   isLoading: boolean = true;
   skeletonArray = Array(10);
 
-  async ngAfterViewInit()
-  {
-    this.cdRef.detectChanges();
-  }
 
-  toggleDropdown(): void
-  {
+
+  toggleDropdown(): void {
     this.isDropdownVisible = !this.isDropdownVisible;
   }
 
@@ -116,9 +112,7 @@ export class SideBarComponent implements OnInit
       {
         this.suggestionsCardData = await this.spotifyService.getQueue(this.provider);
         await this.suggestionsCardData.unshift(this.getEchoedCardData()[0]);
-      }
-      catch (error)
-      {
+      } catch (error) {
         console.error("Error loading up next data:", error);
       }
     }
@@ -154,9 +148,9 @@ export class SideBarComponent implements OnInit
       {
         this.isLoading = true;
         const data = await this.spotifyService.getRecentlyPlayedTracks(this.provider);
-        console.log("Recently Played Tracks Data:", data);
-        data.items.forEach((item: any) =>
-        {
+        console.log("First track: ", data.items[0]);
+        console.log("First track: ", data.items[0]);
+        data.items.forEach((item: any) => {
           const trackId = item.track.id;
           if (!this.recentListeningCardData.find(track => track.id === trackId))
           {
@@ -176,7 +170,7 @@ export class SideBarComponent implements OnInit
         this.isLoading = false;
         if (this.selectedOption === "recentListening")
         {
-          this.toastComponent.showToast("Error fetching recently played tracks", "error"); // Show error toast
+          this.toastComponent.showToast("Error fetching recently played tracks", "error");
         }
       }
     }
@@ -198,7 +192,6 @@ export class SideBarComponent implements OnInit
                 secondaryText: track.secondaryText,
                 explicit: false
               });
-              this.isLoading = false;
             }
           });
         }
@@ -206,10 +199,14 @@ export class SideBarComponent implements OnInit
         {
           console.error("No tracks found in YouTube top tracks.");
         }
+        this.isLoading = false;
       }).catch(error =>
       {
         this.isLoading = false;
-        console.error("Error fetching top YouTube tracks:", error);
+        if (this.selectedOption === "recentListening")
+        {
+          this.toastComponent.showToast("Error fetching recently played tracks", "error");
+        }
       });
     }
   }

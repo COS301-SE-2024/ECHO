@@ -51,7 +51,9 @@ export class RegisterComponent {
         (error) => this.toastComponent.showToast("Ensure password contains at least one lower case letter, one capital letter, one number, and one symbol.", 'error')
       );
     }
-
+    navigateTologin(){
+      this.router.navigate(['/login']);
+    }
     toggleModal(): void {
       this.showModal = !this.showModal;
     }

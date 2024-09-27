@@ -16,7 +16,6 @@ import { HelpMenuComponent } from "./pages/help-menu/help-menu.component";
 import { LoginComponentview} from "./views/login/login.component";
 import { EchoSongComponent } from "./components/templates/desktop/echo-song/echo-song.component";
 
-
 export const routes: Routes = [
   { path: "landing", component: LandingPageComponent },
   { path: "login", component: LoginComponent },
@@ -33,7 +32,8 @@ export const routes: Routes = [
   { path: "search", component: SearchComponent},
   { path: "newlogin", component: LoginComponentview},
   { path: "library", component: UserLibraryComponent},
-  { path: "echo Song", component: EchoSongComponent}
+  { path: "echo Song", component: EchoSongComponent},
+  { path: '**', redirectTo: '/login' } //DO NOT MOVE - MUST ALWAYS BE LAST
 ];
 
 @NgModule({

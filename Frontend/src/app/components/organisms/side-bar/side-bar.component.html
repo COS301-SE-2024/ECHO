@@ -1,16 +1,20 @@
-<div class="z-10 w-[45vh]" style="--tw-h: 73.8vh; top: 10.2vh;">
-  <div class="container pl-3 rounded-md h-full">
-    <div [ngClass]="moodComponentClasses[moodService.getCurrentMood()]" class="rounded-lg overflow-auto h-full flex flex-col justify-between scrollbar-hidden">
+<div class="z-10" style="left: 1vw; top: 10.2vh;">
+  <div class="w-[39vh] h-[72.5vh] container pl-5 rounded-md max-h-screen">
+    <div  style="background-color: rgba(0, 0, 0, 0.7);" class="rounded-lg overflow-auto h-full flex flex-col justify-between scrollbar-hidden">
+      <!-- SVG button always visible -->
       <div class="flex justify-between items-center mb-2 mt-3">
-        <div class="button-container" [ngClass]="getButtonClasses('suggestions')">
-          <button class="px-10 text-md font-bold text-white focus:outline-none truncate" (click)="selectOption('suggestions')">Suggestions</button>
+        <!-- Only show these buttons when the sidebar is expanded -->
+        <div class="button-container w-full bg-opacity-0" [ngClass]="getButtonClasses('suggestions')">
+          <button class="w-full px-10 font-bold text-white focus:outline-none truncate flex-1" (click)="selectOption('suggestions')">Suggestions</button>
         </div>
-        <div class="button-container" [ngClass]="getButtonClasses('recentListening')">
-          <button class="px-10 text-md text-white focus:outline-none truncate" (click)="selectOption('recentListening')">Recent listening</button>
+        <div  class="button-container w-full bg-opacity-0" [ngClass]="getButtonClasses('recentListening')">
+          <button class="w-full px-10 text-sm text-white focus:outline-none truncate flex-1" (click)="selectOption('recentListening')">Recent listening</button>
         </div>
       </div>
-      <div class="mt-7 mx-3 flex-grow overflow-auto scrollbar-hidden">
-        <ng-container *ngIf="!isLoading; else loading">
+
+      <!-- Content of the sidebar -->
+      <div  class="mt-7 mx-3 flex-grow overflow-auto scrollbar-hidden">
+        <ng-container *ngIf="!isLoading ; else loading">
           <div *ngFor="let card of getSelectedCardData(); let i = index">
             <app-song-cards [svgSize]="'2.5vw'" [imgSize]="'5vw'" [card]="card"></app-song-cards>
           </div>
@@ -28,7 +32,7 @@
 <div *ngIf="isEchoModalVisible" id="echo-songs" tabindex="-1" aria-hidden="true" class="fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full bg-black bg-opacity-50">
   <div class="relative p-4 w-full max-w-2xl max-h-full">
     <!-- Modal content -->
-    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+    <div class="relative bg-white rounded-lg shadow dark:bg-gray-950">
       <!-- Modal header -->
       <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
         <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
