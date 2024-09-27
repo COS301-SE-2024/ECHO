@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 })
 export class BigRoundedSquareCardComponent {
   @Input() mood: any;
-  @Output() redirectToMoodPage = new EventEmitter<any>();
+  @Output() moodClick = new EventEmitter<any>();
   moodComponentClasses!: { [key: string]: string };
   isDropdownOpen = false;
 
@@ -22,7 +22,7 @@ export class BigRoundedSquareCardComponent {
   }
 
   onMoodClick() {
-    this.redirectToMoodPage.emit(this.mood);
+    this.moodClick.emit(this.mood);
   }
 
   toggleDropdown(): void {

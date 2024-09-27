@@ -31,8 +31,4 @@ export class MoodsListComponent implements OnInit {
     this.isDropdownOpen = !this.isDropdownOpen;
   }
 
-  playSongs(): void {
-    
-  }
-
 }
