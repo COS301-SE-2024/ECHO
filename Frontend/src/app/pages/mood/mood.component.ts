@@ -14,11 +14,12 @@ import { Track } from '../../services/search.service';
 import { ProviderService } from "../../services/provider.service";
 import { YouTubeService } from "../../services/youtube.service";
 import { SpotifyService } from "../../services/spotify.service";  // <-- Use Track interface
+import { PlayIconComponent } from '../../components/organisms/play-icon/play-icon.component';
 
 @Component({
   selector: 'app-mood',
   standalone: true,
-  imports: [NgForOf, NgIf, NgClass, NgSwitch, NgSwitchCase, NavbarComponent, SearchBarComponent, ProfileComponent, MoodDropDownComponent, BackButtonComponent, PageTitleComponent],
+  imports: [NgForOf, NgIf, NgClass, NgSwitch, NgSwitchCase, NavbarComponent, SearchBarComponent, ProfileComponent, MoodDropDownComponent, BackButtonComponent, PageTitleComponent,PlayIconComponent],
   templateUrl: './mood.component.html',
   styleUrls: ['./mood.component.css']
 })
