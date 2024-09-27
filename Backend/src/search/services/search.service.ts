@@ -126,8 +126,7 @@ export class SearchService
     }
 
     // This function fetches songs based on a given mood
-    async getPlaylistSongsByMood(mood: string): Promise<Track[]>
-    {
+    async getPlaylistSongsByMood(mood: string): Promise<{ imageUrl: string, tracks: Track[] }> {
         const moodMapping = {
             Neutral: "chill",
             Anger: "hard rock",
@@ -147,8 +146,7 @@ export class SearchService
         const response = this.httpService.get(`${this.deezerApiUrl}/search/playlist?q=${searchQuery}`);
         const result = await lastValueFrom(response);
 
-        if (result.data.data.length === 0)
-        {
+        if (result.data.data.length === 0) {
             throw new Error(`No playlists found for mood: ${mood}`);
         }
 
@@ -156,12 +154,22 @@ export class SearchService
         const playlistResponse = this.httpService.get(`${this.deezerApiUrl}/playlist/${playlistId}`);
         const playlistData = await lastValueFrom(playlistResponse);
 
-        return this.convertApiResponseToSong(playlistData.data.tracks);
+        return {
+            imageUrl: playlistData.data.picture_big,  // Playlist cover image URL
+            tracks: playlistData.data.tracks.data.map(track => ({
+                name: track.title,
+                albumName: track.album.title,
+                albumImageUrl: track.album.cover_big,
+                artistName: track.artist.name
+            }))
+        };
     }
 
 
+
+
     // This function fetches recommended moods and their respective songs
-    async getSuggestedMoods(): Promise<{ mood: string, tracks: Track[] }[]>
+    async getSuggestedMoods(): Promise<{ mood: string; tracks: Awaited<{ imageUrl: string; tracks: Track[] }> }[]>
     {
         const allMoods = [
             "Neutral", "Anger", "Fear", "Joy", "Disgust", "Excitement",
