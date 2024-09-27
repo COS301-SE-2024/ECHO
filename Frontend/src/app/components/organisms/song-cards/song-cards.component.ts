@@ -35,7 +35,6 @@ export class SongCardsComponent {
     this.moodComponentClasses = this.moodService.getComponentMoodClasses();
     
   }
-
   onEchoButtonClick(event: MouseEvent) {
     event.stopPropagation();
     this.router.navigate(['/echo Song'], { queryParams: { trackName: this.card.text, artistName: this.card.secondaryText } });
