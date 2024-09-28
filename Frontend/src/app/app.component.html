@@ -25,9 +25,8 @@
   </ng-container>
 
   <ng-template #mobileView>
-    <div class="mobile-layout grid grid-cols-3 grid-rows-[0.1fr,1fr,1fr] gap-x-4 min-h-screen relative">
-      <app-header class="col-start-2 col-span-1 row-start-1 row-span-1"></app-header>
-      <div class="col-start-1 col-span-3 row-start-2 row-span-2" style="background-color: rgba(0, 0, 0, 0.7);">
+    <div class="mobile-layout grid grid-cols-3 grid-rows-4  min-h-screen relative">
+      <div class="col-span-3 col-start-1 row-span-3 row-start-1 overflow-y-scroll overflow-hidden p-4 rounded-xl border-black h-full no-scrollbar border overflow-y-scroll m-3" style="background-color: rgba(0, 0, 0, 0.7);">
         <router-outlet></router-outlet>
       </div>
     </div>
