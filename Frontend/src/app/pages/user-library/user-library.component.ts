@@ -8,8 +8,10 @@ import { Router } from '@angular/router';
 import { SpotifyService } from "../../services/spotify.service";
 import { ScreenSizeService } from '../../services/screen-size-service.service';
 import { OnInit } from '@angular/core';
-import {TopCardComponent} from '../../components/molecules/top-card/top-card.component';
-import {TopArtistCardComponent} from "../../components/molecules/top-artist-card/top-artist-card.component";
+import { TopCardComponent } from '../../components/molecules/top-card/top-card.component';
+import { TopArtistCardComponent } from "../../components/molecules/top-artist-card/top-artist-card.component";
+import { PageTitleComponent } from '../../components/atoms/page-title/page-title.component';
+
 @Component({
   selector: 'app-user-library',
   standalone: true,
@@ -20,7 +22,8 @@ import {TopArtistCardComponent} from "../../components/molecules/top-artist-card
         NgIf,
         SearchBarComponent,
         TopArtistCardComponent,
-        TopCardComponent
+        TopCardComponent,
+        PageTitleComponent
    ],
   templateUrl: './user-library.component.html',
   styleUrl: './user-library.component.css'
@@ -65,6 +68,15 @@ export class UserLibraryComponent implements OnInit {
         imageUrl: '../../../assets/images/cinemaclub.jpg',
         text: 'Two Door Cinema Club',
     },
+    {
+        imageUrl: '../../../assets/images/ken.jpg',
+        text: 'Kendrick Lamar',
+    },
+    {
+        imageUrl: '../../../assets/images/malone.jpg',
+        text: 'Post Malone',
+    },
+
 ];
 recentListeningCardData = [
     {
@@ -108,6 +120,18 @@ recentListeningCardData = [
         text: 'Prayer in C',
         secondaryText: 'Lilly Wood & The Prick',
         explicit: false,
+    },
+    {
+        imageUrl: '../../../assets/images/red.jpg',
+        text: 'Californication',
+        secondaryText: 'Red Hot Chilli Peppers',
+        explicit: false,
+    },
+    {
+        imageUrl: '../../../assets/images/post.jpg',
+        text: 'Too Cool To Die',
+        secondaryText: 'Post Malone',
+        explicit: true,
     },
 ];
   
