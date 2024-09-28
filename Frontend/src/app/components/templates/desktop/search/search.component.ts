@@ -36,7 +36,7 @@ export class SearchComponent implements OnInit
   constructor(
     private screenSizeService: ScreenSizeService,
     private router: Router,
-    private route: ActivatedRoute,
+    public route: ActivatedRoute,
     public moodService: MoodService,
     private searchService: SearchService,
     private spotifyService: SpotifyService,
