@@ -11,8 +11,6 @@ import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { SearchService, Track } from "../../../services/search.service";
 
-
-
 @Component({
     selector: 'app-moods',
     standalone: true,
@@ -28,7 +26,6 @@ export class MoodsComponent implements OnDestroy {
     screenSize?: string;
     // Mood Service Variables
     moodComponentClasses!: { [key: string]: string };
-    backgroundMoodClasses!: { [key: string]: string };
 
     private screenSizeSubscription?: Subscription; // For unsubscribing
 
@@ -40,7 +37,7 @@ export class MoodsComponent implements OnDestroy {
         private searchService: SearchService
     ) {
         this.allMoods = this.moodService.getAllMoods();
-        this.moodComponentClasses = this.moodService.getComponentMoodClasses();
+        this.moodComponentClasses = this.moodService.getUnerlineMoodClasses();
     }
     async ngOnInit() {
         this.screenSizeSubscription = this.screenSizeService.screenSize$.subscribe(screenSize => {
