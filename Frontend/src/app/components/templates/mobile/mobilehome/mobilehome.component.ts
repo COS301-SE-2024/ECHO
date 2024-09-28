@@ -1,86 +1,144 @@
-import { Component, OnInit } from '@angular/core';
-import { MatCard, MatCardContent } from '@angular/material/card';
-import { NgClass, NgForOf, NgIf } from '@angular/common';
-import { SpotifyService } from '../../../../services/spotify.service';
-import { ScreenSizeService } from '../../../../services/screen-size-service.service';
+import { Component, OnInit, ViewChild, EventEmitter, Output, ChangeDetectorRef } from "@angular/core";
+import { MatCard, MatCardContent } from "@angular/material/card";
+import { NgClass, NgForOf, NgIf } from "@angular/common";
+import { SpotifyService } from "../../../../services/spotify.service";
+import { ScreenSizeService } from "../../../../services/screen-size-service.service";
 import { AuthService } from "../../../../services/auth.service";
 import { firstValueFrom } from "rxjs";
 import { ProviderService } from "../../../../services/provider.service";
+import { MoodService } from "../../../../services/mood-service.service";
+import { EchoButtonComponent } from "../../../atoms/echo-button/echo-button.component";
+import { SongCardsComponent } from "../../../organisms/song-cards/song-cards.component";
 import { SearchService } from "../../../../services/search.service";
-import { MoodService } from '../../../../services/mood-service.service';
+import { SkeletonSongCardComponent } from "../../../atoms/skeleton-song-card/skeleton-song-card.component";
+import { ToastComponent } from "../../../../components/organisms/toast/toast.component";
+import { YouTubeService } from "../../../../services/youtube.service";
 import { MoodsComponent } from '../../../organisms/moods/moods.component';
-import { ExploreBarComponent } from '../../../organisms/explore-bar/explore-bar.component';
+
+type SelectedOption = "suggestions" | "recentListening";
+
 @Component({
   selector: 'app-mobilehome',
   standalone: true,
-  imports: [MatCard, MatCardContent, NgForOf, NgIf, NgClass,MoodsComponent,ExploreBarComponent],
+  imports: [
+    MatCard, MatCardContent, NgForOf, NgIf, NgClass,
+    EchoButtonComponent, SongCardsComponent, SkeletonSongCardComponent,
+    ToastComponent, MoodsComponent
+  ],
   templateUrl: './mobilehome.component.html',
-  styleUrl: './mobilehome.component.css'
+  styleUrls: ['./mobilehome.component.css']
 })
-export class MobilehomeComponent {
-   // Mood Service Variables
-   moodComponentClasses!: { [key: string]: string };
+export class MobilehomeComponent implements OnInit {
+  @ViewChild(ToastComponent) toastComponent!: ToastComponent;
+  @Output() sidebarToggled = new EventEmitter<boolean>();
+
+  moodComponentClasses!: { [key: string]: string };
+  underline!: { [key: string]: string };
+
+  title: string = "Home";
+  selectedOption: SelectedOption = "recentListening";
+
+  suggestionsCardData: any[] = [];
+  recentListeningCardData: any[] = [];
+  echoTracks: any[] = [];
+  provider: string | null = null;
+  isDropdownVisible: boolean = false;
+  selected: string = "Recent Listening...";
+  options = ["Recent Listening...", "Up Next..."];
+  isEchoModalVisible: boolean = false;
+  isLoading: boolean = true;
+  skeletonArray = Array(10);
+
   constructor(
     private spotifyService: SpotifyService,
     private providerService: ProviderService,
     private screenSizeService: ScreenSizeService,
     private authService: AuthService,
     private searchService: SearchService,
-    public moodService: MoodService
+    public moodService: MoodService,
+    private youtubeService: YouTubeService,
+    private cdRef: ChangeDetectorRef
   ) {
-    this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
+    this.moodComponentClasses = this.moodService.getComponentMoodClasses();
+    this.underline = this.moodService.getUnerlineMoodClasses();
   }
-
-  title: string = 'Home';
-  selectedOption: string = 'upNext';
-
-  upNextCardData: any[] = [];
-  recentListeningCardData: any[] = [];
-  echoTracks: any[] = [];
-  screenSize?: string;
-  provider: string | null = null;
-  isDropdownVisible: boolean = false;
-  selected:string = "Up Next..."
-  options = ["Recent Listening...","Up Next..."];
-  isEchoModalVisible: boolean = false;
 
   toggleDropdown(): void {
     this.isDropdownVisible = !this.isDropdownVisible;
   }
-  selectedOptionChange(option:string){
+
+  getButtonClasses(option: string): { [key: string]: boolean } {
+    const moodClass = this.underline[this.moodService.getCurrentMood()];
+    return {
+      [moodClass]: this.selectedOption === option,
+      "border-transparent": this.selectedOption !== option
+    };
+  }
+
+  selectedOptionChange(option: string) {
     this.selected = option;
-    if(this.selected === 'Recent Listening...'){
-      this.selectedOption = 'recentListening';
-    }else{
-      this.selectedOption = 'upNext';
+    if (this.selected === "Recent Listening...") {
+      this.selectedOption = "recentListening";
+    } else {
+      this.selectedOption = "suggestions";
     }
     this.toggleDropdown();
   }
-  async ngOnInit() {
-    if (this.providerService.getProviderName() === 'spotify') {
-      this.loadUpNextData();
-      this.fetchRecentlyPlayedTracks();
-      this.provider = await firstValueFrom(this.authService.getProvider());
-    }
-    this.screenSizeService.screenSize$.subscribe(screenSize => {
-      this.screenSize = screenSize;
-    });
-  }
-  async loadUpNextData() {
-    if (this.providerService.getProviderName() === 'spotify') {
-      try {
-        this.upNextCardData = await this.spotifyService.getQueue(this.provider);
-        this.upNextCardData.unshift(this.getEchoedCardData()[0]);
 
+  async ngOnInit() {
+    console.log("ngOnInit called");
+    try {
+      const providerName = this.providerService.getProviderName();
+      console.log("Provider Name:", providerName);
+
+      if (providerName === "spotify") {
+        await this.loadSuggestionsData();
+        await this.fetchRecentlyPlayedTracks();
+        this.provider = await firstValueFrom(this.authService.getProvider());
+      } else {
+        this.provider = "youtube";
+        await this.loadUpNextData();
+        await this.fetchRecentlyPlayedTracks();
+        await this.youtubeService.init();
+      }
+    } catch (error) {
+      console.error("Error in ngOnInit:", error);
+    }
+  }
+
+  async loadUpNextData() {
+    if (this.providerService.getProviderName() === "spotify") {
+      try {
+        this.suggestionsCardData = await this.spotifyService.getQueue(this.provider);
+        await this.suggestionsCardData.unshift(this.getEchoedCardData()[0]);
       } catch (error) {
-        console.error('Error loading up next data:', error);
+        console.error("Error loading up next data:", error);
       }
     }
   }
 
-  private fetchRecentlyPlayedTracks(): void {
-    if (this.providerService.getProviderName() === 'spotify') {
-      this.spotifyService.getRecentlyPlayedTracks(this.provider).then(data => {
+  async loadSuggestionsData() {
+    if (this.providerService.getProviderName() === "spotify") {
+      try {
+        this.isLoading = true;
+        this.suggestionsCardData = await this.spotifyService.getQueue(this.provider);
+        await this.suggestionsCardData.unshift(this.getEchoedCardData()[0]);
+        this.isLoading = false;
+      } catch (error) {
+        this.isLoading = false;
+        console.error("Error loading suggestions data:", error);
+        if (this.selectedOption === "suggestions") {
+          this.toastComponent.showToast("Error fetching suggestions data", "error");
+        }
+      }
+    }
+  }
+
+  private async fetchRecentlyPlayedTracks() {
+    if (this.providerService.getProviderName() === "spotify") {
+      try {
+        this.isLoading = true;
+        const data = await this.spotifyService.getRecentlyPlayedTracks(this.provider);
         data.items.forEach((item: any) => {
           const trackId = item.track.id;
           if (!this.recentListeningCardData.find(track => track.id === trackId)) {
@@ -88,56 +146,109 @@ export class MobilehomeComponent {
               id: trackId,
               imageUrl: item.track.album.images[0].url,
               text: this.truncateText(item.track.name, 33),
-              secondaryText: item.track.artists.map((artist: any) => artist.name).join(', '),
+              secondaryText: item.track.artists.map((artist: any) => artist.name).join(", "),
               explicit: item.track.explicit
             });
           }
         });
+        this.isLoading = false;
+      } catch (error) {
+        this.isLoading = false;
+        console.error("Error fetching recently played tracks:", error);
+        if (this.selectedOption === "recentListening") {
+          this.toastComponent.showToast("Error fetching recently played tracks", "error");
+        }
+      }
+    } else {
+      this.youtubeService.getTopYouTubeTracks().then(tracks => {
+        if (tracks) {
+          tracks.forEach(track => {
+            const trackId = track.id;
+            if (!this.recentListeningCardData.find(t => t.id === trackId)) {
+              this.recentListeningCardData.push({
+                id: trackId,
+                imageUrl: track.imageUrl,
+                text: this.truncateText(track.text, 33),
+                secondaryText: track.secondaryText,
+                explicit: false
+              });
+            }
+          });
+        } else {
+          console.error("No tracks found in YouTube top tracks.");
+        }
+        this.isLoading = false;
       }).catch(error => {
-        console.error('Error fetching recently played tracks:', error);
+        this.isLoading = false;
+        console.error("Error fetching YouTube tracks:", error);
+        if (this.selectedOption === "recentListening") {
+          this.toastComponent.showToast("Error fetching recently played tracks", "error");
+        }
       });
     }
   }
 
   getSelectedCardData(): any[] {
-    return this.selectedOption === 'upNext'
-      ? this.upNextCardData
-      : this.recentListeningCardData;
+    return this.selectedOption === "suggestions" ? this.suggestionsCardData : this.recentListeningCardData;
   }
+
   getRecentListeningCardData(): any[] {
-    return this.recentListeningCardData.slice(0, 10);
+    return this.recentListeningCardData.slice(0, 15);
   }
+
   getEchoedCardData(): any[] {
     return this.recentListeningCardData.slice(0, 1);
   }
-  selectOption(option: string) {
+
+  selectOption(option: SelectedOption) {
     this.selectedOption = option;
+    this.isLoading = true;
+    if (option === 'suggestions') {
+      this.toastComponent.hideToast();
+      this.loadSuggestionsData();
+    } else {
+      this.toastComponent.hideToast();
+      this.fetchRecentlyPlayedTracks();
+    }
   }
 
   async playTrack(trackId: string): Promise<void> {
-    if (this.providerService.getProviderName() === 'spotify') {
+    console.log(`Attempting to play track with ID: ${trackId}`);
+    if (this.providerService.getProviderName() === "spotify") {
       await this.spotifyService.playTrackById(trackId);
+    } else {
+      console.log("Invoking YouTube playTrackById");
+      await this.youtubeService.playTrackById(trackId);
     }
   }
 
   async echoTrack(trackName: string, artistName: string, event: MouseEvent): Promise<void> {
+    this.isEchoModalVisible = true;
     event.stopPropagation();
-    this.searchService.echo(trackName, artistName).then(tracks => {
-      this.echoTracks = tracks;
+    try {
+      this.echoTracks = await this.searchService.echo(trackName, artistName);
       this.isEchoModalVisible = true;
-    }).catch(error => {
-      console.error('Error echoing track: ', error);
-    });
+    } catch (error) {
+      console.error("Error echoing track: ", error);
+      this.toastComponent.showToast("Error echoing track", "error");
+    }
   }
 
   private truncateText(text: string, maxLength: number): string {
+    if (!text) {
+      return "";
+    }
     if (text.length > maxLength) {
-      return text.substring(0, maxLength) + '...';
+      return text.substring(0, maxLength) + "...";
     }
     return text;
   }
 
   closeModal() {
     this.isEchoModalVisible = false;
+  }
+
+  handleEchoTrack(eventData: { trackName: string, artistName: string, event: MouseEvent }) {
+    // this.echoTrack(eventData.trackName, eventData.artistName, eventData.event);
   }
 }
