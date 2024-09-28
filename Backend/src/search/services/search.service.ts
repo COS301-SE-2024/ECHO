@@ -169,20 +169,19 @@ export class SearchService
 
 
     // This function fetches recommended moods and their respective songs
-    async getSuggestedMoods(): Promise<{ mood: string; tracks: Awaited<{ imageUrl: string; tracks: Track[] }> }[]>
-    {
+    async getSuggestedMoods(): Promise<{ mood: string; imageUrl: string; tracks: Track[] }[]> {
         const allMoods = [
             "Neutral", "Anger", "Fear", "Joy", "Disgust", "Excitement",
             "Love", "Sadness", "Surprise", "Contempt", "Shame", "Guilt"
         ];
-
         const suggestedMoods = allMoods.sort(() => 0.5 - Math.random()).slice(0, 5);
         const requests = suggestedMoods.map(mood => this.getPlaylistSongsByMood(mood));
         const results = await Promise.all(requests);
 
         return suggestedMoods.map((mood, index) => ({
             mood: mood,
-            tracks: results[index]
+            imageUrl: results[index].imageUrl,
+            tracks: results[index].tracks
         }));
     }
 
