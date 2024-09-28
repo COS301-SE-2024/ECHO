@@ -5,10 +5,11 @@ import {CommonModule} from '@angular/common';
 import {ScreenSizeService} from './../../services/screen-size-service.service';
 //components
 import {HomeComponent} from './../../components/templates/desktop/home/home.component';
+import { MobilehomeComponent } from '../../components/templates/mobile/mobilehome/mobilehome.component';
 @Component({
   selector: 'app-homes',
   standalone: true,
-  imports: [CommonModule,HomeComponent],
+  imports: [CommonModule,HomeComponent,MobilehomeComponent],
   templateUrl: './homes.component.html',
   styleUrl: './homes.component.css'
 })
