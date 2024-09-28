@@ -56,6 +56,7 @@ describe('SearchController', () => {
             searchByTitle: jest.fn(),
             searchByAlbum: jest.fn(),
             artistSearch: jest.fn(),
+            searchAlbums: jest.fn(),
           },
         },
       ],

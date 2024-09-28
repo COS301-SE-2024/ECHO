@@ -4,6 +4,7 @@ import { SearchComponent } from './search.component';
 import { SearchService, Track } from '../../../../services/search.service';
 import { of } from 'rxjs';
 import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
+import { ActivatedRoute } from '@angular/router';
 
 describe('SearchComponent', () => {
   let component: SearchComponent;
@@ -20,7 +21,17 @@ describe('SearchComponent', () => {
       providers: [
         provideHttpClient(withInterceptorsFromDi()),
         SearchComponent,
-        { provide: SearchService, useValue: searchServiceMock }
+        { provide: SearchService, useValue: searchServiceMock },
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            queryParams: of({}), // Mock queryParams as an observable
+            params: of({}), // You can replace this with the actual params you want to mock
+            snapshot: {
+              params: {},
+            },
+          },
+        },
       ]
     })
     .compileComponents();

@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MobileregisterComponent } from './mobileregister.component';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('MobileregisterComponent', () => {
   let component: MobileregisterComponent;
@@ -8,7 +9,10 @@ describe('MobileregisterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MobileregisterComponent]
+      imports: [MobileregisterComponent],
+      providers: [
+        provideHttpClient()
+      ]
     })
     .compileComponents();
 
