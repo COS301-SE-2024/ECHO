@@ -115,6 +115,7 @@ export class SupabaseService {
     }
 
     // This method is used to retrieve tokens from the user_tokens table.
+    
     async retrieveTokens(userId: string) {
         const supabase = createSupabaseClient();
         const { data, error } = await supabase

@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { BigRoundedSquareCardComponent } from '../../atoms/big-rounded-square-card/big-rounded-square-card.component';
 import { PlayIconComponent } from '../../organisms/play-icon/play-icon.component';
 import { MoodService } from '../../../services/mood-service.service';
+import { SearchService } from '../../../services/search.service';
+
 @Component({
   selector: 'app-moods-list',
   standalone: true,
@@ -14,11 +16,19 @@ import { MoodService } from '../../../services/mood-service.service';
 export class MoodsListComponent implements OnInit {
   @Input() moods!: any[];
   @Output() redirectToMoodPage = new EventEmitter<any>();
+  isDropdownOpen = false;
+
   constructor(public moodService: MoodService) {}
+
   onMoodClick(mood: any) {
     this.redirectToMoodPage.emit(mood);
   }
+
   ngOnInit(): void {
+  }
+
+  toggleDropdown(): void {
+    this.isDropdownOpen = !this.isDropdownOpen;
   }
 
 }

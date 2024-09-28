@@ -15,10 +15,14 @@ describe('EchoSongComponent', () => {
       providers: [provideHttpClient(),
         {
           provide: ActivatedRoute,
-          params: of({ id: '123' }), // Replace '123' with any relevant ID or parameters
-          queryParams: of({ someQueryParam: 'value' }), // Mock queryParams if required
-          snapshot: {
-            data: {}
+          useValue: {
+            // Mock the parameters as needed
+            params: of({ id: '123' }),
+            queryParams: of({
+              trackName: 'Some Song',
+              artistName: 'Some Artist'
+            })
+            // Add any other properties or methods you use in your component
           }
         }
       ]

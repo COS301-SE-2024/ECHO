@@ -1,16 +1,11 @@
-
   <div id="profile" class="profile bg-cover bg-center w-full relative rounded-t-lg"
      [style.background-image]="'url(' + imgpath + ')'"
      style="background-size: cover; height: 33vh;">
 
       <div class="absolute inset-0 flex flex-col justify-center items-center bg-gray-700 bg-opacity-50 rounded-t-lg">
         <h2 class="text-white text-3xl font-bold py-2">{{ username }}</h2>
-        <div class="flex justify-center space-x-3 pb-4">
-          <p class="text-white">11 Followers</p>
-          <p class="text-white">9 Following</p>
-        </div>
         <!-- Need to change this onlcick from the modal to the settings page-->
-        <button class="bg-white text-gray-component py-2 px-4 rounded-full z-10" (click)="openDialog()">
+        <button class="bg-white text-gray-component py-2 px-4 rounded-full z-10" (click)="settings()">
           Edit Profile
         </button>
       </div>
@@ -18,9 +13,9 @@
 
   <div class="bg-gray-component w-full py-4 rounded-b-lg ">
     <div class="overflow-hidden px-3">
-      <div class="flex justify-between space-x-8">
-        <!-- Top Songs Section -->
-        <div class="w-1/2">
+      <div class="space-y-8">
+        
+        <div>
           <h2 class="text-white text-2xl font-bold mb-2 mt-5">Top Songs</h2>
           <div class="flex space-x-4 overflow-x-auto scrollable-cards overflow-hidden px-3">
             <ng-container *ngFor="let item of topTracks" class="bg-stone-950">
@@ -32,9 +27,8 @@
             </ng-container>
           </div>
         </div>
-
-        <!-- Top Artists Section -->
-        <div class="w-1/2">
+  
+        <div>
           <h2 class="text-white text-2xl font-bold mb-2 mt-5">Top Artists</h2>
           <div class="flex space-x-4 overflow-x-auto scrollable-cards overflow-hidden px-3">
             <ng-container *ngFor="let artist of topArtists">
@@ -42,7 +36,10 @@
             </ng-container>
           </div>
         </div>
+  
+      </div>
     </div>
   </div>
+  
 
 
