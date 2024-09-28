@@ -60,8 +60,8 @@ export class MoodComponent implements OnInit {
 
     // Fetch albums or tracks for the selected mood
     this.searchService.getSongsByMood(newMood).subscribe(
-      (tracks: Track[]) => {
-        this.albums = tracks.map(track => ({
+      (response: { imageUrl: string, tracks: Track[] }) => {  // Update the expected response type
+        this.albums = response.tracks.map(track => ({
           title: track.name,
           artist: track.artistName,
           imageUrl: track.albumImageUrl || 'assets/default-album.png',  // Use default image if no album art
