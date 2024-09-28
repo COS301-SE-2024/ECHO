@@ -1,18 +1,20 @@
 import { Component, OnInit, ViewChild, EventEmitter, Output, ChangeDetectorRef } from "@angular/core";
 import { MatCard, MatCardContent } from "@angular/material/card";
 import { NgClass, NgForOf, NgIf } from "@angular/common";
+import { firstValueFrom } from "rxjs";
+
 import { SpotifyService } from "../../../../services/spotify.service";
 import { ScreenSizeService } from "../../../../services/screen-size-service.service";
 import { AuthService } from "../../../../services/auth.service";
-import { firstValueFrom } from "rxjs";
 import { ProviderService } from "../../../../services/provider.service";
 import { MoodService } from "../../../../services/mood-service.service";
+import { SearchService } from "../../../../services/search.service";
+import { YouTubeService } from "../../../../services/youtube.service";
+
 import { EchoButtonComponent } from "../../../atoms/echo-button/echo-button.component";
 import { SongCardsComponent } from "../../../organisms/song-cards/song-cards.component";
-import { SearchService } from "../../../../services/search.service";
 import { SkeletonSongCardComponent } from "../../../atoms/skeleton-song-card/skeleton-song-card.component";
 import { ToastComponent } from "../../../../components/organisms/toast/toast.component";
-import { YouTubeService } from "../../../../services/youtube.service";
 import { MoodsComponent } from '../../../organisms/moods/moods.component';
 
 type SelectedOption = "suggestions" | "recentListening";
@@ -43,6 +45,7 @@ export class MobilehomeComponent implements OnInit {
   echoTracks: any[] = [];
   provider: string | null = null;
   isDropdownVisible: boolean = false;
+  isExpanded: boolean = true;
   selected: string = "Recent Listening...";
   options = ["Recent Listening...", "Up Next..."];
   isEchoModalVisible: boolean = false;
@@ -63,8 +66,45 @@ export class MobilehomeComponent implements OnInit {
     this.underline = this.moodService.getUnerlineMoodClasses();
   }
 
+  ngOnInit(): void {
+    this.initializeComponent();
+  }
+
+  private async initializeComponent(): Promise<void> {
+    console.log("ngOnInit called");
+    try {
+      const providerName = this.providerService.getProviderName();
+      console.log("Provider Name:", providerName);
+
+      if (providerName === "spotify") {
+        await this.loadSpotifyData();
+      } else {
+        await this.loadYouTubeData();
+      }
+    } catch (error) {
+      this.handleError("Error in ngOnInit", error);
+    }
+  }
+
+  private async loadSpotifyData(): Promise<void> {
+    await this.loadSuggestionsData();
+    await this.fetchRecentlyPlayedTracks();
+    this.provider = await firstValueFrom(this.authService.getProvider());
+  }
+
+  private async loadYouTubeData(): Promise<void> {
+    this.provider = "youtube";
+    await this.loadUpNextData();
+    await this.fetchRecentlyPlayedTracks();
+    await this.youtubeService.init();
+  }
+
   toggleDropdown(): void {
     this.isDropdownVisible = !this.isDropdownVisible;
+  }
+
+  toggleExpand(): void {
+    this.isExpanded = !this.isExpanded;
   }
 
   getButtonClasses(option: string): { [key: string]: boolean } {
@@ -75,58 +115,33 @@ export class MobilehomeComponent implements OnInit {
     };
   }
 
-  selectedOptionChange(option: string) {
+  selectedOptionChange(option: string): void {
     this.selected = option;
-    if (this.selected === "Recent Listening...") {
-      this.selectedOption = "recentListening";
-    } else {
-      this.selectedOption = "suggestions";
-    }
+    this.selectedOption = option === "Recent Listening..." ? "recentListening" : "suggestions";
     this.toggleDropdown();
   }
 
-  async ngOnInit() {
-    console.log("ngOnInit called");
-    try {
-      const providerName = this.providerService.getProviderName();
-      console.log("Provider Name:", providerName);
-
-      if (providerName === "spotify") {
-        await this.loadSuggestionsData();
-        await this.fetchRecentlyPlayedTracks();
-        this.provider = await firstValueFrom(this.authService.getProvider());
-      } else {
-        this.provider = "youtube";
-        await this.loadUpNextData();
-        await this.fetchRecentlyPlayedTracks();
-        await this.youtubeService.init();
-      }
-    } catch (error) {
-      console.error("Error in ngOnInit:", error);
-    }
-  }
-
-  async loadUpNextData() {
+  private async loadUpNextData(): Promise<void> {
     if (this.providerService.getProviderName() === "spotify") {
       try {
         this.suggestionsCardData = await this.spotifyService.getQueue(this.provider);
-        await this.suggestionsCardData.unshift(this.getEchoedCardData()[0]);
+        this.suggestionsCardData.unshift(this.getEchoedCardData()[0]);
       } catch (error) {
-        console.error("Error loading up next data:", error);
+        this.handleError("Error loading up next data", error);
       }
     }
   }
 
-  async loadSuggestionsData() {
+  private async loadSuggestionsData(): Promise<void> {
     if (this.providerService.getProviderName() === "spotify") {
       try {
         this.isLoading = true;
         this.suggestionsCardData = await this.spotifyService.getQueue(this.provider);
-        await this.suggestionsCardData.unshift(this.getEchoedCardData()[0]);
+        this.suggestionsCardData.unshift(this.getEchoedCardData()[0]);
         this.isLoading = false;
       } catch (error) {
         this.isLoading = false;
-        console.error("Error loading suggestions data:", error);
+        this.handleError("Error loading suggestions data", error);
         if (this.selectedOption === "suggestions") {
           this.toastComponent.showToast("Error fetching suggestions data", "error");
         }
@@ -134,58 +149,78 @@ export class MobilehomeComponent implements OnInit {
     }
   }
 
-  private async fetchRecentlyPlayedTracks() {
+  private async fetchRecentlyPlayedTracks(): Promise<void> {
+    console.log("fetchRecentlyPlayedTracks called");
     if (this.providerService.getProviderName() === "spotify") {
-      try {
-        this.isLoading = true;
-        const data = await this.spotifyService.getRecentlyPlayedTracks(this.provider);
-        data.items.forEach((item: any) => {
-          const trackId = item.track.id;
-          if (!this.recentListeningCardData.find(track => track.id === trackId)) {
-            this.recentListeningCardData.push({
-              id: trackId,
-              imageUrl: item.track.album.images[0].url,
-              text: this.truncateText(item.track.name, 33),
-              secondaryText: item.track.artists.map((artist: any) => artist.name).join(", "),
-              explicit: item.track.explicit
-            });
-          }
-        });
-        this.isLoading = false;
-      } catch (error) {
-        this.isLoading = false;
-        console.error("Error fetching recently played tracks:", error);
-        if (this.selectedOption === "recentListening") {
-          this.toastComponent.showToast("Error fetching recently played tracks", "error");
-        }
-      }
+      await this.fetchSpotifyRecentlyPlayedTracks();
     } else {
-      this.youtubeService.getTopYouTubeTracks().then(tracks => {
-        if (tracks) {
-          tracks.forEach(track => {
-            const trackId = track.id;
-            if (!this.recentListeningCardData.find(t => t.id === trackId)) {
-              this.recentListeningCardData.push({
-                id: trackId,
-                imageUrl: track.imageUrl,
-                text: this.truncateText(track.text, 33),
-                secondaryText: track.secondaryText,
-                explicit: false
-              });
-            }
-          });
-        } else {
-          console.error("No tracks found in YouTube top tracks.");
-        }
-        this.isLoading = false;
-      }).catch(error => {
-        this.isLoading = false;
-        console.error("Error fetching YouTube tracks:", error);
-        if (this.selectedOption === "recentListening") {
-          this.toastComponent.showToast("Error fetching recently played tracks", "error");
-        }
-      });
+      await this.fetchYouTubeRecentlyPlayedTracks();
     }
+  }
+
+  private async fetchSpotifyRecentlyPlayedTracks(): Promise<void> {
+    try {
+      this.isLoading = true;
+      const data = await this.spotifyService.getRecentlyPlayedTracks(this.provider);
+      console.log("Recently played tracks data:", data);
+      this.processRecentlyPlayedTracks(data.items);
+      this.isLoading = false;
+    } catch (error) {
+      this.isLoading = false;
+      this.handleError("Error fetching recently played tracks", error);
+      if (this.selectedOption === "recentListening") {
+        this.toastComponent.showToast("Error fetching recently played tracks", "error");
+      }
+    }
+  }
+
+  private async fetchYouTubeRecentlyPlayedTracks(): Promise<void> {
+    try {
+      const tracks = await this.youtubeService.getTopYouTubeTracks();
+      console.log("YouTube top tracks data:", tracks);
+      if (tracks) {
+        this.processYouTubeTracks(tracks);
+      } else {
+        console.error("No tracks found in YouTube top tracks.");
+      }
+      this.isLoading = false;
+    } catch (error) {
+      this.isLoading = false;
+      this.handleError("Error fetching YouTube tracks", error);
+      if (this.selectedOption === "recentListening") {
+        this.toastComponent.showToast("Error fetching recently played tracks", "error");
+      }
+    }
+  }
+
+  private processRecentlyPlayedTracks(items: any[]): void {
+    items.forEach((item: any) => {
+      const trackId = item.track.id;
+      if (!this.recentListeningCardData.find(track => track.id === trackId)) {
+        this.recentListeningCardData.push({
+          id: trackId,
+          imageUrl: item.track.album.images[0].url,
+          text: this.truncateText(item.track.name, 33),
+          secondaryText: item.track.artists.map((artist: any) => artist.name).join(", "),
+          explicit: item.track.explicit
+        });
+      }
+    });
+  }
+
+  private processYouTubeTracks(tracks: any[]): void {
+    tracks.forEach(track => {
+      const trackId = track.id;
+      if (!this.recentListeningCardData.find(t => t.id === trackId)) {
+        this.recentListeningCardData.push({
+          id: trackId,
+          imageUrl: track.imageUrl,
+          text: this.truncateText(track.text, 33),
+          secondaryText: track.secondaryText,
+          explicit: false
+        });
+      }
+    });
   }
 
   getSelectedCardData(): any[] {
@@ -200,14 +235,13 @@ export class MobilehomeComponent implements OnInit {
     return this.recentListeningCardData.slice(0, 1);
   }
 
-  selectOption(option: SelectedOption) {
+  selectOption(option: SelectedOption): void {
     this.selectedOption = option;
     this.isLoading = true;
+    this.toastComponent.hideToast();
     if (option === 'suggestions') {
-      this.toastComponent.hideToast();
       this.loadSuggestionsData();
     } else {
-      this.toastComponent.hideToast();
       this.fetchRecentlyPlayedTracks();
     }
   }
@@ -229,26 +263,24 @@ export class MobilehomeComponent implements OnInit {
       this.echoTracks = await this.searchService.echo(trackName, artistName);
       this.isEchoModalVisible = true;
     } catch (error) {
-      console.error("Error echoing track: ", error);
+      this.handleError("Error echoing track", error);
       this.toastComponent.showToast("Error echoing track", "error");
     }
   }
 
   private truncateText(text: string, maxLength: number): string {
-    if (!text) {
-      return "";
-    }
-    if (text.length > maxLength) {
-      return text.substring(0, maxLength) + "...";
-    }
-    return text;
+    return text && text.length > maxLength ? `${text.substring(0, maxLength)}...` : text;
   }
 
-  closeModal() {
+  closeModal(): void {
     this.isEchoModalVisible = false;
   }
 
-  handleEchoTrack(eventData: { trackName: string, artistName: string, event: MouseEvent }) {
+  handleEchoTrack(eventData: { trackName: string, artistName: string, event: MouseEvent }): void {
     // this.echoTrack(eventData.trackName, eventData.artistName, eventData.event);
+  }
+
+  private handleError(message: string, error: any): void {
+    console.error(message, error);
   }
 }
