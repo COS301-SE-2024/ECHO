@@ -315,4 +315,29 @@ describe('AuthService', () => {
       expect(localStorageMock.setItem).toHaveBeenCalledWith('ready', 'true');
     });
   });
+
+  describe('verifyOfflineSession', () => {
+    it('should return true if loggedIn is true', async () => {
+      localStorageMock.getItem.mockReturnValue('true');
+      console.log('loggedIn value before calling verifyOfflineSession:', localStorage.getItem("loggedIn"));
+    
+      const result = await service.verifyOfflineSession();
+      
+      expect(result).toBe(true);
+    });
+  
+    it('should return false if loggedIn is false', async () => {
+      localStorageMock.getItem.mockReturnValue('false');
+  
+      const result = await service.verifyOfflineSession();
+  
+      expect(result).toBe(false);
+    });
+  
+    it('should return false if loggedIn is not set', async () => {
+      const result = await service.verifyOfflineSession();
+      
+      expect(result).toBe(false);
+    });
+  });
 });
