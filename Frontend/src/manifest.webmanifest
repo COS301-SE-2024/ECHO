@@ -12,7 +12,7 @@
     {"src":"assets/icons/apple-touch-icon.png","sizes":"180x180","type":"image/png"},
     {"src":"assets/icons/favicon-16x16.png","sizes":"16x16","type":"image/png"},
     {"src":"assets/icons/favicon-32x32.png","sizes":"32x32","type":"image/png"},
-    {"src":"assets/icons/favicon.ico","sizes":"64x64 128x128 256x256","type":"image/x-icon"} 
+    {"src":"assets/favicon.ico","sizes":"64x64 128x128 256x256","type":"image/x-icon"} 
   ]
 }
 
