@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-big-rounded-square-card',
   standalone: true,
-  imports: [PageTitleComponent,CommonModule],
+  imports: [PageTitleComponent, CommonModule],
   templateUrl: './big-rounded-square-card.component.html',
   styleUrls: ['./big-rounded-square-card.component.css']
 })
@@ -18,7 +18,6 @@ export class BigRoundedSquareCardComponent {
 
   constructor(public moodService: MoodService) {
     this.moodComponentClasses = this.moodService.getComponentMoodClasses();
-
   }
 
   onMoodClick() {
@@ -27,5 +26,9 @@ export class BigRoundedSquareCardComponent {
 
   toggleDropdown(): void {
     this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
+  onMouseLeave(): void {
+    this.isDropdownOpen = false;
   }
 }
