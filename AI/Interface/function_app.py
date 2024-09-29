@@ -102,6 +102,12 @@ def get_recommendations(req: func.HttpRequest) -> func.HttpResponse:
             _, _, cluster_songs = utils.get_cluster_songs(song_name, artist, NUM_SONGS)
 
         if cluster_songs is None or len(cluster_songs) == 0:
+            return func.HttpResponse(
+                json.dumps({"recommended_songs": spotify_recommendations}),
+                mimetype="application/json",
+                status_code=200
+            )
+        
             print(f"No cluster songs found.")
             return func.HttpResponse(
                 json.dumps({"error": "No cluster songs found."}),
@@ -126,8 +132,8 @@ def get_recommendations(req: func.HttpRequest) -> func.HttpResponse:
             # Immediately add songs by the same artist to recommendations
             if artist_name.lower() == artist.lower():
                 similar_songs.append({
-                    "track": song_uri,
-                    "artist": artist_name,
+                    "track_uri": song_uri,
+                    "artist_name": artist_name,
                     "track_name": track_name,
                     "emotion": "",  # Will update after processing
                     "genre": ""     # Will update after processing
@@ -138,7 +144,7 @@ def get_recommendations(req: func.HttpRequest) -> func.HttpResponse:
             db_song = db.check_id(song_uri)
 
             if db_song is None:
-                unprocessed_songs.append({"track_name": track_name, "artist": artist_name, "track": song_uri})
+                unprocessed_songs.append({"track_name": track_name, "artist_name": artist_name, "track_uri": song_uri})
             else:
                 similar_songs.extend(process_existing_song(db_song, original_emotion, original_genre))
                 processed_song_uris.add(song_uri)
@@ -146,7 +152,6 @@ def get_recommendations(req: func.HttpRequest) -> func.HttpResponse:
 
         if unprocessed_songs:
             print(f"Processing {len(unprocessed_songs)} unprocessed songs.")
-            print(unprocessed_songs)
 
             # Execute get_all_sentiments and get_all_genres simultaneously
             with concurrent.futures.ThreadPoolExecutor() as executor:
@@ -193,7 +198,7 @@ def get_recommendations(req: func.HttpRequest) -> func.HttpResponse:
             print(f"Stored recommendations for {original_uri}")
 
             return func.HttpResponse(
-                json.dumps({"recommended_songs": similar_songs[:REQUIRED_RECOMMENDATIONS]}),
+                json.dumps({"recommended_songs": similar_songs}),
                 mimetype="application/json",
                 status_code=200
             )
