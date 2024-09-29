@@ -10,7 +10,8 @@ async function bootstrap() {
     // Define allowed origins as an array
     const allowedOrigins = [
         'https://echo-bm8z.onrender.com',
-        'http://localhost:4200'
+        'http://localhost:4200',
+        'https://pwa-test-ocl1.onrender.com'
     ];
 
     // Enable CORS with dynamic origin checking
