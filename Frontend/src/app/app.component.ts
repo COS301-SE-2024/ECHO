@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from "@angular/core";
-import { RouterOutlet, Router, NavigationEnd, Event as RouterEvent, ActivatedRoute } from "@angular/router";
+import { RouterOutlet, Router, NavigationEnd, ActivatedRoute } from "@angular/router";
 import { BottomPlayerComponent } from "./components/organisms/bottom-player/bottom-player.component";
 import { BottomNavComponent } from "./components/organisms/bottom-nav/bottom-nav.component";
 import { ScreenSizeService } from "./services/screen-size-service.service";
@@ -9,10 +9,7 @@ import { CommonModule, isPlatformBrowser } from "@angular/common";
 import { ProviderService } from "./services/provider.service";
 import { PageHeaderComponent } from "./components/molecules/page-header/page-header.component";
 import { MoodService } from "./services/mood-service.service";
-import {
-  BackgroundAnimationComponent
-} from "./components/organisms/background-animation/background-animation.component";
-
+import { BackgroundAnimationComponent } from "./components/organisms/background-animation/background-animation.component";
 import { NavbarComponent } from "./components/organisms/navbar/navbar.component";
 import { SideBarComponent } from './components/organisms/side-bar/side-bar.component';
 //template imports
@@ -42,7 +39,7 @@ import { Observable } from "rxjs";
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"]
 })
-export class AppComponent implements OnInit
+export class AppComponent implements OnInit, OnDestroy
 {
   update: boolean = false;
   screenSize!: string;
@@ -102,11 +99,17 @@ export class AppComponent implements OnInit
     {
       this.screenSize = screenSize;
     });
+
+    // Handle OAuth login and redirect to /auth/callback
+    const url = window.location.href;
+    if (url.includes("access_token")) {
+      const fragment = url.split("#")[1];  // Get everything after #
+      this.router.navigate(['/auth/callback'], { fragment });
+    }
   }
 
   // Handle the browser tab close event
   handleTabClose = (event: BeforeUnloadEvent) => {
-    // Call the signOut method before the tab is closed
     this.authService.signOut().subscribe({
       next: (response) => {
         console.log('User signed out successfully on tab close');
@@ -116,7 +119,6 @@ export class AppComponent implements OnInit
       }
     });
   }
-
 
   async ngAfterViewInit()
   {
@@ -139,6 +141,10 @@ export class AppComponent implements OnInit
     if (isPlatformBrowser(this.platformId))
       return this.playerStateService.isReady();
     return false;
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('beforeunload', this.handleTabClose);
   }
 
 }
