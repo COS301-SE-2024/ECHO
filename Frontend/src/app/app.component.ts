@@ -105,7 +105,7 @@ export class AppComponent implements OnInit, OnDestroy
     const url = window.location.href;
     if (url.includes("access_token")) {
       const fragment = url.split("#")[1];  // Get everything after #
-      this.router.navigate(['auth/callback'], { fragment });
+      this.router.navigate(['/auth/callback'], { fragment });
     }
   }
 
