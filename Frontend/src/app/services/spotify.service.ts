@@ -299,7 +299,8 @@ export class SpotifyService
     {
       const state = await this.player.getCurrentState();
 
-      if (!state) {
+      if (!state)
+      {
         console.error("No track is currently playing.");
         return;
       }
@@ -557,7 +558,8 @@ export class SpotifyService
     if (this.player)
     {
       this.player.disconnect().then(() =>
-      {}).catch((error: any) =>
+      {
+      }).catch((error: any) =>
       {
         console.error("Failed to disconnect player", error);
       });
@@ -673,23 +675,26 @@ export class SpotifyService
     }
   }
 
-  public classifyMood(analysis: TrackAnalysis): string {
+  // This function classifies a track's mood in order to change the UI
+  public classifyMood(analysis: TrackAnalysis): string
+  {
     const { valence, energy, danceability, tempo } = analysis;
-  
-    if (0.4 <= valence && valence <= 0.6 && 0.4 <= energy && energy <= 0.6) return "Neutral";
-    if (valence < 0.4 && energy > 0.7) return "Anger";
-    if (valence < 0.3 && energy > 0.6) return "Fear";
+
+    if (valence >= 0.45 && valence <= 0.55 && energy >= 0.45 && energy <= 0.55) return "Neutral";
     if (valence > 0.7 && energy > 0.7) return "Joy";
-    if (valence < 0.3 && energy > 0.5) return "Disgust";
-    if (valence > 0.7 && energy > 0.8) return "Excitement";
-    if (valence > 0.7 && energy < 0.7) return "Love";
-    if (valence < 0.3 && energy < 0.5) return "Sadness";
+    if (valence > 0.7 && energy > 0.8 && tempo > 120) return "Excitement";
+    if (valence > 0.7 && energy < 0.6) return "Love";
+    if (valence < 0.3 && energy > 0.7 && danceability < 0.5) return "Anger";
+    if (valence < 0.3 && energy > 0.6) return "Fear";
+    if (valence < 0.4 && energy < 0.4 && tempo < 100) return "Sadness";
+    if (valence < 0.3 && energy < 0.5) return "Disgust";
     if (valence > 0.5 && energy > 0.7 && tempo > 120) return "Surprise";
-    if (valence < 0.4 && energy < 0.4) return "Contempt";
-    if (valence < 0.4 && 0.4 < energy && energy < 0.7) return "Shame";
-    if (valence < 0.3 && energy < 0.4) return "Guilt";
+    if (valence < 0.4 && energy < 0.5 && danceability > 0.5) return "Contempt";
+    if (valence < 0.4 && 0.4 <= energy && energy < 0.7) return "Shame";
+
     return "Neutral";
   }
+
 
   // Get the user's top artists from Spotify
   public async getTopArtists(): Promise<ArtistInfo[]>
