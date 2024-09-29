@@ -2,12 +2,12 @@
   "name": "echo",
   "version": "1.0.0",
   "scripts": {
-    "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
+    "start": "npm run build:frontend && concurrently \"npm run start:backend\" \"npm run serve",
     "start:backend": "cd Backend && npm start",
     "start:frontend": "cd Frontend && npm start",
     "install": "cd Backend && npm install && cd ../Frontend && npm install",
     "build:frontend": "cd Frontend && npm run build",
-    "serve": "cd Frontend/build && http-server"
+    "serve": "cd Frontend && http-server dist/frontend/browser"
   },
   "dependencies": {
     "axios": "^1.7.7",
