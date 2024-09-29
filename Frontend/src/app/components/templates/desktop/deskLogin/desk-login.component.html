@@ -1,11 +1,11 @@
 <div class="h-screen flex flex-col">
   <div class="flex flex-1 flex-row">
     <div class="flex flex-1 items-center justify-center rounded-l-xl" style="background-color: rgba(0, 0, 0, 0.3);">
-      <div class="bg-gray-component px-32 py-56 rounded-full text-center" style="box-shadow: 0 0 40px 10px rgba(238, 2, 88, 0.5);">
-        <div class="text-gray-verylight font-semibold shadow-lg text-2xl pb-2">
-          Your mood. Your music.
+      <div class="text-center">
+        <div class="text-white font-semibold text-5xl">
+          Welcome to 
         </div>
-        <img src="./assets/icons/ECH (500 x 200 px).png" alt="logo" class="h-32">
+        <img src="./assets/images/logo-dark-bg.png" alt="logo" class="h-72">
       </div>
     </div>
   
@@ -36,17 +36,18 @@
           </div>
   
           <div class="relative flex py-3 items-center">
-            <div class="flex-grow border-t border-gray-component"></div>
+            <div class="flex-grow border-t border-gray-light"></div>
             <span class="flex-shrink mx-4 text-xs text-gray-verylight">Or sign in with</span>
-            <div class="flex-grow border-t border-gray-component"></div>
+            <div class="flex-grow border-t border-gray-light"></div>
           </div>
   
-          <div style="display: flex; justify-content: space-evenly; align-items: center; width: 100%;">
+          <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
             <app-spotify-login (click)="spotify()"></app-spotify-login>
             <app-google-login (click)="google()"></app-google-login>
+            <app-apple-login></app-apple-login>
           </div>
         </form>
-        <p class="mt-10 text-center text-sm text-white font-semibold">
+        <p class="mt-10 text-center text-sm text-black font-semibold">
           Don't have an ECHO account?
           <button (click)="navigateToRegister()" class="font-bold text-lg leading-6 text-default hover:text-pink-dark">Sign up now</button>
         </p>
@@ -112,27 +113,27 @@
     </div>
   </div>
   
-  <footer class="bg-gray-component py-1">
+  <footer class="bg-gray-light dark:bg-dark-bg py-1">
     <div class="container mx-auto px-6 lg:px-8">
       <div class="flex flex-wrap justify-between items-center">
         <div class="w-full lg:w-auto text-center lg:text-left">
           <ul class="flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-4">
             <li>
-              <button (click)="toggleModal()" class=" text-gray-verylight hover:text-white">FAQ</button>
+              <button (click)="toggleModal()" class=" text-default  hover:text-white">FAQ</button>
             </li>
             <li>
-              <button (click)="toggleAboutModal()" class="text-gray-verylight hover:text-white">About Us</button>
+              <button (click)="toggleAboutModal()" class="text-default  hover:text-white">About Us</button>
             </li>
             <li>
-              <button (click)="toggleContactModal()" class="text-gray-verylight hover:text-white">Contact</button>
+              <button (click)="toggleContactModal()" class="text-default hover:text-white">Contact</button>
             </li>
             <li>
-              <button (click)="togglePrivacyModal()" class=" text-gray-verylight hover:text-white">Privacy Policy</button>
+              <button (click)="togglePrivacyModal()" class=" text-default hover:text-white">Privacy Policy</button>
             </li>
           </ul>
         </div>
         <div class="w-full lg:w-auto text-center lg:text-right mt-4 lg:mt-0">
-          <p class=" text-gray-verylight">© 2024 ECHO. All rights reserved.</p>
+          <p class=" text-default">© 2024 ECHO. All rights reserved.</p>
         </div>
       </div>
     </div>
