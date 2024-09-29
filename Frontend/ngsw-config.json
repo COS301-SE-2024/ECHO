@@ -57,13 +57,7 @@
     }
   ],
   "navigationUrls": [
-    {
-      "positive": true,
-      "regex": "^/.*$"
-    },
-    {
-      "positive": false,
-      "regex": "^/api/.*$"
-    }
+    "/**",            
+    "!/api/**"
   ]
 }
