@@ -5,6 +5,7 @@
     {
       "name": "app",
       "installMode": "prefetch",
+      "updateMode": "prefetch",
       "resources": {
         "files": [
           "/favicon.ico",
@@ -48,11 +49,21 @@
         "/api/**"
       ],
       "cacheConfig": {
-        "strategy": "performance",
+        "strategy": "network",
         "maxSize": 100,
         "maxAge": "1d",
         "timeout": "10s"
       }
+    }
+  ],
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^/api/.*$"
     }
   ]
 }
