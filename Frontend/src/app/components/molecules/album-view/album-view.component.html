@@ -1,33 +1,39 @@
-
 <!-- Song view modal -->
 <div class="fixed inset-0 z-50 flex items-center justify-center bg-gray-component bg-opacity-50">
-    <div class="relative p-4 w-full max-w-md max-h-full">
-      <!-- Modal content -->
-      <div class="relative bg-gray-light rounded-lg shadow">
-        <!-- Modal header -->
-        <div class="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ selectedAlbum?.title }}</h3>
-          <button (click)="closeModal()" class="text-gray-400 bg-transparent hover:bg-gray-200 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-          </button>
+  <div class="relative p-4 w-full max-w-md max-h-full">
+    <!-- Modal content -->
+    <div class="relative bg-gray-component rounded-lg shadow">
+      <!-- Modal header -->
+      <div class="flex items-center justify-between p-4 border-b rounded-t">
+        <h3 class="text-lg font-semibold text-gray-900">{{ selectedAlbum?.title }}</h3>
+        <button (click)="closeModal()" class="text-gray-400 bg-transparent hover:bg-gray-200 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <!-- Album information -->
+      <div class="p-4 flex flex-col items-center mt-4">
+        <div class="relative w-64 h-64 mb-4">
+          <img [src]="selectedAlbum?.image" alt="Cover Art" class="w-full h-full object-cover rounded-lg">
+          <img src="../assets/icons/play-pink.png" alt="Play Icon" class="absolute top-2 right-2 w-16 h-16">
         </div>
-        <!-- Song information -->
-        <div class="p-4 flex flex-col items-center mt-4">
-          <div class="relative w-64 h-64 mb-4">
-              <img [src]="selectedAlbum?.image" alt="Cover Art" class="w-full h-full object-cover rounded-lg">
-              <img src="../assets/icons/play-pink.png" alt="Play Icon" class="absolute top-2 right-2 w-16 h-16">
-          </div>
-          <p><span class="text-gray-verylight">Artist: </span> <span class="text-pink font-semibold">{{ selectedAlbum?.artist }}</span></p>
-          <p><span class="text-gray-verylight">Album: </span> <span class="text-pink font-semibold">{{ selectedAlbum?.album }}</span></p>
-          <p><span class="text-gray-verylight">Genre: </span> <span class="text-pink font-semibold">{{ selectedAlbum?.genre }}</span></p>
-          <br/>
-          <h5 class="text-lg font-bold mb-2 text-pink">Tracks</h5>
-          <ul class="list-disc list-inside text-gray-verylight">
-              <li *ngFor="let song of selectedAlbum?.similarSongs">{{ song }}</li>
-          </ul>
-        </div>
+        <p><span class="text-gray-verylight">Artist: </span> <span class="text-pink font-semibold">{{ selectedAlbum?.artist }}</span></p>
+        <p><span class="text-gray-verylight">Album: </span> <span class="text-pink font-semibold">{{ selectedAlbum?.album }}</span></p>
+        <p><span class="text-gray-verylight">Genre: </span> <span class="text-pink font-semibold">{{ selectedAlbum?.genre }}</span></p>
+        <p><span class="text-gray-verylight">Mood: </span> <span class="text-pink font-semibold">{{ selectedAlbum?.mood }}</span></p>
+        <br/>
+
+        <h5 class="text-lg font-bold mb-2 text-pink">Tracks on Album</h5>
+        <ul class="list-decimal list-inside text-gray-verylight w-full mb-4">
+          <li *ngFor="let track of selectedAlbum?.tracks; let i = index">
+            <div class="flex justify-between">
+              <span>{{ i + 1 }}. {{ track.title }}</span>
+              <span>{{ track.duration }}</span>
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
+</div>
