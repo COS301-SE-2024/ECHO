@@ -42,7 +42,7 @@ import { Observable } from "rxjs";
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"]
 })
-export class AppComponent implements OnInit, OnDestroy
+export class AppComponent implements OnInit
 {
   update: boolean = false;
   screenSize!: string;
@@ -141,9 +141,4 @@ export class AppComponent implements OnInit, OnDestroy
     return false;
   }
 
-  ngOnDestroy()
-  {
-    this.authService.signOut();
-    window.removeEventListener('beforeunload', this.handleTabClose);
-  }
 }
