@@ -16,15 +16,16 @@ import { EchoSongComponent } from "./components/templates/desktop/echo-song/echo
 //vies 
 import { LoginComponentview} from "./views/login/login.component";
 import { RegisterComponent} from "./views/register/register.component";
+import { HomesComponent } from "./views/homes/homes.component";
 
 export const routes: Routes = [
   { path: "landing", component: LandingPageComponent },
   { path: "login", component: LoginComponentview},
-  { path: "home", component: HomeComponent},
   { path: "register", component: RegisterComponent },
   { path: "profile", component: ProfileComponent },
   { path: "mood", component: MoodComponent },
   { path: "auth/callback", component: AuthCallbackComponent },
+  { path: "home", component: HomesComponent},
   { path: "", redirectTo: "/login", pathMatch: "full" },
   { path: "settings", component: SettingsComponent },
   { path: "artist-profile", component: ArtistProfileComponent },
