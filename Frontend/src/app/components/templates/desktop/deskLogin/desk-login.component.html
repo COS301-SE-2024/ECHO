@@ -1,1 +1,141 @@
-<app-input-component placeholder="placeholder" type="type"></app-input-component>
+<div class="h-screen flex flex-col">
+  <div class="flex flex-1 flex-row">
+    <div class="flex flex-1 items-center justify-center rounded-l-xl" style="background-color: rgba(0, 0, 0, 0.3);">
+      <div class="text-center">
+        <div class="text-white font-semibold text-5xl">
+          Welcome to 
+        </div>
+        <img src="./assets/images/logo-dark-bg.png" alt="logo" class="h-72">
+      </div>
+    </div>
+  
+    <div class="flex flex-1 items-center justify-center rounded-l-xl" style="background-color: rgba(0, 0, 0, 0.3);">
+      <div class="w-full max-w-sm  p-6 rounded-lg">
+        <form class="space-y-6" action="#" method="POST">
+          <div>
+            <label for="email" class="text-default-backgroundDark block text-sm font-medium leading-6"></label>
+            <div class="mt-2">
+              <input id="email" [(ngModel)]="email" name="email" autocomplete="email" placeholder=" Email" required class="block w-full rounded-full border-0 py-2 bg-gray-verylight text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-light focus:ring-2 focus:ring-inset focus:ring-pink-dark sm:text-sm sm:leading-6">
+            </div>
+          </div>
+  
+          <div>
+            <div class="flex items-center justify-between">
+              <label for="password" class="text-default-backgroundDark block text-sm font-medium leading-6"></label>
+              <div class="text-xs">
+                <a href="#" class="text-white font-semibold hover:text-red">Forgot password?</a>
+              </div>
+            </div>
+            <div class="mt-2">
+              <input id="password" [(ngModel)]="password" name="password" type="password" placeholder="  Password" required class="block w-full rounded-full border-0 py-2 text-stone-900 bg-gray-verylight ring-1 ring-inset ring-gray-300 placeholder:text-gray-light focus:ring-2 focus:ring-inset focus:ring-pink-dark sm:text-sm sm:leading-6">
+            </div>
+          </div>
+  
+          <div class="mt-5 flex justify-center">
+            <button type="submit" (click)="login()" class="w-30 rounded-full bg-default px-10 py-2.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-default-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-dark">Sign in</button>
+          </div>
+  
+          <div class="relative flex py-3 items-center">
+            <div class="flex-grow border-t border-gray-light"></div>
+            <span class="flex-shrink mx-4 text-xs text-gray-verylight">Or sign in with</span>
+            <div class="flex-grow border-t border-gray-light"></div>
+          </div>
+  
+          <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <app-spotify-login (click)="spotify()"></app-spotify-login>
+            <app-google-login (click)="google()"></app-google-login>
+            <app-apple-login></app-apple-login>
+          </div>
+        </form>
+        <p class="mt-10 text-center text-sm text-black font-semibold">
+          Don't have an ECHO account?
+          <button (click)="navigateToRegister()" class="font-bold text-lg leading-6 text-default hover:text-pink-dark">Sign up now</button>
+        </p>
+        <div class="toast-container">
+          <app-toast></app-toast>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="showModal" class="modal-overlay">
+      <div class="modal-content">
+        <button (click)="closeModal()" class="close-button">
+          Close<!-- Need to add icon -->
+        </button>
+        <div class="p-5 text-center">
+          <h3 class="mb-5 text-lg font-bold text-black">Frequently Asked Questions</h3>
+  
+          <p class="question">What is the ECHO Progressive Web App (PWA)?</p>
+          <p class="text">ECHO is a Progressive Web App designed to enhance your music experience by providing personalized song recommendations, sentiment analysis of lyrics, and insightful listening habits. It integrates seamlessly with Spotify to offer a comprehensive music platform.</p>
+          <br/>
+          <p class="question">I forgot my password. How can I reset it?</p>
+          <p class="text">Click on the "Forgot Password" link on the login page. Enter your registered email address, and follow the instructions sent to your email to reset your password.</p>
+          <br/>
+          <p class="question">How do I play music in ECHO?</p>
+          <p class="text">Select a song from your library or search results and click the "Play" button to start playing the music.</p>
+        </div>
+      </div>
+    </div>
+  
+    <div *ngIf="showAboutModal" class="modal-overlay">
+      <div class="modal-content">
+        <button (click)="closeModal()" class="close-button">
+          Close<!-- Need to add icon -->
+        </button>
+        <div>
+          <h3 class="mb-5 text-lg font-bold text-black">About Us</h3>
+          <p class="text">ECHO is a team of passionate music lovers dedicated to enhancing your music listening experience. Learn more about our team, mission, and the technology behind ECHO.</p>
+        </div>
+      </div>
+    </div>
+  
+    <div *ngIf="showContactModal" class="modal-overlay">
+      <div class="modal-content">
+        <button (click)="closeModal()" class="close-button">
+          Close<!-- Need to add icon -->
+        </button>
+        <div>
+          <h3 class="mb-5 text-lg font-bold text-pink">Contact Details</h3>
+          <p class="text">Email address:</p>
+        </div>
+      </div>
+    </div>
+  
+    <div *ngIf="showPrivacyModal" class="modal-overlay">
+      <div class="modal-content">
+        <button (click)="closeModal()" class="close-button">
+          Close<!-- Need to add icon -->
+        </button>
+        <div>
+          <h3 class="mb-5 text-lg font-bold text-pink">Privacy Policy</h3>
+          <p class="text">At ECHO, we are committed to protecting your privacy. This Privacy Policy outlines the types of personal information we collect when you use our services, how we use it, and the steps we take to ensure your data is kept secure and confidential. We collect personal information such as your email address and music preferences to enhance our service and provide you with personalized music recommendations. We do not share your personal information with third parties without your explicit consent, except as necessary to provide the services or as required by law. Your continued use of our services signifies your acceptance of our Privacy Policy. If you have any questions regarding how we handle your data, please contact us through our support channels.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <footer class="bg-gray-light dark:bg-dark-bg py-1">
+    <div class="container mx-auto px-6 lg:px-8">
+      <div class="flex flex-wrap justify-between items-center">
+        <div class="w-full lg:w-auto text-center lg:text-left">
+          <ul class="flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-4">
+            <li>
+              <button (click)="toggleModal()" class=" text-default  hover:text-white">FAQ</button>
+            </li>
+            <li>
+              <button (click)="toggleAboutModal()" class="text-default  hover:text-white">About Us</button>
+            </li>
+            <li>
+              <button (click)="toggleContactModal()" class="text-default hover:text-white">Contact</button>
+            </li>
+            <li>
+              <button (click)="togglePrivacyModal()" class=" text-default hover:text-white">Privacy Policy</button>
+            </li>
+          </ul>
+        </div>
+        <div class="w-full lg:w-auto text-center lg:text-right mt-4 lg:mt-0">
+          <p class=" text-default">© 2024 ECHO. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>

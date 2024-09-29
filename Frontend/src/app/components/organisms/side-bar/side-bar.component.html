@@ -1,22 +1,19 @@
-<div class="z-10"  style="left: 1vw; top: 10.2vh;">
-  <div [ngClass]="{'w-[2.5vw] h-[2vw]': isSideBarHidden, 'w-[20vw] h-[75vh]': !isSideBarHidden}"  class="container  pl-5 rounded-md max-h-screen " >
-    <div [ngClass]="moodComponentClasses[moodService.getCurrentMood()]" class="rounded-lg overflow-auto h-full flex flex-col justify-between scrollbar-hidden">
+<div class="z-10" style="left: 1vw; top: 10.2vh;">
+  <div class="w-[39vh] h-[72.5vh] container pl-5 rounded-md max-h-screen">
+    <div  style="background-color: rgba(0, 0, 0, 0.7);" class="rounded-lg overflow-auto h-full flex flex-col justify-between scrollbar-hidden">
       <!-- SVG button always visible -->
       <div class="flex justify-between items-center mb-2 mt-3">
-        <div class="button-container">
-          <app-expandable-icon class="focus:outline-none max-w-[.5vw]" (click)="toggleSideBar()"></app-expandable-icon>
-        </div>
         <!-- Only show these buttons when the sidebar is expanded -->
-        <div *ngIf="!isSideBarHidden" class="button-container" [ngClass]="getButtonClasses('suggestions')">
-          <button class="px-10 text-sm font-bold text-white focus:outline-none truncate max-w-[9.5vw] flex-1" (click)="selectOption('suggestions')">Suggestions</button>
+        <div class="button-container w-full bg-opacity-0" [ngClass]="getButtonClasses('suggestions')">
+          <button class="w-full px-10 font-bold text-white focus:outline-none truncate flex-1" (click)="selectOption('suggestions')">Suggestions</button>
         </div>
-        <div *ngIf="!isSideBarHidden" class="button-container" [ngClass]="getButtonClasses('recentListening')">
-          <button class="px-10 text-sm text-white focus:outline-none truncate max-w-[9.5vw] flex-1" (click)="selectOption('recentListening')">Recent listening</button>
+        <div  class="button-container w-full bg-opacity-0" [ngClass]="getButtonClasses('recentListening')">
+          <button class="w-full px-10 text-sm text-white focus:outline-none truncate flex-1" (click)="selectOption('recentListening')">Recent listening</button>
         </div>
       </div>
 
       <!-- Content of the sidebar -->
-      <div *ngIf="!isSideBarHidden" class="mt-7 mx-3 flex-grow overflow-auto scrollbar-hidden">
+      <div  class="mt-7 mx-3 flex-grow overflow-auto scrollbar-hidden">
         <ng-container *ngIf="!isLoading ; else loading">
           <div *ngFor="let card of getSelectedCardData(); let i = index">
             <app-song-cards [svgSize]="'2.5vw'" [imgSize]="'5vw'" [card]="card"></app-song-cards>
@@ -29,11 +26,9 @@
           <app-toast></app-toast>
         </div>
       </div>
-
     </div>
   </div>
 </div>
-
 
 <div *ngIf="isEchoModalVisible" id="echo-songs" tabindex="-1" aria-hidden="true" class="fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full bg-black bg-opacity-50">
   <div class="relative p-4 w-full max-w-2xl max-h-full">

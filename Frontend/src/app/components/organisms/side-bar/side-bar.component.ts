@@ -13,14 +13,13 @@ import { SearchService } from "../../../services/search.service";
 import { SkeletonSongCardComponent } from "../../atoms/skeleton-song-card/skeleton-song-card.component";
 import { ToastComponent } from "../../../components/organisms/toast/toast.component";
 import { YouTubeService } from "../../../services/youtube.service";
-import { ExpandableIconComponent } from '../../organisms/expandable-icon/expandable-icon.component';
 
 type SelectedOption = "suggestions" | "recentListening";
 
 @Component({
   selector: "app-side-bar",
   standalone: true,
-  imports: [MatCard, MatCardContent, NgForOf, NgIf, NgClass, EchoButtonComponent, SongCardsComponent, SkeletonSongCardComponent, ToastComponent, ExpandableIconComponent],
+  imports: [MatCard, MatCardContent, NgForOf, NgIf, NgClass, EchoButtonComponent, SongCardsComponent, SkeletonSongCardComponent, ToastComponent],
   templateUrl: "./side-bar.component.html",
   styleUrls: ["./side-bar.component.css"],
 })
@@ -28,7 +27,6 @@ export class SideBarComponent implements OnInit
 {
   @ViewChild(ToastComponent) toastComponent!: ToastComponent; // Declare ToastComponent
   @Output() sidebarToggled = new EventEmitter<boolean>(); // Declare EventEmitter
-  @Input() isSideBarHidden!: boolean; // Declare Input
 
   // Mood Service Variables
   moodComponentClasses!: { [key: string]: string };
@@ -47,7 +45,6 @@ export class SideBarComponent implements OnInit
   )
   {
     this.moodComponentClasses = this.moodService.getComponentMoodClasses();
-    this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
     this.underline = this.moodService.getUnerlineMoodClasses();
   }
 
@@ -66,10 +63,6 @@ export class SideBarComponent implements OnInit
   skeletonArray = Array(10);
 
 
-  toggleSideBar() {
-    this.isSideBarHidden = !this.isSideBarHidden;
-    this.sidebarToggled.emit(this.isSideBarHidden); // Emit event
-  }
 
   toggleDropdown(): void {
     this.isDropdownVisible = !this.isDropdownVisible;
@@ -133,15 +126,19 @@ export class SideBarComponent implements OnInit
       {
         this.isLoading = true;
         this.suggestionsCardData = await this.spotifyService.getQueue(this.provider);
+        console.log(this.suggestionsCardData);
+        
         await this.suggestionsCardData.unshift(this.getEchoedCardData()[0]);
         this.isLoading = false;
       }
       catch (error)
       {
         this.isLoading = false;
-        if (this.selectedOption === "suggestions")
-        {
-          this.toastComponent.showToast("Error fetching suggestions data", "error"); // Show error toast
+        console.error("Error fetching suggestions:", error); // Log the error
+        console.log(this.selectedOption);
+        if (this.selectedOption === "suggestions") {
+            console.log("In error");
+            this.toastComponent.showToast("Error fetching suggestions data", "error"); // Show error toast
         }
       }
     }

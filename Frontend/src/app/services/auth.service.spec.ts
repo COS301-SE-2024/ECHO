@@ -142,5 +142,58 @@ describe('AuthService', () => {
     expect(req.request.method).toBe('GET');
     req.flush({});
   });
+
+  describe('spotifyReady', () => {
+    it('should return true if localStorage has "spotifyReady" set to "true"', () => {
+      // Mock localStorage
+      Object.defineProperty(window, 'localStorage', {
+        value: {
+          getItem: jest.fn(() => 'true'),
+        },
+        writable: true,
+      });
+  
+      const result = service.spotifyReady();
+      expect(localStorage.getItem).toHaveBeenCalledWith('spotifyReady');
+      expect(result).toBe(true);
+    });
+  
+    it('should return false if localStorage has "spotifyReady" set to "false"', () => {
+      Object.defineProperty(window, 'localStorage', {
+        value: {
+          getItem: jest.fn(() => 'false'),
+        },
+        writable: true,
+      });
+  
+      const result = service.spotifyReady();
+      expect(localStorage.getItem).toHaveBeenCalledWith('spotifyReady');
+      expect(result).toBe(false);
+    });
+  
+    it('should return false if localStorage is not available', () => {
+      // Simulate localStorage being unavailable
+      Object.defineProperty(window, 'localStorage', {
+        value: undefined,
+        writable: true,
+      });
+  
+      const result = service.spotifyReady();
+      expect(result).toBe(false);
+    });
+  
+    it('should return false if localStorage has "spotifyReady" set to null', () => {
+      Object.defineProperty(window, 'localStorage', {
+        value: {
+          getItem: jest.fn(() => null),
+        },
+        writable: true,
+      });
+  
+      const result = service.spotifyReady();
+      expect(localStorage.getItem).toHaveBeenCalledWith('spotifyReady');
+      expect(result).toBe(false);
+    });
+  });
   
 });

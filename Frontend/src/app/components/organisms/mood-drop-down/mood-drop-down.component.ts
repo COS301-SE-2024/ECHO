@@ -18,34 +18,7 @@ export class MoodDropDownComponent {
   }
   dropdownOpen = false;
   moods: string[] = [
-    'Neutral',
-    'Admiration',
-    'Amusement',
-    'Anger',
-    'Annoyance',
-    'Approval',
-    'Caring',
-    'Confusion',
-    'Curiosity',
-    'Desire',
-    'Disappointment',
-    'Disapproval',
-    'Disgust',
-    'Embarrassment',
-    'Excitement',
-    'Fear',
-    'Gratitude',
-    'Grief',
-    'Joy',
-    'Love',
-    'Nervousness',
-    'Optimism',
-    'Pride',
-    'Realisation',
-    'Relief',
-    'Remorse',
-    'Sadness',
-    'Surprise',
+    "Neutral","Joy", "Surprise", "Sadness", "Anger", "Disgust", "Contempt", "Shame", "Fear", "Guilt", "Excitement", "Love"
   ];
   toggleDropdown() {
     this.dropdownOpen = !this.dropdownOpen;

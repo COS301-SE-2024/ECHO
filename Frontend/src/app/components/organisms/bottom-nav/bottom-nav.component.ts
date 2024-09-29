@@ -17,14 +17,15 @@ export class BottomNavComponent {
   moodClassesDark!: { [key: string]: string };
   selectedIndex:string = 'home';
   constructor(private router: Router,public moodService: MoodService) {
-    this.moodComponentClasses = this.moodService.getComponentMoodClasses();
-    this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
+    this.moodComponentClasses = this.moodService.getMoodColors();
     this.moodClassesDark = this.moodService.getComponentMoodClassesDark();
   }
   selectedIndexChanged(index: string){
     this.selectedIndex = index;
   }
-
+  getcurrentColor(){
+    return this.moodComponentClasses[this.moodService.getCurrentMood()];
+  }
   goHome(){
     this.router.navigate(['/home']);
   }

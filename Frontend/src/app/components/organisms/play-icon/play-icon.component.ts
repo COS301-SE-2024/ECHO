@@ -15,9 +15,13 @@ const SVG_PATHS = {
 })
 export class PlayIconComponent {
   @Input() mood?:any;
+  @Input() width: string = '10vh';
+  @Input() switchMood: boolean = true;
   playSvg: string = SVG_PATHS.PLAYSVG;
   constructor(public moodService: MoodService) {}
   switchmood(event: MouseEvent){
-    this.moodService.setCurrentMood(this.mood);
+    if(this.switchMood){
+      this.moodService.setCurrentMood(this.mood);    
+    }
   }
 }

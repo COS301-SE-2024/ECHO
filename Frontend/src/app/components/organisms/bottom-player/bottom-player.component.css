@@ -12,3 +12,30 @@
         bottom: 8vh;
     }
 }
+
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px; /* Adjust size as needed */
+    height: 20px; /* Adjust size as needed */
+    background: white;
+    cursor: pointer;
+    border-radius: 50%;
+  }
+  
+  input[type="range"]::-moz-range-thumb {
+    width: 20px; /* Adjust size as needed */
+    height: 20px; /* Adjust size as needed */
+    background: white;
+    cursor: pointer;
+    border-radius: 50%;
+  }
+  
+  input[type="range"]::-ms-thumb {
+    width: 20px; /* Adjust size as needed */
+    height: 20px; /* Adjust size as needed */
+    background: white;
+    cursor: pointer;
+    border-radius: 50%;
+  }
