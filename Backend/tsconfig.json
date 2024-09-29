@@ -8,6 +8,8 @@
     "allowSyntheticDefaultImports": true,
     "target": "ES2021",
     "sourceMap": true,
+    "inlineSourceMap": false,
+    "inlineSources": true,
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,

@@ -14,6 +14,8 @@ export class BigRoundedSquareCardComponent {
   @Input() mood: any;
   @Output() moodClick = new EventEmitter<any>();
   moodComponentClasses!: { [key: string]: string };
+  isDropdownOpen = false;
+
   constructor(public moodService: MoodService) {
     this.moodComponentClasses = this.moodService.getComponentMoodClasses();
 
@@ -21,5 +23,9 @@ export class BigRoundedSquareCardComponent {
 
   onMoodClick() {
     this.moodClick.emit(this.mood);
+  }
+
+  toggleDropdown(): void {
+    this.isDropdownOpen = !this.isDropdownOpen;
   }
 }

@@ -1,20 +1,7 @@
-<div *ngIf="screenSize === 'desktop'" class="flex flex-col">
-    <div class="card-body relative">
-        <app-page-title>Favourite Moods</app-page-title>
-        <app-moods-list [moods]="favouriteMoods" (redirectToMoodPage)="redirectToMoodPage($event)"></app-moods-list>
-        <br/>
-        <app-page-title>Recommended Moods</app-page-title>
-        <app-moods-list [moods]="RecommendedMoods" (redirectToMoodPage)="redirectToMoodPage($event)"></app-moods-list>
-    </div>
-</div>
-
-<div *ngIf="screenSize === 'mobile'" class="flex flex-col">
-    <div class="overflow-x-auto flex space-x-4 py-4">
-        <div *ngFor="let mood of favouriteMoods" [ngClass]="this.moodComponentClasses[this.moodService.getCurrentMood()]" class="min-w-[60vw] max-w-[60vw] bg-stone text-black dark:text-white rounded-lg shadow-lg">
-            <img src="{{ mood.image }}" alt="{{ mood.name }}" class="rounded-t-lg w-full h-40 object-cover">
-            <div class="p-4">
-                <app-page-title>{{ mood.name }}</app-page-title>
-            </div>
-        </div>
-    </div>
+<div class="card-body relative">
+    <app-page-title>Favourite Moods</app-page-title>
+    <app-moods-list [moods]="favouriteMoods" (redirectToMoodPage)="redirectToMoodPage($event)"></app-moods-list>
+    <br/>
+    <app-page-title>Recommended Moods</app-page-title>
+    <app-moods-list [moods]="RecommendedMoods" (redirectToMoodPage)="redirectToMoodPage($event)"></app-moods-list>
 </div>

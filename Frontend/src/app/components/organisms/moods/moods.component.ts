@@ -18,30 +18,32 @@ import { SearchService, Track } from "../../../services/search.service";
   templateUrl: "./moods.component.html",
   styleUrls: ["./moods.component.css"] // Corrected property name and expected value type
 })
-export class MoodsComponent implements OnDestroy
-{
-  favouriteMoods: any[] = []; // Corrected initialization
-  RecommendedMoods: any[] = []; // Added type and initialization
 
-  allMoods!: string[];
-  screenSize?: string;
-  // Mood Service Variables
-  moodComponentClasses!: { [key: string]: string };
-  backgroundMoodClasses!: { [key: string]: string };
+export class MoodsComponent implements OnDestroy {
+    favouriteMoods: any[] = []; // Corrected initialization
+    RecommendedMoods: any[] = []; // Added type and initialization
 
-  private screenSizeSubscription?: Subscription; // For unsubscribing
+    allMoods!: string[];
+    screenSize?: string;
+    // Mood Service Variables
+    moodComponentClasses!: { [key: string]: string };
 
-  constructor(
-    private screenSizeService: ScreenSizeService,
-    public moodService: MoodService,
-    private dialog: MatDialog,
-    private router: Router,
-    private searchService: SearchService
-  )
-  {
-    this.allMoods = this.moodService.getAllMoods();
-    this.moodComponentClasses = this.moodService.getComponentMoodClasses();
-  }
+    private screenSizeSubscription?: Subscription; // For unsubscribing
+
+    constructor(
+        private screenSizeService: ScreenSizeService,
+        public moodService: MoodService,
+        private dialog: MatDialog,
+        private router: Router,
+        private searchService: SearchService
+    ) {
+        this.allMoods = this.moodService.getAllMoods();
+        this.moodComponentClasses = this.moodService.getUnerlineMoodClasses();
+    }
+    async ngOnInit() {
+        this.screenSizeSubscription = this.screenSizeService.screenSize$.subscribe(screenSize => {
+            this.screenSize = screenSize;
+        });
 
   async ngOnInit()
   {

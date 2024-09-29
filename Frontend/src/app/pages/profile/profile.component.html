@@ -1,65 +1,11 @@
-<div *ngIf="screenSize === 'mobile'" class="mobile-layout">
-  <div [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]"
-       class=" flex flex-col sm:px-6 sm:py-12 min-h-screen">
-    <div class="profile-container w-full mx-auto">
-      <div id="profile" class="profile bg-cover bg-center w-full relative"
-           [style.background-image]="'url('+ imgpath + ')'" style="background-size: cover; height: 40vh;">
-        <!-- Centered content over the background image -->
-        <div class="absolute inset-0 flex flex-col justify-center items-center bg-opacity-50 dark:bg-opacity-50">
-          <h2 class="text-gray-900 dark:text-white font-bold py-4">&#64;{{ username }}</h2>
-          <div class="flex justify-center space-x-2 py-4">
-            <p class="text-gray-900 dark:text-white">11 Followers</p>
-            <p class="text-gray-900 dark:text-white">3 Following</p>
-          </div>
-          <button  class="btn btn-dark py-4" (click)="openDialog()">Edit
-            Profile
-          </button>
-
-        </div>
-      </div>
-    </div>
-    <div class="w-full pr-4 overflow-hidden">
-      <h2 class="text-gray-dark dark:text-gray-verylight font-bold mb-4">Top Songs</h2>
-      <div class="flex space-x-2 overflow-x-auto scrollable-cards">
-        <ng-container *ngFor="let item of topTracks">
-          <div (click)="playTrack(item.id)">
-            <app-top-card
-              [imageUrl]="item.imageUrl"
-              [text]="item.text"
-              [secondaryText]="item.secondaryText"
-              class="bg-stone-950"
-            >
-            </app-top-card>
-          </div>
-        </ng-container>
-      </div>
-      <h2 class="text-gray-dark dark:text-gray-verylight font-bold mt-4">Top Artists</h2>
-      <div class="flex space-x-2 overflow-x-auto scrollable-cards">
-        <ng-container *ngFor="let artist of topArtists">
-          <app-top-artist-card
-            [imageUrl]="artist.imageUrl"
-            [text]="artist.name" class="bg-stone-950"
-          >
-          </app-top-artist-card>
-        </ng-container>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div *ngIf="screenSize === 'desktop'" class="desktop-layout flex flex-col h-max">
   <div id="profile" class="profile bg-cover bg-center w-full relative rounded-t-lg"
      [style.background-image]="'url(' + imgpath + ')'"
      style="background-size: cover; height: 33vh;">
 
       <div class="absolute inset-0 flex flex-col justify-center items-center bg-gray-700 bg-opacity-50 rounded-t-lg">
         <h2 class="text-white text-3xl font-bold py-2">{{ username }}</h2>
-        <div class="flex justify-center space-x-3 pb-4">
-          <p class="text-white">11 Followers</p>
-          <p class="text-white">9 Following</p>
-        </div>
         <!-- Need to change this onlcick from the modal to the settings page-->
-        <button class="bg-white text-gray-component py-2 px-4 rounded-full z-10" (click)="openDialog()">
+        <button class="bg-white text-gray-component py-2 px-4 rounded-full z-10" (click)="settings()">
           Edit Profile
         </button>
       </div>
@@ -67,9 +13,9 @@
 
   <div class="bg-gray-component w-full py-4 rounded-b-lg ">
     <div class="overflow-hidden px-3">
-      <div class="flex justify-between space-x-8">
-        <!-- Top Songs Section -->
-        <div class="w-1/2">
+      <div class="space-y-8">
+        
+        <div>
           <h2 class="text-white text-2xl font-bold mb-2 mt-5">Top Songs</h2>
           <div class="flex space-x-4 overflow-x-auto scrollable-cards overflow-hidden px-3">
             <ng-container *ngFor="let item of topTracks" class="bg-stone-950">
@@ -81,9 +27,8 @@
             </ng-container>
           </div>
         </div>
-
-        <!-- Top Artists Section -->
-        <div class="w-1/2">
+  
+        <div>
           <h2 class="text-white text-2xl font-bold mb-2 mt-5">Top Artists</h2>
           <div class="flex space-x-4 overflow-x-auto scrollable-cards overflow-hidden px-3">
             <ng-container *ngFor="let artist of topArtists">
@@ -91,8 +36,10 @@
             </ng-container>
           </div>
         </div>
+  
+      </div>
     </div>
   </div>
+  
 
-</div>
 

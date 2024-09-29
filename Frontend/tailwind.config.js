@@ -33,6 +33,7 @@ module.exports = {
                     "light": '#454549',
                     "verylight": '#D9D9D9',
                     "lightcomponent": '#9A9A9E',
+                    "newDark": '#0F0F0F'
                 },
                 default: {
                     DEFAULT: '#EE0258',
@@ -43,32 +44,32 @@ module.exports = {
                     "background": 'black',
                 },
                 joy: {
-                        "DEFAULT": "#FFD700",
-                        "text": "#FFF8DC",
-                        "component": "#FFA500",
-                        "dark": "#FF8C00",
+                        "DEFAULT": "#F4BD01",
+                        "text": "#FFFFFF",
+                        "component": "#F4BD01",
+                        "dark": "#DA9808",
                         "backgrounddark": "#FFFFE0",
                         "background": "#FFFACD"
                     },
                 surprise: {
-                        "DEFAULT": "#00BFFF",
-                        "text": "#FFD700",
-                        "component": "#FF6347",
-                        "dark": "#003BD2",
-                        "backgrounddark": "#FFDAB9",
-                        "background": "#FFE4B5"
+                        "DEFAULT": "#1AADB8",
+                        "text": "#FFFFFF",
+                        "component": "#1AADB8",
+                        "dark": "#05959F",
+                        "backgrounddark": "#323232",
+                        "background": "#05959F"
                     },
                     sadness: {
-                        "DEFAULT": "#4682B4",
-                        "text": "#F0F8FF",
-                        "component": "#87CEEB",
-                        "dark": "#4169E1",
-                        "backgrounddark": "#B0E0E6",
-                        "background": "#ADD8E6"
+                        "DEFAULT": "#4C8EC5",
+                        "text": "#FFFFFF",
+                        "component": "#4C8EC5",
+                        "dark": "#2170B2",
+                        "backgrounddark": "#2170B2",
+                        "background": "#2170B2"
                     },
                     anger: {
                         "DEFAULT": "#A40014",
-                        "text": "#FFB9B9",
+                        "text": "#FFFFFF",
                         "component": "#221113",
                         "dark": "#890817",
                         "backgrounddark": "#471C21",
@@ -76,7 +77,7 @@ module.exports = {
                     },
                     disgust: {
                         "DEFAULT": "#556B2F",
-                        "text": "#F5FFFA",
+                        "text": "#FFFFFF",
                         "component": "#6B8E23",
                         "dark": "#4B5320",
                         "backgrounddark": "#8FBC8F",
@@ -84,49 +85,49 @@ module.exports = {
                     },
                     contempt: {
                         "DEFAULT": "#708090",
-                        "text": "#F5F5F5",
+                        "text": "#FFFFFF",
                         "component": "#778899",
-                        "dark": "#2F4F4F",
+                        "dark": "#56697B",
                         "backgrounddark": "#DCDCDC",
                         "background": "#D3D3D3"
                     },
                     shame: {
-                        "DEFAULT": "#FFB6C1",
-                        "text": "#FFF0F5",
-                        "component": "#FF69B4",
-                        "dark": "#DB7093",
+                        "DEFAULT": "#FFA0AE",
+                        "text": "#FFFFFF",
+                        "component": "#FFA0AE",
+                        "dark": "#FF788C",
                         "backgrounddark": "#FFDAB9",
                         "background": "#FFC0CB"
                     },
                     fear: {
-                        "DEFAULT": "#9A44CE",
-                        "text": "#1dff3c",
-                        "component": "#C639A2",
-                        "dark": "#ff00d8",
+                        "DEFAULT": "#8E71C3",
+                        "text": "#FFFFFF",
+                        "component": "#8E71C3",
+                        "dark": "#7456AD",
                         "backgrounddark": "#462E5E",
                         "background": "#E6E6FA"
                     },
                     guilt: {
-                        "DEFAULT": "#5C2D91",
-                        "text": "#FFE4E1",
-                        "component": "#B22222",
-                        "dark": "#3B0A67",
+                        "DEFAULT": "#703F9E",
+                        "text": "#FFFFFF",
+                        "component": "#703F9E",
+                        "dark": "#53277D",
                         "backgrounddark": "#FA8072",
                         "background": "#FF6347"
                     },
                     excitement: {
                         DEFAULT: '#FF5308',
-                        "text": '#FFD700',
+                        "text": '#FFFFFF',
                         "component": '#252525',
                         "dark": '#D44000',
                         "backgrounddark": '#5F3625',
                         "background": '#FFEBCC',
                     },
                     love: {
-                        "DEFAULT": "#FF1493",
+                        "DEFAULT": "#EE3B85",
                         "text": "#FFE4E1",
-                        "component": "#FF69B4",
-                        "dark": "#C71585",
+                        "component": "#EE3B85",
+                        "dark": "#DB3077",
                         "backgrounddark": "#FFD1DC",
                         "background": "#FFB6C1"
                     },

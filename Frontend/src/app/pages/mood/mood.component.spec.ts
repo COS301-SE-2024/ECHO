@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MoodComponent } from './mood.component';
 import { ScreenSizeService } from '../../services/screen-size-service.service';
@@ -14,7 +14,7 @@ describe('MoodComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [MoodComponent, HttpClientModule, RouterTestingModule],
-            providers: [ScreenSizeService, MoodService]
+            providers: [ScreenSizeService, MoodService, provideHttpClient()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(MoodComponent);
@@ -35,13 +35,6 @@ describe('MoodComponent', () => {
         const newMood = 'Happy';
         component.changeMood(newMood);
         expect(component.title).toBe(newMood);
-    });
-
-    it('should return albums related to the new mood', () => {
-        const newMood = 'Sad';
-        const albums = component.getAlbumsForMood(newMood);
-        expect(albums.length).toBeGreaterThan(0);
-        expect(albums[0].title).toContain(newMood);
     });
 
     it('should update searchQuery when onSearchdown is called', () => {

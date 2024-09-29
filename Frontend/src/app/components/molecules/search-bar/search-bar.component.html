@@ -1,5 +1,4 @@
-
-<form class="mx-auto text-left w-[80%]" (ngSubmit)="onSearchSubmit()"> 
+<form class="mx-auto text-left w-[99%]" (ngSubmit)="onSearchSubmit()"> 
     <label for="desktop-search" class="text-sm font-medium text-gray-900 sr-only dark:text-black">Search</label>
     <div class="relative">
         <div class="absolute inset-y-0 end-0 flex items-center pe-3 pointer-events-none">
@@ -8,7 +7,7 @@
             </svg>
         </div>
         <input type="search" id="desktop-search" 
-            class="search-input block w-full h-10pr-10 text-sm text-gray-900 border-none rounded-full bg-gray-50 focus:ring-pink focus:border-pink" 
+            class="search-input block w-full h-10 pr-10 text-sm text-gray-900 border-none rounded-full bg-gray-50 focus:ring-pink focus:border-pink" 
             placeholder="Looking for something?" 
             [(ngModel)]="searchQuery" name="desktopSearch" required />
     </div>

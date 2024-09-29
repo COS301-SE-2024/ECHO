@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MobileloginComponent } from './mobilelogin.component';
+import { provideHttpClient } from '@angular/common/http';
 
 
 describe('MobileloginComponent', () => {
@@ -8,7 +9,10 @@ describe('MobileloginComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MobileloginComponent]
+      imports: [MobileloginComponent],
+      providers: [
+        provideHttpClient(),
+      ]
     })
     .compileComponents();
 

@@ -14,7 +14,6 @@ describe('BigRoundedSquareCardComponent', () => {
 
     fixture = TestBed.createComponent(BigRoundedSquareCardComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

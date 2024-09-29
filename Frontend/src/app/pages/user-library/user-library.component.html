@@ -1,24 +1,28 @@
-<h1 class="text-3xl font-bold text-white text-center mb-6">User Library</h1>
+<app-page-title class="text-center pt-2">My Library</app-page-title>
 
-<h2 class="text-white font-bold mb-2 mt-4">My Artists</h2>
-        <div class="flex space-x-2 overflow-x-auto no-scrollbar">
-          <ng-container *ngFor="let artist of artists">
-            <app-top-artist-card 
-              [imageUrl]="artist.imageUrl" 
-              [text]="artist.text"
-            >
-          </app-top-artist-card>
-          </ng-container>
-        </div>
+<div class="p-2">
 
-        <h2 class="text-white font-bold mb-2 mt-10">My Songs</h2>
-          <div class="flex space-x-2 overflow-x-auto no-scrollbar">
-          <ng-container *ngFor="let item of recentListeningCardData">
-            <app-top-card 
-              [imageUrl]="item.imageUrl" 
-              [text]="item.text" 
-              [secondaryText]="item.secondaryText"
-            >
-            </app-top-card>
-          </ng-container>
+  <p class="text-white font-bold mb-2 mt-4 text-xl">My Artists</p>
+  <div class="flex space-x-9 overflow-x-auto no-scrollbar">
+    <ng-container *ngFor="let artist of artists">
+      <app-top-artist-card 
+        [imageUrl]="artist.imageUrl" 
+        [text]="artist.text"
+      >
+    </app-top-artist-card>
+    </ng-container>
+  </div>
+
+  <p class="text-white font-bold mb-2 mt-10 text-xl">My Songs</p>
+  <div class="flex space-x-9 overflow-x-auto no-scrollbar">
+  <ng-container *ngFor="let item of recentListeningCardData">
+    <app-top-card 
+      [imageUrl]="item.imageUrl" 
+      [text]="item.text" 
+      [secondaryText]="item.secondaryText"
+    >
+    </app-top-card>
+  </ng-container>
+  </div>
+
 </div>

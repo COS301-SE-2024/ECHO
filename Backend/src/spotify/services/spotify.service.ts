@@ -1,6 +1,6 @@
 import { Injectable, HttpException, HttpStatus } from "@nestjs/common";
 import { HttpService } from "@nestjs/axios";
-import { firstValueFrom, lastValueFrom } from "rxjs";
+import { firstValueFrom, lastValueFrom, Observable } from "rxjs";
 import { createSupabaseClient } from "../../supabase/services/supabaseClient";
 import { SupabaseService } from "../../supabase/services/supabase.service";
 import { accessKey } from "../../config";
@@ -170,11 +170,27 @@ export class SpotifyService
     // This function sets the volume of the player to the given volume
     async setVolume(volume: number, accessToken, refreshToken): Promise<any>
     {
-        const providerToken = await this.getAccessToken(accessToken, refreshToken);
-        const response = this.httpService.put(`https://api.spotify.com/v1/me/player/volume?volume_percent=${volume}`, {}, {
-            headers: { "Authorization": `Bearer ${providerToken}` }
-        });
-        return response.subscribe(response => response.data);
+        try {
+            const providerToken = await this.getAccessToken(accessToken, refreshToken);
+            const response = await this.httpService.put(`https://api.spotify.com/v1/me/player/volume?volume_percent=${volume}`, {}, {
+                headers: { "Authorization": `Bearer ${providerToken}` }
+            });
+
+            if (!response) {
+                throw new Error("Response was Invalid!")
+            }
+            return response.subscribe({
+                next: res => res.data,
+                error: err => {
+                    console.error("Error setting volume:", err);
+                    throw new Error('Network Error');
+                }
+            });
+        } catch (error) {
+            console.error("Error setting volume:", error)
+            throw error;
+        }
+        
     }
 
     // This function retrieves the details of the track with the given trackID
