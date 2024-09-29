@@ -1,10 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import { NavigationEnd, Router, RouterEvent } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { AuthService } from '../services/auth.service';
 import { SpotifyService } from "../services/spotify.service";
 import { TokenService } from "../services/token.service";
-import { ProviderService } from "../services/provider.service";
-import { filter } from "rxjs/operators";
 
 @Component({
   selector: "app-auth-callback",
@@ -22,42 +20,43 @@ export class AuthCallbackComponent implements OnInit {
     private router: Router,
     private spotifyService: SpotifyService,
     private tokenService: TokenService,
-    private providerService: ProviderService
+    private route: ActivatedRoute
   ) {}
 
-  ngOnInit() {
-    if (typeof window !== 'undefined') {
-      const hash = window.location.hash;
-      const tokens = this.parseHashParams(hash);
+  async ngOnInit() {
+    this.route.fragment.subscribe(async (fragment) => {
+      if (fragment) {
+        const tokens = this.parseHashParams(fragment);
 
-      if (tokens.accessToken && tokens.refreshToken) {
-        this.tokenService.setTokens(tokens.accessToken, tokens.refreshToken);
-        this.authService.sendTokensToServer(tokens).subscribe({
-          next: async (res: any) => {
-            console.log('Login successful:', res);
-            await this.spotifyService.init();
-            await this.router.navigate(['/home']);
-          },
-          error: (err: any) => {
-            console.error('Error processing login:', err);
-            this.router.navigate(['/login']);
-          }
-        });
-      } else {
-        console.error("No tokens found in URL hash");
-        this.router.navigate(['/login']);
+        if (tokens.accessToken && tokens.refreshToken) {
+          await this.tokenService.setTokens(tokens.accessToken, tokens.refreshToken);
+          this.authService.sendTokensToServer(tokens).subscribe({
+            next: async (res: any) => {
+              console.log("Login successful:", res);
+              await this.spotifyService.init();
+              await this.router.navigate(["/home"]);
+            },
+            error: (err: any) => {
+              console.error("Error processing login:", err);
+              this.router.navigate(["/login"]);
+            }
+          });
+        } else {
+          console.error("No tokens found in URL hash");
+          this.router.navigate(["/login"]);
+        }
       }
-    }
+    });
   }
 
   parseHashParams(hash: string) {
-    const params = new URLSearchParams(hash.substring(1));
+    const params = new URLSearchParams(hash);
     return {
-      accessToken: params.get('access_token'),
-      refreshToken: params.get('refresh_token'),
-      providerToken: params.get('provider_token'),
-      providerRefreshToken: params.get('provider_refresh_token'),
-      code: params.get('code')
+      accessToken: params.get("access_token"),
+      refreshToken: params.get("refresh_token"),
+      providerToken: params.get("provider_token"),
+      providerRefreshToken: params.get("provider_refresh_token"),
+      expiresAt: params.get("expires_at")
     };
   }
 }

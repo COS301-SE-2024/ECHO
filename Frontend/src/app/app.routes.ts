@@ -25,6 +25,7 @@ export const routes: Routes = [
   { path: "profile", component: ProfileComponent },
   { path: "mood", component: MoodComponent },
   { path: "auth/callback", component: AuthCallbackComponent },
+  { path: '/auth/callback', component: AuthCallbackComponent },
   { path: "home", component: HomesComponent},
   { path: "", redirectTo: "/login", pathMatch: "full" },
   { path: "settings", component: SettingsComponent },
@@ -35,10 +36,11 @@ export const routes: Routes = [
   { path: "library", component: UserLibraryComponent},
   { path: "echo Song", component: EchoSongComponent},
   { path: '**', redirectTo: '/login' } //DO NOT MOVE - MUST ALWAYS BE LAST
+
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true })],
+  imports: [RouterModule.forRoot(routes, { useHash: false })],
   exports: [RouterModule]
 })
 

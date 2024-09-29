@@ -5,6 +5,10 @@ import { TokenService } from "./token.service";
 import { ProviderService } from "./provider.service";
 import { Router } from "@angular/router";
 import { PlayerStateService } from "./player-state.service";
+import { environment } from '../../environments/environment';
+
+
+
 
 export interface AuthResponse
 {
@@ -19,7 +23,7 @@ export class AuthService
 {
   private loggedInSubject = new BehaviorSubject<boolean>(false);
   public isLoggedIn$: Observable<boolean> = this.loggedInSubject.asObservable();
-  private apiUrl = "http://localhost:3000/api/auth";
+  private apiUrl = `${environment.apiUrl}/auth`;
 
   constructor(private http: HttpClient, private tokenService: TokenService, private playerStateService: PlayerStateService, private providerService: ProviderService, private router: Router)
   {
@@ -64,6 +68,13 @@ export class AuthService
     return this.http.post(`${this.apiUrl}/providertokens`, { accessToken: laccessToken, refreshToken: lrefreshToken });
   }
 
+  async setProviderTokens(laccessToken: string, lrefreshToken: string): Promise<void>
+  {
+
+    await this.http.post(`${this.apiUrl}/providertokens`, { accessToken: laccessToken, refreshToken: lrefreshToken });
+  }
+
+
   verifyOfflineSession(): Promise<boolean>
   {
     if (localStorage.getItem("loggedIn") === "true")
@@ -85,15 +96,11 @@ export class AuthService
   // This function is used to sign in the user with Spotify OAuth
   async signInWithOAuth(): Promise<void>
   {
-    this.loggedInSubject.next(true);
-    if (localStorage.getItem("loggedIn") === "true")
-    {
-      this.router.navigate(["/home"]);
-    }
-    else
-    {
-      localStorage.setItem("loggedIn", "true");
-    }
+    localStorage.removeItem("loggedIn");
+    this.tokenService.clearTokens();  // Make sure to clear any tokens stored for the previous user
+
+    this.loggedInSubject.next(false);
+
     const providerName = this.providerService.getProviderName();
     this.http.post<{ url: string }>(`${this.apiUrl}/oauth-signin`, { provider: providerName })
       .subscribe(
@@ -107,7 +114,7 @@ export class AuthService
               localStorage.setItem("spotifyReady", "true");
             }
           }
-          await this.playerStateService
+          await this.playerStateService.setSpotifyReady();
           if (response && response.url)
           {
             localStorage.setItem("loggedIn", "true");

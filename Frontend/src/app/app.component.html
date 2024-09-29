@@ -17,7 +17,7 @@
       <!-- Placeholder div -->
       <div class="col-span-4"></div>
       <div [ngClass]="'col-span-' + colSpan + ' col-start-' + columnStart"
-        id="center" style="background-color: rgba(0, 0, 0, 0.7); height: 72.5vh;" 
+        id="center" style="background-color: rgba(0, 0, 0, 0.7); height: 72.5vh;"
         class="no-scrollbar row-span-2 row-start-3 overflow-y-scroll overflow-hidden p-4 rounded-xl border-black h-full no-scrollbar border overflow-y-scroll">
         <router-outlet></router-outlet>
       </div>
@@ -34,7 +34,7 @@
     <app-bottom-nav></app-bottom-nav>
   </ng-template>
 
-  <app-bottom-player *ngIf="isReady()"></app-bottom-player>
+  <app-bottom-player></app-bottom-player>
 </div>
 
 <!-- Hidden YouTube player, used to play videos in the background -->
