@@ -68,7 +68,6 @@ export class ArtistProfileComponent implements AfterViewInit {
     ) {
       this.currentMood = this.moodService.getCurrentMood(); 
       this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
-      this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
     }
 
     ngAfterViewInit(): void {

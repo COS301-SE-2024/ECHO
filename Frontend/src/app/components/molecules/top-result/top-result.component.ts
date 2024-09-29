@@ -18,6 +18,5 @@ export class TopResultComponent {
     backgroundMoodClasses!:{ [key: string]: string };
     constructor(  public moodService: MoodService ) {
       this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
-      this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
     }
 }

@@ -1,9 +1,10 @@
-<div *ngIf="screenSize === 'desktop'" class="desktop-layout">
+  <app-back-button></app-back-button>
+  <h1 class="text-3xl font-bold text-white text-center mb-6">Search Results for "{{ searchQuery }}</h1>
   <app-search-bar></app-search-bar>
-  <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-200">Search Results for "{{ searchQuery }}"</h1>
+  <div class="pl-4">
   <div class="top-result dark:text-gray-200" style="float: left; width: 33%;">
-    <h1 class="py-3" style="font-weight: bold; font-size: larger;">Top Result</h1>
-    <div [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]" class="big-card hover:cursor-pointer"
+    <h1 class="py-3 text-white" style="font-weight: bold; font-size: larger;">Top Result</h1>
+    <div [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]" class="opacity-85 bg-stone-950 big-card hover:cursor-pointer"
       style="width: 15vw; padding: 1vw; border-radius: 15px;">
       <ng-container *ngIf="topResult$ | async as topResult">
         <div (click)="playTrack(topResult.name, topResult.artistName)">
@@ -15,18 +16,17 @@
     </div>
   </div>
 
-
-  <div class="songs dark:text-gray-200" style="float: left; width: 33%; position: relative;">
+  <div class="songs dark:text-gray-200 p-4" style="float: left; width: 33%; position: relative;">
     <a
-      style="position: absolute; top: 0; right: 0; margin: 10px; padding: 5px 10px; border-radius: 5px;cursor: pointer;">
+      style="position: absolute; top: 0; right: 0; margin: 10px; padding: 5px 10px; border-radius: 5px;cursor: pointer;" class="text-white">
       View More
     </a>
-    <h1 class="py-2" style="font-weight: bold; font-size: larger;">Songs</h1>
-    <div class="songs-container" style="display: flex; flex-direction: column; overflow-y: auto; height:20vw;">
-      <div [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]" class="song-card hover:cursor-pointer"
+    <h1 class="py-2 text-white" style="font-weight: bold; font-size: larger;">Songs</h1>
+    <div class="songs-container no-scrollbar" style="display: flex; flex-direction: column; overflow-y: auto; height:20vw;">
+      <div [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]" class="bg-stone-950 opacity-85 song-card hover:cursor-pointer"
            *ngFor="let song of songs$ | async"
-           style="flex: 0 0 auto; width: 100%; margin-bottom: 20px; display: flex; padding: 5px; border-radius: 10px; box-sizing: border-box; height:6vw; padding: .5vw;"
-           (click)="playTrack(song.name, song.artistName)">
+            style="flex: 0 0 auto; width: 100%; margin-bottom: 20px; display: flex; padding: 5px; border-radius: 10px; box-sizing: border-box; height:6vw; padding: .5vw;"
+            (click)="playTrack(song.name, song.artistName)">
         <img [src]="song.albumImageUrl" alt="Song Image" style="width: 25%; border-radius: 10px; margin-right: 10px;">
         <div>
           <h2 style="font-weight: bold;" class="py-2">{{ song.name }}</h2>
@@ -37,16 +37,16 @@
   </div>
 
 
-<div class="songs dark:text-gray-200" style="float: left; width: 33%; position: relative;">
-  <a
+<div class="songs dark:text-gray-200 p-4" style="float: left; width: 33%; position: relative;">
+  <a class="text-white"
     style="position: absolute; top: 0; right: 0; margin: 10px; padding: 5px 10px; border-radius: 5px;cursor: pointer;">
     View More
   </a>
-  <h1 class="py-2" style="font-weight: bold; font-size: larger;">Albums</h1>
-  <div class="songs-container"
+  <h1 class="py-2 text-white" style="font-weight: bold; font-size: larger;">Albums</h1>
+  <div class="songs-container no-scrollbar"
        style="display: flex; flex-direction: column; overflow-y: auto; height:20vw;">
     <div [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]"
-         class="song-card hover:cursor-pointer"
+         class="song-card  hover:cursor-pointer bg-stone-950 opacity-85"
          *ngFor="let album of albums$ | async"
          style="flex: 0 0 auto; width: 100%; margin-bottom: 20px; display: flex; padding: 5px; border-radius: 10px; box-sizing: border-box; height:6vw; padding: .5vw;">
       <img [src]="album.albumImageUrl" alt="Song Image"
@@ -59,129 +59,4 @@
 
   </div>
 </div>
-<h1 class="dark:text-gray-200" style="padding-left: 20px; font-weight: bold; font-size: larger ;">From Your
-  Library</h1>
-
-<div class="library-container songs-container dark:text-gray-200"
-     style="width: 100%; overflow-x: auto; padding: 20px 0;">
-  <div class="library-content" style="display: flex; flex-wrap: nowrap; gap: 20px; padding: 0 20px;">
-    <div class="library-card"
-         style="display: flex; flex-direction: column; align-items: center; min-width: 150px; max-width: 200px; vertical-align: top;">
-      <img src="./../../../assets/images/album.png" alt="Album Image"
-           style="width: 100%; max-width: 100%; border-radius: 10px;">
-      <div style="text-align: center;">
-        <h2 style="font-weight: bold; margin-top: 10px;">title</h2>
-        <p>subtitle</p>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-
-
-<div *ngIf="screenSize === 'mobile'" class="mobile-layout">
-  <div [ngClass]="backgroundMoodClasses[this.moodService.getCurrentMood()]" class="min-h-screen" style="overflow: auto;">
-    <!-- Flex container for top elements -->
-    <div class="flex justify-between items-start p-5 fixed top-0 left-0 right-0">
-      <!-- Navbar on the left -->
-      <div class="navbar-container">
-        <app-navbar (selectedNavChange)="onNavChange('else')"></app-navbar>
-      </div>
-      <!-- Profile on the right -->
-      <div class="flex flex-col items-center">
-        <img (click)="profile()"
-             [src]="true ? '../../../../assets/icons/profile-light.png' : '../../../../assets/icons/profile-dark.png'"
-             alt="profile" class="w-12 h-12 hover:cursor-pointer">
-      </div>
-    </div>
-    <!-- Search bar below the top elements -->
-    <div class="mt-[calc(1vh+5rem)] pl-5">
-      <app-search-bar class="col-start-2"></app-search-bar>
-    </div>
-    <div *ngIf="searchQuery">
-
-    <h1 *ngIf="searchQuery !== ''" class="text-2xl font-bold text-gray-800 dark:text-gray-200">Search Results
-      for
-      "{{ searchQuery }}"</h1>
-
-    <div class="top-result dark:text-gray-200" style="float: left; width: 50%;">
-      <h1 class="" style="font-weight: bold; font-size: larger;">Top Result</h1>
-      <div [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]" class="big-card  my-[1vw] hover:cursor-pointer"
-           style="width: 90%; padding: 2vw; border-radius: 15px;">
-        <ng-container *ngIf="topResult$ | async as topResult">
-          <div (click)="playTrack(topResult.name, topResult.artistName)">
-          <img [src]="topResult.albumImageUrl" alt="Big Image" style="border-radius: 15px;">
-          <h2 style="font-weight: bold;" class="py-2">{{ topResult.name }}</h2>
-          <p class="py-1">{{ topResult.artistName }}</p>
-          </div>
-        </ng-container>
-      </div>
-    </div>
-
-    <div class="songs dark:text-gray-200" style="float: left; width: 50%; position: relative;">
-      <a
-        style="position: absolute; top: 0; right: 0; margin: 10px; padding: 5px 10px; border-radius: 5px;cursor: pointer;">
-        View More
-      </a>
-      <h1 class="py-2" style="font-weight: bold; font-size: larger;">Songs</h1>
-      <div class="songs-container"
-      style="display: flex; flex-direction: column; overflow-y: auto; height:25vw;">
-   <div [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]"
-        class="song-card hover:cursor-pointer"
-        *ngFor="let song of songs$ | async"
-        style="flex: 0 0 auto; width: 100%; margin-bottom: 20px; display: flex; padding: 5px; border-radius: 10px; box-sizing: border-box; height:15vw; padding: .5vw;"
-        (click)="playTrack(song.name, song.artistName)">
-     <img [src]="song.albumImageUrl" alt="Song Image"
-          style="width: 25%; border-radius: 10px; margin-right: 10px;">
-     <div>
-       <h2 style="font-weight: bold;" class="py-2">{{ song.name }}</h2>
-       <p class="py-1">{{ song.artistName }}</p>
-     </div>
-   </div>
- </div>
-
-    </div>
-    <div class="songs dark:text-gray-200" style="float: left; width: 50%; position: relative;">
-      <a
-        style="position: absolute; top: 0; right: 0; margin: 10px; padding: 5px 10px; border-radius: 5px;cursor: pointer;">
-        View More
-      </a>
-      <h1 class="py-2" style="font-weight: bold; font-size: larger;">Albums</h1>
-      <div class="songs-container"
-           style="display: flex; flex-direction: column; overflow-y: auto; height:25vw;">
-        <div [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]"
-             class="song-card hover:cursor-pointer"
-             *ngFor="let album of albums$ | async"
-             style="flex: 0 0 auto; width: 100%; margin-bottom: 20px; display: flex; padding: 5px; border-radius: 10px; box-sizing: border-box; height:15vw; ; padding: .5vw;">
-          <img [src]="album.albumImageUrl" alt="Song Image"
-               style="width: 25%; border-radius: 10px; margin-right: 10px;">
-          <div>
-            <h2 style="font-weight: bold;" class="py-2">{{ album.albumName }}</h2>
-            <p class="py-1">{{ album.artistName }}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="library-container songs-container dark:text-gray-200 "
-         style="width: 100%; overflow-x: auto; margin-bottom: 40vw; padding: 20px 0;">
-      <h1 class="dark:text-gray-200" style="padding-left: 20px; font-weight: bold; font-size: larger ;">From
-        Your
-        Library</h1>
-      <div class="library-content" style="display: flex; flex-wrap: nowrap; gap: 20px; padding: 0 20px;">
-        <div class="library-card"
-             style="display: flex; flex-direction: column; align-items: center; min-width: 150px; max-width: 200px; vertical-align: top;">
-          <img src="./../../../assets/images/album.png" alt="Album Image"
-               style="width: 100%; max-width: 100%; border-radius: 10px;">
-          <div style="text-align: center;">
-            <h2 style="font-weight: bold; margin-top: 10px;">title</h2>
-            <p>subtitle</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-    </div>
-  </div>
 </div>
