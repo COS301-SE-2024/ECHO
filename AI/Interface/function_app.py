@@ -262,117 +262,59 @@ def get_moods(req: func.HttpRequest) -> func.HttpResponse:
                 status_code=401
             )
 
-        song_name = req_body.get("song_name")
-        artist = req_body.get("artist")
         target_mood = req_body.get("mood")
+        original_name = req_body.get("song_name")
+        original_artist = req_body.get("artist")
 
-        if not song_name or not artist or not target_mood:
-            print("Error: song_name, artist, or mood is missing.")
+        if not target_mood:
+            print("Error: mood is missing.")
             return func.HttpResponse(
-                json.dumps({"error": "Please provide song_name, artist, and mood."}),
+                json.dumps({"error": "Please provide a mood."}),
                 mimetype="application/json",
                 status_code=400
             )
 
-        print(f"Processing mood request for song: {song_name} by {artist} with target mood: {target_mood}")
+        print(f"Fetching songs with mood: {target_mood}")
 
-        # Step 1: Check if the requested song is already in the database
-        original_uri = utils.get_track_id(song_name, artist)
-        original_song = db.check_id(original_uri)
-
-        if original_song:
-            print("Song found in the database. Fetching stored genre and emotion.")
-            original_genre = original_song.get("AlbumGenre")
-            original_emotion = original_song.get("Emotion")
-        else:
-            # Step 2: If not in database, get genre and emotion for the song
-            print(f"Fetching genre and emotion for {song_name} by {artist}")
-            original_genre = utils.get_genre(song_name, artist)
-            original_emotion = utils.get_sentiment(song_name, artist)
-
-            # Store original song details in the database
-            db.store_song({
-                "id": original_uri,
-                "SongName": song_name,
-                "Artist": artist,
-                "URI": original_uri,
-                "Emotion": original_emotion,
-                "AlbumGenre": original_genre
-            })
-
-        # Step 3: Request cluster songs for the given song
-        _, cluster_number, cluster_songs = utils.get_cluster_songs(song_name, artist, 150)
-        if not cluster_songs:
+        # Step 1: Fetch songs with the requested sentiment (mood)
+        songs_with_mood = db.get_songs_by_sentiment(target_mood)
+        if not songs_with_mood:
             return func.HttpResponse(
-                json.dumps({"error": "Error fetching cluster songs."}),
+                json.dumps({"error": "No songs found with the specified mood."}),
                 mimetype="application/json",
-                status_code=500
+                status_code=404
             )
 
-        similar_songs = []
-        unprocessed_songs = []
+        print(f"Found {len(songs_with_mood)} songs with the mood: {target_mood}")
 
-        # Step 4: For each cluster song, check if it's already in the database
-        for song in cluster_songs:
-            song_uri = song.get("track_uri")
-            db_song = db.check_id(song_uri)
+        original_genre = utils.get_genre(original_name, original_artist)
 
-            if db_song:
-                # If in database, use the details from there
-                similar_songs.extend(process_existing_song(db_song, original_emotion, original_genre))
-            else:
-                # If not in the database, mark it for processing
-                track_name, artist_name = utils.get_track_details(song_uri)
-                unprocessed_songs.append({"track_name": track_name, "artist_name": artist_name, "track_uri": song_uri})
-
-        # Step 5: Fetch all sentiments and genres concurrently
-        if unprocessed_songs:
-            print(f"Processing {len(unprocessed_songs)} unprocessed songs.")
-            with concurrent.futures.ThreadPoolExecutor() as executor:
-                future_sentiments = executor.submit(utils.get_all_sentiments, unprocessed_songs)
-                future_genres = executor.submit(utils.get_all_genres, unprocessed_songs)
-
-                # Wait for both results to complete
-                emotions = future_sentiments.result()
-                genres = future_genres.result()
-
-            for i, song in enumerate(unprocessed_songs):
-                track_uri = song.get('track_uri')
-                emotion = emotions["recommended_tracks"][i].get("emotion", "")
-                genre = genres["recommended_tracks"][i].get("genre", "")
-
-                # Store the song in the database
-                db.store_song({
-                    "id": track_uri,
-                    "SongName": song.get('track_name'),
-                    "Artist": song.get('artist_name'),
-                    "URI": track_uri,
-                    "ClusterNumber": str(cluster_number),
-                    "Emotion": emotion,
-                    "AlbumGenre": genre
+        # Step 2: Compare the genres and return those with similarity 6 or higher
+        recommendations = []
+        for song in songs_with_mood:
+            
+            genre_similarity = utils.get_genre_similarity_from_llm(original_genre, target_mood)
+            if genre_similarity >= 6:
+                print(f"Adding song {song.get('SongName')} with genre similarity {genre_similarity}")
+                recommendations.append({
+                    "track": song.get("URI"),
+                    "artist": song.get("Artist"),
+                    "track_name": song.get("SongName"),
                 })
 
-                # Step 6: Check if sentiment and genre are similar enough to the original song
-                emotion_similarity = utils.get_emotion_similarity_from_llm(emotion, target_mood)
-                genre_similarity = utils.get_genre_similarity_from_llm(genre, original_genre)
-
-                if emotion_similarity >= 9 and genre_similarity >= 6:
-                    print(f"Adding similar song: {song.get('track_name')} by {song.get('artist_name')}")
-                    similar_songs.append({
-                        "track": track_uri,
-                        "artist": song.get('artist_name'),
-                        "track_name": song.get('track_name'),
-                        "emotion": emotion,
-                        "genre": genre
-                    })
-
-        # Step 7: Return the list of similar songs
-        print(f"Returning {len(similar_songs)} similar songs.")
-        return func.HttpResponse(
-            json.dumps({"recommended_songs": similar_songs}),
-            mimetype="application/json",
-            status_code=200
-        )
+        # Step 3: Return recommendations if any
+        if recommendations:
+            return func.HttpResponse(
+                json.dumps({"recommended_songs": recommendations}),
+                mimetype="application/json",
+                status_code=200
+            )
+        else:
+            return func.HttpResponse(
+                json.dumps({"error": "No recommendations found with sufficient genre similarity."}),
+                mimetype="application/json",
+                status_code=404
+            )
 
     except json.JSONDecodeError as json_error:
         print(f"JSON decode error: {json_error}")

@@ -72,14 +72,14 @@ def create_container(database):
 
 
 def store_song(song):
+    print("storing")
     database = get_database()
+    print(database)
     container = get_container(database)
-    
-    existing_song = check_id(song['URI'])
-    if existing_song:
-        return
-    else:
-        container.create_item(body=song)
+    print(container)
+
+    container.create_item(body=song)
+    print("song stored")
 
 
 def store_recommendations(songs):
@@ -134,18 +134,21 @@ def check_recommendations(song_id):
         return None
 
 
-# database = get_database()
-# container = get_container(database)
-# song = {
-#         # "id": "spotify:track:5kr3j5Clb9rjEposoMyLVt",
-#         "SongName": "Welcome to Paradise",
-#         "Artist": "Green Day",
-#         "URI": "spotify:track:5kr3j5Clb9rjEposoMyLVt",
-#         "ClusterNumber": "4",
-#         "Emotion": "caring",
-#         "AlbumGenre": "Alternative"
-#     }
+def get_songs_by_sentiment(sentiment):
+    try:
+        # Get the database and container clients
+        database = get_database()
+        container = get_container(database)
 
-# store_song(song)
+        # Define the query to fetch items with the requested sentiment
+        query = f"SELECT * FROM c WHERE c.Emotion = '{sentiment}'"
+        
+        # Query the container for matching items
+        items = list(container.query_items(query=query, enable_cross_partition_query=True))
 
-# check_id("spotify:track:5kr3j5Clb9rjEposoMyLVt")
+        return items
+
+    except exceptions.CosmosHttpResponseError as e:
+        print(f"Error reading from Cosmos DB: {str(e)}")
+        return None
+    
