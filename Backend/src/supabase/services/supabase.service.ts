@@ -28,7 +28,7 @@ export class SupabaseService
 
         if (process.env.NODE_ENV === "production")
         {
-            redirectTo = "https://echo-bm8z.onrender.com/login"; // Production URL
+            redirectTo = "https://echo-bm8z.onrender.com/index.html"; // Production URL
         }
         else
         {
