@@ -205,5 +205,17 @@ export class SearchService
     }
   }
 
+  // This function gets the songs for a specific mood
+  getSongsByMood(mood: string): Observable<{ imageUrl: string, tracks: Track[] }>
+  {
+    return this.httpClient.get<{ imageUrl: string, tracks: Track[] }>(`${this.apiUrl}/search/mood?mood=${mood}`);
+  }
+
+
+  // New Method: Fetch suggested moods with their tracks
+  getSuggestedMoods(): Observable<{ mood: string; imageUrl: string; tracks: Track[] }[]> {
+    return this.httpClient.get<{ mood: string; imageUrl: string; tracks: Track[] }[]>(`${this.apiUrl}/search/suggested-moods`);
+  }
+
 
 }

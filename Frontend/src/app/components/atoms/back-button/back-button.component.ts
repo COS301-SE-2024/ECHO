@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 import { Location } from '@angular/common';
 import { MoodService } from '../../../services/mood-service.service';
 import { NgClass } from '@angular/common';
-
 @Component({
   selector: 'app-back-button',
   standalone: true,
@@ -20,9 +19,8 @@ export class BackButtonComponent {
     private location: Location,
     public moodService: MoodService,
   ) {
-    this.currentMood = this.moodService.getCurrentMood();
-    this.moodComponentClasses = this.moodService.getComponentMoodClasses();
-    this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
+    this.currentMood = this.moodService.getCurrentMood(); 
+    this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
   }
 
 

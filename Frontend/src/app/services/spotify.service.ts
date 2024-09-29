@@ -77,13 +77,8 @@ export class SpotifyService
   {
     if (isPlatformBrowser(this.platformId) && !this.hasBeenInitialized)
     {
-      console.log("Initializing Spotify SDK in the browser...");
       await this.initializeSpotify();
       this.hasBeenInitialized = true;
-    }
-    else
-    {
-      console.log("Spotify SDK initialization skipped on the server.");
     }
   }
 
@@ -150,7 +145,6 @@ export class SpotifyService
 
     this.player.addListener("ready", ({ device_id }: { device_id: string }) =>
     {
-      console.log("Ready with Device ID", device_id);
       this.deviceId = device_id;
     });
 
@@ -223,7 +217,6 @@ export class SpotifyService
 
     this.player.pause().then(() =>
     {
-      console.log("Playback paused");
       this.playingStateSubject.next(false);
     });
   }
@@ -317,9 +310,7 @@ export class SpotifyService
       const trackDuration = state.track_window.current_track.duration_ms;
       const seekPosition = (progress / 100) * trackDuration;
 
-      this.player.seek(seekPosition).then(() => {
-        console.log(`Seeked to position ${seekPosition} ms`);
-      });
+      this.player.seek(seekPosition);
     }
     catch (error)
     {
@@ -349,16 +340,11 @@ export class SpotifyService
       {
         this.player.resume().then(() =>
         {
-          console.log("Playback resumed");
           this.playingStateSubject.next(true);
         }).catch((error: any) =>
         {
           console.error("Failed to resume playback", error);
         });
-      }
-      else
-      {
-        console.log("Playback is already ongoing");
       }
     }).catch((error: any) =>
     {
@@ -371,7 +357,7 @@ export class SpotifyService
   {
     if (this.player)
     {
-      this.player.setVolume(volume).then(() => console.log(`Volume set to ${volume * 100}%`));
+      this.player.setVolume(volume);
     }
   }
 
@@ -574,9 +560,7 @@ export class SpotifyService
     if (this.player)
     {
       this.player.disconnect().then(() =>
-      {
-        console.log("Player disconnected");
-      }).catch((error: any) =>
+      {}).catch((error: any) =>
       {
         console.error("Failed to disconnect player", error);
       });
@@ -628,7 +612,7 @@ export class SpotifyService
   {
     if (this.player)
     {
-      this.player.setVolume(0).then(() => console.log(`Muted player`));
+      this.player.setVolume(0);
     }
   }
 
@@ -637,7 +621,7 @@ export class SpotifyService
   {
     if (this.player)
     {
-      this.player.setVolume(0.5).then(() => console.log(`Unmuted player`));
+      this.player.setVolume(0.5);
     }
   }
 
@@ -692,40 +676,21 @@ export class SpotifyService
     }
   }
 
-  public classifyMood(analysis: TrackAnalysis): string
-  // Classify the mood of a track based on its audio features
-  {
+  public classifyMood(analysis: TrackAnalysis): string {
     const { valence, energy, danceability, tempo } = analysis;
-
+  
     if (0.4 <= valence && valence <= 0.6 && 0.4 <= energy && energy <= 0.6) return "Neutral";
     if (valence < 0.4 && energy > 0.7) return "Anger";
-    if (valence > 0.6 && energy > 0.5) return "Admiration";
     if (valence < 0.3 && energy > 0.6) return "Fear";
     if (valence > 0.7 && energy > 0.7) return "Joy";
-    if (valence > 0.6 && energy > 0.6 && danceability > 0.6) return "Amusement";
-    if (valence < 0.4 && 0.4 < energy && energy < 0.7) return "Annoyance";
-    if (valence > 0.6 && 0.4 < energy && energy < 0.7) return "Approval";
-    if (valence > 0.5 && energy < 0.5) return "Caring";
-    if (0.4 <= valence && valence <= 0.6 && 0.3 <= energy && energy <= 0.5) return "Confusion";
-    if (0.5 < valence && valence < 0.7 && 0.5 < energy && energy < 0.7) return "Curiosity";
-    if (valence > 0.6 && energy > 0.6) return "Desire";
-    if (valence < 0.4 && energy < 0.4) return "Disappointment";
-    if (valence < 0.3 && 0.3 < energy && energy < 0.6) return "Disapproval";
     if (valence < 0.3 && energy > 0.5) return "Disgust";
-    if (valence < 0.4 && energy < 0.5) return "Embarrassment";
     if (valence > 0.7 && energy > 0.8) return "Excitement";
-    if (valence > 0.6 && energy < 0.5) return "Gratitude";
-    if (valence < 0.3 && energy < 0.4) return "Grief";
     if (valence > 0.7 && energy < 0.7) return "Love";
-    if (0.3 < valence && valence < 0.5 && energy > 0.6) return "Nervousness";
-    if (valence > 0.6 && energy > 0.5) return "Optimism";
-    if (valence > 0.7 && energy > 0.6) return "Pride";
-    if (0.4 < valence && valence < 0.6 && 0.4 < energy && energy < 0.6) return "Realisation";
-    if (valence > 0.5 && energy < 0.4) return "Relief";
-    if (valence < 0.4 && energy < 0.4) return "Remorse";
     if (valence < 0.3 && energy < 0.5) return "Sadness";
     if (valence > 0.5 && energy > 0.7 && tempo > 120) return "Surprise";
-
+    if (valence < 0.4 && energy < 0.4) return "Contempt";
+    if (valence < 0.4 && 0.4 < energy && energy < 0.7) return "Shame";
+    if (valence < 0.3 && energy < 0.4) return "Guilt";
     return "Neutral";
   }
 

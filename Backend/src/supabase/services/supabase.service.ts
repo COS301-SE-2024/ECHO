@@ -147,10 +147,8 @@ export class SupabaseService
     }
 
     // This method is used to retrieve tokens from the user_tokens table.
-    async retrieveTokens(userId: string)
-    {
-        console.log(`Retrieving tokens for user: ${userId}`);
 
+    async retrieveTokens(userId: string) {
         const supabase = createSupabaseClient();
         const { data, error } = await supabase
             .from("user_tokens")

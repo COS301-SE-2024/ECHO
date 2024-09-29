@@ -53,8 +53,7 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy
   )
   {
     this.moodComponentClasses = this.moodService.getComponentMoodClasses();
-    this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
-    this.moodClassesDark = this.moodService.getComponentMoodClassesDark();
+    this.moodClassesDark = this.moodService.getComponentMoodClassesHover();
   }
 
   async ngOnInit()
@@ -106,6 +105,7 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy
       this.playingStateSubscription = this.spotifyService.playingState$.subscribe(isPlaying =>
       {
         this.playing = isPlaying;
+        this.started = true;
         this.updatePlayPauseIcon();
         this.cdr.detectChanges();
       });
@@ -134,6 +134,7 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy
             explicit: false,
             duration_ms: track.duration_ms
           };
+          this.started = true;
         }
         this.cdr.detectChanges();
       });
@@ -366,4 +367,5 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy
     const remainingSeconds = Math.floor(seconds % 60);
     return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
   }
+  
 }

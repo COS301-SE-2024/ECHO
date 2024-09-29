@@ -9,13 +9,15 @@ import { CommonModule, isPlatformBrowser } from "@angular/common";
 import { ProviderService } from "./services/provider.service";
 import { PageHeaderComponent } from "./components/molecules/page-header/page-header.component";
 import { MoodService } from "./services/mood-service.service";
-import { BackgroundAnimationComponent } from "./components/organisms/background-animation/background-animation.component";
+import {
+  BackgroundAnimationComponent
+} from "./components/organisms/background-animation/background-animation.component";
+import { ExpandableIconComponent } from './components/organisms/expandable-icon/expandable-icon.component';
 import { NavbarComponent } from "./components/organisms/navbar/navbar.component";
 import { SideBarComponent } from './components/organisms/side-bar/side-bar.component';
 //template imports
 import { HeaderComponent } from "./components/organisms/header/header.component";
 import { OtherNavComponent } from "./components/templates/desktop/other-nav/other-nav.component";
-import { LeftComponent } from "./components/templates/desktop/left/left.component";
 import { AuthService } from "./services/auth.service";
 import { PlayerStateService } from "./services/player-state.service";
 import { Observable } from "rxjs";
@@ -31,10 +33,10 @@ import { Observable } from "rxjs";
     PageHeaderComponent,
     HeaderComponent,
     OtherNavComponent,
-    LeftComponent,
     BackgroundAnimationComponent,
     NavbarComponent,
-    SideBarComponent
+    SideBarComponent,
+    ExpandableIconComponent
   ],
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"]
@@ -56,6 +58,7 @@ export class AppComponent implements OnInit, OnDestroy
   moodComponentClasses!: { [key: string]: string };
   backgroundMoodClasses!: { [key: string]: string };
   isLoggedIn$!: Observable<boolean>;
+  isSideBarHidden!: boolean; // Declare Input
 
   constructor(
     private router: Router,
@@ -69,7 +72,6 @@ export class AppComponent implements OnInit, OnDestroy
     @Inject(PLATFORM_ID) private platformId: Object
   )
   {
-    this.backgroundMoodClasses = this.moodService.getBackgroundMoodClasses();
     this.isLoggedIn$ = this.authService.isLoggedIn$;
     updates.versionUpdates.subscribe(event =>
     {
@@ -148,3 +150,12 @@ export class AppComponent implements OnInit, OnDestroy
   }
 
 }
+
+  toggleSideBar() {
+    this.isSideBarHidden = !this.isSideBarHidden;
+    this.layout(this.isSideBarHidden);
+  }
+
+
+}
+
