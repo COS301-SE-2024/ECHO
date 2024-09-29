@@ -25,7 +25,6 @@ export const routes: Routes = [
   { path: "profile", component: ProfileComponent },
   { path: "mood", component: MoodComponent },
   { path: "auth/callback", component: AuthCallbackComponent },
-  { path: '/auth/callback', component: AuthCallbackComponent },
   { path: "home", component: HomesComponent},
   { path: "", redirectTo: "/login", pathMatch: "full" },
   { path: "settings", component: SettingsComponent },
