@@ -25,7 +25,7 @@ export class TokenService {
   }
 
   //This method sets the access token and refresh token in the BehaviorSubjects and session Storage.
-  setTokens(accessToken: string, refreshToken: string): void {
+  async setTokens(accessToken: string, refreshToken: string): Promise<void> {
     this.accessTokenSubject.next(accessToken);
     this.refreshTokenSubject.next(refreshToken);
     sessionStorage.setItem('accessToken', accessToken);
