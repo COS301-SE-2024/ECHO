@@ -281,7 +281,7 @@ def get_moods(req: func.HttpRequest) -> func.HttpResponse:
         original_song = db.check_id(original_uri)
 
         if original_song:
-            print("Song found in the database. Fetching stored genre.")
+            print("Song found in the database. Fetching stored genre and emotion.")
             original_genre = original_song.get("AlbumGenre")
             original_emotion = original_song.get("Emotion")
         else:
@@ -325,13 +325,14 @@ def get_moods(req: func.HttpRequest) -> func.HttpResponse:
                 track_name, artist_name = utils.get_track_details(song_uri)
                 unprocessed_songs.append({"track_name": track_name, "artist_name": artist_name, "track_uri": song_uri})
 
-        # Step 5: Get sentiment and genre for each unprocessed song
+        # Step 5: Fetch all sentiments and genres concurrently
         if unprocessed_songs:
             print(f"Processing {len(unprocessed_songs)} unprocessed songs.")
             with concurrent.futures.ThreadPoolExecutor() as executor:
                 future_sentiments = executor.submit(utils.get_all_sentiments, unprocessed_songs)
                 future_genres = executor.submit(utils.get_all_genres, unprocessed_songs)
 
+                # Wait for both results to complete
                 emotions = future_sentiments.result()
                 genres = future_genres.result()
 
@@ -351,19 +352,21 @@ def get_moods(req: func.HttpRequest) -> func.HttpResponse:
                     "AlbumGenre": genre
                 })
 
-                # Check if sentiment and genre are similar enough to the original song
-                song_json = {
-                    "id": track_uri,
-                    "SongName": song.get('track_name'),
-                    "Artist": song.get('artist_name'),
-                    "URI": track_uri,
-                    "Emotion": emotion,
-                    "AlbumGenre": genre
-                }
-                
-                similar_songs.extend(process_existing_song(song_json, original_emotion, original_genre))
+                # Step 6: Check if sentiment and genre are similar enough to the original song
+                emotion_similarity = utils.get_emotion_similarity_from_llm(emotion, target_mood)
+                genre_similarity = utils.get_genre_similarity_from_llm(genre, original_genre)
 
-        # Step 6: Return the list of similar songs
+                if emotion_similarity >= 9 and genre_similarity >= 6:
+                    print(f"Adding similar song: {song.get('track_name')} by {song.get('artist_name')}")
+                    similar_songs.append({
+                        "track": track_uri,
+                        "artist": song.get('artist_name'),
+                        "track_name": song.get('track_name'),
+                        "emotion": emotion,
+                        "genre": genre
+                    })
+
+        # Step 7: Return the list of similar songs
         print(f"Returning {len(similar_songs)} similar songs.")
         return func.HttpResponse(
             json.dumps({"recommended_songs": similar_songs}),
