@@ -39,6 +39,7 @@ export class MobileloginComponent implements OnInit {
     }
     async spotify() {
       if (typeof window !== 'undefined') {
+        this.providerService.setProviderName("spotify");
         await this.authService.signInWithOAuth();
       }
     }
