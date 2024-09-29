@@ -2,13 +2,23 @@ import concurrent.futures
 import azure.functions as func
 import json
 import os
+import requests
+
+import spotipy
+from spotipy.oauth2 import SpotifyClientCredentials
 
 import db
 import utils
 
+client_id = os.environ.get("CLIENT_ID")
+client_secret = os.environ.get("CLIENT_SECRET")
+
+credentials = SpotifyClientCredentials(client_id=client_id, client_secret=client_secret)
+sp = spotipy.Spotify(client_credentials_manager=credentials)
+
 app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
 
-NUM_SONGS = 150  # Number of songs to request
+NUM_SONGS = 100  # Number of songs to request
 REQUIRED_RECOMMENDATIONS = 10  # Minimum required recommendations
 
 
@@ -39,14 +49,11 @@ def get_recommendations(req: func.HttpRequest) -> func.HttpResponse:
                 status_code=400
             )
 
-        print(f"Processing song: {song_name} by {artist}")
-
         # Check if the song is already in the database
         original_uri = utils.get_track_id(song_name, artist)
         recommendations_stored = db.check_recommendations(original_uri)
 
         if recommendations_stored is not None:
-            print(f"Recommendations already stored for {original_uri}")
             return func.HttpResponse(
                 json.dumps({"recommended_songs": recommendations_stored.get('recommended_tracks')}),
                 mimetype="application/json",
@@ -59,9 +66,7 @@ def get_recommendations(req: func.HttpRequest) -> func.HttpResponse:
         processed_song_uris = set()  # Keep track of processed song URIs
 
         if original_song is None:
-            print(f"Original song not found in the database. Fetching cluster songs.")
             original_uri, cluster_number, cluster_songs = utils.get_cluster_songs(song_name, artist, NUM_SONGS)
-            print(f"Cluster songs fetched: {len(cluster_songs)} songs")
             if cluster_songs is None:
                 return func.HttpResponse(
                 json.dumps({"error": "Error fetching cluster songs."}),
@@ -81,18 +86,16 @@ def get_recommendations(req: func.HttpRequest) -> func.HttpResponse:
                 "Emotion": original_emotion,
                 "AlbumGenre": original_genre
             }
-            print("Saving song to database:", original_json)
 
             db.store_song(original_json)
-            print(f"Original song stored in the database: {original_json}")
         else:
-            print(f"Original song found in the database.")
             cluster_number = original_song.get('ClusterNumber')
             original_emotion = original_song.get('Emotion', "")
             original_genre = original_song.get('AlbumGenre', "")
 
         similar_songs = []
         print("Original genre: ", original_genre, " Original emotion: ", original_emotion)
+        spotify_recommendations = get_spotify_recommendations(song_name, artist)
 
         # Fetch 10 songs and process them
         if cluster_songs is None:
@@ -105,8 +108,9 @@ def get_recommendations(req: func.HttpRequest) -> func.HttpResponse:
                 mimetype="application/json",
                 status_code=400
             )
-
-        print(f"Processing {len(cluster_songs)} cluster songs.")
+        
+        for song in spotify_recommendations:
+            cluster_songs.append({"track_uri": song.get("track")})
 
         unprocessed_songs = []
         for song in cluster_songs:
@@ -121,7 +125,6 @@ def get_recommendations(req: func.HttpRequest) -> func.HttpResponse:
 
             # Immediately add songs by the same artist to recommendations
             if artist_name.lower() == artist.lower():
-                print(f"Adding song by the same artist: {track_name} by {artist_name}")
                 similar_songs.append({
                     "track": song_uri,
                     "artist": artist_name,
@@ -135,15 +138,15 @@ def get_recommendations(req: func.HttpRequest) -> func.HttpResponse:
             db_song = db.check_id(song_uri)
 
             if db_song is None:
-                print("Song not in database")
-                unprocessed_songs.append({"track_name": track_name, "artist_name": artist_name, "track_uri": song_uri})
+                unprocessed_songs.append({"track_name": track_name, "artist": artist_name, "track": song_uri})
             else:
-                print("Song found in database")
                 similar_songs.extend(process_existing_song(db_song, original_emotion, original_genre))
                 processed_song_uris.add(song_uri)
 
+
         if unprocessed_songs:
             print(f"Processing {len(unprocessed_songs)} unprocessed songs.")
+            print(unprocessed_songs)
 
             # Execute get_all_sentiments and get_all_genres simultaneously
             with concurrent.futures.ThreadPoolExecutor() as executor:
@@ -152,6 +155,7 @@ def get_recommendations(req: func.HttpRequest) -> func.HttpResponse:
 
                 # Wait for both results
                 emotions = future_sentiments.result()
+                print(emotions)
                 genres = future_genres.result()
 
             for i, song in enumerate(unprocessed_songs):
@@ -168,10 +172,13 @@ def get_recommendations(req: func.HttpRequest) -> func.HttpResponse:
                     "Emotion": emotion,
                     "AlbumGenre": genre
                 }
-                print(f"Storing unprocessed song: {song_json}")
                 db.store_song(song_json)
+
                 similar_songs.extend(process_existing_song(song_json, original_emotion, original_genre))
                 processed_song_uris.add(track_uri)
+
+        for song in spotify_recommendations:
+            similar_songs.append(song)
 
         print(f"Current recommendations: {len(similar_songs)}")
 
@@ -180,9 +187,8 @@ def get_recommendations(req: func.HttpRequest) -> func.HttpResponse:
             store_recommendations = {
                 "id": original_uri,
                 "URI": original_uri,
-                "recommended_tracks": similar_songs[:REQUIRED_RECOMMENDATIONS]  # Return only up to the required number
+                "recommended_tracks": similar_songs
             }
-            print(f"Storing recommendations: {store_recommendations}")
             db.store_recommendations(store_recommendations)
             print(f"Stored recommendations for {original_uri}")
 
@@ -215,6 +221,37 @@ def get_recommendations(req: func.HttpRequest) -> func.HttpResponse:
             mimetype="application/json",
             status_code=500
         )
+    
+
+def get_spotify_recommendations(song_name, artist):
+    try:
+        track_id = utils.get_track_id(song_name, artist)
+        if not track_id:
+            print(f"Track {song_name} by {artist} not found on Spotify.")
+            return []
+
+        results = sp.recommendations(seed_tracks=[track_id], limit=10)
+        spotify_recommendations = []
+
+        for track in results['tracks']:
+            track_uri = track.get('uri')
+            track_name = track.get('name')
+            artist_name = track['artists'][0].get('name') if track['artists'] else 'Unknown Artist'
+
+
+            spotify_recommendations.append({
+                "track": track_uri,
+                "artist": artist_name,
+                "track_name": track_name,
+            })
+
+        print(spotify_recommendations)
+
+        print(f"Spotify recommendations fetched: {len(spotify_recommendations)}")
+        return spotify_recommendations
+    except Exception as e:
+        print(f"Error fetching Spotify recommendations: {e}")
+        return []
 
 
 def process_existing_song(db_song, original_emotion, original_genre):
@@ -331,3 +368,4 @@ def get_moods(req: func.HttpRequest) -> func.HttpResponse:
             mimetype="application/json",
             status_code=500
         )
+
