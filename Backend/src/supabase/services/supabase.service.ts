@@ -19,17 +19,30 @@ export class SupabaseService
     {
         const supabase = createSupabaseClient();
         let scope: string = "";
+        let redirectTo: string;
+
         if (providerName === "spotify")
         {
             scope = "streaming user-read-email user-read-private user-read-recently-played user-read-playback-state user-modify-playback-state user-library-read user-top-read";
         }
+
+        if (process.env.NODE_ENV === "production")
+        {
+            redirectTo = "https://echo-bm8z.onrender.com/login"; // Production URL
+        }
+        else
+        {
+            redirectTo = "http://localhost:4200/auth/callback"; // Development URL
+        }
+
         const { data, error } = await supabase.auth.signInWithOAuth({
             provider: providerName,
             options: {
-                redirectTo: "https://echo-bm8z.onrender.com/login",
+                redirectTo,
                 scopes: scope
             }
         });
+
         if (error)
         {
             throw new Error(error.message);
