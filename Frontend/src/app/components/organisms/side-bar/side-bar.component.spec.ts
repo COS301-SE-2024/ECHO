@@ -295,8 +295,12 @@ describe('SideBarComponent', () => {
       stopPropagation: jest.fn()
     };
     const mockEchoTracks: TrackInfo[] = [
-      { id: '1', imageUrl: 'url1', text: 'Track 1', secondaryText: 'Artist 1', explicit: false, albumName: "name", previewUrl: "url", spotifyUrl: "url" },
-      { id: '2', imageUrl: 'url2', text: 'Track 2', secondaryText: 'Artist 2', explicit: true, albumName: "name", previewUrl: "url", spotifyUrl: "url" }
+      { id: '1', imageUrl: 'url1', text: 'Track 1', 
+        secondaryText: 'Artist 1', explicit: false, 
+        albumName: "name", previewUrl: "url", spotifyUrl: "url" },
+      { id: '2', imageUrl: 'url2', text: 'Track 2', 
+        secondaryText: 'Artist 2', explicit: true, 
+        albumName: "name", previewUrl: "url", spotifyUrl: "url" }
     ];
     mockSearchService.echo.mockResolvedValue(mockEchoTracks);
 
