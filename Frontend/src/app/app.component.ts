@@ -96,6 +96,7 @@ export class AppComponent implements OnInit, OnDestroy
 
   async ngOnInit()
   {
+    window.addEventListener('beforeunload', this.handleTabClose);
     this.screenSizeService.screenSize$.subscribe(screenSize =>
     {
       this.screenSize = screenSize;
@@ -107,6 +108,18 @@ export class AppComponent implements OnInit, OnDestroy
       const fragment = url.split("#")[1];  // Get everything after #
       this.router.navigate(['/auth/callback'], { fragment });
     }
+  }
+
+  // Handle the browser tab close event
+  handleTabClose = (event: BeforeUnloadEvent) => {
+    this.authService.signOut().subscribe({
+      next: (response) => {
+        console.log('User signed out successfully on tab close');
+      },
+      error: (error) => {
+        console.error('Error during sign out on tab close:', error);
+      }
+    });
   }
 
   async ngAfterViewInit()
@@ -133,6 +146,7 @@ export class AppComponent implements OnInit, OnDestroy
   }
 
   ngOnDestroy() {
+    window.removeEventListener('beforeunload', this.handleTabClose);
   }
 
 
