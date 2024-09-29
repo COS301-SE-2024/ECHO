@@ -56,7 +56,9 @@
               "extractLicenses": true,
               "sourceMap": false,
               "namedChunks": false,
-              "serviceWorker": false
+              "vendorChunk": true,
+              "commonChunk": true,
+              "serviceWorker": true
             },
             "development": {
               "optimization": false,
