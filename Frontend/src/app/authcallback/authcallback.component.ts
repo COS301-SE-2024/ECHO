@@ -1,9 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { AuthService } from '../services/auth.service';
-import { ProviderService } from "../services/provider.service";
-import { TokenService } from "../services/token.service";
 import { SpotifyService } from "../services/spotify.service";
+import { TokenService } from "../services/token.service";
+import { ProviderService } from "../services/provider.service";
 
 @Component({
   selector: "app-auth-callback",
@@ -24,49 +24,43 @@ export class AuthCallbackComponent implements OnInit {
     private providerService: ProviderService
   ) {}
 
-  async ngOnInit()
-  {
-    if (typeof window !== 'undefined')
-    {
+  async ngOnInit() {
+    if (typeof window !== 'undefined') {
       const hash = window.location.hash;
       const tokens = this.parseHashParams(hash);
-      alert("Auth processing");// Extract tokens from the URL hash
 
-      if (tokens.accessToken)
-      {
-        if (tokens.refreshToken)
-        {
-          await this.tokenService.setTokens(tokens.accessToken, tokens.refreshToken);
-          this.authService.sendTokensToServer(tokens).subscribe({
-            next: async (res: any) =>
-            {
-              alert("Login successful:");
-              await this.spotifyService.init();
-              await this.router.navigate(["/home"]);
-            },
-            error: (err: any) =>
-            {
-              alert("Error processing login:");
-              this.router.navigate(["/login"]);
-            }
-          });
-        }
-        else
-        {
-          alert("No tokens found in URL hash");
-          this.router.navigate(["/login"]);
-        }
-      }
-      else
-      {
-        alert("No tokens found in URL hash");
-        this.router.navigate(["/login"]);
+      // Ensure access and refresh tokens are present
+      if (tokens.accessToken && tokens.refreshToken) {
+        // Set access and refresh tokens
+        await this.tokenService.setTokens(tokens.accessToken, tokens.refreshToken);
+
+        // Send all tokens, including optional provider tokens, to the server
+        this.authService.sendTokensToServer({
+          accessToken: tokens.accessToken,
+          refreshToken: tokens.refreshToken,
+          providerToken: tokens.providerToken || null,  // Optional, fallback to null
+          providerRefreshToken: tokens.providerRefreshToken || null  // Optional, fallback to null
+        }).subscribe({
+          next: async (res: any) => {
+            console.log("Login successful", res);
+            await this.spotifyService.init();
+            await this.router.navigate(['/home']);
+          },
+          error: (err: any) => {
+            console.error("Error processing login", err);
+            this.router.navigate(['/login']);
+          }
+        });
+      } else {
+        console.error("No tokens found in URL hash");
+        this.router.navigate(['/login']);
       }
     }
   }
 
+  // Function to parse tokens from the URL hash
   parseHashParams(hash: string) {
-    const params = new URLSearchParams(hash.substring(1));
+    const params = new URLSearchParams(hash.substring(1)); // Remove the '#' and parse
     return {
       accessToken: params.get('access_token'),
       refreshToken: params.get('refresh_token'),

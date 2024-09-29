@@ -26,7 +26,7 @@ export class SupabaseService
         const { data, error } = await supabase.auth.signInWithOAuth({
             provider: providerName,
             options: {
-                redirectTo: "https://echo-bm8z.onrender.com/auth/callback",
+                redirectTo: "https://echo-bm8z.onrender.com/index.html",
                 scopes: scope
             }
         });
