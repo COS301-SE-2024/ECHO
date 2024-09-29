@@ -1,19 +1,22 @@
 <div *ngIf="screenSize === 'desktop'">
   <div class="flex flex-col p-6 bg-gray-veryDark bg-opacity-50 rounded-lg max-w-screen-lg">
     <!-- Artist Header Section with Image -->
+    <div class="relative w-full mb-10">
+      <app-back-button class="absolute left-0"></app-back-button>
+      <div class="text-5xl text-white font-bold text-center">{{ artist.name }}</div>
+    </div>
+    
+    <!-- Artist Info Section (Image, Description, Genres) -->
     <div class="flex items-start w-full mb-10 space-x-6">
-      <div class="flex-grow">
-        <div class="relative w-full mb-6">
-          <app-back-button class="absolute left-0"></app-back-button>
-          <div class="text-5xl text-white font-bold text-center">{{ artist.name }}</div>
-        </div>
-        <div class="text-gray-verylight">
-          <div class="w-56 flex-shrink-0">
-            <img [src]="artist.image" alt="{{ artist.name }}" class="w-full h-full object-cover rounded-lg shadow-md">
-          </div>
-          <p class="mb-4">{{ artist.description }}</p>
-          <div class="text-lg font-semibold text-white">Genres: {{ artist.genres.join(', ') }}</div>
-        </div>
+      <!-- Artist Image -->
+      <div class="w-56 flex-shrink-0">
+        <img [src]="artist.image" alt="{{ artist.name }}" class="w-full h-full object-cover rounded-lg shadow-md">
+      </div>
+  
+      <!-- Artist Description and Genres -->
+      <div class="text-gray-verylight flex-grow">
+        <p class="mb-4">{{ artist.description }}</p>
+        <div class="text-lg font-semibold text-white">Genres: {{ artist.genres.join(', ') }}</div>
       </div>
     </div>
 
