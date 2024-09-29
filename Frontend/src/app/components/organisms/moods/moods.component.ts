@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { MatCardModule } from "@angular/material/card";
 import { CommonModule } from "@angular/common";
 import { MatGridListModule } from "@angular/material/grid-list";
@@ -16,75 +16,50 @@ import { SearchService, Track } from "../../../services/search.service";
   standalone: true,
   imports: [MatGridListModule, MatCardModule, CommonModule, MoodsListComponent, PageTitleComponent],
   templateUrl: "./moods.component.html",
-  styleUrls: ["./moods.component.css"] // Corrected property name and expected value type
+  styleUrls: ["./moods.component.css"]
 })
+export class MoodsComponent implements OnInit, OnDestroy {
+  favouriteMoods: any[] = [];
+  RecommendedMoods: any[] = [];
+  allMoods!: string[];
+  screenSize?: string;
+  moodComponentClasses!: { [key: string]: string };
+  private screenSizeSubscription?: Subscription;
 
-export class MoodsComponent implements OnDestroy {
-    favouriteMoods: any[] = []; // Corrected initialization
-    RecommendedMoods: any[] = []; // Added type and initialization
+  constructor(
+    private screenSizeService: ScreenSizeService,
+    public moodService: MoodService,
+    private dialog: MatDialog,
+    private router: Router,
+    private searchService: SearchService
+  ) {
+    this.allMoods = this.moodService.getAllMoods();
+    this.moodComponentClasses = this.moodService.getUnerlineMoodClasses();
+  }
 
-    allMoods!: string[];
-    screenSize?: string;
-    // Mood Service Variables
-    moodComponentClasses!: { [key: string]: string };
-
-    private screenSizeSubscription?: Subscription; // For unsubscribing
-
-    constructor(
-        private screenSizeService: ScreenSizeService,
-        public moodService: MoodService,
-        private dialog: MatDialog,
-        private router: Router,
-        private searchService: SearchService
-    ) {
-        this.allMoods = this.moodService.getAllMoods();
-        this.moodComponentClasses = this.moodService.getUnerlineMoodClasses();
-    }
-    async ngOnInit() {
-        this.screenSizeSubscription = this.screenSizeService.screenSize$.subscribe(screenSize => {
-            this.screenSize = screenSize;
-        });
-
-  async ngOnInit()
-  {
-    this.screenSizeSubscription = this.screenSizeService.screenSize$.subscribe(screenSize =>
-    {
+  async ngOnInit() {
+    this.screenSizeSubscription = this.screenSizeService.screenSize$.subscribe(screenSize => {
       this.screenSize = screenSize;
     });
-
-    const allMoodNames = this.allMoods;
-    const defaultImagePaths = [
-      "/assets/moods/arctic.jpeg",
-      "/assets/moods/kendrick.jpeg",
-      "/assets/moods/gambino.jpeg",
-      "/assets/moods/yonce.jpeg",
-      "/assets/moods/taylor.jpeg",
-      "/assets/moods/impala.jpeg"
-    ];
 
     this.loadMoods();
     this.loadRecommendedMoods();
   }
 
-  ngOnDestroy()
-  {
+  ngOnDestroy() {
     this.screenSizeSubscription?.unsubscribe();
   }
 
-  // Load moods and randomly assign default images from the array
-  loadMoods(): void
-  {
+  loadMoods(): void {
     const moodNames = [
       "Neutral", "Anger", "Fear", "Joy", "Disgust",
       "Excitement", "Love", "Sadness", "Surprise",
       "Contempt", "Shame", "Guilt"
     ];
 
-    moodNames.forEach(moodName =>
-    {
+    moodNames.forEach(moodName => {
       this.searchService.getSongsByMood(moodName).subscribe(
-        (response: { imageUrl: string, tracks: Track[] }) =>
-        {
+        (response: { imageUrl: string, tracks: Track[] }) => {
           const moodWithTracks = {
             name: moodName,
             tracks: response.tracks,
@@ -92,23 +67,17 @@ export class MoodsComponent implements OnDestroy {
           };
           this.favouriteMoods.push(moodWithTracks);
         },
-        error =>
-        {
+        error => {
           console.error(`Failed to load tracks for mood ${moodName}:`, error);
         }
       );
     });
   }
 
-
-  // Load recommended moods and randomly assign default images from the array
-  loadRecommendedMoods(): void
-  {
+  loadRecommendedMoods(): void {
     this.searchService.getSuggestedMoods().subscribe(
-      (moodPlaylists: { mood: string, imageUrl: string, tracks: Track[] }[]) =>
-      {
-        moodPlaylists.forEach(moodPlaylist =>
-        {
+      (moodPlaylists: { mood: string, imageUrl: string, tracks: Track[] }[]) => {
+        moodPlaylists.forEach(moodPlaylist => {
           const moodWithTracks = {
             name: moodPlaylist.mood,
             tracks: moodPlaylist.tracks,
@@ -117,16 +86,13 @@ export class MoodsComponent implements OnDestroy {
           this.RecommendedMoods.push(moodWithTracks);
         });
       },
-      (error: any) =>
-      {
+      (error: any) => {
         console.error("Failed to load recommended moods:", error);
       }
     );
   }
 
-
-  redirectToMoodPage(mood: any): void
-  {
+  redirectToMoodPage(mood: any): void {
     this.router.navigate(["/mood"], { queryParams: { title: mood.name } });
   }
 
