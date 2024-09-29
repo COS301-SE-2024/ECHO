@@ -148,8 +148,7 @@ export class AppComponent implements OnInit, OnDestroy
   ngOnDestroy() {
     window.removeEventListener('beforeunload', this.handleTabClose);
   }
-
-}
+  
 
   toggleSideBar() {
     this.isSideBarHidden = !this.isSideBarHidden;
