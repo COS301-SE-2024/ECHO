@@ -1,12 +1,12 @@
-<div  class="fixed mb-3 bottom-player" style="width: 98vw; height: 12vh; left:1vw ">
-  <div class="rounded-md h-full">
+<div  class="fixed bottom-player">
+  <div class="h-full">
     <div class="absolute top-0 w-full z-20">
-      <div #progressContainer class=" bg-gray-300 w-full rounded-t-full h-1 hover:cursor-pointer" (click)="updateProgress($event)">
+      <div #progressContainer class=" bg-gray-300 w-full h-1 hover:cursor-pointer" (click)="updateProgress($event)">
         <div [ngClass]="moodClassesDark[this.moodService.getCurrentMood()]"    id="progressBar" class=" h-1 rounded-full" [style.width.%]="trackProgress"></div>
       </div>
     </div>
-    <div  style="background-color: rgba(0, 0, 0, 0.90);" class="rounded-lg overflow-hidden h-full flex items-center p-4">
-      <div class="flex items-center h-full w-full justify-between">
+    <div  style="background-color: rgba(0, 0, 0, 0.90);" class="overflow-hidden h-full flex items-center p-4">
+      <div class="flex items-center h-full w-full justify-between ml-4">
 
         <div class="flex items-center space-x-5">
           <div class="flex-shrink-0">
@@ -44,7 +44,7 @@
           </div>
 
           <div class="flex flex-col justify-center w-32">
-            <input [ngClass]="moodClassesDark[this.moodService.getCurrentMood()]" id="default-range" type="range" value="50" (input)="onVolumeChange($event)" class="w-full h-2 rounded-lg appearance-none cursor-pointer">
+            <input [ngClass]="moodClassesDark[this.moodService.getCurrentMood()]" id="default-range" type="range" value="50" (input)="onVolumeChange($event)" class="w-full h-1 rounded-lg appearance-none cursor-pointer">
           </div>
         </div>
       </div>

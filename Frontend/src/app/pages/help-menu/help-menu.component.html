@@ -1,127 +1,350 @@
 <div class="min-h-screen"> 
-    <div class="col-span-5 rounded-xl pl-10">
-        <h1 class="text-3xl font-bold text-white text-center mb-6">Help Menu</h1>
+    <div class="col-span-5 rounded-xl pl-10 pr-10">
+        <h1 class="text-3xl font-bold text-white text-center mb-6">Need some help?</h1>
         <div class="space-y-6">
 
-            <!-- Accordion for Login Page -->
-            <div>
-                <button class="w-full flex justify-between items-center p-4 text-left bg-gray-verylight rounded-lg focus:outline-none" (click)="toggleAccordion('login')">
-                    <span>Login Page</span>
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <!-- General Questions Section -->
+            <h2 class="text-2xl font-semibold text-white mt-8">General Questions</h2>
+
+            <!-- FAQ Item 1 -->
+            <div class="text-white">
+                <button class="w-full flex justify-between items-center p-4 text-left bg-gray-newDark rounded-lg focus:outline-none" (click)="toggleAccordion('q1')">
+                    <span>What is ECHO?</span>
+                    <svg class="w-5 h-5" [ngClass]="{'transform rotate-180': isAccordionOpen('q1')}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <!-- SVG Path -->
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
-                <div [ngClass]="{'block': isAccordionOpen('login'), 'hidden': !isAccordionOpen('login')}" class="mt-2 pl-4 text-white">
-                    <p>The login page allows users to sign in with their credentials. Key components include the email and password fields, a login button, and links to reset the password or register a new account.</p>
-                    <p class="mt-2">Ensure that your email and password are correct to avoid login issues. If you have forgotten your password, use the "Forgot Password" link to reset it. For new users, the registration link will guide you through creating an account.</p>
+                <div [ngClass]="{'block': isAccordionOpen('q1'), 'hidden': !isAccordionOpen('q1')}" class="mt-2 pl-4 text-white">
+                    <p class="mx-10"><strong>ECHO</strong> is a Progressive Web App (PWA) that recommends music based entirely on your personal listening profile. It also displays visualisations of statistics based on the analysis of the music you love. It uses cutting-edge AI to explore abstract song characteristics, such as theme and mood, helping you better understand your listening habits and discover new favourites.</p>
                 </div>
             </div>
 
-            <!-- Accordion for Register Page -->
-            <div>
-                <button class="w-full flex justify-between items-center p-4 text-left bg-gray-verylight rounded-lg focus:outline-none" (click)="toggleAccordion('register')">
-                    <span>Register Page</span>
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <!-- FAQ Item 2 -->
+            <div class="text-white">
+                <button class="w-full flex justify-between items-center p-4 text-left bg-gray-newDark rounded-lg focus:outline-none" (click)="toggleAccordion('q2')">
+                    <span>How do I get started with ECHO?</span>
+                    <svg class="w-5 h-5" [ngClass]="{'transform rotate-180': isAccordionOpen('q2')}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <!-- SVG Path -->
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
-                <div [ngClass]="{'block': isAccordionOpen('register'), 'hidden': !isAccordionOpen('register')}" class="mt-2 pl-4 text-white">
-                    <p>Users can create a new account on the register page. It includes fields for the username, email, password, and confirm password, along with a registration button.</p>
-                    <p class="mt-2">Make sure your password is strong and meets the security requirements. The email you provide will be used for account verification and password recovery, so ensure it is accessible.</p>
+                <div [ngClass]="{'block': isAccordionOpen('q2'), 'hidden': !isAccordionOpen('q2')}" class="mt-2 pl-4 text-white">
+                    <p class="mx-10">To get started, simply create an account or sign in using an existing music provider like Spotify, YouTube, or Deezer. Once connected, ECHO will analyze your listening history and provide personalized recommendations and insightful visualizations.</p>
                 </div>
             </div>
 
-            <!-- Accordion for Home Page -->
-            <div>
-                <button class="w-full flex justify-between items-center p-4 text-left bg-gray-verylight rounded-lg focus:outline-none" (click)="toggleAccordion('home')">
-                    <span>Home Page</span>
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <!-- FAQ Item 3 -->
+            <div class="text-white">
+                <button class="w-full flex justify-between items-center p-4 text-left bg-gray-newDark rounded-lg focus:outline-none" (click)="toggleAccordion('q3')">
+                    <span>What devices can I use to access ECHO?</span>
+                    <svg class="w-5 h-5" [ngClass]="{'transform rotate-180': isAccordionOpen('q3')}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <!-- SVG Path -->
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
-                <div [ngClass]="{'block': isAccordionOpen('home'), 'hidden': !isAccordionOpen('home')}" class="mt-2 pl-4 text-white">
-                    <p>The home page is the main dashboard where users can access various features like search and their library. It typically includes a navigation bar, search bar, and quick links to different sections.</p>
-                    <div class="mt-2">
-                        <strong>Subpages:</strong>
-                        <ul class="list-disc list-inside">
-                            <li><strong>Search:</strong> Allows users to search for music, artists, or albums. Includes a search bar and a results list with clickable items.</li>
-                            <li><strong>Library:</strong> Displays the user’s saved songs, albums, and playlists. Interactive components include filters and clickable items to view details.</li>
-                        </ul>
-                        <p class="mt-2">Utilize the search function to quickly find your favorite music. The library organizes your saved content for easy access, allowing you to filter and explore your collection efficiently.</p>
-                    </div>
+                <div [ngClass]="{'block': isAccordionOpen('q3'), 'hidden': !isAccordionOpen('q3')}" class="mt-2 pl-4 text-white">
+                    <p class="mx-10">ECHO is a Progressive Web App, which means you can access it on most modern web browsers, including those on mobile phones, tablets, and desktops. You can also install it directly from your browser onto your device for a native app-like experience.</p>
                 </div>
             </div>
 
-            <!-- Accordion for Profile Page -->
-            <div>
-                <button class="w-full flex justify-between items-center p-4 text-left bg-gray-verylight rounded-lg focus:outline-none" (click)="toggleAccordion('profile')">
-                    <span>Profile Page</span>
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <!-- Features & Functionalities Section -->
+            <h2 class="text-2xl font-semibold text-white mt-8">Features & Functionalities</h2>
+
+            <!-- FAQ Item 4 -->
+            <div class="text-white">
+                <button class="w-full flex justify-between items-center p-4 text-left bg-gray-newDark rounded-lg focus:outline-none" (click)="toggleAccordion('q4')">
+                    <span>How does the song recommendation feature work?</span>
+                    <svg class="w-5 h-5" [ngClass]="{'transform rotate-180': isAccordionOpen('q4')}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <!-- SVG Path -->
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
-                <div [ngClass]="{'block': isAccordionOpen('profile'), 'hidden': !isAccordionOpen('profile')}" class="mt-2 pl-4 text-white">
-                    <p>The profile page shows user information and activity. Users can update their profile picture, view listening history, and access account settings.</p>
-                    <p class="mt-2">Regularly updating your profile ensures that your information remains accurate. Your listening history can help you discover trends in your music preferences.</p>
+                <div [ngClass]="{'block': isAccordionOpen('q4'), 'hidden': !isAccordionOpen('q4')}" class="mt-2 pl-4 text-white">
+                    <p class="mx-10">ECHO uses AI to analyze your listening habits and generate recommendations based on the emotional tone, theme, and characteristics of the music you enjoy. This includes analyzing elements like rhythm, mood, and even the context in which you often listen to certain songs.</p>
                 </div>
             </div>
 
-            <!-- Accordion for Mood Page -->
-            <div>
-                <button class="w-full flex justify-between items-center p-4 text-left bg-gray-verylight rounded-lg focus:outline-none" (click)="toggleAccordion('mood')">
-                    <span>Mood Page</span>
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <!-- FAQ Item 5 -->
+            <div class="text-white">
+                <button class="w-full flex justify-between items-center p-4 text-left bg-gray-newDark rounded-lg focus:outline-none" (click)="toggleAccordion('q5')">
+                    <span>What types of visualizations can I see about my music?</span>
+                    <svg class="w-5 h-5" [ngClass]="{'transform rotate-180': isAccordionOpen('q5')}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <!-- SVG Path -->
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
-                <div [ngClass]="{'block': isAccordionOpen('mood'), 'hidden': !isAccordionOpen('mood')}" class="mt-2 pl-4 text-white">
-                    <p>The mood page allows users to select a mood and discover music that matches it. Key components include mood selection buttons, recommended songs, and mood-based playlists.</p>
-                    <p class="mt-2">Selecting a mood tailors the music recommendations to fit your current feelings, providing a personalized listening experience. Explore the different moods to discover new music that resonates with you.</p>
+                <div [ngClass]="{'block': isAccordionOpen('q5'), 'hidden': !isAccordionOpen('q5')}" class="mt-2 pl-4 text-white">
+                    <p class="mx-10">ECHO provides dynamic visualizations that show your mood trends, genre preferences, most-listened themes, and listening patterns over time. These insights help you explore your music habits in a more interactive and visually engaging way.</p>
                 </div>
             </div>
 
-            <!-- Accordion for Settings Page -->
-            <div>
-                <button class="w-full flex justify-between items-center p-4 text-left bg-gray-verylight rounded-lg focus:outline-none" (click)="toggleAccordion('settings')">
-                    <span>Settings Page</span>
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <!-- FAQ Item 6 -->
+            <div class="text-white">
+                <button class="w-full flex justify-between items-center p-4 text-left bg-gray-newDark rounded-lg focus:outline-none" (click)="toggleAccordion('q6')">
+                    <span>Can I use ECHO offline?</span>
+                    <svg class="w-5 h-5" [ngClass]="{'transform rotate-180': isAccordionOpen('q6')}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <!-- SVG Path -->
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
-                <div [ngClass]="{'block': isAccordionOpen('settings'), 'hidden': !isAccordionOpen('settings')}" class="mt-2 pl-4 text-white">
-                    <p>The settings page allows users to customize their experience. This includes account settings, privacy settings, and theme options.</p>
-                    <p class="mt-2">Adjust the settings to suit your preferences, ensuring a seamless and enjoyable user experience. Privacy settings help you control the information shared within the application.</p>
+                <div [ngClass]="{'block': isAccordionOpen('q6'), 'hidden': !isAccordionOpen('q6')}" class="mt-2 pl-4 text-white">
+                    <p class="mx-10">Yes! Since ECHO is a Progressive Web App, it offers offline functionality. You can access previously loaded visualizations and music insights even when you are not connected to the internet.</p>
                 </div>
             </div>
 
-            <!-- Accordion for Artist Profile Page -->
-            <div>
-                <button class="w-full flex justify-between items-center p-4 text-left bg-gray-verylight rounded-lg focus:outline-none" (click)="toggleAccordion('artistProfile')">
-                    <span>Artist Profile Page</span>
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <!-- FAQ Item 7 -->
+            <div class="text-white">
+                <button class="w-full flex justify-between items-center p-4 text-left bg-gray-newDark rounded-lg focus:outline-none" (click)="toggleAccordion('q7')">
+                    <span>How does ECHO determine the mood of a song?</span>
+                    <svg class="w-5 h-5" [ngClass]="{'transform rotate-180': isAccordionOpen('q7')}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <!-- SVG Path -->
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
-                <div [ngClass]="{'block': isAccordionOpen('artistProfile'), 'hidden': !isAccordionOpen('artistProfile')}" class="mt-2 pl-4 text-white">
-                    <p>The artist profile page provides detailed information about a particular artist, including their discography, top songs, and related artists.</p>
-                    <p class="mt-2">Explore an artist’s profile to discover their music catalog and learn more about their career. The related artists section can introduce you to similar music that you might enjoy.</p>
+                <div [ngClass]="{'block': isAccordionOpen('q7'), 'hidden': !isAccordionOpen('q7')}" class="mt-2 pl-4 text-white">
+                    <p class="mx-10">ECHO's AI analyzes various musical characteristics like tempo, key, rhythm, and lyrical content to assess the overall mood of each song. The result is a categorized list of moods that help recommend tracks based on your current emotional state.</p>
                 </div>
             </div>
 
-            <!-- Accordion for Insights Page -->
-            <div>
-                <button class="w-full flex justify-between items-center p-4 text-left bg-gray-verylight rounded-lg focus:outline-none" (click)="toggleAccordion('insights')">
-                    <span>Insights Page</span>
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <!-- Personalization & Customization Section -->
+            <h2 class="text-2xl font-semibold text-white mt-8">Personalization & Customization</h2>
+
+            <!-- FAQ Item 8 -->
+            <div class="text-white">
+                <button class="w-full flex justify-between items-center p-4 text-left bg-gray-newDark rounded-lg focus:outline-none" (click)="toggleAccordion('q8')">
+                    <span>Can I customize my ECHO interface?</span>
+                    <svg class="w-5 h-5" [ngClass]="{'transform rotate-180': isAccordionOpen('q8')}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <!-- SVG Path -->
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
-                <div [ngClass]="{'block': isAccordionOpen('insights'), 'hidden': !isAccordionOpen('insights')}" class="mt-2 pl-4 text-white">
-                    <p>The insights page provides analytics and data on the user’s listening habits. This includes trends, favorite genres, and listening duration.</p>
-                    <p class="mt-2">Use insights to gain a deeper understanding of your music preferences and discover patterns in your listening habits. This can help you curate a more personalized music experience.</p>
+                <div [ngClass]="{'block': isAccordionOpen('q8'), 'hidden': !isAccordionOpen('q8')}" class="mt-2 pl-4 text-white">
+                    <p class="mx-10">Absolutely! ECHO allows you to customize the interface to suit your preferences, including selecting color themes, enabling dark mode, adjusting font sizes, and more. These features ensure the app is accessible and comfortable for all users.</p>
                 </div>
             </div>
 
+            <!-- FAQ Item 9 -->
+            <div class="text-white">
+                <button class="w-full flex justify-between items-center p-4 text-left bg-gray-newDark rounded-lg focus:outline-none" (click)="toggleAccordion('q9')">
+                    <span>How do I connect my other music services to ECHO?</span>
+                    <svg class="w-5 h-5" [ngClass]="{'transform rotate-180': isAccordionOpen('q9')}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <!-- SVG Path -->
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div [ngClass]="{'block': isAccordionOpen('q9'), 'hidden': !isAccordionOpen('q9')}" class="mt-2 pl-4 text-white">
+                    <p class="mx-10">To connect other music services, go to the settings menu and select “Connect Music Providers.” From there, you can link your Spotify, YouTube, or Deezer account, allowing ECHO to analyze your listening data across multiple platforms.</p>
+                </div>
+            </div>
+
+            <!-- FAQ Item 10 -->
+            <div class="text-white">
+                <button class="w-full flex justify-between items-center p-4 text-left bg-gray-newDark rounded-lg focus:outline-none" (click)="toggleAccordion('q10')">
+                    <span>Can I create playlists with ECHO?</span>
+                    <svg class="w-5 h-5" [ngClass]="{'transform rotate-180': isAccordionOpen('q10')}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <!-- SVG Path -->
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div [ngClass]="{'block': isAccordionOpen('q10'), 'hidden': !isAccordionOpen('q10')}" class="mt-2 pl-4 text-white">
+                    <p class="mx-10">Yes, ECHO allows you to generate AI-crafted playlists based on mood, activity, or themes. Simply select your desired mood or activity, and ECHO will create a playlist tailored to your preferences, which you can save to your connected music service.</p>
+                </div>
+            </div>
+
+            <!-- Technical & Troubleshooting Section -->
+            <h2 class="text-2xl font-semibold text-white mt-8">Technical & Troubleshooting</h2>
+
+            <!-- FAQ Item 11 -->
+            <div class="text-white">
+                <button class="w-full flex justify-between items-center p-4 text-left bg-gray-newDark rounded-lg focus:outline-none" (click)="toggleAccordion('q11')">
+                    <span>How do I install ECHO on my device?</span>
+                    <svg class="w-5 h-5" [ngClass]="{'transform rotate-180': isAccordionOpen('q11')}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <!-- SVG Path -->
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div [ngClass]="{'block': isAccordionOpen('q11'), 'hidden': !isAccordionOpen('q11')}" class="mt-2 pl-4 text-white">
+                    <p class="mx-10">To install ECHO, open it in your browser and click on the “Install App” button in the address bar (available in most modern browsers like Chrome or Edge). This will add an icon to your home screen or desktop, allowing for easy access.</p>
+                </div>
+            </div>
+
+            <!-- FAQ Item 12 -->
+            <div class="text-white">
+                <button class="w-full flex justify-between items-center p-4 text-left bg-gray-newDark rounded-lg focus:outline-none" (click)="toggleAccordion('q12')">
+                    <span>Why can’t I see any visualizations?</span>
+                    <svg class="w-5 h-5" [ngClass]="{'transform rotate-180': isAccordionOpen('q12')}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <!-- SVG Path -->
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div [ngClass]="{'block': isAccordionOpen('q12'), 'hidden': !isAccordionOpen('q12')}" class="mt-2 pl-4 text-white">
+                    <p class="mx-10">If visualizations aren’t loading, make sure you’re connected to the internet and have allowed ECHO to access your listening history. If you’re offline, previously generated visualizations will still be available, but new insights may require a connection.</p>
+                </div>
+            </div>
+
+            <!-- FAQ Item 13 -->
+            <div class="text-white">
+                <button class="w-full flex justify-between items-center p-4 text-left bg-gray-newDark rounded-lg focus:outline-none" (click)="toggleAccordion('q13')">
+                    <span>How can I fix playback issues with music providers?</span>
+                    <svg class="w-5 h-5" [ngClass]="{'transform rotate-180': isAccordionOpen('q13')}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <!-- SVG Path -->
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div [ngClass]="{'block': isAccordionOpen('q13'), 'hidden': !isAccordionOpen('q13')}" class="mt-2 pl-4 text-white">
+                    <p class="mx-10">Ensure you’re logged into your connected music provider and have granted ECHO permission to access your data. You may also need to check your internet connection or refresh the app if playback issues persist.</p>
+                </div>
+            </div>
+
+            <!-- Privacy & Security Section -->
+            <h2 class="text-2xl font-semibold text-white mt-8">Privacy & Security</h2>
+
+            <!-- FAQ Item 14 -->
+            <div class="text-white">
+                <button class="w-full flex justify-between items-center p-4 text-left bg-gray-newDark rounded-lg focus:outline-none" (click)="toggleAccordion('q14')">
+                    <span>Is my data secure with ECHO?</span>
+                    <svg class="w-5 h-5" [ngClass]="{'transform rotate-180': isAccordionOpen('q14')}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <!-- SVG Path -->
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div [ngClass]="{'block': isAccordionOpen('q14'), 'hidden': !isAccordionOpen('q14')}" class="mt-2 pl-4 text-white">
+                    <p class="mx-10">Yes, your privacy is a top priority. ECHO uses encryption to protect your data, both in transit and at rest. We only collect the information necessary to provide you with personalized recommendations and visualizations. You can manage and review data permissions in the app’s settings.</p>
+                </div>
+            </div>
+
+            <!-- FAQ Item 15 -->
+            <div class="text-white">
+                <button class="w-full flex justify-between items-center p-4 text-left bg-gray-newDark rounded-lg focus:outline-none" (click)="toggleAccordion('q15')">
+                    <span>Does ECHO store my music history?</span>
+                    <svg class="w-5 h-5" [ngClass]="{'transform rotate-180': isAccordionOpen('q15')}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <!-- SVG Path -->
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div [ngClass]="{'block': isAccordionOpen('q15'), 'hidden': !isAccordionOpen('q15')}" class="mt-2 pl-4 text-white">
+                    <p class="mx-10">ECHO does not permanently store your music history. We use your listening data temporarily to generate insights and visualizations, but this information is anonymized and securely processed to maintain your privacy.</p>
+                </div>
+            </div>
+
+            <!-- FAQ Item 16 -->
+            <div class="text-white">
+                <button class="w-full flex justify-between items-center p-4 text-left bg-gray-newDark rounded-lg focus:outline-none" (click)="toggleAccordion('q16')">
+                    <span>How can I delete my data from ECHO?</span>
+                    <svg class="w-5 h-5" [ngClass]="{'transform rotate-180': isAccordionOpen('q16')}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <!-- SVG Path -->
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div [ngClass]="{'block': isAccordionOpen('q16'), 'hidden': !isAccordionOpen('q16')}" class="mt-2 pl-4 text-white">
+                    <p class="mx-10">To delete your data, go to the settings menu and select “Delete Account and Data.” This will remove all your personal information and history from our system.</p>
+                </div>
+            </div>
+
+            <!-- Advanced Features Section -->
+            <h2 class="text-2xl font-semibold text-white mt-8">Advanced Features</h2>
+
+            <!-- FAQ Item 17 -->
+            <div class="text-white">
+                <button class="w-full flex justify-between items-center p-4 text-left bg-gray-newDark rounded-lg focus:outline-none" (click)="toggleAccordion('q17')">
+                    <span>What is the Mood Room feature?</span>
+                    <svg class="w-5 h-5" [ngClass]="{'transform rotate-180': isAccordionOpen('q17')}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <!-- SVG Path -->
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div [ngClass]="{'block': isAccordionOpen('q17'), 'hidden': !isAccordionOpen('q17')}" class="mt-2 pl-4 text-white">
+                    <p class="mx-10">The <strong>Mood Room</strong> feature allows you to create a shared music experience with friends. You can invite friends to join a Mood Room, and ECHO will generate a shared playlist based on everyone’s current mood, making it perfect for group gatherings or shared listening sessions.</p>
+                </div>
+            </div>
+
+            <!-- FAQ Item 18 -->
+            <div class="text-white">
+                <button class="w-full flex justify-between items-center p-4 text-left bg-gray-newDark rounded-lg focus:outline-none" (click)="toggleAccordion('q18')">
+                    <span>How does ECHO integrate AI in music analysis?</span>
+                    <svg class="w-5 h-5" [ngClass]="{'transform rotate-180': isAccordionOpen('q18')}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <!-- SVG Path -->
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div [ngClass]="{'block': isAccordionOpen('q18'), 'hidden': !isAccordionOpen('q18')}" class="mt-2 pl-4 text-white">
+                    <p class="mx-10">ECHO uses a combination of machine learning and natural language processing algorithms to understand various song attributes, including lyrical content, instrumental arrangement, and emotional undertones. These analyses help to recommend music and generate visual insights about your preferences.</p>
+                </div>
+            </div>
+
+            <!-- FAQ Item 19 -->
+            <div class="text-white">
+                <button class="w-full flex justify-between items-center p-4 text-left bg-gray-newDark rounded-lg focus:outline-none" (click)="toggleAccordion('q19')">
+                    <span>How do I receive push notifications?</span>
+                    <svg class="w-5 h-5" [ngClass]="{'transform rotate-180': isAccordionOpen('q19')}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <!-- SVG Path -->
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div [ngClass]="{'block': isAccordionOpen('q19'), 'hidden': !isAccordionOpen('q19')}" class="mt-2 pl-4 text-white">
+                    <p class="mx-10">To enable push notifications, go to the settings menu and turn on notifications. You’ll receive updates about new song recommendations, insights into your music habits, and special features like new playlist suggestions.</p>
+                </div>
+            </div>
+
+            <!-- FAQ Item 20 -->
+            <div class="text-white">
+                <button class="w-full flex justify-between items-center p-4 text-left bg-gray-newDark rounded-lg focus:outline-none" (click)="toggleAccordion('q20')">
+                    <span>Can I share my music insights with friends?</span>
+                    <svg class="w-5 h-5" [ngClass]="{'transform rotate-180': isAccordionOpen('q20')}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <!-- SVG Path -->
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div [ngClass]="{'block': isAccordionOpen('q20'), 'hidden': !isAccordionOpen('q20')}" class="mt-2 pl-4 text-white">
+                    <p class="mx-10">Yes, ECHO allows you to share visualizations and insights via social media or direct messaging. Simply click on the “Share” button on the visualization you want to share, and choose your preferred platform.</p>
+                </div>
+            </div>
+
+            <!-- Support & Feedback Section -->
+            <h2 class="text-2xl font-semibold text-white mt-8">Support & Feedback</h2>
+
+            <!-- FAQ Item 21 -->
+            <div class="text-white">
+                <button class="w-full flex justify-between items-center p-4 text-left bg-gray-newDark rounded-lg focus:outline-none" (click)="toggleAccordion('q21')">
+                    <span>How do I report a bug or issue?</span>
+                    <svg class="w-5 h-5" [ngClass]="{'transform rotate-180': isAccordionOpen('q21')}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <!-- SVG Path -->
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div [ngClass]="{'block': isAccordionOpen('q21'), 'hidden': !isAccordionOpen('q21')}" class="mt-2 pl-4 text-white">
+                    <p class="mx-10">If you encounter any issues, please use the "Report a Bug" option in the settings menu. Provide as much detail as possible so that our team can quickly address the problem.</p>
+                </div>
+            </div>
+
+            <!-- FAQ Item 22 -->
+            <div class="text-white">
+                <button class="w-full flex justify-between items-center p-4 text-left bg-gray-newDark rounded-lg focus:outline-none" (click)="toggleAccordion('q22')">
+                    <span>How can I suggest new features for ECHO?</span>
+                    <svg class="w-5 h-5" [ngClass]="{'transform rotate-180': isAccordionOpen('q22')}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <!-- SVG Path -->
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div [ngClass]="{'block': isAccordionOpen('q22'), 'hidden': !isAccordionOpen('q22')}" class="mt-2 pl-4 text-white">
+                    <p class="mx-10">We love user feedback! If you have a feature in mind, please use the “Feedback & Suggestions” option under the help menu. Your input helps us make ECHO even better.</p>
+                </div>
+            </div>
+
+            <!-- FAQ Item 23 -->
+            <div class="text-white">
+                <button class="w-full flex justify-between items-center p-4 text-left bg-gray-newDark rounded-lg focus:outline-none" (click)="toggleAccordion('q23')">
+                    <span>Is there a community for ECHO users?</span>
+                    <svg class="w-5 h-5" [ngClass]="{'transform rotate-180': isAccordionOpen('q23')}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <!-- SVG Path -->
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div [ngClass]="{'block': isAccordionOpen('q23'), 'hidden': !isAccordionOpen('q23')}" class="mt-2 pl-4 text-white">
+                    <p class="mx-10">Yes, we have an online community where users can share playlists, discuss music trends, and get the latest updates. You can find the link to our community under the “Community” section in the app’s main menu.</p>
+                </div>
+            </div>
         </div>
     </div>
 </div>

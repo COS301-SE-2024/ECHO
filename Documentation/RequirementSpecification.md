@@ -9,10 +9,7 @@
     - [Vision and Mission](#vision-and-mission)
     - [Business Needs](#business-needs)
     - [Project Scope](#project-scope)
-    - [General User Characteristics](#general-user-characteristics)
-    - [Specific User Characteristics](#specific-user-characteristics)
-      - [1. Listener](#1-listener)
-      - [2. Artist](#2-artist)
+    - [User Characteristics](#user-characteristics)
 - [User Stories](#user-stories)
 - [Functional Requirements](#functional-requirements)
   - [1. Secure Authentication Process](#1-secure-authentication-process)
@@ -24,11 +21,11 @@
   - [7. Progressive Web Application Functionality](#7-progressive-web-application-functionality)
   - [8. Spotify Integration](#8-spotify-integration)
   - [9. User Music Library](#9-user-music-library)
-  - [10. Follow Functionality](#10-follow-functionality)
-  - [11. Search and Discovery](#11-search-and-discovery)
+  - [10. Search and Discovery](#10-search-and-discovery)
   - [12. Music Playback](#12-music-playback)
   - [13. Queue Management](#13-queue-management)
   - [14. View Listening History](#14-view-listening-history)
+  - [15. View Artist Profile](#15-view-artist-profile)
   - [15. Mobile Separation](#15-mobile-separation)
 - [Service Contracts](#service-contracts)
   - [1.1 Register](#11-register)
@@ -78,7 +75,7 @@ ECHO is a Progressive Web Application that interacts with the Spotify API and ta
 <br />
 <br />
 
-### General User Characteristics 
+### User Characteristics 
 1. **Security-conscious**: Interested in secure registration and login processes.
 2. **Tech-savvy**: Comfortable with linking external accounts like Spotify.
 3. **Multi-device usage**: Expects to use the application across different devices and operating systems.
@@ -86,21 +83,10 @@ ECHO is a Progressive Web Application that interacts with the Spotify API and ta
 5. **Basic functionality needs**: Desires a smooth, responsive user experience.
 6. **Multi-platform compatibility**: Expects the application to perform well on various devices and operating systems.
 7. **Account management**: Needs robust features for account creation, login, and password management.
-
-### Specific User Characteristics
-
-#### 1. Listener
-- **Music enthusiast**: Interested in personalized music recommendations.
-- **Analytical**: Values insights into their listening habits through intuitive graphs and charts.
-- **Customizable experience**: Desires the ability to set custom recommendation categories and toggle UI features.
-- **Social connectivity**: Interested in connecting with other users with similar music tastes.
-- **Dynamic content interaction**: Wants recommendations based on personal listening history rather than general trends.
-
-#### 2. Artist
-- **Professional tools seeker**: Looks for detailed analytics about their music’s audience.
-- **Community-oriented**: Interested in discovering other artists with similar music styles.
-- **Feedback-focused**: Desires to receive listener feedback on their songs.
-- **Brand-conscious**: Wants to influence how their music is tagged and perceived in terms of moods and themes.
+8. **Music enthusiast**: Interested in personalized music recommendations.
+9. **Analytical**: Values insights into their listening habits through intuitive graphs and charts.
+10. **Customizable experience**: Desires the ability to set custom recommendation categories and toggle UI features.
+11. **Dynamic content interaction**: Wants recommendations based on personal listening history rather than general trends.
 
 <br/>
 <br/>
@@ -109,39 +95,31 @@ ECHO is a Progressive Web Application that interacts with the Spotify API and ta
 
 1. ### As a User I want to:
    1. Register securely and create an account.
-   1. Log in securely using my credentials.
-   1. Reset my password if forgotten.
-   1. Link my Spotify account to the application.
-   1. Enjoy a smooth and responsive user experience.
-   1. Access the app offline and view previous recommendations.
-   1. Use the application on various devices and operating systems.
-
-2. ### As a Listener, I want to:
-   1. Have all the functionality of a User
-   1. View personalised song recommendations based on the song currently being listened to.
-   1. Set custom recommendation categories.
-   1. Receive recommendations based on an analysis of my selected song rather than general trends.
-   1. View intuitive graphs and charts showing common themes and moods in my listening history.
-   1. Toggle the dynamic UI feature on and off.
-   1. Be able to view my listening habits, which include:
-      1. Favourite genre
-      2. Weekly listening trends, including what genres, archetypes and moods I tend towards throughout the week
-      3. Frequent Lyrical archetypes(The general theme of the lyrics/ the story being conveyed)
-      4. Outliers and new trends in my listening
-   1. See recommended music.
-   1. See other users with similar trends and/or habits.
-   1. See recommendations based on my listening history.
-   1. Customize my profile with preferred genres and moods.
-   1. Receive notifications for new releases from my favorite artists.
-
-3. ### As an Artist, I want to:
-   1. Have all the functionality of a User
-   1. See which moods my music is associated with.
-   1. See recommended listening based on my music.
-   1. See other artists who produce music similar to mine.
-   1. Assign artist-defined tags to my music.
-   1. View detailed analytics about listeners who enjoy my music.
-   1. Get feedback from listeners on my songs.
+      1. Register using my Spotify account.
+      2. Register using my Google account.
+   2. Log in securely using my credentials.
+      1. Log in with my Spotify account.
+      2. Log in with my Google account.
+   3. Reset my password if forgotten.
+   4. Enjoy a dynamic, smooth and responsive user experience.
+   5. Be shown how to use the application via a tutorial or help menu.
+   6. "Echo" song recommendations based on the mood of the song currently being listened to.
+   7. Receive personalised recommendations based on an analysis of my personal listening profile.
+   8. View intuitive graphs and charts showing common trends in my listening history.
+   9. Browse moods categories to search for similar music manually.
+   10. Access the app offline.
+   11. Use the application on various devices and operating systems.
+   12. Toggle the dynamic UI feature on and off.
+   13. Be able to view my listening habits, which include:
+      1. Top artists
+      2. Top songs
+      3. Top moods
+   14. Search for specific songs or albums.
+   15. View an artist's profile that displays all their musical works.
+   16. Listen to music and customise my listening experience.
+   17. View my listening history.
+   18. Edit my profile.
+   19. Customise my experience using the settings.
 
 <br />
 <br />
@@ -157,6 +135,8 @@ ECHO is a Progressive Web Application that interacts with the Spotify API and ta
 - Allow users to reset their passwords if forgotten.
 1.4 Link Spotify account
 - Allow users to log into their Spotify account to link it to the application.
+1.5 Link Google account
+- Allow users to log into their Google account to link it to the application.
 
 ## 2. Personalized Song Recommendations
 2.1 Categorized Recommendations
@@ -164,7 +144,7 @@ ECHO is a Progressive Web Application that interacts with the Spotify API and ta
 2.2 Custom Recommendation Categories
 - Provide users with the option to set custom recommendation categories.
 2.3 Song-Specific Recommendations
-- Provide recommendations based on analysis of the user's selected song rather than general trends.
+- Provide recommendations based on analysis of the song the user is currently listening to.
 
 ## 3. Sentiment Analysis System
 3.1 Lyrics Processing
@@ -197,6 +177,8 @@ ECHO is a Progressive Web Application that interacts with the Spotify API and ta
 - Users must have the ability to toggle the dynamic UI feature on and off.
 6.3 Emotional Engagement
 - The design should create an emotionally engaging user experience.
+6.4 Minimise/Maximise Suggestions
+- Allow users to minimise or maximise the Suggestions and Recent Listening block.
 
 ## 7. Progressive Web Application Functionality
 7.1 Cross-Platform Compatibility
@@ -216,17 +198,13 @@ ECHO is a Progressive Web Application that interacts with the Spotify API and ta
 9.2 Sync Playlists
 - Allow users to sync public and private Spotify playlists connected to their account.
 
-## 10. Follow Functionality
-10.1 Follow Users
-- Listeners can follow each other.
-10.2 Follow Artists
-- Listeners can follow artists they like.
-
-## 11. Search and Discovery
-11.1 Search Music
+## 10. Search and Discovery
+10.1 Search Music
 - Allow users to search for new music.
-11.2 Music Discovery
-- Provide features for discovering new music.
+10.2 Mood Discovery/Browsing
+- Allow users to browse through different mood categories to find music that matches their mood manually.
+10.3 Filter mood recommendations
+- Allow users to filter their recommendations by mood on the Home page.
 
 ## 12. Music Playback
 12.1 Play Music
@@ -239,16 +217,20 @@ ECHO is a Progressive Web Application that interacts with the Spotify API and ta
 - Allow users to rewind the current song to any point in the song they wish.
 12.5 Replay song
 - Allow users to replay songs in a continuous loop.
+12.6 Shuffle queue
+- Allow users to shuffle the songs in their queue.
 
 ## 13. Queue Management
-13.1 View "Up next" in queue
-- Allow users to view which songs will play next.
-13.2 Edit queue
+13.1 Edit queue
 - Allow users to rearrange the order in which songs will play.
 
 ## 14. View Listening History 
 14.1 View recently listened
 - Allow users to view a list of songs in order of most recently listened.
+
+## 15. View Artist Profile
+15.1 View artist's profile
+- Allow users to view and play all the works of a single artist on one page.
 
 ## 15. Mobile Separation
   15.1 Mobile Separation of concerns
