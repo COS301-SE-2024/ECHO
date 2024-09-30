@@ -109,5 +109,3 @@ During the development and deployment of the Music Recommendation System, severa
 To address the challenges encountered and to anhance the system's capabilities, the following improvements are planned:
 - **Language Detection and Profanity Filtering:** Future iterations will include language detection and profanity filtering, allowing the system to tailor recommendations based on language preferences and to filter out explicit content when necessary. This will enhance the system's adaptability to diverse user needs.
 - **User Feedback Integration:** Incorporating user feedback into the recommendation process will be a key focus. By allowing users to rate recommendations and provide feedback, the system can learn and adapt over time, leading to more personalised and accurate recommendations. 
-
-## Appendices
