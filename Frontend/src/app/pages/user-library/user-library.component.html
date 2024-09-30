@@ -1,28 +1,28 @@
 <app-page-title class="text-center pt-2">My Library</app-page-title>
 
 <div class="p-2">
-
+  <!-- Top Artists Section -->
   <p class="text-white font-bold mb-2 mt-4 text-xl">My Artists</p>
   <div class="flex space-x-9 overflow-x-auto no-scrollbar">
-    <ng-container *ngFor="let artist of artists">
-      <app-top-artist-card 
-        [imageUrl]="artist.imageUrl" 
-        [text]="artist.text"
-      >
-    </app-top-artist-card>
+    <ng-container *ngFor="let artist of topArtists">
+      <app-top-artist-card
+        [imageUrl]="artist.imageUrl"
+        [text]="artist.name"
+      ></app-top-artist-card>
     </ng-container>
   </div>
 
+  <!-- Top Songs Section -->
   <p class="text-white font-bold mb-2 mt-10 text-xl">My Songs</p>
   <div class="flex space-x-9 overflow-x-auto no-scrollbar">
-  <ng-container *ngFor="let item of recentListeningCardData">
-    <app-top-card 
-      [imageUrl]="item.imageUrl" 
-      [text]="item.text" 
-      [secondaryText]="item.secondaryText"
-    >
-    </app-top-card>
-  </ng-container>
+    <ng-container *ngFor="let item of topTracks">
+      <div (click)="playTrack(item.id)">
+        <app-top-card
+          [imageUrl]="item.imageUrl"
+          [text]="item.text"
+          [secondaryText]="item.secondaryText"
+        ></app-top-card>
+      </div>
+    </ng-container>
   </div>
-
 </div>

@@ -1,7 +1,7 @@
 <div class="card-body relative">
     <app-page-title>Favourite Moods</app-page-title>
-    <app-moods-list [moods]="favouriteMoods" (redirectToMoodPage)="redirectToMoodPage($event)"></app-moods-list>
+    <app-moods-list [width]="width" [moods]="favouriteMoods" (redirectToMoodPage)="redirectToMoodPage($event)"></app-moods-list>
     <br/>
     <app-page-title>Recommended Moods</app-page-title>
-    <app-moods-list [moods]="RecommendedMoods" (redirectToMoodPage)="redirectToMoodPage($event)"></app-moods-list>
+    <app-moods-list [width]="width"  [moods]="RecommendedMoods" (redirectToMoodPage)="redirectToMoodPage($event)"></app-moods-list>
 </div>

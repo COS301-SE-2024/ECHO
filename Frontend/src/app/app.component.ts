@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from "@angular/core";
-import { RouterOutlet, Router, NavigationEnd, Event as RouterEvent, ActivatedRoute } from "@angular/router";
+import { RouterOutlet, Router, NavigationEnd, ActivatedRoute } from "@angular/router";
 import { BottomPlayerComponent } from "./components/organisms/bottom-player/bottom-player.component";
 import { BottomNavComponent } from "./components/organisms/bottom-nav/bottom-nav.component";
 import { ScreenSizeService } from "./services/screen-size-service.service";
@@ -46,9 +46,9 @@ export class AppComponent implements OnInit, OnDestroy
   update: boolean = false;
   screenSize!: string;
   displayPageName: boolean = false;
-  columnStart: number = 3; 
-  columnStartNav: number = 1; 
-  colSpan: number = 4; 
+  columnStart: number = 3;
+  columnStartNav: number = 1;
+  colSpan: number = 4;
   isSidebarOpen: boolean = false;
   protected displaySideBar: boolean = false;
   protected isAuthRoute: boolean = false;
@@ -96,9 +96,29 @@ export class AppComponent implements OnInit, OnDestroy
 
   async ngOnInit()
   {
+    window.addEventListener('beforeunload', this.handleTabClose);
     this.screenSizeService.screenSize$.subscribe(screenSize =>
     {
       this.screenSize = screenSize;
+    });
+
+    // Handle OAuth login and redirect to /auth/callback
+    const url = window.location.href;
+    if (url.includes("access_token")) {
+      const fragment = url.split("#")[1];  // Get everything after #
+      this.router.navigate(['auth/callback'], { fragment });
+    }
+  }
+
+  // Handle the browser tab close event
+  handleTabClose = (event: BeforeUnloadEvent) => {
+    this.authService.signOut().subscribe({
+      next: (response) => {
+        console.log('User signed out successfully on tab close');
+      },
+      error: (error) => {
+        console.error('Error during sign out on tab close:', error);
+      }
     });
   }
 
@@ -114,7 +134,7 @@ export class AppComponent implements OnInit, OnDestroy
 
   layout(isSidebarOpen: boolean) {
     this.isSidebarOpen = isSidebarOpen;
-    this.columnStart = isSidebarOpen ? 1 : 3;    
+    this.columnStart = isSidebarOpen ? 1 : 3;
     this.colSpan = isSidebarOpen ? 5 : 4;
   }
 
@@ -125,15 +145,16 @@ export class AppComponent implements OnInit, OnDestroy
     return false;
   }
 
+  ngOnDestroy() {
+    window.removeEventListener('beforeunload', this.handleTabClose);
+  }
+
+
   toggleSideBar() {
     this.isSideBarHidden = !this.isSideBarHidden;
     this.layout(this.isSideBarHidden);
   }
 
-  ngOnDestroy()
-  {
-    this.authService.signOut();
-  }
-
 
 }
+

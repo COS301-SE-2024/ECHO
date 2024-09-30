@@ -27,5 +27,22 @@
         ]
       }
     }
+  ],
+  "dataGroups": [
+    {
+      "name": "api-requests",
+      "urls": [
+        "https://echo-backend-1s8m.onrender.com/api/auth/**",
+        "https://echo-backend-1s8m.onrender.com/api/spotify/**",
+        "https://echo-backend-1s8m.onrender.com/api/youtube/**",
+        "https://echo-backend-1s8m.onrender.com/api/search/**"
+      ],
+      "cacheConfig": {
+        "strategy": "freshness",
+        "maxSize": 100,
+        "maxAge": "1d",
+        "timeout": "10s"
+      }
+    }
   ]
 }

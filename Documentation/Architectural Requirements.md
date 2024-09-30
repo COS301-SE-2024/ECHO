@@ -55,6 +55,14 @@ SOA structures the application as a collection of services that communicate over
 - **Fault Isolation:** Failures in one service do not necessarily impact other services, enhancing overall reliability of the system.
 - **Interoperability:** Standardised communication protocols allow services to interact across different platforms and technologies. 
 
+### Microservices
+Microservices structures applications as a collection of loosely coupled, independently deployable services within our AI system. Each service has a unique function and can be scaled individually as needed.
+
+#### Justification for Microservices
+- **Modularity:** Each module is independently developed and maintained, allowing them to work autonomously and be updated without affecting others.
+- **Scalability:** Individual services can be scaled as needed without impacting the other services.
+- **Fault Isolation:** If a failure occurs in one module, the entire system will not be affected and can continue running.
+- **Performance Optimisation:** Services can be optimised independently based on their resource needs. 
 
 ## Quality Requirements
 
@@ -79,6 +87,16 @@ SOA structures the application as a collection of services that communicate over
 1. **Integration:** The system should be capable of integrating seamlessly with other systems and applications, allowing data exchange and interactions without compatibility issues. 
 2. **Data Exchange:** The system should support common data formats to enable smooth data exchange between different systems and services. 
 
+### Maintainability
+1. **Separation of Concerns:** The system’s codebase is modular, adhering to a clear separation of concerns (e.g., using MVC). This ensures that different parts of the system can be modified independently without affecting unrelated components, making it easier to maintain and update. 
+2. **System Independence:** Each module has minimal dependencies on others, allowing individual components to be updated, tested, or replaced without requiring extensive changes to the entire system. This reduces downtime and makes bug fixing or feature development more efficient.
+
+### Accessibility
+1. **PWA Functionality:** The application implements Progressive Web App (PWA) features to provide a native app-like experience, including offline access, fast loading, and the ability to be installed on user devices. This ensures the app remains accessible even when there is limited connectivity.
+2. **Use of Different Providers:** The application provides compatibility with a range of music service providers, such as Spotify, YouTube and Deezer, to ensure users can access the system using any type of account.
+3. **UI Customisation:** Users are able to customise the user interface to meet their needs, such as changing the theme/UI colour for better contrast or to adjust colour sensitivity, to provide an inclusive experience for users with colour sensitivity or colour blindness.
+4. **Smooth UI Transiton:** The UI should offer smooth transitions between the different mood themes, easing the effect of the colour change on users with colour-sensitivity and epilepsy.
+
 ## Architectural Overview
 
 ![architecture diagram](<images/ECHO Architecture.png>)
@@ -93,6 +111,8 @@ SOA structures the application as a collection of services that communicate over
 #### Quality Contributions
 - **Usability:** Separation allows for focused UI development.
 - **Security:** Basic security measures like input validation are implemented in this layer.
+- **Accessibiity:** UI customisation and smooth theme transitions to allow for inclusion of users with colour/light-related disabilities.
+- **Maintainability:** The Angular framework along with the use of atomic design makes it easier to maintain and update individual elements of the UI without affecting the overall application.
 
 ### API Layer
 #### Components
@@ -102,7 +122,9 @@ SOA structures the application as a collection of services that communicate over
 - Handle HTTP requests and responses.
 #### Quality Contributions
 - **Performance:** Efficient handling of client requests ensures quick responses.
-- **Security:** Implements authentication and authorization mechanisms.
+- **Security:** Implements authentication and authorisation mechanisms.
+- **Interoperability:** The REST API is designed to handle requests from multiple types of clients, including different front-end applications and external systems, enabling seamless integration with third-party services.
+
 
 ### Business Layer
 #### Components
@@ -121,6 +143,8 @@ SOA structures the application as a collection of services that communicate over
 - **Reliability:** Modular design allows for independent development and testing.
 - **Performance:** Optimized business logic and efficient external API integration.
 - **Security:** Implements data validation and secure data handling.
+- **Interoperability**: Integrates seamlessly with external services like Spotify, allowing for flexible connectivity and data exchange.
+- **Scalability:** The ability to handle multiple API integrations (such as Spotify) while efficiently scaling the number of users and the complexity of music analysis tasks ensures that the business layer can grow to meet increased demand.
 
 ### Data Layer
 #### Components
@@ -133,6 +157,7 @@ SOA structures the application as a collection of services that communicate over
 - **Performance:** Efficient data access and query mechanisms.
 - **Reliability:** Ensures data integrity and availability.
 - **Security:** Implements data encryption and access control.
+- **Maintainability:** The data layer uses standardised data access patterns, making updates or changes to database queries easier without impacting the rest of the application.
 
 ## Architectural Constraints
 
@@ -160,22 +185,32 @@ SOA structures the application as a collection of services that communicate over
 ## Technology Choices
 
 ### Programming Languages
-- **Frontend:** TypeScript, HTML (Angular Template Syntax).
-- **Backend:** JavaScript, TypeScript, Python.
+- **FRONTEND:** TypeScript, HTML (Angular Template Syntax).
+  - **Justification:** TypeScript offers static typing, which improves code quality, maintainability, and helps catch errors during development, making the frontend more robust and scalable. Angular Template Syntax complements HTML, providing enhanced capabilities for dynamic views that integrate well with TypeScript, improving productivity and readability. Majority of our group members also have experience working with Angular before this project.
+- **BACKEND:** JavaScript, TypeScript, Python.
+  - **Justification:** JavaScript and TypeScript are natural choices for a Node.js environment, enabling full-stack JavaScript development for consistency across both frontend and backend. TypeScript provides type safety, improving reliability and reducing runtime errors. Python is included to handle specific computational tasks or leverage its powerful ecosystem for data manipulation and scripting, where Python's efficiency is particularly beneficial.
 
 ### Frameworks and Libraries
-- **Frontend:** Angular, Angular PWA, Tailwind CSS, Flowbite.
-- **Backend:** Node.js, Express.js, Nest.js, Mongoose.
-- **Package Management:** npm, pip.
+- **FRONTEND:** Angular, Angular PWA, Tailwind CSS, Flowbite.
+  - **Justification:** Angular is a powerful framework that supports component-based architecture, facilitating maintainability and scalability. Angular PWA allows the app to function offline and behave like a native application, improving user experience. Tailwind CSS is a utility-first CSS framework that allows for rapid and consistent styling without writing custom CSS, enhancing productivity. Flowbite is used for ready-made UI components that are designed for Tailwind CSS, speeding up development with pre-built, accessible components.
+- **BACKEND:** Node.js, Express.js, Nest.js, Mongoose.
+  - **Justification:** Node.js is suitable for building scalable, fast server-side applications using JavaScript. Express.js provides a minimal and flexible framework to build RESTful APIs, while Nest.js provides a more structured, modular approach to building backend applications, using TypeScript natively for better type safety. Mongoose is an object data modeling (ODM) library for MongoDB, simplifying the interaction between the backend and the database through schema-based solutions.
+- **PACKAGE MANAGEMENT:** npm, pip.
+  - **Justification:** npm is the default package manager for JavaScript/TypeScript projects, supporting Node.js and Angular development, providing a robust ecosystem of tools and libraries. pip is essential for managing Python packages, ensuring that dependencies for any Python-based services are efficiently handled.
 
 ### Database Management System
-- **Primary:** MongoDB.
-- **Cloud-Based:** Azure Cosmos DB with MongoDB API.
-
+- **PRIMARY:** MongoDB.
+  - **Justification:** MongoDB is a NoSQL document database that offers flexibility and scalability, which is ideal for applications that handle large amounts of unstructured data or need to scale quickly. Its JSON-like documents fit seamlessly with JavaScript/TypeScript, reducing the mismatch between code and data.
+- **CLOUD-BASED:** Azure Cosmos DB with MongoDB API.
+  - **Justification:** Azure Cosmos DB provides a globally distributed, highly available cloud database service, ensuring data redundancy and low latency. The MongoDB API compatibility allows developers to work with familiar MongoDB tools and practices while leveraging the scalability and reliability of a managed cloud database.
+  
 ### Development Tools
-- **IDEs and Editors:** Visual Studio Code, WebStorm, PyCharm.
-- **Version Control:** Git, GitHub.
-- **API Development:** Postman.
+- **IDEs & EDITORS:** Visual Studio Code, WebStorm, PyCharm.
+  - **Justification:** Visual Studio Code is a versatile, lightweight, and extensible code editor that is widely used for JavaScript/TypeScript development, offering great integration with Node.js. WebStorm provides a more feature-rich, IDE-level experience for JavaScript/TypeScript, increasing productivity for complex projects. PyCharm is specifically used for Python, offering specialised tools and support that enhance development efficiency, such as refactoring tools and built-in testing capabilities.
+- **VERSION CONTROL:** Git, GitHub.
+  - **Justification:** Git is the industry-standard version control system, providing powerful branching and merging capabilities, which are essential for collaboration and version management. GitHub is a cloud-based platform that enhances Git with additional collaboration features such as pull requests, issue tracking, and code reviews, supporting a smooth development workflow for team projects.
+- **API DEVELOPMENT:** Postman.
+  - **Justification:** Postman is a widely used tool for API testing and development, providing an intuitive interface for making HTTP requests, validating responses, and generating documentation. It simplifies the testing and debugging process of APIs, which is essential for ensuring the backend services work as expected.
 
 ### Technology Evaluation
 For each component of our system, we considered multiple technologies and selected the most suitable ones based on their compatibility with our architectural strategies, performance, scalability, and ease of integration.

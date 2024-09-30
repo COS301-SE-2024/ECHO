@@ -5,6 +5,7 @@ import { BehaviorSubject } from "rxjs";
 import { TokenService } from "./token.service";
 import { MoodService } from "./mood-service.service";
 import { PlayerStateService } from "./player-state.service";
+import { environment } from "../../environments/environment";
 
 export interface TrackInfo
 {
@@ -45,6 +46,7 @@ export class YouTubeService implements OnDestroy
   currentlyPlayingTrack$ = this.currentlyPlayingTrackSubject.asObservable();
   playingState$ = this.playingStateSubject.asObservable();
   playbackProgress$ = this.playbackProgressSubject.asObservable();
+  private apiUrl = `${environment.apiUrl}`;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -238,7 +240,7 @@ export class YouTubeService implements OnDestroy
     const accessToken = this.tokenService.getAccessToken();
     const refreshToken = this.tokenService.getRefreshToken();
 
-    const response = await this.http.post<any>(`http://localhost:3000/api/youtube/search`, {
+    const response = await this.http.post<any>(`${this.apiUrl}/youtube/search`, {
       query,
       accessToken,
       refreshToken
@@ -295,7 +297,7 @@ export class YouTubeService implements OnDestroy
   {
     try
     {
-      const response = await this.http.get<TrackInfo[]>(`http://localhost:3000/api/youtube/top-tracks`).toPromise();
+      const response = await this.http.get<TrackInfo[]>(`${this.apiUrl}/youtube/top-tracks`).toPromise();
 
       if (Array.isArray(response))
       {
@@ -337,7 +339,7 @@ export class YouTubeService implements OnDestroy
     const accessToken = this.tokenService.getAccessToken();
     const refreshToken = this.tokenService.getRefreshToken();
 
-    const response = await this.http.post<any>(`http://localhost:3000/api/youtube/track-details-by-name`, {
+    const response = await this.http.post<any>(`${this.apiUrl}/youtube/track-details-by-name`, {
       accessToken: accessToken,
       refreshToken: refreshToken,
       artistName: artist,
