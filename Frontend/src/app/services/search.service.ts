@@ -177,10 +177,11 @@ export class SearchService
   //This function gets the details of a specific artist
   public async getArtistInfo(artistName: string): Promise<Artist[]>
   {
+    console.log(`${this.apiUrl}/search/album-info`);
     const response = await this.http.post<any>(`${this.apiUrl}/search/album-info`, {
       artist: artistName
     }).toPromise();
-
+    console.log("Here");
     if (response && Array.isArray(response.albums))
     {
       const artistName = response.name;
