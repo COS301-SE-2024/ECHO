@@ -99,19 +99,27 @@ def get_recommendations(req: func.HttpRequest) -> func.HttpResponse:
         final_spotify_recommendations = []
 
         for song in spotify_recommendations:
-            emotion = utils.get_sentiment(song)
+            song_name = song.get("track_name")
+            artist_name = song.get("artist")
+            emotion = utils.get_sentiment(song_name, artist_name)
             song_json = {
                 "track": song.get("track"),
                 "emotion": emotion
             }
             final_spotify_recommendations.append(song_json)
 
-
         # Fetch 10 songs and process them
         if cluster_songs is None:
             _, _, cluster_songs = utils.get_cluster_songs(song_name, artist, NUM_SONGS)
 
         if cluster_songs is None or len(cluster_songs) == 0:
+            store_recommendations = {
+                "id": original_uri,
+                "URI": original_uri,
+                "recommended_tracks": final_spotify_recommendations
+            }
+            db.store_recommendations(store_recommendations)
+
             return func.HttpResponse(
                 json.dumps({"recommended_songs": final_spotify_recommendations}),
                 mimetype="application/json",
@@ -144,9 +152,7 @@ def get_recommendations(req: func.HttpRequest) -> func.HttpResponse:
                 similar_songs.append({
                     "track_uri": song_uri,
                     "artist_name": artist_name,
-                    "track_name": track_name,
-                    "emotion": "",  # Will update after processing
-                    "genre": ""     # Will update after processing
+                    "track_name": track_name
                 })
                 processed_song_uris.add(song_uri)
                 continue  # Skip further processing for this song
@@ -170,7 +176,6 @@ def get_recommendations(req: func.HttpRequest) -> func.HttpResponse:
 
                 # Wait for both results
                 emotions = future_sentiments.result()
-                print(emotions)
                 genres = future_genres.result()
 
             for i, song in enumerate(unprocessed_songs):
@@ -260,8 +265,6 @@ def get_spotify_recommendations(song_name, artist):
                 "track_name": track_name,
             })
 
-        print(spotify_recommendations)
-
         print(f"Spotify recommendations fetched: {len(spotify_recommendations)}")
         return spotify_recommendations
     except Exception as e:
@@ -276,6 +279,7 @@ def process_existing_song(db_song, original_emotion, original_genre):
 
     emotion = db_song.get('Emotion', "")
     genre = db_song.get('AlbumGenre', "")
+
 
     if emotion and original_emotion:
         similarity_score = utils.get_emotion_similarity_from_llm(emotion, original_emotion)
