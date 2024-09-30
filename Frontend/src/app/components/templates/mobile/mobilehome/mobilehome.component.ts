@@ -10,7 +10,7 @@ import { ProviderService } from "../../../../services/provider.service";
 import { MoodService } from "../../../../services/mood-service.service";
 import { SearchService } from "../../../../services/search.service";
 import { YouTubeService } from "../../../../services/youtube.service";
-
+import { Router } from "@angular/router";
 import { EchoButtonComponent } from "../../../atoms/echo-button/echo-button.component";
 import { SongCardsComponent } from "../../../organisms/song-cards/song-cards.component";
 import { SkeletonSongCardComponent } from "../../../atoms/skeleton-song-card/skeleton-song-card.component";
@@ -48,7 +48,8 @@ export class MobilehomeComponent implements OnInit
     private searchService: SearchService,
     public moodService: MoodService,
     private youtubeService: YouTubeService,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    private route: Router
   )
   {
     this.moodComponentClasses = this.moodService.getComponentMoodClasses();
@@ -305,7 +306,9 @@ export class MobilehomeComponent implements OnInit
   {
     this.isEchoModalVisible = false;
   }
-
+  goToLibrary() {
+    this.route.navigate(['/library']); // Use router.navigate
+  }
   handleEchoTrack(eventData: { trackName: string, artistName: string, event: MouseEvent })
   {
     // this.echoTrack(eventData.trackName, eventData.artistName, eventData.event);
