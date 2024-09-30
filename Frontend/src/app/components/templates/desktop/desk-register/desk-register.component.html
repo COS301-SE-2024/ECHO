@@ -1,61 +1,61 @@
 <div class="h-screen flex flex-col">
   <div class="flex flex-1 flex-row">
     <div class="flex flex-1 items-center justify-center rounded-l-xl" style="background-color: rgba(0, 0, 0, 0.3);">
-      <div class="text-center">
-        <div class="text-white font-semibold text-5xl">
-          Welcome to 
+      <div class="bg-gray-component px-32 py-56 rounded-full text-center" style="box-shadow: 0 0 40px 10px rgba(238, 2, 88, 0.5);">
+        <div class="text-gray-verylight font-semibold shadow-lg text-2xl pb-2">
+          Your mood. Your music.
         </div>
-        <img src="./assets/images/logo-dark-bg.png" alt="logo" class="h-72">
+        <img src="./assets/icons/ECH (500 x 200 px).png" alt="logo" class="h-32">
       </div>
     </div>
-  
+
+
     <div class="flex flex-1 items-center justify-center rounded-l-xl" style="background-color: rgba(0, 0, 0, 0.3);">
       <div class="w-full max-w-sm p-6 rounded-lg">
         <form class="space-y-6" action="#" method="POST">
           <div>
             <input id="username" [(ngModel)]="username" name="username" autocomplete="username" placeholder="  Username" required
-              class="block w-full rounded-full border-0 py-2 bg-gray-verylight text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-light focus:ring-2 focus:ring-inset focus:ring-pink-dark sm:text-sm sm:leading-6">
+                   class="block w-full rounded-full border-0 py-2 bg-gray-verylight text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-light focus:ring-2 focus:ring-inset focus:ring-pink-dark sm:text-sm sm:leading-6">
           </div>
-  
+
           <div>
             <input id="email" [(ngModel)]="email" name="email" type="email" autocomplete="email" placeholder="  Email address" required
-              class="block w-full rounded-full border-0 py-2 bg-gray-verylight text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-light focus:ring-2 focus:ring-inset focus:ring-pink-dark sm:text-sm sm:leading-6">
+                   class="block w-full rounded-full border-0 py-2 bg-gray-verylight text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-light focus:ring-2 focus:ring-inset focus:ring-pink-dark sm:text-sm sm:leading-6">
           </div>
-  
+
           <div>
             <input id="password" [(ngModel)]="password" name="password" type="password" autocomplete="current-password" placeholder="  Password" required
-              class="block w-full rounded-full border-0 py-2 bg-gray-verylight text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-light focus:ring-2 focus:ring-inset focus:ring-pink-dark sm:text-sm sm:leading-6">
+                   class="block w-full rounded-full border-0 py-2 bg-gray-verylight text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-light focus:ring-2 focus:ring-inset focus:ring-pink-dark sm:text-sm sm:leading-6">
           </div>
-  
+
           <div class="flex justify-center">
             <button type="submit" (click)="register()" class="rounded-full bg-default px-10 py-2.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-default-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-dark">Create account</button>
           </div>
-  
+
           <div class="relative flex py-3 items-center">
-            <div class="flex-grow border-t border-gray-light"></div>
+            <div class="flex-grow border-t border-gray-component"></div>
             <span class="flex-shrink mx-4 text-xs text-gray-verylight">Or sign up with</span>
-            <div class="flex-grow border-t border-gray-light"></div>
+            <div class="flex-grow border-t border-gray-component"></div>
           </div>
-  
-          <div class="flex justify-between items-center w-full">
+
+          <div style="display: flex; justify-content: space-evenly; align-items: center; width: 100%;">
             <app-spotify-login (click)="spotify()"></app-spotify-login>
             <app-google-login></app-google-login>
-            <app-apple-login></app-apple-login>
           </div>
         </form>
-  
-        <p class="mt-10 text-center text-sm text-black font-semibold">
-          Already have an Echo account?
+
+        <p class="mt-10 text-center text-sm text-white font-semibold">
+          Already have an ECHO account?
           <button (click)="navigateTologin()" class="font-bold text-lg leading-6 text-default hover:text-pink-dark">Login</button>
         </p>
-  
+
         <div class="toast-container">
           <app-toast></app-toast>
         </div>
       </div>
     </div>
   </div>
-  
+
   <div *ngIf="showModal" class="modal-overlay">
     <div class="modal-content">
       <button (click)="closeModal()" class="close-button">Close</button>
@@ -69,7 +69,7 @@
       </div>
     </div>
   </div>
-  
+
   <div *ngIf="showAboutModal" class="modal-overlay">
     <div class="modal-content">
       <button (click)="closeModal()" class="close-button">Close</button>
@@ -79,7 +79,7 @@
       </div>
     </div>
   </div>
-  
+
   <div *ngIf="showContactModal" class="modal-overlay">
     <div class="modal-content">
       <button (click)="closeModal()" class="close-button">Close</button>
@@ -89,7 +89,7 @@
       </div>
     </div>
   </div>
-  
+
   <div *ngIf="showPrivacyModal" class="modal-overlay">
     <div class="modal-content">
       <button (click)="closeModal()" class="close-button">Close</button>
@@ -99,28 +99,28 @@
       </div>
     </div>
   </div>
-  
-  <footer class="bg-gray-light dark:bg-dark-bg py-1">
+
+  <footer class="bg-gray-component py-1">
     <div class="container mx-auto px-6 lg:px-8">
       <div class="flex flex-wrap justify-between items-center">
         <div class="w-full lg:w-auto text-center lg:text-left">
           <ul class="flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-4">
             <li>
-              <button (click)="toggleModal()" class=" text-default  hover:text-white">FAQ</button>
+              <button (click)="toggleModal()" class=" text-gray-verylight hover:text-white">FAQ</button>
             </li>
             <li>
-              <button (click)="toggleAboutModal()" class="text-default  hover:text-white">About Us</button>
+              <button (click)="toggleAboutModal()" class="text-gray-verylight hover:text-white">About Us</button>
             </li>
             <li>
-              <button (click)="toggleContactModal()" class="text-default hover:text-white">Contact</button>
+              <button (click)="toggleContactModal()" class="text-gray-verylight hover:text-white">Contact</button>
             </li>
             <li>
-              <button (click)="togglePrivacyModal()" class=" text-default hover:text-white">Privacy Policy</button>
+              <button (click)="togglePrivacyModal()" class=" text-gray-verylight hover:text-white">Privacy Policy</button>
             </li>
           </ul>
         </div>
         <div class="w-full lg:w-auto text-center lg:text-right mt-4 lg:mt-0">
-          <p class=" text-default">© 2024 ECHO. All rights reserved.</p>
+          <p class=" text-gray-verylight">© 2024 ECHO. All rights reserved.</p>
         </div>
       </div>
     </div>
