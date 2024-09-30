@@ -30,6 +30,8 @@ Due to the inability to commit some of our work to GitHub, attached is a list of
 2. Use-case diagrams
 3. Architecture diagram with Doug
 4. Wiki contributions
+5. AI deployment and maintenance
+6. Azure deployment with Doug
 
 ## Tristan Potgieter
 1. Demo 1-4 PowerPoint presentation contributions
