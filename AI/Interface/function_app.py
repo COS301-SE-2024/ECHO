@@ -96,6 +96,16 @@ def get_recommendations(req: func.HttpRequest) -> func.HttpResponse:
         similar_songs = []
         print("Original genre: ", original_genre, " Original emotion: ", original_emotion)
         spotify_recommendations = get_spotify_recommendations(song_name, artist)
+        final_spotify_recommendations = []
+
+        for song in spotify_recommendations:
+            emotion = utils.get_sentiment(song)
+            song_json = {
+                "track": song.get("track"),
+                "emotion": emotion
+            }
+            final_spotify_recommendations.append(song_json)
+
 
         # Fetch 10 songs and process them
         if cluster_songs is None:
@@ -103,7 +113,7 @@ def get_recommendations(req: func.HttpRequest) -> func.HttpResponse:
 
         if cluster_songs is None or len(cluster_songs) == 0:
             return func.HttpResponse(
-                json.dumps({"recommended_songs": spotify_recommendations}),
+                json.dumps({"recommended_songs": final_spotify_recommendations}),
                 mimetype="application/json",
                 status_code=200
             )
