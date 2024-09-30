@@ -14,10 +14,10 @@
     <!-- First text with icon -->
     <div class="flex items-center">
       <img *ngIf="card.explicit" src="../../../../assets/images/explicit-dark.png" alt="Explicit Icon" class="w-6 h-6 mr-2">
-      <h1 class="font-weight: bold; text-white">{{ card.text }}</h1>
+      <h1 class="font-bold text-white">{{ card.text }}</h1>
     </div>
     <!-- Second text (underneath the first text) [mood]="mood.name"-->
-    <p class="font-weight: bold; text-white">{{ card.secondaryText }}</p>
+    <p class="text-white">{{ card.secondaryText }}</p>
   </div>
   <app-echo-button
     [width]="svgSize"
