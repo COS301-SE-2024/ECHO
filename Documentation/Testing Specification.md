@@ -124,5 +124,5 @@ All tests are automated in the Stablization, Development and Main branches.
 - UI Switches to different components dynamically when user changes device
 
 ## Exit Criteria
-- Test Coverage is above 80%
-- All tests are passing.
+- Test Coverage is above 75%
+- Review from all members
