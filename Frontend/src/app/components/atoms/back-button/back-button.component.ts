@@ -6,7 +6,7 @@ import { NgClass } from '@angular/common';
   selector: 'app-back-button',
   standalone: true,
   templateUrl: './back-button.component.html',
-  styleUrls: ['./back-button.component.scss'],
+  styleUrls: ['./back-button.component.css'],
   imports: [ NgClass ],
 })
 export class BackButtonComponent {
@@ -23,7 +23,7 @@ export class BackButtonComponent {
     this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
   }
 
-  
+
   goBack() {
     this.location.back();
   }
