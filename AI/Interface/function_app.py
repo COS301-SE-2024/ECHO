@@ -2,7 +2,6 @@ import concurrent.futures
 import azure.functions as func
 import json
 import os
-import requests
 
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
@@ -133,8 +132,8 @@ def get_recommendations(req: func.HttpRequest) -> func.HttpResponse:
                 status_code=400
             )
         
-        for song in spotify_recommendations:
-            cluster_songs.append({"track_uri": song.get("track")})
+        # for song in spotify_recommendations:
+        #     cluster_songs.append({"track_uri": song.get("track")})
 
         unprocessed_songs = []
         for song in cluster_songs:
@@ -197,7 +196,7 @@ def get_recommendations(req: func.HttpRequest) -> func.HttpResponse:
                 similar_songs.extend(process_existing_song(song_json, original_emotion, original_genre))
                 processed_song_uris.add(track_uri)
 
-        for song in spotify_recommendations:
+        for song in final_spotify_recommendations:
             similar_songs.append(song)
 
         print(f"Current recommendations: {len(similar_songs)}")
@@ -295,7 +294,7 @@ def process_existing_song(db_song, original_emotion, original_genre):
     print("Genre: ", genre, " Emotion: ", emotion)
 
     if similar_emotion and similar_genre:
-        similar_songs.append({"track": db_song.get('URI'), "emotion": emotion.title()})
+        similar_songs.append({"track_uri": db_song.get('URI'), "song_name": db_song.get("SongName"), "artist_name": db_song.get("Artist"), "emotion": emotion.title()})
         print(f"Added similar song: {db_song.get('URI')} with emotion {emotion.title()}")
 
     return similar_songs
