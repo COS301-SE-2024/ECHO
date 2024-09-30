@@ -1,0 +1,83 @@
+@keyframes moveBlob1 {
+  0% {
+    transform: translate(0, 0);
+  }
+  20% {
+    transform: translate(20vw, -10vh);
+  }
+  40% {
+    transform: translate(-15vw, 25vh);
+  }
+  60% {
+    transform: translate(10vw, -20vh);
+  }
+  80% {
+    transform: translate(-5vw, 15vh);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes moveBlob2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  20% {
+    transform: translate(-20vw, 10vh);
+  }
+  40% {
+    transform: translate(15vw, -25vh);
+  }
+  60% {
+    transform: translate(-10vw, 20vh);
+  }
+  80% {
+    transform: translate(5vw, -15vh);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes moveBlob3 {
+  0% {
+    transform: translate(0, 0);
+  }
+  20% {
+    transform: translate(10vw, 20vh);
+  }
+  40% {
+    transform: translate(-25vw, -15vh);
+  }
+  60% {
+    transform: translate(20vw, 10vh);
+  }
+  80% {
+    transform: translate(-15vw, -5vh);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+.blob:nth-child(1) {
+  top: 10vh;
+  left: 20vw;
+  animation: moveBlob1 40s infinite ease-in-out;
+  animation-delay: 1s; /* No delay for the first child */
+}
+
+.blob:nth-child(2) {
+  top: 30vh;
+  left: 70vw;
+  animation: moveBlob2 40s infinite ease-in-out;
+  animation-delay: 3s; /* Delay for the second child */
+}
+
+.blob:nth-child(3) {
+  top: 60vh;
+  left: 40vw;
+  animation: moveBlob3 40s infinite ease-in-out;
+  animation-delay: 4s; /* Delay for the third child */
+}

@@ -1,0 +1,28 @@
+<div class="flex items-center mb-5 bg-transparent rounded-lg p-1 group" >
+  <!-- Image and play icon container -->
+  <div class="relative mr-4 flex-shrink-0" [style.width]="imgSize">
+    <img [src]="card?.imageUrl || 'path/to/default-image.jpg'"
+         alt="Card image"
+         class="w-1/4 rounded-lg mr-2.5 w-full h-auto"
+         [style.width]="imgSize"
+         [style.height]="imgSize">
+         <app-play-icon [switchMood]="false"  (click)="playTrack(card.id)" class="absolute inset-0 hidden group-hover:flex items-center justify-center cursor-pointer"[width]="'5vh'" >
+    </app-play-icon>
+  </div>
+  <!-- Text on the right -->
+  <div class="flex-grow">
+    <!-- First text with icon -->
+    <div class="flex items-center">
+      <img *ngIf="card.explicit" src="../../../../assets/images/explicit-dark.png" alt="Explicit Icon" class="w-6 h-6 mr-2">
+      <h1 class="font-bold text-white">{{ card.text }}</h1>
+    </div>
+    <!-- Second text (underneath the first text) [mood]="mood.name"-->
+    <p class="text-white">{{ card.secondaryText }}</p>
+  </div>
+  <app-echo-button
+    [width]="svgSize"
+    [height]="svgSize"
+    (buttonClick)="onEchoButtonClick($event)"
+    class="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+  </app-echo-button>
+</div>

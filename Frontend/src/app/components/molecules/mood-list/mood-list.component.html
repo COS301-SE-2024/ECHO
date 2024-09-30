@@ -1,0 +1,8 @@
+<div class="px-2 py-3">
+    <app-button-component 
+    *ngFor="let mood of moods; let i = index"
+    [label]="mood"
+    [isSelected]="selectedMood === i"
+    (click)="selectMood(i)">
+    </app-button-component>
+</div>

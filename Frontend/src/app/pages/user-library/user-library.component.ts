@@ -1,67 +1,63 @@
-import { Component } from '@angular/core';
-import { BottomPlayerComponent } from '../../shared/bottom-player/bottom-player.component';
-import { NavbarComponent } from '../../shared/navbar/navbar.component';
-import { NgClass, NgForOf, NgIf } from '@angular/common';
-import { SideBarComponent } from '../../shared/side-bar/side-bar.component';
-import { MoodsComponent } from '../../shared/moods/moods.component';
-import { BottomNavComponent } from '../../shared/bottom-nav/bottom-nav.component';
-import { SearchBarComponent } from '../../shared/search-bar/search-bar.component';
-import { SongRecommendationComponent } from '../../shared/song-recommendation/song-recommendation.component';
-import { ThemeService } from './../../services/theme.service';
-import { AuthService } from '../../services/auth.service';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SpotifyService } from "../../services/spotify.service";
 import { ScreenSizeService } from '../../services/screen-size-service.service';
-import { OnInit } from '@angular/core';
+import { ArtistInfo, TrackInfo } from '../profile/profile.component';
+import { TopArtistCardComponent } from "../../components/molecules/top-artist-card/top-artist-card.component";
+import { NavbarComponent } from "../../components/organisms/navbar/navbar.component";
+import { NgClass, NgForOf, NgIf } from "@angular/common";
+import { SearchBarComponent } from "../../components/molecules/search-bar/search-bar.component";
+import { TopCardComponent } from "../../components/molecules/top-card/top-card.component";
+import { PageTitleComponent } from "../../components/atoms/page-title/page-title.component"; // Reuse the interface from ProfileComponent
 
 @Component({
   selector: 'app-user-library',
   standalone: true,
-  imports: [ 
-        SongRecommendationComponent,
-        NavbarComponent,
-        NgClass,
-        NgForOf,
-        NgIf,
-        SideBarComponent,
-        MoodsComponent,
-        BottomPlayerComponent,
-        MoodsComponent,
-        BottomNavComponent,
-        SearchBarComponent,
-   ],
   templateUrl: './user-library.component.html',
-  styleUrl: './user-library.component.css'
+  styleUrl: './user-library.component.css',
+  imports: [
+    NavbarComponent,
+    NgClass,
+    NgForOf,
+    NgIf,
+    SearchBarComponent,
+    TopArtistCardComponent,
+    TopCardComponent,
+    PageTitleComponent
+  ]
 })
 export class UserLibraryComponent implements OnInit {
-  title: string = 'Home';
+  public topArtists: ArtistInfo[] = [];
+  public topTracks: TrackInfo[] = [];
   screenSize?: string;
-  currentSelection: string = 'All';
+
   constructor(
-      protected themeService: ThemeService,
-      private authService: AuthService,
-      private router: Router,
-      private spotifyService: SpotifyService,
-      private screenSizeService: ScreenSizeService
+    private router: Router,
+    private spotifyService: SpotifyService,
+    private screenSizeService: ScreenSizeService
   ) {}
 
-  
-switchTheme(): void {
-    this.themeService.switchTheme();
-}
-
-onNavChange(newNav: string) {
-    this.title = newNav;
-}
-
-ngOnInit() {
+  ngOnInit() {
+    // Fetch screen size
     this.screenSizeService.screenSize$.subscribe(screenSize => {
       this.screenSize = screenSize;
     });
-}
 
-profile() {
-    this.router.navigate(['/profile']);
-}
+    // Fetch top artists and tracks from Spotify API
+    this.getTopArtists();
+    this.getTopTracks();
+  }
 
+  async getTopArtists() {
+    this.topArtists = await this.spotifyService.getTopArtists();
+  }
+
+  async getTopTracks() {
+    this.topTracks = await this.spotifyService.getTopTracks();
+  }
+
+  // Play a selected track by ID
+  playTrack(id: string) {
+    this.spotifyService.playTrackById(id);
+  }
 }

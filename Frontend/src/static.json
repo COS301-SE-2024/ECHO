@@ -1,0 +1,8 @@
+{
+  "root": "dist/frontend",
+  "cleanUrls": false,
+  "routes": {
+    "/auth/callback": "/auth/callback",
+    "/**": "/index.html"
+  }
+}

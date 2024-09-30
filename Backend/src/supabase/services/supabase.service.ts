@@ -5,72 +5,101 @@ import { AuthService } from "../../auth/services/auth.service";
 import * as crypto from "crypto";
 
 @Injectable()
-export class SupabaseService {
-    private encryptionKey: Buffer;
+export class SupabaseService
+{
+    protected encryptionKey: Buffer;
 
-    constructor() {
+    constructor()
+    {
         this.encryptionKey = Buffer.from(encryptionKey, "base64");
     }
 
     // This method is used to sign in with OAuth.using the given provider.
-    async signinWithOAuth(providerName: string) {
+    async signinWithOAuth(providerName: string)
+    {
         const supabase = createSupabaseClient();
         let scope: string = "";
-        if (providerName === "spotify") {
-            scope = "streaming user-read-email user-read-private user-read-recently-played user-read-playback-state user-modify-playback-state user-library-read";
+        let redirectTo: string;
+
+        if (providerName === "spotify")
+        {
+            scope = "streaming user-read-email user-read-private user-read-recently-played user-read-playback-state user-modify-playback-state user-library-read user-top-read";
         }
+
+        if (process.env.NODE_ENV === "production")
+        {
+            redirectTo = "https://echo-bm8z.onrender.com/login"; // Production URL
+        }
+        else
+        {
+            redirectTo = "http://localhost:4200/auth/callback"; // Development URL
+        }
+
         const { data, error } = await supabase.auth.signInWithOAuth({
             provider: providerName,
             options: {
-                redirectTo: "http://localhost:4200/auth/callback",
+                redirectTo,
                 scopes: scope
             }
         });
-        if (error) {
+
+        if (error)
+        {
             throw new Error(error.message);
         }
         return data.url;
     }
 
     // This method is used to exchange the code (returned by a provider) for a session (from Supabase).
-    async exchangeCodeForSession(code: string) {
+    async exchangeCodeForSession(code: string)
+    {
         const supabase = createSupabaseClient();
         const { error } = await supabase.auth.exchangeCodeForSession(code);
-        if (error) {
+        if (error)
+        {
             throw new Error(error.message);
         }
     }
 
     // This method is used to handle tokens from Spotify and store them in the Supabase user_tokens table.
-    async handleSpotifyTokens(accessToken: string, refreshToken: string, providerToken: string, providerRefreshToken: string) {
-        if (!(accessToken && refreshToken && providerToken && providerRefreshToken)) {
-            return {message: "Error occurred during OAuth Sign In while processing tokens - please try again."}
+    async handleSpotifyTokens(accessToken: string, refreshToken: string, providerToken: string, providerRefreshToken: string)
+    {
+        if (!(accessToken && refreshToken && providerToken && providerRefreshToken))
+        {
+            return { message: "Error occurred during OAuth Sign In while processing tokens - please try again." };
         }
         const supabase = createSupabaseClient();
         const { error } = await supabase.auth.setSession({ access_token: accessToken, refresh_token: refreshToken });
-        if (error) {
+        if (error)
+        {
             console.error("Error setting session:", error);
             return;
         }
 
         const { data, error: userError } = await supabase.auth.getUser();
 
-        if (userError) {
+        if (userError)
+        {
             console.error("Error retrieving user:", userError);
             return;
         }
 
-        if (data.user) {
+        if (data.user)
+        {
             const userId: string = data.user.id;
             await this.insertTokens(userId, this.encryptToken(providerToken), this.encryptToken(providerRefreshToken));
-        } else {
+        }
+        else
+        {
             console.log("No user data available.");
         }
     }
 
     // This method is used to insert tokens into the user_tokens table.
-    async insertTokens(userId: string, providerToken: string, providerRefreshToken: string): Promise<void> {
-        if (!(userId && providerToken && providerRefreshToken)) {
+    async insertTokens(userId: string, providerToken: string, providerRefreshToken: string): Promise<void>
+    {
+        if (!(userId && providerToken && providerRefreshToken))
+        {
             return;
         }
         const encryptedProviderToken = providerToken;
@@ -89,7 +118,8 @@ export class SupabaseService {
                 onConflict: "user_id"
             });
 
-        if (error) {
+        if (error)
+        {
             console.error("Error updating or inserting token data:", error);
             throw new Error("Failed to update or insert tokens");
         }
@@ -97,7 +127,8 @@ export class SupabaseService {
     }
 
     // This method is used to encrypt a token.
-    encryptToken(token: string): string {
+    encryptToken(token: string): string
+    {
         const iv = crypto.randomBytes(16);
         const cipher = crypto.createCipheriv("aes-256-cbc", this.encryptionKey, iv);
         let encrypted = cipher.update(token, "utf8", "base64");
@@ -106,7 +137,8 @@ export class SupabaseService {
     }
 
     // This method is used to decrypt a token.
-    decryptToken(encryptedToken: string): string {
+    decryptToken(encryptedToken: string): string
+    {
         const [iv, encrypted] = encryptedToken.split(":");
         const decipher = crypto.createDecipheriv("aes-256-cbc", this.encryptionKey, Buffer.from(iv, "base64"));
         let decrypted = decipher.update(encrypted, "base64", "utf8");
@@ -115,6 +147,7 @@ export class SupabaseService {
     }
 
     // This method is used to retrieve tokens from the user_tokens table.
+
     async retrieveTokens(userId: string) {
         const supabase = createSupabaseClient();
         const { data, error } = await supabase
@@ -123,12 +156,14 @@ export class SupabaseService {
             .eq("user_id", userId)
             .single();
 
-        if (error) {
+        if (error)
+        {
             console.error("Error retrieving tokens:", error);
             throw new Error("Failed to retrieve tokens");
         }
 
-        if (data) {
+        if (data)
+        {
             const providerToken = this.decryptToken(data.encrypted_provider_token);
             const providerRefreshToken = this.decryptToken(data.encrypted_provider_refresh_token);
             return { providerToken, providerRefreshToken };
@@ -136,4 +171,5 @@ export class SupabaseService {
 
         return null;
     }
+
 }

@@ -6,6 +6,8 @@ import { HttpClient } from "@angular/common/http";
 import { TokenService } from "./token.service";
 import { ProviderService } from "./provider.service";
 import { MoodService } from "./mood-service.service";
+import { PlayerStateService } from "./player-state.service";
+import { environment } from "../../environments/environment";
 
 export interface TrackInfo
 {
@@ -17,6 +19,14 @@ export interface TrackInfo
   previewUrl: string;
   spotifyUrl: string;
   explicit: boolean;
+}
+
+export interface ArtistInfo
+{
+  id: string;
+  name: string;
+  imageUrl: string;
+  spotifyUrl: string;
 }
 
 export interface TrackAnalysis
@@ -48,13 +58,16 @@ export class SpotifyService
   private RecentListeningObject: any = null;
   private QueueObject: any = null;
 
+  private apiUrl = environment.apiUrl;
+
   constructor(
     private authService: AuthService,
     @Inject(PLATFORM_ID) private platformId: Object,
     private http: HttpClient,
     private tokenService: TokenService,
     private providerService: ProviderService,
-    private moodService: MoodService
+    private moodService: MoodService,
+    private playerStateService: PlayerStateService
   )
   {
   }
@@ -64,13 +77,8 @@ export class SpotifyService
   {
     if (isPlatformBrowser(this.platformId) && !this.hasBeenInitialized)
     {
-      console.log("Initializing Spotify SDK in the browser...");
       await this.initializeSpotify();
       this.hasBeenInitialized = true;
-    }
-    else
-    {
-      console.log("Spotify SDK initialization skipped on the server.");
     }
   }
 
@@ -124,7 +132,7 @@ export class SpotifyService
   }
 
   // Initialize the Spotify Web Playback player
-  public initializePlayer(providerToken: string): void
+  public async initializePlayer(providerToken: string): Promise<void>
   {
     this.player = new Spotify.Player({
       name: "ECHO",
@@ -137,7 +145,6 @@ export class SpotifyService
 
     this.player.addListener("ready", ({ device_id }: { device_id: string }) =>
     {
-      console.log("Ready with Device ID", device_id);
       this.deviceId = device_id;
     });
 
@@ -155,6 +162,8 @@ export class SpotifyService
     });
 
     this.player.connect();
+    await this.authService.setReady();
+    await this.playerStateService.setReady();
   }
 
   // Method to get the progress of the currently playing track
@@ -187,7 +196,7 @@ export class SpotifyService
     const laccessToken = this.tokenService.getAccessToken();
     const lrefreshToken = this.tokenService.getRefreshToken();
 
-    const response = await this.http.put(`http://localhost:3000/api/spotify/play`, {
+    const response = await this.http.put(`${this.apiUrl}/spotify/play`, {
       trackId: trackId,
       deviceId: this.deviceId,
       accessToken: laccessToken,
@@ -208,7 +217,6 @@ export class SpotifyService
 
     this.player.pause().then(() =>
     {
-      console.log("Playback paused");
       this.playingStateSubject.next(false);
     });
   }
@@ -227,7 +235,7 @@ export class SpotifyService
 
     try
     {
-      await this.http.put(`http://localhost:3000/api/spotify/next-track`, {
+      await this.http.put(`${this.apiUrl}/spotify/next-track`, {
         deviceId: this.deviceId,
         accessToken: laccessToken,
         refreshToken: lrefreshToken
@@ -261,7 +269,7 @@ export class SpotifyService
 
     try
     {
-      await this.http.put(`http://localhost:3000/api/spotify/previous-track`, {
+      await this.http.put(`${this.apiUrl}/spotify/previous-track`, {
         deviceId: this.deviceId,
         accessToken: laccessToken,
         refreshToken: lrefreshToken
@@ -281,7 +289,7 @@ export class SpotifyService
     }
   }
 
-  // Seek to a specific position in the currently playing track
+  // This function seeks to a specific position in the current track
   public async seekToPosition(progress: number): Promise<void>
   {
     if (!this.deviceId)
@@ -290,23 +298,26 @@ export class SpotifyService
       return;
     }
 
-    const laccessToken = this.tokenService.getAccessToken();
-    const lrefreshToken = this.tokenService.getRefreshToken();
-
     try
     {
-      await this.http.put(`http://localhost:3000/api/spotify/seek`, {
-        deviceId: this.deviceId,
-        progress: progress,
-        accessToken: laccessToken,
-        refreshToken: lrefreshToken
-      }).toPromise();
+      const state = await this.player.getCurrentState();
+
+      if (!state) {
+        console.error("No track is currently playing.");
+        return;
+      }
+
+      const trackDuration = state.track_window.current_track.duration_ms;
+      const seekPosition = (progress / 100) * trackDuration;
+
+      this.player.seek(seekPosition);
     }
     catch (error)
     {
       console.error("Error seeking to position:", error);
     }
   }
+
 
   // Resume playback
   public play(): void
@@ -329,16 +340,11 @@ export class SpotifyService
       {
         this.player.resume().then(() =>
         {
-          console.log("Playback resumed");
           this.playingStateSubject.next(true);
         }).catch((error: any) =>
         {
           console.error("Failed to resume playback", error);
         });
-      }
-      else
-      {
-        console.log("Playback is already ongoing");
       }
     }).catch((error: any) =>
     {
@@ -351,7 +357,7 @@ export class SpotifyService
   {
     if (this.player)
     {
-      this.player.setVolume(volume).then(() => console.log(`Volume set to ${volume * 100}%`));
+      this.player.setVolume(volume);
     }
   }
 
@@ -376,7 +382,7 @@ export class SpotifyService
     {
       const laccessToken = this.tokenService.getAccessToken();
       const lrefreshToken = this.tokenService.getRefreshToken();
-      const response = await this.http.post<any>("http://localhost:3000/api/spotify/recently-played", {
+      const response = await this.http.post<any>(`${this.apiUrl}/spotify/recently-played`, {
         accessToken: laccessToken,
         refreshToken: lrefreshToken
       }).toPromise();
@@ -436,7 +442,7 @@ export class SpotifyService
     const laccessToken = this.tokenService.getAccessToken();
     const lrefreshToken = this.tokenService.getRefreshToken();
 
-    const response = await this.http.post<any>(`http://localhost:3000/api/spotify/queue`, {
+    const response = await this.http.post<any>(`${this.apiUrl}/spotify/queue`, {
       artist,
       song_name: songName,
       accessToken: laccessToken,
@@ -474,7 +480,6 @@ export class SpotifyService
           explicit: track.explicit
         } as TrackInfo;
       });
-      console.log("Queue tracks:", tracks);
 
       sessionStorage.setItem("queue", JSON.stringify(tracks));
       this.QueueObject = tracks;
@@ -494,7 +499,7 @@ export class SpotifyService
     {
       const laccessToken = this.tokenService.getAccessToken();
       const lrefreshToken = this.tokenService.getRefreshToken();
-      const response = await this.http.post<any>("http://localhost:3000/api/spotify/currently-playing", {
+      const response = await this.http.post<any>(`${this.apiUrl}/spotify/currently-playing`, {
         accessToken: laccessToken,
         refreshToken: lrefreshToken
       }).toPromise();
@@ -529,7 +534,7 @@ export class SpotifyService
     {
       const laccessToken = this.tokenService.getAccessToken();
       const lrefreshToken = this.tokenService.getRefreshToken();
-      const response = await this.http.post<any>("http://localhost:3000/api/spotify/track-details", {
+      const response = await this.http.post<any>(`${this.apiUrl}/spotify/track-details`, {
         trackID: trackId,
         accessToken: laccessToken,
         refreshToken: lrefreshToken
@@ -555,9 +560,7 @@ export class SpotifyService
     if (this.player)
     {
       this.player.disconnect().then(() =>
-      {
-        console.log("Player disconnected");
-      }).catch((error: any) =>
+      {}).catch((error: any) =>
       {
         console.error("Failed to disconnect player", error);
       });
@@ -583,7 +586,7 @@ export class SpotifyService
     {
       const laccessToken = this.tokenService.getAccessToken();
       const lrefreshToken = this.tokenService.getRefreshToken();
-      const response = await this.http.post<any>("http://localhost:3000/api/spotify/add-to-queue", {
+      const response = await this.http.post<any>(`${this.apiUrl}/spotify/add-to-queue`, {
         uri: fullTrackId,
         device_id: this.deviceId,
         accessToken: laccessToken,
@@ -609,7 +612,7 @@ export class SpotifyService
   {
     if (this.player)
     {
-      this.player.setVolume(0).then(() => console.log(`Muted player`));
+      this.player.setVolume(0);
     }
   }
 
@@ -618,7 +621,7 @@ export class SpotifyService
   {
     if (this.player)
     {
-      this.player.setVolume(0.5).then(() => console.log(`Unmuted player`));
+      this.player.setVolume(0.5);
     }
   }
 
@@ -629,7 +632,7 @@ export class SpotifyService
     {
       const laccessToken = this.tokenService.getAccessToken();
       const lrefreshToken = this.tokenService.getRefreshToken();
-      const response = await this.http.post<any>("http://localhost:3000/api/spotify/track-details-by-name", {
+      const response = await this.http.post<any>(`${this.apiUrl}/spotify/track-details-by-name`, {
         trackName: trackName,
         artistName: artistName,
         accessToken: laccessToken,
@@ -647,13 +650,14 @@ export class SpotifyService
     }
   }
 
+  // This method is used to get the mood of a track based on its audio features
   public async getTrackMood(trackId: string): Promise<string>
   {
     try
     {
       const laccessToken = this.tokenService.getAccessToken();
       const lrefreshToken = this.tokenService.getRefreshToken();
-      const response = await this.http.post<TrackAnalysis>("http://localhost:3000/api/spotify/track-analysis", {
+      const response = await this.http.post<TrackAnalysis>(`${this.apiUrl}/spotify/track-analysis`, {
         trackId: trackId,
         accessToken: laccessToken,
         refreshToken: lrefreshToken
@@ -672,39 +676,93 @@ export class SpotifyService
     }
   }
 
-  private classifyMood(analysis: TrackAnalysis): string
-  {
+  public classifyMood(analysis: TrackAnalysis): string {
     const { valence, energy, danceability, tempo } = analysis;
-
+  
     if (0.4 <= valence && valence <= 0.6 && 0.4 <= energy && energy <= 0.6) return "Neutral";
     if (valence < 0.4 && energy > 0.7) return "Anger";
-    if (valence > 0.6 && energy > 0.5) return "Admiration";
     if (valence < 0.3 && energy > 0.6) return "Fear";
     if (valence > 0.7 && energy > 0.7) return "Joy";
-    if (valence > 0.6 && energy > 0.6 && danceability > 0.6) return "Amusement";
-    if (valence < 0.4 && 0.4 < energy && energy < 0.7) return "Annoyance";
-    if (valence > 0.6 && 0.4 < energy && energy < 0.7) return "Approval";
-    if (valence > 0.5 && energy < 0.5) return "Caring";
-    if (0.4 <= valence && valence <= 0.6 && 0.3 <= energy && energy <= 0.5) return "Confusion";
-    if (0.5 < valence && valence < 0.7 && 0.5 < energy && energy < 0.7) return "Curiosity";
-    if (valence > 0.6 && energy > 0.6) return "Desire";
-    if (valence < 0.4 && energy < 0.4) return "Disappointment";
-    if (valence < 0.3 && 0.3 < energy && energy < 0.6) return "Disapproval";
     if (valence < 0.3 && energy > 0.5) return "Disgust";
-    if (valence < 0.4 && energy < 0.5) return "Embarrassment";
     if (valence > 0.7 && energy > 0.8) return "Excitement";
-    if (valence > 0.6 && energy < 0.5) return "Gratitude";
-    if (valence < 0.3 && energy < 0.4) return "Grief";
     if (valence > 0.7 && energy < 0.7) return "Love";
-    if (0.3 < valence && valence < 0.5 && energy > 0.6) return "Nervousness";
-    if (valence > 0.6 && energy > 0.5) return "Optimism";
-    if (valence > 0.7 && energy > 0.6) return "Pride";
-    if (0.4 < valence && valence < 0.6 && 0.4 < energy && energy < 0.6) return "Realisation";
-    if (valence > 0.5 && energy < 0.4) return "Relief";
-    if (valence < 0.4 && energy < 0.4) return "Remorse";
     if (valence < 0.3 && energy < 0.5) return "Sadness";
     if (valence > 0.5 && energy > 0.7 && tempo > 120) return "Surprise";
-
+    if (valence < 0.4 && energy < 0.4) return "Contempt";
+    if (valence < 0.4 && 0.4 < energy && energy < 0.7) return "Shame";
+    if (valence < 0.3 && energy < 0.4) return "Guilt";
     return "Neutral";
+  }
+
+  // Get the user's top artists from Spotify
+  public async getTopArtists(): Promise<ArtistInfo[]>
+  {
+    try
+    {
+      const laccessToken = this.tokenService.getAccessToken();
+      const lrefreshToken = this.tokenService.getRefreshToken();
+      const response = await this.http.post<any>(`${this.apiUrl}/spotify/top-artists`, {
+        accessToken: laccessToken,
+        refreshToken: lrefreshToken
+      }).toPromise();
+
+      if (!response)
+      {
+        throw new Error(`HTTP error! Status: ${response}`);
+      }
+
+      return response.map((artist: any) =>
+      {
+        return {
+          id: artist.id,
+          name: artist.name,
+          imageUrl: artist.imageUrl,
+          spotifyUrl: artist.spotifyUrl
+        } as ArtistInfo;
+      });
+    }
+    catch (error)
+    {
+      console.error("Error fetching top artists:", error);
+      throw error;
+    }
+  }
+
+  // Get the user's top tracks from Spotify
+  public async getTopTracks(): Promise<TrackInfo[]>
+  {
+    try
+    {
+      const laccessToken = this.tokenService.getAccessToken();
+      const lrefreshToken = this.tokenService.getRefreshToken();
+      const response = await this.http.post<any>(`${this.apiUrl}/spotify/top-tracks`, {
+        accessToken: laccessToken,
+        refreshToken: lrefreshToken
+      }).toPromise();
+
+      if (!response)
+      {
+        throw new Error(`HTTP error! Status: ${response}`);
+      }
+
+      return response.map((track: any) =>
+      {
+        return {
+          id: track.id,
+          text: track.name,
+          albumName: track.albumName,
+          imageUrl: track.albumImageUrl,
+          secondaryText: track.artistName,
+          previewUrl: track.preview_url,
+          spotifyUrl: track.spotifyUrl,
+          explicit: false
+        } as TrackInfo;
+      });
+    }
+    catch (error)
+    {
+      console.error("Error fetching top tracks:", error);
+      throw error;
+    }
   }
 }

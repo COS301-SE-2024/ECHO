@@ -1,90 +1,131 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { ScreenSizeService } from './services/screen-size-service.service';
-import { ProviderService } from './services/provider.service';
 import { SwUpdate } from '@angular/service-worker';
-import { of, Subject } from 'rxjs';
+import { ProviderService } from './services/provider.service';
+import { MoodService } from './services/mood-service.service';
+import { AuthService } from './services/auth.service';
+import { PlayerStateService } from './services/player-state.service';
+import { of, Observable } from 'rxjs';
+import { PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { By } from '@angular/platform-browser';
+
+jest.mock('@angular/common', () => ({
+  ...jest.requireActual('@angular/common'),
+  isPlatformBrowser: jest.fn(),
+}));
 
 describe('AppComponent', () => {
   let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
-  let router: Router;
-  let screenSizeService: ScreenSizeService;
-  let providerService: ProviderService;
-  let swUpdate: SwUpdate;
-  let routerEventsSubject: Subject<any>;
-  let screenSizeSubject: Subject<string>;
+  let mockRouter: any;
+  let mockScreenSizeService: any;
+  let mockProviderService: any;
+  let mockUpdates: any;
+  let mockMoodService: any;
+  let mockAuthService: any;
+  let mockPlayerStateService: any;
 
   beforeEach(async () => {
-    routerEventsSubject = new Subject<any>();
-    screenSizeSubject = new Subject<string>();
+    mockRouter = {
+      events: of(new NavigationEnd(0, '/test', '/test')),
+      url: '/test',
+    };
+    mockScreenSizeService = { screenSize$: of('large') };
+    mockProviderService = {};
+    mockUpdates = { versionUpdates: of({ type: 'VERSION_READY' }) };
+    mockMoodService = {
+      getMoodColors: jest.fn()
+    };
+    mockAuthService = { isLoggedIn$: of(true), signOut: jest.fn() };
+    mockPlayerStateService = { setReady: jest.fn(), isReady: jest.fn() };
 
     await TestBed.configureTestingModule({
       imports: [AppComponent],
       providers: [
-        { provide: Router, useValue: { events: routerEventsSubject.asObservable() } },
-        { provide: ScreenSizeService, useValue: { screenSize$: screenSizeSubject.asObservable() } },
-        { provide: ProviderService, useValue: {} },
-        { provide: SwUpdate, useValue: { versionUpdates: of({ type: 'VERSION_READY' }), activateUpdate: jest.fn().mockResolvedValue({}) } }
+        { provide: Router, useValue: mockRouter },
+        { provide: ActivatedRoute, useValue: {} },
+        { provide: ScreenSizeService, useValue: mockScreenSizeService },
+        { provide: ProviderService, useValue: mockProviderService },
+        { provide: SwUpdate, useValue: mockUpdates },
+        { provide: MoodService, useValue: mockMoodService },
+        { provide: AuthService, useValue: mockAuthService },
+        { provide: PlayerStateService, useValue: mockPlayerStateService },
+        { provide: PLATFORM_ID, useValue: 'browser' },
       ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
-    router = TestBed.inject(Router);
-    screenSizeService = TestBed.inject(ScreenSizeService);
-    providerService = TestBed.inject(ProviderService);
-    swUpdate = TestBed.inject(SwUpdate);
   });
 
-  it('should create the app', () => {
-    expect(component).toBeTruthy();
-  });
-
-  it('should initialize title to Echo', () => {
-    expect(component.title).toBe('Echo');
-  });
-
-  it('should update showPlayer based on navigation end events', () => {
-    routerEventsSubject.next(new NavigationEnd(0, '/home', '/home'));
-    expect(component.showPlayer).toBe(true);
-    
-    routerEventsSubject.next(new NavigationEnd(0, '/profile', '/profile'));
-    expect(component.showPlayer).toBe(true);
-    
-    routerEventsSubject.next(new NavigationEnd(0, '/other', '/other'));
-    expect(component.showPlayer).toBe(false);
-  });
-
-  it('should update displayPlayer based on navigation end events', () => {
-    routerEventsSubject.next(new NavigationEnd(0, '/settings', '/settings'));
-    expect(component.displayPlayer).toBe(true);
-    
-    routerEventsSubject.next(new NavigationEnd(0, '/home', '/home'));
-    expect(component.displayPlayer).toBe(false);
-  });
-
-  it('should handle version updates', async () => {
-    const activateUpdateSpy = jest.spyOn(swUpdate, 'activateUpdate').mockResolvedValue(true);
-    //const reloadSpy = jest.spyOn(window.location, 'reload').mockImplementation(() => {});
-
-    swUpdate.versionUpdates.subscribe(event => {
-      if (event.type === 'VERSION_READY') {
-        expect(activateUpdateSpy).toHaveBeenCalled();
-        expect(component.update).toBe(true);
-        //expect(reloadSpy).toHaveBeenCalled();
-      }
+  describe('ngOnInit', () => {
+    it('should subscribe to screenSizeService and set screenSize', () => {
+      component.ngOnInit();
+      expect(component.screenSize).toBe('large');
     });
   });
 
-  it('should subscribe to screen size changes on init', () => {
-    component.ngOnInit();
-    screenSizeSubject.next('large');
-    expect(component.screenSize).toBe('large');
-    
-    screenSizeSubject.next('small');
-    expect(component.screenSize).toBe('small');
+  describe('ngAfterViewInit', () => {
+    it('should call playerStateService.setReady', () => {
+      component.ngAfterViewInit();
+      expect(mockPlayerStateService.setReady).toHaveBeenCalled();
+    });
+  });
+
+  describe('isCurrentRouteAuth', () => {
+    it('should return true for auth routes', () => {
+      mockRouter.url = '/login';
+      expect(component.isCurrentRouteAuth()).toBe(true);
+    });
+
+    it('should return false for non-auth routes', () => {
+      mockRouter.url = '/home';
+      expect(component.isCurrentRouteAuth()).toBe(false);
+    });
+  });
+
+  describe('layout', () => {
+    it('should set columnStart and colSpan based on sidebar state', () => {
+      component.layout(true);
+      expect(component.columnStart).toBe(1);
+      expect(component.colSpan).toBe(5);
+
+      component.layout(false);
+      expect(component.columnStart).toBe(3);
+      expect(component.colSpan).toBe(4);
+    });
+  });
+
+  describe('isReady', () => {
+    it('should return playerStateService.isReady if platform is browser', () => {
+      (isPlatformBrowser as jest.Mock).mockReturnValue(true);
+      mockPlayerStateService.isReady.mockReturnValue(true);
+      expect(component.isReady()).toBe(true);
+    });
+
+    it('should return false if platform is not browser', () => {
+      (isPlatformBrowser as jest.Mock).mockReturnValue(false);
+      expect(component.isReady()).toBe(false);
+    });
+  });
+
+  describe('toggleSideBar', () => {
+    it('should toggle isSideBarHidden and call layout with the new state', () => {
+      jest.spyOn(component, 'layout');
+      component.isSideBarHidden = false;
+      component.toggleSideBar();
+      expect(component.isSideBarHidden).toBe(true);
+      expect(component.layout).toHaveBeenCalledWith(true);
+    });
+  });
+
+  describe('ngOnDestroy', () => {
+    it('should call authService.signOut', () => {
+      component.ngOnDestroy();
+      expect(mockAuthService.signOut).toHaveBeenCalled();
+    });
   });
 });

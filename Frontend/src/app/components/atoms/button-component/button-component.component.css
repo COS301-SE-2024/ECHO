@@ -1,0 +1,8 @@
+/* button-component.component.css */
+.button {
+    padding-left: 2.25vw; /* equivalent to px-10 */
+    padding-right: 2.25vw; /* equivalent to px-10 */
+    padding-top: 1vh; /* equivalent to py-2.5 */
+    padding-bottom: 1vh; /* equivalent to py-2.5 */
+    font-size: .9rem; /* equivalent to text-sm */
+}

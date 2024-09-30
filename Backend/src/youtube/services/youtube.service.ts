@@ -1,107 +1,121 @@
-import { Injectable, HttpException, HttpStatus } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { HttpService } from "@nestjs/axios";
-import { lastValueFrom } from "rxjs";
-import { accessKey, youtubeKey } from "../../config";
 
-export interface YouTubeTrackInfo {
+export interface TrackInfo
+{
     id: string;
-    title: string;
-    thumbnailUrl: string;
-    channelTitle: string;
-    videoUrl: string;
+    name: string;
+    albumName: string;
+    albumImageUrl: string;
+    artistName: string;
+    previewUrl: string | null;
+    youtubeId: string;
 }
 
 @Injectable()
-export class YoutubeService {
-    constructor(private httpService: HttpService) {}
+export class YouTubeService
+{
+    private readonly API_URL = "https://www.googleapis.com/youtube/v3";
+    private readonly API_KEY = process.env.YOUTUBE_KEY;
 
-    // This function retrieves the recommended tracks from the Echo API (Clustering recommendations)
-    public async getQueue(artist: string, songName: string): Promise<YouTubeTrackInfo[]> {
-        try {
-            const response = await this.httpService.post<any>('https://echo-capstone-func-app.azurewebsites.net/api/get_songs', {
-                access_key: accessKey,
-                artist: artist,
-                song_name: songName
-            }, {
-                headers: { 'Content-Type': 'application/json' }
-            }).toPromise();
-
-            const tracks = response.data.recommended_tracks;
-            const trackDetails = tracks.map(track => ({
-                title: track.track_details[0],
-                artist: track.track_details[1]
-            }));
-
-            return this.fetchYoutubeTracks(trackDetails);
-        } catch (error) {
-            console.error('Error fetching queue:', error);
-            throw new HttpException('Failed to fetch queue', HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    constructor(private readonly httpService: HttpService)
+    {
     }
 
-    // This function retrieves the details of the tracks with the given videoId's
-    private async fetchYoutubeTrackDetails(videoIds: string[]): Promise<YouTubeTrackInfo[]> {
-        const videoIdsString = videoIds.join(',');
-        const url = `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&id=${videoIdsString}&key=${youtubeKey}`;
-
-        try {
-            const response = await lastValueFrom(
-                this.httpService.get(url)
-            );
-
-            return response.data.items.map(item => ({
-                id: item.id,
-                title: item.snippet.title,
-                thumbnailUrl: item.snippet.thumbnails.default.url,
-                channelTitle: item.snippet.channelTitle,
-                videoUrl: `https://www.youtube.com/watch?v=${item.id}`
-            }));
-        } catch (error) {
-            console.error('Error fetching YouTube track details:', error);
-            throw new HttpException('Failed to fetch YouTube track details', HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    // This function will be used to map the YouTube API response to the TrackInfo interface.
+    mapYouTubeResponseToTrackInfo(youtubeResponse: any): TrackInfo
+    {
+        return {
+            id: youtubeResponse.id.videoId,
+            name: youtubeResponse.snippet.title,
+            albumName: youtubeResponse.snippet.album || "Unknown Album",
+            albumImageUrl: youtubeResponse.snippet.thumbnails.high.url,
+            artistName: youtubeResponse.snippet.channelTitle,
+            previewUrl: "",
+            youtubeId: youtubeResponse.id.videoId
+        };
     }
 
-    // This function retrieves the details of a single track with the given videoId
-    public async fetchSingleTrackDetails(videoId: string): Promise<YouTubeTrackInfo> {
-        const url = `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&id=${videoId}&key=${youtubeKey}`;
+    mapSearchResponseToTrackInfo(youtubeResponse: any): TrackInfo
+    {
+        return {
+            id: youtubeResponse.id.videoId,
+            name: youtubeResponse.snippet.title,
+            albumName: youtubeResponse.snippet.album || "Unknown Album",
+            albumImageUrl: youtubeResponse.snippet.thumbnails.high.url,
+            artistName: youtubeResponse.snippet.channelTitle,
+            previewUrl: "",
+            youtubeId: youtubeResponse.id.videoId
+        };
 
-        try {
-            const response = await lastValueFrom(
-                this.httpService.get(url)
-            );
-
-            const item = response.data.items[0];
-            return {
-                id: item.id,
-                title: item.snippet.title,
-                thumbnailUrl: item.snippet.thumbnails.default.url,
-                channelTitle: item.snippet.channelTitle,
-                videoUrl: `https://www.youtube.com/watch?v=${item.id}`
-            };
-        } catch (error) {
-            console.error('Error fetching YouTube track details:', error);
-            throw new HttpException('Failed to fetch YouTube track details', HttpStatus.INTERNAL_SERVER_ERROR);
-        }
     }
 
-    // This function fetches the tracks from the Youtube API based on the given track details
-    private async fetchYoutubeTracks(trackDetails: { title: string, artist: string }[]): Promise<YouTubeTrackInfo[]> {
-        const videoIds = await Promise.all(trackDetails.map(async (track) => {
-            const query = `${track.title} ${track.artist}`;
-            const encodedQuery = encodeURIComponent(query);
-            const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodedQuery}&type=video&key=${youtubeKey}`;
+    // This function will be used to search for videos/songs on YouTube.
+    async searchVideos(query: string): Promise<TrackInfo[]>
+    {
+        const url = `${this.API_URL}/search?part=snippet&q=${encodeURIComponent(query)}&key=${this.API_KEY}`;
+        const response = await this.httpService.get(url).toPromise();
+        const items = response.data.items;
 
-            try {
-                const searchResponse = await lastValueFrom(this.httpService.get(searchUrl));
-                return searchResponse.data.items[0]?.id.videoId;
-            } catch (error) {
-                console.error('Error searching for YouTube video:', error);
-                return null;
+        return items.map((item: any) => this.mapYouTubeResponseToTrackInfo(item));
+    }
+
+    // This function will be used to retrieve details of a video/song on YouTube.
+    async getVideoDetails(videoId: string): Promise<TrackInfo>
+    {
+        const url = `${this.API_URL}/videos?part=snippet,contentDetails,statistics&id=${videoId}&key=${this.API_KEY}`;
+        const response = await this.httpService.get(url).toPromise();
+        const item = response.data.items[0];
+
+        return this.mapYouTubeResponseToTrackInfo(item);
+    }
+
+    // This function will be used to retrieve a YouTube API key.
+    async getAPIKey()
+    {
+        return this.API_KEY;
+    }
+
+    async getTrackDetailsByName(trackName: string, artistName: string)
+    {
+        const query = `${artistName} ${trackName}`;
+        const url = `${this.API_URL}/search?part=snippet&type=video&q=${encodeURIComponent(query)}&key=${this.API_KEY}`;
+        const response = await this.httpService.get(url).toPromise();
+        const items = response.data.items;
+
+        return items.map((item: any) => this.mapSearchResponseToTrackInfo(item));
+    }
+
+    // Method to fetch top YouTube music tracks
+    async getTopYouTubeTracks(): Promise<TrackInfo[]>
+    {
+        const url = `${this.API_URL}/videos?part=snippet&chart=mostPopular&videoCategoryId=10&regionCode=US&type=video&key=${this.API_KEY}`;
+
+        try
+        {
+            const response = await this.httpService.get(url).toPromise();
+            const items = response.data.items;
+
+            if (!items || items.length === 0)
+            {
+                throw new Error("No tracks found in the YouTube API response");
             }
-        }));
 
-        const validVideoIds = videoIds.filter(id => id !== null);
-        return this.fetchYoutubeTrackDetails(validVideoIds);
+            return items.map((item: any) => ({
+                id: item.id,
+                name: item.snippet.title,
+                albumName: "Top Charts",
+                albumImageUrl: item.snippet.thumbnails.high.url,
+                artistName: item.snippet.channelTitle,
+                previewUrl: null,
+                spotifyUrl: null,
+                youtubeUrl: `https://www.youtube.com/watch?v=${item.id}`
+            }));
+        }
+        catch (error)
+        {
+            console.error("Error fetching top YouTube tracks:", error.response?.data || error.message);
+            throw new Error("Failed to fetch top YouTube tracks");
+        }
     }
 }

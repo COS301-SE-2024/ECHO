@@ -1,0 +1,32 @@
+<div class="rounded-lg transition-transform duration-300 hover:scale-110 flex-none w-[20vw] sm:w-[15vw] md:w-[10vw] mr-[1vw]" (mouseleave)="onMouseLeave()" (click)="onMoodClick()">
+  <div class="card w-full h-full relative ml-3 my-3 aspect-w-1 aspect-h-1 shadow-xl rounded-lg">
+    <div class="min-w-[20vw] sm:min-w-[15vw] md:min-w-[10vw] max-w-[20vw] sm:max-w-[15vw] md:max-w-[10vw] bg-stone text-black dark:text-white rounded-lg shadow-lg">
+
+      <img [src]="mood.image" [alt]="mood.name" class="bg-blue-200 rounded-t-lg w-full h-full object-cover">
+      
+      <div class="absolute text-white top-0 right-0 mt-2 mr-2 cursor-pointer z-10 text-xl" (click)="toggleDropdown()" style="font-size: 2rem;">
+        &#8230;
+      </div>
+      
+      <div class="p-4 rounded-b-lg" [ngClass]="this.moodComponentClasses[this.moodService.getCurrentMood()]">
+        <p class="text-white text-xl">{{ mood.name }}</p>
+      </div>
+    </div>
+    
+    <div class="ng-content-container absolute bottom-2 right-3">
+      <ng-content></ng-content>
+    </div>
+  </div>
+  
+  <div
+    id="dropdownInformation"
+    *ngIf="isDropdownOpen"
+    class="absolute z-20 bg-gray-component text-white shadow-lg p-2 rounded-md"
+    style="top: calc(2rem + 10px); right: 0;"
+  >
+    <ul class="list-none">
+      <li class="py-1 px-2 hover:font-bold hover:cursor-pointer" (click)="onMoodClick()">View this mood</li>
+      <li class="py-1 px-2 hover:font-bold hover:cursor-pointer">Play this mood</li>
+    </ul>
+  </div>
+</div>

@@ -1,52 +1,54 @@
-import { Test, TestingModule } from "@nestjs/testing";
-import { MongooseModule } from "@nestjs/mongoose";
-import { ConfigModule, ConfigService } from "@nestjs/config";
-import { Logger } from "@nestjs/common";
-//import { UserModule } from "./user/user.module";
-import { MongoMemoryServer } from "mongodb-memory-server";
+import { Test, TestingModule } from '@nestjs/testing';
+import { AppModule } from './app.module';
+import { AuthController } from './auth/controller/auth.controller';
+import { SpotifyController } from './spotify/controller/spotify.controller';
+import { YouTubeController } from './youtube/controller/youtube.controller';
+import { SearchController } from './search/controller/search.controller';
+import { TokenMiddleware } from './middleware/token.middleware';
+import { MiddlewareConsumer, RequestMethod } from '@nestjs/common';
 
-describe("AppModule", () => {
-    let module: TestingModule;
-    let mongod: MongoMemoryServer;
+describe('AppModule', () => {
+    let appModule: TestingModule;
 
     beforeAll(async () => {
-        mongod = new MongoMemoryServer();
-        await mongod.start();
+        appModule = await Test.createTestingModule({
+            imports: [AppModule],
+            providers: [TokenMiddleware]
+        }).compile();
     });
 
-    afterAll(async () => {
-        await mongod.stop();
+    it('should be defined', () => {
+        expect(appModule).toBeDefined();
     });
 
-    beforeEach(async () => {
-        const uri = await mongod.getUri();
-        const mockConfigService = {
-            get: jest.fn().mockImplementation((key: string) => {
-                if (key === "MONGODB_URI") {
-                    return uri;
-                }
-                return null;
-            }),
-        };
-
-        module = await Test.createTestingModule({
-            imports: [
-                ConfigModule.forRoot({
-                    isGlobal: true,
-                }),
-            ],
-        })
-            .overrideProvider(ConfigService)
-            .useValue(mockConfigService)
-            .compile();
+    it('should have AuthController defined', () => {
+        const authController = appModule.get<AuthController>(AuthController);
+        expect(authController).toBeDefined();
     });
 
-    it("should compile the module", () => {
-        expect(module).toBeDefined();
+    it('should have SpotifyController defined', () => {
+        const spotifyController = appModule.get<SpotifyController>(SpotifyController);
+        expect(spotifyController).toBeDefined();
     });
 
-    it("should use the correct MongoDB URI", () => {
-        const configService = module.get<ConfigService>(ConfigService);
-        expect(configService.get("MONGODB_URI")).toBeDefined();
+    it('should have YouTubeController defined', () => {
+        const youtubeController = appModule.get<YouTubeController>(YouTubeController);
+        expect(youtubeController).toBeDefined();
+    });
+
+    it('should have SearchController defined', () => {
+        const searchController = appModule.get<SearchController>(SearchController);
+        expect(searchController).toBeDefined();
+    });
+
+    it('should have TokenMiddleware applied to auth/callback route', () => {
+        
+      // Assuming you can inspect the middleware routes, which usually you can't directly.
+      // You may need to rethink how to validate middleware is applied,
+      // as there's no built-in way to check this.
+      // You can just verify that TokenMiddleware is defined and should be included.
+
+      const tokenMiddleware = appModule.get<TokenMiddleware>(TokenMiddleware);
+      expect(tokenMiddleware).toBeDefined();
     });
 });

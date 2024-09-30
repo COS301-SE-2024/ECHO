@@ -7,8 +7,8 @@ import { SupabaseService } from './supabase/services/supabase.service';
 import { TokenMiddleware } from './middleware/token.middleware';
 import { SpotifyController } from './spotify/controller/spotify.controller';
 import { SpotifyService } from './spotify/services/spotify.service';
-import { YoutubeController } from "./youtube/controller/youtube.controller";
-import { YoutubeService } from "./youtube/services/youtube.service";
+import { YouTubeController } from "./youtube/controller/youtube.controller";
+import { YouTubeService } from "./youtube/services/youtube.service";
 import { SearchController } from "./search/controller/search.controller";
 import { SearchService } from "./search/services/search.service";
 
@@ -19,8 +19,8 @@ import { SearchService } from "./search/services/search.service";
         }),
         HttpModule, // Include HttpModule here
     ],
-    controllers: [AuthController, SpotifyController, YoutubeController, SearchController],
-    providers: [AuthService, SupabaseService, ConfigService, SpotifyService, YoutubeService, SearchService],
+    controllers: [AuthController, SpotifyController, YouTubeController, SearchController],
+    providers: [AuthService, SupabaseService, ConfigService, SpotifyService, YouTubeService, SearchService],
 })
 export class AppModule {
     configure(consumer: MiddlewareConsumer) {

@@ -1,0 +1,6 @@
+<button
+  (click)="handleClick($event)"
+  [ngClass]="isSelected ? moodComponentClassesHover[this.moodService.getCurrentMood()]  : moodComponentClassesline[this.moodService.getCurrentMood()] + 'bg-defualt-backgroundDark text-default-text'" 
+  class="ml-1 mb-1 px-5 py-2 rounded-full focus:cursor-pointer">
+  {{ label }}
+</button>

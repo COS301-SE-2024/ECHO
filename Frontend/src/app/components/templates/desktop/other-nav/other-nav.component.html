@@ -1,0 +1,25 @@
+<div class="relative flex items-center">
+  <app-info-icon></app-info-icon>
+  <app-profile-atomic (click)="toggleDropdown()" id="dropdownInformationButton" class="cursor-pointer h-12 w-12"></app-profile-atomic>
+</div>
+
+<div
+  id="dropdownInformation"
+  *ngIf="isDropdownOpen"
+  class="absolute right-0 mt-1 z-10 bg-black opacity-80 divide-y divide-gray-100 rounded-lg shadow w-44"
+>
+  <div class="px-4 py-3 text-md text-white font-bold">
+    <div>{{ username }}</div>
+  </div>
+  <ul class="py-2 text-sm text-white" aria-labelledby="dropdownInformationButton">
+    <li>
+      <a routerLink="/profile" class="block px-4 py-2 hover:bg-gray-100 hover:text-gray-component">Profile</a>
+    </li>
+    <li>
+      <a routerLink="/settings" class="block px-4 py-2 hover:bg-gray-100 hover:text-gray-component">Settings</a>
+    </li>
+  </ul>
+  <div class="py-2">
+    <a (click)="signOut()" class="block px-4 py-2 text-sm text-white hover:bg-gray-100 hover:text-gray-component">Sign out</a>
+  </div>
+</div>

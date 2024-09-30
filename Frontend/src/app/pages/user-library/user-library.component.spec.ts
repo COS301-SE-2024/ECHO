@@ -2,7 +2,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { UserLibraryComponent } from './user-library.component';
-import { ThemeService } from '../../services/theme.service';
 import { AuthService } from '../../services/auth.service';
 import { SpotifyService } from '../../services/spotify.service';
 import { ScreenSizeService } from '../../services/screen-size-service.service';
@@ -36,7 +35,6 @@ describe('UserLibraryComponent', () => {
       ],
       providers: [
         provideHttpClient(withInterceptorsFromDi()),
-        { provide: ThemeService, useClass: MockThemeService },
         { provide: AuthService, useClass: MockAuthService },
         { provide: SpotifyService, useClass: MockSpotifyService },
         { provide: ScreenSizeService, useClass: MockScreenSizeService }
@@ -51,12 +49,6 @@ describe('UserLibraryComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('should switch themes when method is called', () => {
-    const themeService = fixture.debugElement.injector.get(ThemeService) as MockThemeService;  // Correct way to get service instance
-    themeService.switchTheme();
-    expect(themeService.isDarkModeActive()).toBe(true);  // Assuming you want to check something like this
   });
 
   afterEach(() => {
