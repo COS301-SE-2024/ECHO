@@ -114,27 +114,27 @@
       </div>
     </div>
     
-    <footer style="background-color: rgba(0, 0, 0, 0.5);" class="py-1">
+    <footer class="bg-gray-light py-1">
       <div class="container mx-auto px-6 lg:px-8">
         <div class="flex flex-wrap justify-between items-center">
           <div class="w-full lg:w-auto text-center lg:text-left">
-            <ul class="flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-4">
+            <ul class="flex flex-row space-x-4"> <!-- Changed to flex-row and space-x-4 -->
               <li>
-                <button (click)="toggleModal()" class=" text-default  hover:text-white">FAQ</button>
+                <button (click)="toggleModal()" class="text-white hover:text-white">FAQ</button>
               </li>
               <li>
-                <button (click)="toggleAboutModal()" class="text-default  hover:text-white">About Us</button>
+                <button (click)="toggleAboutModal()" class="text-white hover:text-white">About Us</button>
               </li>
               <li>
-                <button (click)="toggleContactModal()" class="text-default hover:text-white">Contact</button>
+                <button (click)="toggleContactModal()" class="text-white hover:text-white">Contact</button>
               </li>
               <li>
-                <button (click)="togglePrivacyModal()" class=" text-default hover:text-white">Privacy Policy</button>
+                <button (click)="togglePrivacyModal()" class="text-white hover:text-white">Privacy Policy</button>
+              </li>
+              <li>
+                <p class="text-white">© 2024 ECHO. All rights reserved.</p>
               </li>
             </ul>
-          </div>
-          <div class="w-full lg:w-auto text-center lg:text-right mt-4 lg:mt-0">
-            <p class=" text-default">© 2024 ECHO. All rights reserved.</p>
           </div>
         </div>
       </div>

@@ -35,7 +35,6 @@ export const routes: Routes = [
   { path: "library", component: UserLibraryComponent},
   { path: "echo Song", component: EchoSongComponent},
   { path: '**', redirectTo: '/login' } //DO NOT MOVE - MUST ALWAYS BE LAST
-
 ];
 
 @NgModule({
