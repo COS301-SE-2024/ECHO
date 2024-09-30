@@ -399,7 +399,7 @@ export class SpotifyService
 
       sessionStorage.setItem("recentListening", JSON.stringify(response));
       this.RecentListeningObject = response;
-
+      console.error(response);
       return response;
     }
     catch (error)
@@ -448,8 +448,6 @@ export class SpotifyService
       accessToken: laccessToken,
       refreshToken: lrefreshToken
     }).toPromise();
-
-
     // Map the tracks array in the response
     if (response && Array.isArray(response.tracks))
     {
@@ -468,7 +466,7 @@ export class SpotifyService
             this.setQueueCreated();
           }
         }
-
+        console.error('Here');
         return {
           id: track.id,
           text: track.name,
