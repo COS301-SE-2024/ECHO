@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { AuthCallbackComponent } from './authcallback.component';
 import { AuthService } from '../services/auth.service';
 import { SpotifyService } from "../services/spotify.service";
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of, throwError } from 'rxjs';
 
 // Mock classes
@@ -45,7 +45,8 @@ describe('AuthCallbackComponent', () => {
         { provide: AuthService, useValue: mockAuthService },
         { provide: SpotifyService, useValue: mockSpotifyService },
         { provide: Router, useValue: mockRouter },
-        AuthCallbackComponent
+        AuthCallbackComponent,
+        
       ]
     });
 
