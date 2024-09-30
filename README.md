@@ -25,11 +25,9 @@
 [![Coverage Status](https://coveralls.io/repos/github/COS301-SE-2024/ECHO/badge.svg?branch=)](https://coveralls.io/github/COS301-SE-2024/ECHO?branch=)
 ![Libraries.io dependency status for GitHub repo](https://img.shields.io/librariesio/github/COS301-SE-2024/ECHO)
 ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/COS301-SE-2024/ECHO)
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/COS301-SE-2024%2FECHO/ECHO/build.yml)
-![Security Headers](https://img.shields.io/security-headers?url=https%3A%2F%2Fhalfstack-echo.com)
-![Website](https://img.shields.io/website?url=https%3A%2F%2Fhalfstack-echo.com)
+![Website](https://img.shields.io/website?url=https://echo-bm8z.onrender.com/)
 
-## Links:
+## Links
 
 - [Team Demo](https://drive.google.com/drive/folders/1V3KzXwWxXMDi4MD5I02xE_VPZmuIePhv?usp=sharing)
 - [Functional Requirements (SRS)](Documentation\RequirementSpecification.md)
@@ -38,25 +36,17 @@
 
 ## Technology Stack:
 
-### Frontend:
 ![Angular](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white)
 ![Tailwind](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![Ionic](https://img.shields.io/badge/Ionic-3880FF?style=for-the-badge&logo=ionic&logoColor=white)
-
-### Backend:
 ![Python](https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue)
 ![Nodejs](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
 ![ExpressJs](https://img.shields.io/badge/Express%20js-000000?style=for-the-badge&logo=express&logoColor=white)
 ![NestJs](https://img.shields.io/badge/nestjs-E0234E?style=for-the-badge&logo=nestjs&logoColor=white)
-
-### DataBase:
 ![Mongo DB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
 ![Supabase](https://img.shields.io/badge/Supabase-003B57?style=for-the-badge&logo=supabase)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
-## Hosting
 ![Azure](https://img.shields.io/badge/microsoft%20azure-0089D6?style=for-the-badge&logo=microsoft-azure&logoColor=white)
-
-## 
 
 ### Branching strategy `GitFlow`
 
