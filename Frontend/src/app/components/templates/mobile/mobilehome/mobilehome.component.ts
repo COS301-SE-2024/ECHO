@@ -63,17 +63,17 @@ export class MobilehomeComponent implements OnInit
   echoTracks: any[] = [];
   provider: string | null = null;
   isDropdownVisible: boolean = true;
-  selected: string = "Up Next...";
-  options = ["Recent Listening...", "Up Next..."];
+  selected: string = "Recent Listening...";
+  options = ["Recent Listening...", "Suggestions..."];
   isEchoModalVisible: boolean = false;
   isLoading: boolean = true;
   showOption: boolean = false;
   skeletonArray = Array(10);
 
-  toggleDropdown(): void {
+   toggleDropdown(event: MouseEvent): void {
+    event.stopPropagation();
     this.isDropdownVisible = !this.isDropdownVisible;
   }
-
   showOptions(): void {
     this.showOption = !this.showOption;
   }
@@ -89,6 +89,7 @@ export class MobilehomeComponent implements OnInit
 
   async selectedOptionChange(option: string) {
     this.selected = option;
+    this.isDropdownVisible = true;
     this.isLoading = true;
     if (this.selected === "Recent Listening...") {
       this.selectedOption = "recentListening";
