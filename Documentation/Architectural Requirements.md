@@ -55,6 +55,14 @@ SOA structures the application as a collection of services that communicate over
 - **Fault Isolation:** Failures in one service do not necessarily impact other services, enhancing overall reliability of the system.
 - **Interoperability:** Standardised communication protocols allow services to interact across different platforms and technologies. 
 
+### Microservices
+Microservices structures applications as a collection of loosely coupled, independently deployable services within our AI system. Each service has a unique function and can be scaled individually as needed.
+
+#### Justification for Microservices
+- **Modularity:** Each module is independently developed and maintained, allowing them to work autonomously and be updated without affecting others.
+- **Scalability:** Individual services can be scaled as needed without impacting the other services.
+- **Fault Isolation:** If a failure occurs in one module, the entire system will not be affected and can continue running.
+- **Performance Optimisation:** Services can be optimised independently based on their resource needs. 
 
 ## Quality Requirements
 
