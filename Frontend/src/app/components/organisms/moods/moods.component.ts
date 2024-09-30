@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit,Input} from "@angular/core";
 import { MatCardModule } from "@angular/material/card";
 import { CommonModule } from "@angular/common";
 import { MatGridListModule } from "@angular/material/grid-list";
@@ -25,7 +25,7 @@ export class MoodsComponent implements OnInit, OnDestroy {
   screenSize?: string;
   moodComponentClasses!: { [key: string]: string };
   private screenSizeSubscription?: Subscription;
-
+  @Input() width: string = "10vh";
   constructor(
     private screenSizeService: ScreenSizeService,
     public moodService: MoodService,
