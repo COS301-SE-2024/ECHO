@@ -50,10 +50,18 @@ export class AuthService
       .subscribe(
 (response: any) =>
         {
-          this.loggedInSubject.next(true);
-          localStorage.setItem("loggedIn", "true");
-          this.tokenService.setTokens(response.session.access_token, response.session.refresh_token);
-          return this.router.navigate(["/home"]);
+          if (response.user)
+          {
+            this.loggedInSubject.next(true);
+            localStorage.setItem("loggedIn", "true");
+            this.tokenService.setTokens(response.session.access_token, response.session.refresh_token);
+            return this.router.navigate(["/home"]);
+          }
+          else
+          {
+            console.error("No user returned from the server");
+            return this.router.navigate(["/login"]);
+          }
         },
         (error) =>
         {
