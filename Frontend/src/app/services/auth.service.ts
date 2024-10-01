@@ -42,6 +42,10 @@ export class AuthService
       localStorage.setItem("loggedIn", "true");
       this.loggedInSubject.next(true);
     }
+    if (email === "" || password === "")
+    {
+      return new Observable();
+    }
     this.http.post(`${this.apiUrl}/signin`, { email, password })
       .subscribe(
 (response: any) =>
