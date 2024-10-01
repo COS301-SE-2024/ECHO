@@ -1,13 +1,12 @@
 import { inject, Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { BehaviorSubject, Observable } from "rxjs";
+import { BehaviorSubject, Observable, of } from "rxjs";
 import { TokenService } from "./token.service";
 import { ProviderService } from "./provider.service";
 import { Router } from "@angular/router";
 import { PlayerStateService } from "./player-state.service";
-import { environment } from '../../environments/environment';
-
-
+import { environment } from "../../environments/environment";
+import { catchError, tap } from "rxjs/operators";
 
 
 export interface AuthResponse
@@ -32,45 +31,36 @@ export class AuthService
   // This function is used to sign in the user with email and password
   signIn(email: string, password: string): Observable<any>
   {
-    if (localStorage.getItem("loggedIn") === "true")
+    if (!email || !password)
     {
-      this.router.navigate(["/home"]);
-      this.loggedInSubject.next(true);
-    }
-    else
-    {
-      localStorage.setItem("loggedIn", "true");
-      this.loggedInSubject.next(true);
-    }
-    if (email === "" || password === "")
-    {
+      console.error("Email or password cannot be empty");
       return new Observable();
     }
-    this.http.post(`${this.apiUrl}/signin`, { email, password })
-      .subscribe(
-(response: any) =>
+
+    return this.http.post(`${this.apiUrl}/signin`, { email, password })
+      .pipe(
+        tap((response: any) =>
         {
-          if (response.user)
+          if (response && response.user)
           {
             this.loggedInSubject.next(true);
             localStorage.setItem("loggedIn", "true");
             this.tokenService.setTokens(response.session.access_token, response.session.refresh_token);
-            return this.router.navigate(["/home"]);
+            this.router.navigate(["/home"]);
           }
           else
           {
             console.error("No user returned from the server");
-            return this.router.navigate(["/login"]);
           }
-        },
-        (error) =>
+        }),
+        catchError((error) =>
         {
           console.error("Sign in error:", error);
-          return this.router.navigate(["/login"]);
-        }
+          return of(null);
+        })
       );
-    return new Observable();
   }
+
 
   // This function is used to get the tokens from the server
   getTokens(): Observable<any>

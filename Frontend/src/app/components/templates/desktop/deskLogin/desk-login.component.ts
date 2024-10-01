@@ -58,14 +58,21 @@ export class DeskLoginComponent implements OnInit
 
   login()
   {
-    this.providerService.setProviderName("email");
+    if (!this.email || !this.password)
+    {
+      this.toastComponent.showToast("Email and password are required", "error");
+      return;
+    }
+
+    const loginButton = document.querySelector("button[type=\"submit\"]");
+    loginButton?.setAttribute("disabled", "true");
+
     this.authService.signIn(this.email, this.password).subscribe(
       response =>
       {
-        if (response.user)
+        if (response && response.user)
         {
           localStorage.setItem("username", this.email);
-          console.log("User logged in successfully", response);
           this.toastComponent.showToast("User logged in successfully", "success");
           setTimeout(async () =>
           {
@@ -74,14 +81,15 @@ export class DeskLoginComponent implements OnInit
         }
         else
         {
-          console.error("Error logging in user", response);
           this.toastComponent.showToast("Invalid username or password", "info");
         }
+        loginButton?.removeAttribute("disabled");
       },
       error =>
       {
         console.error("Error logging in user", error);
         this.toastComponent.showToast("There was an issue logging in", "error");
+        loginButton?.removeAttribute("disabled");
       }
     );
   }
