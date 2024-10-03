@@ -68,8 +68,8 @@ export class ArtistProfileComponent implements AfterViewInit {
       private spotifyService: SpotifyService,
       public moodService: MoodService,
   ) {
-    this.currentMood = this.moodService.getCurrentMood(); 
-    this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
+    this.currentMood = this.moodService.getCurrentMood();
+    this.moodComponentClasses = this.moodService.getComponentMoodClasses();
   }
 
   ngAfterViewInit(): void {
@@ -83,9 +83,6 @@ export class ArtistProfileComponent implements AfterViewInit {
     this.screenSizeService.screenSize$.subscribe(screenSize => {
       this.screenSize = screenSize;
     });
-    if (typeof window !== 'undefined') {
-      await this.spotifyService.init();
-    }
   }
 
   getAlbumArt(item: string): string {
@@ -97,12 +94,12 @@ export class ArtistProfileComponent implements AfterViewInit {
     // Logic to play the selected song
     console.log(`Playing song: ${song}`);
   }
-  
+
   viewAlbum(album: string): void {
     // Logic to view the selected album
     console.log(`Viewing album: ${album}`);
   }
-  
+
   viewPlaylist(playlist: string): void {
     // Logic to view the selected playlist
     console.log(`Viewing playlist: ${playlist}`);
