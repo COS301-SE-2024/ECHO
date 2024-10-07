@@ -1,73 +1,48 @@
-<div *ngIf="screenSize === 'desktop'">
-  <div class="flex flex-col p-6 bg-gray-veryDark bg-opacity-50 rounded-lg max-w-screen-lg">
-    <!-- Artist Header Section with Image -->
-    <div class="relative w-full mb-10">
-      <app-back-button class="absolute left-0"></app-back-button>
-      <div class="text-5xl text-white font-bold text-center">{{ artist.name }}</div>
-    </div>
-    
-    <!-- Artist Info Section (Image, Description, Genres) -->
-    <div class="flex items-start w-full mb-10 space-x-6">
-      <!-- Artist Image -->
-      <div class="w-56 flex-shrink-0">
-        <img [src]="artist.image" alt="{{ artist.name }}" class="w-full h-full object-cover rounded-lg shadow-md">
-      </div>
-  
-      <!-- Artist Description and Genres -->
-      <div class="text-gray-verylight flex-grow">
-        <p class="mb-4">{{ artist.description }}</p>
-        <div class="text-lg font-semibold text-white">Genres: {{ artist.genres.join(', ') }}</div>
-      </div>
-    </div>
+<div *ngIf="screenSize === 'desktop'"  [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]">
+  <div class=" flex flex-col justify-center px-6 py-12 lg:px-8">
+    <div class="flex justify-center items-center">
+      <app-back-button></app-back-button>
+      <app-info-bar ></app-info-bar>
 
-    <!-- Top Songs Section -->
-    <div class="w-full text-gray-verylight mb-10">
-      <h2 class="text-2xl font-bold mb-4 text-pink">Top Songs</h2>
-      <div class="flex space-x-4 overflow-x-auto scrollable-cards overflow-hidden px-3">
-        <ng-container *ngFor="let song of artist.topSongs">
-          <div (click)="playSong(song)">
-            <app-top-card 
-              [imageUrl]="getAlbumArt(song)" 
-              [text]="song" 
-              [secondaryText]="' '">
-            </app-top-card>
-            <div class="card-style bg-stone-950"></div>
-          </div>
-        </ng-container>
-      </div>
-    </div>
+      <div class="profile-container">
+        <div id="profile" class="profile fixed right-4 top-4 mt-5 mr-5 ml-6 h-5/6">
+          <mat-card class=" shadow-xl p-6 pl-24 pr-4 border border-gray-300 rounded-md h-full relative">
+            <mat-card-content [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]"  class="bg-gradient-to-b  rounded-lg overflow-auto h-full relative">
+              <div class="text-6xl text-pink mb-10 static">
+                Kendrick Lamar
+              </div>
+              <div class="text-gray-verylight mb-8">
+                <h2 class="text-lg font-bold mb-2">Songs</h2>
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+                  <div *ngFor="let song of artist.topSongs; let i = index" class="flex flex-col items-center">
+                    <img [src]="getAlbumArt(song)" alt="Album Art" class="w-full h-full object-cover rounded-lg mb-2 aspect-square">
+                    <p class="text-center text-sm text-gray-800 dark:text-white">{{ i + 1 }}. {{ song }}</p>
+                  </div>
+                </div>
+              </div>
 
-    <!-- Albums Section -->
-    <div class="w-full text-gray-verylight mb-10">
-      <h2 class="text-2xl font-bold mb-4 text-pink">Albums</h2>
-      <div class="flex space-x-4 overflow-x-auto scrollable-cards overflow-hidden px-3">
-        <ng-container *ngFor="let album of artist.albums">
-          <div (click)="viewAlbum(album)">
-            <app-top-card 
-              [imageUrl]="getAlbumArt(album)" 
-              [text]="album" 
-              [secondaryText]="''">
-            </app-top-card>
-            <div class="card-style bg-stone-950"></div>
-          </div>
-        </ng-container>
-      </div>
-    </div>
+              <div class="text-gray-verylight mb-8">
+                <h2 class="text-lg font-bold mb-2">Albums</h2>
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+                  <div *ngFor="let album of artist.albums; let i = index" class="flex flex-col items-center">
+                    <img [src]="getAlbumArt(album)" alt="Album Art" class="w-full h-full object-cover rounded-lg mb-2 aspect-square">
+                    <p class="text-center text-sm text-gray-800 dark:text-white">{{ i + 1 }}. {{ album }}</p>
+                  </div>
+                </div>
+              </div>
 
-    <!-- Playlists Section -->
-    <div class="w-full text-gray-verylight mb-10">
-      <h2 class="text-2xl font-bold mb-4 text-pink">Playlists</h2>
-      <div class="flex space-x-4 overflow-x-auto scrollable-cards overflow-hidden px-3">
-        <ng-container *ngFor="let playlist of artist.playlists">
-          <div (click)="viewPlaylist(playlist)">
-            <app-top-card 
-              [imageUrl]="getAlbumArt(playlist)" 
-              [text]="playlist" 
-              [secondaryText]="''">
-            </app-top-card>
-            <div class="card-style bg-stone-950"></div>
-          </div>
-        </ng-container>
+              <div class="text-gray-verylight mb-8">
+                <h2 class="text-lg font-bold mb-2">Playlists</h2>
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+                  <div *ngFor="let playlist of artist.playlists; let i = index" class="flex flex-col items-center">
+                    <img [src]="getAlbumArt(playlist)" alt="Album Art" class="w-full h-full object-cover rounded-lg mb-2 aspect-square">
+                    <p class="text-center text-sm text-gray-800 dark:text-white">{{ i + 1 }}. {{ playlist }}</p>
+                  </div>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
       </div>
     </div>
   </div>
