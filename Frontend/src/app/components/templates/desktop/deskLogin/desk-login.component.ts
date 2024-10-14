@@ -11,10 +11,11 @@ import { ProviderService } from "../../../../services/provider.service";
 import { YouTubeService } from "../../../../services/youtube.service";
 import { ToolTipComponent } from "../../../atoms/tool-tip/tool-tip.component";
 import { MoodService } from "../../../../services/mood-service.service";
+import { EchoLogComponent } from "../../../atoms/echo-log/echo-log.component";
 @Component({
   selector: "app-desk-login",
   standalone: true,
-  imports: [CommonModule, FormsModule, SpotifyLoginComponent, ToastComponent, GoogleLoginComponent, AppleLoginComponent,ToolTipComponent],
+  imports: [CommonModule, FormsModule, SpotifyLoginComponent, ToastComponent, GoogleLoginComponent, AppleLoginComponent,ToolTipComponent,EchoLogComponent],
   templateUrl: "./desk-login.component.html",
   styleUrl: "./desk-login.component.css"
 })
