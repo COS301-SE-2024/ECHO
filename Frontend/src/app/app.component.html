@@ -11,7 +11,9 @@
       <app-navbar class="col-start-1 col-span-1 row-start-1 row-span-3"></app-navbar>
       <app-other-nav class="col-start-5 col-span-1 row-start-1 row-span-1 justify-self-end"></app-other-nav>
       <div class="col-start-1 col-span-1 row-start-2 row-span-1">
+        <app-tool-tip [tooltipText]="expandableTooltipInfo" position="right">
         <app-expandable-icon (click)="toggleSideBar()"></app-expandable-icon>
+        </app-tool-tip>
       </div>
       <app-side-bar *ngIf="!isSideBarHidden" (sidebarToggled)="layout($event)" class="col-start-1 col-span-1 row-start-3 row-span-3 pr-2"></app-side-bar>
       <!-- Placeholder div -->

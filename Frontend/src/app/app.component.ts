@@ -12,6 +12,8 @@ import { MoodService } from "./services/mood-service.service";
 import {
   BackgroundAnimationComponent
 } from "./components/organisms/background-animation/background-animation.component";
+import { ToolTipComponent } from "./components/atoms/tool-tip/tool-tip.component";
+
 import { ExpandableIconComponent } from './components/organisms/expandable-icon/expandable-icon.component';
 import { NavbarComponent } from "./components/organisms/navbar/navbar.component";
 import { SideBarComponent } from './components/organisms/side-bar/side-bar.component';
@@ -36,13 +38,15 @@ import { Observable } from "rxjs";
     BackgroundAnimationComponent,
     NavbarComponent,
     SideBarComponent,
-    ExpandableIconComponent
+    ExpandableIconComponent,
+    ToolTipComponent
   ],
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"]
 })
 export class AppComponent implements OnInit, OnDestroy
 {
+  expandableTooltipInfo: string = 'close';
   update: boolean = false;
   screenSize!: string;
   displayPageName: boolean = false;
@@ -151,6 +155,7 @@ export class AppComponent implements OnInit, OnDestroy
 
 
   toggleSideBar() {
+    this.expandableTooltipInfo= this.isSideBarHidden ? 'close' : 'open';
     this.isSideBarHidden = !this.isSideBarHidden;
     this.layout(this.isSideBarHidden);
   }
