@@ -1,9 +1,9 @@
 <div class="h-screen flex flex-col">
   <div class="flex flex-1 flex-row">
     <div class="flex flex-1 items-center justify-center rounded-l-xl" style="background-color: rgba(0, 0, 0, 0.3);">
-      <app-tool-tip tooltipText="Tooltip for the image" position="top">
+      <app-tool-tip tooltipText="Click to change the Mood.." position="top">
         <!-- add defualt color rgb here -->
-      <div [ngStyle]="{'box-shadow': '0 0 40px 10px ' + getFillColor()}"   class="bg-gray-component px-32 py-56 rounded-full text-center">
+      <div [ngStyle]="{'box-shadow': '0 0 40px 10px ' + getFillColor()}" (click)="changeMood()"   class="bg-gray-component px-32 py-56 rounded-full text-center">
           <div  class="text-gray-verylight font-semibold text-2xl pb-2">
             Your mood. Your music.
           </div>

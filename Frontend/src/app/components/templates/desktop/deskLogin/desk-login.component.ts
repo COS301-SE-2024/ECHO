@@ -48,6 +48,9 @@ export class DeskLoginComponent implements OnInit
   getFillColor(): string {
     return this.moodService.getRBGAColor(this.moodService.getCurrentMood());
   }
+  changeMood(): void {
+    this.moodService.randomMood();
+  }
   async spotify()
   {
     if (typeof window !== "undefined")
