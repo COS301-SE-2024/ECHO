@@ -1,5 +1,6 @@
 import { Component, Input, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MoodService } from '../../../services/mood-service.service';
 @Component({
   selector: 'app-tool-tip',
   standalone: true,
@@ -10,8 +11,12 @@ import { CommonModule } from '@angular/common';
 export class ToolTipComponent {
   @Input() tooltipText: string = 'Default Tooltip';  // Tooltip text
   @Input() position: string = 'top';                 // Tooltip position (top, right, bottom, left)
+  moodComponentClasses!: { [key: string]: string };
 
   isVisible: boolean = false;  // Tooltip visibility state
+  constructor(public moodService: MoodService) {
+    this.moodComponentClasses = this.moodService.getComponentMoodClasses();
+  }
 
   // Show tooltip on mouse enter
   @HostListener('mouseenter') onMouseEnter() {

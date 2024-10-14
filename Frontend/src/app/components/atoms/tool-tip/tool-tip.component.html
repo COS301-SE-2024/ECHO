@@ -6,7 +6,7 @@
     <div
       *ngIf="isVisible"
       class="absolute z-10 p-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-lg transition-opacity duration-300 dark:bg-gray-700"
-      [ngClass]="getPositionClasses()"
+       [ngClass]="[getPositionClasses(), moodComponentClasses[this.moodService.getCurrentMood()]]"
     >
       {{ tooltipText }}
     </div>
