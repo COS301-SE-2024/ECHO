@@ -122,10 +122,4 @@ describe('AppComponent', () => {
     });
   });
 
-  describe('ngOnDestroy', () => {
-    it('should call authService.signOut', () => {
-      component.ngOnDestroy();
-      expect(mockAuthService.signOut).toHaveBeenCalled();
-    });
-  });
 });

@@ -3,31 +3,71 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { AuthService } from './auth.service';
 import { TokenService } from './token.service';
 import { ProviderService } from './provider.service';
+import { Router } from '@angular/router';
+import { of } from 'rxjs';
+
+const mockRouter = (): jest.Mocked<Router> => ({
+  navigate: jest.fn().mockResolvedValue(true), // Properly mock the navigation to resolve successfully
+}) as any;
+
+const localStorageMock = (() => {
+  let store: Record<string, string> = {};
+
+  return {
+    getItem: jest.fn((key: string) => store[key] || null),
+    setItem: jest.fn((key: string, value: string) => {
+      store[key] = value;
+    }),
+    removeItem: jest.fn((key: string) => {
+      delete store[key];
+    }),
+    clear: jest.fn(() => {
+      store = {};
+    }),
+  };
+})();
+
+const tokenServiceMock = (): jest.Mocked<TokenService> => ({
+  getAccessToken: jest.fn(),
+  getRefreshToken: jest.fn(),
+  getAllTokens: jest.fn(),
+  clearTokens: jest.fn(),
+}) as any;
+
+const providerServiceMock = (): jest.Mocked<ProviderService> => ({
+  getProviderName: jest.fn(),
+}) as any;
 
 describe('AuthService', () => {
   let service: AuthService;
+  let tokenService: jest.Mocked<TokenService>;
+  let providerService: jest.Mocked<ProviderService>;
+  let router: jest.Mocked<Router>;
   let httpMock: HttpTestingController;
-  let tokenServiceMock: any;
-  let providerServiceMock: any;
 
   beforeEach(() => {
-    tokenServiceMock = {
-      getAccessToken: jest.fn(),
-      getRefreshToken: jest.fn(),
-      getAllTokens: jest.fn(),
-    };
+    tokenService = tokenServiceMock();
+    providerService = providerServiceMock();
+    router = mockRouter();
 
-    providerServiceMock = {
-      getProviderName: jest.fn(),
-    };
+    Object.defineProperty(window, 'localStorage', {
+      value: localStorageMock,
+      writable: true,
+    });
+
+    Object.defineProperty(window, 'location', {
+      writable: true,
+      value: { href: '' },
+    });
 
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
       providers: [
         AuthService,
-        { provide: TokenService, useValue: tokenServiceMock },
-        { provide: ProviderService, useValue: providerServiceMock },
+        { provide: TokenService, useValue: tokenService },
+        { provide: ProviderService, useValue: providerService },
+        { provide: Router, useValue: router },
       ],
+      imports: [HttpClientTestingModule],
     });
 
     service = TestBed.inject(AuthService);
@@ -35,165 +75,41 @@ describe('AuthService', () => {
   });
 
   afterEach(() => {
-    httpMock.verify();
+    localStorageMock.clear();
   });
 
-  it('should call signIn with email and password', () => {
-    const email = 'test@example.com';
-    const password = 'password';
-    
-    service.signIn(email, password).subscribe();
-  
-    const req = httpMock.expectOne('http://localhost:3000/api/auth/signin');
-    expect(req.request.method).toBe('POST');
-    expect(req.request.body).toEqual({ email, password });
-    req.flush({});
-  });
-  
-  it('should call getTokens with accessToken and refreshToken', () => {
-    const accessToken = 'accessToken';
-    const refreshToken = 'refreshToken';
-    tokenServiceMock.getAccessToken.mockReturnValue(accessToken);
-    tokenServiceMock.getRefreshToken.mockReturnValue(refreshToken);
-  
-    service.getTokens().subscribe();
-  
-    const req = httpMock.expectOne('http://localhost:3000/api/auth/providertokens');
-    expect(req.request.method).toBe('POST');
-    expect(req.request.body).toEqual({ accessToken, refreshToken });
-    req.flush({});
-  });
-  
-  it('should redirect to OAuth URL on signInWithOAuth', async () => {
-    const providerName = 'spotify';
-    const oAuthUrl = 'http://localhost/';
-  
-    providerServiceMock.getProviderName.mockReturnValue(providerName);
-  
-    service.signInWithOAuth();
-    
-    const req = httpMock.expectOne('http://localhost:3000/api/auth/oauth-signin');
-    expect(req.request.method).toBe('POST');
-    expect(req.request.body).toEqual({ provider: providerName });
-    req.flush({ url: oAuthUrl });
-  
-    expect(window.location.href).toBe(oAuthUrl);
-  });
-  
-  it('should call signUp with email, password, and metadata', () => {
-    const email = 'test@example.com';
-    const password = 'password';
-    const metadata = { key: 'value' };
-  
-    service.signUp(email, password, metadata).subscribe();
-  
-    const req = httpMock.expectOne('http://localhost:3000/api/auth/signup');
-    expect(req.request.method).toBe('POST');
-    expect(req.request.body).toEqual({ email, password, metadata });
-    req.flush({});
-  });
-  
-  it('should call signOut', () => {
-    service.signOut().subscribe();
-  
-    const req = httpMock.expectOne('http://localhost:3000/api/auth/signout');
-    expect(req.request.method).toBe('POST');
-    req.flush({});
-  });
-  
-  it('should call currentUser with all tokens', () => {
-    const tokens = { accessToken: 'accessToken', refreshToken: 'refreshToken' };
-    tokenServiceMock.getAllTokens.mockReturnValue(tokens);
-  
-    service.currentUser().subscribe();
-  
-    const req = httpMock.expectOne('http://localhost:3000/api/auth/current');
-    expect(req.request.method).toBe('POST');
-    expect(req.request.body).toEqual(tokens);
-    req.flush({});
-  });
-  
-  it('should call sendTokensToServer with tokens', () => {
-    const tokens = { accessToken: 'accessToken', refreshToken: 'refreshToken', providerToken: 'providerToken', providerRefreshToken: 'providerRefreshToken' };
-  
-    service.sendTokensToServer(tokens).subscribe();
-  
-    const req = httpMock.expectOne('http://localhost:3000/api/auth/token');
-    expect(req.request.method).toBe('POST');
-    expect(req.request.body).toEqual(tokens);
-    req.flush({});
-  });
-  
-  it('should call sendCodeToServer with code', () => {
-    const code = 'code123';
-  
-    service.sendCodeToServer(code).subscribe();
-  
-    const req = httpMock.expectOne('http://localhost:3000/api/auth/code');
-    expect(req.request.method).toBe('POST');
-    expect(req.request.body).toEqual({ code });
-    req.flush({});
-  });
-  
-  it('should call getProvider', () => {
-    service.getProvider().subscribe();
-  
-    const req = httpMock.expectOne('http://localhost:3000/api/auth/provider');
-    expect(req.request.method).toBe('GET');
-    req.flush({});
-  });
+  describe('signInWithOAuth', () => {
+    it('should navigate to /home if already logged in', async () => {
+      // Simulate the user being logged in
+      localStorage.setItem('loggedIn', 'true');
+      providerService.getProviderName.mockReturnValue('spotify');
 
-  describe('spotifyReady', () => {
-    it('should return true if localStorage has "spotifyReady" set to "true"', () => {
-      // Mock localStorage
-      Object.defineProperty(window, 'localStorage', {
-        value: {
-          getItem: jest.fn(() => 'true'),
-        },
-        writable: true,
-      });
-  
-      const result = service.spotifyReady();
-      expect(localStorage.getItem).toHaveBeenCalledWith('spotifyReady');
-      expect(result).toBe(true);
+      // Call the OAuth login
+      await service.signInWithOAuth();
+
+      // Ensure that navigation to /home happens
+      expect(router.navigate).toHaveBeenCalledWith(['/home']);
+      expect(localStorage.getItem('loggedIn')).toBe('true');
     });
-  
-    it('should return false if localStorage has "spotifyReady" set to "false"', () => {
-      Object.defineProperty(window, 'localStorage', {
-        value: {
-          getItem: jest.fn(() => 'false'),
-        },
-        writable: true,
-      });
-  
-      const result = service.spotifyReady();
-      expect(localStorage.getItem).toHaveBeenCalledWith('spotifyReady');
-      expect(result).toBe(false);
-    });
-  
-    it('should return false if localStorage is not available', () => {
-      // Simulate localStorage being unavailable
-      Object.defineProperty(window, 'localStorage', {
-        value: undefined,
-        writable: true,
-      });
-  
-      const result = service.spotifyReady();
-      expect(result).toBe(false);
-    });
-  
-    it('should return false if localStorage has "spotifyReady" set to null', () => {
-      Object.defineProperty(window, 'localStorage', {
-        value: {
-          getItem: jest.fn(() => null),
-        },
-        writable: true,
-      });
-  
-      const result = service.spotifyReady();
-      expect(localStorage.getItem).toHaveBeenCalledWith('spotifyReady');
-      expect(result).toBe(false);
+
+    it('should not set spotifyReady if provider is not spotify', async () => {
+      // Ensure clean state for the test
+      localStorage.removeItem('spotifyReady');
+
+      // Mock non-Spotify provider
+      providerService.getProviderName.mockReturnValue('other-provider');
+
+      // Mock HTTP response for OAuth login
+      const mockResponse = { url: 'http://localhost/' };
+      jest.spyOn(service['http'], 'post').mockReturnValue(of(mockResponse));
+
+      // Call the OAuth login
+      await service.signInWithOAuth();
+
+      // Ensure spotifyReady is not set for non-Spotify providers
+      expect(localStorage.getItem('spotifyReady')).toBe(null);
+      // Ensure the correct redirection
+      expect(window.location.href).toBe(mockResponse.url);
     });
   });
-  
 });

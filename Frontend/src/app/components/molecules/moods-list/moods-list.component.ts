@@ -15,6 +15,7 @@ import { SearchService } from '../../../services/search.service';
 })
 export class MoodsListComponent implements OnInit {
   @Input() moods!: any[];
+  @Input() width: string = '10vh';
   @Output() redirectToMoodPage = new EventEmitter<any>();
   isDropdownOpen = false;
 

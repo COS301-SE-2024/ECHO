@@ -5,6 +5,8 @@
 /* CSS */
 .bottom-player {
     bottom: 0; 
+    height: 13vh;
+    width: 100%;
 }
 
 @media (max-width: 768px) {
@@ -17,24 +19,24 @@
 input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 20px; /* Adjust size as needed */
-    height: 20px; /* Adjust size as needed */
+    width: 10px; /* Adjust size as needed */
+    height: 10px; /* Adjust size as needed */
     background: white;
     cursor: pointer;
     border-radius: 50%;
   }
   
   input[type="range"]::-moz-range-thumb {
-    width: 20px; /* Adjust size as needed */
-    height: 20px; /* Adjust size as needed */
+    width: 10px; /* Adjust size as needed */
+    height: 10px; /* Adjust size as needed */
     background: white;
     cursor: pointer;
     border-radius: 50%;
   }
   
   input[type="range"]::-ms-thumb {
-    width: 20px; /* Adjust size as needed */
-    height: 20px; /* Adjust size as needed */
+    width: 10px; /* Adjust size as needed */
+    height: 10px; /* Adjust size as needed */
     background: white;
     cursor: pointer;
     border-radius: 50%;

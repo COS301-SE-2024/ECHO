@@ -68,6 +68,6 @@
         "stringifyContentPathRegex": "\\.html$"
       }
     },
-    "testTimeout": 10000
+    "testTimeout": 3000
   }
 }
