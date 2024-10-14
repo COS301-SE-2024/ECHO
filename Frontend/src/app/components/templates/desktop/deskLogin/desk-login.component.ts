@@ -9,11 +9,12 @@ import { GoogleLoginComponent } from "../../../../components/organisms/google-lo
 import { AppleLoginComponent } from "../../../../components/organisms/apple-login/apple-login.component";
 import { ProviderService } from "../../../../services/provider.service";
 import { YouTubeService } from "../../../../services/youtube.service";
+import { ToolTipComponent } from "../../../atoms/tool-tip/tool-tip.component";
 
 @Component({
   selector: "app-desk-login",
   standalone: true,
-  imports: [CommonModule, FormsModule, SpotifyLoginComponent, ToastComponent, GoogleLoginComponent, AppleLoginComponent],
+  imports: [CommonModule, FormsModule, SpotifyLoginComponent, ToastComponent, GoogleLoginComponent, AppleLoginComponent,ToolTipComponent],
   templateUrl: "./desk-login.component.html",
   styleUrl: "./desk-login.component.css"
 })
