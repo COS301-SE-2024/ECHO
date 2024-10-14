@@ -3,7 +3,7 @@
     <div class="flex flex-1 items-center justify-center rounded-l-xl" style="background-color: rgba(0, 0, 0, 0.3);">
       <app-tool-tip tooltipText="Tooltip for the image" position="top">
         <!-- add defualt color rgb here -->
-      <div class="bg-gray-component px-32 py-56 rounded-full text-center" style="box-shadow: 0 0 40px 10px ">  
+      <div [ngStyle]="{'box-shadow': '0 0 40px 10px ' + getFillColor()}"   class="bg-gray-component px-32 py-56 rounded-full text-center">
           <div  class="text-gray-verylight font-semibold text-2xl pb-2">
             Your mood. Your music.
           </div>

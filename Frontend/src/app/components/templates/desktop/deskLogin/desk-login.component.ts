@@ -10,7 +10,7 @@ import { AppleLoginComponent } from "../../../../components/organisms/apple-logi
 import { ProviderService } from "../../../../services/provider.service";
 import { YouTubeService } from "../../../../services/youtube.service";
 import { ToolTipComponent } from "../../../atoms/tool-tip/tool-tip.component";
-
+import { MoodService } from "../../../../services/mood-service.service";
 @Component({
   selector: "app-desk-login",
   standalone: true,
@@ -27,23 +27,27 @@ export class DeskLoginComponent implements OnInit
   showAboutModal: boolean = false;
   showContactModal: boolean = false;
   showPrivacyModal: boolean = false;
-
+  moodComponentClasses!: string ;
   @ViewChild(ToastComponent) toastComponent!: ToastComponent;
 
   constructor(
     private authService: AuthService,
     private router: Router,
     private providerService: ProviderService,
-    private youtubeService: YouTubeService
+    private youtubeService: YouTubeService, 
+    public moodService: MoodService
   )
   {
+  
   }
 
   ngOnInit(): void
   {
 
   }
-
+  getFillColor(): string {
+    return this.moodService.getRBGAColor(this.moodService.getCurrentMood());
+  }
   async spotify()
   {
     if (typeof window !== "undefined")
