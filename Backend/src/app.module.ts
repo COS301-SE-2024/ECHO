@@ -11,13 +11,15 @@ import { YouTubeController } from "./youtube/controller/youtube.controller";
 import { YouTubeService } from "./youtube/services/youtube.service";
 import { SearchController } from "./search/controller/search.controller";
 import { SearchService } from "./search/services/search.service";
+import { InsightsModule } from './insights/insights.module';
 
 @Module({
     imports: [
         ConfigModule.forRoot({
             isGlobal: true,
         }),
-        HttpModule, // Include HttpModule here
+        HttpModule,
+        InsightsModule, // Include HttpModule here
     ],
     controllers: [AuthController, SpotifyController, YouTubeController, SearchController],
     providers: [AuthService, SupabaseService, ConfigService, SpotifyService, YouTubeService, SearchService],
