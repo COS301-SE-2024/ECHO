@@ -1,0 +1,15 @@
+runtime: nodejs20  # Match the Node version with Render.com
+instance_class: F1  # Adjust as needed
+env: standard
+
+automatic_scaling:
+  target_cpu_utilization: 0.65
+  min_instances: 1
+  max_instances: 5
+
+handlers:
+  - url: /.*
+    script: auto
+
+env_variables:
+  NODE_ENV: "production"
