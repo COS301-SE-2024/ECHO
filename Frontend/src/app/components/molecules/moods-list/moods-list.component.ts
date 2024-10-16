@@ -19,6 +19,8 @@ export class MoodsListComponent implements OnInit {
   @Output() redirectToMoodPage = new EventEmitter<any>();
 
   isDropdownOpen = false;
+  loaders = Array(10).fill(0); // Array to loop through for loaders
+  loading = true; // Add loading property
 
   constructor(public moodService: MoodService) {}
 
@@ -26,13 +28,18 @@ export class MoodsListComponent implements OnInit {
     this.redirectToMoodPage.emit(mood);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // Simulate loading delay
+    setTimeout(() => {
+      this.loading = false;
+    }, 2000); // Adjust the delay as needed
+  }
 
   toggleDropdown(): void {
     this.isDropdownOpen = !this.isDropdownOpen;
   }
 
-   getFilteredMoods(): any[] {
+  getFilteredMoods(): any[] {
     if (!this.selectedMoodFilter) {
       return this.moods;
     }

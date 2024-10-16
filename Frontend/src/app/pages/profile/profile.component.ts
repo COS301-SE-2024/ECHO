@@ -14,7 +14,8 @@ import { TopCardComponent } from "../../components/molecules/top-card/top-card.c
 import { MoodService } from "../../services/mood-service.service";
 import { SongViewComponent } from "../../components/molecules/song-view/song-view.component";
 import { TopArtistCardComponent } from "../../components/molecules/top-artist-card/top-artist-card.component";
-import {ProfileAtomicComponent} from '../../components/organisms/profile/profile.component';
+import { ProfileAtomicComponent } from '../../components/organisms/profile/profile.component';
+
 @Component({
   selector: "app-profile",
   standalone: true,
@@ -34,19 +35,19 @@ import {ProfileAtomicComponent} from '../../components/organisms/profile/profile
     ProfileAtomicComponent,
   ],
   templateUrl: "./profile.component.html",
-  styleUrl: "./profile.component.css"
+  styleUrls: ["./profile.component.css"]
 })
-export class ProfileComponent implements AfterViewInit
-{
+export class ProfileComponent implements AfterViewInit {
   imgpath: string = "assets/images/back.jpg";
   screenSize?: string;
-  //Mood Service Variables
+  // Mood Service Variables
   currentMood!: string;
   moodComponentClasses!: { [key: string]: string };
   backgroundMoodClasses!: { [key: string]: string };
 
   public topTracks: TrackInfo[] = [];
   public topArtists: ArtistInfo[] = [];
+  public isLoading: boolean = true;
 
   username: string = "";
 
@@ -58,18 +59,14 @@ export class ProfileComponent implements AfterViewInit
     private spotifyService: SpotifyService,
     private providerService: ProviderService,
     public moodService: MoodService
-  )
-  {
+  ) {
     this.currentMood = this.moodService.getCurrentMood();
     this.moodComponentClasses = this.moodService.getComponentMoodClasses();
   }
 
-  ngAfterViewInit(): void
-  {
-    if (this.providerService.getProviderName() === "spotify")
-    {
-      let currUser = this.authService.currentUser().subscribe((res) =>
-      {
+  ngAfterViewInit(): void {
+    if (this.providerService.getProviderName() === "spotify") {
+      this.authService.currentUser().subscribe((res) => {
         this.username = res.user.user_metadata.name;
         this.imgpath = res.user.user_metadata.picture;
       });
@@ -78,61 +75,50 @@ export class ProfileComponent implements AfterViewInit
     }
   }
 
-  async ngOnInit()
-  {
-    this.screenSizeService.screenSize$.subscribe(screenSize =>
-    {
+  async ngOnInit() {
+    this.screenSizeService.screenSize$.subscribe(screenSize => {
       this.screenSize = screenSize;
     });
   }
 
-  onNavChange($event: string)
-  {
+  onNavChange($event: string) {
   }
 
-  save()
-  {
-    if (localStorage.getItem("path") !== null)
-    {
+  save() {
+    if (localStorage.getItem("path") !== null) {
       // @ts-ignore
       this.imgpath = localStorage.getItem("path");
     }
   }
 
-  refresh()
-  {
-    if (this.providerService.getProviderName() === "spotify")
-    {
-      this.authService.currentUser().subscribe((res) =>
-      {
+  refresh() {
+    if (this.providerService.getProviderName() === "spotify") {
+      this.authService.currentUser().subscribe((res) => {
         this.username = res.user.user_metadata.username;
       });
     }
   }
 
-  settings()
-  {
+  settings() {
     this.router.navigate(["/settings"]);
   }
 
-  async getTopTracks()
-  {
+  async getTopTracks() {
     this.topTracks = await this.spotifyService.getTopTracks();
+    this.isLoading = false;
   }
 
-  async getTopArtists()
-  {
+  async getTopArtists() {
     this.topArtists = await this.spotifyService.getTopArtists();
+    this.isLoading = false;
   }
 
-  playTrack(id: string)
-  {
+  playTrack(id: string) {
     this.spotifyService.playTrackById(id);
   }
 }
 
-export interface TrackInfo
-{
+export interface TrackInfo {
   id: string;
   text: string;
   albumName: string;
@@ -143,8 +129,7 @@ export interface TrackInfo
   explicit: boolean;
 }
 
-export interface ArtistInfo
-{
+export interface ArtistInfo {
   id: string;
   name: string;
   imageUrl: string;
