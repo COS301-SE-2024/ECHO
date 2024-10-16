@@ -15,6 +15,27 @@ export class ChatComponent {
   startIndex: number = 0;
   visibleMessagesCount: number = 10;
 
+  mockResponse = {
+    "answers": [
+      {
+        "questions": [
+          "What is the ECHO Progressive Web App (PWA)?"
+        ],
+        "answer": "ECHO is a Progressive Web App designed to enhance your music experience by providing personalized song recommendations, sentiment analysis of lyrics, and insightful listening habits. It integrates seamlessly with Spotify to offer a comprehensive music platform.",
+        "confidenceScore": 0.7754000000000001,
+        "id": 1,
+        "source": "Editorial",
+        "metadata": {
+          "system_metadata_qna_edited_manually": "true"
+        },
+        "dialog": {
+          "isContextOnly": false,
+          "prompts": []
+        }
+      }
+    ]
+  };
+
   sendMessage() {
     if (this.userInput.trim()) {
       this.messages.push({ sender: 'user', text: this.userInput });
@@ -23,11 +44,16 @@ export class ChatComponent {
       this.startIndex = Math.max(0, this.messages.length - this.visibleMessagesCount);
       // Simulate bot response
       setTimeout(() => {
-        this.messages.push({ sender: 'bot', text: 'This is a bot response.' });
-        // Adjust startIndex to show the latest messages
-        this.startIndex = Math.max(0, this.messages.length - this.visibleMessagesCount);
+        this.handleResponse();
       }, 1000);
     }
+  }
+
+  handleResponse() {
+    const botResponse = this.mockResponse.answers[0].answer;
+    this.messages.push({ sender: 'bot', text: botResponse });
+    // Adjust startIndex to show the latest messages
+    this.startIndex = Math.max(0, this.messages.length - this.visibleMessagesCount);
   }
 
   getVisibleMessages() {
