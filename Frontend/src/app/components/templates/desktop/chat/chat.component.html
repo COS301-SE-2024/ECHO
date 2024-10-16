@@ -1,14 +1,14 @@
 <div class="flex flex-col h-full">
-    <!-- Header -->
-    <header class="bg-blue-500 p-4 flex justify-between items-center text-white">
+    <!-- Header rgb -->
+    <header style="background-color: rgba(0, 0, 0,0.70);" class="p-4 rounded-lg flex justify-between items-center text-white">
         <div class="flex items-center">
         <!-- <img src="assets/logo.png" alt="Logo" class="w-8 h-8 mr-2"> -->
-        <h1 class="text-lg font-semibold">Chat with us</h1>
+        <h1 class="text-lg font-semibold">Help chat For Echo</h1>
         </div>
     </header>
 
     <!-- Chat Window -->
-    <div class="flex-grow p-4 overflow-y-auto bg-gray-100" (wheel)="onScroll($event)">
+    <div style="background-color: rgba(0, 0, 0,0.30);"  class="flex-grow overflow-y-auto" (wheel)="onScroll($event)">
       <div *ngFor="let message of getVisibleMessages()" class="mb-4">
         <!-- User Message -->
         <div *ngIf="message.sender === 'user'" class="text-right">
@@ -28,7 +28,7 @@
 
 
     <!-- Input Area -->
-    <div class="bg-white p-4 flex items-center">
+    <div style="background-color: rgba(0, 0, 0,0.70);"  class=" flex items-center">
         <input [(ngModel)]="userInput"
             type="text"
             placeholder="Type a message..."
