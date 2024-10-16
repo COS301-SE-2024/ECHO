@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { ScreenSizeService } from './../../services/screen-size-service.service';
 import { DeskLoginComponent } from './../../components/templates/desktop/deskLogin/desk-login.component';
 import { MobileloginComponent } from './../../components/templates/mobile/mobilelogin/mobilelogin.component';
-import { MoodService } from '../../services/mood-service.service';
 import { NgIf } from "@angular/common";
 
 @Component({
