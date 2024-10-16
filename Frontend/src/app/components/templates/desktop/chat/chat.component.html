@@ -1,4 +1,4 @@
-<div class="flex flex-col h-full">
+<div class="flex flex-col h-full overflow-y-hidden">
     <!-- Header rgb -->
     <header style="background-color: rgba(0, 0, 0,0.70);" class="p-4 rounded-lg flex justify-between items-center text-white">
         <div class="flex items-center">
@@ -8,7 +8,7 @@
     </header>
 
     <!-- Chat Window -->
-    <div style="background-color: rgba(0, 0, 0,0.30);"  class="flex-grow overflow-y-auto" (wheel)="onScroll($event)">
+    <div style="background-color: rgba(0, 0, 0,0.30);" class="flex-grow overflow-y-hidden" (wheel)="onScroll($event)">
       <div *ngFor="let message of getVisibleMessages()" class="mb-4">
         <!-- User Message -->
         <div *ngIf="message.sender === 'user'" class="text-right">
@@ -24,9 +24,9 @@
                 <div [ngClass]="moodColors[this.moodService.getCurrentMood()]" style="background-color: rgba(0, 0, 0,0.70);" class="inline-block text-white text-lg font-semibold p-3 rounded-lg">
                     {{ message.text }}
                 </div>
-            </div>>
+            </div>
         </div>
-        </div>
+      </div>
     </div>
 
     <div style="background-color: rgba(0, 0, 0,0.70);" class="flex items-center">

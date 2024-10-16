@@ -8,6 +8,7 @@ import { ProviderService } from '../../../../services/provider.service';
 import { AuthService } from '../../../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
+import { ToolTipComponent } from '../../../atoms/tool-tip/tool-tip.component';
 
 @Component({
   selector: 'app-other-nav',
@@ -18,7 +19,8 @@ import { RouterModule, Router } from '@angular/router';
     ProfileAtomicComponent,
     MoodDropDownComponent,
     CommonModule,
-    RouterModule
+    RouterModule,
+    ToolTipComponent
   ],
   templateUrl: './other-nav.component.html',
   styleUrls: ['./other-nav.component.css']
@@ -41,7 +43,9 @@ export class OtherNavComponent implements AfterViewInit {
       });
     }
   }
-
+  goToChat(): void {
+    this.router.navigate(['/chat']);
+  }
   toggleDropdown(): void {
     this.isDropdownOpen = !this.isDropdownOpen;
   }
