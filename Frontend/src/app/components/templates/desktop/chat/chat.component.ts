@@ -1,36 +1,56 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+
 @Component({
   selector: 'app-chat',
   standalone: true,
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './chat.component.html',
-  styleUrl: './chat.component.css'
+  styleUrls: ['./chat.component.css']
 })
 export class ChatComponent {
-  messages: { text: string, sender: 'user' | 'bot' }[] = [];
   userInput: string = '';
-
-  // Predefined bot responses
-  botReplies = [
-    "Hello! How can I help you?",
-    "I'm here to assist you!",
-    "Could you please clarify your question?",
-    "Thank you for reaching out!"
-  ];
+  messages: { sender: string, text: string }[] = [];
+  startIndex: number = 0;
+  visibleMessagesCount: number = 10;
 
   sendMessage() {
-    if (this.userInput.trim() === '') return;
+    if (this.userInput.trim()) {
+      this.messages.push({ sender: 'user', text: this.userInput });
+      this.userInput = '';
+      // Adjust startIndex to show the latest messages
+      this.startIndex = Math.max(0, this.messages.length - this.visibleMessagesCount);
+      // Simulate bot response
+      setTimeout(() => {
+        this.messages.push({ sender: 'bot', text: 'This is a bot response.' });
+        // Adjust startIndex to show the latest messages
+        this.startIndex = Math.max(0, this.messages.length - this.visibleMessagesCount);
+      }, 1000);
+    }
+  }
 
-    // Add user message
-    this.messages.push({ text: this.userInput, sender: 'user' });
-    this.userInput = '';
+  getVisibleMessages() {
+    return this.messages.slice(this.startIndex, this.startIndex + this.visibleMessagesCount);
+  }
 
-    // Simulate bot response
-    setTimeout(() => {
-      const randomReply = this.botReplies[Math.floor(Math.random() * this.botReplies.length)];
-      this.messages.push({ text: randomReply, sender: 'bot' });
-    }, 1000); // Delay to mimic typing
+  scrollUp() {
+    if (this.startIndex > 0) {
+      this.startIndex--;
+    }
+  }
+
+  scrollDown() {
+    if (this.startIndex + this.visibleMessagesCount < this.messages.length) {
+      this.startIndex++;
+    }
+  }
+
+  onScroll(event: WheelEvent) {
+    if (event.deltaY < 0) {
+      this.scrollUp();
+    } else if (event.deltaY > 0) {
+      this.scrollDown();
+    }
   }
 }

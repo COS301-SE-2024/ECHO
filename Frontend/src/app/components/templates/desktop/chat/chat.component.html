@@ -8,8 +8,8 @@
     </header>
 
     <!-- Chat Window -->
-    <div #chatWindow class="flex-grow p-4 overflow-y-auto bg-gray-100">
-      <div *ngFor="let message of messages" class="mb-4">
+    <div class="flex-grow p-4 overflow-y-auto bg-gray-100" (wheel)="onScroll($event)">
+      <div *ngFor="let message of getVisibleMessages()" class="mb-4">
         <!-- User Message -->
         <div *ngIf="message.sender === 'user'" class="text-right">
             <div class="inline-block bg-blue-500 text-white p-3 rounded-lg">
@@ -25,6 +25,7 @@
         </div>
         </div>
     </div>
+
 
     <!-- Input Area -->
     <div class="bg-white p-4 flex items-center">
