@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit,Input} from "@angular/core";
+import { Component, OnDestroy, OnInit,Input, Output, EventEmitter } from "@angular/core";
 import { MatCardModule } from "@angular/material/card";
 import { CommonModule } from "@angular/common";
 import { MatGridListModule } from "@angular/material/grid-list";
@@ -24,14 +24,17 @@ export class MoodsComponent implements OnInit, OnDestroy {
   RecommendedMoods: any[] = [];
   allMoods!: string[];
   screenSize?: string;
+  selectedMood: string = '';
+
   moodComponentClasses!: { [key: string]: string };
   private screenSizeSubscription?: Subscription;
   @Input() width: string = "10vh";
   moods = [
-    'All', 'Sad', 'Relaxed', 'Energetic',
-    'Focused', 'Calm', 'Excited', 'Chill',
-    'Melancholic', 'Motivated', 'Joy', 'Admiration', 'Love'
+    'All', 'Joy', 'Surprise', 'Sadness',
+    'Anger', 'Disgust', 'Contempt', 'Shame',
+    'Fear', 'Guilt', 'Excitement', 'Love'
   ];
+
   constructor(
     private screenSizeService: ScreenSizeService,
     public moodService: MoodService,
@@ -55,7 +58,13 @@ export class MoodsComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.screenSizeSubscription?.unsubscribe();
   }
-
+  onMoodSelected(mood: string) {
+    if (mood === 'All') {
+      this.selectedMood = '';
+      return;
+    }
+    this.selectedMood = mood;
+  }
   loadMoods(): void {
     const moodNames = [
       "Neutral", "Anger", "Fear", "Joy", "Disgust",
@@ -101,24 +110,4 @@ export class MoodsComponent implements OnInit, OnDestroy {
   redirectToMoodPage(mood: any): void {
     this.router.navigate(["/mood"], { queryParams: { title: mood.name } });
   }
-
-  // openModal(mood: any): void {
-  //   const dialogRef = this.dialog.open(SongViewComponent, {
-  //     width: '500px'
-  //   });
-
-  //   dialogRef.componentInstance.selectedSong = {
-  //     image: mood.image,
-  //     title: mood.name,
-  //     artist: 'Artist Name',
-  //     album: 'Album Name',
-  //     duration: 'Duration',
-  //     genre: 'Genre',
-  //     similarSongs: ['Song 1', 'Song 2', 'Song 3']
-  //   };
-
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     console.log('The dialog was closed');
-  //   });
-  // }
 }

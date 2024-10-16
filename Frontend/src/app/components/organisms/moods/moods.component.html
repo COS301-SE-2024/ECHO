@@ -1,8 +1,18 @@
-<app-mood-list [moods]="moods"></app-mood-list>
+<app-mood-list [moods]="moods" (moodSelected)="onMoodSelected($event)"></app-mood-list>
 <div class="card-body relative">
     <app-page-title>Favourite Moods</app-page-title>
-    <app-moods-list [width]="width" [moods]="favouriteMoods" (redirectToMoodPage)="redirectToMoodPage($event)"></app-moods-list>
+    <app-moods-list 
+        [width]="width" 
+        [moods]="favouriteMoods" 
+        [selectedMoodFilter]="selectedMood" 
+        (redirectToMoodPage)="redirectToMoodPage($event)">
+    </app-moods-list>
     <br/>
     <app-page-title>Recommended Moods</app-page-title>
-    <app-moods-list [width]="width"  [moods]="RecommendedMoods" (redirectToMoodPage)="redirectToMoodPage($event)"></app-moods-list>
+    <app-moods-list 
+        [width]="width"  
+        [moods]="RecommendedMoods" 
+        [selectedMoodFilter]="selectedMood" 
+        (redirectToMoodPage)="redirectToMoodPage($event)">
+    </app-moods-list>
 </div>
