@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { NgClass, NgForOf, NgIf} from '@angular/common';
 import { MoodsComponent } from '../../../organisms/moods/moods.component';
-import { ExploreBarComponent } from "../../../organisms/explore-bar/explore-bar.component";
+import { SearchBarComponent } from '../../../molecules/search-bar/search-bar.component';
 @Component({
     selector: 'app-home',
     standalone: true,
@@ -10,7 +10,7 @@ import { ExploreBarComponent } from "../../../organisms/explore-bar/explore-bar.
         NgForOf,
         NgIf,
         MoodsComponent,
-        ExploreBarComponent
+        SearchBarComponent
     ],
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',

@@ -10,11 +10,12 @@ import { MoodsListComponent } from "../../molecules/moods-list/moods-list.compon
 import { Subscription } from "rxjs";
 import { Router } from "@angular/router";
 import { SearchService, Track } from "../../../services/search.service";
+import {MoodListComponent} from '../../molecules/mood-list/mood-list.component';
 
 @Component({
   selector: "app-moods",
   standalone: true,
-  imports: [MatGridListModule, MatCardModule, CommonModule, MoodsListComponent, PageTitleComponent],
+  imports: [MatGridListModule, MatCardModule, CommonModule, MoodsListComponent, PageTitleComponent,MoodListComponent],
   templateUrl: "./moods.component.html",
   styleUrls: ["./moods.component.css"]
 })
@@ -26,6 +27,11 @@ export class MoodsComponent implements OnInit, OnDestroy {
   moodComponentClasses!: { [key: string]: string };
   private screenSizeSubscription?: Subscription;
   @Input() width: string = "10vh";
+  moods = [
+    'All', 'Sad', 'Relaxed', 'Energetic',
+    'Focused', 'Calm', 'Excited', 'Chill',
+    'Melancholic', 'Motivated', 'Joy', 'Admiration', 'Love'
+  ];
   constructor(
     private screenSizeService: ScreenSizeService,
     public moodService: MoodService,
