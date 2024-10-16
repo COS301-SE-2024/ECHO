@@ -1,1 +1,41 @@
-<p>chat works!</p>
+<div class="flex flex-col h-full">
+    <!-- Header -->
+    <header class="bg-blue-500 p-4 flex justify-between items-center text-white">
+        <div class="flex items-center">
+        <!-- <img src="assets/logo.png" alt="Logo" class="w-8 h-8 mr-2"> -->
+        <h1 class="text-lg font-semibold">Chat with us</h1>
+        </div>
+    </header>
+
+    <!-- Chat Window -->
+    <div #chatWindow class="flex-grow p-4 overflow-y-auto bg-gray-100">
+      <div *ngFor="let message of messages" class="mb-4">
+        <!-- User Message -->
+        <div *ngIf="message.sender === 'user'" class="text-right">
+            <div class="inline-block bg-blue-500 text-white p-3 rounded-lg">
+            {{ message.text }}
+            </div>
+        </div>
+
+        <!-- Bot Message -->
+        <div *ngIf="message.sender === 'bot'" class="text-left">
+            <div class="inline-block bg-gray-300 text-black p-3 rounded-lg">
+            {{ message.text }}
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- Input Area -->
+    <div class="bg-white p-4 flex items-center">
+        <input [(ngModel)]="userInput"
+            type="text"
+            placeholder="Type a message..."
+            class="flex-grow border rounded-l-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            (keydown.enter)="sendMessage()">
+        <button (click)="sendMessage()"
+                class="bg-blue-500 text-white p-3 rounded-r-lg hover:bg-blue-600 transition">
+        Send
+        </button>
+    </div>
+</div>
