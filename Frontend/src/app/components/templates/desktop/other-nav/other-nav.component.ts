@@ -9,6 +9,7 @@ import { AuthService } from '../../../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { ToolTipComponent } from '../../../atoms/tool-tip/tool-tip.component';
+import { DolphinComponent } from '../../../atoms/dolphin/dolphin.component';
 
 @Component({
   selector: 'app-other-nav',
@@ -20,7 +21,8 @@ import { ToolTipComponent } from '../../../atoms/tool-tip/tool-tip.component';
     MoodDropDownComponent,
     CommonModule,
     RouterModule,
-    ToolTipComponent
+    ToolTipComponent,
+    DolphinComponent
   ],
   templateUrl: './other-nav.component.html',
   styleUrls: ['./other-nav.component.css']

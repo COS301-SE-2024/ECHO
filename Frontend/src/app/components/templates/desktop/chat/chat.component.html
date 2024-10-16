@@ -20,7 +20,7 @@
         <!-- Bot Message -->
         <div *ngIf="message.sender === 'bot'" class="text-left">
             <div class="flex items-center">
-                <img src="../../../../../assets/icons/dolphin-load.svg" alt="Loading Icon" style="width: 5vh; height: 5vh; margin-right: 0.5rem;" />
+                <app-dolphin class="pr-2"></app-dolphin>
                 <div [ngClass]="moodColors[this.moodService.getCurrentMood()]" style="background-color: rgba(0, 0, 0,0.70);" class="inline-block text-white text-lg font-semibold p-3 rounded-lg">
                     {{ message.text }}
                 </div>

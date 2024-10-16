@@ -2,12 +2,13 @@ import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MoodService } from '../../../../services/mood-service.service';
+import { DolphinComponent } from '../../../atoms/dolphin/dolphin.component';
 
 
 @Component({
   selector: 'app-chat',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, DolphinComponent],
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css']
 })

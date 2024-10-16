@@ -1,7 +1,7 @@
 <div class="relative flex items-center">
   <app-tool-tip tooltipText="Chat to Echo Bot" position="left">
-    <img src="../../../../../assets/icons/dolphin-load.svg" (click)="goToChat()" class="cursor-pointer" alt="Loading Icon" style="width: 5vh; height: 5vh; margin-right: 0.5rem;" />
-  </app-tool-tip>
+    <app-dolphin (click)="goToChat()" class="cursor-pointer transform scale-99"></app-dolphin>
+    </app-tool-tip>
     <app-info-icon></app-info-icon>
   <app-profile-atomic (click)="toggleDropdown()" id="dropdownInformationButton" class="cursor-pointer h-12 w-12"></app-profile-atomic>
 </div>
