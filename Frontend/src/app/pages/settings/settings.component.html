@@ -8,17 +8,8 @@
             <button class="text-white font-bold py-2 px-4 rounded-full h-10 min-w-32" [ngClass]="getButtonClass('Account') ? this.moodComponentClasses[this.moodService.getCurrentMood()]: 'bg-gray-newDark'" (click)="showSettings('Account')">
                 Account
             </button>
-            <button class="text-white font-bold py-2 px-4 rounded-full h-10 min-w-32" [ngClass]="getButtonClass('Privacy') ? this.moodComponentClasses[this.moodService.getCurrentMood()]: 'bg-gray-newDark'"  (click)="showSettings('Privacy')">
-                Privacy
-            </button>
             <button class="text-white font-bold py-2 px-4 rounded-full h-10 min-w-32" [ngClass]="getButtonClass('Display') ? this.moodComponentClasses[this.moodService.getCurrentMood()]: 'bg-gray-newDark'"  (click)="showSettings('Display')">
                 Display
-            </button>
-            <button class="text-white font-bold py-2 px-4 rounded-full h-10 min-w-32" [ngClass]="getButtonClass('Audio') ? this.moodComponentClasses[this.moodService.getCurrentMood()]: 'bg-gray-newDark'"  (click)="showSettings('Audio')">
-                Audio
-            </button>
-            <button class="text-white font-bold py-2 px-4 rounded-full h-10 min-w-32" [ngClass]="getButtonClass('Language') ? this.moodComponentClasses[this.moodService.getCurrentMood()]: 'bg-gray-newDark'"  (click)="showSettings('Language')">
-                Language
             </button>
         </div>
         <div class="border-r border-gray-light mx-0"></div>
