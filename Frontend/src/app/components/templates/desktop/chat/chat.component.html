@@ -12,30 +12,32 @@
       <div *ngFor="let message of getVisibleMessages()" class="mb-4">
         <!-- User Message -->
         <div *ngIf="message.sender === 'user'" class="text-right">
-            <div class="inline-block bg-blue-500 text-white p-3 rounded-lg">
+            <div [ngClass]="moodColors[this.moodService.getCurrentMood()]" class="inline-block font-semibold text-lg text-white p-3 rounded-lg">
             {{ message.text }}
             </div>
         </div>
 
         <!-- Bot Message -->
         <div *ngIf="message.sender === 'bot'" class="text-left">
-            <div style="background-color: rgba(0, 0, 0,0.70);" class="inline-block text-white text-lg font-semibold p-3 rounded-lg">
-            {{ message.text }}
-            </div>
+            <div class="flex items-center">
+                <img src="../../../../../assets/icons/dolphin-load.svg" alt="Loading Icon" style="width: 5vh; height: 5vh; margin-right: 0.5rem;" />
+                <div [ngClass]="moodColors[this.moodService.getCurrentMood()]" style="background-color: rgba(0, 0, 0,0.70);" class="inline-block text-white text-lg font-semibold p-3 rounded-lg">
+                    {{ message.text }}
+                </div>
+            </div>>
         </div>
         </div>
     </div>
 
-
-    <!-- Input Area -->
-    <div style="background-color: rgba(0, 0, 0,0.70);"  class=" flex items-center">
-        <input [(ngModel)]="userInput"
+    <div style="background-color: rgba(0, 0, 0,0.70);" class="flex items-center">
+        <input [ngClass]="moodColors[this.moodService.getCurrentMood()]" [(ngModel)]="userInput"
             type="text"
             placeholder="Type a message..."
-            class="flex-grow border rounded-l-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            class="flex-grow border rounded-l-lg p-3 text-white text-lg font-semibold focus:outline-none focus:ring-0"
             (keydown.enter)="sendMessage()">
         <button (click)="sendMessage()"
-                class="bg-blue-500 text-white p-3 rounded-r-lg hover:bg-blue-600 transition">
+        [ngClass]="moodColorsButton[this.moodService.getCurrentMood()]"
+                class="text-white text-lg font-semibold p-3 rounded-r-lg">
         Send
         </button>
     </div>

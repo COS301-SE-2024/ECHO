@@ -1,6 +1,8 @@
 import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { MoodService } from '../../../../services/mood-service.service';
+
 
 @Component({
   selector: 'app-chat',
@@ -14,7 +16,12 @@ export class ChatComponent {
   messages: { sender: string, text: string }[] = [];
   startIndex: number = 0;
   visibleMessagesCount: number = 10;
-
+  moodColors!: { [key: string]: string };
+  moodColorsButton!: { [key: string]: string };
+  constructor(public moodService: MoodService) { 
+    this.moodColors = moodService.getUnerlineMoodClasses();
+    this.moodColorsButton = moodService.getComponentMoodClasses();
+  }
   mockResponse = {
     "answers": [
       {

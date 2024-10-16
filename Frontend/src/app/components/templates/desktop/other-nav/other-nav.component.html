@@ -1,12 +1,12 @@
 <div class="relative flex items-center">
+  <img src="../../../../../assets/icons/dolphin-load.svg" class="cursor-pointer" alt="Loading Icon" style="width: 5vh; height: 5vh; margin-right: 0.5rem;" />
   <app-info-icon></app-info-icon>
   <app-profile-atomic (click)="toggleDropdown()" id="dropdownInformationButton" class="cursor-pointer h-12 w-12"></app-profile-atomic>
 </div>
-
 <div
   id="dropdownInformation"
   *ngIf="isDropdownOpen"
-  class="absolute right-0 mt-1 z-10 bg-black opacity-80 divide-y divide-gray-100 rounded-lg shadow w-44"
+  class="absolute right-0 mt-1 z-10 bg-black opacity-80 divide-y divide-gray-100 rounded-lg shadow w-44 max-h-60 overflow-y-auto"
 >
   <div class="px-4 py-3 text-md text-white font-bold">
     <div>{{ username }}</div>
