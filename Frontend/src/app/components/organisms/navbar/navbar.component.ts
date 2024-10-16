@@ -5,6 +5,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { ScreenSizeService } from '../../../services/screen-size-service.service';
 import { MoodService } from '../../../services/mood-service.service';
 import { filter } from 'rxjs/operators';
+import { ToolTipComponent } from '../../atoms/tool-tip/tool-tip.component';
 
 const SVG_PATHS = {
     HOME: 'M48.62,19.21l-23-18c-0.37-0.28-0.87-0.28-1.24,0l-23,18c-0.43,0.34-0.51,0.97-0.17,1.41c0.34,0.43,0.97,0.51,1.41,0.17 L4,19.71V46c0,0.55,0.45,1,1,1h23V31h10v16h7c0.55,0,1-0.45,1-1V19.71l1.38,1.08C47.57,20.93,47.78,21,48,21 c0.3,0,0.59-0.13,0.79-0.38C49.13,20.18,49.05,19.55,48.62,19.21z M22,30h-8v-8h8V30z',
@@ -15,7 +16,7 @@ const SVG_PATHS = {
 @Component({
     selector: 'app-navbar',
     standalone: true,
-    imports: [CommonModule, SvgIconComponent],
+    imports: [CommonModule, SvgIconComponent,ToolTipComponent],
     templateUrl: './navbar.component.html',
     styleUrl: './navbar.component.css',
 })

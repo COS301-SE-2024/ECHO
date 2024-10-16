@@ -2,12 +2,13 @@ import { Component, Input } from '@angular/core';
 import { Location } from '@angular/common';
 import { MoodService } from '../../../services/mood-service.service';
 import { NgClass } from '@angular/common';
+import { ToolTipComponent } from '../tool-tip/tool-tip.component';
 @Component({
   selector: 'app-back-button',
   standalone: true,
   templateUrl: './back-button.component.html',
   styleUrls: ['./back-button.component.css'],
-  imports: [ NgClass ],
+  imports: [ NgClass,ToolTipComponent],
 })
 export class BackButtonComponent {
   @Input() buttonClasses: string = '';

@@ -11,10 +11,12 @@
       <app-navbar class="col-start-1 col-span-1 row-start-1 row-span-3"></app-navbar>
       <app-other-nav class="col-start-5 col-span-1 row-start-1 row-span-1 justify-self-end"></app-other-nav>
       <div class="col-start-1 col-span-1 row-start-2 row-span-1">
+        <app-tool-tip [tooltipText]="expandableTooltipInfo" position="right">
         <app-expandable-icon (click)="toggleSideBar()"></app-expandable-icon>
+        </app-tool-tip>
       </div>
       <app-side-bar *ngIf="!isSideBarHidden" (sidebarToggled)="layout($event)" class="col-start-1 col-span-1 row-start-3 row-span-3 pr-2"></app-side-bar>
-      <!-- Placeholder div -->
+      
       <div class="col-span-4"></div>
       <div [ngClass]="'col-span-' + colSpan + ' col-start-' + columnStart"
         id="center" style="background-color: rgba(0, 0, 0, 0.7); height: 72.5vh;"
@@ -27,14 +29,17 @@
   <ng-template #mobileView>
     <div class="mobile-layout grid grid-cols-3 grid-rows-[0.1fr,0.1fr,1fr]">
       <app-other-nav class="absolute top-0 right-0"></app-other-nav>
-            <div class="col-span-3 col-start-1 row-span-2 row-start-2 overflow-y-scroll overflow-hidden p-4 rounded-xl border-black h-full no-scrollbar border overflow-y-scroll m-3" style="background-color: rgba(0, 0, 0, 0.7);">
+
+      <div class="col-span-3 col-start-1 row-start-2 overflow-y-auto p-4 rounded-xl border-black h-[calc(100vh-17vh)] m-3"
+           style="background-color: rgba(0, 0, 0, 0.7);">
+
         <router-outlet></router-outlet>
       </div>
     </div>
     <app-bottom-nav></app-bottom-nav>
   </ng-template>
-
+  
   <app-bottom-player></app-bottom-player>
+
 </div>
-<!-- Hidden YouTube player, used to play videos in the background -->
 <div id="youtube-player" style="display: none;"></div>

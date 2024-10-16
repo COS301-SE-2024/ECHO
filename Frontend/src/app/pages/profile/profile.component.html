@@ -1,16 +1,16 @@
   <div id="profile" class="profile bg-cover bg-center w-full relative rounded-t-lg"
-     [style.background-image]="'url(' + imgpath + ')'"
-     style="background-size: cover; height: 33vh;">
-
-      <div class="absolute inset-0 flex flex-col justify-center items-center bg-gray-700 bg-opacity-50 rounded-t-lg">
-        <h2 class="text-white text-3xl font-bold py-2">{{ username }}</h2>
-        <!-- Need to change this onlcick from the modal to the settings page-->
-        <button class="bg-white text-gray-component py-2 px-4 rounded-full z-10" (click)="settings()">
-          Edit Profile
-        </button>
-      </div>
+       [style.background-image]="'url(' + imgpath + ')'"
+       style="background-size: cover; height: 33vh;">
+  
+    <div class="absolute inset-0 flex flex-col justify-center items-center bg-gray-700 bg-opacity-50 rounded-t-lg">
+      <h2 class="text-white text-3xl font-bold py-2">{{ username }}</h2>
+      <!-- Need to change this onlcick from the modal to the settings page-->
+      <button class="bg-white text-gray-component py-2 px-4 rounded-full z-10" (click)="settings()">
+        Edit Profile
+      </button>
+    </div>
   </div>
-
+  
   <div class="bg-gray-component w-full py-4 rounded-b-lg ">
     <div class="overflow-hidden px-3">
       <div class="space-y-8">
@@ -18,28 +18,51 @@
         <div>
           <h2 class="text-white text-2xl font-bold mb-2 mt-5">Top Songs</h2>
           <div class="flex space-x-4 overflow-x-auto scrollable-cards overflow-hidden px-3">
-            <ng-container *ngFor="let item of topTracks" class="bg-stone-950">
-              <div (click)="playTrack(item.id)">
-                <app-top-card [imageUrl]="item.imageUrl" [text]="item.text"
-                              [secondaryText]="item.secondaryText"></app-top-card>
-                <div class="card-style bg-stone-950"></div>
-              </div>
+            <ng-container *ngIf="!isLoading; else loadingTracks">
+              <ng-container *ngFor="let item of topTracks" class="bg-stone-950">
+                <div (click)="playTrack(item.id)">
+                  <app-top-card [imageUrl]="item.imageUrl" [text]="item.text"
+                                [secondaryText]="item.secondaryText"></app-top-card>
+                  <div class="card-style bg-stone-950"></div>
+                </div>
+              </ng-container>
             </ng-container>
+            <ng-template #loadingTracks>
+              <div role='status' class='flex space-x-2 animate-pulse'>
+                <div *ngFor="let _ of [1,2,3,4,5,6,7,8,9,10,11,12]" class='flex-shrink-0'>
+                  <span class='flex justify-center items-center bg-gray-300 rounded-full w-[10vh] h-[10vh]'></span>
+                  <div class='flex justify-center ml-auto mr-auto mt-2 space-x-2 items-center'>
+                    <p class='h-2 bg-gray-300 rounded-full w-[1vw]'></p>
+                    <p class='h-2 bg-gray-300 rounded-full w-[1vw]'></p>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
           </div>
         </div>
   
         <div>
           <h2 class="text-white text-2xl font-bold mb-2 mt-5">Top Artists</h2>
           <div class="flex space-x-4 overflow-x-auto scrollable-cards overflow-hidden px-3">
-            <ng-container *ngFor="let artist of topArtists">
-              <app-top-artist-card [imageUrl]="artist.imageUrl" [text]="artist.name"></app-top-artist-card>
+            <ng-container *ngIf="!isLoading; else loadingArtists">
+              <ng-container *ngFor="let artist of topArtists">
+                <app-top-artist-card [imageUrl]="artist.imageUrl" [text]="artist.name"></app-top-artist-card>
+              </ng-container>
             </ng-container>
+            <ng-template #loadingArtists>
+              <div role='status' class='flex space-x-2 animate-pulse'>
+                <div *ngFor="let _ of [1,2,3,4,5,6,7,8,9,10,11,12]" class='flex-shrink-0'>
+                  <span class='flex justify-center items-center bg-gray-300 rounded-full w-[10vh] h-[10vh]'></span>
+                  <div class='flex justify-center ml-auto mr-auto mt-2 space-x-2 items-center'>
+                    <p class='h-2 bg-gray-300 rounded-full w-[1vw]'></p>
+                    <p class='h-2 bg-gray-300 rounded-full w-[1vw]'></p>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
           </div>
         </div>
   
       </div>
     </div>
   </div>
-  
-
-

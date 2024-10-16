@@ -8,8 +8,8 @@ import { TokenService } from "../services/token.service";
   selector: "app-auth-callback",
   template: `
     <div class="flex flex-col items-center justify-center h-screen bg-desktop-bg">
-      <h1 class="text-2xl font-bold mb-4 text-gray-300">Processing login</h1>
-      <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-500"></div>
+      <h1 class="text-2xl font-bold mb-4 text-gray-300 top-1/2">Processing login</h1>
+      <img src="../../assets/icons/dolphin-load.svg" alt="Loading Icon" class="animate-spin h-16 w-16 top-1/2" />
     </div>
   `,
   standalone: true
