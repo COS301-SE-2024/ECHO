@@ -21,4 +21,9 @@ export class DisplayComponent {
     this.currentMood = this.moodService.getCurrentMood(); 
     this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
   }
+
+  public toggleAutomaticUIChange()
+  {
+    //Disable mood service tracking
+  }
 }
