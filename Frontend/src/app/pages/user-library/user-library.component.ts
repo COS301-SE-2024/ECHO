@@ -8,7 +8,7 @@ import { NavbarComponent } from "../../components/organisms/navbar/navbar.compon
 import { NgClass, NgForOf, NgIf } from "@angular/common";
 import { SearchBarComponent } from "../../components/molecules/search-bar/search-bar.component";
 import { TopCardComponent } from "../../components/molecules/top-card/top-card.component";
-import { PageTitleComponent } from "../../components/atoms/page-title/page-title.component"; // Reuse the interface from ProfileComponent
+import { PageTitleComponent } from "../../components/atoms/page-title/page-title.component";
 
 @Component({
   selector: 'app-user-library',
@@ -30,6 +30,7 @@ export class UserLibraryComponent implements OnInit {
   public topArtists: ArtistInfo[] = [];
   public topTracks: TrackInfo[] = [];
   screenSize?: string;
+  isLoading: boolean = true;
 
   constructor(
     private router: Router,
@@ -38,25 +39,30 @@ export class UserLibraryComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // Fetch screen size
     this.screenSizeService.screenSize$.subscribe(screenSize => {
       this.screenSize = screenSize;
     });
 
-    // Fetch top artists and tracks from Spotify API
     this.getTopArtists();
     this.getTopTracks();
   }
 
   async getTopArtists() {
     this.topArtists = await this.spotifyService.getTopArtists();
+    this.checkLoading();
   }
 
   async getTopTracks() {
     this.topTracks = await this.spotifyService.getTopTracks();
+    this.checkLoading();
   }
 
-  // Play a selected track by ID
+  checkLoading() {
+    if (this.topArtists.length > 0 && this.topTracks.length > 0) {
+      this.isLoading = false;
+    }
+  }
+
   playTrack(id: string) {
     this.spotifyService.playTrackById(id);
   }

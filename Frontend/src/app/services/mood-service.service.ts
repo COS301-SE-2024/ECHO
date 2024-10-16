@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class MoodService {
   private _currentMood!: string;
+  
   private _moodColors: { [key: string]: string } = {
     Neutral: 'rgb(238, 2, 88)',   // #EE0258
     Anger: 'rgb(164, 0, 20)',     // #A40014
@@ -84,7 +85,7 @@ export class MoodService {
   constructor() {
     this.initMood();
   }
-  
+
   private initMood(): void {
     if (typeof window !== 'undefined') {
       this._currentMood = this.getLocalStorageItem('currentMood') || 'Neutral';
@@ -112,6 +113,11 @@ export class MoodService {
     } catch (error) {
       console.error('Error setting local storage item:', error);
     }
+  }
+  // random mood selector fucntion 
+  randomMood(): void {
+    const moods = Object.keys(this._componentMoodClasses);
+    this.setCurrentMood(moods[Math.floor(Math.random() * moods.length)]);
   }
   getUnerlineMoodClasses(): { [key: string]: string } {
     return this._underlineMoodClasses;
