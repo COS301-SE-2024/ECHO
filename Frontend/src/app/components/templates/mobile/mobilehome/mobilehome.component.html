@@ -17,24 +17,33 @@
       </ul>
     </div>
   </div>
-  <!-- Cards Container -->
-  <div *ngIf="isDropdownVisible" class="px-5 py-2 w-full max-h-[17.5vh] overflow-y-auto no-scrollbar">
-    <!-- ng-container for iterating over cards and adding View More button as the last card -->
-    <ng-container *ngIf="!isLoading; else loadingSkeletons">
+  
+</div>
+<!-- Cards Container -->
+<div *ngIf="isDropdownVisible" class="px-5 py-2 w-full max-h-[17.5vh] overflow-y-auto no-scrollbar">
+  <!-- ng-container for iterating over cards and adding View More button as the last card -->
+  <ng-container *ngIf="!isLoading; else loadingSkeletons">
+    <div class="grid grid-cols-2 gap-4"> <!-- Grid for song cards -->
       <ng-container *ngFor="let card of getSelectedCardData(); let i = index; let last = last">
         <!-- Card -->
         <app-song-cards [svgSize]="'12vw'" [imgSize]="'20vw'" [card]="card"></app-song-cards>
-        <!-- View More Button as a Card with extra bottom padding class -->
-        <div *ngIf="last" [ngClass]="moodComponentClasses[moodService.getCurrentMood()]" class="view-more-container text-center py-4 w-full rounded-lg shadow-lg overflow-hidden">
-          <button [ngClass]="moodComponentClasses[moodService.getCurrentMood()]" (click)="goToLibrary()"class="px-4 py-2 rounded-lg font-semibold">View More</button>
-        </div>
       </ng-container>
-    </ng-container>
-    <ng-template #loadingSkeletons>
+    </div>
+    <!-- View More Button as a Card with extra bottom padding class -->
+    <div class="w-full text-center py-4">
+      <button [ngClass]="moodComponentClasses[moodService.getCurrentMood()]" (click)="goToLibrary()" class="px-4 py-2 rounded-lg font-semibold">
+        View More
+      </button>
+    </div>
+  </ng-container>
+
+  <ng-template #loadingSkeletons>
+    <div class="grid grid-cols-2 gap-4"> <!-- Grid for loading skeletons -->
       <ng-container *ngFor="let skeleton of skeletonArray">
         <app-skeleton-song-card [imageSize]="'5vw'"></app-skeleton-song-card>
       </ng-container>
-    </ng-template>
-  </div>
-  <app-moods [width]="'15vw'"></app-moods>
+    </div>
+  </ng-template>
+
 </div>
+<app-moods [width]="'15vw'"></app-moods>

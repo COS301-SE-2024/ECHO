@@ -4,8 +4,8 @@
 
 /* CSS */
 .bottom-player {
-    bottom: 0; 
-    height: 13vh;
+    bottom: 0;
+    height: 10vh;
     width: 100%;
 }
 
@@ -25,7 +25,7 @@ input[type="range"]::-webkit-slider-thumb {
     cursor: pointer;
     border-radius: 50%;
   }
-  
+
   input[type="range"]::-moz-range-thumb {
     width: 10px; /* Adjust size as needed */
     height: 10px; /* Adjust size as needed */
@@ -33,7 +33,7 @@ input[type="range"]::-webkit-slider-thumb {
     cursor: pointer;
     border-radius: 50%;
   }
-  
+
   input[type="range"]::-ms-thumb {
     width: 10px; /* Adjust size as needed */
     height: 10px; /* Adjust size as needed */
