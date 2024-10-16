@@ -33,13 +33,10 @@ export class MoodsListComponent implements OnInit {
   }
 
    getFilteredMoods(): any[] {
-    console.log('Selected Mood Filter:', this.selectedMoodFilter);
     if (!this.selectedMoodFilter) {
-      console.log('No filter applied. Returning all moods:', this.moods);
       return this.moods;
     }
     const filteredMoods = this.moods.filter(mood => mood.name === this.selectedMoodFilter);
-    console.log('Filtered Moods:', filteredMoods);
     return filteredMoods;
   }
 }
