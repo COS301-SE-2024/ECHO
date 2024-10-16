@@ -1,5 +1,4 @@
 import { RouterModule, Routes } from "@angular/router";
-import { LandingPageComponent } from "./pages/landing-page/landing-page.component";
 // import { RegisterComponent } from "./pages/register/register.component";
 import { HomeComponent } from "./components/templates/desktop/home/home.component";
 import { ProfileComponent } from "./pages/profile/profile.component";
@@ -19,7 +18,6 @@ import { RegisterComponent} from "./views/register/register.component";
 import { HomesComponent } from "./views/homes/homes.component";
 
 export const routes: Routes = [
-  { path: "landing", component: LandingPageComponent },
   { path: "login", component: LoginComponentview},
   { path: "register", component: RegisterComponent },
   { path: "profile", component: ProfileComponent },

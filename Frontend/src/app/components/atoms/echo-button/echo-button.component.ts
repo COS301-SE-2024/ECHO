@@ -1,10 +1,11 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { MoodService } from '../../../services/mood-service.service';
 import { NgClass } from '@angular/common';
+import { ToolTipComponent } from '../tool-tip/tool-tip.component';
 @Component({
   selector: 'app-echo-button',
   standalone: true,
-  imports: [NgClass],
+  imports: [NgClass,ToolTipComponent],
   templateUrl: './echo-button.component.html',
   styleUrls: ['./echo-button.component.css']
 })

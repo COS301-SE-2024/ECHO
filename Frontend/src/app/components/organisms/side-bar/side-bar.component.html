@@ -4,12 +4,16 @@
       <!-- SVG button always visible -->
       <div class="flex justify-between items-center mb-2 mt-3">
         <!-- Only show these buttons when the sidebar is expanded -->
+        <app-tool-tip tooltipText="AI Suggestions" position="bottom">
         <div class="button-container w-full bg-opacity-0" [ngClass]="getButtonClasses('suggestions')">
           <button class="w-full px-10 font-bold text-white focus:outline-none truncate flex-1" (click)="selectOption('suggestions')">Suggestions</button>
         </div>
+        </app-tool-tip>
+        <app-tool-tip tooltipText="Your Recent listened" position="bottom">
         <div  class="button-container w-full bg-opacity-0" [ngClass]="getButtonClasses('recentListening')">
           <button class="w-full px-10 text-sm text-white focus:outline-none truncate flex-1" (click)="selectOption('recentListening')">Recent listening</button>
         </div>
+        </app-tool-tip>
       </div>
 
       <!-- Content of the sidebar -->
