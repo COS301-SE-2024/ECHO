@@ -12,10 +12,13 @@ import { NgModule } from "@angular/core";
 import { InsightsComponent } from "./pages/insights/insights.component";
 import { HelpMenuComponent } from "./pages/help-menu/help-menu.component";
 import { EchoSongComponent } from "./components/templates/desktop/echo-song/echo-song.component";
+import { ChatComponent } from "./components/templates/desktop/chat/chat.component";
+
 //vies 
 import { LoginComponentview} from "./views/login/login.component";
 import { RegisterComponent} from "./views/register/register.component";
 import { HomesComponent } from "./views/homes/homes.component";
+
 
 export const routes: Routes = [
   { path: "login", component: LoginComponentview},
@@ -32,6 +35,7 @@ export const routes: Routes = [
   { path: "search", component: SearchComponent},
   { path: "library", component: UserLibraryComponent},
   { path: "echo Song", component: EchoSongComponent},
+  { path: "chat", component: ChatComponent},
   { path: '**', redirectTo: '/login' } //DO NOT MOVE - MUST ALWAYS BE LAST
 ];
 
