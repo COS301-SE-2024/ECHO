@@ -3,10 +3,11 @@ import { EchoComponent } from '../../../organisms/echo/echo.component';
 import { ActivatedRoute } from '@angular/router';
 import { PageTitleComponent } from '../../../atoms/page-title/page-title.component';
 import { BackButtonComponent } from '../../../atoms/back-button/back-button.component';
+import { EchoButtonComponent } from '../../../atoms/echo-button/echo-button.component';
 @Component({
   selector: 'app-echo-song',
   standalone: true,
-  imports: [EchoComponent,PageTitleComponent,BackButtonComponent],
+  imports: [EchoComponent,PageTitleComponent,BackButtonComponent,EchoButtonComponent],
   templateUrl: './echo-song.component.html',
   styleUrls: ['./echo-song.component.css']
 })
