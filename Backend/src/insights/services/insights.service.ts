@@ -529,4 +529,251 @@ export class InsightsService {
             throw new HttpException("Failed to set Supabase session", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    async getListeningTrends(accessToken: string, refreshToken: string, providerName: string) {
+        if (providerName === 'spotify') {
+            return await this.getSpotifyListeningTrends(accessToken);
+        } else if (providerName === 'youtube') {
+            return await this.getYoutubeListeningTrends(accessToken);
+        } else {
+            throw new HttpException("Unsupported provider", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    // Method to get weekly playlist
+    async getWeeklyPlaylist(accessToken: string, refreshToken: string, providerName: string) {
+        if (providerName === 'spotify') {
+            return await this.getSpotifyWeeklyPlaylist(accessToken);
+        } else if (providerName === 'youtube') {
+            return await this.getYoutubeWeeklyPlaylist(accessToken);
+        } else {
+            throw new HttpException("Unsupported provider", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    // Method to get the most listened day
+    async getMostListenedDay(accessToken: string, refreshToken: string, providerName: string) {
+        if (providerName === 'spotify') {
+            return await this.getSpotifyMostListenedDay(accessToken);
+        } else if (providerName === 'youtube') {
+            return await this.getYoutubeMostListenedDay(accessToken);
+        } else {
+            throw new HttpException("Unsupported provider", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    // Spotify-specific method to get listening trends
+    private async getSpotifyListeningTrends(accessToken: string) {
+        const response = await axios.get('https://api.spotify.com/v1/me/top/tracks', {
+            headers: { Authorization: `Bearer ${accessToken}` },
+        });
+        return response.data;
+    }
+
+    // YouTube-specific method to get listening trends
+    private async getYoutubeListeningTrends(accessToken: string) {
+        // Replace with the actual endpoint and logic to fetch YouTube trends
+        // This is a placeholder example
+        const response = await axios.get('https://www.googleapis.com/youtube/v3/videos', {
+            headers: { Authorization: `Bearer ${accessToken}` },
+            params: {
+                part: 'snippet,contentDetails',
+                chart: 'mostPopular',
+                regionCode: 'US',
+            },
+        });
+        return response.data;
+    }
+
+    // Spotify-specific method to get the weekly playlist
+    private async getSpotifyWeeklyPlaylist(accessToken: string) {
+        const response = await axios.get('https://api.spotify.com/v1/me/top/artists', {
+            headers: { Authorization: `Bearer ${accessToken}` },
+        });
+        return response.data;
+    }
+
+    // YouTube-specific method to get the weekly playlist
+    private async getYoutubeWeeklyPlaylist(accessToken: string) {
+        // Replace with the actual endpoint and logic to fetch YouTube playlists
+        const response = await axios.get('https://www.googleapis.com/youtube/v3/playlists', {
+            headers: { Authorization: `Bearer ${accessToken}` },
+            params: {
+                part: 'snippet',
+                maxResults: 10,
+            },
+        });
+        return response.data;
+    }
+
+    // Spotify-specific method to get the most listened day
+    private async getSpotifyMostListenedDay(accessToken: string) {
+        const response = await axios.get('https://api.spotify.com/v1/me/top/artists', {
+            headers: { Authorization: `Bearer ${accessToken}` },
+        });
+        return response.data; // Modify according to the actual API response structure
+    }
+
+    // YouTube-specific method to get the most listened day
+    private async getYoutubeMostListenedDay(accessToken: string) {
+        // Replace with the actual logic to determine the most listened day on YouTube
+        // This is a placeholder example
+        const response = await axios.get('https://www.googleapis.com/youtube/v3/videos', {
+            headers: { Authorization: `Bearer ${accessToken}` },
+            params: {
+                part: 'snippet',
+                chart: 'mostPopular',
+            },
+        });
+        return response.data; // Modify according to the actual API response structure
+    }
+
+    async getListeningOverTime(accessToken: string, refreshToken: string, providerName: string) {
+        if (providerName === "spotify") {
+            return this.fetchSpotifyListeningOverTime(accessToken, refreshToken);
+        } else if (providerName === "youtube") {
+            return this.fetchYouTubeListeningOverTime(accessToken, refreshToken);
+        }
+        throw new HttpException("Invalid provider name", HttpStatus.BAD_REQUEST);
+    }
+
+    // Fetch comparison of distinct artists vs tracks for Spotify or YouTube
+    async getArtistsVsTracks(accessToken: string, refreshToken: string, providerName: string) {
+        if (providerName === "spotify") {
+            return this.fetchSpotifyArtistsVsTracks(accessToken, refreshToken);
+        } else if (providerName === "youtube") {
+            return this.fetchYouTubeArtistsVsTracks(accessToken, refreshToken);
+        }
+        throw new HttpException("Invalid provider name", HttpStatus.BAD_REQUEST);
+    }
+
+    // Fetch recent track genres for Spotify or YouTube
+    async getRecentTrackGenres(accessToken: string, refreshToken: string, providerName: string) {
+        if (providerName === "spotify") {
+            return this.fetchSpotifyRecentTrackGenres(accessToken, refreshToken);
+        } else if (providerName === "youtube") {
+            return this.fetchYouTubeRecentTrackGenres(accessToken, refreshToken);
+        }
+        throw new HttpException("Invalid provider name", HttpStatus.BAD_REQUEST);
+    }
+
+    // ====== Spotify Methods ======
+
+    // Fetch listening over time from Spotify
+    private async fetchSpotifyListeningOverTime(accessToken: string, refreshToken: string) {
+        const response = await axios.get('https://api.spotify.com/v1/me/player/recently-played', {
+            headers: { Authorization: `Bearer ${accessToken}` }
+        });
+        return this.parseListeningOverTime(response.data.items);
+    }
+
+    // Fetch distinct artists and tracks from Spotify
+    private async fetchSpotifyArtistsVsTracks(accessToken: string, refreshToken: string) {
+        const artistResponse = await axios.get('https://api.spotify.com/v1/me/top/artists', {
+            headers: { Authorization: `Bearer ${accessToken}` }
+        });
+        const trackResponse = await axios.get('https://api.spotify.com/v1/me/top/tracks', {
+            headers: { Authorization: `Bearer ${accessToken}` }
+        });
+        return this.parseArtistsVsTracks(artistResponse.data.items, trackResponse.data.items);
+    }
+
+    // Fetch recent track genres from Spotify
+    private async fetchSpotifyRecentTrackGenres(accessToken: string, refreshToken: string) {
+        const response = await axios.get('https://api.spotify.com/v1/me/top/tracks', {
+            headers: { Authorization: `Bearer ${accessToken}` }
+        });
+        return this.parseRecentTrackGenres(response.data.items);
+    }
+
+    // ====== YouTube Methods ======
+
+    // Fetch listening over time from YouTube
+    private async fetchYouTubeListeningOverTime(accessToken: string, refreshToken: string) {
+        const response = await axios.get(`https://www.googleapis.com/youtube/v3/videos`, {
+            headers: { Authorization: `Bearer ${accessToken}` },
+            params: {
+                part: 'snippet,contentDetails,statistics',
+                myRating: 'like'  // Example of fetching videos liked by user
+            }
+        });
+        return this.parseListeningOverTime(response.data.items);
+    }
+
+    // Fetch distinct artists and tracks from YouTube
+    private async fetchYouTubeArtistsVsTracks(accessToken: string, refreshToken: string) {
+        const playlistResponse = await axios.get(`https://www.googleapis.com/youtube/v3/playlists`, {
+            headers: { Authorization: `Bearer ${accessToken}` },
+            params: {
+                part: 'snippet',
+                mine: true
+            }
+        });
+        // YouTube API doesn't have the same concept of "artists" as Spotify,
+        // so we'll assume each playlist corresponds to an artist.
+        const trackResponse = await axios.get(`https://www.googleapis.com/youtube/v3/playlistItems`, {
+            headers: { Authorization: `Bearer ${accessToken}` },
+            params: {
+                part: 'snippet',
+                playlistId: playlistResponse.data.items[0].id
+            }
+        });
+        return this.parseArtistsVsTracks(playlistResponse.data.items, trackResponse.data.items);
+    }
+
+    // Fetch recent track genres from YouTube
+    private async fetchYouTubeRecentTrackGenres(accessToken: string, refreshToken: string) {
+        const response = await axios.get(`https://www.googleapis.com/youtube/v3/videos`, {
+            headers: { Authorization: `Bearer ${accessToken}` },
+            params: {
+                part: 'snippet,contentDetails,statistics',
+                myRating: 'like'
+            }
+        });
+        return this.parseRecentTrackGenres(response.data.items);
+    }
+
+    // ====== Parsing Methods ======
+
+    // Parse listening data over time
+    private parseListeningOverTime(data: any) {
+        const result = {};
+        data.forEach((item: any) => {
+            const date = new Date(item.played_at || item.snippet.publishedAt).toDateString();
+            if (!result[date]) {
+                result[date] = 1;
+            } else {
+                result[date]++;
+            }
+        });
+        return result; // Format suitable for graphing: { 'Date': playCount }
+    }
+
+    // Parse artists vs tracks data
+    private parseArtistsVsTracks(artistsData: any, tracksData: any) {
+        const distinctArtists = new Set();
+        artistsData.forEach((artist: any) => distinctArtists.add(artist.name));
+
+        const distinctTracks = new Set();
+        tracksData.forEach((track: any) => distinctTracks.add(track.name));
+
+        return {
+            distinctArtists: distinctArtists.size,
+            distinctTracks: distinctTracks.size
+        }; // Format suitable for graphing: { distinctArtists, distinctTracks }
+    }
+
+    // Parse recent track genres data
+    private parseRecentTrackGenres(tracksData: any) {
+        const genres = {};
+        tracksData.forEach((track: any) => {
+            const genre = track.album?.genres?.[0] || "Unknown";  // Assuming genre from album data
+            if (!genres[genre]) {
+                genres[genre] = 1;
+            } else {
+                genres[genre]++;
+            }
+        });
+        return genres; // Format suitable for graphing: { 'Genre': count }
+    }
 }
