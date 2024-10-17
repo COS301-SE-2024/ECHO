@@ -3,6 +3,7 @@ import { isPlatformBrowser } from "@angular/common";
 import Chart, { ChartType } from "chart.js/auto";
 import { MoodService } from '../../services/mood-service.service';
 import { NgClass, NgIf } from '@angular/common';
+import { InsightsService } from "../../services/insights.service";
 
 @Component({
   selector: "app-insights",
@@ -19,13 +20,26 @@ export class InsightsComponent implements AfterViewInit, AfterViewChecked {
   public moodComponentClasses!: { [key: string]: string };
   private chartInitialized: boolean = false;
 
+  topMood: string = '';
+  totalListeningTime: string = '';
+  mostListenedArtist: string = '';
+  mostPlayedTrack: string = '';
+  topGenre: string = '';
+  averageSongDuration: string = '';
+  mostActiveDay: string = '';
+  uniqueArtistsListened: number = 0;
+
   // ViewChild sections for smooth scrolling
   @ViewChild('widgets', { static: false }) widgetsSection!: ElementRef;
   @ViewChild('moodChart', { static: false }) moodChartSection!: ElementRef;
   @ViewChild('serviceChart', { static: false }) serviceChartSection!: ElementRef;
   @ViewChild('genreChart', { static: false }) genreChartSection!: ElementRef;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object, public moodService: MoodService) {
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    public moodService: MoodService,
+    private insightsService: InsightsService
+  ) {
     this.moodComponentClasses = {
       'Joy': 'bg-yellow-400 text-black',
       'Sadness': 'bg-blue-400 text-white',
@@ -34,6 +48,9 @@ export class InsightsComponent implements AfterViewInit, AfterViewChecked {
       'Fear': 'bg-gray-400 text-white',
       'Optimism': 'bg-green-400 text-white'
     };
+
+    // Fetch insights data from backend
+    this.fetchInsights();
   }
 
   ngAfterViewInit() {
@@ -108,7 +125,7 @@ export class InsightsComponent implements AfterViewInit, AfterViewChecked {
       ],
       datasets: [{
         label: 'Mood Distribution',
-        data: [30, 10, 5, 3, 7, 8, 25, 5, 2, 5],
+        data: [30, 10, 5, 3, 7, 8, 25, 5, 2, 5], // Replace with actual mood data if available
         backgroundColor: [
           '#facc15', '#94a3b8', '#ef4444', '#a3e635', '#3b82f6', '#eab308',
           '#ec4899', '#10b981', '#fb923c', '#6b7280'
@@ -123,7 +140,7 @@ export class InsightsComponent implements AfterViewInit, AfterViewChecked {
       labels: ['Spotify', 'YouTube'],
       datasets: [{
         label: 'Listening Distribution',
-        data: [70, 30],
+        data: [70, 30], // Replace with actual service distribution data if available
         backgroundColor: ['#1DB954', '#FF0000'],
       }]
     };
@@ -134,11 +151,46 @@ export class InsightsComponent implements AfterViewInit, AfterViewChecked {
       labels: ['Pop', 'Rock', 'Hip-Hop', 'Electronic', 'Jazz', 'Classical', 'Indie', 'R&B'],
       datasets: [{
         label: 'Top Genres',
-        data: [35, 20, 15, 10, 5, 5, 7, 3],
+        data: [35, 20, 15, 10, 5, 5, 7, 3], // Replace with actual genre data if available
         backgroundColor: [
           '#f43f5e', '#3b82f6', '#22c55e', '#facc15', '#6366f1', '#8b5cf6', '#f59e0b', '#10b981'
         ]
       }]
     };
   }
+
+  fetchInsights(): void {
+    this.insightsService.getTopMood().subscribe(data => {
+      this.topMood = data?.mood || 'N/A';
+    });
+
+    this.insightsService.getTotalListeningTime().subscribe(data => {
+      this.totalListeningTime = data?.totalListeningTime || 'N/A';
+    });
+
+    this.insightsService.getMostListenedArtist().subscribe(data => {
+      this.mostListenedArtist = data?.artist || 'N/A';
+    });
+
+    this.insightsService.getMostPlayedTrack().subscribe(data => {
+      this.mostPlayedTrack = data?.name || 'N/A';
+    });
+
+    this.insightsService.getTopGenre().subscribe(data => {
+      this.topGenre = data?.topGenre || 'N/A';
+    });
+
+    this.insightsService.getAverageSongDuration().subscribe(data => {
+      this.averageSongDuration = data?.averageDuration || 'N/A';
+    });
+
+    this.insightsService.getMostActiveDay().subscribe(data => {
+      this.mostActiveDay = data?.mostActiveDay || 'N/A';
+    });
+
+    this.insightsService.getUniqueArtistsListened().subscribe(data => {
+      this.uniqueArtistsListened = data?.uniqueArtists?.length || 0;
+    });
+  }
+
 }
