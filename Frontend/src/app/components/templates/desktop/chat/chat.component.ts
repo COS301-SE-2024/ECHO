@@ -46,6 +46,12 @@ export class ChatComponent {
 
   sendMessage() {
     if (this.userInput.trim()) {
+      let temp = this.userInput.toLowerCase();
+      if(temp == 'clear')
+      {
+        this.messages = [];
+        return;
+      }
       this.messages.push({ sender: 'user', text: this.userInput });
       this.userInput = '';
       // Adjust startIndex to show the latest messages
