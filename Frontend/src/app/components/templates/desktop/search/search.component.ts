@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { NgClass, NgForOf, NgIf, AsyncPipe } from "@angular/common";
 import { AlbumTrack, SearchService, TrackInfo } from "../../../../services/search.service";
-import { Observable } from "rxjs";
+import { Observable, BehaviorSubject, of } from "rxjs";
 import { ScreenSizeService } from "../../../../services/screen-size-service.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { NavbarComponent } from "../../../../components/organisms/navbar/navbar.component";
@@ -13,11 +13,12 @@ import { ProviderService } from "../../../../services/provider.service";
 import { YouTubeService } from "../../../../services/youtube.service";
 import { BackButtonComponent } from "../../../atoms/back-button/back-button.component";
 import { SongCardsComponent } from "../../../organisms/song-cards/song-cards.component";
+import { SkeletonSongCardComponent } from "../../../atoms/skeleton-song-card/skeleton-song-card.component";
 
 @Component({
   selector: "app-search",
   standalone: true,
-  imports: [NgIf, NgForOf, NgClass, AsyncPipe, TopResultComponent, NavbarComponent, SearchBarComponent, BackButtonComponent, SongCardsComponent],
+  imports: [NgIf, NgForOf, NgClass, AsyncPipe, TopResultComponent, NavbarComponent, SearchBarComponent, BackButtonComponent, SongCardsComponent, SkeletonSongCardComponent],
   templateUrl: "./search.component.html",
   styleUrls: ["./search.component.css"]
 })
@@ -28,11 +29,16 @@ export class SearchComponent implements OnInit {
   backgroundMoodClasses!: { [key: string]: string };
 
   @Input() searchQuery!: string;
-  songs$: Observable<TrackInfo[]>;
-  albums$: Observable<AlbumTrack[]>;
-  topResult$: Observable<TrackInfo>;
+  songs$: Observable<TrackInfo[]> = of([]);
+  albums$: Observable<AlbumTrack[]> = of([]);
+  topResult$: Observable<TrackInfo> = of();
   screenSize?: string;
   title?: string;
+
+  // Loading flags
+  isLoadingSongs = new BehaviorSubject<boolean>(true);
+  isLoadingAlbums = new BehaviorSubject<boolean>(true);
+  isLoadingTopResult = new BehaviorSubject<boolean>(true);
 
   constructor(
     private screenSizeService: ScreenSizeService,
@@ -46,15 +52,20 @@ export class SearchComponent implements OnInit {
   ) {
     this.currentMood = this.moodService.getCurrentMood();
     this.moodComponentClasses = this.moodService.getComponentMoodClasses();
-    this.songs$ = this.searchService.getSearch();
-    this.albums$ = this.searchService.getAlbumSearch();
-    this.topResult$ = this.searchService.getTopResult();
   }
 
   async ngOnInit() {
     this.screenSizeService.screenSize$.subscribe(screenSize => {
       this.screenSize = screenSize;
     });
+
+    // Reset loading flags and observables
+    this.resetResults();
+
+    // Ensure cards are set to blank on initialization
+    this.songs$ = of([]);
+    this.albums$ = of([]);
+    this.topResult$ = of();
 
     // Retrieve the query parameter from the URL
     this.route.queryParams.subscribe(params => {
@@ -91,32 +102,62 @@ export class SearchComponent implements OnInit {
   }
 
   private performSearch(query: string) {
+    this.resetResults();
+
     this.searchService.storeSearch(query).subscribe(
-      () => {
-        // Handle successful search
+      songs => {
+        this.songs$ = of(songs);
+        this.isLoadingSongs.next(false);
       },
-      error => console.error("Error performing search:", error)
+      error => {
+        console.error("Error performing search:", error);
+        this.isLoadingSongs.next(false);
+      }
     );
+
     this.searchService.storeAlbumSearch(query).subscribe(
-      () => {
-        // Handle successful album search
+      albums => {
+        this.albums$ = of(albums);
+        this.isLoadingAlbums.next(false);
       },
-      error => console.error("Error performing album search:", error)
+      error => {
+        console.error("Error performing album search:", error);
+        this.isLoadingAlbums.next(false);
+      }
     );
+    
+    this.searchService.getTopResult().subscribe(
+      topResult => {
+        this.topResult$ = of(topResult);
+        this.isLoadingTopResult.next(false);
+      },
+      error => {
+        console.error("Error fetching top result:", error);
+        this.isLoadingTopResult.next(false);
+      }
+    );
+  }
+
+  private resetResults() {
+    this.songs$ = of([]);
+    this.albums$ = of([]);
+    this.topResult$ = of();
+    this.isLoadingSongs.next(true);
+    this.isLoadingAlbums.next(true);
+    this.isLoadingTopResult.next(true);
   }
 
   onEchoTrackEvent(event: {
     trackName: string;
     artistName: string;
     event: MouseEvent
-  }, text: string, secondaryText: string)
-  {
-      event.event.stopPropagation();
-      this.router.navigate(['/echo Song'], {
-        queryParams: {
-          trackName: text,
-          artistName: secondaryText
-        }
-      });
-    }
+  }, text: string, secondaryText: string) {
+    event.event.stopPropagation();
+    this.router.navigate(['/echo Song'], {
+      queryParams: {
+        trackName: text,
+        artistName: secondaryText
+      }
+    });
+  }
 }
