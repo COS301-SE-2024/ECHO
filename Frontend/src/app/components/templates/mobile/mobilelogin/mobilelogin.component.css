@@ -1,0 +1,5 @@
+/* Ensure the main container fits within the viewport and prevent horizontal scrolling */
+.h-screen {
+  height: 100vh;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+}
