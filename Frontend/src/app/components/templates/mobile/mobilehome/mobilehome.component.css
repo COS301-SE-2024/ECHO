@@ -1,4 +1,9 @@
-.no-scrollbar::-webkit-scrollbar{
-    display: none;
+.content-container {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch; /* For smooth scrolling on iOS */
+  padding-bottom: 30vh; /* Adjust this value to match the height of the bottom player */
 }
 
+.fixed {
+  position: fixed;
+}
