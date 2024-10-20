@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable, of, throwError } from "rxjs";
 import { TokenService } from "./token.service";
 import { ProviderService } from "./provider.service";
+import { CacheService } from "./cache.service";
 import { environment } from "../../environments/environment";
 import { catchError, switchMap } from "rxjs/operators";
 
@@ -15,7 +16,8 @@ export class InsightsService {
   constructor(
     private http: HttpClient,
     private tokenService: TokenService,
-    private providerService: ProviderService
+    private providerService: ProviderService,
+    private cacheService: CacheService
   ) {}
 
   private getParams(): Observable<{ accessToken: string; refreshToken: string; providerName: string }> {
@@ -43,13 +45,23 @@ export class InsightsService {
 
   private makeRequest(endpoint: string): Observable<any> {
     return this.getParams().pipe(
-      switchMap(({ accessToken, refreshToken, providerName }) =>
-        this.http.post(`${this.apiUrl}/${endpoint}`, {
+      switchMap(({ accessToken, refreshToken, providerName }) => {
+        const cacheKey = `${endpoint}-${accessToken}-${providerName}`;
+        if (this.cacheService.has(cacheKey)) {
+          return of(this.cacheService.get(cacheKey));
+        }
+
+        return this.http.post(`${this.apiUrl}/${endpoint}`, {
           accessToken,
           refreshToken,
           providerName,
-        })
-      ),
+        }).pipe(
+          switchMap(response => {
+            this.cacheService.set(cacheKey, response);
+            return of(response);
+          })
+        );
+      }),
       catchError((error) => {
         console.error(`Error fetching ${endpoint}:`, error);
         return of(null);
@@ -87,5 +99,17 @@ export class InsightsService {
 
   getUniqueArtistsListened(): Observable<any> {
     return this.makeRequest("unique-artists-listened");
+  }
+
+  getListeningOverTime(): Observable<any> {
+    return this.makeRequest("listening-over-time");
+  }
+
+  getArtistsVsTracks(): Observable<any> {
+    return this.makeRequest("artists-vs-tracks");
+  }
+
+  getRecentTrackGenres(): Observable<any> {
+    return this.makeRequest("recent-track-genres");
   }
 }
