@@ -60,7 +60,7 @@ export class SearchService {
   private apiUrl = environment.apiUrl;
 
 
-  constructor(private httpClient: HttpClient, private tokenService: TokenService) {}
+  constructor(private httpClient: HttpClient, private tokenService: TokenService, private cacheService: CacheService) {}
 
   // Store search results in searchResultSubject and set topResultSubject
   storeSearch(query: string): Observable<TrackInfo[]> {
