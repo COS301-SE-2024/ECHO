@@ -1,4 +1,27 @@
-.no-scrollbar::-webkit-scrollbar{
-    display: none;
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
+/* Custom scrollbar for mobile layout */
+.custom-scrollbar::-webkit-scrollbar {
+  height: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+.custom-scrollbar {
+  scrollbar-color: #888 #333;
+  scrollbar-width: thin;
+}
+
+/* Ensure text under image is not cut off */
+.app-top-artist-card, .app-top-card {
+  padding-bottom: 24px; /* Adjust as needed */
+}
