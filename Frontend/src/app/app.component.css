@@ -1,4 +1,41 @@
-.no-scrollbar::-webkit-scrollbar{
-    display: none;
+/* Prevent the whole page from scrolling */
+html, body {
+  overflow: hidden;
+  height: 100%;
 }
 
+/* New class to allow scrolling within the content */
+.mobile-content-container {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch; /* For smooth scrolling on iOS */
+  height: calc(100vh - 27.5vh); /* Adjust this value to match the height of the bottom player */
+  box-sizing: border-box; /* Include padding and borders in the element's total width and height */
+  position: fixed; /* Ensure it is positioned correctly within the viewport */
+  top: 8vh; /* Align to the top of the viewport */
+  left: 0; /* Align to the left of the viewport */
+  right: 0; /* Align to the right of the viewport */
+  bottom: 27.5vh; /* Adjust to match the height of the bottom player */
+  display: flex; /* Use flexbox to manage layout */
+  flex-direction: column; /* Ensure children are stacked vertically */
+  padding: 0; /* Remove custom padding */
+}
+
+/* Custom scrollbar styles */
+.mobile-content-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.mobile-content-container::-webkit-scrollbar-track {
+  background: #2d2d2d; /* Dark background for the track */
+  border-radius: 10px;
+}
+
+.mobile-content-container::-webkit-scrollbar-thumb {
+  background-color: #888; /* Grey color for the thumb */
+  border-radius: 10px;
+  border: 2px solid #2d2d2d; /* Padding around the thumb */
+}
+
+.mobile-content-container::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Darker grey on hover */
+}

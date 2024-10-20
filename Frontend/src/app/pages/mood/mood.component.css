@@ -1,3 +1,16 @@
+/* Prevent the whole page from scrolling */
+html, body {
+  overflow: hidden;
+  height: 100%;
+}
+
+/* New class to allow scrolling within the content */
+.scrollable-content {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  height: 100%;
+}
+
 .navbar-container {
   top: 0;
   left: 0;
@@ -6,9 +19,12 @@
 
 .mood-container {
   display: flex;
-  height: 80%;
+  flex-direction: column;
+  height: calc(100vh - 30vh); /* Adjust height to fit within the viewport */
   justify-content: center;
   width: 100%;
+  overflow: hidden; /* Prevent scrolling */
+  overscroll-behavior: contain; /* Prevents overscroll and showing white space */
 }
 
 .mood {
@@ -23,6 +39,9 @@
   .mood-container {
     flex-direction: column;
     align-items: center;
+    height: calc(100vh - 30vh); /* Adjust height to fit within the viewport */
+    overflow: hidden; /* Prevent scrolling */
+    overscroll-behavior: contain; /* Prevents overscroll and showing white space */
   }
 
   .mood {
@@ -30,4 +49,10 @@
     max-width: 100%;
     min-width: 100%;
   }
+}
+
+/* New class to hide overflow and set overscroll behavior */
+.no-scroll {
+  overflow: hidden;
+  overscroll-behavior: contain;
 }

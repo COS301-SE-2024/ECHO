@@ -1,11 +1,19 @@
+<div class="pl-4 pt-4">
 <app-back-button></app-back-button>
-<h1 class="text-3xl font-bold text-white text-center mb-6">Search Results for "{{ searchQuery }}"</h1>
-<app-search-bar></app-search-bar>
-<div class="pl-4">
+<h1 class="text-3xl font-bold text-white text-center mb-6">
+  {{ searchQuery ? 'Search Results for "' + searchQuery + '"' : 'Search' }}
+</h1>
+<div  class="pr-4 pl-4">
+  <app-search-bar></app-search-bar>
+</div>
+
+<!-- Desktop Version -->
+<div *ngIf="screenSize !== 'mobile' && searchQuery" class="pl-4">
   <!-- Top Result Section -->
   <div class="top-result dark:text-gray-200 float-left w-1/3">
     <h1 class="py-3 text-white font-bold text-lg">Top Result</h1>
-    <div [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]" class="opacity-85 bg-stone-950 big-card hover:cursor-pointer rounded-lg p-4">
+    <div [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]"
+         class="opacity-85 bg-stone-950 big-card hover:cursor-pointer rounded-lg p-4">
       <ng-container *ngIf="!(isLoadingTopResult | async); else loadingTopResult">
         <ng-container *ngIf="topResult$ | async as topResult">
           <app-song-cards
@@ -28,14 +36,15 @@
   <div class="songs dark:text-gray-200 p-4 float-left w-1/3 relative">
     <a class="text-white absolute top-0 right-0 m-2 p-2 rounded cursor-pointer">View More</a>
     <h1 class="py-2 text-white font-bold text-lg">Songs</h1>
-    <div class="songs-container no-scrollbar flex flex-col overflow-y-auto h-80">
+    <div class="songs-container no-scrollbar flex flex-col overflow-y-auto h-80 scrollable-div">
       <ng-container *ngIf="!(isLoadingSongs | async); else loadingSongs">
         <ng-container *ngFor="let song of songs$ | async">
-          <div [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]" class="opacity-85 bg-stone-950 hover:cursor-pointer gap-4 pb-2 mb-3 rounded-lg p-2">
+          <div [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]"
+               class="opacity-85 bg-stone-950 hover:cursor-pointer gap-4 pb-2 mb-3 rounded-lg p-2">
             <app-song-cards
               [card]="song"
-              imgSize="100px"
-              svgSize="30px"
+              imgSize="10vh"
+              svgSize="3vh"
               (echoTrackEvent)="onEchoTrackEvent($event, song.text, song.secondaryText)">
             </app-song-cards>
           </div>
@@ -55,10 +64,92 @@
   <div class="songs dark:text-gray-200 p-4 float-left w-1/3 relative">
     <a class="text-white absolute top-0 right-0 m-2 p-2 rounded cursor-pointer">View More</a>
     <h1 class="py-2 text-white font-bold text-lg">Albums</h1>
-    <div class="songs-container no-scrollbar flex flex-col overflow-y-auto h-80">
+    <div class="songs-container no-scrollbar flex flex-col overflow-y-auto h-80 scrollable-div">
       <ng-container *ngIf="!(isLoadingAlbums | async); else loadingAlbums">
         <ng-container *ngFor="let album of albums$ | async">
-          <div [ngClass]="moodComponentClasses[currentMood]" class="song-card hover:cursor-pointer bg-stone-950 opacity-85 flex-auto w-full mb-5 flex p-2 rounded-lg box-border h-24">
+          <div [ngClass]="moodComponentClasses[currentMood]"
+               class="song-card hover:cursor-pointer bg-stone-950 opacity-85 flex-auto w-full mb-5 flex p-2 rounded-lg box-border h-24">
+            <img [src]="album.imageUrl" alt="Album Image" class="w-1/4 rounded-lg mr-2">
+            <div>
+              <h2 class="font-bold py-2">{{ album.albumName }}</h2>
+              <p class="py-1">{{ album.artist }}</p>
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+      <ng-template #loadingAlbums>
+        <ng-container *ngFor="let item of [].constructor(10)">
+          <div class="opacity-85 bg-stone-950 hover:cursor-pointer gap-4 pb-2 mb-3 rounded-lg p-2">
+            <app-skeleton-song-card imageSize="6vh"></app-skeleton-song-card>
+          </div>
+        </ng-container>
+      </ng-template>
+    </div>
+  </div>
+</div>
+
+<!-- Mobile Version -->
+<div *ngIf="screenSize === 'mobile' && searchQuery" class="pl-4 mobile-container content-container">
+  <!-- Top Result Section -->
+  <div class="top-result dark:text-gray-200 pr-4 w-full">
+    <h1 class="py-3 text-white font-bold text-lg">Top Result</h1>
+    <div [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]"
+         class="opacity-85 bg-stone-950 big-card hover:cursor-pointer rounded-lg p-4">
+      <ng-container *ngIf="!(isLoadingTopResult | async); else loadingTopResult">
+        <ng-container *ngIf="topResult$ | async as topResult">
+          <app-song-cards
+            [card]="topResult"
+            imgSize="10vh"
+            svgSize="6vh"
+            (echoTrackEvent)="onEchoTrackEvent($event, topResult.text, topResult.secondaryText)">
+          </app-song-cards>
+        </ng-container>
+      </ng-container>
+      <ng-template #loadingTopResult>
+        <div class="opacity-85 bg-stone-950 hover:cursor-pointer gap-4 pb-2 mb-3 rounded-lg p-4">
+          <app-skeleton-song-card imageSize="15vh"></app-skeleton-song-card>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+
+  <!-- Songs Section -->
+  <div class="songs dark:text-gray-200 p-4 w-full relative">
+    <a class="text-white absolute top-0 right-0 m-2 p-2 rounded cursor-pointer">View More</a>
+    <h1 class="py-2 text-white font-bold text-lg">Songs</h1>
+    <div class="songs-container no-scrollbar flex flex-col overflow-y-auto h-80 scrollable-div">
+      <ng-container *ngIf="!(isLoadingSongs | async); else loadingSongs">
+        <ng-container *ngFor="let song of songs$ | async">
+          <div [ngClass]="moodComponentClasses[this.moodService.getCurrentMood()]"
+               class="opacity-85 bg-stone-950 hover:cursor-pointer gap-4 pb-2 mb-3 rounded-lg p-2">
+            <app-song-cards
+              [card]="song"
+              imgSize="8vh"
+              svgSize="5vh"
+              (echoTrackEvent)="onEchoTrackEvent($event, song.text, song.secondaryText)">
+            </app-song-cards>
+          </div>
+        </ng-container>
+      </ng-container>
+      <ng-template #loadingSongs>
+        <ng-container *ngFor="let item of [].constructor(10)">
+          <div class="opacity-85 bg-stone-950 hover:cursor-pointer gap-4 pb-2 mb-3 rounded-lg p-2">
+            <app-skeleton-song-card imageSize="8vh"></app-skeleton-song-card>
+          </div>
+        </ng-container>
+      </ng-template>
+    </div>
+  </div>
+
+  <!-- Albums Section -->
+  <div class="songs dark:text-gray-200 p-4 w-full relative">
+    <a class="text-white absolute top-0 right-0 m-2 p-2 rounded cursor-pointer">View More</a>
+    <h1 class="py-2 text-white font-bold text-lg">Albums</h1>
+    <div class="songs-container no-scrollbar flex flex-col overflow-y-auto h-80 scrollable-div">
+      <ng-container *ngIf="!(isLoadingAlbums | async); else loadingAlbums">
+        <ng-container *ngFor="let album of albums$ | async">
+          <div [ngClass]="moodComponentClasses[currentMood]"
+               class="song-card hover:cursor-pointer bg-stone-950 opacity-85 flex-auto w-full mb-5 flex p-2 rounded-lg box-border h-24">
             <img [src]="album.imageUrl" alt="Album Image" class="w-1/4 rounded-lg mr-2">
             <div>
               <h2 class="font-bold py-2">{{ album.albumName }}</h2>

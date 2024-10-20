@@ -125,7 +125,7 @@ export class SearchComponent implements OnInit {
         this.isLoadingAlbums.next(false);
       }
     );
-    
+
     this.searchService.getTopResult().subscribe(
       topResult => {
         this.topResult$ = of(topResult);
