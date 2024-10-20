@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Observable, BehaviorSubject } from "rxjs";
-import { tap } from "rxjs/operators";
+import { Observable, BehaviorSubject, of } from "rxjs";
+import { tap, switchMap, catchError } from "rxjs/operators";
 import { TokenService } from "./token.service";
+import { CacheService } from "./cache.service";
 import { environment } from "../../environments/environment";
 
 export interface Track {
@@ -58,6 +59,7 @@ export class SearchService {
 
   private apiUrl = environment.apiUrl;
 
+
   constructor(private httpClient: HttpClient, private tokenService: TokenService) {}
 
   // Store search results in searchResultSubject and set topResultSubject
@@ -74,6 +76,7 @@ export class SearchService {
   }
 
   // Store album search results in albumResultSubject
+
   storeAlbumSearch(query: string): Observable<AlbumTrack[]> {
     return this.httpClient.post<AlbumTrack[]>(`${this.apiUrl}/search/album`, { "title": query })
       .pipe(
@@ -89,11 +92,13 @@ export class SearchService {
   }
 
   // Get top search result
+
   getTopResult(): Observable<TrackInfo> {
     return this.topResult$;
   }
 
   // Get album search results (as albums)
+
   getAlbumSearch(): Observable<AlbumTrack[]> {
     return this.albumResult$;
   }
@@ -152,7 +157,8 @@ export class SearchService {
     }
   }
 
-  //This function gets the details of a specific artist
+
+  // This function gets the details of a specific artist
   public async getArtistInfo(artistName: string): Promise<Artist[]> {
     const response = await this.httpClient.post<any>(`${this.apiUrl}/search/album-info`, {
       artist: artistName
@@ -186,6 +192,20 @@ export class SearchService {
 
   // Fetch suggested moods with their tracks
   getSuggestedMoods(): Observable<{ mood: string; imageUrl: string; tracks: Track[] }[]> {
-    return this.httpClient.get<{ mood: string; imageUrl: string; tracks: Track[] }[]>(`${this.apiUrl}/search/suggested-moods`);
+    const cacheKey = 'suggestedMoods';
+    if (this.cacheService.has(cacheKey)) {
+      return of(this.cacheService.get(cacheKey));
+    }
+
+    return this.httpClient.get<{ mood: string; imageUrl: string; tracks: Track[] }[]>(`${this.apiUrl}/search/suggested-moods`)
+      .pipe(
+        tap(response => {
+          this.cacheService.set(cacheKey, response);
+        }),
+        catchError(error => {
+          console.error("Error fetching suggested moods:", error);
+          return of([]);
+        })
+      );
   }
 }
