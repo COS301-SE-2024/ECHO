@@ -1,3 +1,4 @@
-<app-home  *ngIf="screenSize === 'desktop'"></app-home>
-<app-mobilehome *ngIf="screenSize === 'mobile'"></app-mobilehome>
-
+<app-home *ngIf="screenSize === 'desktop'"></app-home>
+<div *ngIf="screenSize === 'mobile'" class="mobile-container">
+  <app-mobilehome></app-mobilehome>
+</div>
