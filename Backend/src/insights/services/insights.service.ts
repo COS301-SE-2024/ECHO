@@ -4,15 +4,20 @@ import { createSupabaseClient } from "../../supabase/services/supabaseClient";
 import { SupabaseService } from "../../supabase/services/supabase.service";
 
 @Injectable()
-export class InsightsService {
-    constructor(private supabaseService: SupabaseService) {}
+export class InsightsService
+{
+    constructor(private supabaseService: SupabaseService)
+    {
+    }
 
     // Helper to get user details from Supabase
-    private async getUserFromSupabase(accessToken: string): Promise<any> {
+    private async getUserFromSupabase(accessToken: string): Promise<any>
+    {
         const supabase = createSupabaseClient();
         const { data, error } = await supabase.auth.getUser(accessToken);
 
-        if (error) {
+        if (error)
+        {
             throw new HttpException("Invalid access token", HttpStatus.UNAUTHORIZED);
         }
 
@@ -24,68 +29,162 @@ export class InsightsService {
         accessToken: string,
         refreshToken: string,
         providerName: string
-    ): Promise<any> {
-        await this.setSupabaseSession(accessToken, refreshToken); // Set session before retrieving tokens
+    ): Promise<any>
+    {
+        await this.setSupabaseSession(accessToken, refreshToken);
         const userId = await this.getUserIdFromAccessToken(accessToken);
         const { providerToken } = await this.supabaseService.retrieveTokens(userId);
 
-        if (providerName === "spotify") {
+        if (providerName === "spotify")
+        {
             return this.getTopMoodFromSpotify(providerToken);
-        } else if (providerName === "youtube") {
+        }
+        else if (providerName === "youtube")
+        {
             return this.getTopMoodFromYouTube(providerToken);
         }
 
         throw new HttpException("Invalid provider", HttpStatus.BAD_REQUEST);
     }
 
-    async getTopMoodFromSpotify(providerToken: string): Promise<any> {
-        const url = "https://api.spotify.com/v1/me/top/tracks?limit=10";
-
-        try {
-            const response = await axios.get(url, {
-                headers: {
-                    Authorization: `Bearer ${providerToken}`,
-                },
+    private async fetchSpotifyArtistsVsTracks(providerToken: string)
+    {
+        try
+        {
+            const artistResponse = await axios.get("https://api.spotify.com/v1/me/player/recently-played?limit=50", {
+                headers: { Authorization: `Bearer ${providerToken}` }
             });
-            const topTracks = response.data.items;
+            const trackResponse = await axios.get("https://api.spotify.com/v1/me/player/recently-played?limit=50", {
+                headers: { Authorization: `Bearer ${providerToken}` }
+            });
 
-            const genres = new Set(
-                topTracks.flatMap((track) => track.artists.map((artist) => artist.genres))
-            );
+            const artistsData = artistResponse.data.items.map((item: any) => item.track.artists).flat();
+            const tracksData = trackResponse.data.items.map((item: any) => item.track);
 
-            let mood = "Happy"; // Default mood
-
-            if (genres.has("pop")) {
-                mood = "Energetic";
-            } else if (genres.has("classical")) {
-                mood = "Relaxed";
-            } else if (genres.has("rock")) {
-                mood = "Energetic";
+            return this.parseArtistsVsTracks(artistsData, tracksData);
+        }
+        catch (error)
+        {
+            if (error.response && error.response.status === 401)
+            {
+                throw new HttpException("Unauthorized access to Spotify API", HttpStatus.UNAUTHORIZED);
             }
-
-            return { mood };
-        } catch (error) {
-            throw new HttpException("Spotify API error", HttpStatus.BAD_REQUEST);
+            throw new HttpException("Spotify API error with tracks vs artists", HttpStatus.BAD_REQUEST);
         }
     }
 
-    async getTopMoodFromYouTube(providerToken: string): Promise<any> {
+    private async fetchSpotifyListeningOverTime(providerToken: string)
+    {
+        const url = "https://api.spotify.com/v1/me/player/recently-played";
+        try
+        {
+            const response = await axios.get(url, {
+                headers: { Authorization: `Bearer ${providerToken}` }
+            });
+
+            if (!response.data || !response.data.items || response.data.items.length === 0)
+            {
+                return {}; // Return an empty object if data is empty
+            }
+
+            return this.parseListeningOverTime(response.data.items);
+        }
+        catch (error)
+        {
+            throw new HttpException("Spotify API error listening over time", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    async getTopMoodFromSpotify(providerToken: string): Promise<any>
+    {
+        const url = "https://api.spotify.com/v1/me/top/tracks?limit=10";
+
+        try
+        {
+            const response = await axios.get(url, {
+                headers: {
+                    Authorization: `Bearer ${providerToken}`
+                }
+            });
+            const topTracks = response.data.items;
+
+            if (!topTracks || topTracks.length === 0)
+            {
+                return { mood: "Happy" }; // Default mood if no tracks are found
+            }
+
+            const genreCounts: { [key: string]: number } = {};
+
+            // Count occurrences of each genre
+            topTracks.forEach((track) =>
+            {
+                track.artists.forEach((artist) =>
+                {
+                    if (artist.genres)
+                    {
+                        artist.genres.forEach((genre) =>
+                        {
+                            if (genreCounts[genre])
+                            {
+                                genreCounts[genre]++;
+                            }
+                            else
+                            {
+                                genreCounts[genre] = 1;
+                            }
+                        });
+                    }
+                });
+            });
+
+            // Determine the top genre
+            const topGenre = Object.keys(genreCounts).reduce((a, b) => genreCounts[a] > genreCounts[b] ? a : b, "");
+
+            // Map genre to mood
+            const genreToMoodMap: { [key: string]: string } = {
+                "pop": "Energetic",
+                "classical": "Relaxed",
+                "rock": "Energetic",
+                "jazz": "Calm",
+                "blues": "Melancholic",
+                "hip hop": "Energetic",
+                "electronic": "Upbeat"
+            };
+
+            const mood = genreToMoodMap[topGenre] || "Happy";
+
+            return { mood };
+        }
+        catch (error)
+        {
+            throw new HttpException("Spotify API error top mood", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    async getTopMoodFromYouTube(providerToken: string): Promise<any>
+    {
         const url = `https://www.googleapis.com/youtube/v3/videos?part=snippet&myRating=like&access_token=${providerToken}`;
 
-        try {
+        try
+        {
             const response = await axios.get(url);
             const likedVideos = response.data.items;
 
-            let mood = "Energetic"; // Default mood
+            let mood = "Energetic";
 
-            if (likedVideos.some((video) => video.snippet.categoryId === "Music")) {
+            if (likedVideos.some((video) => video.snippet.categoryId === "Music"))
+            {
                 mood = "Energetic";
-            } else if (likedVideos.some((video) => video.snippet.categoryId === "Education")) {
+            }
+            else if (likedVideos.some((video) => video.snippet.categoryId === "Education"))
+            {
                 mood = "Focused";
             }
 
             return { mood };
-        } catch (error) {
+        }
+        catch (error)
+        {
             throw new HttpException("YouTube API error", HttpStatus.BAD_REQUEST);
         }
     }
@@ -95,50 +194,62 @@ export class InsightsService {
         accessToken: string,
         refreshToken: string,
         providerName: string
-    ): Promise<any> {
+    ): Promise<any>
+    {
         await this.setSupabaseSession(accessToken, refreshToken);
         const userId = await this.getUserIdFromAccessToken(accessToken);
         const { providerToken } = await this.supabaseService.retrieveTokens(userId);
 
-        if (providerName === "spotify") {
+        if (providerName === "spotify")
+        {
             return this.getTotalListeningTimeFromSpotify(providerToken);
-        } else if (providerName === "youtube") {
+        }
+        else if (providerName === "youtube")
+        {
             return this.getTotalListeningTimeFromYouTube(providerToken);
         }
 
         throw new HttpException("Invalid provider", HttpStatus.BAD_REQUEST);
     }
 
-    async getTotalListeningTimeFromSpotify(providerToken: string): Promise<any> {
+    async getTotalListeningTimeFromSpotify(providerToken: string): Promise<any>
+    {
         const url = "https://api.spotify.com/v1/me/player/recently-played";
-        try {
+        try
+        {
             const response = await axios.get(url, {
                 headers: {
-                    Authorization: `Bearer ${providerToken}`,
-                },
+                    Authorization: `Bearer ${providerToken}`
+                }
             });
             const tracks = response.data.items;
             let totalListeningTime = 0;
 
-            tracks.forEach((track) => {
+            tracks.forEach((track) =>
+            {
                 totalListeningTime += track.track.duration_ms;
             });
 
             const hours = totalListeningTime / (1000 * 60 * 60);
             return { totalListeningTime: `${hours.toFixed(2)} hours` };
-        } catch (error) {
-            throw new HttpException("Spotify API error", HttpStatus.BAD_REQUEST);
+        }
+        catch (error)
+        {
+            throw new HttpException("Spotify API error total listening time", HttpStatus.BAD_REQUEST);
         }
     }
 
-    async getTotalListeningTimeFromYouTube(providerToken: string): Promise<any> {
+    async getTotalListeningTimeFromYouTube(providerToken: string): Promise<any>
+    {
         const url = `https://www.googleapis.com/youtube/v3/videos?part=contentDetails&myRating=like&access_token=${providerToken}`;
-        try {
+        try
+        {
             const response = await axios.get(url);
             const likedVideos = response.data.items;
             let totalListeningTime = 0;
 
-            likedVideos.forEach((video) => {
+            likedVideos.forEach((video) =>
+            {
                 const duration = video.contentDetails.duration;
                 const time = this.parseYouTubeDuration(duration);
                 totalListeningTime += time;
@@ -146,7 +257,9 @@ export class InsightsService {
 
             const hours = totalListeningTime / (60 * 60);
             return { totalListeningTime: `${hours.toFixed(2)} hours` };
-        } catch (error) {
+        }
+        catch (error)
+        {
             throw new HttpException("YouTube API error", HttpStatus.BAD_REQUEST);
         }
     }
@@ -156,45 +269,57 @@ export class InsightsService {
         accessToken: string,
         refreshToken: string,
         providerName: string
-    ): Promise<any> {
+    ): Promise<any>
+    {
         await this.setSupabaseSession(accessToken, refreshToken);
         const userId = await this.getUserIdFromAccessToken(accessToken);
         const { providerToken } = await this.supabaseService.retrieveTokens(userId);
 
-        if (providerName === "spotify") {
+        if (providerName === "spotify")
+        {
             return this.getMostPlayedTrackFromSpotify(providerToken);
-        } else if (providerName === "youtube") {
+        }
+        else if (providerName === "youtube")
+        {
             return this.getMostPlayedTrackFromYouTube(providerToken);
         }
 
         throw new HttpException("Invalid provider", HttpStatus.BAD_REQUEST);
     }
 
-    async getMostPlayedTrackFromSpotify(providerToken: string): Promise<any> {
+    async getMostPlayedTrackFromSpotify(providerToken: string): Promise<any>
+    {
         const url = "https://api.spotify.com/v1/me/top/tracks?limit=1";
-        try {
+        try
+        {
             const response = await axios.get(url, {
                 headers: {
-                    Authorization: `Bearer ${providerToken}`,
-                },
+                    Authorization: `Bearer ${providerToken}`
+                }
             });
             const track = response.data.items[0];
             return {
                 name: track.name,
-                artist: track.artists.map((artist) => artist.name).join(", "),
+                artist: track.artists.map((artist) => artist.name).join(", ")
             };
-        } catch (error) {
-            throw new HttpException("Spotify API error", HttpStatus.BAD_REQUEST);
+        }
+        catch (error)
+        {
+            throw new HttpException("Spotify API error most played track", HttpStatus.BAD_REQUEST);
         }
     }
 
-    async getMostPlayedTrackFromYouTube(providerToken: string): Promise<any> {
+    async getMostPlayedTrackFromYouTube(providerToken: string): Promise<any>
+    {
         const url = `https://www.googleapis.com/youtube/v3/videos?part=snippet&myRating=like&access_token=${providerToken}`;
-        try {
+        try
+        {
             const response = await axios.get(url);
             const mostLikedVideo = response.data.items[0];
             return { name: mostLikedVideo.snippet.title };
-        } catch (error) {
+        }
+        catch (error)
+        {
             throw new HttpException("YouTube API error", HttpStatus.BAD_REQUEST);
         }
     }
@@ -204,48 +329,61 @@ export class InsightsService {
         accessToken: string,
         refreshToken: string,
         providerName: string
-    ): Promise<any> {
+    ): Promise<any>
+    {
         await this.setSupabaseSession(accessToken, refreshToken);
         const userId = await this.getUserIdFromAccessToken(accessToken);
         const { providerToken } = await this.supabaseService.retrieveTokens(userId);
 
-        if (providerName === "spotify") {
+        if (providerName === "spotify")
+        {
             return this.getMostListenedArtistFromSpotify(providerToken);
-        } else if (providerName === "youtube") {
+        }
+        else if (providerName === "youtube")
+        {
             return this.getMostListenedArtistFromYouTube(providerToken);
         }
 
         throw new HttpException("Invalid provider", HttpStatus.BAD_REQUEST);
     }
 
-    async getMostListenedArtistFromSpotify(providerToken: string): Promise<any> {
+    async getMostListenedArtistFromSpotify(providerToken: string): Promise<any>
+    {
         const url = "https://api.spotify.com/v1/me/top/artists?limit=1";
-        try {
+        try
+        {
             const response = await axios.get(url, {
                 headers: {
-                    Authorization: `Bearer ${providerToken}`,
-                },
+                    Authorization: `Bearer ${providerToken}`
+                }
             });
             const artist = response.data.items[0];
             return { artist: artist.name };
-        } catch (error) {
-            throw new HttpException("Spotify API error", HttpStatus.BAD_REQUEST);
+        }
+        catch (error)
+        {
+            throw new HttpException("Spotify API error listened artist", HttpStatus.BAD_REQUEST);
         }
     }
 
-    async getMostListenedArtistFromYouTube(providerToken: string): Promise<any> {
+    async getMostListenedArtistFromYouTube(providerToken: string): Promise<any>
+    {
         const url = `https://www.googleapis.com/youtube/v3/channels?part=snippet&mine=true&access_token=${providerToken}`;
-        try {
+        try
+        {
             const response = await axios.get(url);
             const channel = response.data.items[0];
             return { artist: channel.snippet.title };
-        } catch (error) {
+        }
+        catch (error)
+        {
             throw new HttpException("YouTube API error", HttpStatus.BAD_REQUEST);
         }
     }
 
     // Helper to parse YouTube ISO 8601 duration
-    parseYouTubeDuration(duration: string): number {
+    parseYouTubeDuration(duration: string): number
+    {
         const regex = /PT(\d+H)?(\d+M)?(\d+S)?/;
         const matches = regex.exec(duration);
         let totalSeconds = 0;
@@ -258,63 +396,85 @@ export class InsightsService {
     }
 
     // Get top genre from Spotify or YouTube
-    async getTopGenre(
-        accessToken: string,
-        refreshToken: string,
-        providerName: string
-    ): Promise<any> {
+
+
+    async getTopGenre(accessToken: string, refreshToken: string, providerName: string): Promise<any>
+    {
         await this.setSupabaseSession(accessToken, refreshToken);
         const userId = await this.getUserIdFromAccessToken(accessToken);
         const { providerToken } = await this.supabaseService.retrieveTokens(userId);
 
-        if (providerName === "spotify") {
+        if (providerName === "spotify")
+        {
             return this.getTopGenreFromSpotify(providerToken);
-        } else if (providerName === "youtube") {
+        }
+        else if (providerName === "youtube")
+        {
             return this.getTopGenreFromYouTube(providerToken);
         }
 
         throw new HttpException("Invalid provider", HttpStatus.BAD_REQUEST);
     }
 
-    async getTopGenreFromSpotify(providerToken: string): Promise<any> {
-        const url = "https://api.spotify.com/v1/me/top/tracks";
-        try {
+    async getTopGenreFromSpotify(providerToken: string): Promise<any>
+    {
+        const url = "https://api.spotify.com/v1/me/top/tracks?limit=20";
+        try
+        {
             const response = await axios.get(url, {
-                headers: {
-                    Authorization: `Bearer ${providerToken}`,
-                },
+                headers: { Authorization: `Bearer ${providerToken}` }
             });
+
+            if (!response.data || !response.data.items)
+            {
+                throw new HttpException("Invalid response from Spotify API", HttpStatus.BAD_REQUEST);
+            }
+
             const topTracks = response.data.items;
             const genres = {};
 
             // Accumulate genres from artists
-            topTracks.forEach((track) => {
-                track.artists.forEach((artist) => {
-                    artist.genres.forEach((genre) => {
-                        if (!genres[genre]) {
-                            genres[genre] = 0;
-                        }
-                        genres[genre]++;
-                    });
+            topTracks.forEach((track) =>
+            {
+                track.artists.forEach((artist) =>
+                {
+                    if (artist.genres)
+                    {
+                        artist.genres.forEach((genre) =>
+                        {
+                            if (!genres[genre])
+                            {
+                                genres[genre] = 0;
+                            }
+                            genres[genre]++;
+                        });
+                    }
                 });
             });
 
             // Find the top genre
             const topGenre = Object.keys(genres).reduce((a, b) => (genres[a] > genres[b] ? a : b));
             return { topGenre };
-        } catch (error) {
-            throw new HttpException("Spotify API error", HttpStatus.BAD_REQUEST);
+        }
+        catch (error)
+        {
+            console.error("Spotify API error:", error.message);
+            throw new HttpException("Spotify API error with top genre", HttpStatus.BAD_REQUEST);
         }
     }
 
-    async getTopGenreFromYouTube(providerToken: string): Promise<any> {
+    async getTopGenreFromYouTube(providerToken: string): Promise<any>
+    {
         const url = `https://www.googleapis.com/youtube/v3/videos?part=snippet&myRating=like&access_token=${providerToken}`;
-        try {
+        try
+        {
             const response = await axios.get(url);
             const likedVideos = response.data.items;
-            const genre = "Pop"; // You'll need to implement logic to determine genre from YouTube data
+            const genre = "Pop";
             return { topGenre: genre };
-        } catch (error) {
+        }
+        catch (error)
+        {
             throw new HttpException("YouTube API error", HttpStatus.BAD_REQUEST);
         }
     }
@@ -324,32 +484,39 @@ export class InsightsService {
         accessToken: string,
         refreshToken: string,
         providerName: string
-    ): Promise<any> {
+    ): Promise<any>
+    {
         await this.setSupabaseSession(accessToken, refreshToken);
         const userId = await this.getUserIdFromAccessToken(accessToken);
         const { providerToken } = await this.supabaseService.retrieveTokens(userId);
 
-        if (providerName === "spotify") {
+        if (providerName === "spotify")
+        {
             return this.getAverageSongDurationFromSpotify(providerToken);
-        } else if (providerName === "youtube") {
+        }
+        else if (providerName === "youtube")
+        {
             return this.getAverageSongDurationFromYouTube(providerToken);
         }
 
         throw new HttpException("Invalid provider", HttpStatus.BAD_REQUEST);
     }
 
-    async getAverageSongDurationFromSpotify(providerToken: string): Promise<any> {
+    async getAverageSongDurationFromSpotify(providerToken: string): Promise<any>
+    {
         const url = "https://api.spotify.com/v1/me/player/recently-played";
-        try {
+        try
+        {
             const response = await axios.get(url, {
                 headers: {
-                    Authorization: `Bearer ${providerToken}`,
-                },
+                    Authorization: `Bearer ${providerToken}`
+                }
             });
             const tracks = response.data.items;
             let totalDuration = 0;
 
-            tracks.forEach((track) => {
+            tracks.forEach((track) =>
+            {
                 totalDuration += track.track.duration_ms;
             });
 
@@ -357,19 +524,24 @@ export class InsightsService {
             const minutes = Math.floor(averageDuration / 60000);
             const seconds = Math.floor((averageDuration % 60000) / 1000);
             return { averageDuration: `${minutes}:${seconds < 10 ? "0" : ""}${seconds}` };
-        } catch (error) {
-            throw new HttpException("Spotify API error", HttpStatus.BAD_REQUEST);
+        }
+        catch (error)
+        {
+            throw new HttpException("Spotify API error with duration", HttpStatus.BAD_REQUEST);
         }
     }
 
-    async getAverageSongDurationFromYouTube(providerToken: string): Promise<any> {
+    async getAverageSongDurationFromYouTube(providerToken: string): Promise<any>
+    {
         const url = `https://www.googleapis.com/youtube/v3/videos?part=contentDetails&myRating=like&access_token=${providerToken}`;
-        try {
+        try
+        {
             const response = await axios.get(url);
             const likedVideos = response.data.items;
             let totalDuration = 0;
 
-            likedVideos.forEach((video) => {
+            likedVideos.forEach((video) =>
+            {
                 const duration = video.contentDetails.duration;
                 const time = this.parseYouTubeDuration(duration);
                 totalDuration += time;
@@ -379,7 +551,9 @@ export class InsightsService {
             const minutes = Math.floor(averageDuration / 60);
             const seconds = Math.floor(averageDuration % 60);
             return { averageDuration: `${minutes}:${seconds < 10 ? "0" : ""}${seconds}` };
-        } catch (error) {
+        }
+        catch (error)
+        {
             throw new HttpException("YouTube API error", HttpStatus.BAD_REQUEST);
         }
     }
@@ -389,33 +563,40 @@ export class InsightsService {
         accessToken: string,
         refreshToken: string,
         providerName: string
-    ): Promise<any> {
+    ): Promise<any>
+    {
         await this.setSupabaseSession(accessToken, refreshToken);
         const userId = await this.getUserIdFromAccessToken(accessToken);
         const { providerToken } = await this.supabaseService.retrieveTokens(userId);
 
-        if (providerName === "spotify") {
+        if (providerName === "spotify")
+        {
             return this.getMostActiveDayFromSpotify(providerToken);
-        } else if (providerName === "youtube") {
+        }
+        else if (providerName === "youtube")
+        {
             return this.getMostActiveDayFromYouTube(providerToken);
         }
 
         throw new HttpException("Invalid provider", HttpStatus.BAD_REQUEST);
     }
 
-    async getMostActiveDayFromSpotify(providerToken: string): Promise<any> {
+    async getMostActiveDayFromSpotify(providerToken: string): Promise<any>
+    {
         const url = "https://api.spotify.com/v1/me/player/recently-played";
-        try {
+        try
+        {
             const response = await axios.get(url, {
                 headers: {
-                    Authorization: `Bearer ${providerToken}`,
-                },
+                    Authorization: `Bearer ${providerToken}`
+                }
             });
             const tracks = response.data.items;
             const days = {};
 
             // Count tracks per day
-            tracks.forEach((track) => {
+            tracks.forEach((track) =>
+            {
                 const date = new Date(track.played_at).toLocaleDateString("en-US", { weekday: "long" });
                 days[date] = (days[date] || 0) + 1;
             });
@@ -423,30 +604,35 @@ export class InsightsService {
             // Find the day with the most plays
             const mostActiveDay = Object.keys(days).reduce((a, b) => (days[a] > days[b] ? a : b));
             return { mostActiveDay };
-        } catch (error) {
-            throw new HttpException("Spotify API error", HttpStatus.BAD_REQUEST);
+        }
+        catch (error)
+        {
+            throw new HttpException("Spotify API error most active day", HttpStatus.BAD_REQUEST);
         }
     }
 
-    async getMostActiveDayFromYouTube(providerToken: string): Promise<any> {
+    async getMostActiveDayFromYouTube(providerToken: string): Promise<any>
+    {
         const url = `https://www.googleapis.com/youtube/v3/videos?part=snippet&myRating=like&access_token=${providerToken}`;
-        try {
+        try
+        {
             const response = await axios.get(url);
             const likedVideos = response.data.items;
             const days = {};
 
-            // Count videos per day
-            likedVideos.forEach((video) => {
+            likedVideos.forEach((video) =>
+            {
                 const date = new Date(video.snippet.publishedAt).toLocaleDateString("en-US", {
-                    weekday: "long",
+                    weekday: "long"
                 });
                 days[date] = (days[date] || 0) + 1;
             });
 
-            // Find the day with the most plays
             const mostActiveDay = Object.keys(days).reduce((a, b) => (days[a] > days[b] ? a : b));
             return { mostActiveDay };
-        } catch (error) {
+        }
+        catch (error)
+        {
             throw new HttpException("YouTube API error", HttpStatus.BAD_REQUEST);
         }
     }
@@ -456,44 +642,55 @@ export class InsightsService {
         accessToken: string,
         refreshToken: string,
         providerName: string
-    ): Promise<any> {
+    ): Promise<any>
+    {
         await this.setSupabaseSession(accessToken, refreshToken);
         const userId = await this.getUserIdFromAccessToken(accessToken);
         const { providerToken } = await this.supabaseService.retrieveTokens(userId);
 
-        if (providerName === "spotify") {
+        if (providerName === "spotify")
+        {
             return this.getUniqueArtistsFromSpotify(providerToken);
-        } else if (providerName === "youtube") {
+        }
+        else if (providerName === "youtube")
+        {
             return this.getUniqueArtistsFromYouTube(providerToken);
         }
 
         throw new HttpException("Invalid provider", HttpStatus.BAD_REQUEST);
     }
 
-    async getUniqueArtistsFromSpotify(providerToken: string): Promise<any> {
+    async getUniqueArtistsFromSpotify(providerToken: string): Promise<any>
+    {
         const url = "https://api.spotify.com/v1/me/player/recently-played";
-        try {
+        try
+        {
             const response = await axios.get(url, {
                 headers: {
-                    Authorization: `Bearer ${providerToken}`,
-                },
+                    Authorization: `Bearer ${providerToken}`
+                }
             });
             const tracks = response.data.items;
             const uniqueArtists = new Set();
 
-            tracks.forEach((track) => {
+            tracks.forEach((track) =>
+            {
                 track.track.artists.forEach((artist) => uniqueArtists.add(artist.name));
             });
 
             return { uniqueArtists: Array.from(uniqueArtists) };
-        } catch (error) {
-            throw new HttpException("Spotify API error", HttpStatus.BAD_REQUEST);
+        }
+        catch (error)
+        {
+            throw new HttpException("Spotify API error unique artists", HttpStatus.BAD_REQUEST);
         }
     }
 
-    async getUniqueArtistsFromYouTube(providerToken: string): Promise<any> {
+    async getUniqueArtistsFromYouTube(providerToken: string): Promise<any>
+    {
         const url = `https://www.googleapis.com/youtube/v3/videos?part=snippet&myRating=like&access_token=${providerToken}`;
-        try {
+        try
+        {
             const response = await axios.get(url);
             const likedVideos = response.data.items;
             const uniqueChannels = new Set();
@@ -501,279 +698,351 @@ export class InsightsService {
             likedVideos.forEach((video) => uniqueChannels.add(video.snippet.channelTitle));
 
             return { uniqueArtists: Array.from(uniqueChannels) };
-        } catch (error) {
+        }
+        catch (error)
+        {
             throw new HttpException("YouTube API error", HttpStatus.BAD_REQUEST);
         }
     }
 
-    private async getUserIdFromAccessToken(accessToken: string): Promise<string> {
+    private async getUserIdFromAccessToken(accessToken: string): Promise<string>
+    {
         const supabase = createSupabaseClient();
         const { data, error } = await supabase.auth.getUser(accessToken);
 
-        if (error || !data || !data.user) {
+        if (error || !data || !data.user)
+        {
             throw new HttpException("Invalid access token", HttpStatus.UNAUTHORIZED);
         }
 
         return data.user.id;
     }
 
-    private async setSupabaseSession(accessToken: string, refreshToken: string): Promise<void> {
+    private async setSupabaseSession(accessToken: string, refreshToken: string): Promise<void>
+    {
         const supabase = createSupabaseClient();
         const { error } = await supabase.auth.setSession({
             access_token: accessToken,
-            refresh_token: refreshToken,
+            refresh_token: refreshToken
         });
 
-        if (error) {
+        if (error)
+        {
             console.error("Error setting Supabase session:", error);
             throw new HttpException("Failed to set Supabase session", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    async getListeningTrends(accessToken: string, refreshToken: string, providerName: string) {
-        if (providerName === 'spotify') {
+    async getListeningTrends(accessToken: string, refreshToken: string, providerName: string)
+    {
+        if (providerName === "spotify")
+        {
             return await this.getSpotifyListeningTrends(accessToken);
-        } else if (providerName === 'youtube') {
+        }
+        else if (providerName === "youtube")
+        {
             return await this.getYoutubeListeningTrends(accessToken);
-        } else {
+        }
+        else
+        {
             throw new HttpException("Unsupported provider", HttpStatus.BAD_REQUEST);
         }
     }
 
     // Method to get weekly playlist
-    async getWeeklyPlaylist(accessToken: string, refreshToken: string, providerName: string) {
-        if (providerName === 'spotify') {
+    async getWeeklyPlaylist(accessToken: string, refreshToken: string, providerName: string)
+    {
+        if (providerName === "spotify")
+        {
             return await this.getSpotifyWeeklyPlaylist(accessToken);
-        } else if (providerName === 'youtube') {
+        }
+        else if (providerName === "youtube")
+        {
             return await this.getYoutubeWeeklyPlaylist(accessToken);
-        } else {
+        }
+        else
+        {
             throw new HttpException("Unsupported provider", HttpStatus.BAD_REQUEST);
         }
     }
 
     // Method to get the most listened day
-    async getMostListenedDay(accessToken: string, refreshToken: string, providerName: string) {
-        if (providerName === 'spotify') {
+    async getMostListenedDay(accessToken: string, refreshToken: string, providerName: string)
+    {
+        if (providerName === "spotify")
+        {
             return await this.getSpotifyMostListenedDay(accessToken);
-        } else if (providerName === 'youtube') {
+        }
+        else if (providerName === "youtube")
+        {
             return await this.getYoutubeMostListenedDay(accessToken);
-        } else {
+        }
+        else
+        {
             throw new HttpException("Unsupported provider", HttpStatus.BAD_REQUEST);
         }
     }
 
     // Spotify-specific method to get listening trends
-    private async getSpotifyListeningTrends(accessToken: string) {
-        const response = await axios.get('https://api.spotify.com/v1/me/top/tracks', {
-            headers: { Authorization: `Bearer ${accessToken}` },
+    private async getSpotifyListeningTrends(accessToken: string)
+    {
+        const response = await axios.get("https://api.spotify.com/v1/me/top/tracks", {
+            headers: { Authorization: `Bearer ${accessToken}` }
         });
         return response.data;
     }
 
     // YouTube-specific method to get listening trends
-    private async getYoutubeListeningTrends(accessToken: string) {
+    private async getYoutubeListeningTrends(accessToken: string)
+    {
         // Replace with the actual endpoint and logic to fetch YouTube trends
         // This is a placeholder example
-        const response = await axios.get('https://www.googleapis.com/youtube/v3/videos', {
+        const response = await axios.get("https://www.googleapis.com/youtube/v3/videos", {
             headers: { Authorization: `Bearer ${accessToken}` },
             params: {
-                part: 'snippet,contentDetails',
-                chart: 'mostPopular',
-                regionCode: 'US',
-            },
+                part: "snippet,contentDetails",
+                chart: "mostPopular",
+                regionCode: "US"
+            }
         });
         return response.data;
     }
 
     // Spotify-specific method to get the weekly playlist
-    private async getSpotifyWeeklyPlaylist(accessToken: string) {
-        const response = await axios.get('https://api.spotify.com/v1/me/top/artists', {
-            headers: { Authorization: `Bearer ${accessToken}` },
+    private async getSpotifyWeeklyPlaylist(accessToken: string)
+    {
+        const response = await axios.get("https://api.spotify.com/v1/me/top/artists", {
+            headers: { Authorization: `Bearer ${accessToken}` }
         });
         return response.data;
     }
 
     // YouTube-specific method to get the weekly playlist
-    private async getYoutubeWeeklyPlaylist(accessToken: string) {
-        // Replace with the actual endpoint and logic to fetch YouTube playlists
-        const response = await axios.get('https://www.googleapis.com/youtube/v3/playlists', {
+    private async getYoutubeWeeklyPlaylist(accessToken: string)
+    {
+        const response = await axios.get("https://www.googleapis.com/youtube/v3/playlists", {
             headers: { Authorization: `Bearer ${accessToken}` },
             params: {
-                part: 'snippet',
-                maxResults: 10,
-            },
+                part: "snippet",
+                maxResults: 10
+            }
         });
         return response.data;
     }
 
     // Spotify-specific method to get the most listened day
-    private async getSpotifyMostListenedDay(accessToken: string) {
-        const response = await axios.get('https://api.spotify.com/v1/me/top/artists', {
-            headers: { Authorization: `Bearer ${accessToken}` },
+    private async getSpotifyMostListenedDay(accessToken: string)
+    {
+        const response = await axios.get("https://api.spotify.com/v1/me/top/artists", {
+            headers: { Authorization: `Bearer ${accessToken}` }
         });
-        return response.data; // Modify according to the actual API response structure
+        return response.data;
     }
 
     // YouTube-specific method to get the most listened day
-    private async getYoutubeMostListenedDay(accessToken: string) {
-        // Replace with the actual logic to determine the most listened day on YouTube
-        // This is a placeholder example
-        const response = await axios.get('https://www.googleapis.com/youtube/v3/videos', {
+    private async getYoutubeMostListenedDay(accessToken: string)
+    {
+        const response = await axios.get("https://www.googleapis.com/youtube/v3/videos", {
             headers: { Authorization: `Bearer ${accessToken}` },
             params: {
-                part: 'snippet',
-                chart: 'mostPopular',
-            },
+                part: "snippet",
+                chart: "mostPopular"
+            }
         });
-        return response.data; // Modify according to the actual API response structure
+        return response.data;
     }
 
-    async getListeningOverTime(accessToken: string, refreshToken: string, providerName: string) {
-        if (providerName === "spotify") {
-            return this.fetchSpotifyListeningOverTime(accessToken, refreshToken);
-        } else if (providerName === "youtube") {
-            return this.fetchYouTubeListeningOverTime(accessToken, refreshToken);
+    async getListeningOverTime(accessToken: string, refreshToken: string, providerName: string)
+    {
+        await this.setSupabaseSession(accessToken, refreshToken);
+        const userId = await this.getUserIdFromAccessToken(accessToken);
+        const { providerToken } = await this.supabaseService.retrieveTokens(userId);
+
+        if (providerName === "spotify")
+        {
+            return this.fetchSpotifyListeningOverTime(providerToken);
         }
+        else if (providerName === "youtube")
+        {
+            return this.fetchYouTubeListeningOverTime(providerToken);
+        }
+
         throw new HttpException("Invalid provider name", HttpStatus.BAD_REQUEST);
     }
 
     // Fetch comparison of distinct artists vs tracks for Spotify or YouTube
-    async getArtistsVsTracks(accessToken: string, refreshToken: string, providerName: string) {
-        if (providerName === "spotify") {
-            return this.fetchSpotifyArtistsVsTracks(accessToken, refreshToken);
-        } else if (providerName === "youtube") {
-            return this.fetchYouTubeArtistsVsTracks(accessToken, refreshToken);
+    async getArtistsVsTracks(accessToken: string, refreshToken: string, providerName: string)
+    {
+        await this.setSupabaseSession(accessToken, refreshToken);
+        const userId = await this.getUserIdFromAccessToken(accessToken);
+        const { providerToken } = await this.supabaseService.retrieveTokens(userId);
+
+        if (!providerToken)
+        {
+            throw new HttpException("Provider token not found", HttpStatus.UNAUTHORIZED);
         }
-        throw new HttpException("Invalid provider name", HttpStatus.BAD_REQUEST);
+
+        if (providerName === "spotify")
+        {
+            return this.fetchSpotifyArtistsVsTracks(providerToken);
+        }
+        else if (providerName === "youtube")
+        {
+            return this.fetchYouTubeArtistsVsTracks(providerToken);
+        }
+
+        throw new HttpException("Invalid provider", HttpStatus.BAD_REQUEST);
     }
 
     // Fetch recent track genres for Spotify or YouTube
-    async getRecentTrackGenres(accessToken: string, refreshToken: string, providerName: string) {
-        if (providerName === "spotify") {
-            return this.fetchSpotifyRecentTrackGenres(accessToken, refreshToken);
-        } else if (providerName === "youtube") {
-            return this.fetchYouTubeRecentTrackGenres(accessToken, refreshToken);
+    async getRecentTrackGenres(accessToken: string, refreshToken: string, providerName: string)
+    {
+        await this.setSupabaseSession(accessToken, refreshToken);
+        const userId = await this.getUserIdFromAccessToken(accessToken);
+        const { providerToken } = await this.supabaseService.retrieveTokens(userId);
+
+        if (providerName === "spotify")
+        {
+            return this.fetchSpotifyRecentTrackGenres(providerToken);
         }
+        else if (providerName === "youtube")
+        {
+            return this.fetchYouTubeRecentTrackGenres(providerToken);
+        }
+
         throw new HttpException("Invalid provider name", HttpStatus.BAD_REQUEST);
     }
 
-    // ====== Spotify Methods ======
-
-    // Fetch listening over time from Spotify
-    private async fetchSpotifyListeningOverTime(accessToken: string, refreshToken: string) {
-        const response = await axios.get('https://api.spotify.com/v1/me/player/recently-played', {
-            headers: { Authorization: `Bearer ${accessToken}` }
-        });
-        return this.parseListeningOverTime(response.data.items);
+    private async fetchSpotifyRecentTrackGenres(providerToken: string)
+    {
+        try
+        {
+            const response = await axios.get("https://api.spotify.com/v1/me/top/tracks", {
+                headers: { Authorization: `Bearer ${providerToken}` }
+            });
+            return this.parseRecentTrackGenres(response.data.items);
+        }
+        catch (error)
+        {
+            if (error.response && error.response.status === 401)
+            {
+                throw new HttpException("Unauthorized access to Spotify API", HttpStatus.UNAUTHORIZED);
+            }
+            throw new HttpException("Spotify API error with recent genres", HttpStatus.BAD_REQUEST);
+        }
     }
 
-    // Fetch distinct artists and tracks from Spotify
-    private async fetchSpotifyArtistsVsTracks(accessToken: string, refreshToken: string) {
-        const artistResponse = await axios.get('https://api.spotify.com/v1/me/top/artists', {
-            headers: { Authorization: `Bearer ${accessToken}` }
-        });
-        const trackResponse = await axios.get('https://api.spotify.com/v1/me/top/tracks', {
-            headers: { Authorization: `Bearer ${accessToken}` }
-        });
-        return this.parseArtistsVsTracks(artistResponse.data.items, trackResponse.data.items);
-    }
-
-    // Fetch recent track genres from Spotify
-    private async fetchSpotifyRecentTrackGenres(accessToken: string, refreshToken: string) {
-        const response = await axios.get('https://api.spotify.com/v1/me/top/tracks', {
-            headers: { Authorization: `Bearer ${accessToken}` }
+    private async fetchYouTubeRecentTrackGenres(providerToken: string)
+    {
+        const response = await axios.get(`https://www.googleapis.com/youtube/v3/videos`, {
+            headers: { Authorization: `Bearer ${providerToken}` },
+            params: {
+                part: "snippet,contentDetails,statistics",
+                myRating: "like"
+            }
         });
         return this.parseRecentTrackGenres(response.data.items);
     }
 
-    // ====== YouTube Methods ======
-
     // Fetch listening over time from YouTube
-    private async fetchYouTubeListeningOverTime(accessToken: string, refreshToken: string) {
+    private async fetchYouTubeListeningOverTime(providerToken: string)
+    {
         const response = await axios.get(`https://www.googleapis.com/youtube/v3/videos`, {
-            headers: { Authorization: `Bearer ${accessToken}` },
+            headers: { Authorization: `Bearer ${providerToken}` },
             params: {
-                part: 'snippet,contentDetails,statistics',
-                myRating: 'like'  // Example of fetching videos liked by user
+                part: "snippet,contentDetails,statistics",
+                myRating: "like"
             }
         });
         return this.parseListeningOverTime(response.data.items);
     }
 
     // Fetch distinct artists and tracks from YouTube
-    private async fetchYouTubeArtistsVsTracks(accessToken: string, refreshToken: string) {
+    private async fetchYouTubeArtistsVsTracks(providerToken: string)
+    {
         const playlistResponse = await axios.get(`https://www.googleapis.com/youtube/v3/playlists`, {
-            headers: { Authorization: `Bearer ${accessToken}` },
+            headers: { Authorization: `Bearer ${providerToken}` },
             params: {
-                part: 'snippet',
+                part: "snippet",
                 mine: true
             }
         });
-        // YouTube API doesn't have the same concept of "artists" as Spotify,
-        // so we'll assume each playlist corresponds to an artist.
         const trackResponse = await axios.get(`https://www.googleapis.com/youtube/v3/playlistItems`, {
-            headers: { Authorization: `Bearer ${accessToken}` },
+            headers: { Authorization: `Bearer ${providerToken}` },
             params: {
-                part: 'snippet',
+                part: "snippet",
                 playlistId: playlistResponse.data.items[0].id
             }
         });
         return this.parseArtistsVsTracks(playlistResponse.data.items, trackResponse.data.items);
     }
 
-    // Fetch recent track genres from YouTube
-    private async fetchYouTubeRecentTrackGenres(accessToken: string, refreshToken: string) {
-        const response = await axios.get(`https://www.googleapis.com/youtube/v3/videos`, {
-            headers: { Authorization: `Bearer ${accessToken}` },
-            params: {
-                part: 'snippet,contentDetails,statistics',
-                myRating: 'like'
-            }
-        });
-        return this.parseRecentTrackGenres(response.data.items);
-    }
-
-    // ====== Parsing Methods ======
-
     // Parse listening data over time
-    private parseListeningOverTime(data: any) {
-        const result = {};
-        data.forEach((item: any) => {
+    private parseListeningOverTime(data: any)
+    {
+        if (!data || data.length === 0)
+        {
+            return {};
+        }
+
+        const result = data.reduce((acc: any, item: any) =>
+        {
             const date = new Date(item.played_at || item.snippet.publishedAt).toDateString();
-            if (!result[date]) {
-                result[date] = 1;
-            } else {
-                result[date]++;
+            if (!acc[date])
+            {
+                acc[date] = 1;
             }
-        });
-        return result; // Format suitable for graphing: { 'Date': playCount }
+            else
+            {
+                acc[date]++;
+            }
+            return acc;
+        }, {});
+
+        return result;
     }
 
     // Parse artists vs tracks data
-    private parseArtistsVsTracks(artistsData: any, tracksData: any) {
+    private parseArtistsVsTracks(artistsData: any, tracksData: any)
+    {
         const distinctArtists = new Set();
-        artistsData.forEach((artist: any) => distinctArtists.add(artist.name));
-
         const distinctTracks = new Set();
-        tracksData.forEach((track: any) => distinctTracks.add(track.name));
+
+        artistsData.forEach((artist: any) =>
+        {
+            if (!distinctArtists.has(artist.name))
+            {
+                distinctArtists.add(artist.name);
+            }
+        });
+
+        tracksData.forEach((track: any) =>
+        {
+            distinctTracks.add(track.name);
+        });
 
         return {
             distinctArtists: distinctArtists.size,
             distinctTracks: distinctTracks.size
-        }; // Format suitable for graphing: { distinctArtists, distinctTracks }
+        };
     }
 
     // Parse recent track genres data
-    private parseRecentTrackGenres(tracksData: any) {
+    private parseRecentTrackGenres(tracksData: any)
+    {
         const genres = {};
-        tracksData.forEach((track: any) => {
-            const genre = track.album?.genres?.[0] || "Unknown";  // Assuming genre from album data
-            if (!genres[genre]) {
+        tracksData.forEach((track: any) =>
+        {
+            const genre = track.album?.genres?.[0] || "Unknown";
+            if (!genres[genre])
+            {
                 genres[genre] = 1;
-            } else {
+            }
+            else
+            {
                 genres[genre]++;
             }
         });
-        return genres; // Format suitable for graphing: { 'Genre': count }
+        return genres;
     }
 }
