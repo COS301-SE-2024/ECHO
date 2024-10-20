@@ -1,0 +1,36 @@
+/* Ensure the component does not cause the page to scroll */
+:host {
+  display: block;
+  overflow: hidden;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.overflow-x-auto {
+  overflow-x: auto;
+}
+
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.scroll-behavior-smooth {
+  scroll-behavior: smooth;
+}
+
+.scrollbar-width-none {
+  scrollbar-width: none;
+}
+
+
