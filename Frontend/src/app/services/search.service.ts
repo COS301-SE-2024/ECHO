@@ -43,26 +43,28 @@ export interface Artist {
   providedIn: "root"
 })
 export class SearchService {
-  // Subjects for search results (tracks, albums, and top search)
-  private searchResultSubject = new BehaviorSubject<Track[]>([]);
-  private albumResultSubject = new BehaviorSubject<Track[]>([]);
-  private topResultSubject = new BehaviorSubject<Track>({ name: "", albumName: "", albumImageUrl: "", artistName: "" });
-  // Observables for search results (tracks, albums, and top search)
+  //Subjects for search results (tracks, albums, and top search)
+  private searchResultSubject = new BehaviorSubject<TrackInfo[]>([]);
+  private albumResultSubject = new BehaviorSubject<AlbumTrack[]>([]);
+  private topResultSubject = new BehaviorSubject<TrackInfo>({
+    explicit: false,
+    id: "",
+    previewUrl: "",
+    spotifyUrl: "",
+    text: "", albumName: "", imageUrl: "", secondaryText: "" });
+  //Observables for search results (tracks, albums, and top search)
   searchResult$ = this.searchResultSubject.asObservable();
   albumResult$ = this.albumResultSubject.asObservable();
   topResult$ = this.topResultSubject.asObservable();
 
   private apiUrl = environment.apiUrl;
 
-  constructor(
-    private httpClient: HttpClient,
-    private tokenService: TokenService,
-    private cacheService: CacheService
-  ) {}
+
+  constructor(private httpClient: HttpClient, private tokenService: TokenService) {}
 
   // Store search results in searchResultSubject and set topResultSubject
-  storeSearch(query: string): Observable<Track[]> {
-    return this.httpClient.post<Track[]>(`${this.apiUrl}/search/search`, { "title": query })
+  storeSearch(query: string): Observable<TrackInfo[]> {
+    return this.httpClient.post<TrackInfo[]>(`${this.apiUrl}/search/search`, { "title": query })
       .pipe(
         tap(results => {
           this.searchResultSubject.next(results);
@@ -74,8 +76,9 @@ export class SearchService {
   }
 
   // Store album search results in albumResultSubject
-  storeAlbumSearch(query: string): Observable<Track[]> {
-    return this.httpClient.post<Track[]>(`${this.apiUrl}/search/album`, { "title": query })
+
+  storeAlbumSearch(query: string): Observable<AlbumTrack[]> {
+    return this.httpClient.post<AlbumTrack[]>(`${this.apiUrl}/search/album`, { "title": query })
       .pipe(
         tap(results => {
           this.albumResultSubject.next(results);
@@ -84,21 +87,23 @@ export class SearchService {
   }
 
   // Get search results (for individual tracks)
-  getSearch(): Observable<Track[]> {
+  getSearch(): Observable<TrackInfo[]> {
     return this.searchResult$;
   }
 
   // Get top search result
-  getTopResult(): Observable<Track> {
+
+  getTopResult(): Observable<TrackInfo> {
     return this.topResult$;
   }
 
   // Get album search results (as albums)
-  getAlbumSearch(): Observable<Track[]> {
+
+  getAlbumSearch(): Observable<AlbumTrack[]> {
     return this.albumResult$;
   }
 
-  // Get the suggested songs based on an input song from the ECHO API
+  // Get the suggested songs based on an input song from the ECHO API (unchanged)
   public async echo(trackName: string, artistName: string): Promise<TrackInfo[]> {
     const laccessToken = this.tokenService.getAccessToken();
     const lrefreshToken = this.tokenService.getRefreshToken();
@@ -151,6 +156,7 @@ export class SearchService {
       throw new Error("Invalid response structure when searching for an album");
     }
   }
+
 
   // This function gets the details of a specific artist
   public async getArtistInfo(artistName: string): Promise<Artist[]> {

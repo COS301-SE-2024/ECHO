@@ -1,9 +1,46 @@
 <app-tool-tip tooltipText="Echo.." position="bottom">
-    <svg [ngClass]="moodComponentClasses" class="echo-button hover:cursor-pointer group" (click)="onButtonClick($event)" [attr.width]="width" [attr.height]="height" viewBox="0 0 29 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect class="rect-1 transition-colors duration-mood ease-in-out" x="0" width="4.14286" height="20%" rx="2.07143" [attr.fill]="this.moodComponentClasses[this.moodService.getCurrentMood()]" style="transform: translateY(37.5%);"/>
-    <rect class="rect-2 transition-colors duration-mood ease-in-out" x="5" width="4.14286" height="60%" rx="2.07143" [attr.fill]="this.moodComponentClasses[this.moodService.getCurrentMood()]" style="transform: translateY(20%);"/>
-    <rect class="rect-3 transition-colors duration-mood ease-in-out" x="10" width="4.14286" height="85%" rx="2.07143" [attr.fill]="this.moodComponentClasses[this.moodService.getCurrentMood()]" style="transform: translateY(9.5%);"/>
-    <rect class="rect-4 transition-colors duration-mood ease-in-out" x="15" width="4.14286" height="60%" rx="2.07143" [attr.fill]="this.moodComponentClasses[this.moodService.getCurrentMood()]" style="transform: translateY(20%);"/>
-    <rect class="rect-5 transition-colors duration-mood ease-in-out" x="20" width="4.14286" height="20%" rx="2.07143" [attr.fill]="this.moodComponentClasses[this.moodService.getCurrentMood()]" style="transform: translateY(37.5%);"/>
-</svg>
+  <svg [ngClass]="{'group': true, 'always-animate': alwaysAnimate}" 
+       class="echo-button hover:cursor-pointer" 
+       (click)="onButtonClick($event)" 
+       [attr.width]="width" 
+       [attr.height]="height" 
+       viewBox="0 0 29 28" 
+       fill="none" 
+       xmlns="http://www.w3.org/2000/svg">
+    <rect class="rect-1 transition-colors duration-mood ease-in-out" 
+          x="0" 
+          width="4.14286" 
+          height="20%" 
+          rx="2.07143" 
+          [attr.fill]="this.moodComponentClasses[this.moodService.getCurrentMood()]" 
+          style="transform: translateY(37.5%);"/>
+    <rect class="rect-2 transition-colors duration-mood ease-in-out" 
+          x="5" 
+          width="4.14286" 
+          height="60%" 
+          rx="2.07143" 
+          [attr.fill]="this.moodComponentClasses[this.moodService.getCurrentMood()]" 
+          style="transform: translateY(20%);"/>
+    <rect class="rect-3 transition-colors duration-mood ease-in-out" 
+          x="10" 
+          width="4.14286" 
+          height="85%" 
+          rx="2.07143" 
+          [attr.fill]="this.moodComponentClasses[this.moodService.getCurrentMood()]" 
+          style="transform: translateY(9.5%);"/>
+    <rect class="rect-4 transition-colors duration-mood ease-in-out" 
+          x="15" 
+          width="4.14286" 
+          height="60%" 
+          rx="2.07143" 
+          [attr.fill]="this.moodComponentClasses[this.moodService.getCurrentMood()]" 
+          style="transform: translateY(20%);"/>
+    <rect class="rect-5 transition-colors duration-mood ease-in-out" 
+          x="20" 
+          width="4.14286" 
+          height="20%" 
+          rx="2.07143" 
+          [attr.fill]="this.moodComponentClasses[this.moodService.getCurrentMood()]" 
+          style="transform: translateY(37.5%);"/>
+  </svg>
 </app-tool-tip>
