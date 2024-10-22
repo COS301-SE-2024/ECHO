@@ -1,4 +1,4 @@
-import { Controller, Get, Query, HttpException, HttpStatus } from "@nestjs/common";
+import { Controller, Post, Body, HttpException, HttpStatus } from "@nestjs/common";
 import { InsightsService } from "../services/insights.service";
 
 @Controller("insights")
@@ -8,131 +8,152 @@ export class InsightsController
     {
     }
 
-    // Endpoint to get the top mood from recent tracks
-    @Get("top-mood")
-    async getTopMood(
-        @Query("userId") userId: string,
-        @Query("accessToken") accessToken: string,
-        @Query("providerToken") providerToken: string,
-        @Query("providerName") providerName: string
-    )
+    @Post("top-mood")
+    async getTopMood(@Body() body: { accessToken: string; refreshToken: string; providerName: string })
     {
-        if (!userId || !accessToken || !providerToken || !providerName)
+        const { accessToken, refreshToken, providerName } = body;
+        if (!accessToken || !refreshToken || !providerName)
         {
             throw new HttpException("Missing required parameters", HttpStatus.BAD_REQUEST);
         }
-        return this.insightsService.getTopMood(userId, accessToken, providerToken, providerName);
+        return this.insightsService.getTopMood(accessToken, refreshToken, providerName);
     }
 
-    // Endpoint to get the total listening time
-    @Get("total-listening-time")
-    async getTotalListeningTime(
-        @Query("userId") userId: string,
-        @Query("accessToken") accessToken: string,
-        @Query("providerToken") providerToken: string,
-        @Query("providerName") providerName: string
-    )
+    @Post("total-listening-time")
+    async getTotalListeningTime(@Body() body: { accessToken: string; refreshToken: string; providerName: string })
     {
-        if (!userId || !accessToken || !providerToken || !providerName)
+        const { accessToken, refreshToken, providerName } = body;
+        if (!accessToken || !refreshToken || !providerName)
         {
             throw new HttpException("Missing required parameters", HttpStatus.BAD_REQUEST);
         }
-        return this.insightsService.getTotalListeningTime(userId, accessToken, providerToken, providerName);
+        return this.insightsService.getTotalListeningTime(accessToken, refreshToken, providerName);
     }
 
-    // Endpoint to get the most listened artist
-    @Get("most-listened-artist")
-    async getMostListenedArtist(
-        @Query("userId") userId: string,
-        @Query("accessToken") accessToken: string,
-        @Query("providerToken") providerToken: string,
-        @Query("providerName") providerName: string
-    )
+    @Post("most-listened-artist")
+    async getMostListenedArtist(@Body() body: { accessToken: string; refreshToken: string; providerName: string })
     {
-        if (!userId || !accessToken || !providerToken || !providerName)
+        const { accessToken, refreshToken, providerName } = body;
+        if (!accessToken || !refreshToken || !providerName)
         {
             throw new HttpException("Missing required parameters", HttpStatus.BAD_REQUEST);
         }
-        return this.insightsService.getMostListenedArtist(userId, accessToken, providerToken, providerName);
+        return this.insightsService.getMostListenedArtist(accessToken, refreshToken, providerName);
     }
 
-    // Endpoint to get the most played track
-    @Get("most-played-track")
-    async getMostPlayedTrack(
-        @Query("userId") userId: string,
-        @Query("accessToken") accessToken: string,
-        @Query("providerToken") providerToken: string,
-        @Query("providerName") providerName: string
-    )
+    @Post("most-played-track")
+    async getMostPlayedTrack(@Body() body: { accessToken: string; refreshToken: string; providerName: string })
     {
-        if (!userId || !accessToken || !providerToken || !providerName)
+        const { accessToken, refreshToken, providerName } = body;
+        if (!accessToken || !refreshToken || !providerName)
         {
             throw new HttpException("Missing required parameters", HttpStatus.BAD_REQUEST);
         }
-        return this.insightsService.getMostPlayedTrack(userId, accessToken, providerToken, providerName);
+        return this.insightsService.getMostPlayedTrack(accessToken, refreshToken, providerName);
     }
 
-    // Endpoint to get the top genre from the user's listening history
-    @Get("top-genre")
-    async getTopGenre(
-        @Query("userId") userId: string,
-        @Query("accessToken") accessToken: string,
-        @Query("providerToken") providerToken: string,
-        @Query("providerName") providerName: string
-    )
+    @Post("top-genre")
+    async getTopGenre(@Body() body: { accessToken: string; refreshToken: string; providerName: string })
     {
-        if (!userId || !accessToken || !providerToken || !providerName)
+        const { accessToken, refreshToken, providerName } = body;
+        if (!accessToken || !refreshToken || !providerName)
         {
             throw new HttpException("Missing required parameters", HttpStatus.BAD_REQUEST);
         }
-        return this.insightsService.getTopGenre(userId, accessToken, providerToken, providerName);
+        return this.insightsService.getTopGenre(accessToken, refreshToken, providerName);
     }
 
-    // Endpoint to get the average song duration
-    @Get("average-song-duration")
-    async getAverageSongDuration(
-        @Query("userId") userId: string,
-        @Query("accessToken") accessToken: string,
-        @Query("providerToken") providerToken: string,
-        @Query("providerName") providerName: string
-    )
+    @Post("average-song-duration")
+    async getAverageSongDuration(@Body() body: { accessToken: string; refreshToken: string; providerName: string })
     {
-        if (!userId || !accessToken || !providerToken || !providerName)
+        const { accessToken, refreshToken, providerName } = body;
+        if (!accessToken || !refreshToken || !providerName)
         {
             throw new HttpException("Missing required parameters", HttpStatus.BAD_REQUEST);
         }
-        return this.insightsService.getAverageSongDuration(userId, accessToken, providerToken, providerName);
+        return this.insightsService.getAverageSongDuration(accessToken, refreshToken, providerName);
     }
 
-    // Endpoint to get the most active day of listening
-    @Get("most-active-day")
-    async getMostActiveDay(
-        @Query("userId") userId: string,
-        @Query("accessToken") accessToken: string,
-        @Query("providerToken") providerToken: string,
-        @Query("providerName") providerName: string
-    )
+    @Post("most-active-day")
+    async getMostActiveDay(@Body() body: { accessToken: string; refreshToken: string; providerName: string })
     {
-        if (!userId || !accessToken || !providerToken || !providerName)
+        const { accessToken, refreshToken, providerName } = body;
+        if (!accessToken || !refreshToken || !providerName)
         {
             throw new HttpException("Missing required parameters", HttpStatus.BAD_REQUEST);
         }
-        return this.insightsService.getMostActiveDay(userId, accessToken, providerToken, providerName);
+        return this.insightsService.getMostActiveDay(accessToken, refreshToken, providerName);
     }
 
-    // Endpoint to get the number of unique artists listened to
-    @Get("unique-artists-listened")
-    async getUniqueArtistsListened(
-        @Query("userId") userId: string,
-        @Query("accessToken") accessToken: string,
-        @Query("providerToken") providerToken: string,
-        @Query("providerName") providerName: string
-    )
+    @Post("unique-artists-listened")
+    async getUniqueArtistsListened(@Body() body: { accessToken: string; refreshToken: string; providerName: string })
     {
-        if (!userId || !accessToken || !providerToken || !providerName)
+        const { accessToken, refreshToken, providerName } = body;
+        if (!accessToken || !refreshToken || !providerName)
         {
             throw new HttpException("Missing required parameters", HttpStatus.BAD_REQUEST);
         }
-        return this.insightsService.getUniqueArtistsListened(userId, accessToken, providerToken, providerName);
+        return this.insightsService.getUniqueArtistsListened(accessToken, refreshToken, providerName);
+    }
+
+    @Post("listening-trends")
+    async getListeningTrends(@Body() body: { accessToken: string; refreshToken: string; providerName: string })
+    {
+        const { accessToken, refreshToken, providerName } = body;
+        if (!accessToken || !refreshToken || !providerName)
+        {
+            throw new HttpException("Missing required parameters", HttpStatus.BAD_REQUEST);
+        }
+        return this.insightsService.getListeningTrends(accessToken, refreshToken, providerName);
+    }
+
+    @Post("weekly-playlist")
+    async getWeeklyPlaylist(@Body() body: { accessToken: string; refreshToken: string; providerName: string })
+    {
+        const { accessToken, refreshToken, providerName } = body;
+        if (!accessToken || !refreshToken || !providerName)
+        {
+            throw new HttpException("Missing required parameters", HttpStatus.BAD_REQUEST);
+        }
+        return this.insightsService.getWeeklyPlaylist(accessToken, refreshToken, providerName);
+    }
+
+    @Post("most-listened-day")
+    async getMostListenedDay(@Body() body: { accessToken: string; refreshToken: string; providerName: string })
+    {
+        const { accessToken, refreshToken, providerName } = body;
+        if (!accessToken || !refreshToken || !providerName)
+        {
+            throw new HttpException("Missing required parameters", HttpStatus.BAD_REQUEST);
+        }
+        return this.insightsService.getMostListenedDay(accessToken, refreshToken, providerName);
+    }
+
+    @Post("listening-over-time")
+    async getListeningOverTime(@Body() body: { accessToken: string; refreshToken: string; providerName: string })
+    {
+        return this.validateAndCallService(body, this.insightsService.getListeningOverTime);
+    }
+
+    @Post("artists-vs-tracks")
+    async getArtistsVsTracks(@Body() body: { accessToken: string; refreshToken: string; providerName: string })
+    {
+        return this.validateAndCallService(body, this.insightsService.getArtistsVsTracks);
+    }
+
+    @Post("recent-track-genres")
+    async getRecentTrackGenres(@Body() body: { accessToken: string; refreshToken: string; providerName: string })
+    {
+        return this.validateAndCallService(body, this.insightsService.getRecentTrackGenres);
+    }
+
+    private validateAndCallService(body: any, serviceMethod: Function)
+    {
+        const { accessToken, refreshToken, providerName } = body;
+        if (!accessToken || !refreshToken || !providerName)
+        {
+            throw new HttpException("Missing required parameters", HttpStatus.BAD_REQUEST);
+        }
+        return serviceMethod.call(this.insightsService, accessToken, refreshToken, providerName);
     }
 }

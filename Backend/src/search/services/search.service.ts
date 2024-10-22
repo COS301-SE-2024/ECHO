@@ -28,15 +28,19 @@ export class SearchService
     }
 
     // This function converts the API response to a Track object.
-    async convertApiResponseToSong(apiResponse: any): Promise<Track[]>
-    {
+    async convertApiResponseToSong(apiResponse: any): Promise<TrackInfo[]> {
         return apiResponse.data.slice(0, 10).map((item) => ({
-            name: item.title,
+            id: item.id,
+            text: item.title,
             albumName: item.album.title,
-            albumImageUrl: item.album.cover_big,
-            artistName: item.artist.name
+            imageUrl: item.album.cover_big,
+            secondaryText: item.artist.name,
+            previewUrl: item.preview,
+            spotifyUrl: item.link,
+            explicit: item.explicit_lyrics
         }));
     }
+
 
     // This function converts the API response to an ArtistInfo object.
     async convertApiResponseToArtistInfo(artistData: any, topTracksData: any, albumsData: any): Promise<ArtistInfo>
@@ -195,6 +199,18 @@ interface Track
     albumImageUrl: string;
     artistName: string;
 }
+
+interface TrackInfo {
+    id: string;
+    text: string;
+    albumName: string;
+    imageUrl: string;
+    secondaryText: string;
+    previewUrl: string;
+    spotifyUrl: string;
+    explicit: boolean;
+}
+
 
 interface Album
 {

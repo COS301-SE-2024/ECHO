@@ -1,13 +1,14 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpParams } from "@angular/common/http";
-import { Observable, of } from "rxjs";
+import { HttpClient } from "@angular/common/http";
+import { Observable, of, throwError } from "rxjs";
 import { TokenService } from "./token.service";
 import { ProviderService } from "./provider.service";
+import { CacheService } from "./cache.service";
 import { environment } from "../../environments/environment";
-import { catchError, switchMap } from 'rxjs/operators';
+import { catchError, switchMap } from "rxjs/operators";
 
 @Injectable({
-  providedIn: "root"
+  providedIn: "root",
 })
 export class InsightsService {
   private apiUrl = `${environment.apiUrl}/insights`;
@@ -15,43 +16,53 @@ export class InsightsService {
   constructor(
     private http: HttpClient,
     private tokenService: TokenService,
-    private providerService: ProviderService
+    private providerService: ProviderService,
+    private cacheService: CacheService
   ) {}
 
-  private getParams(): Observable<HttpParams> {
+  private getParams(): Observable<{ accessToken: string; refreshToken: string; providerName: string }> {
     return this.tokenService.getAccessToken$().pipe(
-      switchMap(accessToken => {
+      switchMap((accessToken) => {
         if (!accessToken) {
-          throw new Error('No access token available');
+          return throwError(() => new Error("No access token available"));
         }
+
+        const refreshToken = this.tokenService.getRefreshToken();
+        if (!refreshToken) {
+          return throwError(() => new Error("No refresh token available"));
+        }
+
         const providerName = this.providerService.getProviderName();
-        // Note: You'll need to implement a way to get the provider token
-        // This is just a placeholder. Replace with your actual implementation.
-        const providerToken = this.getProviderToken(providerName);
-        if (!providerToken) {
-          throw new Error(`No provider token available for ${providerName}`);
-        }
-        return of(new HttpParams({
-          fromObject: {
-            accessToken,
-            providerToken,
-            providerName
-          }
-        }));
+
+        return of({ accessToken, refreshToken, providerName });
+      }),
+      catchError((error) => {
+        console.error("Error getting parameters:", error);
+        return throwError(() => error);
       })
     );
   }
 
-  // Placeholder method. Implement this based on how you're storing provider tokens.
-  private getProviderToken(providerName: string): string | null {
-    // This is just an example. Replace with your actual implementation.
-    return localStorage.getItem(`${providerName}Token`);
-  }
-
   private makeRequest(endpoint: string): Observable<any> {
     return this.getParams().pipe(
-      switchMap(params => this.http.get(`${this.apiUrl}/${endpoint}`, { params })),
-      catchError(error => {
+      switchMap(({ accessToken, refreshToken, providerName }) => {
+        const cacheKey = `${endpoint}-${accessToken}-${providerName}`;
+        if (this.cacheService.has(cacheKey)) {
+          return of(this.cacheService.get(cacheKey));
+        }
+
+        return this.http.post(`${this.apiUrl}/${endpoint}`, {
+          accessToken,
+          refreshToken,
+          providerName,
+        }).pipe(
+          switchMap(response => {
+            this.cacheService.set(cacheKey, response);
+            return of(response);
+          })
+        );
+      }),
+      catchError((error) => {
         console.error(`Error fetching ${endpoint}:`, error);
         return of(null);
       })
@@ -59,34 +70,46 @@ export class InsightsService {
   }
 
   getTopMood(): Observable<any> {
-    return this.makeRequest('top-mood');
+    return this.makeRequest("top-mood");
   }
 
   getTotalListeningTime(): Observable<any> {
-    return this.makeRequest('total-listening-time');
+    return this.makeRequest("total-listening-time");
   }
 
   getMostListenedArtist(): Observable<any> {
-    return this.makeRequest('most-listened-artist');
+    return this.makeRequest("most-listened-artist");
   }
 
   getMostPlayedTrack(): Observable<any> {
-    return this.makeRequest('most-played-track');
+    return this.makeRequest("most-played-track");
   }
 
   getTopGenre(): Observable<any> {
-    return this.makeRequest('top-genre');
+    return this.makeRequest("top-genre");
   }
 
   getAverageSongDuration(): Observable<any> {
-    return this.makeRequest('average-song-duration');
+    return this.makeRequest("average-song-duration");
   }
 
   getMostActiveDay(): Observable<any> {
-    return this.makeRequest('most-active-day');
+    return this.makeRequest("most-active-day");
   }
 
   getUniqueArtistsListened(): Observable<any> {
-    return this.makeRequest('unique-artists-listened');
+    return this.makeRequest("unique-artists-listened");
+  }
+
+  getListeningOverTime(): Observable<any> {
+    return this.makeRequest("listening-over-time");
+  }
+
+  getArtistsVsTracks(): Observable<any> {
+    return this.makeRequest("artists-vs-tracks");
+  }
+
+  getRecentTrackGenres(): Observable<any> {
+    return this.makeRequest("recent-track-genres");
   }
 }

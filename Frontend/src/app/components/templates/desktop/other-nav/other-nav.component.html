@@ -1,12 +1,14 @@
 <div class="relative flex items-center">
-  <app-info-icon></app-info-icon>
+  <app-tool-tip tooltipText="Chat to Echo Bot" position="left">
+    <app-dolphin (click)="goToChat()" class="cursor-pointer transform scale-99"></app-dolphin>
+    </app-tool-tip>
+    <app-info-icon></app-info-icon>
   <app-profile-atomic (click)="toggleDropdown()" id="dropdownInformationButton" class="cursor-pointer h-12 w-12"></app-profile-atomic>
 </div>
-
 <div
   id="dropdownInformation"
   *ngIf="isDropdownOpen"
-  class="absolute right-0 mt-1 z-10 bg-black opacity-80 divide-y divide-gray-100 rounded-lg shadow w-44"
+  class="absolute right-0 mt-1 z-10 bg-black opacity-80 divide-y divide-gray-100 rounded-lg shadow w-44 max-h-60 overflow-y-auto overflow-x-hidden"
 >
   <div class="px-4 py-3 text-md text-white font-bold">
     <div>{{ username }}</div>

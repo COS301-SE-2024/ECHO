@@ -68,19 +68,19 @@ export class MoodService {
     Guilt:       'bg-guilt-dark text-guilt-text transition-colors duration-mood ease-in-out',
   };
   private _underlineMoodClasses = {
-    Anger: 'bg-default-background  transition-colors duration-mood ease-in-out border-b-2 border-anger-dark opacity-99 font-semibold',
-    Fear: 'bg-default-background transition-colors duration-mood ease-in-out border-b-2 border-fear-dark opacity-99 font-semibold',
-    Joy: 'bg-default-background transition-colors duration-mood ease-in-out border-b-2 border-joy-dark opacity-99 font-semibold',
-    Neutral: 'bg-default-background transition-colors duration-mood ease-in-out border-b-2 border-default-dark opacity-99 font-semibold',
-    Disgust: 'bg-default-background  transition-colors duration-mood ease-in-out border-b-2 border-disgust-dark opacity-99 font-semibold',
-    Excitement: 'bg-default-background  transition-colors duration-mood ease-in-out border-b-2 border-excitement-dark opacity-99 font-semibold',
-    Love: 'bg-default-background transition-colors duration-mood ease-in-out border-b-2 border-love-dark opacity-99 font-semibold',
-    Optimism: 'bg-default-background transition-colors duration-mood ease-in-out border-b-2 border-optimism-dark opacity-99 font-semibold',
-    Sadness: 'bg-default-background  transition-colors duration-mood ease-in-out border-b-2 border-sadness-dark opacity-99 font-semibold',
-    Surprise: 'bg-default-background  transition-colors duration-mood ease-in-out border-b-2 border-surprise-dark opacity-99 font-semibold',
-    Contempt: 'bg-default-background  transition-colors duration-mood ease-in-out border-b-2 border-contempt-dark opacity-99 font-semibold',
-    Shame: 'bg-default-background transition-colors duration-mood ease-in-out border-b-2 border-shame-dark opacity-99 font-semibold',
-    Guilt: 'bg-default-background transition-colors duration-mood ease-in-out border-b-2 border-guilt-dark font-semibold',
+      Anger: 'bg-default-background transition-colors duration-mood ease-in-out border-b-2 border-anger-dark opacity-99 font-semibold focus:border-anger-dark',
+      Fear: 'bg-default-background transition-colors duration-mood ease-in-out border-b-2 border-fear-dark opacity-99 font-semibold focus:border-fear-dark',
+      Joy: 'bg-default-background transition-colors duration-mood ease-in-out border-b-2 border-joy-dark opacity-99 font-semibold focus:border-joy-dark',
+      Neutral: 'bg-default-background transition-colors duration-mood ease-in-out border-b-2 border-default-dark opacity-99 font-semibold focus:border-default-dark',
+      Disgust: 'bg-default-background transition-colors duration-mood ease-in-out border-b-2 border-disgust-dark opacity-99 font-semibold focus:border-disgust-dark',
+      Excitement: 'bg-default-background transition-colors duration-mood ease-in-out border-b-2 border-excitement-dark opacity-99 font-semibold focus:border-excitement-dark',
+      Love: 'bg-default-background transition-colors duration-mood ease-in-out border-b-2 border-love-dark opacity-99 font-semibold focus:border-love-dark',
+      Optimism: 'bg-default-background transition-colors duration-mood ease-in-out border-b-2 border-optimism-dark opacity-99 font-semibold focus:border-optimism-dark',
+      Sadness: 'bg-default-background transition-colors duration-mood ease-in-out border-b-2 border-sadness-dark opacity-99 font-semibold focus:border-sadness-dark',
+      Surprise: 'bg-default-background transition-colors duration-mood ease-in-out border-b-2 border-surprise-dark opacity-99 font-semibold focus:border-surprise-dark',
+      Contempt: 'bg-default-background transition-colors duration-mood ease-in-out border-b-2 border-contempt-dark opacity-99 font-semibold focus:border-contempt-dark',
+      Shame: 'bg-default-background transition-colors duration-mood ease-in-out border-b-2 border-shame-dark opacity-99 font-semibold focus:border-shame-dark',
+      Guilt: 'bg-default-background transition-colors duration-mood ease-in-out border-b-2 border-guilt-dark opacity-99 font-semibold focus:border-guilt-dark',
   };
   
   constructor() {

@@ -1,144 +1,265 @@
-import { AfterViewInit, AfterViewChecked, Component, Inject, PLATFORM_ID, Input, ElementRef, ViewChild } from "@angular/core";
-import { isPlatformBrowser } from "@angular/common";
-import Chart, { ChartType } from "chart.js/auto";
-import { MoodService } from '../../services/mood-service.service';
-import { NgClass, NgIf } from '@angular/common';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Chart, registerables } from 'chart.js';
+import { InsightsService } from "../../services/insights.service";
 
 @Component({
   selector: "app-insights",
-  standalone: true,
-  imports: [NgClass, NgIf],
   templateUrl: "./insights.component.html",
+  standalone: true,
   styleUrls: ["./insights.component.css"]
 })
-export class InsightsComponent implements AfterViewInit, AfterViewChecked {
-  @Input() percentageData: number[] = [25, 5, 30, 40, 10, 15, 20, 25, 30, 10, 15, 5, 20, 5, 5, 15, 10, 10, 25, 10, 20, 15, 10, 5, 20, 15];
-  public chart: any;
-  public chartTypes: ChartType[] = ["pie", "bar", "line", "doughnut", "radar", "polarArea"];
-  public currentChartIndex: number = 0;
-  public moodComponentClasses!: { [key: string]: string };
-  private chartInitialized: boolean = false;
+export class InsightsComponent implements OnInit, OnDestroy {
+  listeningOverTime: any = {};
+  artistsVsTracks: any = {};
+  recentTrackGenres: any = {};
 
-  // ViewChild sections for smooth scrolling
-  @ViewChild('widgets', { static: false }) widgetsSection!: ElementRef;
-  @ViewChild('moodChart', { static: false }) moodChartSection!: ElementRef;
-  @ViewChild('serviceChart', { static: false }) serviceChartSection!: ElementRef;
-  @ViewChild('genreChart', { static: false }) genreChartSection!: ElementRef;
+  topMood: string = '';
+  totalListeningTime: string = '';
+  mostListenedArtist: string = '';
+  mostPlayedTrack: string = '';
+  topGenre: string = '';
+  averageSongDuration: string = '';
+  mostActiveDay: string = '';
+  uniqueArtistsListened: number = 0;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object, public moodService: MoodService) {
-    this.moodComponentClasses = {
-      'Joy': 'bg-yellow-400 text-black',
-      'Sadness': 'bg-blue-400 text-white',
-      'Anger': 'bg-red-400 text-white',
-      'Love': 'bg-pink-400 text-white',
-      'Fear': 'bg-gray-400 text-white',
-      'Optimism': 'bg-green-400 text-white'
-    };
+  private artistsVsTracksChartInstance: Chart | null = null;
+
+  constructor(private insightsService: InsightsService) {
+    Chart.register(...registerables);
   }
 
-  ngAfterViewInit() {
-    this.chartInitialized = false;
+  ngOnInit(): void {
+    this.fetchInsights();
+
+    this.insightsService.getListeningOverTime().subscribe((data: any) => {
+      this.listeningOverTime = data || {};
+      this.createListeningOverTimeChart();
+    });
+
+    this.insightsService.getArtistsVsTracks().subscribe((data: any) => {
+      this.artistsVsTracks = data || {};
+      this.createArtistsVsTracksChart();
+    });
+
+    this.insightsService.getRecentTrackGenres().subscribe((data: any) => {
+      this.recentTrackGenres = data || {};
+      this.createRecentTrackGenresChart();
+    });
+
+    this.fetchArtistsVsTracksData();
   }
 
-  ngAfterViewChecked() {
-    if (isPlatformBrowser(this.platformId) && !this.chartInitialized) {
-      this.initializeCharts();
+  ngOnDestroy(): void {
+    if (this.artistsVsTracksChartInstance) {
+      this.artistsVsTracksChartInstance.destroy();
     }
   }
 
-  initializeCharts() {
-    this.createChart('MoodChart', this.chartTypes[this.currentChartIndex], this.getMoodData());
-    this.createChart('ServiceChart', 'doughnut', this.getServiceDistributionData());
-    this.createChart('GenreChart', 'bar', this.getGenreData());
-    this.chartInitialized = true;
+  fetchInsights(): void {
+    this.insightsService.getTopMood().subscribe((data: any) => {
+      this.topMood = data?.mood || 'N/A';
+    });
+
+    this.insightsService.getTotalListeningTime().subscribe((data: any) => {
+      this.totalListeningTime = data?.totalListeningTime || 'N/A';
+    });
+
+    this.insightsService.getMostListenedArtist().subscribe((data: any) => {
+      this.mostListenedArtist = data?.artist || 'N/A';
+    });
+
+    this.insightsService.getMostPlayedTrack().subscribe((data: any) => {
+      this.mostPlayedTrack = data?.name || 'N/A';
+    });
+
+    this.insightsService.getTopGenre().subscribe((data: any) => {
+      this.topGenre = data?.topGenre || 'N/A';
+    });
+
+    this.insightsService.getAverageSongDuration().subscribe((data: any) => {
+      this.averageSongDuration = data?.averageDuration || 'N/A';
+    });
+
+    this.insightsService.getMostActiveDay().subscribe((data: any) => {
+      this.mostActiveDay = data?.mostActiveDay || 'N/A';
+    });
+
+    this.insightsService.getUniqueArtistsListened().subscribe((data: any) => {
+      this.uniqueArtistsListened = data?.uniqueArtists?.length || 0;
+    });
   }
 
-  createChart(chartId: string, type: ChartType, chartData: any) {
-    const chartCanvas = document.getElementById(chartId) as HTMLCanvasElement;
-    if (chartCanvas) {
-      const existingChart = Chart.getChart(chartId);
-      if (existingChart) existingChart.destroy();
-
-      new Chart(chartCanvas, {
-        type: type,
-        data: chartData,
-        options: {
-          aspectRatio: 2.5,
-          responsive: true,
-          plugins: {
-            legend: { display: true, position: 'bottom' },
-            tooltip: { enabled: true }
+  createListeningOverTimeChart() {
+    new Chart('listeningOverTimeChart', {
+      type: 'line',
+      data: {
+        labels: Object.keys(this.listeningOverTime),
+        datasets: [{
+          label: 'Listening Over Time',
+          data: Object.values(this.listeningOverTime),
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1,
+          fill: false,
+          tension: 0.1
+        }]
+      },
+      options: {
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: 'Time'
+            }
+          },
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: 'Listening Time (minutes)'
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            display: true,
+            position: 'top'
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                return `${context.dataset.label}: ${context.raw} minutes`;
+              }
+            }
           }
         }
-      });
-    }
+      }
+    });
   }
 
-  nextChartType() {
-    this.currentChartIndex = (this.currentChartIndex + 1) % this.chartTypes.length;
-    this.createChart('MoodChart', this.chartTypes[this.currentChartIndex], this.getMoodData());
+  private fetchArtistsVsTracksData() {
+    this.insightsService.getArtistsVsTracks().subscribe((data: any) => {
+      this.artistsVsTracks = data || {
+        distinctArtists: 0,
+        distinctTracks: 0
+      };
+      console.log("Artists vs Tracks Data:", this.artistsVsTracks);
+      this.createArtistsVsTracksChart();
+    });
   }
 
-  scrollToSection(section: string) {
-    let targetSection: ElementRef | undefined;
-    switch (section) {
-      case 'widgets':
-        targetSection = this.widgetsSection;
-        break;
-      case 'moodChart':
-        targetSection = this.moodChartSection;
-        break;
-      case 'serviceChart':
-        targetSection = this.serviceChartSection;
-        break;
-      case 'genreChart':
-        targetSection = this.genreChartSection;
-        break;
+  createArtistsVsTracksChart() {
+    if (this.artistsVsTracksChartInstance) {
+      this.artistsVsTracksChartInstance.destroy();
     }
 
-    if (targetSection) {
-      targetSection.nativeElement.scrollIntoView({ behavior: 'smooth' });
-    }
-  }
+    console.log("Creating Artists vs Tracks Chart with data:", this.artistsVsTracks);
 
-  getMoodData() {
-    return {
-      labels: [
-        "Joy", "Sadness", "Anger", "Disgust", "Fear", "Surprise", "Love", "Optimism", "Pride", "Relief"
-      ],
-      datasets: [{
-        label: 'Mood Distribution',
-        data: [30, 10, 5, 3, 7, 8, 25, 5, 2, 5],
-        backgroundColor: [
-          '#facc15', '#94a3b8', '#ef4444', '#a3e635', '#3b82f6', '#eab308',
-          '#ec4899', '#10b981', '#fb923c', '#6b7280'
-        ],
-        hoverOffset: 4
-      }]
-    };
-  }
-
-  getServiceDistributionData() {
-    return {
-      labels: ['Spotify', 'YouTube'],
-      datasets: [{
-        label: 'Listening Distribution',
-        data: [70, 30],
-        backgroundColor: ['#1DB954', '#FF0000'],
-      }]
-    };
-  }
-
-  getGenreData() {
-    return {
-      labels: ['Pop', 'Rock', 'Hip-Hop', 'Electronic', 'Jazz', 'Classical', 'Indie', 'R&B'],
-      datasets: [{
-        label: 'Top Genres',
-        data: [35, 20, 15, 10, 5, 5, 7, 3],
-        backgroundColor: [
-          '#f43f5e', '#3b82f6', '#22c55e', '#facc15', '#6366f1', '#8b5cf6', '#f59e0b', '#10b981'
+    this.artistsVsTracksChartInstance = new Chart('artistsVsTracksChart', {
+      type: 'bar',
+      data: {
+        labels: ['Distinct Artists', 'Distinct Tracks'],
+        datasets: [
+          {
+            label: 'Count',
+            data: [this.artistsVsTracks.distinctArtists, this.artistsVsTracks.distinctTracks],
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)'
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)'
+            ],
+            borderWidth: 1
+          }
         ]
-      }]
-    };
+      },
+      options: {
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: 'Categories'
+            }
+          },
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: 'Count'
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            display: true,
+            position: 'top'
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                return `${context.dataset.label}: ${context.raw}`;
+              }
+            }
+          }
+        }
+      }
+    });
+  }
+
+  createRecentTrackGenresChart() {
+    new Chart('recentTrackGenresChart', {
+      type: 'pie',
+      data: {
+        labels: Object.keys(this.recentTrackGenres),
+        datasets: [{
+          label: 'Recent Track Genres',
+          data: Object.values(this.recentTrackGenres),
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            display: true,
+            position: 'top'
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                let label = context.label || '';
+                if (label) {
+                  label += ': ';
+                }
+                if (context.raw !== null && typeof context.raw === 'number') {
+                  const total = (context.chart.data.datasets[0].data as (number | null)[]).reduce((a, b) => (a ?? 0) + (b ?? 0), 0);
+                  if (total !== 0) {
+                    label += `${context.raw} (${((context.raw / (total ?? 1)) * 100).toFixed(2)}%)`;
+                  }
+                }
+                return label;
+              }
+            }
+          }
+        }
+      }
+    });
   }
 }

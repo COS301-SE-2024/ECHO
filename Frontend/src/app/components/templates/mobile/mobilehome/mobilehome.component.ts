@@ -16,6 +16,7 @@ import { SongCardsComponent } from "../../../organisms/song-cards/song-cards.com
 import { SkeletonSongCardComponent } from "../../../atoms/skeleton-song-card/skeleton-song-card.component";
 import { ToastComponent } from "../../../../components/organisms/toast/toast.component";
 import { MoodsComponent } from '../../../organisms/moods/moods.component';
+import { SearchBarComponent } from "../../../molecules/search-bar/search-bar.component";
 
 type SelectedOption = "suggestions" | "recentListening";
 
@@ -25,7 +26,7 @@ type SelectedOption = "suggestions" | "recentListening";
   imports: [
     MatCard, MatCardContent, NgForOf, NgIf, NgClass,
     EchoButtonComponent, SongCardsComponent, SkeletonSongCardComponent,
-    ToastComponent, MoodsComponent
+    ToastComponent, MoodsComponent, SearchBarComponent
   ],
   templateUrl: './mobilehome.component.html',
   styleUrls: ['./mobilehome.component.css']
@@ -63,18 +64,24 @@ export class MobilehomeComponent implements OnInit
   recentListeningCardData: any[] = [];
   echoTracks: any[] = [];
   provider: string | null = null;
-  isDropdownVisible: boolean = true;
-  selected: string = "Recent Listening...";
-  options = ["Recent Listening...", "Suggestions..."];
+  isDropdownVisible: boolean = false;
+  selected: string = "Recent Listening";
+  options = ["Recent Listening", "Suggestions"];
   isEchoModalVisible: boolean = false;
   isLoading: boolean = true;
   showOption: boolean = false;
   skeletonArray = Array(10);
+  bottomPlayerHeight: number = 60;
 
-   toggleDropdown(event: MouseEvent): void {
+  toggleDropdown(event: MouseEvent): void {
     event.stopPropagation();
     this.isDropdownVisible = !this.isDropdownVisible;
   }
+
+  closeDropdown(): void {
+    this.isDropdownVisible = false;
+  }
+
   showOptions(): void {
     this.showOption = !this.showOption;
   }
@@ -90,9 +97,9 @@ export class MobilehomeComponent implements OnInit
 
   async selectedOptionChange(option: string) {
     this.selected = option;
-    this.isDropdownVisible = true;
+    this.closeDropdown();
     this.isLoading = true;
-    if (this.selected === "Recent Listening...") {
+    if (this.selected === "Recent Listening") {
       this.selectedOption = "recentListening";
       await this.fetchRecentlyPlayedTracks();
     } else {
@@ -142,7 +149,7 @@ export class MobilehomeComponent implements OnInit
         this.isLoading = true;
         this.suggestionsCardData = await this.spotifyService.getQueue(this.provider);
         console.log(this.suggestionsCardData);
-        
+
         await this.suggestionsCardData.unshift(this.getEchoedCardData()[0]);
         this.isLoading = false;
       }
@@ -152,8 +159,8 @@ export class MobilehomeComponent implements OnInit
         console.error("Error fetching suggestions:", error); // Log the error
         console.log(this.selectedOption);
         if (this.selectedOption === "suggestions") {
-            console.log("In error");
-            this.toastComponent.showToast("Error fetching suggestions data", "error"); // Show error toast
+          console.log("In error");
+          this.toastComponent.showToast("Error fetching suggestions data", "error"); // Show error toast
         }
       }
     }
@@ -167,7 +174,6 @@ export class MobilehomeComponent implements OnInit
       {
         this.isLoading = true;
         const data = await this.spotifyService.getRecentlyPlayedTracks(this.provider);
-        console.log("First track: ", data.items[0]);
         console.log("First track: ", data.items[0]);
         data.items.forEach((item: any) => {
           const trackId = item.track.id;
@@ -307,7 +313,7 @@ export class MobilehomeComponent implements OnInit
     this.isEchoModalVisible = false;
   }
   goToLibrary() {
-    this.route.navigate(['/library']); // Use router.navigate
+    this.route.navigate(['/library']);
   }
   handleEchoTrack(eventData: { trackName: string, artistName: string, event: MouseEvent })
   {

@@ -1,22 +1,41 @@
-<div class="col-start-1 col-span-5 row-start-2 row-span-4" style="height: 72vh;">
-    <div  class="rounded-lg overflow-hidden h-full relative p-8">
-
+<!-- Desktop Layout -->
+<div *ngIf="screenSize === 'desktop'" class="col-start-1 col-span-5 row-start-2 row-span-4" style="height: 72vh;">
+  <div class="rounded-lg overflow-hidden h-full relative p-8">
     <div class="flex items-center justify-between">
-        <app-back-button class="flex-shrink-0"></app-back-button>
-        <p class="flex-grow text-3xl font-semibold text-white text-center">{{title}}</p>
+      <app-back-button class="flex-shrink-0"></app-back-button>
+      <p class="flex-grow text-3xl font-semibold text-white text-center">{{title}}</p>
     </div>
-
-
-        <div class="grid grid-cols-5 gap-y-8 pt-16">
-            <div *ngFor="let album of albums" class="album-art flex flex-col items-center hover:cursor-pointer group">
-                <div class="relative">
-                    <img [src]="album.imageUrl" alt="{{ album.title }}" class="w-32 h-32 object-cover rounded-md">
-                    <app-play-icon [switchMood]="false" (click)="playTrack(album.title,album.artist)" [width]="'7vh'" class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                    </app-play-icon>
-                </div>
-                <p class="text-center text-white text-lg font-semibold">{{ album.title }}</p>
-                <p class="text-center text-sm text-white text-gray-500">{{ album.artist }}</p>
-            </div>
+    <div class="grid grid-cols-5 gap-y-8 pt-16">
+      <div *ngFor="let album of albums" class="album-art flex flex-col items-center hover:cursor-pointer group">
+        <div class="relative">
+          <img [src]="album.imageUrl" alt="{{ album.title }}" class="w-32 h-32 object-cover rounded-md">
+          <app-play-icon [switchMood]="false" (click)="playTrack(album.title,album.artist)" [width]="'7vh'" class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100">
+          </app-play-icon>
         </div>
+        <p class="text-center text-white text-lg font-semibold">{{ album.title }}</p>
+        <p class="text-center text-sm text-white text-gray-500">{{ album.artist }}</p>
+      </div>
     </div>
+  </div>
+</div>
+
+<!-- Mobile Layout -->
+<div *ngIf="screenSize === 'mobile'" class="col-start-1 col-span-5 row-start-2 row-span-4" style="height: calc(100vh - 30vh);">
+  <div class="rounded-lg h-full relative p-4 scrollable-content">
+    <div class="flex items-center justify-between">
+      <app-back-button class="flex-shrink-0"></app-back-button>
+      <p class="flex-grow text-xl font-semibold text-white text-center">{{title}}</p>
+    </div>
+    <div class="grid grid-cols-2 gap-y-4 pt-8">
+      <div *ngFor="let album of albums" class="album-art flex flex-col items-center hover:cursor-pointer group">
+        <div class="relative">
+          <img [src]="album.imageUrl" alt="{{ album.title }}" class="w-24 h-24 object-cover rounded-md">
+          <app-play-icon [switchMood]="false" (click)="playTrack(album.title,album.artist)" [width]="'5vh'" class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100">
+          </app-play-icon>
+        </div>
+        <p class="text-center text-white text-md font-semibold">{{ trimTitle(album.title, 20) }}</p>
+        <p class="text-center text-sm text-white text-gray-500">{{ album.artist }}</p>
+      </div>
+    </div>
+  </div>
 </div>

@@ -1,57 +1,55 @@
 <div id="center" style="height: 100vh; width: 100%;">
-  <h1 class="text-3xl font-bold text-white text-center mb-6">Listening Insights</h1>
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
+  <h1 class="text-3xl font-bold text-white text-center mb-6 pt-5">Listening Insights</h1>
+  <div #widgets class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8 pr-4 pl-4">
     <div class="bg-stone-900 shadow-lg rounded-lg p-6 text-center">
       <h2 class="text-2xl font-semibold text-white">Top Mood</h2>
-      <p class="text-xl text-gray-300">Joy</p>
+      <p class="text-xl text-gray-300">{{ topMood }}</p>
     </div>
     <div class="bg-stone-900 shadow-lg rounded-lg p-6 text-center">
       <h2 class="text-2xl font-semibold text-white">Total Listening Time</h2>
-      <p class="text-xl text-gray-300">42 hrs</p>
+      <p class="text-xl text-gray-300">{{ totalListeningTime }}</p>
     </div>
     <div class="bg-stone-900 shadow-lg rounded-lg p-6 text-center">
       <h2 class="text-2xl font-semibold text-white">Most Listened Artist</h2>
-      <p class="text-xl text-gray-300">The Weeknd</p>
+      <p class="text-xl text-gray-300">{{ mostListenedArtist }}</p>
     </div>
     <div class="bg-stone-900 shadow-lg rounded-lg p-6 text-center">
       <h2 class="text-2xl font-semibold text-white">Most Played Track</h2>
-      <p class="text-xl text-gray-300">Blinding Lights</p>
+      <p class="text-xl text-gray-300">{{ mostPlayedTrack }}</p>
     </div>
     <div class="bg-stone-900 shadow-lg rounded-lg p-6 text-center">
       <h2 class="text-2xl font-semibold text-white">Top Genre</h2>
-      <p class="text-xl text-gray-300">Pop</p>
+      <p class="text-xl text-gray-300">{{ topGenre }}</p>
     </div>
     <div class="bg-stone-900 shadow-lg rounded-lg p-6 text-center">
       <h2 class="text-2xl font-semibold text-white">Average Song Duration</h2>
-      <p class="text-xl text-gray-300">3 min 45 sec</p>
+      <p class="text-xl text-gray-300">{{ averageSongDuration }}</p>
     </div>
     <div class="bg-stone-900 shadow-lg rounded-lg p-6 text-center">
       <h2 class="text-2xl font-semibold text-white">Most Active Day</h2>
-      <p class="text-xl text-gray-300">Saturday</p>
+      <p class="text-xl text-gray-300">{{ mostActiveDay }}</p>
     </div>
     <div class="bg-stone-900 shadow-lg rounded-lg p-6 text-center">
       <h2 class="text-2xl font-semibold text-white">Unique Artists Listened</h2>
-      <p class="text-xl text-gray-300">28</p>
+      <p class="text-xl text-gray-300">{{ uniqueArtistsListened }}</p>
     </div>
   </div>
 
-  <!-- Mood Distribution Chart -->
-  <div style="background-color: rgba(0, 0, 0, 0.3);" class="shadow-lg rounded-lg p-6 mb-8">
-    <h2 class="text-2xl font-semibold text-white mb-4">Mood Distribution</h2>
-    <canvas id="MoodChart" class="w-full h-64"></canvas>
+  <!-- Listening Over Time Chart -->
+  <div #listeningOverTimeChart style="background-color: rgba(0, 0, 0, 0.3);" class="shadow-lg rounded-lg gap-6 pt-6 pb-6 mb-8 pr-4 pl-4">
+    <h2 class="text-2xl font-semibold text-white mb-4">Listening Over Time</h2>
+    <canvas id="listeningOverTimeChart" class="h-64"></canvas>
   </div>
 
-
-  <!-- Listening by Service (Spotify/YouTube) -->
-  <div style="background-color: rgba(0, 0, 0, 0.3);" class="shadow-lg rounded-lg p-6 mb-8">
-    <h2 class="text-2xl font-semibold text-white mb-4">Listening by Service</h2>
-    <canvas id="ServiceChart" class="w-full h-64"></canvas>
+  <!-- Artists vs Tracks Chart -->
+  <div #artistsVsTracksChart style="background-color: rgba(0, 0, 0, 0.3);" class="shadow-lg rounded-lg pt-6 pb-6 mb-8 pr-4 pl-4">
+    <h2 class="text-2xl font-semibold text-white mb-4">Distinct Artists vs Distinct Tracks</h2>
+    <canvas id="artistsVsTracksChart" class="w-full h-64"></canvas>
   </div>
 
-  <!-- Top Genres Chart -->
-  <div style="background-color: rgba(0, 0, 0, 0.3);" class="shadow-lg rounded-lg p-6">
-    <h2 class="text-2xl font-semibold text-white b-4">Top Genres</h2>
-    <canvas id="GenreChart" class="w-full h-64"></canvas>
+  <!-- Recent Track Genres Chart -->
+  <div #recentTrackGenresChart style="background-color: rgba(0, 0, 0, 0.3);" class="shadow-lg rounded-lg pb-6 pt-6 pr-4 pl-4">
+    <h2 class="text-2xl font-semibold text-white b-4">Recent Track Genres</h2>
+    <canvas id="recentTrackGenresChart" class="w-full h-64"></canvas>
   </div>
-
 </div>

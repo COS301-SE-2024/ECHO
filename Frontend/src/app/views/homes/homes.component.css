@@ -1,0 +1,5 @@
+.mobile-container {
+  height: calc(100vh - 30vh); /* Adjust this value to match the height of the bottom player or bottom-nav */
+  overflow-y: auto;
+  overscroll-behavior: contain; /* Prevents overscroll and showing white space */
+}

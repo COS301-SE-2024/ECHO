@@ -3,21 +3,21 @@
     <div class="min-w-[20vw] sm:min-w-[15vw] md:min-w-[10vw] max-w-[20vw] sm:max-w-[15vw] md:max-w-[10vw] bg-stone text-black dark:text-white rounded-lg shadow-lg">
 
       <img [src]="mood.image" [alt]="mood.name" class="bg-blue-200 rounded-t-lg w-full h-full object-cover">
-      
+
       <div class="absolute text-white top-0 right-0 mt-2 mr-2 cursor-pointer z-10 text-xl" (click)="toggleDropdown()" style="font-size: 2rem;">
         &#8230;
       </div>
-      
+
       <div class="p-4 rounded-b-lg" [ngClass]="this.moodComponentClasses[this.moodService.getCurrentMood()]">
-        <p class="text-white text-xl">{{ mood.name }}</p>
+        <p class="card-title text-white text-xl">{{ mood.name }}</p>
       </div>
     </div>
-    
+
     <div class="ng-content-container absolute bottom-2 right-3">
       <ng-content></ng-content>
     </div>
   </div>
-  
+
   <div
     id="dropdownInformation"
     *ngIf="isDropdownOpen"
