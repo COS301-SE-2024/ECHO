@@ -153,4 +153,15 @@ export class AuthController {
         const {accessToken,refreshToken} = body;
         return await this.authService.getProvider(accessToken,refreshToken);
     }
+
+    @Post("oauth-user")
+    async getOAuthUser(@Body() body: {accessToken: string, refreshToken: string}): Promise<any>
+    {
+        if (!(body.accessToken && body.refreshToken))
+        {
+            return { provider: "none", message: "No access token or refresh token found in request." };
+        }
+        const {accessToken,refreshToken} = body;
+        return await this.authService.isOAuthUser(accessToken,refreshToken);
+    }
 }

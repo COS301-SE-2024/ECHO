@@ -15,6 +15,12 @@ export interface AuthResponse
   session: any
 }
 
+export interface UserAuthInfo
+{
+  oAuth: boolean,
+  providers: string[]
+}
+
 @Injectable({
   providedIn: "root"
 })
@@ -59,6 +65,17 @@ export class AuthService
           return of(null);
         })
       );
+  }
+
+  checkOAuth(): Observable<UserAuthInfo>
+  {
+    const laccessToken = this.tokenService.getAccessToken();
+    const lrefreshToken = this.tokenService.getRefreshToken();
+
+    return this.http.post<UserAuthInfo>(`${this.apiUrl}/oauth-user`, {
+      accessToken: laccessToken,
+      refreshToken: lrefreshToken
+    });
   }
 
 

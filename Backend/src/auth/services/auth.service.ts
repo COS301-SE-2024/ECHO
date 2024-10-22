@@ -2,6 +2,13 @@ import { Injectable } from "@nestjs/common";
 import { createSupabaseClient } from "../../supabase/services/supabaseClient";
 import { AuthDto } from "../../dto/auth.dto";
 
+export interface UserAuthInfo
+{
+    oAuth: boolean,
+    providers: string[]
+}
+
+
 @Injectable()
 export class AuthService
 {
@@ -67,6 +74,24 @@ export class AuthService
 
         return { user };
     }
+
+    async isOAuthUser(accessToken: string, refreshToken: string) : Promise<UserAuthInfo>
+    {
+        const supabase = createSupabaseClient();
+        await supabase.auth.setSession({ access_token: accessToken, refresh_token: refreshToken });
+        const { data: { user } } = await supabase.auth.getUser();
+
+        if (!user)
+        {
+            throw new Error("No user is signed in");
+        }
+
+        const providers = user.app_metadata.providers;
+        const oAuth = providers.length > 0;
+
+        return { oAuth, providers };
+    }
+
 
     // This function is used to set the session for a user
     setSession(token: string, refresh_token: string)
