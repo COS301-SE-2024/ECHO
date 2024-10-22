@@ -6,7 +6,7 @@
             <p>Change Username</p>
         </div>
         <div class="w-1/3 h-full px-10 py-2">
-            <input type="text" id="username" class="bg-gray-dark border border-gray-light text-sm rounded-lg focus:ring-pink focus:border-pink block w-full p-2.5" placeholder="Current Username"/>
+            <input type="text" id="username" class="bg-gray-dark border border-gray-light text-sm rounded-lg focus:ring-pink focus:border-pink block w-full p-2.5" [placeholder]="currentUser"/>
         </div>
     </div>
 
@@ -26,7 +26,7 @@
             <p>Change Profile Picture</p>
         </div>
         <div class="w-1/3 px-10 py-2">
-            <input type="text" id="pfp" class="bg-gray-dark border border-gray-light text-sm rounded-lg focus:ring-pink focus:border-pink block w-full p-2.5" placeholder="currentPicture.jpg"/>
+            <input type="text" id="pfp" class="bg-gray-dark border border-gray-light text-sm rounded-lg focus:ring-pink focus:border-pink block w-full p-2.5" [placeholder]="currentPfpPath"/>
         </div>
     </div>
 
