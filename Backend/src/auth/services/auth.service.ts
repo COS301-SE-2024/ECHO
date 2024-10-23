@@ -5,7 +5,8 @@ import { AuthDto } from "../../dto/auth.dto";
 export interface UserAuthInfo
 {
     oAuth: boolean,
-    providers: string[]
+    providers: string[],
+    currentProvider: string
 }
 
 
@@ -88,8 +89,9 @@ export class AuthService
 
         const providers = user.app_metadata.providers;
         const oAuth = providers.length > 0;
+        const currentProvider = user.app_metadata.provider;
 
-        return { oAuth, providers };
+        return { oAuth, providers, currentProvider };
     }
 
 
@@ -112,7 +114,7 @@ export class AuthService
         {
             return {
                 provider: "none",
-                message: "No user logged in"
+                message: "No user logged in",
             };
         }
 
