@@ -18,7 +18,8 @@ export interface AuthResponse
 export interface UserAuthInfo
 {
   oAuth: boolean,
-  providers: string[]
+  providers: string[],
+  currentProvider: string
 }
 
 @Injectable({
