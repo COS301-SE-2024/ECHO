@@ -6,7 +6,7 @@
          class="w-1/4 rounded-lg mr-2.5 w-full h-auto"
          [style.width]="imgSize"
          [style.height]="imgSize">
-         <app-play-icon [switchMood]="false"  (click)="playTrack(card.id)" class="absolute inset-0 hidden group-hover:flex items-center justify-center cursor-pointer"[width]="'5vh'" >
+         <app-play-icon [switchMood]="false"  (click)="playTrack(card.id, card.text, card.secondaryText)" class="absolute inset-0 hidden group-hover:flex items-center justify-center cursor-pointer"[width]="'5vh'" >
     </app-play-icon>
   </div>
   <!-- Text on the right -->
