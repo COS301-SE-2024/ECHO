@@ -1,6 +1,6 @@
 <!-- Desktop Layout -->
-<div *ngIf="screenSize === 'desktop'" class="col-start-1 col-span-5 row-start-2 row-span-4" style="height: 72vh;">
-  <div class="rounded-lg overflow-hidden h-full relative p-8">
+<div *ngIf="screenSize === 'desktop'" class="col-start-1 col-span-5 row-start-2 row-span-4 overflow-hidden no-scroll" style="height: 72vh;">
+  <div class="rounded-lg overflow-hidden h-full relative p-8 scrollable-content">
     <div class="flex items-center justify-between">
       <app-back-button class="flex-shrink-0"></app-back-button>
       <p class="flex-grow text-3xl font-semibold text-white text-center">{{title}}</p>
