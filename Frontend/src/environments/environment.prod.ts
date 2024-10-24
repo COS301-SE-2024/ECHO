@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://echo-backend-1s8m.onrender.com/api'  // Production API URL
+  apiUrl: 'https://kinetic-road-438006-p3.el.r.appspot.com/api'
 };

@@ -147,7 +147,9 @@ export class SearchService
         };
 
         const searchQuery = moodMapping[mood] || "pop";
-        const response = this.httpService.get(`${this.deezerApiUrl}/search/playlist?q=${searchQuery}`);
+        const encodedQuery = encodeURIComponent(searchQuery);
+        const response = this.httpService.get(`${this.deezerApiUrl}/search/playlist?q=${encodedQuery}`);
+
         const result = await lastValueFrom(response);
 
         if (result.data.data.length === 0) {

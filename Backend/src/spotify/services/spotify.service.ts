@@ -76,40 +76,88 @@ export class SpotifyService
     async getQueue(artist: string, song_name: string, accessToken, refreshToken): Promise<any>
     {
         const accessKey = await this.getAccessKey();
-        const response = await lastValueFrom(
-            this.httpService.post(
-                "https://echo-interface.azurewebsites.net/api/get_recommendations",
-                {
-                    access_key: accessKey,
-                    artist: artist,
-                    song_name: song_name
-                },
-                {
-                    headers: { "Content-Type": "application/json" }
-                }
-            )
-        );
+        try
+        {
+            const response = await lastValueFrom(
+                this.httpService.post(
+                    "https://echo-interface.azurewebsites.net/api/get_recommendations",
+                    {
+                        access_key: accessKey,
+                        artist: artist,
+                        song_name: song_name
+                    },
+                    {
+                        headers: { "Content-Type": "application/json" }
+                    }
+                )
+            );
 
-        const tracks = response.data.recommended_songs;
+            const tracks = response.data.recommended_songs;
 
-        console.log(tracks);
-        const trackIds = tracks
-            .map(track =>
+            console.log(tracks);
+            const trackIds = tracks
+                .map(track =>
+                {
+                    if (typeof track.track === "object" && track.track.track_uri)
+                    {
+                        return track.track.track_uri.split(":").pop();
+                    }
+                    if (typeof track.track === "string")
+                    {
+                        return track.track.split(":").pop();
+                    }
+                    return null;
+                })
+                .filter(id => id !== null)
+                .join(",");
+
+            return this.fetchSpotifyTracks(trackIds, accessToken, refreshToken);
+        }
+        catch (error)
+        {
+            try
             {
-                if (typeof track.track === "object" && track.track.track_uri)
-                {
-                    return track.track.track_uri.split(":").pop();
-                }
-                if (typeof track.track === "string")
-                {
-                    return track.track.split(":").pop();
-                }
-                return null;
-            })
-            .filter(id => id !== null)
-            .join(",");
+                const response = await lastValueFrom(
+                    this.httpService.post(
+                        "https://echo-interface.azurewebsites.net/api/get_recommendations",
+                        {
+                            access_key: accessKey,
+                            artist: artist,
+                            song_name: song_name
+                        },
+                        {
+                            headers: { "Content-Type": "application/json" }
+                        }
+                    )
+                );
 
-        return this.fetchSpotifyTracks(trackIds, accessToken, refreshToken);
+                const tracks = response.data.recommended_songs;
+
+                console.log(tracks);
+                const trackIds = tracks
+                    .map(track =>
+                    {
+                        if (typeof track.track === "object" && track.track.track_uri)
+                        {
+                            return track.track.track_uri.split(":").pop();
+                        }
+                        if (typeof track.track === "string")
+                        {
+                            return track.track.split(":").pop();
+                        }
+                        return null;
+                    })
+                    .filter(id => id !== null)
+                    .join(",");
+
+                return this.fetchSpotifyTracks(trackIds, accessToken, refreshToken);
+            }
+            catch(error)
+            {
+                console.error("Error fetching recommendations:", error);
+                throw new HttpException("Failed to fetch recommendations", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
 
     }
 
