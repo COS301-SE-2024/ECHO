@@ -21,4 +21,14 @@ export class DisplayComponent {
     this.currentMood = this.moodService.getCurrentMood(); 
     this.moodComponentClasses = this.moodService.getComponentMoodClasses(); 
   }
+
+  public getMoodServiceToggleSetting()
+  {
+    return this.moodService.getMoodToggleSetting();
+  }
+  public toggleAutomaticUIChange()
+  {
+    //Disable mood service tracking
+    this.moodService.moodServicetoggle();
+  }
 }
