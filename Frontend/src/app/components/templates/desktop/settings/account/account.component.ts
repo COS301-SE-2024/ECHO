@@ -30,8 +30,17 @@ export class AccountComponent {
       this.currentPfpPath = res.user.user_metadata.picture;
     }); 
     this.authService.checkOAuth().subscribe((res) => {
-      console.log(res.providers);
+      console.log(res.currentProvider);
+      this.currentProvider = res.currentProvider;
     });
+  }
+
+  validProvider() : boolean {
+    if(this.currentProvider != 'spotify' && this.currentProvider != 'google')
+    {
+      return true;
+    }
+    return false;
   }
 
   getCurrentUser()
