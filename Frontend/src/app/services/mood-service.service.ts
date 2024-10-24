@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class MoodService {
   private _currentMood!: string;
-  private  _automaticMoodChange: boolean = false;
+  private  _automaticMoodChange: boolean = true;
   
   private _moodColors: { [key: string]: string } = {
     Neutral: 'rgb(238, 2, 88)',   // #EE0258
