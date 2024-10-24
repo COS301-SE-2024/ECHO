@@ -171,7 +171,6 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy
     }
     this.unsubscribeAll();
     this.providerService.clear();
-    this.authService.signOut();
   }
 
   private unsubscribeAll(): void
@@ -367,5 +366,5 @@ export class BottomPlayerComponent implements AfterViewInit, OnDestroy
     const remainingSeconds = Math.floor(seconds % 60);
     return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
   }
-  
+
 }
