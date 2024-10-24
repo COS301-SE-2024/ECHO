@@ -1,7 +1,7 @@
 <div class="h-screen flex flex-col">
   <div class="flex flex-1 flex-row">
          <div class="flex flex-1 items-center justify-center rounded-xl" style="background-color: rgba(0, 0, 0, 0.3);">
-        <app-tool-tip tooltipText="Click to change the Mood.." position="top">
+        <app-tool-tip tooltipText="Click to change the Mood..." position="top">
           <!-- add default color rgb here -->
           <div [ngStyle]="{'box-shadow': '0 0 40px 10px ' + getFillColor(), 'width': '60vh', 'height': '60vh'}" (click)="changeMood()" class="bg-gray-component rounded-full text-center flex flex-col items-center justify-center">
             <div class="text-gray-verylight font-semibold text-2xl pb-1">

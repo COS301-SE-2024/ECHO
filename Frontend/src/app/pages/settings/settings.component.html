@@ -1,48 +1,91 @@
-<div  class="rounded-xl flex flex-col h-dvh p-2" style="overflow: hidden;">
-    <!-- Main container -->
-     <div class="h-full flex rounded-xl gap-x-20">
-        <!-- Left Nav -->
-        <app-back-button></app-back-button>
-        <div class="w-1/4 grid grid-cols-1 grid-rows-10 px-4 position: fixed;">
-              <h2 class="text-white mb-4 text-2xl font-bold">Settings</h2>
-            <button class="text-white font-bold py-2 px-4 rounded-full h-10 min-w-32" [ngClass]="getButtonClass('Account') ? this.moodComponentClasses[this.moodService.getCurrentMood()]: 'bg-gray-newDark'" (click)="showSettings('Account')">
-                Account
-            </button>
-            <button class="text-white font-bold py-2 px-4 rounded-full h-10 min-w-32" [ngClass]="getButtonClass('Privacy') ? this.moodComponentClasses[this.moodService.getCurrentMood()]: 'bg-gray-newDark'"  (click)="showSettings('Privacy')">
-                Privacy
-            </button>
-            <button class="text-white font-bold py-2 px-4 rounded-full h-10 min-w-32" [ngClass]="getButtonClass('Display') ? this.moodComponentClasses[this.moodService.getCurrentMood()]: 'bg-gray-newDark'"  (click)="showSettings('Display')">
-                Display
-            </button>
-            <button class="text-white font-bold py-2 px-4 rounded-full h-10 min-w-32" [ngClass]="getButtonClass('Audio') ? this.moodComponentClasses[this.moodService.getCurrentMood()]: 'bg-gray-newDark'"  (click)="showSettings('Audio')">
-                Audio
-            </button>
-            <button class="text-white font-bold py-2 px-4 rounded-full h-10 min-w-32" [ngClass]="getButtonClass('Language') ? this.moodComponentClasses[this.moodService.getCurrentMood()]: 'bg-gray-newDark'"  (click)="showSettings('Language')">
-                Language
-            </button>
-        </div>
-        <div class="border-r border-gray-light mx-0"></div>
-        <!-- Right Page -->
-        <div class="w-3/4 row-start-1 h-full">
-            <h2 class="text-white text-2xl font-bold mb-12">{{ activeSetting }}</h2>
-            <div class="overflow-auto h-full gris-rows-10">
-                <ng-container *ngIf="activeSetting === 'Account'">
-                    <app-account></app-account>
-                </ng-container>
-                <ng-container *ngIf="activeSetting === 'Privacy'">
-                    <app-privacy></app-privacy>
-                </ng-container>
-                <ng-container *ngIf="activeSetting === 'Display'">
-                    <app-display></app-display>
-                </ng-container>
-                <ng-container *ngIf="activeSetting === 'Audio'">
-                    <app-audio></app-audio>
-                </ng-container>
-                <ng-container *ngIf="activeSetting === 'Language'">
-                    <app-language></app-language>
-                </ng-container>
-            </div>            
-        </div>
-     </div>
-     <div></div>
+<div class="rounded-xl flex flex-col h-dvh p-2" style="overflow: hidden;">
+  <!-- Main container -->
+  <div *ngIf="screenSize !== 'mobile'" class="h-full flex rounded-xl gap-x-20">
+    <!-- Left Nav -->
+    <app-back-button></app-back-button>
+    <div class="w-1/4 grid grid-cols-1 grid-rows-10 px-4 position: fixed;">
+      <h2 class="text-white mb-4 text-2xl font-bold">Settings</h2>
+      <button class="text-white font-bold py-2 px-4 rounded-full h-10 min-w-32" [ngClass]="getButtonClass('Account') ? this.moodComponentClasses[this.moodService.getCurrentMood()]: 'bg-gray-newDark'" (click)="showSettings('Account')">
+        Account
+      </button>
+      <button class="text-white font-bold py-2 px-4 rounded-full h-10 min-w-32" [ngClass]="getButtonClass('Privacy') ? this.moodComponentClasses[this.moodService.getCurrentMood()]: 'bg-gray-newDark'" (click)="showSettings('Privacy')">
+        Privacy
+      </button>
+      <button class="text-white font-bold py-2 px-4 rounded-full h-10 min-w-32" [ngClass]="getButtonClass('Display') ? this.moodComponentClasses[this.moodService.getCurrentMood()]: 'bg-gray-newDark'" (click)="showSettings('Display')">
+        Display
+      </button>
+      <button class="text-white font-bold py-2 px-4 rounded-full h-10 min-w-32" [ngClass]="getButtonClass('Audio') ? this.moodComponentClasses[this.moodService.getCurrentMood()]: 'bg-gray-newDark'" (click)="showSettings('Audio')">
+        Audio
+      </button>
+      <button class="text-white font-bold py-2 px-4 rounded-full h-10 min-w-32" [ngClass]="getButtonClass('Language') ? this.moodComponentClasses[this.moodService.getCurrentMood()]: 'bg-gray-newDark'" (click)="showSettings('Language')">
+        Language
+      </button>
+    </div>
+    <div class="border-r border-gray-light mx-0"></div>
+    <!-- Right Page -->
+    <div class="w-3/4 row-start-1 h-full">
+      <h2 class="text-white text-2xl font-bold mb-12">{{ activeSetting }}</h2>
+      <div class="overflow-auto h-full gris-rows-10">
+        <ng-container *ngIf="activeSetting === 'Account'">
+          <app-account></app-account>
+        </ng-container>
+        <ng-container *ngIf="activeSetting === 'Privacy'">
+          <app-privacy></app-privacy>
+        </ng-container>
+        <ng-container *ngIf="activeSetting === 'Display'">
+          <app-display></app-display>
+        </ng-container>
+        <ng-container *ngIf="activeSetting === 'Audio'">
+          <app-audio></app-audio>
+        </ng-container>
+        <ng-container *ngIf="activeSetting === 'Language'">
+          <app-language></app-language>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Version -->
+  <div *ngIf="screenSize === 'mobile'" class="h-full flex flex-col rounded-xl gap-y-4">
+    <!-- Top Nav -->
+    <app-back-button></app-back-button>
+    <h2 class="text-white mb-4 text-2xl font-bold text-center">Settings</h2>
+    <div class="flex flex-wrap justify-center gap-4">
+      <button class="text-white font-bold py-2 px-4 rounded-full h-10 min-w-32" [ngClass]="getButtonClass('Account') ? this.moodComponentClasses[this.moodService.getCurrentMood()]: 'bg-gray-newDark'" (click)="showSettings('Account')">
+        Account
+      </button>
+      <button class="text-white font-bold py-2 px-4 rounded-full h-10 min-w-32" [ngClass]="getButtonClass('Privacy') ? this.moodComponentClasses[this.moodService.getCurrentMood()]: 'bg-gray-newDark'" (click)="showSettings('Privacy')">
+        Privacy
+      </button>
+      <button class="text-white font-bold py-2 px-4 rounded-full h-10 min-w-32" [ngClass]="getButtonClass('Display') ? this.moodComponentClasses[this.moodService.getCurrentMood()]: 'bg-gray-newDark'" (click)="showSettings('Display')">
+        Display
+      </button>
+      <button class="text-white font-bold py-2 px-4 rounded-full h-10 min-w-32" [ngClass]="getButtonClass('Audio') ? this.moodComponentClasses[this.moodService.getCurrentMood()]: 'bg-gray-newDark'" (click)="showSettings('Audio')">
+        Audio
+      </button>
+      <button class="text-white font-bold py-2 px-4 rounded-full h-10 min-w-32" [ngClass]="getButtonClass('Language') ? this.moodComponentClasses[this.moodService.getCurrentMood()]: 'bg-gray-newDark'" (click)="showSettings('Language')">
+        Language
+      </button>
+    </div>
+    <div class="w-full h-full mt-4">
+      <h2 class="text-white text-2xl font-bold mb-4 text-center">{{ activeSetting }}</h2>
+      <div class="overflow-auto h-full">
+        <ng-container *ngIf="activeSetting === 'Account'">
+          <app-account></app-account>
+        </ng-container>
+        <ng-container *ngIf="activeSetting === 'Privacy'">
+          <app-privacy></app-privacy>
+        </ng-container>
+        <ng-container *ngIf="activeSetting === 'Display'">
+          <app-display></app-display>
+        </ng-container>
+        <ng-container *ngIf="activeSetting === 'Audio'">
+          <app-audio></app-audio>
+        </ng-container>
+        <ng-container *ngIf="activeSetting === 'Language'">
+          <app-language></app-language>
+        </ng-container>
+      </div>
+    </div>
+  </div>
 </div>

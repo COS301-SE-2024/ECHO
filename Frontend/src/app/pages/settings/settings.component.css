@@ -1,0 +1,6 @@
+/* Add any additional styles needed for mobile layout */
+@media (max-width: 768px) {
+  .min-w-32 {
+    min-width: 8rem;
+  }
+}
