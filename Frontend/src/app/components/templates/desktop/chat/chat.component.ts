@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MoodService } from '../../../../services/mood-service.service';
 import { DolphinComponent } from '../../../atoms/dolphin/dolphin.component';
-
+import { ChatService } from '../../../../chat.service';
 
 @Component({
   selector: 'app-chat',
@@ -19,30 +19,11 @@ export class ChatComponent {
   visibleMessagesCount: number = 10;
   moodColors!: { [key: string]: string };
   moodColorsButton!: { [key: string]: string };
-  constructor(public moodService: MoodService) { 
+
+  constructor(public moodService: MoodService, private chatService: ChatService) { 
     this.moodColors = moodService.getUnerlineMoodClasses();
     this.moodColorsButton = moodService.getComponentMoodClasses();
   }
-  mockResponse = {
-    "answers": [
-      {
-        "questions": [
-          "What is the ECHO Progressive Web App (PWA)?"
-        ],
-        "answer": "ECHO is a Progressive Web App designed to enhance your music experience by providing personalized song recommendations, sentiment analysis of lyrics, and insightful listening habits. It integrates seamlessly with Spotify to offer a comprehensive music platform.",
-        "confidenceScore": 0.7754000000000001,
-        "id": 1,
-        "source": "Editorial",
-        "metadata": {
-          "system_metadata_qna_edited_manually": "true"
-        },
-        "dialog": {
-          "isContextOnly": false,
-          "prompts": []
-        }
-      }
-    ]
-  };
 
   sendMessage() {
     if (this.userInput.trim()) {
@@ -53,18 +34,19 @@ export class ChatComponent {
         return;
       }
       this.messages.push({ sender: 'user', text: this.userInput });
+      const userMessage = this.userInput;
       this.userInput = '';
       // Adjust startIndex to show the latest messages
       this.startIndex = Math.max(0, this.messages.length - this.visibleMessagesCount);
-      // Simulate bot response
-      setTimeout(() => {
-        this.handleResponse();
-      }, 1000);
+      // Send user input to the chat service and handle the response
+      this.chatService.getBotResponse(userMessage).subscribe(response => {
+        this.handleResponse(response);
+      });
     }
   }
 
-  handleResponse() {
-    const botResponse = this.mockResponse.answers[0].answer;
+  handleResponse(response: any) {
+    const botResponse = response.answers[0].answer;
     this.messages.push({ sender: 'bot', text: botResponse });
     // Adjust startIndex to show the latest messages
     this.startIndex = Math.max(0, this.messages.length - this.visibleMessagesCount);
