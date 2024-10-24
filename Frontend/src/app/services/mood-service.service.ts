@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class MoodService {
   private _currentMood!: string;
-  private  _automaticMoodChange: boolean = true;
+  private _automaticMoodChange: boolean = true;
   
   private _moodColors: { [key: string]: string } = {
     Neutral: 'rgb(238, 2, 88)',   // #EE0258
@@ -90,7 +90,8 @@ export class MoodService {
   private initMood(): void {
     if (typeof window !== 'undefined') {
       this._currentMood = this.getLocalStorageItem('currentMood') || 'Neutral';
-      this._automaticMoodChange = this.getLocalStorageItem('moodServiceToggle') === 'true';
+      const moodServiceToggle = this.getLocalStorageItem('moodServiceToggle');
+      this._automaticMoodChange = moodServiceToggle === null ? true : moodServiceToggle === 'true';
     } 
   }
   private getLocalStorageItem(key: string): string | null {
