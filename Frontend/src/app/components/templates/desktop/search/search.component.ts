@@ -22,7 +22,8 @@ import { SkeletonSongCardComponent } from "../../../atoms/skeleton-song-card/ske
   templateUrl: "./search.component.html",
   styleUrls: ["./search.component.css"]
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit
+{
   // Mood Service Variables
   currentMood!: string;
   moodComponentClasses!: { [key: string]: string };
@@ -49,13 +50,16 @@ export class SearchComponent implements OnInit {
     private spotifyService: SpotifyService,
     private providerService: ProviderService,
     private youtubeService: YouTubeService
-  ) {
+  )
+  {
     this.currentMood = this.moodService.getCurrentMood();
     this.moodComponentClasses = this.moodService.getComponentMoodClasses();
   }
 
-  async ngOnInit() {
-    this.screenSizeService.screenSize$.subscribe(screenSize => {
+  async ngOnInit()
+  {
+    this.screenSizeService.screenSize$.subscribe(screenSize =>
+    {
       this.screenSize = screenSize;
     });
 
@@ -68,77 +72,96 @@ export class SearchComponent implements OnInit {
     this.topResult$ = of();
 
     // Retrieve the query parameter from the URL
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe(params =>
+    {
       this.searchQuery = params["query"] || "";
-      if (this.searchQuery) {
+      if (this.searchQuery)
+      {
         this.performSearch(this.searchQuery);
       }
     });
   }
 
-  onNavChange(newNav: string) {
+  onNavChange(newNav: string)
+  {
     this.title = newNav;
   }
 
-  onSearchdown(search: string) {
+  onSearchdown(search: string)
+  {
     this.searchQuery = search;
   }
 
-  profile() {
+  profile()
+  {
     this.router.navigate(["/profile"]);
   }
 
-  playTrack(text: string, secondaryText: string) {
-    if (this.providerService.getProviderName() === "spotify") {
-      this.spotifyService.getTrackDetailsByName(text, secondaryText).then(async (track) => {
+  playTrack(text: string, secondaryText: string)
+  {
+    if (this.providerService.getProviderName() === "spotify")
+    {
+      this.spotifyService.getTrackDetailsByName(text, secondaryText).then(async (track) =>
+      {
         console.log(track);
         await this.spotifyService.playTrackById(track.id);
       });
-    } else {
-      this.youtubeService.getTrackByName(text, secondaryText).then(async (track) => {
+    }
+    else
+    {
+      this.youtubeService.getTrackByName(text, secondaryText).then(async (track) =>
+      {
         await this.youtubeService.playTrackById(track.id);
       });
     }
   }
 
-  private performSearch(query: string) {
+  private performSearch(query: string)
+  {
     this.resetResults();
 
     this.searchService.storeSearch(query).subscribe(
-      songs => {
+      songs =>
+      {
         this.songs$ = of(songs);
         this.isLoadingSongs.next(false);
       },
-      error => {
+      error =>
+      {
         console.error("Error performing search:", error);
         this.isLoadingSongs.next(false);
       }
     );
 
     this.searchService.storeAlbumSearch(query).subscribe(
-      albums => {
+      albums =>
+      {
         this.albums$ = of(albums);
         this.isLoadingAlbums.next(false);
       },
-      error => {
+      error =>
+      {
         console.error("Error performing album search:", error);
         this.isLoadingAlbums.next(false);
       }
     );
 
     this.searchService.getTopResult().subscribe(
-      topResult => {
+      topResult =>
+      {
         this.topResult$ = of(topResult);
         this.isLoadingTopResult.next(false);
       },
-      error => {
+      error =>
+      {
         console.error("Error fetching top result:", error);
         this.isLoadingTopResult.next(false);
       }
     );
   }
 
-  private resetResults() {
+  private resetResults()
+  {
     this.songs$ = of([]);
     this.albums$ = of([]);
     this.topResult$ = of();
@@ -151,9 +174,10 @@ export class SearchComponent implements OnInit {
     trackName: string;
     artistName: string;
     event: MouseEvent
-  }, text: string, secondaryText: string) {
+  }, text: string, secondaryText: string)
+  {
     event.event.stopPropagation();
-    this.router.navigate(['/echo Song'], {
+    this.router.navigate(["/echo Song"], {
       queryParams: {
         trackName: text,
         artistName: secondaryText

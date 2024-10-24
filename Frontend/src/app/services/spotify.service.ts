@@ -8,6 +8,7 @@ import { ProviderService } from "./provider.service";
 import { MoodService } from "./mood-service.service";
 import { PlayerStateService } from "./player-state.service";
 import { environment } from "../../environments/environment";
+import { ScreenSizeService } from "./screen-size-service.service";
 
 export interface TrackInfo
 {
@@ -59,6 +60,7 @@ export class SpotifyService
   private QueueObject: any = null;
 
   private apiUrl = environment.apiUrl;
+  screenSize?: string;
 
   constructor(
     private authService: AuthService,
@@ -67,7 +69,8 @@ export class SpotifyService
     private tokenService: TokenService,
     private providerService: ProviderService,
     private moodService: MoodService,
-    private playerStateService: PlayerStateService
+    private playerStateService: PlayerStateService,
+    private screenSizeService: ScreenSizeService
   )
   {
   }
@@ -134,13 +137,23 @@ export class SpotifyService
   // Initialize the Spotify Web Playback player
   public async initializePlayer(providerToken: string): Promise<void>
   {
+    this.screenSizeService.screenSize$.subscribe(screenSize =>
+    {
+      this.screenSize = screenSize;
+    });
+    let volume = 0.5;
+    if (this.screenSize === "mobile")
+    {
+      volume = 1;
+    }
     this.player = new Spotify.Player({
       name: "ECHO",
       getOAuthToken: cb =>
       {
         cb(providerToken);
       },
-      volume: 0.5
+
+      volume: volume
     });
 
     this.player.addListener("ready", ({ device_id }: { device_id: string }) =>
@@ -302,7 +315,8 @@ export class SpotifyService
     {
       const state = await this.player.getCurrentState();
 
-      if (!state) {
+      if (!state)
+      {
         console.error("No track is currently playing.");
         return;
       }
@@ -466,7 +480,6 @@ export class SpotifyService
             this.setQueueCreated();
           }
         }
-        console.error('Here');
         return {
           id: track.id,
           text: track.name,
@@ -558,7 +571,8 @@ export class SpotifyService
     if (this.player)
     {
       this.player.disconnect().then(() =>
-      {}).catch((error: any) =>
+      {
+      }).catch((error: any) =>
       {
         console.error("Failed to disconnect player", error);
       });
@@ -624,7 +638,7 @@ export class SpotifyService
   }
 
   // This method is used to get the details of a track based on the track name and artist name
-  public async getTrackDetailsByName(trackName: string, artistName: string): Promise<any>
+  public async getTrackDetailsByName(trackName: string, artistName: string): Promise<TrackInfo>
   {
     try
     {
@@ -640,11 +654,21 @@ export class SpotifyService
       {
         throw new Error(`HTTP error! Status: ${response}`);
       }
-      return response;
+      return response as TrackInfo;
     }
     catch (error)
     {
       console.error("Error fetching track details by name:", error);
+      return {
+        "id": "",
+        "text": "",
+        "albumName": "",
+        "imageUrl": "",
+        "secondaryText": "",
+        "previewUrl": "",
+        "spotifyUrl": "",
+        "explicit": false
+      };
     }
   }
 
@@ -674,9 +698,10 @@ export class SpotifyService
     }
   }
 
-  public classifyMood(analysis: TrackAnalysis): string {
+  public classifyMood(analysis: TrackAnalysis): string
+  {
     const { valence, energy, danceability, tempo } = analysis;
-  
+
     if (0.4 <= valence && valence <= 0.6 && 0.4 <= energy && energy <= 0.6) return "Neutral";
     if (valence < 0.4 && energy > 0.7) return "Anger";
     if (valence < 0.3 && energy > 0.6) return "Fear";
