@@ -1,5 +1,5 @@
 <div class="pt-6">
-<app-page-title class="text-center pt-6">My Library</app-page-title>
+<app-page-title class="text-center pt-6">{{pageTitle}}</app-page-title>
 </div>
 
 <div class="p-2">
@@ -30,7 +30,7 @@
     </div>
 
     <!-- Top Songs Section -->
-    <p class="text-white font-bold mb-2 mt-10 text-xl pr-4 pl-4">My Songs</p>
+    <p class="text-white font-bold mb-2 mt-10 text-xl pr-4 pl-4">Your Top Songs</p>
     <div class="flex space-x-9 overflow-x-auto custom-scrollbar pr-4 pl-4">
       <ng-container *ngIf="!isLoading; else loadingTracks">
         <ng-container *ngFor="let item of topTracks">
@@ -60,7 +60,7 @@
   <!-- Desktop Version -->
   <div *ngIf="screenSize !== 'mobile'">
     <!-- Top Artists Section -->
-    <p class="text-white font-bold mb-2 mt-4 text-xl">My Artists</p>
+    <p class="text-white font-bold mb-2 mt-4 text-xl">{{artistTitle}}</p>
     <div class="grid grid-cols-4 gap-4">
       <ng-container *ngIf="!isLoading; else loadingArtists">
         <ng-container *ngFor="let artist of topArtists">
@@ -71,7 +71,7 @@
         </ng-container>
       </ng-container>
       <ng-template #loadingArtists>
-        <div role='status' class='grid grid-cols-4 gap-4 animate-pulse'>
+        <div role='status' class='inline-flex gap-4 animate-pulse'>
           <div *ngFor="let _ of [1,2,3,4,5,6,7,8,9,10,11,12]" class='flex-shrink-0'>
             <span class='flex justify-center items-center bg-gray-300 rounded-full w-[10vh] h-[10vh]'></span>
             <div class='flex justify-center ml-auto mr-auto mt-2 space-x-2 items-center'>
@@ -84,7 +84,7 @@
     </div>
 
     <!-- Top Songs Section -->
-    <p class="text-white font-bold mb-2 mt-10 text-xl">My Songs</p>
+    <p class="text-white font-bold mb-2 mt-10 text-xl">{{ songsTitle }}</p>
     <div class="grid grid-cols-4 gap-4">
       <ng-container *ngIf="!isLoading; else loadingTracks">
         <ng-container *ngFor="let item of topTracks">
@@ -98,7 +98,7 @@
         </ng-container>
       </ng-container>
       <ng-template #loadingTracks>
-        <div role='status' class='grid grid-cols-4 gap-4 animate-pulse'>
+        <div role='status' class='inline-flex gap-4 animate-pulse'>
           <div *ngFor="let _ of [1,2,3,4,5,6,7,8,9,10,11,12]" class='flex-shrink-0'>
             <span class='flex justify-center items-center bg-gray-300 rounded-full w-[10vh] h-[10vh]'></span>
             <div class='flex justify-center ml-auto mr-auto mt-2 space-x-2 items-center'>
